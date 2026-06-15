@@ -1,0 +1,1075 @@
+{
+  "id": "college_english_rw3",
+  "name": "大学英语读写教程3",
+  "name_en": "College English Reading & Writing Book 3",
+  "description": "新视野大学英语（第四版）读写教程3，按单元闯关",
+  "version": "1.1.0",
+  "source": "新视野大学英语（第四版）读写教程 Book 3（思政智慧版）单元主题 + 原创学习内容",
+  "exam_info": {
+    "full_score": 100,
+    "pass_score": 60,
+    "duration_minutes": 90
+  },
+  "zones": [
+    {
+      "id": "rw3_unit01",
+      "name": "Unit 1: 数字时代：我们准备好了吗？",
+      "name_en": "The digital age: Are we ready?",
+      "type": "unit",
+      "order": 1,
+      "unlock_level": 1,
+      "levels": [
+        {
+          "id": "rw3_unit01_lv01",
+          "title": "数字时代：我们准备好了吗？ · 词汇 1",
+          "title_en": "The digital age: Are we ready? Vocab 1",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit01_01",
+            "rw3_unit01_02",
+            "rw3_unit01_03",
+            "rw3_unit01_04",
+            "rw3_unit01_05"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit01_01",
+            "rw3_vocab:rw3_unit01_02",
+            "rw3_vocab:rw3_unit01_03",
+            "rw3_vocab:rw3_unit01_04",
+            "rw3_vocab:rw3_unit01_05"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit01_lv02",
+          "title": "数字时代：我们准备好了吗？ · 词汇 2",
+          "title_en": "The digital age: Are we ready? Vocab 2",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit01_06",
+            "rw3_unit01_07",
+            "rw3_unit01_08",
+            "rw3_unit01_09",
+            "rw3_unit01_10"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit01_06",
+            "rw3_vocab:rw3_unit01_07",
+            "rw3_vocab:rw3_unit01_08",
+            "rw3_vocab:rw3_unit01_09",
+            "rw3_vocab:rw3_unit01_10"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit01_lv03",
+          "title": "数字时代：我们准备好了吗？ · 词汇 3",
+          "title_en": "The digital age: Are we ready? Vocab 3",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit01_11",
+            "rw3_unit01_12",
+            "rw3_unit01_13",
+            "rw3_unit01_14",
+            "rw3_unit01_15"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit01_11",
+            "rw3_vocab:rw3_unit01_12",
+            "rw3_vocab:rw3_unit01_13",
+            "rw3_vocab:rw3_unit01_14",
+            "rw3_vocab:rw3_unit01_15"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit01_lv04",
+          "title": "数字时代：我们准备好了吗？ · 词汇 4",
+          "title_en": "The digital age: Are we ready? Vocab 4",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit01_16",
+            "rw3_unit01_17",
+            "rw3_unit01_18",
+            "rw3_unit01_19",
+            "rw3_unit01_20"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit01_16",
+            "rw3_vocab:rw3_unit01_17",
+            "rw3_vocab:rw3_unit01_18",
+            "rw3_vocab:rw3_unit01_19",
+            "rw3_vocab:rw3_unit01_20"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit01_read",
+          "title": "数字时代：我们准备好了吗？ · 阅读",
+          "title_en": "The digital age: Are we ready? Reading",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit01_01",
+            "rw3_unit01_02",
+            "rw3_unit01_03",
+            "rw3_unit01_04",
+            "rw3_unit01_05",
+            "rw3_unit01_06",
+            "rw3_unit01_07",
+            "rw3_unit01_08",
+            "rw3_unit01_09",
+            "rw3_unit01_10",
+            "rw3_unit01_11",
+            "rw3_unit01_12",
+            "rw3_unit01_13",
+            "rw3_unit01_14",
+            "rw3_unit01_15",
+            "rw3_unit01_16",
+            "rw3_unit01_17",
+            "rw3_unit01_18",
+            "rw3_unit01_19",
+            "rw3_unit01_20"
+          ],
+          "content_refs": [
+            "rw3_reading:unit01"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit01_listen",
+          "title": "数字时代：我们准备好了吗？ · 听力",
+          "title_en": "The digital age: Are we ready? Listening",
+          "stamina_cost": 2,
+          "word_ids": [],
+          "content_refs": [
+            "rw3_listening:unit01"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit01_boss",
+          "title": "数字时代：我们准备好了吗？ · 单元挑战",
+          "title_en": "The digital age: Are we ready? Unit Boss",
+          "stamina_cost": 3,
+          "word_ids": [
+            "rw3_unit01_01",
+            "rw3_unit01_02",
+            "rw3_unit01_03",
+            "rw3_unit01_04",
+            "rw3_unit01_05",
+            "rw3_unit01_06",
+            "rw3_unit01_07",
+            "rw3_unit01_08",
+            "rw3_unit01_09",
+            "rw3_unit01_10",
+            "rw3_unit01_11",
+            "rw3_unit01_12",
+            "rw3_unit01_13",
+            "rw3_unit01_14",
+            "rw3_unit01_15",
+            "rw3_unit01_16",
+            "rw3_unit01_17",
+            "rw3_unit01_18",
+            "rw3_unit01_19",
+            "rw3_unit01_20"
+          ],
+          "content_refs": [
+            "rw3_unit_boss:unit01"
+          ],
+          "boss": true
+        }
+      ]
+    },
+    {
+      "id": "rw3_unit02",
+      "name": "Unit 2: 人生故事",
+      "name_en": "Life stories",
+      "type": "unit",
+      "order": 2,
+      "unlock_level": 2,
+      "levels": [
+        {
+          "id": "rw3_unit02_lv01",
+          "title": "人生故事 · 词汇 1",
+          "title_en": "Life stories Vocab 1",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit02_01",
+            "rw3_unit02_02",
+            "rw3_unit02_03",
+            "rw3_unit02_04",
+            "rw3_unit02_05"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit02_01",
+            "rw3_vocab:rw3_unit02_02",
+            "rw3_vocab:rw3_unit02_03",
+            "rw3_vocab:rw3_unit02_04",
+            "rw3_vocab:rw3_unit02_05"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit02_lv02",
+          "title": "人生故事 · 词汇 2",
+          "title_en": "Life stories Vocab 2",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit02_06",
+            "rw3_unit02_07",
+            "rw3_unit02_08",
+            "rw3_unit02_09",
+            "rw3_unit02_10"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit02_06",
+            "rw3_vocab:rw3_unit02_07",
+            "rw3_vocab:rw3_unit02_08",
+            "rw3_vocab:rw3_unit02_09",
+            "rw3_vocab:rw3_unit02_10"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit02_lv03",
+          "title": "人生故事 · 词汇 3",
+          "title_en": "Life stories Vocab 3",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit02_11",
+            "rw3_unit02_12",
+            "rw3_unit02_13",
+            "rw3_unit02_14",
+            "rw3_unit02_15"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit02_11",
+            "rw3_vocab:rw3_unit02_12",
+            "rw3_vocab:rw3_unit02_13",
+            "rw3_vocab:rw3_unit02_14",
+            "rw3_vocab:rw3_unit02_15"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit02_lv04",
+          "title": "人生故事 · 词汇 4",
+          "title_en": "Life stories Vocab 4",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit02_16",
+            "rw3_unit02_17",
+            "rw3_unit02_18",
+            "rw3_unit02_19",
+            "rw3_unit02_20"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit02_16",
+            "rw3_vocab:rw3_unit02_17",
+            "rw3_vocab:rw3_unit02_18",
+            "rw3_vocab:rw3_unit02_19",
+            "rw3_vocab:rw3_unit02_20"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit02_read",
+          "title": "人生故事 · 阅读",
+          "title_en": "Life stories Reading",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit02_01",
+            "rw3_unit02_02",
+            "rw3_unit02_03",
+            "rw3_unit02_04",
+            "rw3_unit02_05",
+            "rw3_unit02_06",
+            "rw3_unit02_07",
+            "rw3_unit02_08",
+            "rw3_unit02_09",
+            "rw3_unit02_10",
+            "rw3_unit02_11",
+            "rw3_unit02_12",
+            "rw3_unit02_13",
+            "rw3_unit02_14",
+            "rw3_unit02_15",
+            "rw3_unit02_16",
+            "rw3_unit02_17",
+            "rw3_unit02_18",
+            "rw3_unit02_19",
+            "rw3_unit02_20"
+          ],
+          "content_refs": [
+            "rw3_reading:unit02"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit02_listen",
+          "title": "人生故事 · 听力",
+          "title_en": "Life stories Listening",
+          "stamina_cost": 2,
+          "word_ids": [],
+          "content_refs": [
+            "rw3_listening:unit02"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit02_boss",
+          "title": "人生故事 · 单元挑战",
+          "title_en": "Life stories Unit Boss",
+          "stamina_cost": 3,
+          "word_ids": [
+            "rw3_unit02_01",
+            "rw3_unit02_02",
+            "rw3_unit02_03",
+            "rw3_unit02_04",
+            "rw3_unit02_05",
+            "rw3_unit02_06",
+            "rw3_unit02_07",
+            "rw3_unit02_08",
+            "rw3_unit02_09",
+            "rw3_unit02_10",
+            "rw3_unit02_11",
+            "rw3_unit02_12",
+            "rw3_unit02_13",
+            "rw3_unit02_14",
+            "rw3_unit02_15",
+            "rw3_unit02_16",
+            "rw3_unit02_17",
+            "rw3_unit02_18",
+            "rw3_unit02_19",
+            "rw3_unit02_20"
+          ],
+          "content_refs": [
+            "rw3_unit_boss:unit02"
+          ],
+          "boss": true
+        }
+      ]
+    },
+    {
+      "id": "rw3_unit03",
+      "name": "Unit 3: 出发吧",
+      "name_en": "Let's go",
+      "type": "unit",
+      "order": 3,
+      "unlock_level": 3,
+      "levels": [
+        {
+          "id": "rw3_unit03_lv01",
+          "title": "出发吧 · 词汇 1",
+          "title_en": "Let's go Vocab 1",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit03_01",
+            "rw3_unit03_02",
+            "rw3_unit03_03",
+            "rw3_unit03_04",
+            "rw3_unit03_05"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit03_01",
+            "rw3_vocab:rw3_unit03_02",
+            "rw3_vocab:rw3_unit03_03",
+            "rw3_vocab:rw3_unit03_04",
+            "rw3_vocab:rw3_unit03_05"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit03_lv02",
+          "title": "出发吧 · 词汇 2",
+          "title_en": "Let's go Vocab 2",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit03_06",
+            "rw3_unit03_07",
+            "rw3_unit03_08",
+            "rw3_unit03_09",
+            "rw3_unit03_10"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit03_06",
+            "rw3_vocab:rw3_unit03_07",
+            "rw3_vocab:rw3_unit03_08",
+            "rw3_vocab:rw3_unit03_09",
+            "rw3_vocab:rw3_unit03_10"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit03_lv03",
+          "title": "出发吧 · 词汇 3",
+          "title_en": "Let's go Vocab 3",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit03_11",
+            "rw3_unit03_12",
+            "rw3_unit03_13",
+            "rw3_unit03_14",
+            "rw3_unit03_15"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit03_11",
+            "rw3_vocab:rw3_unit03_12",
+            "rw3_vocab:rw3_unit03_13",
+            "rw3_vocab:rw3_unit03_14",
+            "rw3_vocab:rw3_unit03_15"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit03_lv04",
+          "title": "出发吧 · 词汇 4",
+          "title_en": "Let's go Vocab 4",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit03_16",
+            "rw3_unit03_17",
+            "rw3_unit03_18",
+            "rw3_unit03_19",
+            "rw3_unit03_20"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit03_16",
+            "rw3_vocab:rw3_unit03_17",
+            "rw3_vocab:rw3_unit03_18",
+            "rw3_vocab:rw3_unit03_19",
+            "rw3_vocab:rw3_unit03_20"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit03_read",
+          "title": "出发吧 · 阅读",
+          "title_en": "Let's go Reading",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit03_01",
+            "rw3_unit03_02",
+            "rw3_unit03_03",
+            "rw3_unit03_04",
+            "rw3_unit03_05",
+            "rw3_unit03_06",
+            "rw3_unit03_07",
+            "rw3_unit03_08",
+            "rw3_unit03_09",
+            "rw3_unit03_10",
+            "rw3_unit03_11",
+            "rw3_unit03_12",
+            "rw3_unit03_13",
+            "rw3_unit03_14",
+            "rw3_unit03_15",
+            "rw3_unit03_16",
+            "rw3_unit03_17",
+            "rw3_unit03_18",
+            "rw3_unit03_19",
+            "rw3_unit03_20"
+          ],
+          "content_refs": [
+            "rw3_reading:unit03"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit03_listen",
+          "title": "出发吧 · 听力",
+          "title_en": "Let's go Listening",
+          "stamina_cost": 2,
+          "word_ids": [],
+          "content_refs": [
+            "rw3_listening:unit03"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit03_boss",
+          "title": "出发吧 · 单元挑战",
+          "title_en": "Let's go Unit Boss",
+          "stamina_cost": 3,
+          "word_ids": [
+            "rw3_unit03_01",
+            "rw3_unit03_02",
+            "rw3_unit03_03",
+            "rw3_unit03_04",
+            "rw3_unit03_05",
+            "rw3_unit03_06",
+            "rw3_unit03_07",
+            "rw3_unit03_08",
+            "rw3_unit03_09",
+            "rw3_unit03_10",
+            "rw3_unit03_11",
+            "rw3_unit03_12",
+            "rw3_unit03_13",
+            "rw3_unit03_14",
+            "rw3_unit03_15",
+            "rw3_unit03_16",
+            "rw3_unit03_17",
+            "rw3_unit03_18",
+            "rw3_unit03_19",
+            "rw3_unit03_20"
+          ],
+          "content_refs": [
+            "rw3_unit_boss:unit03"
+          ],
+          "boss": true
+        }
+      ]
+    },
+    {
+      "id": "rw3_unit04",
+      "name": "Unit 4: 当工作成为乐趣",
+      "name_en": "When work is a pleasure",
+      "type": "unit",
+      "order": 4,
+      "unlock_level": 4,
+      "levels": [
+        {
+          "id": "rw3_unit04_lv01",
+          "title": "当工作成为乐趣 · 词汇 1",
+          "title_en": "When work is a pleasure Vocab 1",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit04_01",
+            "rw3_unit04_02",
+            "rw3_unit04_03",
+            "rw3_unit04_04",
+            "rw3_unit04_05"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit04_01",
+            "rw3_vocab:rw3_unit04_02",
+            "rw3_vocab:rw3_unit04_03",
+            "rw3_vocab:rw3_unit04_04",
+            "rw3_vocab:rw3_unit04_05"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit04_lv02",
+          "title": "当工作成为乐趣 · 词汇 2",
+          "title_en": "When work is a pleasure Vocab 2",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit04_06",
+            "rw3_unit04_07",
+            "rw3_unit04_08",
+            "rw3_unit04_09",
+            "rw3_unit04_10"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit04_06",
+            "rw3_vocab:rw3_unit04_07",
+            "rw3_vocab:rw3_unit04_08",
+            "rw3_vocab:rw3_unit04_09",
+            "rw3_vocab:rw3_unit04_10"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit04_lv03",
+          "title": "当工作成为乐趣 · 词汇 3",
+          "title_en": "When work is a pleasure Vocab 3",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit04_11",
+            "rw3_unit04_12",
+            "rw3_unit04_13",
+            "rw3_unit04_14",
+            "rw3_unit04_15"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit04_11",
+            "rw3_vocab:rw3_unit04_12",
+            "rw3_vocab:rw3_unit04_13",
+            "rw3_vocab:rw3_unit04_14",
+            "rw3_vocab:rw3_unit04_15"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit04_lv04",
+          "title": "当工作成为乐趣 · 词汇 4",
+          "title_en": "When work is a pleasure Vocab 4",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit04_16",
+            "rw3_unit04_17",
+            "rw3_unit04_18",
+            "rw3_unit04_19",
+            "rw3_unit04_20"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit04_16",
+            "rw3_vocab:rw3_unit04_17",
+            "rw3_vocab:rw3_unit04_18",
+            "rw3_vocab:rw3_unit04_19",
+            "rw3_vocab:rw3_unit04_20"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit04_read",
+          "title": "当工作成为乐趣 · 阅读",
+          "title_en": "When work is a pleasure Reading",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit04_01",
+            "rw3_unit04_02",
+            "rw3_unit04_03",
+            "rw3_unit04_04",
+            "rw3_unit04_05",
+            "rw3_unit04_06",
+            "rw3_unit04_07",
+            "rw3_unit04_08",
+            "rw3_unit04_09",
+            "rw3_unit04_10",
+            "rw3_unit04_11",
+            "rw3_unit04_12",
+            "rw3_unit04_13",
+            "rw3_unit04_14",
+            "rw3_unit04_15",
+            "rw3_unit04_16",
+            "rw3_unit04_17",
+            "rw3_unit04_18",
+            "rw3_unit04_19",
+            "rw3_unit04_20"
+          ],
+          "content_refs": [
+            "rw3_reading:unit04"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit04_listen",
+          "title": "当工作成为乐趣 · 听力",
+          "title_en": "When work is a pleasure Listening",
+          "stamina_cost": 2,
+          "word_ids": [],
+          "content_refs": [
+            "rw3_listening:unit04"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit04_boss",
+          "title": "当工作成为乐趣 · 单元挑战",
+          "title_en": "When work is a pleasure Unit Boss",
+          "stamina_cost": 3,
+          "word_ids": [
+            "rw3_unit04_01",
+            "rw3_unit04_02",
+            "rw3_unit04_03",
+            "rw3_unit04_04",
+            "rw3_unit04_05",
+            "rw3_unit04_06",
+            "rw3_unit04_07",
+            "rw3_unit04_08",
+            "rw3_unit04_09",
+            "rw3_unit04_10",
+            "rw3_unit04_11",
+            "rw3_unit04_12",
+            "rw3_unit04_13",
+            "rw3_unit04_14",
+            "rw3_unit04_15",
+            "rw3_unit04_16",
+            "rw3_unit04_17",
+            "rw3_unit04_18",
+            "rw3_unit04_19",
+            "rw3_unit04_20"
+          ],
+          "content_refs": [
+            "rw3_unit_boss:unit04"
+          ],
+          "boss": true
+        }
+      ]
+    },
+    {
+      "id": "rw3_unit05",
+      "name": "Unit 5: 中国的航天梦",
+      "name_en": "China's space dream",
+      "type": "unit",
+      "order": 5,
+      "unlock_level": 5,
+      "levels": [
+        {
+          "id": "rw3_unit05_lv01",
+          "title": "中国的航天梦 · 词汇 1",
+          "title_en": "China's space dream Vocab 1",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit05_01",
+            "rw3_unit05_02",
+            "rw3_unit05_03",
+            "rw3_unit05_04",
+            "rw3_unit05_05"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit05_01",
+            "rw3_vocab:rw3_unit05_02",
+            "rw3_vocab:rw3_unit05_03",
+            "rw3_vocab:rw3_unit05_04",
+            "rw3_vocab:rw3_unit05_05"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit05_lv02",
+          "title": "中国的航天梦 · 词汇 2",
+          "title_en": "China's space dream Vocab 2",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit05_06",
+            "rw3_unit05_07",
+            "rw3_unit05_08",
+            "rw3_unit05_09",
+            "rw3_unit05_10"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit05_06",
+            "rw3_vocab:rw3_unit05_07",
+            "rw3_vocab:rw3_unit05_08",
+            "rw3_vocab:rw3_unit05_09",
+            "rw3_vocab:rw3_unit05_10"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit05_lv03",
+          "title": "中国的航天梦 · 词汇 3",
+          "title_en": "China's space dream Vocab 3",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit05_11",
+            "rw3_unit05_12",
+            "rw3_unit05_13",
+            "rw3_unit05_14",
+            "rw3_unit05_15"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit05_11",
+            "rw3_vocab:rw3_unit05_12",
+            "rw3_vocab:rw3_unit05_13",
+            "rw3_vocab:rw3_unit05_14",
+            "rw3_vocab:rw3_unit05_15"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit05_lv04",
+          "title": "中国的航天梦 · 词汇 4",
+          "title_en": "China's space dream Vocab 4",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit05_16",
+            "rw3_unit05_17",
+            "rw3_unit05_18",
+            "rw3_unit05_19",
+            "rw3_unit05_20"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit05_16",
+            "rw3_vocab:rw3_unit05_17",
+            "rw3_vocab:rw3_unit05_18",
+            "rw3_vocab:rw3_unit05_19",
+            "rw3_vocab:rw3_unit05_20"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit05_read",
+          "title": "中国的航天梦 · 阅读",
+          "title_en": "China's space dream Reading",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit05_01",
+            "rw3_unit05_02",
+            "rw3_unit05_03",
+            "rw3_unit05_04",
+            "rw3_unit05_05",
+            "rw3_unit05_06",
+            "rw3_unit05_07",
+            "rw3_unit05_08",
+            "rw3_unit05_09",
+            "rw3_unit05_10",
+            "rw3_unit05_11",
+            "rw3_unit05_12",
+            "rw3_unit05_13",
+            "rw3_unit05_14",
+            "rw3_unit05_15",
+            "rw3_unit05_16",
+            "rw3_unit05_17",
+            "rw3_unit05_18",
+            "rw3_unit05_19",
+            "rw3_unit05_20"
+          ],
+          "content_refs": [
+            "rw3_reading:unit05"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit05_listen",
+          "title": "中国的航天梦 · 听力",
+          "title_en": "China's space dream Listening",
+          "stamina_cost": 2,
+          "word_ids": [],
+          "content_refs": [
+            "rw3_listening:unit05"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit05_boss",
+          "title": "中国的航天梦 · 单元挑战",
+          "title_en": "China's space dream Unit Boss",
+          "stamina_cost": 3,
+          "word_ids": [
+            "rw3_unit05_01",
+            "rw3_unit05_02",
+            "rw3_unit05_03",
+            "rw3_unit05_04",
+            "rw3_unit05_05",
+            "rw3_unit05_06",
+            "rw3_unit05_07",
+            "rw3_unit05_08",
+            "rw3_unit05_09",
+            "rw3_unit05_10",
+            "rw3_unit05_11",
+            "rw3_unit05_12",
+            "rw3_unit05_13",
+            "rw3_unit05_14",
+            "rw3_unit05_15",
+            "rw3_unit05_16",
+            "rw3_unit05_17",
+            "rw3_unit05_18",
+            "rw3_unit05_19",
+            "rw3_unit05_20"
+          ],
+          "content_refs": [
+            "rw3_unit_boss:unit05"
+          ],
+          "boss": true
+        }
+      ]
+    },
+    {
+      "id": "rw3_unit06",
+      "name": "Unit 6: 经济：日常生活背后的力量",
+      "name_en": "The economy: power behind everyday life",
+      "type": "unit",
+      "order": 6,
+      "unlock_level": 6,
+      "levels": [
+        {
+          "id": "rw3_unit06_lv01",
+          "title": "经济：日常生活背后的力量 · 词汇 1",
+          "title_en": "The economy: power behind everyday life Vocab 1",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit06_01",
+            "rw3_unit06_02",
+            "rw3_unit06_03",
+            "rw3_unit06_04",
+            "rw3_unit06_05"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit06_01",
+            "rw3_vocab:rw3_unit06_02",
+            "rw3_vocab:rw3_unit06_03",
+            "rw3_vocab:rw3_unit06_04",
+            "rw3_vocab:rw3_unit06_05"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit06_lv02",
+          "title": "经济：日常生活背后的力量 · 词汇 2",
+          "title_en": "The economy: power behind everyday life Vocab 2",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit06_06",
+            "rw3_unit06_07",
+            "rw3_unit06_08",
+            "rw3_unit06_09",
+            "rw3_unit06_10"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit06_06",
+            "rw3_vocab:rw3_unit06_07",
+            "rw3_vocab:rw3_unit06_08",
+            "rw3_vocab:rw3_unit06_09",
+            "rw3_vocab:rw3_unit06_10"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit06_lv03",
+          "title": "经济：日常生活背后的力量 · 词汇 3",
+          "title_en": "The economy: power behind everyday life Vocab 3",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit06_11",
+            "rw3_unit06_12",
+            "rw3_unit06_13",
+            "rw3_unit06_14",
+            "rw3_unit06_15"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit06_11",
+            "rw3_vocab:rw3_unit06_12",
+            "rw3_vocab:rw3_unit06_13",
+            "rw3_vocab:rw3_unit06_14",
+            "rw3_vocab:rw3_unit06_15"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit06_lv04",
+          "title": "经济：日常生活背后的力量 · 词汇 4",
+          "title_en": "The economy: power behind everyday life Vocab 4",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit06_16",
+            "rw3_unit06_17",
+            "rw3_unit06_18",
+            "rw3_unit06_19",
+            "rw3_unit06_20"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit06_16",
+            "rw3_vocab:rw3_unit06_17",
+            "rw3_vocab:rw3_unit06_18",
+            "rw3_vocab:rw3_unit06_19",
+            "rw3_vocab:rw3_unit06_20"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit06_read",
+          "title": "经济：日常生活背后的力量 · 阅读",
+          "title_en": "The economy: power behind everyday life Reading",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit06_01",
+            "rw3_unit06_02",
+            "rw3_unit06_03",
+            "rw3_unit06_04",
+            "rw3_unit06_05",
+            "rw3_unit06_06",
+            "rw3_unit06_07",
+            "rw3_unit06_08",
+            "rw3_unit06_09",
+            "rw3_unit06_10",
+            "rw3_unit06_11",
+            "rw3_unit06_12",
+            "rw3_unit06_13",
+            "rw3_unit06_14",
+            "rw3_unit06_15",
+            "rw3_unit06_16",
+            "rw3_unit06_17",
+            "rw3_unit06_18",
+            "rw3_unit06_19",
+            "rw3_unit06_20"
+          ],
+          "content_refs": [
+            "rw3_reading:unit06"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit06_listen",
+          "title": "经济：日常生活背后的力量 · 听力",
+          "title_en": "The economy: power behind everyday life Listening",
+          "stamina_cost": 2,
+          "word_ids": [],
+          "content_refs": [
+            "rw3_listening:unit06"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit06_boss",
+          "title": "经济：日常生活背后的力量 · 单元挑战",
+          "title_en": "The economy: power behind everyday life Unit Boss",
+          "stamina_cost": 3,
+          "word_ids": [
+            "rw3_unit06_01",
+            "rw3_unit06_02",
+            "rw3_unit06_03",
+            "rw3_unit06_04",
+            "rw3_unit06_05",
+            "rw3_unit06_06",
+            "rw3_unit06_07",
+            "rw3_unit06_08",
+            "rw3_unit06_09",
+            "rw3_unit06_10",
+            "rw3_unit06_11",
+            "rw3_unit06_12",
+            "rw3_unit06_13",
+            "rw3_unit06_14",
+            "rw3_unit06_15",
+            "rw3_unit06_16",
+            "rw3_unit06_17",
+            "rw3_unit06_18",
+            "rw3_unit06_19",
+            "rw3_unit06_20"
+          ],
+          "content_refs": [
+            "rw3_unit_boss:unit06"
+          ],
+          "boss": true
+        }
+      ]
+    }
+  ],
+  "rank_tiers": [
+    {
+      "id": "bronze",
+      "name": "青铜",
+      "min_score": 0,
+      "max_score": 59
+    },
+    {
+      "id": "silver",
+      "name": "白银",
+      "min_score": 60,
+      "max_score": 69
+    },
+    {
+      "id": "gold",
+      "name": "黄金",
+      "min_score": 70,
+      "max_score": 79
+    },
+    {
+      "id": "platinum",
+      "name": "铂金",
+      "min_score": 80,
+      "max_score": 89
+    },
+    {
+      "id": "diamond",
+      "name": "钻石",
+      "min_score": 90,
+      "max_score": 94
+    },
+    {
+      "id": "king",
+      "name": "王者",
+      "min_score": 95,
+      "max_score": 100
+    }
+  ],
+  "game_rules": {
+    "stamina_max": 6,
+    "stamina_per_level": 2,
+    "daily_level_limit": 3,
+    "streak_reward_days": 7,
+    "streak_reward_id": "sprint_pack",
+    "sprint_mode_days": 30
+  }
+}

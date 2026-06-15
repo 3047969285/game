@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WordEntry",
+  "type": "object",
+  "required": ["id", "word", "meaning"],
+  "properties": {
+    "id": { "type": "string", "description": "全局唯一 ID，如 cet4_0001" },
+    "word": { "type": "string" },
+    "phonetic": { "type": "string" },
+    "pos": { "type": "string", "description": "词性，如 n. / v. / adj." },
+    "meaning": { "type": "string", "description": "主释义（中文）" },
+    "meanings": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "完整释义列表"
+    },
+    "example": { "type": "string" },
+    "example_zh": { "type": "string" },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "如 high_frequency, listening, reading"
+    },
+    "difficulty": { "type": "integer", "minimum": 1, "maximum": 5 }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "cad_guide_zh": "CAD 建模 → 导出 glTF/GLB → 放入 public/models/ 对应路径。可点击部位在 CAD/Blender 中命名为 Crystal 或 PICK。建议整体高度约 6m，原点在建筑底部中心。",
+  "export_steps": [
+    "AutoCAD/中望CAD：三维实体 → 导出 FBX 或 SAT，用 Blender 打开后 File → Export → glTF 2.0 (.glb)",
+    "SolidWorks/Fusion 360：另存为 FBX/OBJ → Blender 转 GLB",
+    "Blender 直接建模：导出 GLB，勾选 +Y Up，应用变换(Apply Transform)"
+  ],
+  "defaults": {
+    "scale": 1,
+    "targetHeight": 6,
+    "pickMeshNames": ["Crystal", "PICK", "crystal", "pick", "ClickZone"]
+  },
+  "nodes": {
+    "rw3_unit01": { "file": "models/rw3/unit01.glb", "label": "Unit 1 数字时代" },
+    "rw3_unit02": { "file": "models/rw3/unit02.glb", "label": "Unit 2" },
+    "rw3_unit03": { "file": "models/rw3/unit03.glb", "label": "Unit 3" },
+    "rw3_unit04": { "file": "models/rw3/unit04.glb", "label": "Unit 4" },
+    "rw3_unit05": { "file": "models/rw3/unit05.glb", "label": "Unit 5" },
+    "rw3_unit06": { "file": "models/rw3/unit06.glb", "label": "Unit 6" }
+  },
+  "themes": {
+    "library": { "file": "models/landmarks/library.glb", "label": "默认图书馆地标" },
+    "forest": { "file": "models/landmarks/forest.glb" },
+    "coast": { "file": "models/landmarks/coast.glb" },
+    "market": { "file": "models/landmarks/market.glb" },
+    "temple": { "file": "models/landmarks/temple.glb" }
+  },
+  "world": {
+    "terrain": { "file": "models/world/terrain.glb", "optional": true, "targetHeight": 2 }
+  }
+}

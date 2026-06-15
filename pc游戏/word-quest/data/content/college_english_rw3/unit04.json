@@ -1,0 +1,106 @@
+{
+  "unit_id": "unit04",
+  "unit_number": 4,
+  "edition": 4,
+  "title": "When work is a pleasure",
+  "title_zh": "当工作成为乐趣",
+  "theme": "work, labor, tradition, pride",
+  "word_ids": [
+    "rw3_unit04_01",
+    "rw3_unit04_02",
+    "rw3_unit04_03",
+    "rw3_unit04_04",
+    "rw3_unit04_05",
+    "rw3_unit04_06",
+    "rw3_unit04_07",
+    "rw3_unit04_08",
+    "rw3_unit04_09",
+    "rw3_unit04_10",
+    "rw3_unit04_11",
+    "rw3_unit04_12",
+    "rw3_unit04_13",
+    "rw3_unit04_14",
+    "rw3_unit04_15",
+    "rw3_unit04_16",
+    "rw3_unit04_17",
+    "rw3_unit04_18",
+    "rw3_unit04_19",
+    "rw3_unit04_20"
+  ],
+  "sections": {
+    "section_a": {
+      "title": "Will you be a worker or a laborer?",
+      "type": "reading",
+      "passage": "In a career workshop, students debated the difference between a worker and a laborer. One instructor argued that a laborer repeats tasks for pay, while a worker invests skill and judgment even in small jobs. A visiting craftsman showed how he repaired violins by hand. He said tradition was not nostalgia; it was a standard. When work becomes pleasure, people stop watching the clock and start caring about quality."
+    },
+    "section_b": {
+      "title": "The joy of a prideful tradition",
+      "type": "reading",
+      "passage": "In a small workshop, a violin craftsman demonstrated prideful tradition. As an apprentice years ago, he watched his master measure every joint with precision. Craft was not nostalgia; it was a standard of excellence. Workers who love their occupation stop watching the clock and invest skill in each detail. Heritage survives when young learners choose dedication over shortcuts."
+    },
+    "section_c": {
+      "title": "Stories of China",
+      "type": "stories_of_china",
+      "passage": "In Suzhou, a team restores silk embroidery patterns passed down for generations. Tour guides explain how heritage supports local jobs and dignity for artisans. Visitors learn that tradition is living labor, not a museum label. Such stories of China remind students that rewarding work can preserve culture and community identity."
+    },
+    "vocabulary": {
+      "level_count": 4,
+      "words_per_level": 5
+    },
+    "reading": {
+      "title": "More Than a Paycheck",
+      "passage": "In a career workshop, students debated the difference between a worker and a laborer. One instructor argued that a laborer repeats tasks for pay, while a worker invests skill and judgment even in small jobs. A visiting craftsman showed how he repaired violins by hand. He said tradition was not nostalgia; it was a standard. When work becomes pleasure, people stop watching the clock and start caring about quality.",
+      "questions": [
+        {
+          "question": "How does the craftsman view tradition?",
+          "options": [
+            "As outdated nostalgia",
+            "As a standard of quality",
+            "As a reason to quit",
+            "As a marketing trick"
+          ],
+          "answer": 1,
+          "explanation": "工匠把传统视为品质标准。"
+        }
+      ]
+    },
+    "listening": {
+      "title": "Listening: When work is a pleasure",
+      "script": "In a career workshop, students debated the difference between a worker and a laborer. One instructor argued that a laborer repeats tasks for pay, while a worker invests skill and judgment even in small jobs. A visiting craftsman showed how he repaired violins by hand. He said tradition was not nostalgia; it was a standard. When work becomes pleasure, people stop watching the clock and start caring about quality. In a small workshop, a violin craftsman demonstrated prideful tradition. As an apprentice years ago, he watched his master measure every joint with precision. Craft was not nostalgia; it was a standard of excellence. Workers who love their occupation stop watching the clock and invest skill in each detail. Heritage survives when young learners choose dedication over shortcuts.",
+      "questions": [
+        {
+          "question": "How does the craftsman view tradition?",
+          "options": [
+            "As outdated nostalgia",
+            "As a standard of quality",
+            "As a reason to quit",
+            "As a marketing trick"
+          ],
+          "answer": 1,
+          "explanation": "工匠把传统视为品质标准。"
+        }
+      ]
+    },
+    "translation": {
+      "sentences": [
+        {
+          "zh": "请将下列句子译为英文：当工作成为乐趣时，人们追求的不再是熬时间，而是把事做好。",
+          "en_reference": "When work becomes a pleasure, people pursue quality instead of just killing time.",
+          "keywords": [
+            "worker",
+            "laborer"
+          ]
+        }
+      ]
+    },
+    "writing": {
+      "prompt": "Write 120-150 words about the theme: 当工作成为乐趣.",
+      "outline": [
+        "Introduction",
+        "Example",
+        "Personal view",
+        "Conclusion"
+      ]
+    }
+  }
+}

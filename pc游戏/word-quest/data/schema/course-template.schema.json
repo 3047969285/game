@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CourseTemplate",
+  "type": "object",
+  "required": ["id", "name", "version", "zones"],
+  "properties": {
+    "id": { "type": "string", "enum": ["cet4", "cet6", "college_english_rw3"] },
+    "name": { "type": "string" },
+    "name_en": { "type": "string" },
+    "description": { "type": "string" },
+    "version": { "type": "string" },
+    "source": { "type": "string", "description": "词库/教材来源说明" },
+    "exam_info": {
+      "type": "object",
+      "properties": {
+        "full_score": { "type": "integer" },
+        "pass_score": { "type": "integer" },
+        "duration_minutes": { "type": "integer" }
+      }
+    },
+    "zones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "type", "levels"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "name_en": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["vocabulary", "listening", "reading", "translation", "writing", "unit", "boss"]
+          },
+          "order": { "type": "integer" },
+          "unlock_level": { "type": "integer" },
+          "levels": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "title", "content_refs"],
+              "properties": {
+                "id": { "type": "string" },
+                "title": { "type": "string" },
+                "title_en": { "type": "string" },
+                "stamina_cost": { "type": "integer", "default": 2 },
+                "word_ids": { "type": "array", "items": { "type": "string" } },
+                "content_refs": { "type": "array", "items": { "type": "string" } },
+                "boss": { "type": "boolean", "default": false },
+                "stars_required": { "type": "integer", "default": 0 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "rank_tiers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "min_score": { "type": "integer" },
+          "max_score": { "type": "integer" }
+        }
+      }
+    }
+  }
+}

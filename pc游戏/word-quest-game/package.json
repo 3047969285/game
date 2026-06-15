@@ -1,0 +1,22 @@
+{
+  "name": "word-quest-game",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "pack": "python scripts/pack_game_data.py",
+    "dev": "npm run pack && vite",
+    "build": "npm run pack && tsc && vite build",
+    "preview": "vite preview",
+    "gen:models": "node scripts/generate_rw3_landmarks.mjs",
+    "validate:models": "python scripts/validate_glb.py public/models/rw3"
+  },
+  "dependencies": {
+    "three": "^0.184.0"
+  },
+  "devDependencies": {
+    "@types/three": "^0.184.1",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3"
+  }
+}
