@@ -1,0 +1,261 @@
+{
+  "course_id": "cet4",
+  "count": 15,
+  "items": [
+    {
+      "title": "Conversation at the Bookstore (1)",
+      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "questions": [
+        {
+          "question": "What will the woman probably do?",
+          "options": [
+            "Wait for the paperback",
+            "Buy the e-book",
+            "Cancel the class",
+            "Borrow a magazine"
+          ],
+          "answer": 1
+        }
+      ],
+      "id": "cet4_l_01"
+    },
+    {
+      "title": "Announcement in the Gym (2)",
+      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "questions": [
+        {
+          "question": "What is closed this afternoon?",
+          "options": [
+            "The running track",
+            "The swimming pool",
+            "The cafeteria",
+            "The library"
+          ],
+          "answer": 1
+        }
+      ],
+      "id": "cet4_l_02"
+    },
+    {
+      "title": "Conversation at the Bookstore (3)",
+      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "questions": [
+        {
+          "question": "What will the woman probably do?",
+          "options": [
+            "Wait for the paperback",
+            "Buy the e-book",
+            "Cancel the class",
+            "Borrow a magazine"
+          ],
+          "answer": 1
+        }
+      ],
+      "id": "cet4_l_03"
+    },
+    {
+      "title": "Announcement in the Gym (4)",
+      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "questions": [
+        {
+          "question": "What is closed this afternoon?",
+          "options": [
+            "The running track",
+            "The swimming pool",
+            "The cafeteria",
+            "The library"
+          ],
+          "answer": 1
+        }
+      ],
+      "id": "cet4_l_04"
+    },
+    {
+      "title": "Conversation at the Bookstore (5)",
+      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "questions": [
+        {
+          "question": "What will the woman probably do?",
+          "options": [
+            "Wait for the paperback",
+            "Buy the e-book",
+            "Cancel the class",
+            "Borrow a magazine"
+          ],
+          "answer": 1
+        }
+      ],
+      "id": "cet4_l_05"
+    },
+    {
+      "title": "Announcement in the Gym (6)",
+      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "questions": [
+        {
+          "question": "What is closed this afternoon?",
+          "options": [
+            "The running track",
+            "The swimming pool",
+            "The cafeteria",
+            "The library"
+          ],
+          "answer": 1
+        }
+      ],
+      "id": "cet4_l_06"
+    },
+    {
+      "title": "Conversation at the Bookstore (7)",
+      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "questions": [
+        {
+          "question": "What will the woman probably do?",
+          "options": [
+            "Wait for the paperback",
+            "Buy the e-book",
+            "Cancel the class",
+            "Borrow a magazine"
+          ],
+          "answer": 1
+        }
+      ],
+      "id": "cet4_l_07"
+    },
+    {
+      "title": "Announcement in the Gym (8)",
+      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "questions": [
+        {
+          "question": "What is closed this afternoon?",
+          "options": [
+            "The running track",
+            "The swimming pool",
+            "The cafeteria",
+            "The library"
+          ],
+          "answer": 1
+        }
+      ],
+      "id": "cet4_l_08"
+    },
+    {
+      "title": "Conversation at the Bookstore (9)",
+      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "questions": [
+        {
+          "question": "What will the woman probably do?",
+          "options": [
+            "Wait for the paperback",
+            "Buy the e-book",
+            "Cancel the class",
+            "Borrow a magazine"
+          ],
+          "answer": 1
+        }
+      ],
+      "id": "cet4_l_09"
+    },
+    {
+      "title": "Announcement in the Gym (10)",
+      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "questions": [
+        {
+          "question": "What is closed this afternoon?",
+          "options": [
+            "The running track",
+            "The swimming pool",
+            "The cafeteria",
+            "The library"
+          ],
+          "answer": 1
+        }
+      ],
+      "id": "cet4_l_10"
+    },
+    {
+      "title": "Conversation at the Bookstore (11)",
+      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "questions": [
+        {
+          "question": "What will the woman probably do?",
+          "options": [
+            "Wait for the paperback",
+            "Buy the e-book",
+            "Cancel the class",
+            "Borrow a magazine"
+          ],
+          "answer": 1
+        }
+      ],
+      "id": "cet4_l_11"
+    },
+    {
+      "title": "Announcement in the Gym (12)",
+      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "questions": [
+        {
+          "question": "What is closed this afternoon?",
+          "options": [
+            "The running track",
+            "The swimming pool",
+            "The cafeteria",
+            "The library"
+          ],
+          "answer": 1
+        }
+      ],
+      "id": "cet4_l_12"
+    },
+    {
+      "title": "Conversation at the Bookstore (13)",
+      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "questions": [
+        {
+          "question": "What will the woman probably do?",
+          "options": [
+            "Wait for the paperback",
+            "Buy the e-book",
+            "Cancel the class",
+            "Borrow a magazine"
+          ],
+          "answer": 1
+        }
+      ],
+      "id": "cet4_l_13"
+    },
+    {
+      "title": "Announcement in the Gym (14)",
+      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "questions": [
+        {
+          "question": "What is closed this afternoon?",
+          "options": [
+            "The running track",
+            "The swimming pool",
+            "The cafeteria",
+            "The library"
+          ],
+          "answer": 1
+        }
+      ],
+      "id": "cet4_l_14"
+    },
+    {
+      "title": "Conversation at the Bookstore (15)",
+      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "questions": [
+        {
+          "question": "What will the woman probably do?",
+          "options": [
+            "Wait for the paperback",
+            "Buy the e-book",
+            "Cancel the class",
+            "Borrow a magazine"
+          ],
+          "answer": 1
+        }
+      ],
+      "id": "cet4_l_15"
+    }
+  ]
+}

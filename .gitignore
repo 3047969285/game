@@ -1,13 +1,9 @@
 # Dependencies
 node_modules/
 
-# Build outputs
-dist/
-bin/
+# Build intermediates (keep Release/dist for distribution)
 obj/
 out/
-*.dll
-*.exe
 *.pdb
 
 # IDE / editor
@@ -23,7 +19,9 @@ Desktop.ini
 
 # Env & secrets
 .env
-.env.*
+.env.local
+.env.*.local
+!.env.example
 *.pem
 *.key
 

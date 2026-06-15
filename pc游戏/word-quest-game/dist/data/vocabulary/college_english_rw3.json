@@ -1,0 +1,2658 @@
+{
+  "meta": {
+    "course_id": "college_english_rw3",
+    "name": "大学英语读写教程3",
+    "textbook": "新视野大学英语（第四版）读写教程 Book 3（思政智慧版）",
+    "edition": 4,
+    "units": 6,
+    "sections_per_unit": [
+      "Section A",
+      "Section B",
+      "Section C Stories of China"
+    ],
+    "note": "词汇与阅读内容为原创仿学材料，用于游戏化学习，非教材原文转载"
+  },
+  "count": 120,
+  "words": [
+    {
+      "id": "rw3_unit01_01",
+      "word": "digital",
+      "phonetic": "",
+      "pos": "adj.",
+      "meaning": "数字的",
+      "meanings": [
+        "adj. 数字的"
+      ],
+      "example": "We live in a digital age.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_02",
+      "word": "connection",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "连接；联系",
+      "meanings": [
+        "n. 连接；联系"
+      ],
+      "example": "True connection needs attention.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_03",
+      "word": "conversation",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "对话",
+      "meanings": [
+        "n. 对话"
+      ],
+      "example": "Face-to-face conversation builds trust.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_04",
+      "word": "notification",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "通知",
+      "meanings": [
+        "n. 通知"
+      ],
+      "example": "Constant notifications distract students.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_05",
+      "word": "scroll",
+      "phonetic": "",
+      "pos": "v.",
+      "meaning": "滚动浏览",
+      "meanings": [
+        "v. 滚动浏览"
+      ],
+      "example": "Many people scroll before sleep.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_06",
+      "word": "algorithm",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "算法",
+      "meanings": [
+        "n. 算法"
+      ],
+      "example": "Algorithms shape what we see online.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_07",
+      "word": "privacy",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "隐私",
+      "meanings": [
+        "n. 隐私"
+      ],
+      "example": "Protect your privacy settings.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_08",
+      "word": "virtual",
+      "phonetic": "",
+      "pos": "adj.",
+      "meaning": "虚拟的",
+      "meanings": [
+        "adj. 虚拟的"
+      ],
+      "example": "Virtual meetings save time.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_09",
+      "word": "attention",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "注意力",
+      "meanings": [
+        "n. 注意力"
+      ],
+      "example": "Digital tools compete for attention.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_10",
+      "word": "offline",
+      "phonetic": "",
+      "pos": "adj.",
+      "meaning": "离线的",
+      "meanings": [
+        "adj. 离线的"
+      ],
+      "example": "Try an offline hour each day.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_11",
+      "word": "multitask",
+      "phonetic": "",
+      "pos": "v.",
+      "meaning": "多任务处理",
+      "meanings": [
+        "v. 多任务处理"
+      ],
+      "example": "Multitasking can reduce quality.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_12",
+      "word": "cyber",
+      "phonetic": "",
+      "pos": "adj.",
+      "meaning": "网络的",
+      "meanings": [
+        "adj. 网络的"
+      ],
+      "example": "Cyber safety matters on campus.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_13",
+      "word": "device",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "设备",
+      "meanings": [
+        "n. 设备"
+      ],
+      "example": "Put devices away during meals.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_14",
+      "word": "addiction",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "成瘾",
+      "meanings": [
+        "n. 成瘾"
+      ],
+      "example": "Screen addiction affects sleep.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_15",
+      "word": "balance",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "平衡",
+      "meanings": [
+        "n. 平衡"
+      ],
+      "example": "Balance online and offline life.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_16",
+      "word": "interaction",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "互动",
+      "meanings": [
+        "n. 互动"
+      ],
+      "example": "Meaningful interaction takes effort.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_17",
+      "word": "platform",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "平台",
+      "meanings": [
+        "n. 平台"
+      ],
+      "example": "Choose platforms carefully.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_18",
+      "word": "filter",
+      "phonetic": "",
+      "pos": "v.",
+      "meaning": "过滤",
+      "meanings": [
+        "v. 过滤"
+      ],
+      "example": "Learn to filter unreliable information.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_19",
+      "word": "habit",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "习惯",
+      "meanings": [
+        "n. 习惯"
+      ],
+      "example": "Healthy habits start small.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit01_20",
+      "word": "mindful",
+      "phonetic": "",
+      "pos": "adj.",
+      "meaning": "留心的",
+      "meanings": [
+        "adj. 留心的"
+      ],
+      "example": "Be mindful of how you spend time online.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01",
+        "digital life, connection, technology"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_01",
+      "word": "explorer",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "探险家",
+      "meanings": [
+        "n. 探险家"
+      ],
+      "example": "Zheng He was a great ancient explorer.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_02",
+      "word": "voyage",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "航行",
+      "meanings": [
+        "n. 航行"
+      ],
+      "example": "His voyages reached distant ports.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_03",
+      "word": "fleet",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "船队",
+      "meanings": [
+        "n. 船队"
+      ],
+      "example": "The fleet carried gifts and culture.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_04",
+      "word": "legacy",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "遗产",
+      "meanings": [
+        "n. 遗产"
+      ],
+      "example": "His legacy inspires modern readers.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_05",
+      "word": "biography",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "传记",
+      "meanings": [
+        "n. 传记"
+      ],
+      "example": "A biography reveals personal choices.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_06",
+      "word": "humanitarian",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "人道主义者",
+      "meanings": [
+        "n. 人道主义者"
+      ],
+      "example": "She worked as a humanitarian.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_07",
+      "word": "elegant",
+      "phonetic": "",
+      "pos": "adj.",
+      "meaning": "优雅的",
+      "meanings": [
+        "adj. 优雅的"
+      ],
+      "example": "Her elegant style became iconic.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_08",
+      "word": "charity",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "慈善",
+      "meanings": [
+        "n. 慈善"
+      ],
+      "example": "Charity work defined her later life.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_09",
+      "word": "inspire",
+      "phonetic": "",
+      "pos": "v.",
+      "meaning": "激励",
+      "meanings": [
+        "v. 激励"
+      ],
+      "example": "Life stories inspire young readers.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_10",
+      "word": "perseverance",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "毅力",
+      "meanings": [
+        "n. 毅力"
+      ],
+      "example": "Perseverance appears in every chapter.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_11",
+      "word": "ambition",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "抱负",
+      "meanings": [
+        "n. 抱负"
+      ],
+      "example": "Ambition guided his early career.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_12",
+      "word": "compassion",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "同情",
+      "meanings": [
+        "n. 同情"
+      ],
+      "example": "Compassion turns fame into service.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_13",
+      "word": "portrait",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "肖像；描写",
+      "meanings": [
+        "n. 肖像；描写"
+      ],
+      "example": "The article paints a vivid portrait.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_14",
+      "word": "era",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "时代",
+      "meanings": [
+        "n. 时代"
+      ],
+      "example": "Each era creates its own heroes.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_15",
+      "word": "mission",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "使命",
+      "meanings": [
+        "n. 使命"
+      ],
+      "example": "Her mission went beyond acting.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_16",
+      "word": "remarkable",
+      "phonetic": "",
+      "pos": "adj.",
+      "meaning": "非凡的",
+      "meanings": [
+        "adj. 非凡的"
+      ],
+      "example": "Their remarkable paths differ greatly.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_17",
+      "word": "witness",
+      "phonetic": "",
+      "pos": "v.",
+      "meaning": "见证",
+      "meanings": [
+        "v. 见证"
+      ],
+      "example": "History witnesses courage and failure.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_18",
+      "word": "devotion",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "奉献",
+      "meanings": [
+        "n. 奉献"
+      ],
+      "example": "Devotion to others builds trust.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_19",
+      "word": "narrative",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "叙述",
+      "meanings": [
+        "n. 叙述"
+      ],
+      "example": "A good narrative shows growth.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit02_20",
+      "word": "admire",
+      "phonetic": "",
+      "pos": "v.",
+      "meaning": "钦佩",
+      "meanings": [
+        "v. 钦佩"
+      ],
+      "example": "Readers admire their moral choices.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02",
+        "biography, exploration, inspiration"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit02",
+      "unit_title": "Life stories",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_01",
+      "word": "travel",
+      "phonetic": "",
+      "pos": "v.",
+      "meaning": "旅行",
+      "meanings": [
+        "v. 旅行"
+      ],
+      "example": "People travel for many reasons.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_02",
+      "word": "journey",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "旅程",
+      "meanings": [
+        "n. 旅程"
+      ],
+      "example": "The journey changed her attitude.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_03",
+      "word": "destination",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "目的地",
+      "meanings": [
+        "n. 目的地"
+      ],
+      "example": "The destination was less important than growth.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_04",
+      "word": "solo",
+      "phonetic": "",
+      "pos": "adj.",
+      "meaning": "独自的",
+      "meanings": [
+        "adj. 独自的"
+      ],
+      "example": "Solo travel builds independence.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_05",
+      "word": "itinerary",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "行程",
+      "meanings": [
+        "n. 行程"
+      ],
+      "example": "Keep a flexible itinerary.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_06",
+      "word": "luggage",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "行李",
+      "meanings": [
+        "n. 行李"
+      ],
+      "example": "Pack light luggage for long trips.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_07",
+      "word": "hostel",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "青年旅舍",
+      "meanings": [
+        "n. 青年旅舍"
+      ],
+      "example": "A hostel offers budget accommodation.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_08",
+      "word": "landscape",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "风景",
+      "meanings": [
+        "n. 风景"
+      ],
+      "example": "The landscape surprised every visitor.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_09",
+      "word": "encounter",
+      "phonetic": "",
+      "pos": "v.",
+      "meaning": "偶遇",
+      "meanings": [
+        "v. 偶遇"
+      ],
+      "example": "You encounter new ideas while traveling.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_10",
+      "word": "perspective",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "视角",
+      "meanings": [
+        "n. 视角"
+      ],
+      "example": "Travel broadens perspective.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_11",
+      "word": "navigate",
+      "phonetic": "",
+      "pos": "v.",
+      "meaning": "导航；应对",
+      "meanings": [
+        "v. 导航；应对"
+      ],
+      "example": "Learn to navigate unfamiliar cities.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_12",
+      "word": "curiosity",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "好奇心",
+      "meanings": [
+        "n. 好奇心"
+      ],
+      "example": "Curiosity makes travel meaningful.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_13",
+      "word": "reservation",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "预订",
+      "meanings": [
+        "n. 预订"
+      ],
+      "example": "Make a reservation during peak season.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_14",
+      "word": "wander",
+      "phonetic": "",
+      "pos": "v.",
+      "meaning": "漫游",
+      "meanings": [
+        "v. 漫游"
+      ],
+      "example": "Sometimes it is fine to wander.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_15",
+      "word": "memorable",
+      "phonetic": "",
+      "pos": "adj.",
+      "meaning": "难忘的",
+      "meanings": [
+        "adj. 难忘的"
+      ],
+      "example": "A memorable trip needs open plans.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_16",
+      "word": "adapt",
+      "phonetic": "",
+      "pos": "v.",
+      "meaning": "适应",
+      "meanings": [
+        "v. 适应"
+      ],
+      "example": "Travelers must adapt quickly.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_17",
+      "word": "route",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "路线",
+      "meanings": [
+        "n. 路线"
+      ],
+      "example": "We chose a scenic route.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_18",
+      "word": "local",
+      "phonetic": "",
+      "pos": "adj.",
+      "meaning": "当地的",
+      "meanings": [
+        "adj. 当地的"
+      ],
+      "example": "Ask local residents for advice.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_19",
+      "word": "departure",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "出发",
+      "meanings": [
+        "n. 出发"
+      ],
+      "example": "Departure day finally arrived.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit03_20",
+      "word": "transform",
+      "phonetic": "",
+      "pos": "v.",
+      "meaning": "转变",
+      "meanings": [
+        "v. 转变"
+      ],
+      "example": "Travel can transform confidence.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03",
+        "travel, purpose, solo journey"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit03",
+      "unit_title": "Let's go",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_01",
+      "word": "worker",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "工作者",
+      "meanings": [
+        "n. 工作者"
+      ],
+      "example": "A worker finds meaning in craft.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_02",
+      "word": "laborer",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "体力劳动者",
+      "meanings": [
+        "n. 体力劳动者"
+      ],
+      "example": "A laborer may only repeat tasks.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_03",
+      "word": "craft",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "手艺",
+      "meanings": [
+        "n. 手艺"
+      ],
+      "example": "Respect for craft takes years.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_04",
+      "word": "tradition",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "传统",
+      "meanings": [
+        "n. 传统"
+      ],
+      "example": "Tradition connects generations.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_05",
+      "word": "pride",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "自豪",
+      "meanings": [
+        "n. 自豪"
+      ],
+      "example": "Pride grows from quality work.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_06",
+      "word": "skill",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "技能",
+      "meanings": [
+        "n. 技能"
+      ],
+      "example": "Skill improves with practice.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_07",
+      "word": "routine",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "常规",
+      "meanings": [
+        "n. 常规"
+      ],
+      "example": "Routine can be comforting or boring.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_08",
+      "word": "fulfillment",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "成就感",
+      "meanings": [
+        "n. 成就感"
+      ],
+      "example": "Fulfillment comes from purpose.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_09",
+      "word": "dedication",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "敬业",
+      "meanings": [
+        "n. 敬业"
+      ],
+      "example": "Dedication shapes excellent teams.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_10",
+      "word": "apprentice",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "学徒",
+      "meanings": [
+        "n. 学徒"
+      ],
+      "example": "An apprentice learns by observing.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_11",
+      "word": "master",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "大师",
+      "meanings": [
+        "n. 大师"
+      ],
+      "example": "A master values every detail.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_12",
+      "word": "dignity",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "尊严",
+      "meanings": [
+        "n. 尊严"
+      ],
+      "example": "All honest work deserves dignity.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_13",
+      "word": "passion",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "热情",
+      "meanings": [
+        "n. 热情"
+      ],
+      "example": "Passion turns effort into pleasure.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_14",
+      "word": "occupation",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "职业",
+      "meanings": [
+        "n. 职业"
+      ],
+      "example": "Choose an occupation that fits your values.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_15",
+      "word": "workshop",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "作坊；车间",
+      "meanings": [
+        "n. 作坊；车间"
+      ],
+      "example": "The workshop smelled of wood and oil.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_16",
+      "word": "precision",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "精确",
+      "meanings": [
+        "n. 精确"
+      ],
+      "example": "Precision matters in fine craft.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_17",
+      "word": "heritage",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "传承",
+      "meanings": [
+        "n. 传承"
+      ],
+      "example": "Cultural heritage needs young learners.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_18",
+      "word": "attitude",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "态度",
+      "meanings": [
+        "n. 态度"
+      ],
+      "example": "Attitude often decides job satisfaction.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_19",
+      "word": "rewarding",
+      "phonetic": "",
+      "pos": "adj.",
+      "meaning": "有回报的",
+      "meanings": [
+        "adj. 有回报的"
+      ],
+      "example": "Teaching can be deeply rewarding.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit04_20",
+      "word": "excellence",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "卓越",
+      "meanings": [
+        "n. 卓越"
+      ],
+      "example": "Excellence is a daily habit.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04",
+        "work, labor, tradition, pride"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit04",
+      "unit_title": "When work is a pleasure",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_01",
+      "word": "astronaut",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "宇航员",
+      "meanings": [
+        "n. 宇航员"
+      ],
+      "example": "Astronauts train for years.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_02",
+      "word": "spacecraft",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "航天器",
+      "meanings": [
+        "n. 航天器"
+      ],
+      "example": "The spacecraft entered lunar orbit.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_03",
+      "word": "exploration",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "探索",
+      "meanings": [
+        "n. 探索"
+      ],
+      "example": "Space exploration demands teamwork.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_04",
+      "word": "mission",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "任务",
+      "meanings": [
+        "n. 任务"
+      ],
+      "example": "The mission lasted several weeks.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_05",
+      "word": "lunar",
+      "phonetic": "",
+      "pos": "adj.",
+      "meaning": "月球的",
+      "meanings": [
+        "adj. 月球的"
+      ],
+      "example": "The lunar surface is harsh.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_06",
+      "word": "orbit",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "轨道",
+      "meanings": [
+        "n. 轨道"
+      ],
+      "example": "The satellite stayed in orbit.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_07",
+      "word": "landing",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "着陆",
+      "meanings": [
+        "n. 着陆"
+      ],
+      "example": "A safe landing required precision.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_08",
+      "word": "endeavor",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "努力；事业",
+      "meanings": [
+        "n. 努力；事业"
+      ],
+      "example": "Their endeavor inspired the nation.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_09",
+      "word": "breakthrough",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "突破",
+      "meanings": [
+        "n. 突破"
+      ],
+      "example": "The probe marked a major breakthrough.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_10",
+      "word": "innovation",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "创新",
+      "meanings": [
+        "n. 创新"
+      ],
+      "example": "Innovation drives space programs.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_11",
+      "word": "research",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "研究",
+      "meanings": [
+        "n. 研究"
+      ],
+      "example": "Scientists published new research.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_12",
+      "word": "telescope",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "望远镜",
+      "meanings": [
+        "n. 望远镜"
+      ],
+      "example": "The telescope captured clear images.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_13",
+      "word": "gravity",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "重力",
+      "meanings": [
+        "n. 重力"
+      ],
+      "example": "Gravity changes in deep space.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_14",
+      "word": "station",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "空间站",
+      "meanings": [
+        "n. 空间站"
+      ],
+      "example": "The space station supports experiments.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_15",
+      "word": "launch",
+      "phonetic": "",
+      "pos": "v.",
+      "meaning": "发射",
+      "meanings": [
+        "v. 发射"
+      ],
+      "example": "They will launch the rocket next month.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_16",
+      "word": "ambitious",
+      "phonetic": "",
+      "pos": "adj.",
+      "meaning": "雄心勃勃的",
+      "meanings": [
+        "adj. 雄心勃勃的"
+      ],
+      "example": "China's space plan is ambitious.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_17",
+      "word": "cooperation",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "合作",
+      "meanings": [
+        "n. 合作"
+      ],
+      "example": "International cooperation continues.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_18",
+      "word": "data",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "数据",
+      "meanings": [
+        "n. 数据"
+      ],
+      "example": "The team analyzed valuable data.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_19",
+      "word": "frontier",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "前沿",
+      "meanings": [
+        "n. 前沿"
+      ],
+      "example": "Space remains a scientific frontier.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit05_20",
+      "word": "odyssey",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "漫长探索",
+      "meanings": [
+        "n. 漫长探索"
+      ],
+      "example": "The lunar odyssey opened a new chapter.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05",
+        "space exploration, innovation, China"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit05",
+      "unit_title": "China's space dream",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_01",
+      "word": "economy",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "经济",
+      "meanings": [
+        "n. 经济"
+      ],
+      "example": "The economy affects everyday prices.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_02",
+      "word": "crisis",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "危机",
+      "meanings": [
+        "n. 危机"
+      ],
+      "example": "Families adapted during the crisis.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_03",
+      "word": "inflation",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "通货膨胀",
+      "meanings": [
+        "n. 通货膨胀"
+      ],
+      "example": "Inflation changed shopping habits.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_04",
+      "word": "budget",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "预算",
+      "meanings": [
+        "n. 预算"
+      ],
+      "example": "Students planned a monthly budget.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_05",
+      "word": "saving",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "储蓄",
+      "meanings": [
+        "n. 储蓄"
+      ],
+      "example": "Saving became a popular topic.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_06",
+      "word": "sharing",
+      "phonetic": "",
+      "pos": "adj.",
+      "meaning": "共享的",
+      "meanings": [
+        "adj. 共享的"
+      ],
+      "example": "Sharing platforms reduce waste.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_07",
+      "word": "resource",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "资源",
+      "meanings": [
+        "n. 资源"
+      ],
+      "example": "Resources should be used wisely.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_08",
+      "word": "consumer",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "消费者",
+      "meanings": [
+        "n. 消费者"
+      ],
+      "example": "Consumers compare prices online.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_09",
+      "word": "supply",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "供应",
+      "meanings": [
+        "n. 供应"
+      ],
+      "example": "Supply chains influence delivery speed.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_10",
+      "word": "demand",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "需求",
+      "meanings": [
+        "n. 需求"
+      ],
+      "example": "Demand rose for digital services.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_11",
+      "word": "startup",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "初创公司",
+      "meanings": [
+        "n. 初创公司"
+      ],
+      "example": "A startup tested book-sharing lockers.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_12",
+      "word": "sustainable",
+      "phonetic": "",
+      "pos": "adj.",
+      "meaning": "可持续的",
+      "meanings": [
+        "adj. 可持续的"
+      ],
+      "example": "Sustainable models last longer.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_13",
+      "word": "recession",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "经济衰退",
+      "meanings": [
+        "n. 经济衰退"
+      ],
+      "example": "A recession tests small businesses.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_14",
+      "word": "invest",
+      "phonetic": "",
+      "pos": "v.",
+      "meaning": "投资",
+      "meanings": [
+        "v. 投资"
+      ],
+      "example": "Communities invest in local shops.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_15",
+      "word": "loan",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "贷款",
+      "meanings": [
+        "n. 贷款"
+      ],
+      "example": "A small loan helped the bookstore.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_16",
+      "word": "revenue",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "收入",
+      "meanings": [
+        "n. 收入"
+      ],
+      "example": "Revenue improved in the second year.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_17",
+      "word": "efficiency",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "效率",
+      "meanings": [
+        "n. 效率"
+      ],
+      "example": "Efficiency keeps costs lower.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_18",
+      "word": "exchange",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "交换",
+      "meanings": [
+        "n. 交换"
+      ],
+      "example": "Book exchange builds community trust.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 2,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_19",
+      "word": "affordable",
+      "phonetic": "",
+      "pos": "adj.",
+      "meaning": "负担得起的",
+      "meanings": [
+        "adj. 负担得起的"
+      ],
+      "example": "Affordable reading matters on campus.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 3,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    },
+    {
+      "id": "rw3_unit06_20",
+      "word": "resilience",
+      "phonetic": "",
+      "pos": "n.",
+      "meaning": "韧性",
+      "meanings": [
+        "n. 韧性"
+      ],
+      "example": "Economic resilience needs diverse skills.",
+      "example_zh": "",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06",
+        "economy, crisis, sharing economy"
+      ],
+      "difficulty": 4,
+      "unit_id": "unit06",
+      "unit_title": "The economy: power behind everyday life",
+      "edition": 4
+    }
+  ]
+}

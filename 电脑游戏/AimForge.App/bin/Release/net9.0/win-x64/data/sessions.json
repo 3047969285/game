@@ -1,0 +1,79 @@
+[
+  {
+    "id": "65444501-8d30-406b-83ea-1684faa5da45",
+    "completedAt": "2026-06-12T06:48:15.2883935+00:00",
+    "mode": 4,
+    "profileName": "CS2 Profile",
+    "hits": 0,
+    "misses": 14,
+    "accuracyPercent": 0,
+    "primaryMetricMs": 0,
+    "notes": "\u56DE\u5408 14 | \u6700\u4F73 0 ms"
+  },
+  {
+    "id": "293df915-ed58-4278-8217-2ff1867a0f8a",
+    "completedAt": "2026-06-12T06:48:15.3781072+00:00",
+    "mode": 4,
+    "profileName": "CS2 Profile",
+    "hits": 0,
+    "misses": 14,
+    "accuracyPercent": 0,
+    "primaryMetricMs": 0,
+    "notes": "\u56DE\u5408 14 | \u6700\u4F73 0 ms"
+  },
+  {
+    "id": "a2e47fb6-3dc3-43e7-9844-bc82a0cd4386",
+    "completedAt": "2026-06-12T06:51:39.3566803+00:00",
+    "mode": 0,
+    "profileName": "Valorant Profile",
+    "hits": 0,
+    "misses": 8,
+    "accuracyPercent": 0,
+    "primaryMetricMs": 0,
+    "notes": "\u5DE6\u952E\u547D\u4E2D\u9776\u5B50"
+  },
+  {
+    "id": "a344c166-79cd-4d75-98f4-d3a768956bd7",
+    "completedAt": "2026-06-12T06:51:39.6174403+00:00",
+    "mode": 0,
+    "profileName": "Valorant Profile",
+    "hits": 0,
+    "misses": 8,
+    "accuracyPercent": 0,
+    "primaryMetricMs": 0,
+    "notes": "\u5DE6\u952E\u547D\u4E2D\u9776\u5B50"
+  },
+  {
+    "id": "42ae4315-1a22-4b4f-91c0-64b003ca01de",
+    "completedAt": "2026-06-12T06:56:04.1148453+00:00",
+    "mode": 0,
+    "profileName": "Valorant Profile",
+    "hits": 0,
+    "misses": 2,
+    "accuracyPercent": 0,
+    "primaryMetricMs": 0,
+    "notes": "\u5DE6\u952E\u547D\u4E2D\u9776\u5B50"
+  },
+  {
+    "id": "bf3136fa-abad-4c6f-9f4a-9e062b1d4c75",
+    "completedAt": "2026-06-12T06:56:04.2031869+00:00",
+    "mode": 0,
+    "profileName": "Valorant Profile",
+    "hits": 0,
+    "misses": 2,
+    "accuracyPercent": 0,
+    "primaryMetricMs": 0,
+    "notes": "\u5DE6\u952E\u547D\u4E2D\u9776\u5B50"
+  },
+  {
+    "id": "ef6e618e-1ca2-4148-bdec-e65ef218a263",
+    "completedAt": "2026-06-12T06:56:04.2604089+00:00",
+    "mode": 0,
+    "profileName": "Valorant Profile",
+    "hits": 0,
+    "misses": 2,
+    "accuracyPercent": 0,
+    "primaryMetricMs": 0,
+    "notes": "\u5DE6\u952E\u547D\u4E2D\u9776\u5B50"
+  }
+]

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "749de620-9466-4634-a90a-85f4ed202410",
+    "completedAt": "2026-06-12T06:21:36.7230726+00:00",
+    "mode": 0,
+    "profileName": "CS2 Profile",
+    "hits": 0,
+    "misses": 4,
+    "accuracyPercent": 0,
+    "primaryMetricMs": 0,
+    "notes": "\u5DE6\u952E\u547D\u4E2D\u9776\u5B50"
+  },
+  {
+    "id": "91ee67da-9797-4485-91f6-c79332eca613",
+    "completedAt": "2026-06-12T06:21:36.8216675+00:00",
+    "mode": 0,
+    "profileName": "CS2 Profile",
+    "hits": 0,
+    "misses": 4,
+    "accuracyPercent": 0,
+    "primaryMetricMs": 0,
+    "notes": "\u5DE6\u952E\u547D\u4E2D\u9776\u5B50"
+  },
+  {
+    "id": "e6e0bc9b-939e-411b-aef2-76db7e41a3da",
+    "completedAt": "2026-06-12T06:21:36.9285148+00:00",
+    "mode": 0,
+    "profileName": "CS2 Profile",
+    "hits": 0,
+    "misses": 4,
+    "accuracyPercent": 0,
+    "primaryMetricMs": 0,
+    "notes": "\u5DE6\u952E\u547D\u4E2D\u9776\u5B50"
+  }
+]
