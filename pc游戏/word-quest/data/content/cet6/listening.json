@@ -3,16 +3,16 @@
   "count": 15,
   "items": [
     {
-      "title": "Conversation at the Bookstore (1)",
-      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "title": "Research Funding Application",
+      "script": "W: Have you submitted the grant application for the climate project?\nM: Not yet. The deadline was extended by two weeks because the committee needs additional review time.\nW: That's good news. I still need to finalize the budget section.\nM: Make sure the overhead costs are itemized separately — they check that carefully.",
       "questions": [
         {
-          "question": "What will the woman probably do?",
+          "question": "Why was the grant deadline extended?",
           "options": [
-            "Wait for the paperback",
-            "Buy the e-book",
-            "Cancel the class",
-            "Borrow a magazine"
+            "The system was down",
+            "The committee needs more review time",
+            "The applicants requested it",
+            "The budget was unclear"
           ],
           "answer": 1
         }
@@ -20,16 +20,16 @@
       "id": "cet6_l_01"
     },
     {
-      "title": "Announcement in the Gym (2)",
-      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "title": "Graduate School Interview",
+      "script": "M: I just received an interview invitation from three graduate programs. I'm not sure which to prioritize.\nW: Consider the faculty research focus first. If your interests align, you'll be more motivated.\nM: One program offers full funding; the others only partial.\nW: Financial support matters for a multi-year degree, but research fit matters more long term.",
       "questions": [
         {
-          "question": "What is closed this afternoon?",
+          "question": "What does the woman recommend prioritizing in graduate school choice?",
           "options": [
-            "The running track",
-            "The swimming pool",
-            "The cafeteria",
-            "The library"
+            "Geographic location",
+            "Faculty research alignment",
+            "Campus facilities",
+            "Alumni network"
           ],
           "answer": 1
         }
@@ -37,50 +37,50 @@
       "id": "cet6_l_02"
     },
     {
-      "title": "Conversation at the Bookstore (3)",
-      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "title": "International Conference Registration",
+      "script": "Good afternoon. This is a reminder that early-bird registration for the International Linguistics Conference closes on Friday at midnight. The reduced rate of 800 yuan applies only to registered students with valid ID. Hotel blocks near the venue are nearly full. Please complete registration and accommodation booking before rates increase.",
       "questions": [
         {
-          "question": "What will the woman probably do?",
+          "question": "What is the discounted registration rate for students?",
           "options": [
-            "Wait for the paperback",
-            "Buy the e-book",
-            "Cancel the class",
-            "Borrow a magazine"
+            "500 yuan",
+            "650 yuan",
+            "800 yuan",
+            "1,000 yuan"
           ],
-          "answer": 1
+          "answer": 2
         }
       ],
       "id": "cet6_l_03"
     },
     {
-      "title": "Announcement in the Gym (4)",
-      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "title": "Thesis Defense Scheduling",
+      "script": "W: Professor, I'd like to schedule my thesis defense for next month. Is that feasible?\nM: It depends on whether all three committee members are available. Have you checked their calendars?\nW: Two confirmed the 15th, but Professor Zhang is traveling that week.\nM: Email him the 22nd as an alternative. We need all three present.",
       "questions": [
         {
-          "question": "What is closed this afternoon?",
+          "question": "What is preventing the defense from being scheduled on the 15th?",
           "options": [
-            "The running track",
-            "The swimming pool",
-            "The cafeteria",
-            "The library"
+            "The venue is booked",
+            "The student isn't ready",
+            "Professor Zhang will be away",
+            "The paperwork is incomplete"
           ],
-          "answer": 1
+          "answer": 2
         }
       ],
       "id": "cet6_l_04"
     },
     {
-      "title": "Conversation at the Bookstore (5)",
-      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "title": "Urban Planning Discussion",
+      "script": "M: The proposal to convert the old factory district into a mixed-use neighborhood has divided the council.\nW: What are the main objections?\nM: Residents worry about gentrification pushing out long-term tenants.\nW: The city should require that at least 30 percent of units remain affordable housing.",
       "questions": [
         {
-          "question": "What will the woman probably do?",
+          "question": "What solution does the woman propose?",
           "options": [
-            "Wait for the paperback",
-            "Buy the e-book",
-            "Cancel the class",
-            "Borrow a magazine"
+            "Cancel the development plan",
+            "Reserve affordable housing units",
+            "Build a new factory instead",
+            "Survey residents again"
           ],
           "answer": 1
         }
@@ -88,16 +88,16 @@
       "id": "cet6_l_05"
     },
     {
-      "title": "Announcement in the Gym (6)",
-      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "title": "Technology Ethics Seminar",
+      "script": "Today's seminar examines algorithmic bias in hiring software. Research has shown that recruitment algorithms trained on historical data can systematically disadvantage female and minority candidates. Companies are now required in some jurisdictions to audit their AI tools for discriminatory patterns before deployment.",
       "questions": [
         {
-          "question": "What is closed this afternoon?",
+          "question": "What are companies in some regions required to do before using AI hiring tools?",
           "options": [
-            "The running track",
-            "The swimming pool",
-            "The cafeteria",
-            "The library"
+            "Register with the government",
+            "Audit them for bias",
+            "Test them on 1,000 applicants",
+            "Submit them to a university"
           ],
           "answer": 1
         }
@@ -105,16 +105,16 @@
       "id": "cet6_l_06"
     },
     {
-      "title": "Conversation at the Bookstore (7)",
-      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "title": "Climate Data Interpretation",
+      "script": "W: The latest data shows a 1.2-degree global average temperature increase since pre-industrial levels.\nM: That's ahead of what most models predicted for this decade.\nW: Ocean surface temperatures are the most alarming indicator. Coral bleaching is accelerating.\nM: The next IPCC report will need to revise its near-term projections upward.",
       "questions": [
         {
-          "question": "What will the woman probably do?",
+          "question": "Which indicator does the woman find most alarming?",
           "options": [
-            "Wait for the paperback",
-            "Buy the e-book",
-            "Cancel the class",
-            "Borrow a magazine"
+            "Rising sea levels",
+            "Ocean surface temperatures",
+            "Glacier retreat",
+            "Extreme rainfall"
           ],
           "answer": 1
         }
@@ -122,33 +122,33 @@
       "id": "cet6_l_07"
     },
     {
-      "title": "Announcement in the Gym (8)",
-      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "title": "Publishing Research Findings",
+      "script": "M: My paper was rejected by the first journal. Should I revise and resubmit or try a different outlet?\nW: Read the reviewers' comments carefully. If the feedback is substantive and fair, revise first.\nM: Two reviewers were positive; one had serious methodological objections.\nW: Address the methodology concern with additional analysis, then resubmit. It's usually worth it.",
       "questions": [
         {
-          "question": "What is closed this afternoon?",
+          "question": "What does the woman advise the man to do with his rejected paper?",
           "options": [
-            "The running track",
-            "The swimming pool",
-            "The cafeteria",
-            "The library"
+            "Give up on publishing it",
+            "Submit to a lower-ranked journal",
+            "Address the methodology and resubmit",
+            "Remove the controversial section"
           ],
-          "answer": 1
+          "answer": 2
         }
       ],
       "id": "cet6_l_08"
     },
     {
-      "title": "Conversation at the Bookstore (9)",
-      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "title": "Cross-Cultural Communication Workshop",
+      "script": "Effective cross-cultural communication goes beyond language fluency. Silence, for example, signals respect in many Asian contexts but discomfort in some Western interactions. Indirect communication styles, common in high-context cultures, may be misread as evasiveness. Training programs help professionals recognize and adapt to these differences.",
       "questions": [
         {
-          "question": "What will the woman probably do?",
+          "question": "What may indirect communication be misread as in low-context cultures?",
           "options": [
-            "Wait for the paperback",
-            "Buy the e-book",
-            "Cancel the class",
-            "Borrow a magazine"
+            "Confidence",
+            "Evasiveness",
+            "Formality",
+            "Intelligence"
           ],
           "answer": 1
         }
@@ -156,16 +156,16 @@
       "id": "cet6_l_09"
     },
     {
-      "title": "Announcement in the Gym (10)",
-      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "title": "Academic Library Reorganization",
+      "script": "W: The library is moving its print journal collection to off-campus storage by December.\nM: Will researchers still have access?\nW: Yes, through a 48-hour retrieval request system. Digital access remains unchanged.\nM: For rare materials, 48 hours is quite reasonable. Most of us use digital versions anyway.",
       "questions": [
         {
-          "question": "What is closed this afternoon?",
+          "question": "How long does it take to retrieve items from off-campus storage?",
           "options": [
-            "The running track",
-            "The swimming pool",
-            "The cafeteria",
-            "The library"
+            "24 hours",
+            "48 hours",
+            "3 days",
+            "One week"
           ],
           "answer": 1
         }
@@ -173,50 +173,50 @@
       "id": "cet6_l_10"
     },
     {
-      "title": "Conversation at the Bookstore (11)",
-      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "title": "Startup Ecosystem Discussion",
+      "script": "M: The city's innovation district has attracted 200 startups in its first two years.\nW: What's driving that growth?\nM: Subsidized office space, proximity to the university's engineering faculty, and a government tax incentive.\nW: The university connection is probably the most sustainable advantage — it provides a steady talent pipeline.",
       "questions": [
         {
-          "question": "What will the woman probably do?",
+          "question": "What does the woman consider the most sustainable advantage of the innovation district?",
           "options": [
-            "Wait for the paperback",
-            "Buy the e-book",
-            "Cancel the class",
-            "Borrow a magazine"
+            "Tax incentives",
+            "Subsidized rent",
+            "Proximity to the university",
+            "Government contracts"
           ],
-          "answer": 1
+          "answer": 2
         }
       ],
       "id": "cet6_l_11"
     },
     {
-      "title": "Announcement in the Gym (12)",
-      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "title": "Healthcare Workforce Shortage",
+      "script": "A new government report projects a shortage of 200,000 nurses nationwide by 2030. Contributing factors include an ageing workforce, high burnout rates, and insufficient training program capacity. The Ministry of Health is offering tuition subsidies for nursing students who commit to working in underserved rural areas after graduation.",
       "questions": [
         {
-          "question": "What is closed this afternoon?",
+          "question": "What incentive is the Ministry offering to nursing students?",
           "options": [
-            "The running track",
-            "The swimming pool",
-            "The cafeteria",
-            "The library"
+            "Free housing",
+            "Guaranteed city placements",
+            "Tuition subsidies for rural service",
+            "Monthly performance bonuses"
           ],
-          "answer": 1
+          "answer": 2
         }
       ],
       "id": "cet6_l_12"
     },
     {
-      "title": "Conversation at the Bookstore (13)",
-      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "title": "Museum Digitalization Project",
+      "script": "W: The museum completed 3D scanning of its entire ceramic collection last month.\nM: Will the scans be publicly accessible?\nW: Yes, a free online portal launches next spring. Educators can download models for classroom use.\nM: That's a significant step. Physical access to fragile artifacts has always been restricted.",
       "questions": [
         {
-          "question": "What will the woman probably do?",
+          "question": "What can educators do with the digital models?",
           "options": [
-            "Wait for the paperback",
-            "Buy the e-book",
-            "Cancel the class",
-            "Borrow a magazine"
+            "Purchase them at a discount",
+            "Download them for classroom use",
+            "Exhibit them in schools",
+            "Print them at the museum"
           ],
           "answer": 1
         }
@@ -224,16 +224,16 @@
       "id": "cet6_l_13"
     },
     {
-      "title": "Announcement in the Gym (14)",
-      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "title": "Food Security Panel",
+      "script": "M: The panel today will address how vertical farming can contribute to urban food security.\nW: The yield-per-square-meter figures look promising, but energy costs remain a barrier.\nM: Several companies are experimenting with solar-powered vertical farms to address that.\nW: If they can bring the energy cost down, this could genuinely transform city food supply chains.",
       "questions": [
         {
-          "question": "What is closed this afternoon?",
+          "question": "What is the main barrier to widespread vertical farming adoption?",
           "options": [
-            "The running track",
-            "The swimming pool",
-            "The cafeteria",
-            "The library"
+            "Lack of consumer interest",
+            "High energy costs",
+            "Limited crop variety",
+            "Insufficient land space"
           ],
           "answer": 1
         }
@@ -241,16 +241,16 @@
       "id": "cet6_l_14"
     },
     {
-      "title": "Conversation at the Bookstore (15)",
-      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "title": "Philosophy of Language Lecture",
+      "script": "Language does not merely describe reality — it helps construct it. Consider how renaming a conflict a 'police action' changes public perception of its legitimacy. Politicians, advertisers, and journalists all understand that word choice shapes how people think. This insight, from speech act theory, has profound implications for media literacy.",
       "questions": [
         {
-          "question": "What will the woman probably do?",
+          "question": "What does the speaker say language does beyond describing reality?",
           "options": [
-            "Wait for the paperback",
-            "Buy the e-book",
-            "Cancel the class",
-            "Borrow a magazine"
+            "Simplifies complex ideas",
+            "Helps construct reality",
+            "Replaces human emotion",
+            "Translates culture"
           ],
           "answer": 1
         }

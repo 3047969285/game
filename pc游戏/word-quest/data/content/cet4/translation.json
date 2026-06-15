@@ -3,104 +3,104 @@
   "count": 10,
   "items": [
     {
-      "zh": "越来越多的人意识到，良好的睡眠对学习效率至关重要。",
-      "en_reference": "More and more people realize that good sleep is essential to learning efficiency.",
+      "zh": "越来越多的大学生意识到，良好的睡眠对学习效率至关重要。",
+      "en_reference": "More and more college students realize that good sleep is crucial to learning efficiency.",
       "keywords": [
         "sleep",
+        "crucial",
         "efficiency"
       ],
-      "id": "cet4_t_01",
-      "title": "越来越多的人意识到，良好的睡眠对学习效率至关重要。 (1)"
+      "id": "cet4_t_01"
     },
     {
-      "zh": "这位教授鼓励学生通过提问来培养批判性思维。",
-      "en_reference": "The professor encourages students to develop critical thinking by asking questions.",
+      "zh": "这位教授鼓励学生通过提问来培养批判性思维能力。",
+      "en_reference": "The professor encourages students to develop critical thinking skills by asking questions.",
       "keywords": [
         "critical",
-        "thinking"
+        "thinking",
+        "encourage"
       ],
-      "id": "cet4_t_02",
-      "title": "这位教授鼓励学生通过提问来培养批判性思维。 (2)"
+      "id": "cet4_t_02"
     },
     {
-      "zh": "越来越多的人意识到，良好的睡眠对学习效率至关重要。",
-      "en_reference": "More and more people realize that good sleep is essential to learning efficiency.",
+      "zh": "随着互联网技术的飞速发展，在线教育已成为一种广受欢迎的学习方式。",
+      "en_reference": "With the rapid development of internet technology, online education has become a widely popular way of learning.",
       "keywords": [
-        "sleep",
-        "efficiency"
+        "internet",
+        "online",
+        "popular"
       ],
-      "id": "cet4_t_03",
-      "title": "越来越多的人意识到，良好的睡眠对学习效率至关重要。 (3)"
+      "id": "cet4_t_03"
     },
     {
-      "zh": "这位教授鼓励学生通过提问来培养批判性思维。",
-      "en_reference": "The professor encourages students to develop critical thinking by asking questions.",
+      "zh": "政府正在采取一系列措施来减少城市中的空气污染。",
+      "en_reference": "The government is taking a series of measures to reduce air pollution in cities.",
       "keywords": [
-        "critical",
-        "thinking"
+        "measures",
+        "reduce",
+        "pollution"
       ],
-      "id": "cet4_t_04",
-      "title": "这位教授鼓励学生通过提问来培养批判性思维。 (4)"
+      "id": "cet4_t_04"
     },
     {
-      "zh": "越来越多的人意识到，良好的睡眠对学习效率至关重要。",
-      "en_reference": "More and more people realize that good sleep is essential to learning efficiency.",
+      "zh": "坚持锻炼不仅能增强体质，还能有效缓解学习压力。",
+      "en_reference": "Regular exercise not only strengthens physical fitness but also effectively relieves study pressure.",
       "keywords": [
-        "sleep",
-        "efficiency"
+        "exercise",
+        "relieves",
+        "pressure"
       ],
-      "id": "cet4_t_05",
-      "title": "越来越多的人意识到，良好的睡眠对学习效率至关重要。 (5)"
+      "id": "cet4_t_05"
     },
     {
-      "zh": "这位教授鼓励学生通过提问来培养批判性思维。",
-      "en_reference": "The professor encourages students to develop critical thinking by asking questions.",
+      "zh": "中国传统文化在全球范围内的影响力正在不断增强。",
+      "en_reference": "The influence of traditional Chinese culture is continuously growing on a global scale.",
       "keywords": [
-        "critical",
-        "thinking"
+        "traditional",
+        "influence",
+        "global"
       ],
-      "id": "cet4_t_06",
-      "title": "这位教授鼓励学生通过提问来培养批判性思维。 (6)"
+      "id": "cet4_t_06"
     },
     {
-      "zh": "越来越多的人意识到，良好的睡眠对学习效率至关重要。",
-      "en_reference": "More and more people realize that good sleep is essential to learning efficiency.",
+      "zh": "大学生应该充分利用课余时间拓展自己的知识面和技能。",
+      "en_reference": "College students should make full use of their spare time to broaden their knowledge and skills.",
       "keywords": [
-        "sleep",
-        "efficiency"
+        "spare",
+        "broaden",
+        "skills"
       ],
-      "id": "cet4_t_07",
-      "title": "越来越多的人意识到，良好的睡眠对学习效率至关重要。 (7)"
+      "id": "cet4_t_07"
     },
     {
-      "zh": "这位教授鼓励学生通过提问来培养批判性思维。",
-      "en_reference": "The professor encourages students to develop critical thinking by asking questions.",
+      "zh": "共享经济的兴起为人们提供了更多便利，但同时也带来了新的挑战。",
+      "en_reference": "The rise of the sharing economy has provided people with more convenience while bringing new challenges.",
       "keywords": [
-        "critical",
-        "thinking"
+        "sharing",
+        "convenience",
+        "challenges"
       ],
-      "id": "cet4_t_08",
-      "title": "这位教授鼓励学生通过提问来培养批判性思维。 (8)"
+      "id": "cet4_t_08"
     },
     {
-      "zh": "越来越多的人意识到，良好的睡眠对学习效率至关重要。",
-      "en_reference": "More and more people realize that good sleep is essential to learning efficiency.",
+      "zh": "越来越多的年轻人选择在大城市创业，以实现自己的职业梦想。",
+      "en_reference": "More and more young people choose to start businesses in big cities to realize their career dreams.",
       "keywords": [
-        "sleep",
-        "efficiency"
+        "start",
+        "businesses",
+        "career"
       ],
-      "id": "cet4_t_09",
-      "title": "越来越多的人意识到，良好的睡眠对学习效率至关重要。 (9)"
+      "id": "cet4_t_09"
     },
     {
-      "zh": "这位教授鼓励学生通过提问来培养批判性思维。",
-      "en_reference": "The professor encourages students to develop critical thinking by asking questions.",
+      "zh": "保护生态环境是每位公民的责任，也是可持续发展的基础。",
+      "en_reference": "Protecting the ecological environment is the responsibility of every citizen and the foundation of sustainable development.",
       "keywords": [
-        "critical",
-        "thinking"
+        "protecting",
+        "responsibility",
+        "sustainable"
       ],
-      "id": "cet4_t_10",
-      "title": "这位教授鼓励学生通过提问来培养批判性思维。 (10)"
+      "id": "cet4_t_10"
     }
   ]
 }

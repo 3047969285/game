@@ -8,6 +8,7 @@ from pathlib import Path
 SCRIPTS = [
     "build_vocabulary.py",
     "build_rw3_content.py",
+    "enrich_rw3_vocab.py",   # 覆盖词汇，添加音标/例句译文/搭配
     "build_exam_content.py",
     "build_templates.py",
 ]

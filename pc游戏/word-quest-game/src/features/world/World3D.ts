@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import type { MapNode } from "../../core/types";
+import type { MapNode, WordPickup } from "../../core/types";
 import { createLandmarkWithCad } from "./cadLandmark";
 import { createExplorerAvatar } from "./explorerAvatar";
 import { ExplorerCamera } from "./ExplorerCamera";
@@ -9,6 +9,7 @@ import { createLantern, createPine, createRock, createTree } from "./props";
 import { createSignpost } from "./signpost";
 import type { MinimapState } from "./Minimap";
 import { getTheme } from "./theme";
+import { DEFAULT_BIOME, getBiome, type UnitBiome } from "./unitBiome";
 import { createTerrainMaps } from "./textures";
 import { applyLockedStyle, disposeGroup, removeGroup, seededRand, terrainHeight } from "./utils";
 import {
@@ -20,13 +21,18 @@ import {
   TERRAIN_SIZE,
 } from "./worldConfig";
 
+/** 词汇光球靠近触发半径 */
+const PICKUP_RADIUS = 5;
+
 export interface World3DOptions {
   onNodeClick: (nodeId: string) => void;
   onProximity?: (node: MapNode | null) => void;
   onExploreUpdate?: (state: MinimapState) => void;
+  onPickupNear?: (pickup: WordPickup | null) => void;
+  onPickupCollect?: (pickupId: string) => void;
 }
 
-/** 三维探险世界：走动探索 + 走近互动 */
+/** 三维探险世界：走动探索 + 走近互动（原神风格单元地图） */
 export class World3D {
   private container: HTMLElement;
   private renderer: THREE.WebGLRenderer;
@@ -43,6 +49,8 @@ export class World3D {
   private terrain?: THREE.Mesh;
   private skyDome?: THREE.Mesh;
   private sun?: THREE.DirectionalLight;
+  private hemi?: THREE.HemisphereLight;
+  private ambientLight?: THREE.AmbientLight;
   private animId = 0;
   private paused = true;
   private clock = new THREE.Clock();
@@ -51,17 +59,27 @@ export class World3D {
   private onNodeClick: (nodeId: string) => void;
   private onProximity?: (node: MapNode | null) => void;
   private onExploreUpdate?: (state: MinimapState) => void;
+  private onPickupNear?: (pickup: WordPickup | null) => void;
+  private onPickupCollect?: (pickupId: string) => void;
   private waterMeshes: THREE.Mesh[] = [];
   private rebuildToken = 0;
   private player = new PlayerController();
   private explorerCam = new ExplorerCamera();
   private nearNode: MapNode | null = null;
+  private currentBiome: UnitBiome = DEFAULT_BIOME;
+  /** 词汇光球组 */
+  private pickupGroup?: THREE.Group;
+  private pickupMeshes = new Map<string, THREE.Group>();
+  private pickupData: WordPickup[] = [];
+  private nearPickup: WordPickup | null = null;
 
   constructor(container: HTMLElement, options: World3DOptions) {
     this.container = container;
     this.onNodeClick = options.onNodeClick;
     this.onProximity = options.onProximity;
     this.onExploreUpdate = options.onExploreUpdate;
+    this.onPickupNear = options.onPickupNear;
+    this.onPickupCollect = options.onPickupCollect;
 
     const w = container.clientWidth || 360;
     const h = container.clientHeight || 420;
@@ -112,8 +130,12 @@ export class World3D {
     this.player.setEnabled(false);
   }
 
-  /** 外部触发互动（按钮 / E 键） */
+  /** 外部触发互动（按钮 / E 键）：优先收集光球，其次进入节点 */
   tryInteract(): boolean {
+    if (this.nearPickup) {
+      this.onPickupCollect?.(this.nearPickup.id);
+      return true;
+    }
     if (!this.nearNode?.unlocked) return false;
     this.onNodeClick(this.nearNode.id);
     return true;
@@ -122,6 +144,45 @@ export class World3D {
   /** 虚拟摇杆输入（-1～1） */
   setStickInput(x: number, z: number): void {
     this.player.setStickInput(x, z);
+  }
+
+  /** 切换生物群系主题（单元地图风格） */
+  setBiome(unitId?: string): void {
+    const biome = getBiome(unitId);
+    this.currentBiome = biome;
+    this.applyBiomeToSky(biome);
+    this.applyBiomeToLights(biome);
+    this.scene.fog = new THREE.FogExp2(biome.fogColor, biome.fogDensity);
+  }
+
+  /** 设置词汇光球（散布在探索地图上的收集点） */
+  setPickups(pickups: WordPickup[]): void {
+    this.pickupData = pickups;
+    this.rebuildPickups();
+  }
+
+  /** 标记某个光球已被收集（播放消失动画并从场景移除） */
+  markPickupCollected(pickupId: string): void {
+    const item = this.pickupData.find((p) => p.id === pickupId);
+    if (item) item.collected = true;
+
+    const group = this.pickupMeshes.get(pickupId);
+    if (group) {
+      group.userData.dying = true;
+      group.userData.dieTimer = 0;
+    }
+
+    if (this.nearPickup?.id === pickupId) {
+      this.nearPickup = null;
+      this.onPickupNear?.(null);
+    }
+  }
+
+  /** 主动触发拾取最近的光球 */
+  tryCollectPickup(): boolean {
+    if (!this.nearPickup) return false;
+    this.onPickupCollect?.(this.nearPickup.id);
+    return true;
   }
 
   dispose(): void {
@@ -135,7 +196,9 @@ export class World3D {
     removeGroup(this.scene, this.decorGroup);
     removeGroup(this.scene, this.waterGroup);
     removeGroup(this.scene, this.explorer);
+    removeGroup(this.scene, this.pickupGroup);
     for (const g of this.nodeGroups.values()) disposeGroup(g);
+    for (const g of this.pickupMeshes.values()) disposeGroup(g);
 
     if (this.terrain) {
       this.terrain.geometry.dispose();
@@ -228,8 +291,10 @@ export class World3D {
   }
 
   private buildLights(): void {
-    this.scene.add(new THREE.HemisphereLight(0xc8e0ff, 0x243828, 0.72));
-    this.scene.add(new THREE.AmbientLight(0x9ab0cc, 0.32));
+    this.hemi = new THREE.HemisphereLight(0xc8e0ff, 0x243828, 0.72);
+    this.scene.add(this.hemi);
+    this.ambientLight = new THREE.AmbientLight(0x9ab0cc, 0.32);
+    this.scene.add(this.ambientLight);
 
     this.sun = new THREE.DirectionalLight(0xfff4e0, 1.45);
     this.sun.position.set(55, 72, 35);
@@ -248,6 +313,137 @@ export class World3D {
     const moon = new THREE.PointLight(0xa5c8ff, 0.55, 160);
     moon.position.set(-35, 28, TERRAIN_ORIGIN_Z);
     this.scene.add(rim, moon);
+  }
+
+  /** 更新天空 shader 颜色 */
+  private applyBiomeToSky(biome: UnitBiome): void {
+    if (!this.skyDome) return;
+    const mat = this.skyDome.material as THREE.ShaderMaterial;
+    mat.uniforms.topColor.value.setHex(biome.skyTop);
+    mat.uniforms.midColor.value.setHex(biome.skyMid);
+    mat.uniforms.bottomColor.value.setHex(biome.skyBot);
+    mat.needsUpdate = true;
+  }
+
+  /** 更新光照颜色 */
+  private applyBiomeToLights(biome: UnitBiome): void {
+    if (this.hemi) {
+      this.hemi.color.setHex(biome.hemiSky);
+      this.hemi.groundColor.setHex(biome.hemiGround);
+    }
+    if (this.ambientLight) this.ambientLight.color.setHex(biome.ambientColor);
+    if (this.sun) {
+      this.sun.color.setHex(biome.sunColor);
+      this.sun.intensity = biome.sunIntensity;
+    }
+  }
+
+  /** 重建词汇光球 */
+  private rebuildPickups(): void {
+    removeGroup(this.scene, this.pickupGroup);
+    this.pickupMeshes.clear();
+
+    this.pickupGroup = new THREE.Group();
+
+    for (const pickup of this.pickupData) {
+      if (pickup.collected) continue;
+      const orb = this.createPickupOrb(pickup);
+      this.pickupGroup.add(orb);
+      this.pickupMeshes.set(pickup.id, orb);
+    }
+
+    this.scene.add(this.pickupGroup);
+  }
+
+  /** 创建单个词汇光球 */
+  private createPickupOrb(pickup: WordPickup): THREE.Group {
+    const biome = this.currentBiome;
+    const g = new THREE.Group();
+    g.position.set(pickup.x, pickup.y, pickup.z);
+    g.userData.pickupId = pickup.id;
+
+    // 内核球
+    const coreMat = new THREE.MeshStandardMaterial({
+      color: biome.orbColor,
+      emissive: new THREE.Color(biome.orbColor),
+      emissiveIntensity: 1.8,
+      roughness: 0.1,
+      metalness: 0.4,
+      transparent: true,
+      opacity: 0.92,
+    });
+    const core = new THREE.Mesh(new THREE.SphereGeometry(0.32, 14, 10), coreMat);
+    core.userData.isOrbCore = true;
+    g.add(core);
+
+    // 外层辉光壳
+    const glowMat = new THREE.MeshBasicMaterial({
+      color: biome.glowColor,
+      transparent: true,
+      opacity: 0.22,
+      side: THREE.BackSide,
+      depthWrite: false,
+    });
+    const glowShell = new THREE.Mesh(new THREE.SphereGeometry(0.58, 12, 8), glowMat);
+    glowShell.userData.isOrbGlow = true;
+    g.add(glowShell);
+
+    // 旋转光环
+    const ringGeo = new THREE.TorusGeometry(0.52, 0.04, 6, 24);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: biome.orbColor,
+      transparent: true,
+      opacity: 0.55,
+      depthWrite: false,
+    });
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.userData.isOrbRing = true;
+    ring.rotation.x = Math.PI / 3;
+    g.add(ring);
+
+    // 点光源
+    const light = new THREE.PointLight(biome.glowColor, 0.6, 8);
+    light.userData.isOrbLight = true;
+    g.add(light);
+
+    // 文字精灵
+    const sprite = this.createWordSprite(pickup.word, biome.orbColor);
+    sprite.position.y = 1.1;
+    sprite.userData.isWordSprite = true;
+    g.add(sprite);
+
+    // 储存基准Y用于浮动动画
+    g.userData.baseY = pickup.y;
+    g.userData.pickupId = pickup.id;
+
+    return g;
+  }
+
+  /** 用 Canvas 绘制单词文字精灵 */
+  private createWordSprite(word: string, color: number): THREE.Sprite {
+    const c = new THREE.Color(color);
+    const hex = `#${c.getHexString()}`;
+    const canvas = document.createElement("canvas");
+    canvas.width = 256;
+    canvas.height = 64;
+    const ctx = canvas.getContext("2d")!;
+    ctx.clearRect(0, 0, 256, 64);
+    ctx.fillStyle = "rgba(0,0,0,0.52)";
+    ctx.roundRect?.(4, 8, 248, 48, 12);
+    ctx.fill();
+    ctx.font = "bold 26px 'Arial', sans-serif";
+    ctx.fillStyle = hex;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.shadowColor = hex;
+    ctx.shadowBlur = 8;
+    ctx.fillText(word, 128, 34);
+
+    const tex = new THREE.CanvasTexture(canvas);
+    const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false });
+    const sprite = new THREE.Sprite(mat);
+    sprite.scale.set(2.4, 0.6, 1);
+    return sprite;
   }
 
   private buildTerrain(): void {
@@ -520,6 +716,27 @@ export class World3D {
     }
   }
 
+  private updatePickupProximity(): void {
+    let nearestPickup: WordPickup | null = null;
+    let bestDist = PICKUP_RADIUS;
+
+    for (const pickup of this.pickupData) {
+      if (pickup.collected) continue;
+      const dx = this.player.position.x - pickup.x;
+      const dz = this.player.position.z - pickup.z;
+      const d = Math.hypot(dx, dz);
+      if (d < bestDist) {
+        bestDist = d;
+        nearestPickup = pickup;
+      }
+    }
+
+    if (nearestPickup?.id !== this.nearPickup?.id) {
+      this.nearPickup = nearestPickup;
+      this.onPickupNear?.(nearestPickup);
+    }
+  }
+
   private animate = (): void => {
     this.animId = requestAnimationFrame(this.animate);
     if (this.paused) return;
@@ -550,12 +767,14 @@ export class World3D {
     }
 
     this.updateProximity();
+    this.updatePickupProximity();
     this.tickScene(t);
     this.onExploreUpdate?.({
       playerX: this.player.position.x,
       playerZ: this.player.position.z,
       nodes: this.nodes,
       nearNodeId: this.nearNode?.id,
+      pickups: this.pickupData,
     });
     this.renderer.render(this.scene, this.camera);
   };
@@ -563,7 +782,63 @@ export class World3D {
   private tickScene(t: number): void {
     if (this.sun) {
       this.sun.position.x = 55 + Math.sin(t * 0.06) * 10;
-      this.sun.intensity = 1.35 + Math.sin(t * 0.12) * 0.12;
+      // 使用生物群系基础亮度，不覆盖 setBiome 设置的值，仅做轻微呼吸
+      this.sun.intensity = this.currentBiome.sunIntensity * (0.95 + Math.sin(t * 0.12) * 0.05);
+    }
+
+    // 词汇光球动画
+    for (const [id, group] of this.pickupMeshes) {
+      const isNear = this.nearPickup?.id === id;
+      const baseY = group.userData.baseY as number ?? group.position.y;
+
+      // 消亡动画
+      if (group.userData.dying) {
+        group.userData.dieTimer = (group.userData.dieTimer as number ?? 0) + 0.04;
+        const p = group.userData.dieTimer as number;
+        group.scale.setScalar(1 - p * 0.9);
+        group.position.y = baseY + p * 3;
+        group.traverse((o) => {
+          const m = o as THREE.Mesh;
+          if (m.material && "opacity" in m.material) (m.material as THREE.Material & { opacity: number }).opacity *= 0.85;
+        });
+        if (p >= 1) {
+          this.pickupGroup?.remove(group);
+          this.pickupMeshes.delete(id);
+        }
+        continue;
+      }
+
+      // 浮动动画
+      group.position.y = baseY + Math.sin(t * 1.4 + id.length * 0.5) * 0.28;
+
+      group.traverse((obj) => {
+        const mesh = obj as THREE.Mesh;
+        if (mesh.userData?.isOrbCore) {
+          mesh.rotation.y = t * 0.8 + id.length;
+          const sc = isNear ? 1 + Math.sin(t * 4) * 0.15 : 1 + Math.sin(t * 2) * 0.06;
+          mesh.scale.setScalar(sc);
+          const mat = mesh.material as THREE.MeshStandardMaterial;
+          mat.emissiveIntensity = isNear ? 3.5 + Math.sin(t * 5) * 0.8 : 1.8 + Math.sin(t * 2) * 0.3;
+        }
+        if (mesh.userData?.isOrbGlow) {
+          (mesh.material as THREE.MeshBasicMaterial).opacity = isNear
+            ? 0.42 + Math.sin(t * 3) * 0.15
+            : 0.18 + Math.sin(t * 1.5) * 0.06;
+        }
+        if (mesh.userData?.isOrbRing) {
+          mesh.rotation.z = t * 1.2 + id.length * 0.3;
+          mesh.rotation.x = Math.PI / 3 + Math.sin(t * 0.5) * 0.2;
+          (mesh.material as THREE.MeshBasicMaterial).opacity = isNear ? 0.8 : 0.45;
+        }
+        if (mesh.userData?.isOrbLight) {
+          const light = mesh as unknown as THREE.PointLight;
+          light.intensity = isNear ? 1.4 + Math.sin(t * 4) * 0.4 : 0.6 + Math.sin(t * 2) * 0.1;
+        }
+        if (mesh.userData?.isWordSprite) {
+          const sprite = mesh as unknown as THREE.Sprite;
+          sprite.material.opacity = isNear ? 1.0 : 0.72 + Math.sin(t * 1.2) * 0.12;
+        }
+      });
     }
 
     for (const [id, group] of this.nodeGroups) {

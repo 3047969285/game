@@ -69,7 +69,9 @@ export function buildExploreMap(template: CourseTemplate, cleared: Set<string>):
     const theme = themeFor(zone);
     const zoneZ = TERRAIN_ORIGIN_Z - 160 + zi * 52;
 
-    const playable = zone.levels.filter((l) => l.word_ids.length > 0);
+    const playable = zone.levels.filter(
+      (l) => l.word_ids.length > 0 || (l.content_refs && l.content_refs.length > 0)
+    );
 
     playable.forEach((level, li) => {
       const t = globalIdx + li * 0.15;

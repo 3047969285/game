@@ -3,16 +3,16 @@
   "count": 15,
   "items": [
     {
-      "title": "Conversation at the Bookstore (1)",
-      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "title": "Choosing a Textbook",
+      "script": "W: Professor Li, I can't find the textbook you recommended. Is there an alternative?\nM: Yes, you can use the second edition instead. It covers the same chapters.\nW: Great. Can I borrow it from the library?\nM: There are three copies on reserve. You can check one out for two hours.",
       "questions": [
         {
-          "question": "What will the woman probably do?",
+          "question": "What does the professor suggest the woman do?",
           "options": [
-            "Wait for the paperback",
-            "Buy the e-book",
-            "Cancel the class",
-            "Borrow a magazine"
+            "Buy the first edition",
+            "Borrow a copy from the library",
+            "Download a digital version",
+            "Share with a classmate"
           ],
           "answer": 1
         }
@@ -20,16 +20,16 @@
       "id": "cet4_l_01"
     },
     {
-      "title": "Announcement in the Gym (2)",
-      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "title": "Campus Shuttle Schedule Change",
+      "script": "Attention, students. Due to road construction near Gate 2, the evening campus shuttle will depart from Gate 4 starting Monday. The schedule remains the same. Last departure is at 10:30 p.m. Please allow extra walking time to reach the new stop.",
       "questions": [
         {
-          "question": "What is closed this afternoon?",
+          "question": "What has changed about the campus shuttle?",
           "options": [
-            "The running track",
-            "The swimming pool",
-            "The cafeteria",
-            "The library"
+            "The departure time",
+            "The departure location",
+            "The ticket price",
+            "The route number"
           ],
           "answer": 1
         }
@@ -37,16 +37,16 @@
       "id": "cet4_l_02"
     },
     {
-      "title": "Conversation at the Bookstore (3)",
-      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "title": "Job Interview Preparation",
+      "script": "M: I have a job interview tomorrow and I'm really nervous.\nW: Have you researched the company?\nM: A little, but I haven't prepared answers to common questions yet.\nW: Start with 'Tell me about yourself.' That's almost always the first question.",
       "questions": [
         {
-          "question": "What will the woman probably do?",
+          "question": "What does the woman advise the man to prepare first?",
           "options": [
-            "Wait for the paperback",
-            "Buy the e-book",
-            "Cancel the class",
-            "Borrow a magazine"
+            "Company background",
+            "A self-introduction",
+            "Technical skills",
+            "A list of references"
           ],
           "answer": 1
         }
@@ -54,16 +54,16 @@
       "id": "cet4_l_03"
     },
     {
-      "title": "Announcement in the Gym (4)",
-      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "title": "Lost Student ID",
+      "script": "W: Excuse me, I lost my student ID. How do I get a replacement?\nM: You'll need to fill out a form at the student affairs office and pay a fee of ten yuan.\nW: How long will it take?\nM: Usually three working days. You can pick it up at window five.",
       "questions": [
         {
-          "question": "What is closed this afternoon?",
+          "question": "Where should the woman go to get a replacement ID?",
           "options": [
-            "The running track",
-            "The swimming pool",
-            "The cafeteria",
-            "The library"
+            "The library counter",
+            "The student affairs office",
+            "The security office",
+            "The IT center"
           ],
           "answer": 1
         }
@@ -71,16 +71,16 @@
       "id": "cet4_l_04"
     },
     {
-      "title": "Conversation at the Bookstore (5)",
-      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "title": "Dormitory Maintenance Notice",
+      "script": "This is an announcement for residents of Building C. Hot water will be unavailable from 8 a.m. to noon on Saturday for routine pipe maintenance. Cold water supply will not be affected. We apologize for the inconvenience and thank you for your patience.",
       "questions": [
         {
-          "question": "What will the woman probably do?",
+          "question": "What will be unavailable Saturday morning in Building C?",
           "options": [
-            "Wait for the paperback",
-            "Buy the e-book",
-            "Cancel the class",
-            "Borrow a magazine"
+            "Cold water",
+            "Hot water",
+            "Electricity",
+            "Internet"
           ],
           "answer": 1
         }
@@ -88,50 +88,50 @@
       "id": "cet4_l_05"
     },
     {
-      "title": "Announcement in the Gym (6)",
-      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "title": "Study Group Arrangement",
+      "script": "M: Are we still meeting at the library at six?\nW: I have a lab session until seven. Can we move it to seven-thirty?\nM: That works. Should we reserve a group room?\nW: I already did — Room 204 on the second floor.",
       "questions": [
         {
-          "question": "What is closed this afternoon?",
+          "question": "What time will the study group meet?",
           "options": [
-            "The running track",
-            "The swimming pool",
-            "The cafeteria",
-            "The library"
+            "Six o'clock",
+            "Six-thirty",
+            "Seven o'clock",
+            "Seven-thirty"
           ],
-          "answer": 1
+          "answer": 3
         }
       ],
       "id": "cet4_l_06"
     },
     {
-      "title": "Conversation at the Bookstore (7)",
-      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "title": "Choosing a Major",
+      "script": "W: I'm torn between economics and computer science. Which do you think is better?\nM: It depends on what you enjoy. Economics suits analytical thinkers; CS suits problem-solvers.\nW: I love both. Is there a combined program?\nM: Yes, the business computing track lets you take courses in both departments.",
       "questions": [
         {
-          "question": "What will the woman probably do?",
+          "question": "What does the man suggest the woman consider?",
           "options": [
-            "Wait for the paperback",
-            "Buy the e-book",
-            "Cancel the class",
-            "Borrow a magazine"
+            "Choosing economics only",
+            "Choosing computer science only",
+            "A combined business computing track",
+            "Switching to engineering"
           ],
-          "answer": 1
+          "answer": 2
         }
       ],
       "id": "cet4_l_07"
     },
     {
-      "title": "Announcement in the Gym (8)",
-      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "title": "Library Fine Notice",
+      "script": "Dear library users, please be reminded that overdue books incur a fine of 0.2 yuan per day. You may renew online up to twice before the item must be returned. Renewals are not possible if another user has placed a hold on the book. Check your account before the due date.",
       "questions": [
         {
-          "question": "What is closed this afternoon?",
+          "question": "When is online renewal NOT possible?",
           "options": [
-            "The running track",
-            "The swimming pool",
-            "The cafeteria",
-            "The library"
+            "When the fine exceeds ten yuan",
+            "When another user has reserved the book",
+            "After the book is one week overdue",
+            "On weekends"
           ],
           "answer": 1
         }
@@ -139,33 +139,33 @@
       "id": "cet4_l_08"
     },
     {
-      "title": "Conversation at the Bookstore (9)",
-      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "title": "Planning a Graduation Trip",
+      "script": "M: Where should we go for the graduation trip? Some people want the beach, others the mountains.\nW: Why not vote? We could send a survey to the whole class.\nM: Good idea. And we should book early — prices double in summer.\nW: I'll set up the survey tonight and share it in the group chat.",
       "questions": [
         {
-          "question": "What will the woman probably do?",
+          "question": "What will the woman do tonight?",
           "options": [
-            "Wait for the paperback",
-            "Buy the e-book",
-            "Cancel the class",
-            "Borrow a magazine"
+            "Book the hotel",
+            "Call a travel agent",
+            "Create a survey for the class",
+            "Post photos online"
           ],
-          "answer": 1
+          "answer": 2
         }
       ],
       "id": "cet4_l_09"
     },
     {
-      "title": "Announcement in the Gym (10)",
-      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "title": "Health Center Announcement",
+      "script": "The campus health center will offer free flu vaccinations next Thursday from 9 a.m. to 4 p.m. Students must bring their student ID. No appointment is needed. The clinic is located in Building A, Room 101. Quantities are limited, so early arrival is recommended.",
       "questions": [
         {
-          "question": "What is closed this afternoon?",
+          "question": "What do students need to bring for the vaccination?",
           "options": [
-            "The running track",
-            "The swimming pool",
-            "The cafeteria",
-            "The library"
+            "A health insurance card",
+            "A student ID",
+            "A doctor's note",
+            "Cash payment"
           ],
           "answer": 1
         }
@@ -173,16 +173,16 @@
       "id": "cet4_l_10"
     },
     {
-      "title": "Conversation at the Bookstore (11)",
-      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "title": "Requesting a Grade Review",
+      "script": "W: I think there's a mistake in my exam grade. Who should I contact?\nM: You need to submit a grade review form within five days of the result release.\nW: Can I email the professor directly?\nM: Only after you submit the official form through the academic affairs portal.",
       "questions": [
         {
-          "question": "What will the woman probably do?",
+          "question": "What must the woman do before contacting the professor?",
           "options": [
-            "Wait for the paperback",
-            "Buy the e-book",
-            "Cancel the class",
-            "Borrow a magazine"
+            "Wait two weeks",
+            "Submit an official review form",
+            "Speak to the department head",
+            "Re-take the exam"
           ],
           "answer": 1
         }
@@ -190,50 +190,50 @@
       "id": "cet4_l_11"
     },
     {
-      "title": "Announcement in the Gym (12)",
-      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "title": "Part-time Job Search",
+      "script": "M: I'm looking for a part-time job near campus. Any suggestions?\nW: The coffee shop on West Street is hiring. It's only a ten-minute walk.\nM: What are the hours?\nW: Weekends only, nine to five. The pay is sixteen yuan an hour.",
       "questions": [
         {
-          "question": "What is closed this afternoon?",
+          "question": "When does the coffee shop need workers?",
           "options": [
-            "The running track",
-            "The swimming pool",
-            "The cafeteria",
-            "The library"
+            "Weekdays only",
+            "Every evening",
+            "Weekends only",
+            "Monday through Friday"
           ],
-          "answer": 1
+          "answer": 2
         }
       ],
       "id": "cet4_l_12"
     },
     {
-      "title": "Conversation at the Bookstore (13)",
-      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "title": "Campus Event Cancelled",
+      "script": "We regret to inform you that this Saturday's outdoor film screening has been cancelled due to the weather forecast. A replacement indoor screening will take place in Lecture Hall B at the same time — 7 p.m. Seating is limited to 200. Arrive early to secure a seat.",
       "questions": [
         {
-          "question": "What will the woman probably do?",
+          "question": "Why was the outdoor screening cancelled?",
           "options": [
-            "Wait for the paperback",
-            "Buy the e-book",
-            "Cancel the class",
-            "Borrow a magazine"
+            "Lack of funding",
+            "Equipment failure",
+            "Bad weather forecast",
+            "Low ticket sales"
           ],
-          "answer": 1
+          "answer": 2
         }
       ],
       "id": "cet4_l_13"
     },
     {
-      "title": "Announcement in the Gym (14)",
-      "script": "Attention please. Due to maintenance, the swimming pool will close at 4 p.m. today. Morning swim classes are unaffected. Members may use the running track instead. We apologize for the inconvenience.",
+      "title": "Renting an Apartment",
+      "script": "W: I found a two-bedroom apartment near the university for 2,800 yuan a month.\nM: That sounds reasonable. Is it furnished?\nW: Yes, basic furniture is included, but there's no washing machine.\nM: You could use the laundry room on the ground floor. Most buildings have one.",
       "questions": [
         {
-          "question": "What is closed this afternoon?",
+          "question": "What is NOT included in the apartment?",
           "options": [
-            "The running track",
-            "The swimming pool",
-            "The cafeteria",
-            "The library"
+            "Basic furniture",
+            "A washing machine",
+            "A kitchen",
+            "A bathroom"
           ],
           "answer": 1
         }
@@ -241,18 +241,18 @@
       "id": "cet4_l_14"
     },
     {
-      "title": "Conversation at the Bookstore (15)",
-      "script": "W: Do you have the new edition of the writing guide?\nM: Yes, but the paperback is sold out. The e-book is available.\nW: Then I'll take the e-book. I need it for next week's class.\nM: Great. I can email you the download link in two minutes.",
+      "title": "Sports Center Policy Update",
+      "script": "The sports center will now require all users to register online at least one hour before their session. Walk-ins will no longer be accepted during peak hours — 6 to 9 p.m. on weekdays. Weekend slots remain open for walk-ins. Student ID must be scanned at entry.",
       "questions": [
         {
-          "question": "What will the woman probably do?",
+          "question": "When must users register online in advance?",
           "options": [
-            "Wait for the paperback",
-            "Buy the e-book",
-            "Cancel the class",
-            "Borrow a magazine"
+            "Every day without exception",
+            "On weekends only",
+            "During weekday peak hours",
+            "Only for team sports"
           ],
-          "answer": 1
+          "answer": 2
         }
       ],
       "id": "cet4_l_15"

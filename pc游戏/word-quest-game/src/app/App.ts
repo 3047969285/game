@@ -9,14 +9,21 @@ import type {
   Rw3Phase,
   ScenePhase,
   WordEntry,
+  WordPickup,
+  UnitExploreState,
   ZoneDef,
+  CetContentBundle,
+  CetListeningItem,
+  CetReadingItem,
+  CetTranslationItem,
 } from "../core/types";
 import { ALL_COURSES, COURSE_LABELS } from "../core/constants";
-import { loadRw3Units, loadTemplate, loadVocabulary, type Rw3UnitContent } from "../infra/data";
+import { loadRw3Units, loadTemplate, loadVocabulary, loadCetContent, type Rw3UnitContent } from "../infra/data";
 import { buildRw3UnitLevel, migrateRw3Progress } from "../infra/rw3";
 import { audio } from "../infra/audio";
 import { GameState } from "../services/gameState";
 import { buildExploreMap, resolveCurrentNode } from "../features/explore/map";
+import { buildWordPickups, getUnitCenter } from "../features/explore/wordPickupLayout";
 import { buildRw3UnitScene } from "../features/explore/rw3Story";
 import { buildContextScene } from "../features/explore/story";
 import { buildClozeItems } from "../features/learn/cloze";
@@ -30,6 +37,16 @@ type Screen = "map" | "scene";
 
 const GUIDE_KEY = "word_quest_guide_seen";
 const CLOZE_BATCH = 5;
+
+/** TTS 朗读英文单词 */
+function speakWord(word: string): void {
+  if (!("speechSynthesis" in window)) return;
+  const utt = new SpeechSynthesisUtterance(word);
+  utt.lang = "en-US";
+  utt.rate = 0.9;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utt);
+}
 
 function modeLabel(mode: SceneMode): string {
   if (mode === "review") return "间隔复习";
@@ -60,12 +77,22 @@ export class App {
   private rw3QuizCorrect = new Set<number>();
   private rw3ClozeIndex = 0;
   private rw3ClozeDone = new Set<string>();
+  private rw3TranslationIndex = 0;
   private rw3TranslationDone = false;
   private rw3WritingAck = false;
   private world: World3D | null = null;
   private minimap: Minimap | null = null;
   private renderedCourse: CourseId | null = null;
   private rw3Units = new Map<string, Rw3UnitContent>();
+  private cetContent: CetContentBundle | null = null;
+  // CET 非词汇关卡状态
+  private cetQuizIndex = 0;
+  private cetQuizCorrect = new Set<number>();
+  private cetTranslationDone = false;
+  // 单元探索模式（原神风格）
+  private unitExplore: UnitExploreState | null = null;
+  // 快速单词卡弹窗计时器
+  private wordCardTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor(root: HTMLElement) {
     this.root = root;
@@ -84,6 +111,7 @@ export class App {
     this.template = await loadTemplate(courseId);
     this.wordMap = await loadVocabulary(courseId);
     this.rw3Units = courseId === "college_english_rw3" ? await loadRw3Units() : new Map();
+    this.cetContent = (courseId === "cet4" || courseId === "cet6") ? await loadCetContent(courseId) : null;
     this.levelMap.clear();
 
     if (this.template.id === "college_english_rw3") {
@@ -179,12 +207,22 @@ export class App {
               <span id="proximity-label" class="proximity-label"></span>
               <button type="button" class="btn-explore-interact" id="btn-world-interact">进入学习 · E</button>
             </div>
+            <div id="pickup-panel" class="pickup-panel hidden">
+              <span id="pickup-label" class="pickup-word-hint"></span>
+              <button type="button" class="btn-collect" id="btn-collect-pickup">收集 · E</button>
+            </div>
+            <div id="explore-progress-hud" class="explore-progress-hud hidden">
+              <div id="explore-progress-text" class="explore-progress-text"></div>
+              <button type="button" class="btn-exit-explore" id="btn-exit-explore">← 返回地图</button>
+            </div>
             <canvas id="explore-minimap" class="explore-minimap" width="120" height="120" aria-label="探险小地图"></canvas>
             <div id="move-stick" class="move-stick" aria-label="移动摇杆">
               <div class="move-stick-knob" id="move-stick-knob"></div>
             </div>
           </div>
           <div class="world-hint-bar" id="world-hint-bar">WASD 走动 · Shift 奔跑 · 点地前往 · 走近水晶按 E</div>
+          <!-- 快速单词卡弹窗（走近光球时弹出） -->
+          <div id="word-pickup-card" class="word-pickup-card hidden"></div>
         </div>
         <div id="map-hint"></div>
       `;
@@ -201,6 +239,8 @@ export class App {
           this.minimap?.setNodes(state.nodes);
           this.minimap?.draw(state);
         },
+        onPickupNear: (pickup) => this.onPickupNear(pickup),
+        onPickupCollect: (id) => this.collectPickup(id),
       });
       this.bindExploreControls(viewport);
 
@@ -262,6 +302,16 @@ export class App {
     viewport.querySelector("#btn-world-interact")?.addEventListener("click", () => {
       audio.play("click");
       this.world?.tryInteract();
+    });
+
+    viewport.querySelector("#btn-collect-pickup")?.addEventListener("click", () => {
+      audio.play("click");
+      this.world?.tryCollectPickup();
+    });
+
+    viewport.querySelector("#btn-exit-explore")?.addEventListener("click", () => {
+      audio.play("click");
+      this.exitUnitExplore();
     });
 
     const stick = viewport.querySelector("#move-stick") as HTMLElement | null;
@@ -406,6 +456,24 @@ export class App {
   }
 
   private onNodeClick(nodeId: string): void {
+    if (this.state.save.courseId === "college_english_rw3") {
+      if (this.unitExplore) {
+        // 探索模式内：找到学习圣所 → 直接进入读写场景
+        audio.play("click");
+        this.state.setMapNode(nodeId);
+        this.world?.pause();
+        this.openScene(nodeId);
+        return;
+      }
+      // 概览地图：点击单元水晶 → 进入该单元探索地图
+      const node = this.mapNodes.find((n) => n.id === nodeId);
+      if (!node?.unlocked) { showToast("请先完成前一个单元"); return; }
+      audio.play("click");
+      this.state.setMapNode(nodeId);
+      this.enterUnitExplore(nodeId);
+      return;
+    }
+
     const node = this.mapNodes.find((n) => n.id === nodeId);
     if (!node?.unlocked) {
       showToast("请先完成前一个探索点");
@@ -418,15 +486,269 @@ export class App {
     this.openScene(nodeId);
   }
 
+  // ─────────────────────────────────────────────────────────────────────────
+  // 单元探索模式（原神风格：每单元一张主题地图，词汇散落全图可拾取）
+  // ─────────────────────────────────────────────────────────────────────────
+
+  private enterUnitExplore(unitNodeId: string, restoredCollected?: Set<string>): void {
+    const ref = this.levelMap.get(unitNodeId);
+    if (!ref) return;
+
+    const { zone } = ref;
+    const unitId = zone.id.replace("rw3_", "");
+
+    // 收集该 zone 下所有词汇（去重）
+    const seen = new Set<string>();
+    const words: { id: string; word: string; meaning: string }[] = [];
+    for (const lvl of zone.levels) {
+      for (const wid of lvl.word_ids) {
+        if (seen.has(wid)) continue;
+        seen.add(wid);
+        const w = this.wordMap.get(wid);
+        if (w) words.push({ id: w.id, word: w.word, meaning: w.meaning });
+      }
+    }
+
+    const collectedIds =
+      restoredCollected ??
+      new Set(words.map((w) => w.id).filter((id) => this.state.save.discoveredWords.includes(id)));
+
+    const pickups = buildWordPickups(unitId, words);
+    for (const p of pickups) {
+      if (collectedIds.has(p.id)) p.collected = true;
+    }
+
+    this.unitExplore = { unitId, unitLabel: zone.name, pickups, collectedIds };
+
+    // 创建单元圣所节点（学习入口 Portal）— 位于探索区中心
+    const center = getUnitCenter(unitId);
+    const portalNode: MapNode = {
+      id: zone.id,
+      zoneName: zone.name,
+      name: "📚 学习圣所",
+      icon: "📚",
+      theme: "library",
+      x: center.x,
+      y: 0,
+      z: center.z - 12,
+      unlocked: true,
+      cleared: this.state.save.levelProgress[zone.id]?.cleared ?? false,
+    };
+
+    this.world?.setBiome(unitId);
+    this.world?.setPickups(pickups.filter((p) => !p.collected));
+    this.world?.setNodes([portalNode], zone.id);
+    // 同步小地图范围以包含所有词汇光球
+    this.minimap?.setNodes([portalNode], pickups);
+
+    this.updateExploreProgressHud();
+    this.showExploreHud(true);
+
+    const hintBar = this.root.querySelector("#world-hint-bar");
+    if (hintBar) {
+      hintBar.textContent = "走近发光词球按 E 收集词汇 · 前往中央 📚 学习圣所按 E 进入读写场景";
+    }
+
+    // 展示单元入口介绍卡
+    this.showUnitEntryCard(zone, words.length, collectedIds.size);
+  }
+
+  /** 展示进入单元时的简介卡 */
+  private showUnitEntryCard(zone: ZoneDef, totalWords: number, collected: number): void {
+    const rw3Unit = this.rw3Units.get(zone.id.replace("rw3_", ""));
+    const title = rw3Unit?.title ?? zone.name_en;
+    const theme = rw3Unit?.theme ?? "";
+
+    const sections: string[] = [];
+    if (rw3Unit?.sections.section_a?.title) sections.push(`Section A: ${rw3Unit.sections.section_a.title}`);
+    if (rw3Unit?.sections.section_b?.title) sections.push(`Section B: ${rw3Unit.sections.section_b.title}`);
+    if (rw3Unit?.sections.section_c?.title) sections.push(`Section C: ${rw3Unit.sections.section_c.title}`);
+
+    const card = this.root.querySelector("#word-pickup-card");
+    if (!card) return;
+
+    if (this.wordCardTimer) clearTimeout(this.wordCardTimer);
+
+    card.innerHTML = `
+      <div class="wc-inner unit-entry-card">
+        <div class="wc-collected-badge">📍 ${zone.name}</div>
+        <div class="unit-entry-title">${title}</div>
+        <div class="unit-entry-theme">${theme}</div>
+        <div class="unit-entry-sections">${sections.map((s) => `<div class="unit-sec-item">${s}</div>`).join("")}</div>
+        <div class="unit-entry-stats">
+          <span>词汇 ${totalWords} 词</span>
+          <span>已收集 ${collected}/${totalWords}</span>
+          <span>阅读 · 听力 · 翻译 · 写作</span>
+        </div>
+        <button class="wc-dismiss" id="btn-unit-entry-ok">开始探索 →</button>
+      </div>
+    `;
+    card.classList.remove("hidden");
+    card.classList.add("wc-enter");
+
+    card.querySelector("#btn-unit-entry-ok")?.addEventListener("click", () => this.dismissWordCard());
+    this.wordCardTimer = setTimeout(() => this.dismissWordCard(), 8000);
+  }
+
+  private exitUnitExplore(): void {
+    this.unitExplore = null;
+
+    // 恢复默认生物群系和全局节点
+    this.world?.setBiome(undefined);
+    this.world?.setPickups([]);
+    this.world?.setNodes(this.mapNodes, this.state.save.mapNodeId);
+
+    this.showExploreHud(false);
+    this.hidePickupPanel();
+
+    const hintBar = this.root.querySelector("#world-hint-bar");
+    if (hintBar) {
+      hintBar.textContent = "WASD/摇杆走动 · Shift 奔跑 · 走近 Unit 水晶 · E 进入单元地图";
+    }
+  }
+
+  private showExploreHud(show: boolean): void {
+    const hud = this.root.querySelector("#explore-progress-hud");
+    if (hud) hud.classList.toggle("hidden", !show);
+  }
+
+  private updateExploreProgressHud(): void {
+    if (!this.unitExplore) return;
+    const text = this.root.querySelector("#explore-progress-text");
+    if (!text) return;
+
+    const total = this.unitExplore.pickups.length;
+    const collected = this.unitExplore.collectedIds.size;
+    const pct = total > 0 ? Math.round((collected / total) * 100) : 0;
+    text.innerHTML = `
+      <span class="explore-unit-label">${this.unitExplore.unitLabel}</span>
+      <span class="explore-pickup-count">词汇收集 ${collected}/${total}</span>
+      <div class="explore-pickup-bar"><div class="explore-pickup-fill" style="width:${pct}%"></div></div>
+    `;
+  }
+
+  private onPickupNear(pickup: WordPickup | null): void {
+    const panel = this.root.querySelector("#pickup-panel");
+    const label = this.root.querySelector("#pickup-label");
+    if (!panel) return;
+
+    if (!pickup) {
+      panel.classList.add("hidden");
+      return;
+    }
+
+    panel.classList.remove("hidden");
+    if (label) label.textContent = `"${pickup.word}" — ${pickup.meaning}`;
+  }
+
+  private hidePickupPanel(): void {
+    this.root.querySelector("#pickup-panel")?.classList.add("hidden");
+    this.root.querySelector("#word-pickup-card")?.classList.add("hidden");
+  }
+
+  private collectPickup(id: string): void {
+    if (!this.unitExplore) return;
+
+    const pickup = this.unitExplore.pickups.find((p) => p.id === id);
+    if (!pickup || pickup.collected) return;
+
+    pickup.collected = true;
+    this.unitExplore.collectedIds.add(id);
+
+    // 记录到已发现词汇
+    this.state.recordDiscovered(id);
+
+    // 通知 3D 世界播放消失动画
+    this.world?.markPickupCollected(id);
+
+    // 隐藏拾取面板
+    this.hidePickupPanel();
+
+    // 更新进度 HUD
+    this.updateExploreProgressHud();
+
+    // 弹出快速单词卡
+    this.showWordPickupCard(pickup);
+
+    audio.play("win");
+  }
+
+  private showWordPickupCard(pickup: WordPickup): void {
+    const card = this.root.querySelector("#word-pickup-card");
+    if (!card) return;
+
+    if (this.wordCardTimer) clearTimeout(this.wordCardTimer);
+
+    const w = this.wordMap.get(pickup.id);
+    const pos = w?.pos ? `<span class="wc-pos">${w.pos}</span>` : "";
+    const example = w?.example
+      ? `<div class="wc-example">${w.example}</div>`
+      : "";
+
+    card.innerHTML = `
+      <div class="wc-inner">
+        <div class="wc-collected-badge">✦ 词汇已收集</div>
+        <div class="wc-word">
+          ${pickup.word}
+          <button class="btn-tts wc-tts" title="朗读">🔊</button>
+        </div>
+        ${pos}
+        <div class="wc-meaning">${pickup.meaning}</div>
+        ${example}
+        <button class="wc-dismiss">继续探索 →</button>
+      </div>
+    `;
+    card.classList.remove("hidden");
+    card.classList.add("wc-enter");
+
+    card.querySelector(".btn-tts")?.addEventListener("click", () => speakWord(pickup.word));
+    card.querySelector(".wc-dismiss")?.addEventListener("click", () => this.dismissWordCard());
+
+    this.wordCardTimer = setTimeout(() => this.dismissWordCard(), 5000);
+  }
+
+  private dismissWordCard(): void {
+    const card = this.root.querySelector("#word-pickup-card");
+    if (!card) return;
+    card.classList.add("hidden");
+    card.classList.remove("wc-enter");
+    if (this.wordCardTimer) {
+      clearTimeout(this.wordCardTimer);
+      this.wordCardTimer = null;
+    }
+  }
+
   /** 进入学习场景 */
   private openScene(levelId: string): void {
     const ref = this.levelMap.get(levelId);
-    if (!ref || ref.level.word_ids.length === 0) {
-      showToast("场景内容即将更新");
+    if (!ref) {
+      showToast("场景加载失败");
       return;
     }
 
     const { level, zone } = ref;
+
+    // CET 非词汇关卡（听力 / 阅读 / 翻译 / Boss）
+    if (level.word_ids.length === 0 && level.content_refs && level.content_refs.length > 0) {
+      if (!this.cetContent) {
+        showToast("内容加载中，请稍候");
+        return;
+      }
+      this.state.setMapNode(levelId);
+      audio.play("start");
+      this.cetQuizIndex = 0;
+      this.cetQuizCorrect = new Set();
+      this.cetTranslationDone = false;
+      this.renderCetContentScene(level, zone);
+      this.show("scene");
+      return;
+    }
+
+    if (level.word_ids.length === 0) {
+      showToast("场景内容即将更新");
+      return;
+    }
+
     const index = this.template!.zones.findIndex((z) => z.id === zone.id);
     const built =
       this.state.save.courseId === "college_english_rw3"
@@ -442,6 +764,259 @@ export class App {
     audio.play("start");
     this.renderScene();
     this.show("scene");
+  }
+
+
+  /** 渲染 CET 内容场景（听力/阅读/翻译/Boss） */
+  private renderCetContentScene(level: LevelDef, zone: ZoneDef): void {
+    const screen = this.root.querySelector("#screen-scene");
+    if (!screen || !this.cetContent) return;
+
+    const ref = (level.content_refs ?? [])[0] ?? "";
+    const [kind] = ref.split(":");
+
+    if (kind === "listening") {
+      const id = ref.split(":")[1];
+      const item = this.cetContent.listening.get(id);
+      if (item) { this.renderCetListening(screen, level, zone, item); return; }
+    }
+    if (kind === "reading") {
+      const id = ref.split(":")[1];
+      const item = this.cetContent.reading.get(id);
+      if (item) { this.renderCetReading(screen, level, zone, item); return; }
+    }
+    if (kind === "translation") {
+      const id = ref.split(":")[1];
+      const item = this.cetContent.translation.get(id);
+      if (item) { this.renderCetTranslation(screen, level, zone, item); return; }
+    }
+    if (kind === "mock_exam") {
+      this.renderCetBoss(screen, level, zone);
+      return;
+    }
+
+    showToast("内容格式错误");
+  }
+
+  private cetQuizHeader(level: LevelDef, zone: ZoneDef, icon: string, subtitle: string, correct: number, total: number): string {
+    return `
+      <div class="card scene-header">
+        <span class="progress-pill">${zone.name} · ${level.title}</span>
+        <div class="title" style="font-size:1.1rem">${icon} ${level.title}</div>
+        <p class="learn-steps">${subtitle}</p>
+        <div class="discover-bar"><div class="discover-fill" style="width:${total ? (correct / total) * 100 : 0}%"></div></div>
+        <div class="discover-label">题目 <strong>${correct}/${total}</strong></div>
+      </div>
+    `;
+  }
+
+  private renderCetListening(screen: Element, level: LevelDef, zone: ZoneDef, item: CetListeningItem): void {
+    const q = item.questions[this.cetQuizIndex];
+    const done = this.cetQuizCorrect.size >= item.questions.length;
+    const scriptLines = item.script.split("\n");
+
+    screen.innerHTML = `
+      ${this.cetQuizHeader(level, zone, "🎧", "① 阅读听力稿 ② 完成理解题", this.cetQuizCorrect.size, item.questions.length)}
+      <div class="card listen-script" id="listen-body">
+        ${scriptLines.map((l) => `<p style="margin:0.25rem 0">${l}</p>`).join("")}
+      </div>
+      ${q ? `<div class="card quiz-card" id="quiz-card">
+        <p class="quiz-q">${q.question}</p>
+        <div class="quiz-choices" id="quiz-choices"></div>
+        <p class="quiz-feedback" id="quiz-feedback"></p>
+      </div>` : ""}
+      <div class="scene-actions">
+        <button class="btn btn-ghost" id="btn-back-map" type="button">返回地图</button>
+        <button class="btn btn-primary" id="btn-cet-finish" type="button" ${done ? "" : "disabled"}>完成本关</button>
+      </div>
+    `;
+
+    if (q) this.bindCetQuizChoices(screen, item.questions, "listening", level, zone, item);
+
+    screen.querySelector("#btn-back-map")?.addEventListener("click", () => {
+      audio.play("nav"); this.renderMap(); this.show("map");
+    });
+    screen.querySelector("#btn-cet-finish")?.addEventListener("click", () => {
+      if (done) { this.finishCetScene(level.id); }
+    });
+  }
+
+  private renderCetReading(screen: Element, level: LevelDef, zone: ZoneDef, item: CetReadingItem): void {
+    const q = item.questions[this.cetQuizIndex];
+    const done = this.cetQuizCorrect.size >= item.questions.length;
+
+    screen.innerHTML = `
+      ${this.cetQuizHeader(level, zone, "📖", "① 阅读短文 ② 完成理解题", this.cetQuizCorrect.size, item.questions.length)}
+      <div class="card listen-script" id="passage-body">
+        <p style="line-height:1.8">${item.passage}</p>
+      </div>
+      ${q ? `<div class="card quiz-card" id="quiz-card">
+        <p class="quiz-q">${q.question}</p>
+        <div class="quiz-choices" id="quiz-choices"></div>
+        <p class="quiz-feedback" id="quiz-feedback"></p>
+      </div>` : ""}
+      <div class="scene-actions">
+        <button class="btn btn-ghost" id="btn-back-map" type="button">返回地图</button>
+        <button class="btn btn-primary" id="btn-cet-finish" type="button" ${done ? "" : "disabled"}>完成本关</button>
+      </div>
+    `;
+
+    if (q) this.bindCetQuizChoices(screen, item.questions, "reading", level, zone, item);
+
+    screen.querySelector("#btn-back-map")?.addEventListener("click", () => {
+      audio.play("nav"); this.renderMap(); this.show("map");
+    });
+    screen.querySelector("#btn-cet-finish")?.addEventListener("click", () => {
+      if (done) { this.finishCetScene(level.id); }
+    });
+  }
+
+  private renderCetTranslation(screen: Element, level: LevelDef, zone: ZoneDef, item: CetTranslationItem): void {
+    screen.innerHTML = `
+      <div class="card scene-header">
+        <span class="progress-pill">${zone.name} · ${level.title}</span>
+        <div class="title" style="font-size:1.1rem">✍️ ${level.title}</div>
+        <p class="learn-steps">将中文句子译为英文（需包含关键词）</p>
+      </div>
+      <div class="card translation-card">
+        <p class="translation-zh">${item.zh}</p>
+        <p class="translation-hint">关键词：${item.keywords.join("、")}</p>
+        <textarea class="translation-input" id="translation-input" rows="4" placeholder="在此输入英文译文…"></textarea>
+        <p class="translation-ref hidden" id="translation-ref">参考译文：${item.en_reference}</p>
+        <p class="translation-feedback" id="translation-feedback"></p>
+        <button class="btn btn-primary" id="btn-check-translation" type="button">提交译文</button>
+      </div>
+      <div class="scene-actions">
+        <button class="btn btn-ghost" id="btn-back-map" type="button">返回地图</button>
+        <button class="btn btn-primary" id="btn-cet-finish" type="button" ${this.cetTranslationDone ? "" : "disabled"}>完成本关</button>
+      </div>
+    `;
+
+    screen.querySelector("#btn-check-translation")?.addEventListener("click", () => {
+      const input = (screen.querySelector("#translation-input") as HTMLTextAreaElement).value;
+      const result = checkTranslation(input, {
+        zh: item.zh, enReference: item.en_reference, keywords: item.keywords,
+      });
+      const feedback = screen.querySelector("#translation-feedback");
+      const ref = screen.querySelector("#translation-ref");
+      ref?.classList.remove("hidden");
+      if (result.ok) {
+        this.cetTranslationDone = true;
+        audio.play("win");
+        if (feedback) feedback.textContent = `关键词命中：${result.matched.join("、")} ✓`;
+        const btn = screen.querySelector("#btn-cet-finish") as HTMLButtonElement;
+        if (btn) btn.disabled = false;
+      } else {
+        audio.play("click");
+        if (feedback) feedback.textContent = `请再试试，需包含至少 2 个关键词（${item.keywords.join("、")}）。`;
+      }
+    });
+    screen.querySelector("#btn-back-map")?.addEventListener("click", () => {
+      audio.play("nav"); this.renderMap(); this.show("map");
+    });
+    screen.querySelector("#btn-cet-finish")?.addEventListener("click", () => {
+      if (this.cetTranslationDone) { this.finishCetScene(level.id); }
+    });
+  }
+
+  private renderCetBoss(screen: Element, level: LevelDef, zone: ZoneDef): void {
+    if (!this.cetContent) return;
+    // Boss 关：听力 + 阅读 + 翻译各取一道
+    const listenArr = [...this.cetContent.listening.values()];
+    const readArr = [...this.cetContent.reading.values()];
+    const bossIdx = zone.levels.findIndex((l) => l.id === level.id);
+    const listening = listenArr[bossIdx % listenArr.length];
+    const reading = readArr[(bossIdx + 2) % readArr.length];
+
+    // 简化 Boss：合并展示听力 + 阅读各一题 + 翻译
+    const allQ = [...(listening?.questions ?? []).slice(0, 1), ...(reading?.questions ?? []).slice(0, 1)];
+    const done = this.cetQuizCorrect.size >= allQ.length;
+
+    screen.innerHTML = `
+      <div class="card scene-header">
+        <span class="progress-pill">${zone.name} · ${level.title} · Boss 挑战</span>
+        <div class="title" style="font-size:1.1rem">🏛 ${level.title}</div>
+        <p class="learn-steps">听力 + 阅读理解 · 综合挑战</p>
+        <div class="discover-bar"><div class="discover-fill" style="width:${allQ.length ? (this.cetQuizCorrect.size / allQ.length) * 100 : 0}%"></div></div>
+        <div class="discover-label">题目 <strong>${this.cetQuizCorrect.size}/${allQ.length}</strong></div>
+      </div>
+      ${listening ? `<div class="card listen-script"><p class="subtitle" style="margin-bottom:0.5rem">🎧 听力稿</p>${listening.script.split("\n").map((l) => `<p style="margin:0.25rem 0">${l}</p>`).join("")}</div>` : ""}
+      ${reading ? `<div class="card listen-script"><p class="subtitle" style="margin-bottom:0.5rem">📖 阅读段落</p><p style="line-height:1.8">${reading.passage}</p></div>` : ""}
+      ${!done && allQ[this.cetQuizIndex] ? `<div class="card quiz-card" id="quiz-card">
+        <p class="quiz-q">${allQ[this.cetQuizIndex].question}</p>
+        <div class="quiz-choices" id="quiz-choices"></div>
+        <p class="quiz-feedback" id="quiz-feedback"></p>
+      </div>` : ""}
+      <div class="scene-actions">
+        <button class="btn btn-ghost" id="btn-back-map" type="button">返回地图</button>
+        <button class="btn btn-primary" id="btn-cet-finish" type="button" ${done ? "" : "disabled"}>Boss 攻克！</button>
+      </div>
+    `;
+
+    if (!done && allQ[this.cetQuizIndex]) {
+      this.bindCetQuizChoices(screen, allQ, "boss", level, zone, null);
+    }
+    screen.querySelector("#btn-back-map")?.addEventListener("click", () => {
+      audio.play("nav"); this.renderMap(); this.show("map");
+    });
+    screen.querySelector("#btn-cet-finish")?.addEventListener("click", () => {
+      if (done) { this.finishCetScene(level.id); }
+    });
+  }
+
+  private bindCetQuizChoices(
+    screen: Element,
+    questions: Array<{ question: string; options: string[]; answer: number; explanation?: string }>,
+    _sceneType: string,
+    _level: LevelDef,
+    _zone: ZoneDef,
+    _itemRef: CetListeningItem | CetReadingItem | null
+  ): void {
+    const q = questions[this.cetQuizIndex];
+    if (!q) return;
+    const choices = screen.querySelector("#quiz-choices")!;
+    q.options.forEach((opt, i) => {
+      const btn = el("button", "quiz-choice");
+      btn.type = "button";
+      btn.textContent = opt;
+      btn.addEventListener("click", () => {
+        screen.querySelectorAll(".quiz-choice").forEach((b) => { (b as HTMLButtonElement).disabled = true; });
+        const feedback = screen.querySelector("#quiz-feedback");
+        if (i === q.answer) {
+          btn.classList.add("correct");
+          this.cetQuizCorrect.add(this.cetQuizIndex);
+          audio.play("win");
+          if (feedback) feedback.textContent = q.explanation ?? "正确！";
+          setTimeout(() => {
+            if (this.cetQuizIndex < questions.length - 1) {
+              this.cetQuizIndex++;
+            }
+            const ref = this.levelMap.get(this.state.save.mapNodeId);
+            if (ref) this.renderCetContentScene(ref.level, ref.zone);
+          }, 700);
+        } else {
+          btn.classList.add("wrong");
+          audio.play("click");
+          if (feedback) feedback.textContent = `答案：${q.options[q.answer]}。${q.explanation ?? ""}`;
+          setTimeout(() => {
+            const ref = this.levelMap.get(this.state.save.mapNodeId);
+            if (ref) this.renderCetContentScene(ref.level, ref.zone);
+          }, 1100);
+        }
+      });
+      choices.appendChild(btn);
+    });
+  }
+
+  private finishCetScene(levelId: string): void {
+    const wasNew = !this.state.save.levelProgress[levelId]?.cleared;
+    if (wasNew) this.state.completeLevel(levelId);
+    showToast(wasNew ? "本关完成！" : "重温完成");
+    audio.play("win");
+    this.loadCourse(this.state.save.courseId).then(() => {
+      this.renderMap();
+      this.show("map");
+    });
   }
 
   /** 进入间隔复习场景 */
@@ -482,6 +1057,7 @@ export class App {
     this.rw3QuizCorrect = new Set();
     this.rw3ClozeIndex = 0;
     this.rw3ClozeDone = new Set();
+    this.rw3TranslationIndex = 0;
     this.rw3TranslationDone = false;
     this.rw3WritingAck = false;
 
@@ -567,29 +1143,32 @@ export class App {
     const vocabHint =
       phase.kind === "vocab" ? ` · 第 ${phase.level}/${phase.totalLevels} 关（每关 5 词）` : "";
 
+    const sectionIcon = phase.kind === "section_a" ? "📖 A" : phase.kind === "section_b" ? "📖 B" : phase.kind === "section_c" ? "🏮 C" : "🗝";
+    const sectionColor = phase.kind === "section_c" ? "rw3-section-c" : phase.kind === "vocab" ? "rw3-section-vocab" : "";
+
     screen.innerHTML = `
-      <div class="card scene-header">
-        <span class="progress-pill">读写3 单元 · ${phaseNo}/${totalPhases} · ${phase.label}</span>
+      <div class="card scene-header ${sectionColor}">
+        <span class="progress-pill">读写3 · ${phaseNo}/${totalPhases} · ${phase.label}</span>
         ${this.rw3StepperHtml()}
-        <div class="title" style="font-size:1.1rem">${phase.kind === "vocab" ? "词汇专项" : phase.title}</div>
-        <p class="learn-steps">阅读语境 → 点击高亮词 → 主动回忆 → 自评</p>
+        <div class="rw3-section-badge">${sectionIcon} ${phase.kind === "vocab" ? "词汇专项练习" : phase.title}</div>
+        <p class="learn-steps">① 阅读段落  ② 点击高亮词  ③ 在心里回忆释义  ④ 自评记忆强度</p>
         <div class="discover-bar"><div class="discover-fill" style="width:${total ? (graded / total) * 100 : 0}%"></div></div>
-        <div class="discover-label">本阶段 <strong>${graded}/${total}</strong>${vocabHint}</div>
+        <div class="discover-label">已回忆 <strong>${graded}/${total}</strong> 词${vocabHint}</div>
         <div class="word-chips" id="word-chips">
           ${phase.words
             .map((w) => {
               const g = this.sessionGraded.has(w.id);
               const active = this.selectedWordId === w.id;
-              return `<button type="button" class="word-chip${g ? " done" : ""}${active ? " active" : ""}" data-wid="${w.id}">${w.word}</button>`;
+              return `<button type="button" class="word-chip${g ? " done" : ""}${active ? " active" : ""}" data-wid="${w.id}" title="${w.meaning}">${w.word}</button>`;
             })
             .join("")}
         </div>
       </div>
-      <div class="card scene-body" id="scene-body"></div>
-      <div class="card word-panel" id="word-panel"><p class="subtitle">点击高亮词，先在心里回忆释义</p></div>
+      <div class="card scene-body rw3-passage-body" id="scene-body"></div>
+      <div class="card word-panel" id="word-panel"><p class="subtitle">点击高亮词 → 主动回忆其中文含义 → 再自评记忆强度</p></div>
       <div class="scene-actions">
         <button class="btn btn-ghost" id="btn-back-map" type="button">返回地图</button>
-        <button class="btn btn-primary" id="btn-rw3-next" type="button" ${done ? "" : "disabled"}>${phaseNo >= totalPhases ? "完成本单元" : "下一阶段"}</button>
+        <button class="btn btn-primary" id="btn-rw3-next" type="button" ${done ? "" : "disabled"}>${phaseNo >= totalPhases ? "🎉 完成本单元" : "下一阶段 →"}</button>
       </div>
     `;
 
@@ -826,32 +1405,44 @@ export class App {
     phaseNo: number,
     totalPhases: number
   ): void {
-    const sentence = phase.sentences[0];
+    const total = phase.sentences.length;
+    const idx = Math.min(this.rw3TranslationIndex, total - 1);
+    const sentence = phase.sentences[idx];
+    const allDone = this.rw3TranslationDone;
 
     screen.innerHTML = `
       <div class="card scene-header">
         <span class="progress-pill">读写3 单元 · ${phaseNo}/${totalPhases} · ${phase.label}</span>
         ${this.rw3StepperHtml()}
-        <div class="title" style="font-size:1.1rem">英译练习</div>
-        <p class="learn-steps">将中文句子译为英文（需包含关键词）</p>
+        <div class="title" style="font-size:1.1rem">英汉互译练习</div>
+        <p class="learn-steps">将中文句子译成英文，需包含关键词 · 共 ${total} 句</p>
+        <div class="discover-bar"><div class="discover-fill" style="width:${(idx / total) * 100}%"></div></div>
+        <div class="discover-label">第 <strong>${idx + 1}/${total}</strong> 句${allDone ? " · 全部完成 ✓" : ""}</div>
       </div>
       <div class="card translation-card">
+        <div class="trans-sentence-no">第 ${idx + 1} 句</div>
         <p class="translation-zh">${sentence?.zh ?? ""}</p>
-        <p class="translation-hint">关键词：${sentence?.keywords.join("、") ?? ""}</p>
-        <textarea class="translation-input" id="translation-input" rows="4" placeholder="在此输入英文译文…"></textarea>
-        <p class="translation-ref hidden" id="translation-ref">参考译文：${sentence?.enReference ?? ""}</p>
+        <div class="trans-keywords">
+          ${(sentence?.keywords ?? []).map((kw) => `<span class="trans-kw-chip">${kw}</span>`).join("")}
+        </div>
+        <textarea class="translation-input" id="translation-input" rows="3" placeholder="在此输入英文译文…"></textarea>
+        <p class="translation-ref hidden" id="translation-ref">
+          <span class="trans-ref-label">参考译文</span>
+          ${sentence?.enReference ?? ""}
+        </p>
         <p class="translation-feedback" id="translation-feedback"></p>
-        <button class="btn btn-primary" id="btn-check-translation" type="button">提交译文</button>
+        <button class="btn btn-primary" id="btn-check-translation" type="button">提交 · 检查关键词</button>
       </div>
       <div class="scene-actions">
         <button class="btn btn-ghost" id="btn-back-map" type="button">返回地图</button>
-        <button class="btn btn-primary" id="btn-rw3-next" type="button" ${this.rw3TranslationDone ? "" : "disabled"}>下一阶段</button>
+        <button class="btn btn-primary" id="btn-rw3-next" type="button" ${allDone ? "" : "disabled"}>下一阶段</button>
       </div>
     `;
 
     screen.querySelector("#btn-check-translation")?.addEventListener("click", () => {
       if (!sentence) return;
-      const input = (screen.querySelector("#translation-input") as HTMLTextAreaElement).value;
+      const input = (screen.querySelector("#translation-input") as HTMLTextAreaElement).value.trim();
+      if (!input) return;
       const result = checkTranslation(input, {
         zh: sentence.zh,
         enReference: sentence.enReference,
@@ -859,17 +1450,23 @@ export class App {
       });
       const feedback = screen.querySelector("#translation-feedback");
       const ref = screen.querySelector("#translation-ref");
+      ref?.classList.remove("hidden");
+
       if (result.ok) {
-        this.rw3TranslationDone = true;
         audio.play("win");
-        if (feedback) feedback.textContent = `很好！已命中关键词：${result.matched.join("、")}`;
-        ref?.classList.remove("hidden");
-        this.renderScene();
+        if (feedback) feedback.innerHTML = `<span class="trans-ok">✓ 关键词命中：${result.matched.join("、")}</span>`;
+        setTimeout(() => {
+          if (this.rw3TranslationIndex < total - 1) {
+            this.rw3TranslationIndex += 1;
+          } else {
+            this.rw3TranslationDone = true;
+          }
+          this.renderScene();
+        }, 900);
       } else {
         audio.play("click");
         if (feedback)
-          feedback.textContent = `请再试试。需包含至少 2 个关键词（${sentence.keywords.join("、")}），并写完整句子。`;
-        ref?.classList.remove("hidden");
+          feedback.innerHTML = `<span class="trans-hint">💡 请包含至少 2 个关键词：${sentence.keywords.join("、")}</span>`;
       }
     });
 
@@ -879,7 +1476,7 @@ export class App {
       this.show("map");
     });
     screen.querySelector("#btn-rw3-next")?.addEventListener("click", () => {
-      if (!this.rw3TranslationDone) return;
+      if (!allDone) return;
       this.advanceRw3Phase();
     });
   }
@@ -895,30 +1492,50 @@ export class App {
         <span class="progress-pill">读写3 单元 · ${phaseNo}/${totalPhases} · ${phase.label}</span>
         ${this.rw3StepperHtml()}
         <div class="title" style="font-size:1.1rem">写作练习</div>
-        <p class="learn-steps">按提纲完成 120–150 词英文短文（自评完成即可）</p>
+        <p class="learn-steps">按提纲完成英文短文 · 目标 120–150 词</p>
       </div>
       <div class="card writing-card">
-        <p class="writing-prompt">${phase.prompt}</p>
-        <ul class="writing-outline">${phase.outline.map((o) => `<li>${o}</li>`).join("")}</ul>
-        <textarea class="writing-input" id="writing-input" rows="10" placeholder="Write your essay here…"></textarea>
-        <label class="writing-check"><input type="checkbox" id="writing-ack" ${this.rw3WritingAck ? "checked" : ""}/> 我已完成初稿（建议 120 词以上）</label>
+        <div class="writing-prompt-block">
+          <div class="writing-prompt-label">写作题目</div>
+          <p class="writing-prompt">${phase.prompt}</p>
+        </div>
+        <details class="writing-outline-details" open>
+          <summary class="writing-outline-summary">📋 写作提纲</summary>
+          <ol class="writing-outline">${phase.outline.map((o) => `<li>${o}</li>`).join("")}</ol>
+        </details>
+        <div class="writing-area-wrap">
+          <textarea class="writing-input" id="writing-input" rows="9" placeholder="Write your essay here…">${""}</textarea>
+          <div class="writing-wordcount" id="writing-wordcount">0 / 120 词</div>
+        </div>
+        <div class="writing-progress-bar"><div class="writing-progress-fill" id="writing-progress-fill" style="width:0%"></div></div>
+        <label class="writing-check"><input type="checkbox" id="writing-ack" ${this.rw3WritingAck ? "checked" : ""}/> 我已完成初稿并达到 100 词以上</label>
       </div>
       <div class="scene-actions">
         <button class="btn btn-ghost" id="btn-back-map" type="button">返回地图</button>
-        <button class="btn btn-primary" id="btn-rw3-finish" type="button" ${this.rw3WritingAck ? "" : "disabled"}>完成本单元</button>
+        <button class="btn btn-primary" id="btn-rw3-finish" type="button" ${this.rw3WritingAck ? "" : "disabled"}>🎉 完成本单元</button>
       </div>
     `;
 
     const ack = screen.querySelector("#writing-ack") as HTMLInputElement;
     const textarea = screen.querySelector("#writing-input") as HTMLTextAreaElement;
-    const syncAck = () => {
+    const counter = screen.querySelector("#writing-wordcount") as HTMLElement;
+    const bar = screen.querySelector("#writing-progress-fill") as HTMLElement;
+    const TARGET = 120;
+
+    const update = () => {
       const words = textarea.value.trim().split(/\s+/).filter(Boolean).length;
-      this.rw3WritingAck = ack.checked && words >= 40;
+      const pct = Math.min((words / TARGET) * 100, 100);
+      counter.textContent = `${words} / ${TARGET} 词`;
+      counter.className = `writing-wordcount ${words >= TARGET ? "wc-good" : words >= 80 ? "wc-mid" : ""}`;
+      bar.style.width = `${pct}%`;
+      bar.className = `writing-progress-fill ${words >= TARGET ? "wfill-good" : words >= 80 ? "wfill-mid" : ""}`;
+      this.rw3WritingAck = ack.checked && words >= 100;
       const finish = screen.querySelector("#btn-rw3-finish") as HTMLButtonElement;
       if (finish) finish.disabled = !this.rw3WritingAck;
     };
-    ack?.addEventListener("change", syncAck);
-    textarea?.addEventListener("input", syncAck);
+
+    ack?.addEventListener("change", update);
+    textarea?.addEventListener("input", update);
 
     screen.querySelector("#btn-back-map")?.addEventListener("click", () => {
       audio.play("nav");
@@ -938,6 +1555,8 @@ export class App {
       this.rw3PhaseIndex += 1;
       this.rw3QuizIndex = 0;
       this.rw3QuizCorrect = new Set();
+      this.rw3TranslationIndex = 0;
+      this.rw3TranslationDone = false;
       this.selectedWordId = null;
       this.answerRevealed = false;
       audio.play("start");
@@ -1133,14 +1752,21 @@ export class App {
     const word = this.scene?.words.find((w) => w.id === wordId);
     if (!panel || !word) return;
 
+    // 从词库查完整条目（含音标、例句译文、搭配）
+    const entry = this.wordMap.get(wordId);
+    const phonetic = entry?.phonetic ? `<span class="word-phonetic">${entry.phonetic}</span>` : "";
     const mem = this.state.getMemory(wordId);
+
+    const ttsBtn = `<button class="btn-tts" id="btn-tts" type="button" title="朗读单词">🔊</button>`;
 
     if (!this.answerRevealed) {
       panel.innerHTML = `
         <div class="recall-card">
           <div class="word-detail-head">
             <span class="word-detail-en">${word.word}</span>
+            ${phonetic}
             <span class="word-detail-pos">${word.pos}</span>
+            ${ttsBtn}
           </div>
           <p class="recall-prompt">先回忆释义，再点开答案（生成效应 + 提取练习）</p>
           <p class="en-clue recall-ctx">${word.contextLine}</p>
@@ -1152,17 +1778,29 @@ export class App {
         this.answerRevealed = true;
         this.renderRecallPanel(wordId);
       });
+      panel.querySelector("#btn-tts")?.addEventListener("click", () => speakWord(word.word));
       return;
     }
+
+    const exampleZh = entry?.example_zh
+      ? `<p class="word-example-zh">${entry.example_zh}</p>`
+      : "";
+    const collocation = entry?.collocation
+      ? `<p class="word-collocation"><span class="colloc-label">常用搭配：</span>${entry.collocation}</p>`
+      : "";
 
     panel.innerHTML = `
       <div class="recall-card">
         <div class="word-detail-head">
           <span class="word-detail-en">${word.word}</span>
+          ${phonetic}
           <span class="word-detail-pos">${word.pos}</span>
+          ${ttsBtn}
         </div>
         <div class="word-detail-meaning">${word.meaning}</div>
         <p class="en-clue">${word.contextLine}</p>
+        ${exampleZh}
+        ${collocation}
         <p class="recall-grade-label">诚实自评（用于间隔重复调度）：</p>
         <div class="grade-grid">
           <button class="grade-btn grade-1" data-q="1" type="button">忘记</button>
@@ -1173,6 +1811,7 @@ export class App {
         ${mem.reps > 0 ? `<p class="srs-hint">已复习 ${mem.reps} 次 · 下次 ${mem.interval} 天后</p>` : ""}
       </div>
     `;
+    panel.querySelector("#btn-tts")?.addEventListener("click", () => speakWord(word.word));
 
     panel.querySelectorAll(".grade-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -1209,6 +1848,17 @@ export class App {
     }
 
     audio.play("win");
+    // 若处于单元探索模式，完成学习后返回该单元的探索地图
+    if (this.unitExplore) {
+      const savedExplore = this.unitExplore;
+      this.loadCourse(this.state.save.courseId).then(() => {
+        this.renderMap();
+        this.show("map");
+        // 重新进入探索模式（保留已收集进度）
+        this.enterUnitExplore(savedExplore.unitId, savedExplore.collectedIds);
+      });
+      return;
+    }
     this.loadCourse(this.state.save.courseId).then(() => {
       this.renderMap();
       this.show("map");

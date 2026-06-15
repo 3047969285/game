@@ -7,7 +7,11 @@ export interface WordEntry {
   word: string;
   pos: string;
   meaning: string;
+  meanings?: string[];
+  phonetic?: string;
   example?: string;
+  example_zh?: string;
+  collocation?: string;
 }
 
 /** 关卡定义 */
@@ -15,7 +19,43 @@ export interface LevelDef {
   id: string;
   title: string;
   word_ids: string[];
+  content_refs?: string[];
+  boss?: boolean;
 }
+
+/** CET 听力题 */
+export interface CetListeningItem {
+  id: string;
+  title: string;
+  script: string;
+  questions: QuizQuestion[];
+}
+
+/** CET 阅读题 */
+export interface CetReadingItem {
+  id: string;
+  title: string;
+  passage: string;
+  questions: QuizQuestion[];
+}
+
+/** CET 翻译题 */
+export interface CetTranslationItem {
+  id: string;
+  zh: string;
+  en_reference: string;
+  keywords: string[];
+}
+
+/** CET 全套内容包 */
+export interface CetContentBundle {
+  listening: Map<string, CetListeningItem>;
+  reading: Map<string, CetReadingItem>;
+  translation: Map<string, CetTranslationItem>;
+}
+
+/** CET 场景类型 */
+export type CetSceneKind = "listening" | "reading" | "translation" | "boss";
 
 /** 区域定义 */
 export interface ZoneDef {
@@ -162,6 +202,27 @@ export interface ContextScene {
   words: WordInContext[];
   /** 读写3 完整单元管线（Section A/B/C + 词汇 + 阅读/听力 + 填空 + 翻译 + 写作） */
   rw3Phases?: Rw3Phase[];
+}
+
+/** 地图上可拾取的词汇光球（原神风格探索收集点） */
+export interface WordPickup {
+  id: string;
+  word: string;
+  meaning: string;
+  /** 世界坐标 */
+  x: number;
+  y: number;
+  z: number;
+  /** 是否已被收集 */
+  collected: boolean;
+}
+
+/** 单元探索模式状态 */
+export interface UnitExploreState {
+  unitId: string;
+  unitLabel: string;
+  pickups: WordPickup[];
+  collectedIds: Set<string>;
 }
 
 /** 本地存档 */

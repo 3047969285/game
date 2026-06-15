@@ -1,10 +1,11 @@
-import type { MapNode } from "../../core/types";
+import type { MapNode, WordPickup } from "../../core/types";
 
 export interface MinimapState {
   playerX: number;
   playerZ: number;
   nodes: MapNode[];
   nearNodeId?: string;
+  pickups?: WordPickup[];
 }
 
 /** 探险小地图（2D 画布） */
@@ -27,8 +28,8 @@ export class Minimap {
     this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  setNodes(nodes: MapNode[]): void {
-    if (!nodes.length) return;
+  setNodes(nodes: MapNode[], pickups?: WordPickup[]): void {
+    if (!nodes.length && !pickups?.length) return;
     let minX = Infinity,
       maxX = -Infinity,
       minZ = Infinity,
@@ -38,6 +39,14 @@ export class Minimap {
       maxX = Math.max(maxX, n.x);
       minZ = Math.min(minZ, n.z);
       maxZ = Math.max(maxZ, n.z);
+    }
+    if (pickups?.length) {
+      for (const p of pickups) {
+        minX = Math.min(minX, p.x);
+        maxX = Math.max(maxX, p.x);
+        minZ = Math.min(minZ, p.z);
+        maxZ = Math.max(maxZ, p.z);
+      }
     }
     const padX = 30;
     const padZ = 40;
@@ -93,6 +102,29 @@ export class Minimap {
       else if (n.id === state.nearNodeId) ctx.fillStyle = "#fbbf24";
       else ctx.fillStyle = "#60a5fa";
       ctx.fill();
+    }
+
+    // 词汇光球（未收集=金色菱形，已收集=淡灰色小点）
+    if (state.pickups?.length) {
+      for (const p of state.pickups) {
+        const bx = toX(p.x);
+        const by = toY(p.z);
+        if (p.collected) {
+          ctx.fillStyle = "rgba(100,220,130,0.45)";
+          ctx.beginPath();
+          ctx.arc(bx, by, 2, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.fillStyle = "#fbbf24";
+          ctx.beginPath();
+          ctx.moveTo(bx, by - 4);
+          ctx.lineTo(bx + 3, by);
+          ctx.lineTo(bx, by + 4);
+          ctx.lineTo(bx - 3, by);
+          ctx.closePath();
+          ctx.fill();
+        }
+      }
     }
 
     const px = toX(state.playerX);

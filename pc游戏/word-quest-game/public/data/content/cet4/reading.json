@@ -3,16 +3,16 @@
   "count": 15,
   "items": [
     {
-      "title": "Campus Library Hours Extended (1)",
-      "passage": "Starting next semester, the main campus library will extend weekday hours until midnight during exam periods. The change responds to student requests for safer and quieter study spaces after evening classes. Laptop loans and group rooms can be reserved through the library app. Staff remind students that extended hours do not reduce the need for sleep.",
+      "title": "The Rise of Online Learning",
+      "passage": "Online learning has expanded rapidly in recent years. Universities now offer thousands of courses that students can access from anywhere. Studies show that students who engage actively with discussion boards perform better than those who only watch videos. Instructors are experimenting with live sessions and peer review to recreate classroom interaction online.",
       "questions": [
         {
-          "question": "Why are library hours extended?",
+          "question": "What helps online students perform better?",
           "options": [
-            "To reduce staff workload",
-            "To meet student study needs",
-            "To host concerts",
-            "To close other buildings"
+            "Watching more videos",
+            "Participating in discussion boards",
+            "Paying higher tuition",
+            "Taking longer courses"
           ],
           "answer": 1
         }
@@ -20,16 +20,16 @@
       "id": "cet4_r_01"
     },
     {
-      "title": "Remote Internships Gain Popularity (2)",
-      "passage": "A recent survey shows that more undergraduates choose remote internships. Students value flexible schedules and lower commuting costs. Employers, however, worry about communication delays. Career advisors suggest setting weekly goals and documenting outcomes to make remote experience visible in future interviews.",
+      "title": "Sleep and Academic Performance",
+      "passage": "A study of 500 undergraduates found a strong link between sleep duration and grade point average. Students who slept fewer than six hours scored significantly lower on exams. Researchers recommend that students establish a consistent sleep schedule and avoid screens for one hour before bed. Adequate sleep improves memory consolidation and problem-solving.",
       "questions": [
         {
-          "question": "What do career advisors recommend?",
+          "question": "What do researchers recommend to improve academic performance?",
           "options": [
-            "Avoid remote internships",
-            "Set weekly goals and record results",
-            "Work without communication",
-            "Quit after one week"
+            "Study before sunrise",
+            "Maintain a regular sleep schedule",
+            "Drink more coffee",
+            "Exercise every morning"
           ],
           "answer": 1
         }
@@ -37,33 +37,33 @@
       "id": "cet4_r_02"
     },
     {
-      "title": "Campus Library Hours Extended (3)",
-      "passage": "Starting next semester, the main campus library will extend weekday hours until midnight during exam periods. The change responds to student requests for safer and quieter study spaces after evening classes. Laptop loans and group rooms can be reserved through the library app. Staff remind students that extended hours do not reduce the need for sleep.",
+      "title": "Urban Green Spaces and Mental Health",
+      "passage": "Access to parks and green spaces in cities has been linked to lower rates of anxiety and depression. A survey across fifteen cities found that residents within 300 meters of a park reported higher well-being scores. City planners are now prioritizing green corridors in new developments to support public mental health.",
       "questions": [
         {
-          "question": "Why are library hours extended?",
+          "question": "What are city planners focusing on in new developments?",
           "options": [
-            "To reduce staff workload",
-            "To meet student study needs",
-            "To host concerts",
-            "To close other buildings"
+            "Wider roads",
+            "Taller buildings",
+            "Green corridors",
+            "Underground parking"
           ],
-          "answer": 1
+          "answer": 2
         }
       ],
       "id": "cet4_r_03"
     },
     {
-      "title": "Remote Internships Gain Popularity (4)",
-      "passage": "A recent survey shows that more undergraduates choose remote internships. Students value flexible schedules and lower commuting costs. Employers, however, worry about communication delays. Career advisors suggest setting weekly goals and documenting outcomes to make remote experience visible in future interviews.",
+      "title": "The Gig Economy and Young Workers",
+      "passage": "The gig economy — freelance and short-term contract work — has attracted millions of young workers who value flexibility. However, gig workers often lack benefits such as health insurance and pension contributions. Labor economists warn that relying on gig work as a primary income source can lead to financial instability in the long term.",
       "questions": [
         {
-          "question": "What do career advisors recommend?",
+          "question": "What concern do labor economists raise about gig work?",
           "options": [
-            "Avoid remote internships",
-            "Set weekly goals and record results",
-            "Work without communication",
-            "Quit after one week"
+            "It pays too well",
+            "It can cause long-term financial instability",
+            "It is too physically demanding",
+            "It requires advanced education"
           ],
           "answer": 1
         }
@@ -71,16 +71,16 @@
       "id": "cet4_r_04"
     },
     {
-      "title": "Campus Library Hours Extended (5)",
-      "passage": "Starting next semester, the main campus library will extend weekday hours until midnight during exam periods. The change responds to student requests for safer and quieter study spaces after evening classes. Laptop loans and group rooms can be reserved through the library app. Staff remind students that extended hours do not reduce the need for sleep.",
+      "title": "Food Waste on Campus",
+      "passage": "Universities generate significant food waste in campus canteens. A pilot program at one university reduced waste by 30 percent by allowing students to pay only for the weight of food they take. Students reported being more mindful of portion sizes. The model is now being considered for adoption across multiple campuses nationwide.",
       "questions": [
         {
-          "question": "Why are library hours extended?",
+          "question": "How did the university reduce food waste?",
           "options": [
-            "To reduce staff workload",
-            "To meet student study needs",
-            "To host concerts",
-            "To close other buildings"
+            "Limiting menu options",
+            "Charging by food weight",
+            "Closing the canteen earlier",
+            "Offering smaller plates"
           ],
           "answer": 1
         }
@@ -88,33 +88,33 @@
       "id": "cet4_r_05"
     },
     {
-      "title": "Remote Internships Gain Popularity (6)",
-      "passage": "A recent survey shows that more undergraduates choose remote internships. Students value flexible schedules and lower commuting costs. Employers, however, worry about communication delays. Career advisors suggest setting weekly goals and documenting outcomes to make remote experience visible in future interviews.",
+      "title": "Bilingualism and Brain Health",
+      "passage": "Research suggests that speaking two or more languages may delay the onset of dementia by up to five years. Scientists believe that switching between languages exercises the brain's executive function, keeping neural pathways active. These findings have encouraged language learning programs targeted at older adults as a preventive health measure.",
       "questions": [
         {
-          "question": "What do career advisors recommend?",
+          "question": "What benefit of bilingualism do researchers highlight?",
           "options": [
-            "Avoid remote internships",
-            "Set weekly goals and record results",
-            "Work without communication",
-            "Quit after one week"
+            "Higher income",
+            "Better social skills",
+            "Delayed onset of dementia",
+            "Improved physical fitness"
           ],
-          "answer": 1
+          "answer": 2
         }
       ],
       "id": "cet4_r_06"
     },
     {
-      "title": "Campus Library Hours Extended (7)",
-      "passage": "Starting next semester, the main campus library will extend weekday hours until midnight during exam periods. The change responds to student requests for safer and quieter study spaces after evening classes. Laptop loans and group rooms can be reserved through the library app. Staff remind students that extended hours do not reduce the need for sleep.",
+      "title": "The Value of Volunteering",
+      "passage": "Students who volunteer regularly report higher levels of satisfaction and stronger career prospects. Employers increasingly look for evidence of community involvement when hiring. Volunteering builds soft skills such as teamwork, communication, and leadership. Many universities now formally recognize volunteer hours on student transcripts.",
       "questions": [
         {
-          "question": "Why are library hours extended?",
+          "question": "Why do universities formally recognize volunteer hours?",
           "options": [
-            "To reduce staff workload",
-            "To meet student study needs",
-            "To host concerts",
-            "To close other buildings"
+            "To replace exam credits",
+            "To reward students who build useful skills",
+            "To reduce tuition fees",
+            "To fulfill government requirements"
           ],
           "answer": 1
         }
@@ -122,33 +122,33 @@
       "id": "cet4_r_07"
     },
     {
-      "title": "Remote Internships Gain Popularity (8)",
-      "passage": "A recent survey shows that more undergraduates choose remote internships. Students value flexible schedules and lower commuting costs. Employers, however, worry about communication delays. Career advisors suggest setting weekly goals and documenting outcomes to make remote experience visible in future interviews.",
+      "title": "Electric Vehicles and Urban Air Quality",
+      "passage": "Cities that have encouraged electric vehicle adoption report measurable improvements in air quality. Nitrogen oxide levels, a key pollutant linked to respiratory disease, have fallen by up to 20 percent in pilot zones. However, the full environmental benefit depends on whether the electricity used to charge vehicles comes from renewable sources.",
       "questions": [
         {
-          "question": "What do career advisors recommend?",
+          "question": "What limits the full environmental benefit of electric vehicles?",
           "options": [
-            "Avoid remote internships",
-            "Set weekly goals and record results",
-            "Work without communication",
-            "Quit after one week"
+            "High vehicle cost",
+            "Limited charging stations",
+            "The source of electricity for charging",
+            "Battery weight"
           ],
-          "answer": 1
+          "answer": 2
         }
       ],
       "id": "cet4_r_08"
     },
     {
-      "title": "Campus Library Hours Extended (9)",
-      "passage": "Starting next semester, the main campus library will extend weekday hours until midnight during exam periods. The change responds to student requests for safer and quieter study spaces after evening classes. Laptop loans and group rooms can be reserved through the library app. Staff remind students that extended hours do not reduce the need for sleep.",
+      "title": "Reading for Pleasure and Language Skills",
+      "passage": "Students who read fiction for pleasure outside of class consistently score higher on reading comprehension and vocabulary tests. Researchers attribute this to exposure to complex sentence structures and diverse vocabulary in literary texts. Teachers are encouraged to allow students to self-select books to increase motivation.",
       "questions": [
         {
-          "question": "Why are library hours extended?",
+          "question": "What do researchers recommend to increase reading motivation?",
           "options": [
-            "To reduce staff workload",
-            "To meet student study needs",
-            "To host concerts",
-            "To close other buildings"
+            "Assigning more textbooks",
+            "Letting students choose their own books",
+            "Reading aloud in class daily",
+            "Banning electronic devices"
           ],
           "answer": 1
         }
@@ -156,16 +156,16 @@
       "id": "cet4_r_09"
     },
     {
-      "title": "Remote Internships Gain Popularity (10)",
-      "passage": "A recent survey shows that more undergraduates choose remote internships. Students value flexible schedules and lower commuting costs. Employers, however, worry about communication delays. Career advisors suggest setting weekly goals and documenting outcomes to make remote experience visible in future interviews.",
+      "title": "Noise Pollution in Cities",
+      "passage": "Chronic exposure to urban noise above 65 decibels has been linked to cardiovascular disease, disturbed sleep, and reduced cognitive performance in children. City governments are responding by enforcing stricter nighttime noise ordinances and planting sound-absorbing vegetation along busy roads. Residents near airports receive the highest levels of noise exposure.",
       "questions": [
         {
-          "question": "What do career advisors recommend?",
+          "question": "Who is most exposed to noise pollution, according to the passage?",
           "options": [
-            "Avoid remote internships",
-            "Set weekly goals and record results",
-            "Work without communication",
-            "Quit after one week"
+            "City office workers",
+            "Residents near airports",
+            "Primary school children",
+            "Construction workers"
           ],
           "answer": 1
         }
@@ -173,50 +173,50 @@
       "id": "cet4_r_10"
     },
     {
-      "title": "Campus Library Hours Extended (11)",
-      "passage": "Starting next semester, the main campus library will extend weekday hours until midnight during exam periods. The change responds to student requests for safer and quieter study spaces after evening classes. Laptop loans and group rooms can be reserved through the library app. Staff remind students that extended hours do not reduce the need for sleep.",
+      "title": "The Popularity of Podcasts",
+      "passage": "Podcast listeners have grown from 100 million to over 500 million globally in five years. Commuters are the largest audience, using travel time for self-improvement and entertainment. Educational podcasts on history, science, and language learning have seen the strongest growth. Advertisers follow audiences, making podcasting an increasingly valuable industry.",
       "questions": [
         {
-          "question": "Why are library hours extended?",
+          "question": "Which type of podcast has grown the fastest?",
           "options": [
-            "To reduce staff workload",
-            "To meet student study needs",
-            "To host concerts",
-            "To close other buildings"
+            "True crime stories",
+            "Sports commentary",
+            "Educational content",
+            "Celebrity interviews"
           ],
-          "answer": 1
+          "answer": 2
         }
       ],
       "id": "cet4_r_11"
     },
     {
-      "title": "Remote Internships Gain Popularity (12)",
-      "passage": "A recent survey shows that more undergraduates choose remote internships. Students value flexible schedules and lower commuting costs. Employers, however, worry about communication delays. Career advisors suggest setting weekly goals and documenting outcomes to make remote experience visible in future interviews.",
+      "title": "University Mental Health Services",
+      "passage": "Demand for university counselling services has increased sharply over the past decade. Students cite academic pressure, social isolation, and financial stress as primary causes of anxiety. Many universities have expanded online therapy options to reduce waiting times. Early intervention programs that identify struggling students have proven most effective.",
       "questions": [
         {
-          "question": "What do career advisors recommend?",
+          "question": "What approach has proven most effective in supporting student mental health?",
           "options": [
-            "Avoid remote internships",
-            "Set weekly goals and record results",
-            "Work without communication",
-            "Quit after one week"
+            "Reducing tuition fees",
+            "Extending exam periods",
+            "Early intervention programs",
+            "Building new dormitories"
           ],
-          "answer": 1
+          "answer": 2
         }
       ],
       "id": "cet4_r_12"
     },
     {
-      "title": "Campus Library Hours Extended (13)",
-      "passage": "Starting next semester, the main campus library will extend weekday hours until midnight during exam periods. The change responds to student requests for safer and quieter study spaces after evening classes. Laptop loans and group rooms can be reserved through the library app. Staff remind students that extended hours do not reduce the need for sleep.",
+      "title": "Artificial Intelligence in Education",
+      "passage": "AI-powered tutoring systems can adapt lesson difficulty in real time based on student performance. Early trials in middle schools show gains in mathematics scores of up to 15 percent. Critics worry that excessive reliance on AI may reduce teacher-student interaction, which is essential for social and emotional learning.",
       "questions": [
         {
-          "question": "Why are library hours extended?",
+          "question": "What concern do critics express about AI in education?",
           "options": [
-            "To reduce staff workload",
-            "To meet student study needs",
-            "To host concerts",
-            "To close other buildings"
+            "It is too expensive to maintain",
+            "It may reduce important human interaction",
+            "It gives students unfair advantages",
+            "It makes homework too easy"
           ],
           "answer": 1
         }
@@ -224,33 +224,33 @@
       "id": "cet4_r_13"
     },
     {
-      "title": "Remote Internships Gain Popularity (14)",
-      "passage": "A recent survey shows that more undergraduates choose remote internships. Students value flexible schedules and lower commuting costs. Employers, however, worry about communication delays. Career advisors suggest setting weekly goals and documenting outcomes to make remote experience visible in future interviews.",
+      "title": "Water Conservation on Campus",
+      "passage": "A university installed smart meters on all dormitory showers, displaying real-time water usage on a screen. Within three months, average shower time dropped from nine minutes to six minutes, reducing water consumption by 33 percent. Students reported that seeing the data made them more conscious of their environmental impact.",
       "questions": [
         {
-          "question": "What do career advisors recommend?",
+          "question": "What caused students to use less water?",
           "options": [
-            "Avoid remote internships",
-            "Set weekly goals and record results",
-            "Work without communication",
-            "Quit after one week"
+            "Higher water bills",
+            "Shorter hot water supply",
+            "Seeing real-time usage data",
+            "A campus water shortage"
           ],
-          "answer": 1
+          "answer": 2
         }
       ],
       "id": "cet4_r_14"
     },
     {
-      "title": "Campus Library Hours Extended (15)",
-      "passage": "Starting next semester, the main campus library will extend weekday hours until midnight during exam periods. The change responds to student requests for safer and quieter study spaces after evening classes. Laptop loans and group rooms can be reserved through the library app. Staff remind students that extended hours do not reduce the need for sleep.",
+      "title": "Social Media and Self-Esteem",
+      "passage": "A study of university students found that those who spent more than three hours daily on social media reported lower self-esteem and greater feelings of loneliness. Researchers suggest that comparing oneself to curated online profiles leads to unrealistic expectations. Setting daily time limits on apps can help restore balance.",
       "questions": [
         {
-          "question": "Why are library hours extended?",
+          "question": "What do researchers suggest to improve well-being?",
           "options": [
-            "To reduce staff workload",
-            "To meet student study needs",
-            "To host concerts",
-            "To close other buildings"
+            "Delete all social media accounts",
+            "Set daily time limits on app use",
+            "Post more positive content",
+            "Follow more friends online"
           ],
           "answer": 1
         }

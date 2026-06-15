@@ -1,4 +1,13 @@
-import type { CourseId, CourseTemplate, VocabBundle, WordEntry } from "../core/types";
+import type {
+  CourseId,
+  CourseTemplate,
+  VocabBundle,
+  WordEntry,
+  CetContentBundle,
+  CetListeningItem,
+  CetReadingItem,
+  CetTranslationItem,
+} from "../core/types";
 
 const cache = new Map<string, unknown>();
 
@@ -63,6 +72,27 @@ export async function loadTemplate(courseId: CourseId): Promise<CourseTemplate> 
 export async function loadVocabulary(courseId: CourseId): Promise<Map<string, WordEntry>> {
   const bundle = await fetchJson<VocabBundle>(`${import.meta.env.BASE_URL}data/vocabulary/${courseId}.json`);
   return new Map(bundle.words.map((w) => [w.id, w]));
+}
+
+/** 加载四/六级 听力、阅读、翻译内容包 */
+export async function loadCetContent(courseId: "cet4" | "cet6"): Promise<CetContentBundle> {
+  const base = `${import.meta.env.BASE_URL}data/content/${courseId}`;
+
+  interface RawListeningBundle { items: CetListeningItem[] }
+  interface RawReadingBundle { items: CetReadingItem[] }
+  interface RawTranslationBundle { items: CetTranslationItem[] }
+
+  const [lRaw, rRaw, tRaw] = await Promise.all([
+    fetchJson<RawListeningBundle>(`${base}/listening.json`),
+    fetchJson<RawReadingBundle>(`${base}/reading.json`),
+    fetchJson<RawTranslationBundle>(`${base}/translation.json`),
+  ]);
+
+  return {
+    listening: new Map(lRaw.items.map((x) => [x.id, x])),
+    reading: new Map(rRaw.items.map((x) => [x.id, x])),
+    translation: new Map(tRaw.items.map((x) => [x.id, x])),
+  };
 }
 
 /** 加载读写3 全部单元内容 */

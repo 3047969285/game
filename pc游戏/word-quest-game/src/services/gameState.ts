@@ -69,6 +69,14 @@ export class GameState {
     this.persist();
   }
 
+  /** 探索拾取：直接记录词汇为已发现（不评分），用于地图词球收集 */
+  recordDiscovered(wordId: string): void {
+    if (!this.save.discoveredWords.includes(wordId)) {
+      this.save.discoveredWords.push(wordId);
+      this.persist();
+    }
+  }
+
   /** 单词是否已纳入长期记忆库 */
   isWordDiscovered(wordId: string): boolean {
     return this.save.discoveredWords.includes(wordId);

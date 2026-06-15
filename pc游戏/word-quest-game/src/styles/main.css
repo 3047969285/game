@@ -835,17 +835,46 @@ body {
   font-weight: 800;
 }
 
+.word-phonetic {
+  font-family: var(--font-en);
+  font-size: 0.88rem;
+  color: #60a5fa;
+  margin-left: 6px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
 .word-detail-pos {
   font-size: 0.82rem;
   color: var(--muted);
-  margin-left: 10px;
+  margin-left: 6px;
   font-weight: 600;
 }
 
 .word-detail-meaning {
   font-size: 1.05rem;
   font-weight: 600;
-  margin: 8px 0 12px;
+  margin: 8px 0 8px;
+}
+
+.word-example-zh {
+  font-size: 0.88rem;
+  color: #86efac;
+  margin: 4px 0 8px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.word-collocation {
+  font-size: 0.83rem;
+  color: var(--muted);
+  margin: 0 0 10px;
+  line-height: 1.5;
+}
+.colloc-label {
+  color: #fbbf24;
+  font-weight: 600;
+  margin-right: 4px;
 }
 
 .scene-actions {
@@ -853,6 +882,44 @@ body {
   grid-template-columns: 1fr 1.2fr;
   gap: 10px;
   margin-bottom: 8px;
+}
+
+/* TTS 朗读按钮 */
+.btn-tts {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 2px 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-left: 8px;
+  vertical-align: middle;
+  transition: background 0.15s;
+  color: var(--text);
+}
+.btn-tts:hover { background: var(--surface2); }
+
+/* 听力稿 / 阅读段落容器 */
+.listen-script {
+  font-family: var(--font-en);
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--muted);
+  max-height: 240px;
+  overflow-y: auto;
+  white-space: pre-line;
+}
+
+/* 阅读段落 */
+.listen-script p { margin: 0.3rem 0; }
+
+/* word-detail-head 对齐 */
+.word-detail-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 6px;
 }
 
 .scene-actions .btn { margin-top: 0; }
@@ -871,6 +938,391 @@ body {
   0% { transform: scale(0.95); }
   60% { transform: scale(1.04); }
   100% { transform: scale(1); }
+}
+
+/* ═══════════════════════════════════════════════════════
+   rw3 读写精细化样式
+═══════════════════════════════════════════════════════ */
+
+/* Section 标签徽章 */
+.rw3-section-badge {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 6px 0 2px;
+  letter-spacing: 0.01em;
+}
+
+/* Section C（中国故事）特色背景 */
+.rw3-section-c .rw3-section-badge { color: #fcd34d; }
+
+/* 词汇关特色 */
+.rw3-section-vocab .rw3-section-badge { color: #a5f3fc; }
+
+/* 段落阅读体 */
+.rw3-passage-body {
+  line-height: 1.85;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.88);
+  padding: 14px 16px;
+}
+.rw3-passage-body p { margin: 0.35rem 0; }
+
+/* 翻译模块 */
+.trans-sentence-no {
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+.trans-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 12px;
+}
+.trans-kw-chip {
+  padding: 3px 10px;
+  border: 1px solid rgba(91,141,239,0.5);
+  border-radius: 14px;
+  font-size: 0.75rem;
+  font-family: var(--font-en);
+  color: #93c5fd;
+  background: rgba(91,141,239,0.1);
+}
+.trans-ref-label {
+  display: inline-block;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.4);
+  margin-right: 6px;
+}
+.trans-ok {
+  color: #4ade80;
+  font-weight: 600;
+}
+.trans-hint {
+  color: #fbbf24;
+  font-size: 0.85rem;
+}
+
+/* 写作模块 */
+.writing-prompt-block {
+  margin-bottom: 12px;
+}
+.writing-prompt-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 4px;
+}
+.writing-outline-details {
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+}
+.writing-outline-details[open] { background: rgba(255,255,255,0.03); }
+.writing-outline-summary {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+.writing-outline-summary::marker { display: none; }
+.writing-outline {
+  margin: 8px 0 0 16px;
+  padding: 0;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+}
+.writing-area-wrap {
+  position: relative;
+}
+.writing-wordcount {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.35);
+  pointer-events: none;
+  transition: color 0.2s;
+}
+.writing-wordcount.wc-mid { color: #fbbf24; }
+.writing-wordcount.wc-good { color: #4ade80; font-weight: 700; }
+.writing-progress-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.08);
+  margin: 6px 0 10px;
+  overflow: hidden;
+}
+.writing-progress-fill { height: 100%; border-radius: 2px; background: rgba(255,255,255,0.2); transition: width 0.3s ease, background 0.3s; }
+.writing-progress-fill.wfill-mid { background: #fbbf24; }
+.writing-progress-fill.wfill-good { background: #4ade80; }
+
+/* 单元入口卡 */
+.unit-entry-card { text-align: left; }
+.unit-entry-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 8px 0 4px;
+  font-family: var(--font-en);
+}
+.unit-entry-theme {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.45);
+  font-style: italic;
+  margin-bottom: 10px;
+}
+.unit-entry-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.unit-sec-item {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+  padding: 3px 8px;
+  border-left: 2px solid rgba(91,141,239,0.5);
+  background: rgba(91,141,239,0.06);
+  border-radius: 0 6px 6px 0;
+}
+.unit-entry-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.5);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 8px;
+  margin-bottom: 10px;
+}
+.unit-entry-stats span {
+  padding: 2px 8px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   原神风格地图探索 HUD
+═══════════════════════════════════════════════════════ */
+
+/* 词汇光球拾取提示面板 */
+.pickup-panel {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(8, 12, 24, 0.82);
+  border: 1px solid rgba(0, 212, 255, 0.45);
+  border-radius: 40px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.25);
+  pointer-events: auto;
+  z-index: 20;
+  animation: slideDown 0.25s ease;
+}
+
+.pickup-word-hint {
+  color: #00d4ff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.8);
+  max-width: 220px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.btn-collect {
+  padding: 4px 14px;
+  border: 1px solid rgba(0, 212, 255, 0.6);
+  border-radius: 20px;
+  background: rgba(0, 100, 160, 0.6);
+  color: #00d4ff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+.btn-collect:hover { background: rgba(0, 140, 200, 0.7); box-shadow: 0 0 12px rgba(0, 212, 255, 0.4); }
+
+/* 探索进度 HUD（左上角） */
+.explore-progress-hud {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px 14px;
+  background: rgba(8, 12, 24, 0.80);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+  pointer-events: auto;
+  z-index: 20;
+  min-width: 160px;
+}
+
+.explore-unit-label {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.explore-pickup-count {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.explore-pickup-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.explore-pickup-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #00d4ff, #7c6cf0);
+  transition: width 0.5s ease;
+}
+
+.btn-exit-explore {
+  padding: 4px 0;
+  border: none;
+  background: none;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.7rem;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.15s;
+}
+.btn-exit-explore:hover { color: rgba(255, 255, 255, 0.9); }
+
+/* ═══════════════════════════════════════════════════════
+   快速单词卡弹窗（拾取词汇光球后弹出）
+═══════════════════════════════════════════════════════ */
+
+.word-pickup-card {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(360px, 90vw);
+  z-index: 30;
+  pointer-events: auto;
+}
+
+.word-pickup-card.hidden { display: none; }
+
+.word-pickup-card.wc-enter .wc-inner {
+  animation: wcPopIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wc-inner {
+  background: linear-gradient(145deg, rgba(10, 16, 32, 0.96), rgba(18, 28, 52, 0.96));
+  border: 1px solid rgba(0, 212, 255, 0.35);
+  border-radius: 20px;
+  padding: 20px 22px 16px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 180, 255, 0.12);
+  text-align: center;
+}
+
+.wc-collected-badge {
+  display: inline-block;
+  padding: 2px 12px;
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  border-radius: 20px;
+  font-size: 0.68rem;
+  color: #00d4ff;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+}
+
+.wc-word {
+  font-size: 2rem;
+  font-weight: 800;
+  font-family: var(--font-en);
+  color: #fff;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.wc-tts {
+  font-size: 1.1rem;
+  padding: 2px 8px;
+}
+
+.wc-pos {
+  display: inline-block;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.45);
+  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 6px;
+  margin: 4px auto 8px;
+}
+
+.wc-meaning {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 6px 0 10px;
+}
+
+.wc-example {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-style: italic;
+  padding: 6px 10px;
+  border-left: 2px solid rgba(0, 212, 255, 0.3);
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.wc-dismiss {
+  margin-top: 4px;
+  padding: 6px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.wc-dismiss:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+
+@keyframes wcPopIn {
+  from { opacity: 0; transform: scale(0.82) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
