@@ -1,11 +1,15 @@
 import * as THREE from "three";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import type { MapNode, WordPickup } from "../../core/types";
 import { createLandmarkWithCad } from "./cadLandmark";
-import { createExplorerAvatar } from "./explorerAvatar";
+import { createExplorerAvatar, type AvatarRig } from "./explorerAvatar";
 import { ExplorerCamera } from "./ExplorerCamera";
 import { glowPath, stone, water } from "./materials";
 import { PlayerController } from "./PlayerController";
-import { createLantern, createPine, createRock, createTree } from "./props";
+import { createLantern, createPine, createRock, createTree, grassBladeGeometry } from "./props";
 import { createSignpost } from "./signpost";
 import type { MinimapState } from "./Minimap";
 import { getTheme } from "./theme";
@@ -23,6 +27,10 @@ import {
 
 /** 词汇光球靠近触发半径 */
 const PICKUP_RADIUS = 5;
+
+/** 朝向计算常量 */
+const WORLD_UP = new THREE.Vector3(0, 1, 0);
+const X_AXIS = new THREE.Vector3(1, 0, 0);
 
 export interface World3DOptions {
   onNodeClick: (nodeId: string) => void;
@@ -47,7 +55,31 @@ export class World3D {
   private decorGroup?: THREE.Group;
   private waterGroup?: THREE.Group;
   private terrain?: THREE.Mesh;
+  private mountains?: THREE.Group;
   private skyDome?: THREE.Mesh;
+  private grassMesh?: THREE.InstancedMesh;
+  private grassUniforms?: { uTime: { value: number }; uPlayer: { value: THREE.Vector3 } };
+  private clouds?: THREE.Group;
+  /** 脚步扬尘粒子池 */
+  private dustGroup?: THREE.Group;
+  private dustPool: THREE.Sprite[] = [];
+  private lastStep = 0;
+  private sunDisc?: THREE.Sprite;
+  /** 后期处理 */
+  private composer?: EffectComposer;
+  private bloomPass?: UnrealBloomPass;
+  /** 走路相位（驱动四肢摆动） */
+  private walkPhase = 0;
+  /** 角色平滑朝向与前倾 */
+  private avatarYaw = 0;
+  private avatarLean = 0;
+  // 朝向计算复用对象（避免每帧分配）
+  private readonly _n = new THREE.Vector3();
+  private readonly _fwd = new THREE.Vector3();
+  private readonly _right = new THREE.Vector3();
+  private readonly _basis = new THREE.Matrix4();
+  private readonly _q = new THREE.Quaternion();
+  private readonly _leanQ = new THREE.Quaternion();
   private sun?: THREE.DirectionalLight;
   private hemi?: THREE.HemisphereLight;
   private ambientLight?: THREE.AmbientLight;
@@ -103,11 +135,37 @@ export class World3D {
     this.explorerCam.bindDrag(this.renderer.domElement);
 
     this.buildSky();
+    this.buildClouds();
     this.buildLights();
     this.buildTerrain();
+    this.buildMountains();
+    this.buildGrass();
+    this.buildDust();
     this.spawnExplorer();
+    this.setupPostFX(w, h);
     this.bindEvents();
     this.animate();
+  }
+
+  /** 后期处理管线：泛光（Bloom）让水晶 / 光球 / 太阳产生电影级辉光 */
+  private setupPostFX(w: number, h: number): void {
+    try {
+      const composer = new EffectComposer(this.renderer);
+      composer.addPass(new RenderPass(this.scene, this.camera));
+
+      const bloom = new UnrealBloomPass(new THREE.Vector2(w, h), 0.62, 0.5, 0.78);
+      composer.addPass(bloom);
+      composer.addPass(new OutputPass());
+
+      composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      composer.setSize(w, h);
+
+      this.composer = composer;
+      this.bloomPass = bloom;
+    } catch {
+      // 后期处理初始化失败时回退到直接渲染
+      this.composer = undefined;
+    }
   }
 
   setNodes(nodes: MapNode[], currentId: string): void {
@@ -195,8 +253,28 @@ export class World3D {
     removeGroup(this.scene, this.pathGroup);
     removeGroup(this.scene, this.decorGroup);
     removeGroup(this.scene, this.waterGroup);
+    removeGroup(this.scene, this.mountains);
+    removeGroup(this.scene, this.clouds);
     removeGroup(this.scene, this.explorer);
     removeGroup(this.scene, this.pickupGroup);
+    if (this.grassMesh) {
+      this.scene.remove(this.grassMesh);
+      this.grassMesh.geometry.dispose();
+      (this.grassMesh.material as THREE.Material).dispose();
+    }
+    if (this.sunDisc) {
+      this.scene.remove(this.sunDisc);
+      (this.sunDisc.material as THREE.SpriteMaterial).map?.dispose();
+      this.sunDisc.material.dispose();
+    }
+    if (this.dustGroup) {
+      this.scene.remove(this.dustGroup);
+      const first = this.dustPool[0]?.material as THREE.SpriteMaterial | undefined;
+      first?.map?.dispose();
+      for (const s of this.dustPool) (s.material as THREE.SpriteMaterial).dispose();
+      this.dustPool = [];
+    }
+    this.composer?.dispose();
     for (const g of this.nodeGroups.values()) disposeGroup(g);
     for (const g of this.pickupMeshes.values()) disposeGroup(g);
 
@@ -229,8 +307,11 @@ export class World3D {
     this.player.setPosition(node.x + 4, y, node.z + 6);
     if (this.explorer) {
       this.explorer.position.copy(this.player.position);
-      this.explorer.rotation.y = this.player.yaw;
+      this.explorer.rotation.set(0, this.player.yaw, 0);
+      this.explorer.quaternion.setFromEuler(this.explorer.rotation);
     }
+    this.avatarYaw = this.player.yaw;
+    this.avatarLean = 0;
     this.explorerCam.resetBehind(this.player.yaw);
     this.camera.position.set(node.x + 10, y + 7, node.z + 14);
     this.camera.lookAt(node.x, y + 1.5, node.z);
@@ -267,7 +348,7 @@ export class World3D {
         }
       `,
     });
-    this.skyDome = new THREE.Mesh(new THREE.SphereGeometry(420, 40, 28), mat);
+    this.skyDome = new THREE.Mesh(new THREE.SphereGeometry(560, 48, 32), mat);
     this.scene.add(this.skyDome);
 
     const positions = new Float32Array(2000 * 3);
@@ -288,6 +369,98 @@ export class World3D {
         new THREE.PointsMaterial({ color: 0xe8eef8, size: 0.42, transparent: true, opacity: 0.82, sizeAttenuation: true })
       )
     );
+
+    // 发光太阳圆盘（配合 Bloom 形成耀斑光晕）
+    const sunMat = new THREE.SpriteMaterial({
+      map: this.makeGlowTexture(),
+      color: 0xfff0c8,
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      fog: false,
+    });
+    this.sunDisc = new THREE.Sprite(sunMat);
+    this.sunDisc.scale.set(90, 90, 1);
+    this.scene.add(this.sunDisc);
+  }
+
+  /** 径向辉光贴图（太阳 / 光晕用） */
+  private makeGlowTexture(): THREE.CanvasTexture {
+    const size = 256;
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = size;
+    const ctx = canvas.getContext("2d")!;
+    const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+    grad.addColorStop(0, "rgba(255,255,255,1)");
+    grad.addColorStop(0.18, "rgba(255,245,210,0.95)");
+    grad.addColorStop(0.5, "rgba(255,210,140,0.35)");
+    grad.addColorStop(1, "rgba(255,200,120,0)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, size, size);
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
+  }
+
+  /** 脚步扬尘粒子池 */
+  private buildDust(): void {
+    const tex = this.makeCloudTexture();
+    const group = new THREE.Group();
+    for (let i = 0; i < 28; i++) {
+      const mat = new THREE.SpriteMaterial({
+        map: tex,
+        color: 0xcdbfa6,
+        transparent: true,
+        opacity: 0,
+        depthWrite: false,
+      });
+      const sprite = new THREE.Sprite(mat);
+      sprite.visible = false;
+      sprite.userData = { life: 0, vx: 0, vy: 0, vz: 0 };
+      group.add(sprite);
+      this.dustPool.push(sprite);
+    }
+    this.dustGroup = group;
+    this.scene.add(group);
+  }
+
+  /** 在指定位置喷出几缕扬尘 */
+  private emitDust(x: number, y: number, z: number): void {
+    let emitted = 0;
+    for (const s of this.dustPool) {
+      if ((s.userData.life as number) > 0) continue;
+      s.position.set(x + (Math.random() - 0.5) * 0.2, y + 0.05, z + (Math.random() - 0.5) * 0.2);
+      s.userData.life = 1;
+      s.userData.vx = (Math.random() - 0.5) * 0.6;
+      s.userData.vy = 0.3 + Math.random() * 0.45;
+      s.userData.vz = (Math.random() - 0.5) * 0.6;
+      const sc = 0.3 + Math.random() * 0.2;
+      s.scale.set(sc, sc, 1);
+      s.visible = true;
+      (s.material as THREE.SpriteMaterial).opacity = 0.5;
+      if (++emitted >= 3) break;
+    }
+  }
+
+  /** 推进扬尘粒子（上飘、扩散、淡出） */
+  private updateDust(dt: number): void {
+    for (const s of this.dustPool) {
+      const life = s.userData.life as number;
+      if (life <= 0) continue;
+      const next = life - dt * 1.4;
+      s.userData.life = next;
+      if (next <= 0) {
+        s.visible = false;
+        continue;
+      }
+      s.userData.vy = (s.userData.vy as number) - dt * 0.6;
+      s.position.x += (s.userData.vx as number) * dt;
+      s.position.y += (s.userData.vy as number) * dt;
+      s.position.z += (s.userData.vz as number) * dt;
+      (s.material as THREE.SpriteMaterial).opacity = next * 0.5;
+      const sc = (1.3 - next) * 0.6 + 0.3;
+      s.scale.set(sc, sc, 1);
+    }
   }
 
   private buildLights(): void {
@@ -302,9 +475,9 @@ export class World3D {
     this.sun.shadow.mapSize.set(4096, 4096);
     const cam = this.sun.shadow.camera;
     cam.near = 8;
-    cam.far = 280;
-    cam.left = cam.bottom = -120;
-    cam.right = cam.top = 120;
+    cam.far = 340;
+    cam.left = cam.bottom = -150;
+    cam.right = cam.top = 150;
     this.sun.shadow.bias = -0.00035;
     this.scene.add(this.sun);
 
@@ -335,6 +508,13 @@ export class World3D {
     if (this.sun) {
       this.sun.color.setHex(biome.sunColor);
       this.sun.intensity = biome.sunIntensity;
+    }
+    if (this.sunDisc) {
+      (this.sunDisc.material as THREE.SpriteMaterial).color.setHex(biome.sunColor);
+    }
+    // 越暗的单元（夜空 / 星际）辉光越强，强化氛围
+    if (this.bloomPass) {
+      this.bloomPass.strength = THREE.MathUtils.clamp(0.5 + (1.5 - biome.sunIntensity) * 0.28, 0.45, 1.05);
     }
   }
 
@@ -488,6 +668,145 @@ export class World3D {
     this.scene.add(this.terrain);
   }
 
+  /** 远景低多边形山脉环带（提升纵深与"真实"地平线） */
+  private buildMountains(): void {
+    removeGroup(this.scene, this.mountains);
+    const group = new THREE.Group();
+    const rnd = seededRand(7);
+    const ringRadius = Math.max(TERRAIN_SIZE.width, TERRAIN_SIZE.depth) * 0.5;
+    const count = 30;
+
+    for (let i = 0; i < count; i++) {
+      const a = (i / count) * Math.PI * 2 + (rnd() - 0.5) * 0.18;
+      const r = ringRadius + rnd() * 40;
+      const x = Math.cos(a) * r;
+      const z = Math.sin(a) * r + TERRAIN_ORIGIN_Z;
+      const h = 42 + rnd() * 78;
+      const rad = 32 + rnd() * 46;
+      // 远山偏冷色，与雾气融合形成大气透视
+      const shade = 0x2f3c52 + Math.floor(rnd() * 0x0a) * 0x010101;
+      const mat = new THREE.MeshStandardMaterial({ color: shade, roughness: 1, metalness: 0, flatShading: true });
+      const peak = new THREE.Mesh(new THREE.ConeGeometry(rad, h, 5 + Math.floor(rnd() * 3), 1), mat);
+      peak.position.set(x, h / 2 - 8, z);
+      peak.rotation.y = rnd() * Math.PI;
+      peak.scale.set(1, 0.8 + rnd() * 0.5, 1);
+      group.add(peak);
+    }
+
+    this.mountains = group;
+    this.scene.add(group);
+  }
+
+  /** 实例化草地（GPU 风吹摆动） */
+  private buildGrass(): void {
+    const geo = grassBladeGeometry();
+    const mat = new THREE.MeshStandardMaterial({
+      vertexColors: true,
+      roughness: 0.9,
+      metalness: 0,
+      side: THREE.DoubleSide,
+    });
+    mat.onBeforeCompile = (shader) => {
+      shader.uniforms.uTime = { value: 0 };
+      shader.uniforms.uPlayer = { value: new THREE.Vector3(0, 0, 0) };
+      this.grassUniforms = shader.uniforms as { uTime: { value: number }; uPlayer: { value: THREE.Vector3 } };
+      shader.vertexShader = "uniform float uTime;\nuniform vec3 uPlayer;\n" + shader.vertexShader;
+      shader.vertexShader = shader.vertexShader.replace(
+        "#include <begin_vertex>",
+        `#include <begin_vertex>
+         float gH = position.y / 0.5;
+         vec4 gWp = instanceMatrix * vec4(0.0, 0.0, 0.0, 1.0);
+         float gPh = gWp.x * 0.12 + gWp.z * 0.12;
+         float gSway = sin(uTime * 1.5 + gPh) * 0.16 + sin(uTime * 2.7 + gPh * 1.6) * 0.06;
+         transformed.x += gSway * gH;
+         transformed.z += gSway * 0.4 * gH;
+         // 角色踩踏：附近草向外侧倒伏并压低
+         vec2 gToP = gWp.xz - uPlayer.xz;
+         float gd = length(gToP);
+         float gTramp = smoothstep(2.4, 0.5, gd);
+         vec2 gDir = gToP / max(gd, 0.001);
+         transformed.xz += gDir * gTramp * gH * 0.55;
+         transformed.y -= gTramp * gH * 0.4;`
+      );
+    };
+
+    const count = 7000;
+    const mesh = new THREE.InstancedMesh(geo, mat, count);
+    mesh.frustumCulled = false;
+    mesh.castShadow = false;
+    mesh.receiveShadow = true;
+
+    const rnd = seededRand(31337);
+    const dummy = new THREE.Object3D();
+    let placed = 0;
+    for (let i = 0; i < count; i++) {
+      const x = (rnd() - 0.5) * 220;
+      const z = TERRAIN_ORIGIN_Z + (rnd() - 0.5) * TERRAIN_SIZE.depth * 0.9;
+      const y = sampleTerrainY(x, z, terrainHeight);
+      dummy.position.set(x, y, z);
+      dummy.rotation.set(0, rnd() * Math.PI, 0);
+      const s = 0.7 + rnd() * 1.2;
+      dummy.scale.set(s, 0.8 + rnd() * 1.0, s);
+      dummy.updateMatrix();
+      mesh.setMatrixAt(placed++, dummy.matrix);
+    }
+    mesh.count = placed;
+    mesh.instanceMatrix.needsUpdate = true;
+    this.grassMesh = mesh;
+    this.scene.add(mesh);
+  }
+
+  /** 体积感云层（缓慢漂移） */
+  private buildClouds(): void {
+    removeGroup(this.scene, this.clouds);
+    const tex = this.makeCloudTexture();
+    const group = new THREE.Group();
+    group.position.z = TERRAIN_ORIGIN_Z;
+    const rnd = seededRand(5150);
+    for (let i = 0; i < 18; i++) {
+      const mat = new THREE.SpriteMaterial({
+        map: tex,
+        transparent: true,
+        opacity: 0.42 + rnd() * 0.28,
+        depthWrite: false,
+        fog: false,
+      });
+      const sprite = new THREE.Sprite(mat);
+      const a = rnd() * Math.PI * 2;
+      const r = 130 + rnd() * 260;
+      sprite.position.set(Math.cos(a) * r, 86 + rnd() * 70, Math.sin(a) * r);
+      const sc = 70 + rnd() * 140;
+      sprite.scale.set(sc, sc * (0.42 + rnd() * 0.2), 1);
+      group.add(sprite);
+    }
+    this.clouds = group;
+    this.scene.add(group);
+  }
+
+  /** 生成柔和云朵贴图 */
+  private makeCloudTexture(): THREE.CanvasTexture {
+    const size = 256;
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = size;
+    const ctx = canvas.getContext("2d")!;
+    ctx.clearRect(0, 0, size, size);
+    for (let i = 0; i < 26; i++) {
+      const cx = size * (0.25 + Math.random() * 0.5);
+      const cy = size * (0.35 + Math.random() * 0.3);
+      const r = size * (0.08 + Math.random() * 0.18);
+      const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+      grad.addColorStop(0, "rgba(255,255,255,0.5)");
+      grad.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
+  }
+
   private rebuildPath(): void {
     removeGroup(this.scene, this.pathGroup);
     this.pathGroup = new THREE.Group();
@@ -551,9 +870,9 @@ export class World3D {
 
     for (const node of this.nodes) {
       const rand = seededRand(node.id.length * 997 + node.z);
-      for (let i = 0; i < 26; i++) {
+      for (let i = 0; i < 34; i++) {
         const angle = rand() * Math.PI * 2;
-        const dist = 6 + rand() * 18;
+        const dist = 6 + rand() * 24;
         const wx = node.x + Math.cos(angle) * dist;
         const wz = node.z + Math.sin(angle) * dist;
         const key = `${Math.round(wx)}_${Math.round(wz)}`;
@@ -566,12 +885,37 @@ export class World3D {
       }
     }
 
-    for (let wi = 0; wi < 10; wi++) {
-      const wx = (wi % 2 === 0 ? -22 : 22) + rnd() * 8;
-      const wz = wi * 48 + rnd() * 12;
-      const mesh = new THREE.Mesh(new THREE.PlaneGeometry(36, 22), water());
+    // 全局零散植被 / 岩石，填充大世界（避开中央走廊保留道路）
+    const scatter = seededRand(909);
+    const halfW = TERRAIN_SIZE.width * 0.46;
+    const halfD = TERRAIN_SIZE.depth * 0.46;
+    for (let i = 0; i < 180; i++) {
+      const wx = (scatter() - 0.5) * 2 * halfW;
+      const wz = TERRAIN_ORIGIN_Z + (scatter() - 0.5) * 2 * halfD;
+      if (Math.abs(wx) < 14) continue;
+      const wy = sampleTerrainY(wx, wz, terrainHeight);
+      const scale = 0.8 + scatter() * 1.5;
+      if (scatter() > 0.42) {
+        const tree = scatter() > 0.5 ? createPine(scale) : createTree(scale);
+        tree.position.set(wx, wy, wz);
+        tree.rotation.y = scatter() * Math.PI * 2;
+        this.decorGroup!.add(tree);
+      } else {
+        const rock = createRock(scale * 0.85);
+        rock.position.set(wx, wy + 0.2, wz);
+        rock.rotation.set(scatter(), scatter(), scatter());
+        this.decorGroup!.add(rock);
+      }
+    }
+
+    // 河谷湖泊（沿两侧山脚分布）
+    for (let wi = 0; wi < 12; wi++) {
+      const side = wi % 2 === 0 ? -1 : 1;
+      const wx = side * (60 + rnd() * 55);
+      const wz = TERRAIN_ORIGIN_Z - halfD * 0.8 + wi * (halfD * 1.3 / 12) + rnd() * 18;
+      const mesh = new THREE.Mesh(new THREE.PlaneGeometry(44 + rnd() * 24, 28 + rnd() * 18, 18, 12), water());
       mesh.rotation.x = -Math.PI / 2;
-      mesh.position.set(wx, sampleTerrainY(wx, wz, terrainHeight) - 0.75, wz);
+      mesh.position.set(wx, sampleTerrainY(wx, wz, terrainHeight) - 0.6, wz);
       mesh.userData.isWater = true;
       this.waterMeshes.push(mesh);
       this.waterGroup.add(mesh);
@@ -693,6 +1037,7 @@ export class World3D {
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(w, h);
+    this.composer?.setSize(w, h);
   };
 
   private updateProximity(): void {
@@ -749,18 +1094,94 @@ export class World3D {
 
     if (this.explorer) {
       this.explorer.position.lerp(this.player.position, 1 - Math.exp(-14 * dt));
-      let yawDiff = this.player.yaw - this.explorer.rotation.y;
+
+      // 平滑朝向角
+      let yawDiff = this.player.yaw - this.avatarYaw;
       while (yawDiff > Math.PI) yawDiff -= Math.PI * 2;
       while (yawDiff < -Math.PI) yawDiff += Math.PI * 2;
-      this.explorer.rotation.y += yawDiff * Math.min(1, dt * 12);
+      this.avatarYaw += yawDiff * Math.min(1, dt * 12);
 
       const walk = this.player.isMoving();
-      const bob = walk ? Math.sin(t * 9) * 0.05 : 0;
+      const sprint = this.player.isSprinting();
+      if (walk) {
+        this.walkPhase += dt * (sprint ? 15 : 9.5);
+        // 每半个步态周期落地一次 → 扬尘
+        const step = Math.floor(this.walkPhase / Math.PI);
+        if (step !== this.lastStep) {
+          this.lastStep = step;
+          const side = step % 2 === 0 ? 1 : -1;
+          const rx = Math.cos(this.avatarYaw) * 0.18 * side;
+          const rz = -Math.sin(this.avatarYaw) * 0.18 * side;
+          this.emitDust(this.player.position.x + rx, this.player.position.y, this.player.position.z + rz);
+        }
+      }
+
+      const rig = this.explorer.userData.rig as AvatarRig | undefined;
+      if (rig) {
+        if (walk) {
+          // 屈膝步态：髋摆动 + 膝在抬腿相位弯曲
+          const hipAmp = sprint ? 0.95 : 0.6;
+          const kneeAmp = sprint ? 1.35 : 0.95;
+          const swL = Math.sin(this.walkPhase);
+          const swR = Math.sin(this.walkPhase + Math.PI);
+          rig.leftLeg.hip.rotation.x = swL * hipAmp;
+          rig.rightLeg.hip.rotation.x = swR * hipAmp;
+          rig.leftLeg.knee.rotation.x = 0.12 + Math.max(0, -swL) * kneeAmp;
+          rig.rightLeg.knee.rotation.x = 0.12 + Math.max(0, -swR) * kneeAmp;
+          rig.leftArm.rotation.x = -swL * 0.8;
+          rig.rightArm.rotation.x = -swR * 0.8;
+          rig.head.rotation.z = 0;
+          // 披风随步伐飘起
+          rig.cape.rotation.x = -0.18 - (0.32 + Math.abs(Math.sin(this.walkPhase)) * 0.18) * (sprint ? 1.3 : 1);
+          rig.cape.rotation.z = Math.sin(this.walkPhase * 0.5) * 0.08;
+        } else {
+          // 回归站姿 + 待机呼吸
+          const k = Math.min(1, dt * 9);
+          rig.leftLeg.hip.rotation.x *= 1 - k;
+          rig.rightLeg.hip.rotation.x *= 1 - k;
+          rig.leftLeg.knee.rotation.x += (0.06 - rig.leftLeg.knee.rotation.x) * k;
+          rig.rightLeg.knee.rotation.x += (0.06 - rig.rightLeg.knee.rotation.x) * k;
+          rig.leftArm.rotation.x *= 1 - k;
+          rig.rightArm.rotation.x *= 1 - k;
+          rig.head.rotation.z = Math.sin(t * 1.4) * 0.05;
+          // 披风静止微摆
+          rig.cape.rotation.x += (-0.2 - rig.cape.rotation.x) * k;
+          rig.cape.rotation.z += (Math.sin(t * 1.1) * 0.04 - rig.cape.rotation.z) * k;
+        }
+      }
+
+      // 目标前倾角度（行进 / 奔跑）
+      const targetLean = walk ? (sprint ? 0.14 : 0.05) : 0;
+      this.avatarLean += (targetLean - this.avatarLean) * Math.min(1, dt * 8);
+
+      // 采样地形法线 → 角色贴地朝向（坡面对齐，告别"悬空平站"）
+      const px = this.explorer.position.x;
+      const pz = this.explorer.position.z;
+      const e = 1.6;
+      const hL = sampleTerrainY(px - e, pz, terrainHeight);
+      const hR = sampleTerrainY(px + e, pz, terrainHeight);
+      const hD = sampleTerrainY(px, pz - e, terrainHeight);
+      const hU = sampleTerrainY(px, pz + e, terrainHeight);
+      this._n.set(hL - hR, 2 * e, hD - hU).normalize();
+      // 软化倾斜，避免陡坡过度倾倒
+      this._n.lerp(WORLD_UP, 0.55).normalize();
+
+      this._fwd.set(Math.sin(this.avatarYaw), 0, Math.cos(this.avatarYaw));
+      this._fwd.addScaledVector(this._n, -this._fwd.dot(this._n)).normalize();
+      this._right.crossVectors(this._n, this._fwd).normalize();
+      this._fwd.crossVectors(this._right, this._n).normalize();
+      this._basis.makeBasis(this._right, this._n, this._fwd);
+      this._q.setFromRotationMatrix(this._basis);
+      this._leanQ.setFromAxisAngle(X_AXIS, this.avatarLean);
+      this._q.multiply(this._leanQ);
+      this.explorer.quaternion.slerp(this._q, 1 - Math.exp(-12 * dt));
+
+      const bob = walk ? Math.abs(Math.sin(this.walkPhase)) * 0.06 : Math.sin(t * 1.4) * 0.01;
       this.explorer.position.y = this.player.position.y + bob;
 
       const footRing = this.explorer.children.find((c) => (c as THREE.Mesh).userData?.isFootRing) as THREE.Mesh | undefined;
       if (footRing) {
-        const s = walk ? 1 + Math.sin(t * 9) * 0.08 : 1;
+        const s = walk ? 1 + Math.sin(this.walkPhase) * 0.08 : 1;
         footRing.scale.set(s, s, s);
         (footRing.material as THREE.MeshBasicMaterial).opacity = walk ? 0.45 : 0.28;
       }
@@ -768,6 +1189,7 @@ export class World3D {
 
     this.updateProximity();
     this.updatePickupProximity();
+    this.updateDust(dt);
     this.tickScene(t);
     this.onExploreUpdate?.({
       playerX: this.player.position.x,
@@ -776,15 +1198,37 @@ export class World3D {
       nearNodeId: this.nearNode?.id,
       pickups: this.pickupData,
     });
-    this.renderer.render(this.scene, this.camera);
+    if (this.composer) this.composer.render();
+    else this.renderer.render(this.scene, this.camera);
   };
 
   private tickScene(t: number): void {
+    // 昼夜循环：太阳沿天空划过，亮度 / 曝光 / 天光随之变化
     if (this.sun) {
-      this.sun.position.x = 55 + Math.sin(t * 0.06) * 10;
-      // 使用生物群系基础亮度，不覆盖 setBiome 设置的值，仅做轻微呼吸
-      this.sun.intensity = this.currentBiome.sunIntensity * (0.95 + Math.sin(t * 0.12) * 0.05);
+      const day = t * 0.03; // 完整循环约 210s
+      const sx = Math.sin(day) * 72;
+      const sy = 36 + Math.cos(day) * 46; // 约 -10 ~ 82
+      this.sun.position.set(sx, Math.max(5, sy), 35);
+      const daylight = THREE.MathUtils.clamp((sy + 8) / 90, 0.18, 1);
+      this.sun.intensity = this.currentBiome.sunIntensity * (0.32 + daylight * 0.68);
+      this.renderer.toneMappingExposure = 1.05 + daylight * 0.3;
+      if (this.hemi) this.hemi.intensity = 0.38 + daylight * 0.5;
+
+      // 太阳圆盘跟随光源方向（置于远空），夜间淡出
+      if (this.sunDisc) {
+        this.sunDisc.position.set(sx * 4.2, this.sun.position.y * 4.2, this.sun.position.z * 4.2 + TERRAIN_ORIGIN_Z);
+        (this.sunDisc.material as THREE.SpriteMaterial).opacity = THREE.MathUtils.clamp(daylight * 1.2, 0, 1);
+      }
     }
+
+    // 草地风吹 + 角色踩踏
+    if (this.grassUniforms) {
+      this.grassUniforms.uTime.value = t;
+      this.grassUniforms.uPlayer.value.copy(this.player.position);
+    }
+
+    // 云层缓慢漂移
+    if (this.clouds) this.clouds.rotation.y = t * 0.006;
 
     // 词汇光球动画
     for (const [id, group] of this.pickupMeshes) {
@@ -865,6 +1309,22 @@ export class World3D {
       if (w.userData.baseY === undefined) w.userData.baseY = w.position.y;
       w.position.y = w.userData.baseY + Math.sin(t * 0.9 + w.position.x) * 0.07;
       (w.material as THREE.MeshPhysicalMaterial).opacity = 0.68 + Math.sin(t * 0.7) * 0.08;
+
+      // 顶点涟漪
+      const geo = w.geometry as THREE.PlaneGeometry;
+      const pos = geo.attributes.position;
+      if (!w.userData.flat) w.userData.flat = Float32Array.from(pos.array as Float32Array);
+      const flat = w.userData.flat as Float32Array;
+      for (let i = 0; i < pos.count; i++) {
+        const ox = flat[i * 3];
+        const oy = flat[i * 3 + 1];
+        const ripple =
+          Math.sin(ox * 0.22 + t * 1.7) * 0.12 +
+          Math.cos(oy * 0.27 + t * 1.25) * 0.1;
+        pos.setZ(i, ripple);
+      }
+      pos.needsUpdate = true;
+      geo.computeVertexNormals();
     }
   }
 }

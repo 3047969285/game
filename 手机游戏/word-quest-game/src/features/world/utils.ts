@@ -1,10 +1,32 @@
 import * as THREE from "three";
 
-/** 地形高度采样（与 mesh 起伏一致） */
+/**
+ * 地形高度采样（多层分形）。
+ * 中央探索走廊（x≈0）保持平缓便于行走与放置建筑；
+ * 越往两侧山体越高，形成河谷 / 峡谷式的大世界地貌。
+ */
 export function terrainHeight(x: number, z: number): number {
-  const ridge = Math.sin(x * 0.06) * 2 + Math.cos(z * 0.04) * 2.5 + Math.sin((x + z) * 0.03) * 1.2;
-  const detail = Math.sin(x * 0.22 + z * 0.11) * 0.45 + Math.cos(x * 0.17 - z * 0.19) * 0.35;
-  return ridge + detail;
+  // 距中央走廊的归一化距离 0(中心) → 1(远侧)，并做 smoothstep 平滑
+  const corridor = Math.min(1, Math.abs(x) / 120);
+  const sideMask = corridor * corridor * (3 - 2 * corridor);
+
+  // 大尺度山脉（主要作用于两侧）
+  const macro =
+    Math.sin(x * 0.012) * 7.0 +
+    Math.cos(z * 0.009) * 6.0 +
+    Math.sin((x * 0.7 + z) * 0.0075) * 5.0;
+
+  // 中尺度丘陵（全局轻微起伏）
+  const mid =
+    Math.sin(x * 0.05 + z * 0.028) * 1.7 +
+    Math.cos(x * 0.037 - z * 0.045) * 1.3;
+
+  // 高频细节
+  const detail =
+    Math.sin(x * 0.19 + z * 0.12) * 0.4 +
+    Math.cos(x * 0.16 - z * 0.2) * 0.28;
+
+  return macro * sideMask + mid * (0.4 + 0.6 * sideMask) + detail;
 }
 
 /** 可复现的伪随机数 */

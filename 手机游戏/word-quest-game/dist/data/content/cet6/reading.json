@@ -3,16 +3,16 @@
   "count": 15,
   "items": [
     {
-      "title": "Campus Library Hours Extended (1)",
-      "passage": "Starting next semester, the main campus library will extend weekday hours until midnight during exam periods. The change responds to student requests for safer and quieter study spaces after evening classes. Laptop loans and group rooms can be reserved through the library app. Staff remind students that extended hours do not reduce the need for sleep.",
+      "title": "The Neuroscience of Habit Formation",
+      "passage": "Habits are encoded in the basal ganglia, a region of the brain associated with routine behavior. Once a habit is formed, the cognitive load required to perform the behavior drops significantly, freeing conscious attention for other tasks. This automaticity is why breaking bad habits is difficult — the neural circuits remain even after the behavior stops.",
       "questions": [
         {
-          "question": "Why are library hours extended?",
+          "question": "Why is breaking a bad habit difficult according to the passage?",
           "options": [
-            "To reduce staff workload",
-            "To meet student study needs",
-            "To host concerts",
-            "To close other buildings"
+            "It requires expensive treatment",
+            "The neural circuits persist even after stopping",
+            "The basal ganglia is irreplaceable",
+            "Habits involve conscious decisions"
           ],
           "answer": 1
         }
@@ -20,33 +20,33 @@
       "id": "cet6_r_01"
     },
     {
-      "title": "Remote Internships Gain Popularity (2)",
-      "passage": "A recent survey shows that more undergraduates choose remote internships. Students value flexible schedules and lower commuting costs. Employers, however, worry about communication delays. Career advisors suggest setting weekly goals and documenting outcomes to make remote experience visible in future interviews.",
+      "title": "Carbon Capture Technology",
+      "passage": "Direct air capture (DAC) technology draws carbon dioxide directly from the atmosphere using chemical processes. While promising, current DAC systems cost between $400 and $1,000 per ton of CO2 removed, far above the $50–100 target economists say is necessary for widespread deployment. Government subsidies and private investment are accelerating research to lower costs.",
       "questions": [
         {
-          "question": "What do career advisors recommend?",
+          "question": "What economic target must DAC technology reach for large-scale adoption?",
           "options": [
-            "Avoid remote internships",
-            "Set weekly goals and record results",
-            "Work without communication",
-            "Quit after one week"
+            "$50–100 per ton",
+            "$200–300 per ton",
+            "$400–500 per ton",
+            "$1,000 per ton"
           ],
-          "answer": 1
+          "answer": 0
         }
       ],
       "id": "cet6_r_02"
     },
     {
-      "title": "Campus Library Hours Extended (3)",
-      "passage": "Starting next semester, the main campus library will extend weekday hours until midnight during exam periods. The change responds to student requests for safer and quieter study spaces after evening classes. Laptop loans and group rooms can be reserved through the library app. Staff remind students that extended hours do not reduce the need for sleep.",
+      "title": "The Attention Economy",
+      "passage": "Technology companies compete for users' attention as their primary business resource. Every minute a user spends on a platform translates to advertising revenue. Designers employ techniques such as variable reward schedules — borrowed from behavioral psychology — to keep users engaged longer. Critics argue this model prioritizes engagement metrics over user well-being, contributing to anxiety and reduced attention spans.",
       "questions": [
         {
-          "question": "Why are library hours extended?",
+          "question": "What technique do designers use to increase user engagement?",
           "options": [
-            "To reduce staff workload",
-            "To meet student study needs",
-            "To host concerts",
-            "To close other buildings"
+            "Personalized news feeds only",
+            "Variable reward schedules",
+            "Reduced notification frequency",
+            "Educational content curation"
           ],
           "answer": 1
         }
@@ -54,16 +54,16 @@
       "id": "cet6_r_03"
     },
     {
-      "title": "Remote Internships Gain Popularity (4)",
-      "passage": "A recent survey shows that more undergraduates choose remote internships. Students value flexible schedules and lower commuting costs. Employers, however, worry about communication delays. Career advisors suggest setting weekly goals and documenting outcomes to make remote experience visible in future interviews.",
+      "title": "Diplomatic Language in International Relations",
+      "passage": "Diplomatic language is characterized by deliberate ambiguity, allowing parties to agree on a text while interpreting it differently at home. The phrase 'constructive dialogue' often signals that substantive agreement was not reached. Scholars of international relations study this linguistic dimension as carefully as they study policy substance, because the framing of agreements shapes their implementation.",
       "questions": [
         {
-          "question": "What do career advisors recommend?",
+          "question": "What does 'constructive dialogue' often signal in diplomatic contexts?",
           "options": [
-            "Avoid remote internships",
-            "Set weekly goals and record results",
-            "Work without communication",
-            "Quit after one week"
+            "A successful treaty",
+            "No substantive agreement was reached",
+            "Military cooperation",
+            "Trade concessions"
           ],
           "answer": 1
         }
@@ -71,16 +71,16 @@
       "id": "cet6_r_04"
     },
     {
-      "title": "Campus Library Hours Extended (5)",
-      "passage": "Starting next semester, the main campus library will extend weekday hours until midnight during exam periods. The change responds to student requests for safer and quieter study spaces after evening classes. Laptop loans and group rooms can be reserved through the library app. Staff remind students that extended hours do not reduce the need for sleep.",
+      "title": "Microplastics in the Ocean",
+      "passage": "Microplastics — particles smaller than 5 millimeters — have been detected in every ocean zone, including deep-sea sediments and Arctic ice. Marine organisms ingest these particles, which can accumulate toxic chemicals and enter the food chain. Scientists estimate that humans consume roughly 5 grams of microplastics per week through water, seafood, and air.",
       "questions": [
         {
-          "question": "Why are library hours extended?",
+          "question": "How do microplastics enter the human body?",
           "options": [
-            "To reduce staff workload",
-            "To meet student study needs",
-            "To host concerts",
-            "To close other buildings"
+            "Only through contaminated tap water",
+            "Through water, seafood, and air",
+            "Only through contact with packaging",
+            "Through sunscreen products"
           ],
           "answer": 1
         }
@@ -88,16 +88,16 @@
       "id": "cet6_r_05"
     },
     {
-      "title": "Remote Internships Gain Popularity (6)",
-      "passage": "A recent survey shows that more undergraduates choose remote internships. Students value flexible schedules and lower commuting costs. Employers, however, worry about communication delays. Career advisors suggest setting weekly goals and documenting outcomes to make remote experience visible in future interviews.",
+      "title": "The Philosophy of Expertise",
+      "passage": "Expertise is not merely the accumulation of facts but the development of intuition — the ability to recognize patterns rapidly and act without conscious deliberation. Chess grandmasters, for example, do not calculate every possible move; they perceive the board holistically and focus on the most promising areas. This transfer of knowledge to implicit memory is the hallmark of genuine mastery.",
       "questions": [
         {
-          "question": "What do career advisors recommend?",
+          "question": "How do chess grandmasters approach the game, according to the passage?",
           "options": [
-            "Avoid remote internships",
-            "Set weekly goals and record results",
-            "Work without communication",
-            "Quit after one week"
+            "By calculating every possible move",
+            "By relying on holistic pattern recognition",
+            "By memorizing historical games only",
+            "By using probabilistic models"
           ],
           "answer": 1
         }
@@ -105,16 +105,16 @@
       "id": "cet6_r_06"
     },
     {
-      "title": "Campus Library Hours Extended (7)",
-      "passage": "Starting next semester, the main campus library will extend weekday hours until midnight during exam periods. The change responds to student requests for safer and quieter study spaces after evening classes. Laptop loans and group rooms can be reserved through the library app. Staff remind students that extended hours do not reduce the need for sleep.",
+      "title": "Remote Work and Urban Migration",
+      "passage": "The normalization of remote work has prompted a measurable shift of workers from major metropolitan areas to smaller cities and rural regions. Real estate markets in mid-sized cities have seen price increases of up to 25 percent as urban professionals relocate. Municipal governments in these areas are investing in broadband infrastructure and co-working spaces to attract and retain this new resident demographic.",
       "questions": [
         {
-          "question": "Why are library hours extended?",
+          "question": "How are mid-sized cities responding to the influx of remote workers?",
           "options": [
-            "To reduce staff workload",
-            "To meet student study needs",
-            "To host concerts",
-            "To close other buildings"
+            "Restricting new housing development",
+            "Investing in broadband and co-working spaces",
+            "Raising local income taxes",
+            "Reducing public transport routes"
           ],
           "answer": 1
         }
@@ -122,16 +122,16 @@
       "id": "cet6_r_07"
     },
     {
-      "title": "Remote Internships Gain Popularity (8)",
-      "passage": "A recent survey shows that more undergraduates choose remote internships. Students value flexible schedules and lower commuting costs. Employers, however, worry about communication delays. Career advisors suggest setting weekly goals and documenting outcomes to make remote experience visible in future interviews.",
+      "title": "The Psychology of Procrastination",
+      "passage": "Procrastination is primarily an emotional regulation problem rather than a time management failure. People avoid tasks associated with negative feelings — boredom, anxiety, or self-doubt — by substituting more pleasant activities. Effective interventions focus on reducing the emotional discomfort of starting a task, such as using the two-minute rule to begin a small portion of the work immediately.",
       "questions": [
         {
-          "question": "What do career advisors recommend?",
+          "question": "What does research identify as the root cause of procrastination?",
           "options": [
-            "Avoid remote internships",
-            "Set weekly goals and record results",
-            "Work without communication",
-            "Quit after one week"
+            "Poor planning skills",
+            "Emotional discomfort avoidance",
+            "Lack of discipline",
+            "Unrealistic deadlines"
           ],
           "answer": 1
         }
@@ -139,16 +139,16 @@
       "id": "cet6_r_08"
     },
     {
-      "title": "Campus Library Hours Extended (9)",
-      "passage": "Starting next semester, the main campus library will extend weekday hours until midnight during exam periods. The change responds to student requests for safer and quieter study spaces after evening classes. Laptop loans and group rooms can be reserved through the library app. Staff remind students that extended hours do not reduce the need for sleep.",
+      "title": "Gene Editing Ethics",
+      "passage": "CRISPR-Cas9 technology enables precise modifications to the human genome, raising profound ethical questions. While germline editing — changes that are heritable — holds promise for eliminating genetic diseases, critics warn it could be misused for enhancement purposes. International scientific bodies have called for a moratorium on clinical applications until governance frameworks are established.",
       "questions": [
         {
-          "question": "Why are library hours extended?",
+          "question": "What have international scientific bodies called for regarding germline editing?",
           "options": [
-            "To reduce staff workload",
-            "To meet student study needs",
-            "To host concerts",
-            "To close other buildings"
+            "Immediate clinical trials",
+            "A moratorium until governance is in place",
+            "Complete prohibition of all CRISPR research",
+            "Government ownership of the technology"
           ],
           "answer": 1
         }
@@ -156,16 +156,16 @@
       "id": "cet6_r_09"
     },
     {
-      "title": "Remote Internships Gain Popularity (10)",
-      "passage": "A recent survey shows that more undergraduates choose remote internships. Students value flexible schedules and lower commuting costs. Employers, however, worry about communication delays. Career advisors suggest setting weekly goals and documenting outcomes to make remote experience visible in future interviews.",
+      "title": "Language Endangerment and Revitalization",
+      "passage": "Approximately half of the world's 7,000 languages are projected to become extinct by 2100. The loss of a language means the irretrievable disappearance of unique cultural knowledge, ecological terminology, and ways of perceiving the world. Revitalization efforts — such as immersion schools and digital archiving — have successfully stabilized several endangered languages, including Welsh and Māori.",
       "questions": [
         {
-          "question": "What do career advisors recommend?",
+          "question": "What have immersion schools and digital archiving helped achieve?",
           "options": [
-            "Avoid remote internships",
-            "Set weekly goals and record results",
-            "Work without communication",
-            "Quit after one week"
+            "Complete language revival in all cases",
+            "Stabilizing some endangered languages",
+            "Translating ancient texts",
+            "Teaching dominant languages more efficiently"
           ],
           "answer": 1
         }
@@ -173,16 +173,16 @@
       "id": "cet6_r_10"
     },
     {
-      "title": "Campus Library Hours Extended (11)",
-      "passage": "Starting next semester, the main campus library will extend weekday hours until midnight during exam periods. The change responds to student requests for safer and quieter study spaces after evening classes. Laptop loans and group rooms can be reserved through the library app. Staff remind students that extended hours do not reduce the need for sleep.",
+      "title": "Behavioral Economics and Public Policy",
+      "passage": "Behavioral economics applies insights from psychology to understand why people make irrational economic decisions. Governments have adopted 'nudge' policies — subtle environmental design choices that guide behavior without restricting freedom. Defaulting employees into pension savings plans, for example, dramatically increases participation rates compared to requiring active opt-in.",
       "questions": [
         {
-          "question": "Why are library hours extended?",
+          "question": "What example of a 'nudge' policy does the passage describe?",
           "options": [
-            "To reduce staff workload",
-            "To meet student study needs",
-            "To host concerts",
-            "To close other buildings"
+            "Taxing unhealthy foods",
+            "Automatic enrollment in pension plans",
+            "Banning inefficient appliances",
+            "Subsidizing electric cars"
           ],
           "answer": 1
         }
@@ -190,16 +190,16 @@
       "id": "cet6_r_11"
     },
     {
-      "title": "Remote Internships Gain Popularity (12)",
-      "passage": "A recent survey shows that more undergraduates choose remote internships. Students value flexible schedules and lower commuting costs. Employers, however, worry about communication delays. Career advisors suggest setting weekly goals and documenting outcomes to make remote experience visible in future interviews.",
+      "title": "Satellite Internet Access",
+      "passage": "Low-earth orbit satellite constellations are expanding internet connectivity to remote regions where fiber infrastructure is economically unfeasible. Latency has dropped to under 50 milliseconds with current systems, making real-time applications viable. Critics note concerns about space debris and the concentration of orbital infrastructure in the hands of a few private companies.",
       "questions": [
         {
-          "question": "What do career advisors recommend?",
+          "question": "What concern do critics raise about satellite internet expansion?",
           "options": [
-            "Avoid remote internships",
-            "Set weekly goals and record results",
-            "Work without communication",
-            "Quit after one week"
+            "It is too slow for video calls",
+            "Space debris and corporate concentration",
+            "Signal interference with aircraft",
+            "Its high monthly subscription cost"
           ],
           "answer": 1
         }
@@ -207,16 +207,16 @@
       "id": "cet6_r_12"
     },
     {
-      "title": "Campus Library Hours Extended (13)",
-      "passage": "Starting next semester, the main campus library will extend weekday hours until midnight during exam periods. The change responds to student requests for safer and quieter study spaces after evening classes. Laptop loans and group rooms can be reserved through the library app. Staff remind students that extended hours do not reduce the need for sleep.",
+      "title": "Urban Heat Islands",
+      "passage": "Urban heat islands form when built surfaces — concrete, asphalt, and glass — absorb and retain solar energy, raising city temperatures by 2–5 degrees Celsius above surrounding rural areas. This effect intensifies heatwave mortality and increases energy demand for cooling. Green roofs, reflective pavements, and urban tree canopy expansion are among the most effective mitigation strategies.",
       "questions": [
         {
-          "question": "Why are library hours extended?",
+          "question": "What is an effective strategy to reduce the urban heat island effect?",
           "options": [
-            "To reduce staff workload",
-            "To meet student study needs",
-            "To host concerts",
-            "To close other buildings"
+            "Building underground car parks",
+            "Expanding green roofs and tree canopy",
+            "Increasing air conditioning capacity",
+            "Using darker road surfaces"
           ],
           "answer": 1
         }
@@ -224,16 +224,16 @@
       "id": "cet6_r_13"
     },
     {
-      "title": "Remote Internships Gain Popularity (14)",
-      "passage": "A recent survey shows that more undergraduates choose remote internships. Students value flexible schedules and lower commuting costs. Employers, however, worry about communication delays. Career advisors suggest setting weekly goals and documenting outcomes to make remote experience visible in future interviews.",
+      "title": "Philosophical Aspects of Time",
+      "passage": "Physicists and philosophers disagree on whether time is fundamental or emergent. Some interpretations of quantum mechanics suggest that time is not a basic ingredient of reality but arises from the relationships between physical systems. If correct, our intuitive sense of a flowing present moment may be a product of consciousness rather than an objective feature of the universe.",
       "questions": [
         {
-          "question": "What do career advisors recommend?",
+          "question": "What might the flowing sense of time be, according to some quantum interpretations?",
           "options": [
-            "Avoid remote internships",
-            "Set weekly goals and record results",
-            "Work without communication",
-            "Quit after one week"
+            "An objective universal feature",
+            "A product of consciousness",
+            "A measurement error",
+            "A cultural construct"
           ],
           "answer": 1
         }
@@ -241,16 +241,16 @@
       "id": "cet6_r_14"
     },
     {
-      "title": "Campus Library Hours Extended (15)",
-      "passage": "Starting next semester, the main campus library will extend weekday hours until midnight during exam periods. The change responds to student requests for safer and quieter study spaces after evening classes. Laptop loans and group rooms can be reserved through the library app. Staff remind students that extended hours do not reduce the need for sleep.",
+      "title": "Digital Literacy in Education",
+      "passage": "As AI-generated content becomes indistinguishable from human-written text, digital literacy has emerged as a core educational competency. Students must learn not only how to use digital tools but how to critically evaluate the credibility and origin of information. Schools that integrate media literacy across all subjects see greater improvements in student critical thinking than those treating it as a standalone course.",
       "questions": [
         {
-          "question": "Why are library hours extended?",
+          "question": "What approach is most effective for teaching media literacy?",
           "options": [
-            "To reduce staff workload",
-            "To meet student study needs",
-            "To host concerts",
-            "To close other buildings"
+            "A dedicated semester-long course",
+            "Integration across all subjects",
+            "After-school workshops only",
+            "Online self-paced modules"
           ],
           "answer": 1
         }
