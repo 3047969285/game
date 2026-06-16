@@ -6,10 +6,51 @@ import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { Reflector } from "three/addons/objects/Reflector.js";
 import type { MapNode, WordPickup } from "../../core/types";
 import { loadAvatarGlb, loadModelsManifest } from "./ModelLoader";
+
+type QualityTier = "high" | "med" | "low";
+
+interface QualityConfig {
+  /** 渲染像素比上限 */
+  pixelRatio: number;
+  /** 草叶实例数量 */
+  grass: number;
+  /** 镜面反射湖泊数量（0 表示关闭反射，使用普通水面） */
+  reflectors: number;
+  /** 反射渲染目标分辨率 */
+  reflectRes: number;
+  /** 反射启用的玩家距离阈值 */
+  reflectDist: number;
+  /** 阴影贴图尺寸 */
+  shadowMap: number;
+  /** 是否启用泛光后期 */
+  bloom: boolean;
+  /** 泛光内部分辨率系数 */
+  bloomScale: number;
+}
+
+const QUALITY_PRESETS: Record<QualityTier, QualityConfig> = {
+  high: { pixelRatio: 2, grass: 7000, reflectors: 3, reflectRes: 512, reflectDist: 300, shadowMap: 2048, bloom: true, bloomScale: 1 },
+  med: { pixelRatio: 1.5, grass: 3800, reflectors: 2, reflectRes: 384, reflectDist: 220, shadowMap: 1536, bloom: true, bloomScale: 0.66 },
+  low: { pixelRatio: 1, grass: 1600, reflectors: 0, reflectRes: 256, reflectDist: 160, shadowMap: 1024, bloom: false, bloomScale: 0.5 },
+};
+
+/** 依据设备能力推断画质档位 */
+function detectQuality(): QualityTier {
+  if (typeof window === "undefined") return "med";
+  const coarse = window.matchMedia?.("(pointer: coarse)").matches ?? false;
+  const small = Math.min(window.innerWidth, window.innerHeight) < 540;
+  const cores = (navigator as Navigator & { hardwareConcurrency?: number }).hardwareConcurrency ?? 4;
+  const mem = (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 4;
+  const mobile = coarse || small;
+  if (mobile && (cores <= 4 || mem <= 3)) return "low";
+  if (mobile) return "med";
+  if (cores <= 4 || mem <= 4) return "med";
+  return "high";
+}
 import { createLandmarkWithCad } from "./cadLandmark";
 import { createExplorerAvatar, type AvatarRig } from "./explorerAvatar";
 import { ExplorerCamera } from "./ExplorerCamera";
-import { glowPath, stone, water } from "./materials";
+import { glowPath, lanternGlass, lanternMetal, makeLanternGlowTexture, mossyStone, water } from "./materials";
 import { PlayerController } from "./PlayerController";
 import { createLantern, createPine, createRock, createTree, grassBladeGeometry } from "./props";
 import { createSignpost } from "./signpost";
@@ -99,6 +140,10 @@ export class World3D {
   private animId = 0;
   private paused = true;
   private clock = new THREE.Clock();
+  /** 帧率自适应 */
+  private _fpsTs = 0;
+  private _fpsFrames = 0;
+  private _fpsAdapted = false;
   private nodes: MapNode[] = [];
   private currentId = "";
   private onNodeClick: (nodeId: string) => void;
@@ -108,6 +153,9 @@ export class World3D {
   private onPickupCollect?: (pickupId: string) => void;
   private waterMeshes: THREE.Mesh[] = [];
   private reflectors: Reflector[] = [];
+  /** 画质分级（按设备能力自适应，兼顾精细与流畅） */
+  private readonly quality: QualityTier = detectQuality();
+  private readonly qcfg: QualityConfig = QUALITY_PRESETS[this.quality];
   private rebuildToken = 0;
   private player = new PlayerController();
   private explorerCam = new ExplorerCamera();
@@ -136,8 +184,12 @@ export class World3D {
     this.camera = new THREE.PerspectiveCamera(50, w / h, 0.2, 900);
     this.camera.position.set(0, 8, 20);
 
-    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: "high-performance" });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer = new THREE.WebGLRenderer({
+      antialias: this.quality !== "low",
+      alpha: false,
+      powerPreference: "high-performance",
+    });
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, this.qcfg.pixelRatio));
     this.renderer.setSize(w, h);
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -163,15 +215,20 @@ export class World3D {
 
   /** 后期处理管线：泛光（Bloom）让水晶 / 光球 / 太阳产生电影级辉光 */
   private setupPostFX(w: number, h: number): void {
+    if (!this.qcfg.bloom) {
+      this.composer = undefined;
+      return;
+    }
     try {
       const composer = new EffectComposer(this.renderer);
       composer.addPass(new RenderPass(this.scene, this.camera));
 
-      const bloom = new UnrealBloomPass(new THREE.Vector2(w, h), 0.62, 0.5, 0.78);
+      const bs = this.qcfg.bloomScale;
+      const bloom = new UnrealBloomPass(new THREE.Vector2(w * bs, h * bs), 0.62, 0.5, 0.78);
       composer.addPass(bloom);
       composer.addPass(new OutputPass());
 
-      composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      composer.setPixelRatio(Math.min(window.devicePixelRatio, this.qcfg.pixelRatio));
       composer.setSize(w, h);
 
       this.composer = composer;
@@ -299,6 +356,46 @@ export class World3D {
       (Math.min(255, Math.round(g * 255) + 80) << 8) |
       Math.min(255, Math.round(bl * 255) + 60);
     return { ground, highland, path: b.pathColor };
+  }
+
+  /** 草叶 LOD：每 30 帧把玩家 65 m 外的实例缩为 0，近处恢复 */
+  private updateGrassLOD(): void {
+    const mesh = this.grassMesh;
+    if (!mesh?.userData.grassPositions) return;
+    const frame: number = (mesh.userData.lodFrame ?? 0) + 1;
+    mesh.userData.lodFrame = frame;
+    if (frame % 30 !== 0) return;   // 30 帧刷新一次
+
+    const pos = mesh.userData.grassPositions as Float32Array;
+    const scales = mesh.userData.grassScales as Float32Array;
+    const count = mesh.count;
+    const px = this.player.position.x;
+    const pz = this.player.position.z;
+    const SHOW_SQ = 65 * 65;
+    const dummy = new THREE.Object3D();
+    let dirty = false;
+    for (let i = 0; i < count; i++) {
+      const dx = pos[i * 3] - px;
+      const dz = pos[i * 3 + 2] - pz;
+      const near = dx * dx + dz * dz < SHOW_SQ;
+      const cur = scales[i];
+      const want: number = near ? 1 : 0;
+      if (cur === want) continue;
+      scales[i] = want;
+      mesh.getMatrixAt(i, dummy.matrix);
+      dummy.matrix.decompose(dummy.position, dummy.quaternion, dummy.scale);
+      if (want === 0) {
+        dummy.scale.setScalar(0);
+      } else {
+        // 恢复原始缩放（从位置数组重建）
+        const s = 0.7 + ((Math.abs(pos[i * 3] * 7919 + pos[i * 3 + 2] * 3571) % 1000) / 1000) * 1.2;
+        dummy.scale.set(s, 0.8 + ((Math.abs(pos[i * 3 + 1] * 6271) % 1000) / 1000), s);
+      }
+      dummy.updateMatrix();
+      mesh.setMatrixAt(i, dummy.matrix);
+      dirty = true;
+    }
+    if (dirty) mesh.instanceMatrix.needsUpdate = true;
   }
 
   /** 释放镜面反射的渲染目标 */
@@ -649,7 +746,7 @@ export class World3D {
     this.sun = new THREE.DirectionalLight(0xfff4e0, 1.45);
     this.sun.position.set(55, 72, 35);
     this.sun.castShadow = true;
-    this.sun.shadow.mapSize.set(4096, 4096);
+    this.sun.shadow.mapSize.set(this.qcfg.shadowMap, this.qcfg.shadowMap);
     const cam = this.sun.shadow.camera;
     cam.near = 8;
     cam.far = 340;
@@ -845,13 +942,14 @@ export class World3D {
     this.scene.add(this.terrain);
   }
 
-  /** 远景低多边形山脉环带（提升纵深与"真实"地平线） */
+  /** 远景低多边形山脉环带（大气透视 + 雪顶） */
   private buildMountains(): void {
     removeGroup(this.scene, this.mountains);
     const group = new THREE.Group();
     const rnd = seededRand(7);
     const ringRadius = Math.max(TERRAIN_SIZE.width, TERRAIN_SIZE.depth) * 0.5;
-    const count = 30;
+    const count = this.quality === "low" ? 18 : this.quality === "med" ? 24 : 30;
+    const snow = this.quality !== "low";
 
     for (let i = 0; i < count; i++) {
       const a = (i / count) * Math.PI * 2 + (rnd() - 0.5) * 0.18;
@@ -860,14 +958,31 @@ export class World3D {
       const z = Math.sin(a) * r + TERRAIN_ORIGIN_Z;
       const h = 42 + rnd() * 78;
       const rad = 32 + rnd() * 46;
-      // 远山偏冷色，与雾气融合形成大气透视
       const shade = 0x2f3c52 + Math.floor(rnd() * 0x0a) * 0x010101;
-      const mat = new THREE.MeshStandardMaterial({ color: shade, roughness: 1, metalness: 0, flatShading: true });
+      const mat = new THREE.MeshStandardMaterial({
+        color: shade,
+        roughness: 1,
+        metalness: 0,
+        flatShading: true,
+        fog: true,
+      });
       const peak = new THREE.Mesh(new THREE.ConeGeometry(rad, h, 5 + Math.floor(rnd() * 3), 1), mat);
       peak.position.set(x, h / 2 - 8, z);
       peak.rotation.y = rnd() * Math.PI;
       peak.scale.set(1, 0.8 + rnd() * 0.5, 1);
       group.add(peak);
+
+      // 高画质：远山雪顶
+      if (snow && h > 70) {
+        const capH = h * (0.18 + rnd() * 0.12);
+        const cap = new THREE.Mesh(
+          new THREE.ConeGeometry(rad * 0.42, capH, 5, 1),
+          new THREE.MeshStandardMaterial({ color: 0xd8e8f8, roughness: 0.95, metalness: 0, flatShading: true, fog: true })
+        );
+        cap.position.set(x, h - capH * 0.35 - 8, z);
+        cap.rotation.y = peak.rotation.y;
+        group.add(cap);
+      }
     }
 
     this.mountains = group;
@@ -907,28 +1022,36 @@ export class World3D {
       );
     };
 
-    const count = 7000;
+    const count = this.qcfg.grass;
     const mesh = new THREE.InstancedMesh(geo, mat, count);
-    mesh.frustumCulled = false;
+    // 开启视锥剔除（Three.js 会对 InstancedMesh 做整体包围盒检测）
+    mesh.frustumCulled = true;
     mesh.castShadow = false;
     mesh.receiveShadow = true;
 
     const rnd = seededRand(31337);
     const dummy = new THREE.Object3D();
-    let placed = 0;
+    // 预存所有草叶的世界坐标，用于运行时 LOD 剔除
+    const grassPositions: Float32Array = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       const x = (rnd() - 0.5) * 220;
       const z = TERRAIN_ORIGIN_Z + (rnd() - 0.5) * TERRAIN_SIZE.depth * 0.9;
       const y = sampleTerrainY(x, z, terrainHeight);
+      grassPositions[i * 3] = x;
+      grassPositions[i * 3 + 1] = y;
+      grassPositions[i * 3 + 2] = z;
       dummy.position.set(x, y, z);
       dummy.rotation.set(0, rnd() * Math.PI, 0);
       const s = 0.7 + rnd() * 1.2;
       dummy.scale.set(s, 0.8 + rnd() * 1.0, s);
       dummy.updateMatrix();
-      mesh.setMatrixAt(placed++, dummy.matrix);
+      mesh.setMatrixAt(i, dummy.matrix);
     }
-    mesh.count = placed;
+    mesh.count = count;
     mesh.instanceMatrix.needsUpdate = true;
+    mesh.userData.grassPositions = grassPositions;
+    mesh.userData.grassScales = new Float32Array(count).fill(1);
+    mesh.userData.lodFrame = 0;
     this.grassMesh = mesh;
     this.scene.add(mesh);
   }
@@ -1019,17 +1142,65 @@ export class World3D {
       this.pathGroup.add(rail, glow);
     }
 
+    // 石板铺路（苔藓石砖 + 方向对齐）
+    const tileMatA = mossyStone(0x6b7280);
+    const tileMatB = mossyStone(0x8b939f);
+    const tileMatC = mossyStone(0x55606e);
+    const tileMats = [tileMatA, tileMatB, tileMatC];
+    const tileGeo = new THREE.BoxGeometry(1.05, 0.13, 0.72);
     for (let s = 0; s <= steps; s++) {
-      const p = curve.getPoint(s / steps);
-      p.y = sampleTerrainY(p.x, p.z, terrainHeight) + 0.02;
-      const tile = new THREE.Mesh(
-        new THREE.BoxGeometry(0.82, 0.14, 0.6),
-        stone(s % 3 === 0 ? 0x6b7280 : 0x8b939f, 0.75)
-      );
+      const t0 = s / steps;
+      const t1 = Math.min(1, (s + 0.5) / steps);
+      const p = curve.getPoint(t0);
+      p.y = sampleTerrainY(p.x, p.z, terrainHeight) + 0.01;
+      const p2 = curve.getPoint(t1);
+      const tile = new THREE.Mesh(tileGeo, tileMats[s % 3]);
       tile.position.copy(p);
-      tile.rotation.y = (s / steps) * Math.PI * 4;
+      tile.lookAt(p2.x, p.y, p2.z);
       tile.receiveShadow = true;
       this.pathGroup.add(tile);
+    }
+
+    // 路灯（每隔 6 节点放 1 对）
+    const glowTex = makeLanternGlowTexture("rgba(255,220,140,1)");
+    const poleGeo = new THREE.CylinderGeometry(0.055, 0.07, 2.6, 7);
+    const armGeo = new THREE.CylinderGeometry(0.03, 0.03, 0.8, 5);
+    const lampGeo = new THREE.SphereGeometry(0.14, 8, 6);
+    const poleMat = lanternMetal();
+    const lampMat = lanternGlass(0xffe080);
+
+    for (let ni = 0; ni < this.nodes.length; ni += Math.max(1, Math.floor(this.nodes.length / 8))) {
+      const node = this.nodes[ni];
+      // 路灯方向：沿路径法线左右各一盏
+      const ti = Math.min(1, (ni + 0.5) / Math.max(1, this.nodes.length - 1));
+      const tang = curve.getTangent(ti);
+      const side = new THREE.Vector3(-tang.z, 0, tang.x).normalize();
+
+      for (const sign of [-1, 1]) {
+        const lx = node.x + side.x * 2.2 * sign;
+        const lz = node.z + side.z * 2.2 * sign;
+        const ly = sampleTerrainY(lx, lz, terrainHeight);
+
+        const pole = new THREE.Mesh(poleGeo, poleMat);
+        pole.position.set(lx, ly + 1.3, lz);
+        pole.castShadow = true;
+
+        const arm = new THREE.Mesh(armGeo, poleMat);
+        arm.rotation.z = Math.PI / 2;
+        arm.position.set(lx + 0.4 * sign * -1, ly + 2.55, lz);
+
+        const lamp = new THREE.Mesh(lampGeo, lampMat);
+        lamp.position.set(lx + 0.8 * sign * -1, ly + 2.55, lz);
+
+        // 光晕 sprite
+        const glow = new THREE.Sprite(new THREE.SpriteMaterial({
+          map: glowTex, transparent: true, opacity: 0.7, depthWrite: false, blending: THREE.AdditiveBlending,
+        }));
+        glow.scale.setScalar(1.8);
+        glow.position.set(lx + 0.8 * sign * -1, ly + 2.6, lz);
+
+        this.pathGroup!.add(pole, arm, lamp, glow);
+      }
     }
 
     this.scene.add(this.pathGroup);
@@ -1046,9 +1217,12 @@ export class World3D {
     const rnd = seededRand(2024);
     const placed = new Set<string>();
 
+    const treesPerNode = this.quality === "low" ? 16 : this.quality === "med" ? 24 : 34;
+    const scatterCount = this.quality === "low" ? 80 : this.quality === "med" ? 120 : 180;
+
     for (const node of this.nodes) {
       const rand = seededRand(node.id.length * 997 + node.z);
-      for (let i = 0; i < 34; i++) {
+      for (let i = 0; i < treesPerNode; i++) {
         const angle = rand() * Math.PI * 2;
         const dist = 6 + rand() * 24;
         const wx = node.x + Math.cos(angle) * dist;
@@ -1067,7 +1241,7 @@ export class World3D {
     const scatter = seededRand(909);
     const halfW = TERRAIN_SIZE.width * 0.46;
     const halfD = TERRAIN_SIZE.depth * 0.46;
-    for (let i = 0; i < 180; i++) {
+    for (let i = 0; i < scatterCount; i++) {
       const wx = (scatter() - 0.5) * 2 * halfW;
       const wz = TERRAIN_ORIGIN_Z + (scatter() - 0.5) * 2 * halfD;
       if (Math.abs(wx) < 14) continue;
@@ -1086,8 +1260,9 @@ export class World3D {
       }
     }
 
-    // 河谷湖泊（沿两侧山脚分布）：真实镜面反射 + 涟漪叠层
+    // 河谷湖泊（沿两侧山脚分布）：近处镜面反射 + 远处程序化水面
     const lakeCount = 6;
+    const reflectiveMax = this.qcfg.reflectors;
     for (let wi = 0; wi < lakeCount; wi++) {
       const side = wi % 2 === 0 ? -1 : 1;
       const wx = side * (60 + rnd() * 55);
@@ -1095,26 +1270,40 @@ export class World3D {
       const lw = 48 + rnd() * 26;
       const lh = 30 + rnd() * 18;
       const ly = sampleTerrainY(wx, wz, terrainHeight) - 0.6;
+      const reflective = wi < reflectiveMax;
 
-      // 镜面反射层
-      const reflector = new Reflector(new THREE.PlaneGeometry(lw, lh), {
-        textureWidth: 512,
-        textureHeight: 512,
-        color: 0x1d4456,
-      });
-      reflector.rotation.x = -Math.PI / 2;
-      reflector.position.set(wx, ly, wz);
-      this.reflectors.push(reflector);
-      this.waterGroup.add(reflector);
+      if (reflective) {
+        // 镜面反射层（仅近处少量湖泊，按画质分辨率）
+        const reflector = new Reflector(new THREE.PlaneGeometry(lw, lh), {
+          textureWidth: this.qcfg.reflectRes,
+          textureHeight: this.qcfg.reflectRes,
+          color: 0x1d4456,
+        });
+        reflector.rotation.x = -Math.PI / 2;
+        reflector.position.set(wx, ly, wz);
+        this.reflectors.push(reflector);
+        this.waterGroup.add(reflector);
 
-      // 涟漪 / 高光叠层（半透明，让反射透出）
-      const ripple = new THREE.Mesh(new THREE.PlaneGeometry(lw, lh, 18, 12), water());
-      (ripple.material as THREE.MeshPhysicalMaterial).opacity = 0.26;
-      ripple.rotation.x = -Math.PI / 2;
-      ripple.position.set(wx, ly + 0.05, wz);
-      ripple.userData.isWater = true;
-      this.waterMeshes.push(ripple);
-      this.waterGroup.add(ripple);
+        // 涟漪 / 高光叠层（半透明，让反射透出）
+        const ripple = new THREE.Mesh(new THREE.PlaneGeometry(lw, lh, 18, 12), water());
+        (ripple.material as THREE.MeshPhysicalMaterial).opacity = 0.26;
+        ripple.rotation.x = -Math.PI / 2;
+        ripple.position.set(wx, ly + 0.05, wz);
+        ripple.userData.isWater = true;
+        ripple.userData.baseOpacity = 0.26;
+        this.waterMeshes.push(ripple);
+        this.waterGroup.add(ripple);
+      } else {
+        // 无反射湖泊：单层半透明程序化水面（开销低）
+        const lake = new THREE.Mesh(new THREE.PlaneGeometry(lw, lh, 16, 10), water());
+        (lake.material as THREE.MeshPhysicalMaterial).opacity = 0.82;
+        lake.rotation.x = -Math.PI / 2;
+        lake.position.set(wx, ly + 0.02, wz);
+        lake.userData.isWater = true;
+        lake.userData.baseOpacity = 0.82;
+        this.waterMeshes.push(lake);
+        this.waterGroup.add(lake);
+      }
     }
 
     const mist = new THREE.Mesh(
@@ -1285,6 +1474,27 @@ export class World3D {
     const dt = Math.min(this.clock.getDelta(), 0.05);
     const t = this.clock.getElapsedTime();
 
+    // 帧率自适应：连续 3 s 平均低于 40 fps 则降一档像素比
+    if (!this._fpsAdapted) {
+      this._fpsFrames++;
+      const now = performance.now();
+      if (this._fpsTs === 0) this._fpsTs = now;
+      if (now - this._fpsTs >= 3000) {
+        const fps = this._fpsFrames / ((now - this._fpsTs) / 1000);
+        if (fps < 40) {
+          const cur = this.renderer.getPixelRatio();
+          const next = Math.max(0.75, cur - 0.5);
+          if (next < cur) {
+            this.renderer.setPixelRatio(next);
+            this.composer?.setPixelRatio(next);
+          }
+          this._fpsAdapted = true;
+        }
+        this._fpsTs = now;
+        this._fpsFrames = 0;
+      }
+    }
+
     if (this.mixer) this.mixer.update(dt);
 
     const camYaw = this.explorerCam.update(this.camera, this.player.position, this.player.yaw, dt);
@@ -1436,6 +1646,7 @@ export class World3D {
       this.grassUniforms.uTime.value = t;
       this.grassUniforms.uPlayer.value.copy(this.player.position);
     }
+    this.updateGrassLOD();
 
     // 云层缓慢漂移
     if (this.clouds) this.clouds.rotation.y = t * 0.006;
@@ -1515,12 +1726,28 @@ export class World3D {
       });
     }
 
+    const px = this.player.position.x;
+    const pz = this.player.position.z;
+    const RIPPLE_DIST = 90;   // 只对 90 m 以内的水面做顶点涟漪
+    const RIPPLE_DIST_SQ = RIPPLE_DIST * RIPPLE_DIST;
+
     for (const w of this.waterMeshes) {
       if (w.userData.baseY === undefined) w.userData.baseY = w.position.y;
-      w.position.y = w.userData.baseY + Math.sin(t * 0.9 + w.position.x) * 0.07;
-      (w.material as THREE.MeshPhysicalMaterial).opacity = 0.68 + Math.sin(t * 0.7) * 0.08;
+      const baseOp: number = w.userData.baseOpacity ?? 0.68;
+      const dx = w.position.x - px;
+      const dz = w.position.z - pz;
+      const distSq = dx * dx + dz * dz;
+      const near = distSq < RIPPLE_DIST_SQ;
 
-      // 顶点涟漪
+      // 轻微整体起伏（所有湖）
+      w.position.y = w.userData.baseY + Math.sin(t * 0.9 + w.position.x * 0.03) * 0.04;
+      // 透明度淡动（保留 baseOpacity 区间）
+      (w.material as THREE.MeshPhysicalMaterial).opacity =
+        baseOp + Math.sin(t * 0.7) * Math.min(0.08, baseOp * 0.12);
+
+      if (!near) continue; // 远处跳过顶点计算
+
+      // 顶点涟漪（仅近处）
       const geo = w.geometry as THREE.PlaneGeometry;
       const pos = geo.attributes.position;
       if (!w.userData.flat) w.userData.flat = Float32Array.from(pos.array as Float32Array);
@@ -1528,13 +1755,21 @@ export class World3D {
       for (let i = 0; i < pos.count; i++) {
         const ox = flat[i * 3];
         const oy = flat[i * 3 + 1];
-        const ripple =
+        pos.setZ(i,
           Math.sin(ox * 0.22 + t * 1.7) * 0.12 +
-          Math.cos(oy * 0.27 + t * 1.25) * 0.1;
-        pos.setZ(i, ripple);
+          Math.cos(oy * 0.27 + t * 1.25) * 0.10
+        );
       }
       pos.needsUpdate = true;
       geo.computeVertexNormals();
+    }
+
+    // 距离超限时暂停 Reflector 渲染（节省 GPU）
+    const reflectDistSq = this.qcfg.reflectDist * this.qcfg.reflectDist;
+    for (const r of this.reflectors) {
+      const rdx = r.position.x - px;
+      const rdz = r.position.z - pz;
+      r.visible = rdx * rdx + rdz * rdz < reflectDistSq;
     }
   }
 }
