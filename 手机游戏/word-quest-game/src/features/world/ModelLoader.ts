@@ -129,6 +129,31 @@ export async function loadGlbModel(
   }
 }
 
+export interface LoadedAvatar {
+  group: THREE.Group;
+  clips: THREE.AnimationClip[];
+}
+
+/** 加载带动画的角色 GLB（不进缓存，保留 animations） */
+export async function loadAvatarGlb(
+  file: string,
+  config: ModelSlotConfig,
+  manifest: ModelsManifest
+): Promise<LoadedAvatar | null> {
+  const url = assetUrl(file);
+  if (!(await fileExists(url))) return null;
+  try {
+    const gltf = await gltfLoader.loadAsync(url);
+    const root = gltf.scene as THREE.Group;
+    const targetH = config.targetHeight ?? manifest.defaults?.targetHeight ?? 1.9;
+    normalizeModelRoot(root, targetH, config.scale ?? manifest.defaults?.scale ?? 1);
+    enableModelShadows(root);
+    return { group: root, clips: gltf.animations ?? [] };
+  } catch {
+    return null;
+  }
+}
+
 /** 解析节点应使用的模型配置：节点 ID 优先，否则主题 */
 export function resolveNodeModelConfig(
   nodeId: string,

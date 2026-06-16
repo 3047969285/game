@@ -3,7 +3,9 @@ import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+import { Reflector } from "three/addons/objects/Reflector.js";
 import type { MapNode, WordPickup } from "../../core/types";
+import { loadAvatarGlb, loadModelsManifest } from "./ModelLoader";
 import { createLandmarkWithCad } from "./cadLandmark";
 import { createExplorerAvatar, type AvatarRig } from "./explorerAvatar";
 import { ExplorerCamera } from "./ExplorerCamera";
@@ -11,7 +13,7 @@ import { glowPath, stone, water } from "./materials";
 import { PlayerController } from "./PlayerController";
 import { createLantern, createPine, createRock, createTree, grassBladeGeometry } from "./props";
 import { createSignpost } from "./signpost";
-import type { MinimapState } from "./Minimap";
+import type { MinimapBiomePalette, MinimapState } from "./Minimap";
 import { getTheme } from "./theme";
 import { DEFAULT_BIOME, getBiome, type UnitBiome } from "./unitBiome";
 import { createTerrainMaps } from "./textures";
@@ -73,6 +75,17 @@ export class World3D {
   /** 角色平滑朝向与前倾 */
   private avatarYaw = 0;
   private avatarLean = 0;
+  /** 表情与眨眼 */
+  private expression: "neutral" | "happy" | "surprised" = "neutral";
+  private blinkTimer = 2;
+  private blink = 0;
+  /** GLB 角色（存在时替代程序化人形） */
+  private usingGlb = false;
+  private mixer?: THREE.AnimationMixer;
+  private glbIdle?: THREE.AnimationAction;
+  private glbWalk?: THREE.AnimationAction;
+  private glbClips?: THREE.AnimationClip[];
+  private glbEmoting = false;
   // 朝向计算复用对象（避免每帧分配）
   private readonly _n = new THREE.Vector3();
   private readonly _fwd = new THREE.Vector3();
@@ -94,6 +107,7 @@ export class World3D {
   private onPickupNear?: (pickup: WordPickup | null) => void;
   private onPickupCollect?: (pickupId: string) => void;
   private waterMeshes: THREE.Mesh[] = [];
+  private reflectors: Reflector[] = [];
   private rebuildToken = 0;
   private player = new PlayerController();
   private explorerCam = new ExplorerCamera();
@@ -210,7 +224,130 @@ export class World3D {
     this.currentBiome = biome;
     this.applyBiomeToSky(biome);
     this.applyBiomeToLights(biome);
+    this.applyOutfitFromBiome(biome);
     this.scene.fog = new THREE.FogExp2(biome.fogColor, biome.fogDensity);
+  }
+
+  /** 角色换装：以颜色为镶边 / 披风主色（GLB 角色则做辉光染色） */
+  setOutfitAccent(accent: number): void {
+    const rig = this.explorer?.userData.rig as AvatarRig | undefined;
+    if (rig) {
+      rig.mats.trim.color.setHex(accent);
+      rig.mats.trim.emissive.setHex(accent).multiplyScalar(0.4);
+      rig.mats.cape.color.setHex(accent);
+      rig.mats.cape.emissive.setHex(accent).multiplyScalar(0.35);
+      return;
+    }
+    if (this.usingGlb && this.explorer) {
+      this.explorer.traverse((obj) => {
+        const mesh = obj as THREE.Mesh;
+        const mat = mesh.material as THREE.MeshStandardMaterial | undefined;
+        if (mesh.isMesh && mat && "emissive" in mat) {
+          mat.emissive.setHex(accent).multiplyScalar(0.45);
+        }
+      });
+    }
+  }
+
+  /** 设置表情：neutral / happy / surprised（GLB 角色映射为机器人情绪动作） */
+  setExpression(kind: "neutral" | "happy" | "surprised"): void {
+    this.expression = kind;
+    if (this.usingGlb) this.playGlbEmote(kind);
+  }
+
+  /** GLB 角色情绪动作：happy→Wave，surprised→Jump，neutral→回到 idle */
+  private playGlbEmote(kind: "neutral" | "happy" | "surprised"): void {
+    if (!this.mixer || !this.glbClips || !this.glbIdle) return;
+    const name = kind === "happy" ? "Wave" : kind === "surprised" ? "Jump" : null;
+    if (!name) {
+      this.glbEmoting = false;
+      this.glbIdle.reset().fadeIn(0.3).play();
+      return;
+    }
+    const clip = this.glbClips.find((c) => c.name === name);
+    if (!clip) return;
+
+    const act = this.mixer.clipAction(clip);
+    act.setLoop(THREE.LoopOnce, 1);
+    act.clampWhenFinished = false;
+    act.reset().play();
+    this.glbWalk?.setEffectiveWeight(0);
+    this.glbIdle.crossFadeTo(act, 0.2, false);
+    this.glbEmoting = true;
+
+    const onFinished = (e: { action: THREE.AnimationAction }): void => {
+      if (e.action !== act) return;
+      this.glbEmoting = false;
+      act.crossFadeTo(this.glbIdle!.reset().play(), 0.3, false);
+      this.mixer?.removeEventListener("finished", onFinished as never);
+    };
+    this.mixer.addEventListener("finished", onFinished as never);
+  }
+
+  /** 依据生物群系自动换装 */
+  private applyOutfitFromBiome(biome: UnitBiome): void {
+    this.setOutfitAccent(biome.crystalColor);
+  }
+
+  /** 由当前生物群系换算小地图配色 */
+  private minimapPalette(): MinimapBiomePalette {
+    const b = this.currentBiome;
+    const [r, g, bl] = b.terrainTint;
+    const ground = (Math.round(r * 255) << 16) | (Math.round(g * 255) << 8) | Math.round(bl * 255);
+    const highland =
+      (Math.min(255, Math.round(r * 255) + 70) << 16) |
+      (Math.min(255, Math.round(g * 255) + 80) << 8) |
+      Math.min(255, Math.round(bl * 255) + 60);
+    return { ground, highland, path: b.pathColor };
+  }
+
+  /** 释放镜面反射的渲染目标 */
+  private disposeReflectors(): void {
+    for (const r of this.reflectors) {
+      r.getRenderTarget().dispose();
+      r.geometry.dispose();
+      (r.material as THREE.Material).dispose();
+    }
+    this.reflectors = [];
+  }
+
+  /** 表情 + 眨眼动画 */
+  private updateFace(rig: AvatarRig, dt: number): void {
+    // 眨眼计时
+    this.blinkTimer -= dt;
+    if (this.blinkTimer <= 0) {
+      this.blink = 1;
+      this.blinkTimer = 2.4 + Math.random() * 3.2;
+    }
+    this.blink = Math.max(0, this.blink - dt * 9);
+    const eyeScaleY = 1 - this.blink * 0.85;
+    rig.eyeL.scale.y = eyeScaleY;
+    rig.eyeR.scale.y = eyeScaleY;
+
+    // 靠近站点 / 光球时自动微笑
+    const eff = this.nearNode || this.nearPickup ? "happy" : this.expression;
+
+    let browY = 0.37;
+    let mouthSX = 1;
+    let mouthSY = 1;
+    let mouthY = 0.2;
+    if (eff === "happy") {
+      browY = 0.39;
+      mouthSX = 1.5;
+      mouthSY = 0.85;
+      mouthY = 0.188;
+    } else if (eff === "surprised") {
+      browY = 0.42;
+      mouthSX = 0.7;
+      mouthSY = 2.4;
+      mouthY = 0.192;
+    }
+
+    const k = Math.min(1, dt * 8);
+    rig.brow.position.y += (browY - rig.brow.position.y) * k;
+    rig.mouth.scale.x += (mouthSX - rig.mouth.scale.x) * k;
+    rig.mouth.scale.y += (mouthSY - rig.mouth.scale.y) * k;
+    rig.mouth.position.y += (mouthY - rig.mouth.position.y) * k;
   }
 
   /** 设置词汇光球（散布在探索地图上的收集点） */
@@ -274,6 +411,8 @@ export class World3D {
       for (const s of this.dustPool) (s.material as THREE.SpriteMaterial).dispose();
       this.dustPool = [];
     }
+    this.disposeReflectors();
+    this.mixer?.stopAllAction();
     this.composer?.dispose();
     for (const g of this.nodeGroups.values()) disposeGroup(g);
     for (const g of this.pickupMeshes.values()) disposeGroup(g);
@@ -298,6 +437,44 @@ export class World3D {
     removeGroup(this.scene, this.explorer);
     this.explorer = createExplorerAvatar();
     this.scene.add(this.explorer);
+    this.applyOutfitFromBiome(this.currentBiome);
+    void this.tryLoadGlbAvatar();
+  }
+
+  /** 尝试加载真实 GLB 角色模型，存在则替换程序化人形 */
+  private async tryLoadGlbAvatar(): Promise<void> {
+    try {
+      const manifest = await loadModelsManifest();
+      const cfg = manifest?.world?.avatar;
+      if (!manifest || !cfg) return;
+      const loaded = await loadAvatarGlb(cfg.file, cfg, manifest);
+      if (!loaded) return;
+
+      // 替换为 GLB 角色
+      removeGroup(this.scene, this.explorer);
+      this.explorer = loaded.group;
+      this.explorer.position.copy(this.player.position);
+      this.explorer.quaternion.setFromEuler(new THREE.Euler(0, this.avatarYaw, 0));
+      this.scene.add(this.explorer);
+      this.usingGlb = true;
+
+      if (loaded.clips.length) {
+        this.mixer = new THREE.AnimationMixer(this.explorer);
+        this.glbClips = loaded.clips;
+        const idleClip =
+          loaded.clips.find((c) => /idle|stand|breath/i.test(c.name)) ?? loaded.clips[0];
+        this.glbIdle = this.mixer.clipAction(idleClip);
+        this.glbIdle.play();
+        const walkClip = loaded.clips.find((c) => /walk|run|move/i.test(c.name));
+        if (walkClip) {
+          this.glbWalk = this.mixer.clipAction(walkClip);
+          this.glbWalk.play();
+          this.glbWalk.setEffectiveWeight(0);
+        }
+      }
+    } catch {
+      // 失败则保留程序化人形
+    }
   }
 
   private teleportToNode(nodeId: string): void {
@@ -859,6 +1036,7 @@ export class World3D {
   }
 
   private rebuildDecor(): void {
+    this.disposeReflectors();
     removeGroup(this.scene, this.decorGroup);
     removeGroup(this.scene, this.waterGroup);
     this.decorGroup = new THREE.Group();
@@ -908,17 +1086,35 @@ export class World3D {
       }
     }
 
-    // 河谷湖泊（沿两侧山脚分布）
-    for (let wi = 0; wi < 12; wi++) {
+    // 河谷湖泊（沿两侧山脚分布）：真实镜面反射 + 涟漪叠层
+    const lakeCount = 6;
+    for (let wi = 0; wi < lakeCount; wi++) {
       const side = wi % 2 === 0 ? -1 : 1;
       const wx = side * (60 + rnd() * 55);
-      const wz = TERRAIN_ORIGIN_Z - halfD * 0.8 + wi * (halfD * 1.3 / 12) + rnd() * 18;
-      const mesh = new THREE.Mesh(new THREE.PlaneGeometry(44 + rnd() * 24, 28 + rnd() * 18, 18, 12), water());
-      mesh.rotation.x = -Math.PI / 2;
-      mesh.position.set(wx, sampleTerrainY(wx, wz, terrainHeight) - 0.6, wz);
-      mesh.userData.isWater = true;
-      this.waterMeshes.push(mesh);
-      this.waterGroup.add(mesh);
+      const wz = TERRAIN_ORIGIN_Z - halfD * 0.8 + wi * ((halfD * 1.5) / lakeCount) + rnd() * 18;
+      const lw = 48 + rnd() * 26;
+      const lh = 30 + rnd() * 18;
+      const ly = sampleTerrainY(wx, wz, terrainHeight) - 0.6;
+
+      // 镜面反射层
+      const reflector = new Reflector(new THREE.PlaneGeometry(lw, lh), {
+        textureWidth: 512,
+        textureHeight: 512,
+        color: 0x1d4456,
+      });
+      reflector.rotation.x = -Math.PI / 2;
+      reflector.position.set(wx, ly, wz);
+      this.reflectors.push(reflector);
+      this.waterGroup.add(reflector);
+
+      // 涟漪 / 高光叠层（半透明，让反射透出）
+      const ripple = new THREE.Mesh(new THREE.PlaneGeometry(lw, lh, 18, 12), water());
+      (ripple.material as THREE.MeshPhysicalMaterial).opacity = 0.26;
+      ripple.rotation.x = -Math.PI / 2;
+      ripple.position.set(wx, ly + 0.05, wz);
+      ripple.userData.isWater = true;
+      this.waterMeshes.push(ripple);
+      this.waterGroup.add(ripple);
     }
 
     const mist = new THREE.Mesh(
@@ -1089,6 +1285,8 @@ export class World3D {
     const dt = Math.min(this.clock.getDelta(), 0.05);
     const t = this.clock.getElapsedTime();
 
+    if (this.mixer) this.mixer.update(dt);
+
     const camYaw = this.explorerCam.update(this.camera, this.player.position, this.player.yaw, dt);
     this.player.update(dt, camYaw);
 
@@ -1148,6 +1346,16 @@ export class World3D {
           rig.cape.rotation.x += (-0.2 - rig.cape.rotation.x) * k;
           rig.cape.rotation.z += (Math.sin(t * 1.1) * 0.04 - rig.cape.rotation.z) * k;
         }
+
+        this.updateFace(rig, dt);
+      }
+
+      // GLB 角色：在 idle / walk 间平滑过渡（情绪动作播放时暂停）
+      if (this.usingGlb && this.glbWalk && this.glbIdle && !this.glbEmoting) {
+        const cur = this.glbWalk.getEffectiveWeight();
+        const next = cur + ((walk ? 1 : 0) - cur) * Math.min(1, dt * 6);
+        this.glbWalk.setEffectiveWeight(next);
+        this.glbIdle.setEffectiveWeight(1 - next);
       }
 
       // 目标前倾角度（行进 / 奔跑）
@@ -1194,9 +1402,11 @@ export class World3D {
     this.onExploreUpdate?.({
       playerX: this.player.position.x,
       playerZ: this.player.position.z,
+      playerYaw: this.player.yaw,
       nodes: this.nodes,
       nearNodeId: this.nearNode?.id,
       pickups: this.pickupData,
+      biome: this.minimapPalette(),
     });
     if (this.composer) this.composer.render();
     else this.renderer.render(this.scene, this.camera);

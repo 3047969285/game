@@ -216,6 +216,23 @@ export class App {
               <button type="button" class="btn-exit-explore" id="btn-exit-explore">← 返回地图</button>
             </div>
             <canvas id="explore-minimap" class="explore-minimap" width="120" height="120" aria-label="探险小地图"></canvas>
+            <button type="button" id="btn-avatar-toggle" class="btn-avatar-toggle" title="换装 / 表情" aria-label="换装与表情">🧑‍🎤</button>
+            <div id="avatar-toolbox" class="avatar-toolbox hidden">
+              <div class="avatar-tool-title">表情</div>
+              <div class="avatar-tool-row">
+                <button type="button" class="avatar-chip" data-expr="neutral" title="中性">😐</button>
+                <button type="button" class="avatar-chip" data-expr="happy" title="开心">😀</button>
+                <button type="button" class="avatar-chip" data-expr="surprised" title="惊讶">😮</button>
+              </div>
+              <div class="avatar-tool-title">换装</div>
+              <div class="avatar-tool-row">
+                <button type="button" class="avatar-swatch" data-accent="4237567" style="background:#40a8ff" title="湖蓝"></button>
+                <button type="button" class="avatar-swatch" data-accent="16737095" style="background:#ff6347" title="赤红"></button>
+                <button type="button" class="avatar-swatch" data-accent="6477941" style="background:#62d875" title="翠绿"></button>
+                <button type="button" class="avatar-swatch" data-accent="16764496" style="background:#ffce50" title="琥珀"></button>
+                <button type="button" class="avatar-swatch" data-accent="12868860" style="background:#c45cfc" title="紫晶"></button>
+              </div>
+            </div>
             <div id="move-stick" class="move-stick" aria-label="移动摇杆">
               <div class="move-stick-knob" id="move-stick-knob"></div>
             </div>
@@ -312,6 +329,31 @@ export class App {
     viewport.querySelector("#btn-exit-explore")?.addEventListener("click", () => {
       audio.play("click");
       this.exitUnitExplore();
+    });
+
+    // 换装 / 表情面板
+    const toolbox = viewport.querySelector("#avatar-toolbox") as HTMLElement | null;
+    viewport.querySelector("#btn-avatar-toggle")?.addEventListener("click", () => {
+      audio.play("click");
+      toolbox?.classList.toggle("hidden");
+    });
+    toolbox?.querySelectorAll<HTMLButtonElement>(".avatar-chip").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        audio.play("click");
+        const expr = btn.dataset.expr as "neutral" | "happy" | "surprised";
+        this.world?.setExpression(expr);
+        toolbox.querySelectorAll(".avatar-chip").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+      });
+    });
+    toolbox?.querySelectorAll<HTMLButtonElement>(".avatar-swatch").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        audio.play("click");
+        const accent = Number(btn.dataset.accent);
+        if (!Number.isNaN(accent)) this.world?.setOutfitAccent(accent);
+        toolbox.querySelectorAll(".avatar-swatch").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+      });
     });
 
     const stick = viewport.querySelector("#move-stick") as HTMLElement | null;

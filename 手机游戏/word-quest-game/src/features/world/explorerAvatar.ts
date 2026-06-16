@@ -15,6 +15,17 @@ export interface AvatarRig {
   rightArm: THREE.Group;
   head: THREE.Group;
   cape: THREE.Group;
+  /** 面部（表情控制） */
+  eyeL: THREE.Mesh;
+  eyeR: THREE.Mesh;
+  brow: THREE.Mesh;
+  mouth: THREE.Mesh;
+  /** 服装材质（换装染色） */
+  mats: {
+    jacket: THREE.MeshStandardMaterial;
+    trim: THREE.MeshStandardMaterial;
+    cape: THREE.MeshStandardMaterial;
+  };
 }
 
 /** 带膝关节的腿：髋 group 内含大腿，膝 group 内含小腿 + 脚 */
@@ -151,7 +162,11 @@ export function createExplorerAvatar(): THREE.Group {
   const browMat = new THREE.MeshStandardMaterial({ color: 0x2a1d16, roughness: 0.8 });
   const brow = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.03, 0.04), browMat);
   brow.position.set(0, 0.37, 0.2);
-  headGroup.add(eyeL, eyeR, brow);
+  // 嘴（弯曲程度表现表情）
+  const mouthMat = new THREE.MeshStandardMaterial({ color: 0x7a4030, roughness: 0.6 });
+  const mouth = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.022, 0.03), mouthMat);
+  mouth.position.set(0, 0.2, 0.216);
+  headGroup.add(eyeL, eyeR, brow, mouth);
   root.add(headGroup);
 
   // 披风（挂于肩部，行进时飘动）
@@ -203,7 +218,19 @@ export function createExplorerAvatar(): THREE.Group {
   ring.userData.isFootRing = true;
   root.add(ring);
 
-  const rig: AvatarRig = { leftLeg, rightLeg, leftArm, rightArm, head: headGroup, cape };
+  const rig: AvatarRig = {
+    leftLeg,
+    rightLeg,
+    leftArm,
+    rightArm,
+    head: headGroup,
+    cape,
+    eyeL,
+    eyeR,
+    brow,
+    mouth,
+    mats: { jacket, trim, cape: capeMat },
+  };
   root.userData.rig = rig;
   return root;
 }

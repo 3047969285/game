@@ -27,6 +27,7 @@
     "temple": { "file": "models/landmarks/temple.glb" }
   },
   "world": {
-    "terrain": { "file": "models/world/terrain.glb", "optional": true, "targetHeight": 2 }
+    "terrain": { "file": "models/world/terrain.glb", "optional": true, "targetHeight": 2 },
+    "avatar": { "file": "models/avatar/avatar.glb", "optional": true, "targetHeight": 1.9, "label": "探险者角色（可选，放入即生效）" }
   }
 }
