@@ -1,0 +1,128 @@
+{
+  "unit_id": "unit01",
+  "unit_number": 1,
+  "edition": 4,
+  "title": "The digital age: Are we ready?",
+  "title_zh": "数字时代：我们准备好了吗？",
+  "theme": "digital life, connection, technology",
+  "word_ids": [
+    "rw3_unit01_01",
+    "rw3_unit01_02",
+    "rw3_unit01_03",
+    "rw3_unit01_04",
+    "rw3_unit01_05",
+    "rw3_unit01_06",
+    "rw3_unit01_07",
+    "rw3_unit01_08",
+    "rw3_unit01_09",
+    "rw3_unit01_10",
+    "rw3_unit01_11",
+    "rw3_unit01_12",
+    "rw3_unit01_13",
+    "rw3_unit01_14",
+    "rw3_unit01_15",
+    "rw3_unit01_16",
+    "rw3_unit01_17",
+    "rw3_unit01_18",
+    "rw3_unit01_19",
+    "rw3_unit01_20"
+  ],
+  "sections": {
+    "section_a": {
+      "title": "Connection or conversation",
+      "type": "reading",
+      "passage": "College students send hundreds of messages every week, yet many report feeling lonely. A communication teacher asked her class to keep phones in bags during group discussions. At first students felt anxious. After three sessions, however, they spoke longer and listened more carefully. One student said, 'Messages connect us quickly, but conversation helps us understand each other.' The experiment suggests that readiness for the digital age is not about owning more devices—it is about choosing when to connect and when to converse."
+    },
+    "section_b": {
+      "title": "Living in the digital world",
+      "type": "reading",
+      "passage": "Living in the digital world means learning new habits every semester. Notifications interrupt attention during late-night study. Algorithms on social platforms filter what we read and shape how we scroll. Many students multitask without noticing the cost. Privacy settings are easy to ignore until a data leak occurs. Cyber safety workshops remind users to balance online convenience with offline rest. A mindful hour without devices can restore interaction with roommates and rebuild healthier habits."
+    },
+    "section_c": {
+      "title": "Stories of China",
+      "type": "stories_of_china",
+      "passage": "In a mountain county in western China, a clinic adopted telemedicine to serve elderly patients. Doctors in a coastal city reviewed scans through a secure platform. Villagers who once traveled for hours now receive advice at home. The project shows how digital connection can support real communities, not only wealthy districts. China's development story includes such quiet innovation: technology with human purpose, respect for local needs, and pride in shared progress."
+    },
+    "vocabulary": {
+      "level_count": 4,
+      "words_per_level": 5
+    },
+    "reading": {
+      "title": "Connection or Conversation?",
+      "passage": "College students send hundreds of messages every week, yet many report feeling lonely. A communication teacher asked her class to keep phones in bags during group discussions. At first students felt anxious. After three sessions, however, they spoke longer and listened more carefully. One student said, 'Messages connect us quickly, but conversation helps us understand each other.' The experiment suggests that readiness for the digital age is not about owning more devices—it is about choosing when to connect and when to converse.",
+      "questions": [
+        {
+          "question": "What changed after students put away phones?",
+          "options": [
+            "They stopped talking",
+            "They listened more carefully",
+            "They failed the course",
+            "They deleted social apps"
+          ],
+          "answer": 1,
+          "explanation": "学生表示对话更认真、倾听更仔细。"
+        },
+        {
+          "question": "What is the main message?",
+          "options": [
+            "Devices should be banned forever",
+            "Digital readiness includes how we use technology",
+            "Messages are useless",
+            "Students should not study communication"
+          ],
+          "answer": 1,
+          "explanation": "文章强调数字时代的关键在于如何使用技术。"
+        }
+      ]
+    },
+    "listening": {
+      "title": "Listening: The digital age: Are we ready?",
+      "script": "College students send hundreds of messages every week, yet many report feeling lonely. A communication teacher asked her class to keep phones in bags during group discussions. At first students felt anxious. After three sessions, however, they spoke longer and listened more carefully. One student said, 'Messages connect us quickly, but conversation helps us understand each other.' The experiment suggests that readiness for the digital age is not about owning more devices—it is about choosing when to connect and when to converse. Living in the digital world means learning new habits every semester. Notifications interrupt attention during late-night study. Algorithms on social platforms filter what we read and shape how we scroll. Many students multitask without noticing the cost. Privacy settings are easy to ignore until a data leak occurs. Cyber safety workshops remind users to balance online convenience with offline rest. A mindful hour without devices can restore interaction with roommates and rebuild healthier habits.",
+      "questions": [
+        {
+          "question": "What changed after students put away phones?",
+          "options": [
+            "They stopped talking",
+            "They listened more carefully",
+            "They failed the course",
+            "They deleted social apps"
+          ],
+          "answer": 1,
+          "explanation": "学生表示对话更认真、倾听更仔细。"
+        },
+        {
+          "question": "What is the main message?",
+          "options": [
+            "Devices should be banned forever",
+            "Digital readiness includes how we use technology",
+            "Messages are useless",
+            "Students should not study communication"
+          ],
+          "answer": 1,
+          "explanation": "文章强调数字时代的关键在于如何使用技术。"
+        }
+      ]
+    },
+    "translation": {
+      "sentences": [
+        {
+          "zh": "请将下列句子译为英文：在数字时代，真正的交流不仅取决于网速，还取决于我们是否愿意专注倾听。",
+          "en_reference": "In the digital age, real communication depends not only on internet speed, but also on our willingness to listen with focus.",
+          "keywords": [
+            "digital",
+            "connection"
+          ]
+        }
+      ]
+    },
+    "writing": {
+      "prompt": "Write 120-150 words about the theme: 数字时代：我们准备好了吗？.",
+      "outline": [
+        "Introduction",
+        "Example",
+        "Personal view",
+        "Conclusion"
+      ]
+    }
+  }
+}

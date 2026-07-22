@@ -1,0 +1,106 @@
+{
+  "unit_id": "unit05",
+  "unit_number": 5,
+  "edition": 4,
+  "title": "China's space dream",
+  "title_zh": "中国的航天梦",
+  "theme": "space exploration, innovation, China",
+  "word_ids": [
+    "rw3_unit05_01",
+    "rw3_unit05_02",
+    "rw3_unit05_03",
+    "rw3_unit05_04",
+    "rw3_unit05_05",
+    "rw3_unit05_06",
+    "rw3_unit05_07",
+    "rw3_unit05_08",
+    "rw3_unit05_09",
+    "rw3_unit05_10",
+    "rw3_unit05_11",
+    "rw3_unit05_12",
+    "rw3_unit05_13",
+    "rw3_unit05_14",
+    "rw3_unit05_15",
+    "rw3_unit05_16",
+    "rw3_unit05_17",
+    "rw3_unit05_18",
+    "rw3_unit05_19",
+    "rw3_unit05_20"
+  ],
+  "sections": {
+    "section_a": {
+      "title": "No limit for China's astronauts in their space exploration endeavors",
+      "type": "reading",
+      "passage": "When a probe landed on the far side of the moon, students across the country followed the news in real time. The mission was not only a technical success; it showed how long-term planning turns dreams into routine capability. Engineers explained that each launch depends on thousands of small tests and failures. China's space dream, they said, is less about spectacle and more about building reliable systems for future generations."
+    },
+    "section_b": {
+      "title": "Chang'e-4 kicked off a new space odyssey",
+      "type": "reading",
+      "passage": "When Chang'e-4 landed on the far side of the moon, classrooms followed the odyssey in real time. The breakthrough depended on thousands of tests, not luck alone. Engineers analyzed data from each launch and orbit adjustment. A lunar landing is a lesson in long-term planning: ambitious goals become routine capability through cooperation and patient research."
+    },
+    "section_c": {
+      "title": "Stories of China",
+      "type": "stories_of_china",
+      "passage": "China's astronauts train for years before a single mission enters orbit. Their endeavor reflects generations of exploration—from early telescopes to modern spacecraft. Students visiting a space exhibit learn that the nation's frontier dreams rely on discipline, innovation, and shared investment in science for the future."
+    },
+    "vocabulary": {
+      "level_count": 4,
+      "words_per_level": 5
+    },
+    "reading": {
+      "title": "A New Chapter in Lunar Exploration",
+      "passage": "When a probe landed on the far side of the moon, students across the country followed the news in real time. The mission was not only a technical success; it showed how long-term planning turns dreams into routine capability. Engineers explained that each launch depends on thousands of small tests and failures. China's space dream, they said, is less about spectacle and more about building reliable systems for future generations.",
+      "questions": [
+        {
+          "question": "What does the passage emphasize?",
+          "options": [
+            "Luck alone brings success",
+            "Long-term planning and reliable systems",
+            "Space travel has no scientific value",
+            "Students should avoid engineering"
+          ],
+          "answer": 1,
+          "explanation": "文章强调长期规划与可靠体系。"
+        }
+      ]
+    },
+    "listening": {
+      "title": "Listening: China's space dream",
+      "script": "When a probe landed on the far side of the moon, students across the country followed the news in real time. The mission was not only a technical success; it showed how long-term planning turns dreams into routine capability. Engineers explained that each launch depends on thousands of small tests and failures. China's space dream, they said, is less about spectacle and more about building reliable systems for future generations. When Chang'e-4 landed on the far side of the moon, classrooms followed the odyssey in real time. The breakthrough depended on thousands of tests, not luck alone. Engineers analyzed data from each launch and orbit adjustment. A lunar landing is a lesson in long-term planning: ambitious goals become routine capability through cooperation and patient research.",
+      "questions": [
+        {
+          "question": "What does the passage emphasize?",
+          "options": [
+            "Luck alone brings success",
+            "Long-term planning and reliable systems",
+            "Space travel has no scientific value",
+            "Students should avoid engineering"
+          ],
+          "answer": 1,
+          "explanation": "文章强调长期规划与可靠体系。"
+        }
+      ]
+    },
+    "translation": {
+      "sentences": [
+        {
+          "zh": "请将下列句子译为英文：中国航天事业的进步，是无数代人持续探索与协作的结果。",
+          "en_reference": "China's progress in space is the result of continuous exploration and cooperation across generations.",
+          "keywords": [
+            "astronaut",
+            "spacecraft"
+          ]
+        }
+      ]
+    },
+    "writing": {
+      "prompt": "Write 120-150 words about the theme: 中国的航天梦.",
+      "outline": [
+        "Introduction",
+        "Example",
+        "Personal view",
+        "Conclusion"
+      ]
+    }
+  }
+}

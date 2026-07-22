@@ -1,0 +1,106 @@
+{
+  "unit_id": "unit06",
+  "unit_number": 6,
+  "edition": 4,
+  "title": "The economy: power behind everyday life",
+  "title_zh": "经济：日常生活背后的力量",
+  "theme": "economy, crisis, sharing economy",
+  "word_ids": [
+    "rw3_unit06_01",
+    "rw3_unit06_02",
+    "rw3_unit06_03",
+    "rw3_unit06_04",
+    "rw3_unit06_05",
+    "rw3_unit06_06",
+    "rw3_unit06_07",
+    "rw3_unit06_08",
+    "rw3_unit06_09",
+    "rw3_unit06_10",
+    "rw3_unit06_11",
+    "rw3_unit06_12",
+    "rw3_unit06_13",
+    "rw3_unit06_14",
+    "rw3_unit06_15",
+    "rw3_unit06_16",
+    "rw3_unit06_17",
+    "rw3_unit06_18",
+    "rw3_unit06_19",
+    "rw3_unit06_20"
+  ],
+  "sections": {
+    "section_a": {
+      "title": "Surviving an economic crisis",
+      "type": "reading",
+      "passage": "After an economic downturn, a neighborhood bookstore struggled to pay rent. Instead of closing, the owner partnered with a campus club to create a book-sharing wall. Readers could leave a book and take another for a small fee. The model did not make anyone rich quickly, but it kept knowledge circulating and supported local jobs. Students learned that the economy is not only charts in textbooks; it is the system behind every price tag and every shared resource."
+    },
+    "section_b": {
+      "title": "The sharing economy turns a new page with books",
+      "type": "reading",
+      "passage": "The sharing economy turned a new page when a campus club built a book-exchange wall. Readers left a novel and took another for an affordable fee. The startup model did not create instant revenue, but it kept resources circulating. Consumers learned that sustainable exchange can support local shops during uncertain seasons."
+    },
+    "section_c": {
+      "title": "Stories of China",
+      "type": "stories_of_china",
+      "passage": "During a recession, a county library in central China expanded digital lending services. Families on tight budgets accessed affordable reading through a shared platform. The project showed economic resilience: communities invest in knowledge when income is unstable. Such stories remind students that the economy is the system behind everyday prices and shared resources."
+    },
+    "vocabulary": {
+      "level_count": 4,
+      "words_per_level": 5
+    },
+    "reading": {
+      "title": "Books on the Move",
+      "passage": "After an economic downturn, a neighborhood bookstore struggled to pay rent. Instead of closing, the owner partnered with a campus club to create a book-sharing wall. Readers could leave a book and take another for a small fee. The model did not make anyone rich quickly, but it kept knowledge circulating and supported local jobs. Students learned that the economy is not only charts in textbooks; it is the system behind every price tag and every shared resource.",
+      "questions": [
+        {
+          "question": "How did the bookstore survive?",
+          "options": [
+            "By raising prices sharply",
+            "By creating a book-sharing model",
+            "By selling only online ads",
+            "By refusing all customers"
+          ],
+          "answer": 1,
+          "explanation": "书店通过图书共享模式维持经营。"
+        }
+      ]
+    },
+    "listening": {
+      "title": "Listening: The economy: power behind everyday life",
+      "script": "After an economic downturn, a neighborhood bookstore struggled to pay rent. Instead of closing, the owner partnered with a campus club to create a book-sharing wall. Readers could leave a book and take another for a small fee. The model did not make anyone rich quickly, but it kept knowledge circulating and supported local jobs. Students learned that the economy is not only charts in textbooks; it is the system behind every price tag and every shared resource. The sharing economy turned a new page when a campus club built a book-exchange wall. Readers left a novel and took another for an affordable fee. The startup model did not create instant revenue, but it kept resources circulating. Consumers learned that sustainable exchange can support local shops during uncertain seasons.",
+      "questions": [
+        {
+          "question": "How did the bookstore survive?",
+          "options": [
+            "By raising prices sharply",
+            "By creating a book-sharing model",
+            "By selling only online ads",
+            "By refusing all customers"
+          ],
+          "answer": 1,
+          "explanation": "书店通过图书共享模式维持经营。"
+        }
+      ]
+    },
+    "translation": {
+      "sentences": [
+        {
+          "zh": "请将下列句子译为英文：共享经济提醒我们，资源的价值不仅在于拥有，还在于流动与再利用。",
+          "en_reference": "The sharing economy reminds us that value lies not only in ownership, but also in circulation and reuse.",
+          "keywords": [
+            "economy",
+            "crisis"
+          ]
+        }
+      ]
+    },
+    "writing": {
+      "prompt": "Write 120-150 words about the theme: 经济：日常生活背后的力量.",
+      "outline": [
+        "Introduction",
+        "Example",
+        "Personal view",
+        "Conclusion"
+      ]
+    }
+  }
+}

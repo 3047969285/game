@@ -1,0 +1,106 @@
+{
+  "unit_id": "unit03",
+  "unit_number": 3,
+  "edition": 4,
+  "title": "Let's go",
+  "title_zh": "出发吧",
+  "theme": "travel, purpose, solo journey",
+  "word_ids": [
+    "rw3_unit03_01",
+    "rw3_unit03_02",
+    "rw3_unit03_03",
+    "rw3_unit03_04",
+    "rw3_unit03_05",
+    "rw3_unit03_06",
+    "rw3_unit03_07",
+    "rw3_unit03_08",
+    "rw3_unit03_09",
+    "rw3_unit03_10",
+    "rw3_unit03_11",
+    "rw3_unit03_12",
+    "rw3_unit03_13",
+    "rw3_unit03_14",
+    "rw3_unit03_15",
+    "rw3_unit03_16",
+    "rw3_unit03_17",
+    "rw3_unit03_18",
+    "rw3_unit03_19",
+    "rw3_unit03_20"
+  ],
+  "sections": {
+    "section_a": {
+      "title": "The Surprising purpose of travel",
+      "type": "reading",
+      "passage": "Many students assume travel is only about famous sights and photos. Yet experienced travelers often say the real purpose is surprise: a conversation with a shop owner, a wrong turn that leads to a quiet street, or a day alone that teaches self-reliance. Solo travel can feel frightening at first, but it also creates space for reflection. The best trips do not always go as planned; they go deep enough to change how we see daily life back home."
+    },
+    "section_b": {
+      "title": "Traveling solo — a blessing overall!",
+      "type": "reading",
+      "passage": "Traveling solo frightened Mei at first, yet it became a blessing overall. Without a fixed itinerary, she could wander through a hostel neighborhood and talk with local shop owners. A wrong turn led to a memorable landscape and a lesson in self-reliance. Solo travel creates space to adapt, reflect, and transform confidence. The best departure is not escape—it is curiosity with purpose."
+    },
+    "section_c": {
+      "title": "Stories of China",
+      "type": "stories_of_china",
+      "passage": "High-speed rail now links cities that once required a full day on the road. A student from Chengdu described her journey to Xi'an as more than tourism: the route itself taught perspective. She met travelers who shared stories about work, family, and change. China's travel infrastructure shows how movement can connect people and renew respect for diverse landscapes."
+    },
+    "vocabulary": {
+      "level_count": 4,
+      "words_per_level": 5
+    },
+    "reading": {
+      "title": "Why We Leave Home",
+      "passage": "Many students assume travel is only about famous sights and photos. Yet experienced travelers often say the real purpose is surprise: a conversation with a shop owner, a wrong turn that leads to a quiet street, or a day alone that teaches self-reliance. Solo travel can feel frightening at first, but it also creates space for reflection. The best trips do not always go as planned; they go deep enough to change how we see daily life back home.",
+      "questions": [
+        {
+          "question": "According to the passage, travel is mainly about ___.",
+          "options": [
+            "buying expensive gifts",
+            "growth and new perspectives",
+            "avoiding all risks",
+            "collecting photos only"
+          ],
+          "answer": 1,
+          "explanation": "旅行意义在于成长与新视角。"
+        }
+      ]
+    },
+    "listening": {
+      "title": "Listening: Let's go",
+      "script": "Many students assume travel is only about famous sights and photos. Yet experienced travelers often say the real purpose is surprise: a conversation with a shop owner, a wrong turn that leads to a quiet street, or a day alone that teaches self-reliance. Solo travel can feel frightening at first, but it also creates space for reflection. The best trips do not always go as planned; they go deep enough to change how we see daily life back home. Traveling solo frightened Mei at first, yet it became a blessing overall. Without a fixed itinerary, she could wander through a hostel neighborhood and talk with local shop owners. A wrong turn led to a memorable landscape and a lesson in self-reliance. Solo travel creates space to adapt, reflect, and transform confidence. The best departure is not escape—it is curiosity with purpose.",
+      "questions": [
+        {
+          "question": "According to the passage, travel is mainly about ___.",
+          "options": [
+            "buying expensive gifts",
+            "growth and new perspectives",
+            "avoiding all risks",
+            "collecting photos only"
+          ],
+          "answer": 1,
+          "explanation": "旅行意义在于成长与新视角。"
+        }
+      ]
+    },
+    "translation": {
+      "sentences": [
+        {
+          "zh": "请将下列句子译为英文：旅行的意义不只是到达某地，而是在路上重新认识自己。",
+          "en_reference": "The purpose of travel is not only to reach a place, but to rediscover ourselves along the way.",
+          "keywords": [
+            "travel",
+            "journey"
+          ]
+        }
+      ]
+    },
+    "writing": {
+      "prompt": "Write 120-150 words about the theme: 出发吧.",
+      "outline": [
+        "Introduction",
+        "Example",
+        "Personal view",
+        "Conclusion"
+      ]
+    }
+  }
+}

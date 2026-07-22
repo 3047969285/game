@@ -1,0 +1,106 @@
+{
+  "unit_id": "unit02",
+  "unit_number": 2,
+  "edition": 4,
+  "title": "Life stories",
+  "title_zh": "人生故事",
+  "theme": "biography, exploration, inspiration",
+  "word_ids": [
+    "rw3_unit02_01",
+    "rw3_unit02_02",
+    "rw3_unit02_03",
+    "rw3_unit02_04",
+    "rw3_unit02_05",
+    "rw3_unit02_06",
+    "rw3_unit02_07",
+    "rw3_unit02_08",
+    "rw3_unit02_09",
+    "rw3_unit02_10",
+    "rw3_unit02_11",
+    "rw3_unit02_12",
+    "rw3_unit02_13",
+    "rw3_unit02_14",
+    "rw3_unit02_15",
+    "rw3_unit02_16",
+    "rw3_unit02_17",
+    "rw3_unit02_18",
+    "rw3_unit02_19",
+    "rw3_unit02_20"
+  ],
+  "sections": {
+    "section_a": {
+      "title": "Zheng He, the great ancient Chinese explorer",
+      "type": "reading",
+      "passage": "Life stories from different centuries can still speak to the same classroom. One story follows an explorer who sailed across oceans to build peaceful exchange. Another follows an actress who used her fame to help children in need. Their professions were different, yet both made difficult choices when comfort was easier. Students who compare such stories learn that greatness is not a single template. It can appear in a fleet on the sea or in a clinic in a small town."
+    },
+    "section_b": {
+      "title": "Audrey Hepburn — a real angel in the world",
+      "type": "reading",
+      "passage": "Audrey Hepburn remains a remarkable figure long after her film career. Fans admire her elegant style, but humanitarian work defined her later decades. She devoted years to charity programs for hungry children. Compassion turned fame into service, and her mission went far beyond the portrait on a magazine cover. Students who read her biography learn that devotion to others can outlast any spotlight."
+    },
+    "section_c": {
+      "title": "Stories of China",
+      "type": "stories_of_china",
+      "passage": "In the early fifteenth century, Zheng He commanded a fleet that crossed the Indian Ocean. His voyages carried exchange of goods, maps, and mutual respect. The explorer's legacy is not mere conquest; it is a narrative of peaceful contact across eras. Chinese students today witness how one era's courage can inspire another classroom's discussion about responsibility and global trust."
+    },
+    "vocabulary": {
+      "level_count": 4,
+      "words_per_level": 5
+    },
+    "reading": {
+      "title": "Two Lives, One Lesson",
+      "passage": "Life stories from different centuries can still speak to the same classroom. One story follows an explorer who sailed across oceans to build peaceful exchange. Another follows an actress who used her fame to help children in need. Their professions were different, yet both made difficult choices when comfort was easier. Students who compare such stories learn that greatness is not a single template. It can appear in a fleet on the sea or in a clinic in a small town.",
+      "questions": [
+        {
+          "question": "What do the two figures share?",
+          "options": [
+            "The same profession",
+            "Difficult but meaningful choices",
+            "A dislike of travel",
+            "A focus only on wealth"
+          ],
+          "answer": 1,
+          "explanation": "两人都做出了艰难而有意义的选择。"
+        }
+      ]
+    },
+    "listening": {
+      "title": "Listening: Life stories",
+      "script": "Life stories from different centuries can still speak to the same classroom. One story follows an explorer who sailed across oceans to build peaceful exchange. Another follows an actress who used her fame to help children in need. Their professions were different, yet both made difficult choices when comfort was easier. Students who compare such stories learn that greatness is not a single template. It can appear in a fleet on the sea or in a clinic in a small town. Audrey Hepburn remains a remarkable figure long after her film career. Fans admire her elegant style, but humanitarian work defined her later decades. She devoted years to charity programs for hungry children. Compassion turned fame into service, and her mission went far beyond the portrait on a magazine cover. Students who read her biography learn that devotion to others can outlast any spotlight.",
+      "questions": [
+        {
+          "question": "What do the two figures share?",
+          "options": [
+            "The same profession",
+            "Difficult but meaningful choices",
+            "A dislike of travel",
+            "A focus only on wealth"
+          ],
+          "answer": 1,
+          "explanation": "两人都做出了艰难而有意义的选择。"
+        }
+      ]
+    },
+    "translation": {
+      "sentences": [
+        {
+          "zh": "请将下列句子译为英文：伟大的人生故事提醒我们，影响力来自行动而非名声本身。",
+          "en_reference": "Great life stories remind us that influence comes from action, not fame itself.",
+          "keywords": [
+            "explorer",
+            "voyage"
+          ]
+        }
+      ]
+    },
+    "writing": {
+      "prompt": "Write 120-150 words about the theme: 人生故事.",
+      "outline": [
+        "Introduction",
+        "Example",
+        "Personal view",
+        "Conclusion"
+      ]
+    }
+  }
+}
