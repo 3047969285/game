@@ -917,28 +917,48 @@ function addPassageSceneLandmark(
       routeArrow.rotation.z = -Math.PI / 2;
       routeArrow.userData.isLandscapeStage = true;
 
-      const hull = add(new THREE.CylinderGeometry(0.2, 0.44, 2.05, 6), dark, stops[1], 2.72, 26.42);
-      hull.rotation.z = Math.PI / 2;
-      hull.userData.isLandscapeStage = true;
-      cylinder(stops[1], 4.12, 26.46, 0.09, 2.3, edge, 8);
-      for (const [x, y, size] of [[-0.45, 4.2, 0.9], [0.48, 4.4, 1.12]] as const) {
-        const sail = add(new THREE.ConeGeometry(size * 0.42, size, 3), glow, x, y, 26.46);
-        sail.userData.isLandscapeStage = true;
-      }
-      const voyage = add(new THREE.OctahedronGeometry(0.22, 0), edge, stops[1], 5.05, 26.4);
-      voyage.userData.isLandscapeBeacon = true;
+      const sea = new THREE.MeshStandardMaterial({ color: 0x426e78, emissive: 0x102a32, emissiveIntensity: 0.22, roughness: 0.62, metalness: 0.12 });
+      const water = add(new THREE.CylinderGeometry(2.7, 2.9, 0.22, 12), sea, 0, 1.48, 25.2);
+      water.scale.z = 0.58;
+      water.userData.isLandscapeStage = true;
 
-      // Use two simple figures and a shared hand line so the exchange reads at scene distance.
-      for (const [index, x] of [-0.48, 0.48].entries()) {
-        const person = index === 0 ? glow : edge;
-        const head = add(new THREE.SphereGeometry(0.27, 12, 10), person, x, 4.2, 26.28);
-        head.userData.isLandscapeBeacon = true;
-        const torso = cylinder(x, 3.42, 26.28, 0.24, 0.82, person, 8);
-        torso.userData.isLandscapeStage = true;
-        const handX = x < 0 ? -0.12 : 0.12;
-        route([[x, 3.74, 26.24], [handX, 3.55, 26.24]], edge, 0.08);
+      const hullShape = new THREE.Shape();
+      hullShape.moveTo(-1.7, 0.18);
+      hullShape.lineTo(-1.28, -0.38);
+      hullShape.lineTo(1.2, -0.38);
+      hullShape.lineTo(1.7, 0.18);
+      hullShape.lineTo(0.9, 0.34);
+      hullShape.lineTo(-1.15, 0.34);
+      hullShape.closePath();
+      const hullMaterial = new THREE.MeshStandardMaterial({ color: 0x704b31, roughness: 0.82, metalness: 0.04 });
+      const hull = add(new THREE.ExtrudeGeometry(hullShape, { depth: 0.62, bevelEnabled: true, bevelSegments: 1, steps: 1, bevelSize: 0.06, bevelThickness: 0.05 }), hullMaterial, 0, 1.94, 24.9);
+      hull.userData.isLandscapeStage = true;
+      route([[-1.48, 2.13, 24.83], [0, 2.23, 24.83], [1.48, 2.13, 24.83]], edge, 0.07);
+
+      const mast = cylinder(0, 3.52, 25.05, 0.075, 2.95, dark, 8);
+      mast.userData.isLandscapeStage = true;
+      const sailMaterial = new THREE.MeshStandardMaterial({ color: 0xf2dfb8, roughness: 0.8, side: THREE.DoubleSide });
+      const mainSailShape = new THREE.Shape();
+      mainSailShape.moveTo(-0.08, 0);
+      mainSailShape.lineTo(-0.08, 2.45);
+      mainSailShape.lineTo(-1.62, 0.3);
+      mainSailShape.closePath();
+      const mainSail = add(new THREE.ShapeGeometry(mainSailShape), sailMaterial, 0, 2.34, 24.82);
+      mainSail.userData.isLandscapeStage = true;
+      const foreSailShape = new THREE.Shape();
+      foreSailShape.moveTo(0.08, 0.08);
+      foreSailShape.lineTo(0.08, 1.62);
+      foreSailShape.lineTo(1.08, 0.34);
+      foreSailShape.closePath();
+      const foreSail = add(new THREE.ShapeGeometry(foreSailShape), edge, 0, 2.42, 24.8);
+      foreSail.userData.isLandscapeStage = true;
+      route([[-1.62, 2.2, 25], [0, 5.05, 25], [1.12, 2.5, 25]], glow, 0.045);
+      for (const [z, shift] of [[24.3, 0], [25.8, 0.28], [26.55, -0.2]] as const) {
+        route([[-2.1, 1.61, z], [-0.8, 1.68 + shift, z - 0.08], [0.7, 1.62, z], [2, 1.7 + shift, z + 0.08]], glow, 0.045);
       }
-      route([[-0.12, 3.55, 26.24], [0.12, 3.55, 26.24]], glow, 0.08);
+      const voyageLight = new THREE.PointLight(0xffd9a6, 0.9, 13, 2);
+      voyageLight.position.set(0, 5.2, 24.9);
+      root.add(voyageLight);
       route([[-5.3, 1.52, 27], [-4, 1.52, 26.35], [0, 1.52, 26.35], [4, 1.52, 26.35], [5.3, 1.52, 27]], edge, 0.12);
       break;
     }
