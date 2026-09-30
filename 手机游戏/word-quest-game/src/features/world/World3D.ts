@@ -1443,6 +1443,7 @@ export class World3D {
         const dist = unitMode ? 32 + rand() * 22 : 6 + rand() * 24;
         const wx = node.x + Math.cos(angle) * dist;
         const wz = node.z + Math.sin(angle) * dist;
+        if (unitMode && Math.hypot(wx - anchorX, wz - anchorZ) < 25) continue;
         // Keep the spawn point and its third-person sightline clear on the global unit map.
         if (isNearGlobalEntry(wx, wz)) continue;
         const key = `${Math.round(wx)}_${Math.round(wz)}`;
@@ -1450,7 +1451,7 @@ export class World3D {
         placed.add(key);
 
         const wy = sampleTerrainY(wx, wz, terrainHeight);
-        const scale = 0.75 + rand() * 1.1;
+        const scale = unitMode ? 0.65 + rand() * 0.75 : 0.75 + rand() * 1.1;
         this.addDecorAt(unitMode ? this.currentBiome.decorStyle : node.theme, wx, wy, wz, scale, rand);
       }
     }

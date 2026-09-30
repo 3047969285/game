@@ -1345,8 +1345,6 @@ function addCentralSanctuary(
 
   const gateRing = new THREE.Mesh(new THREE.TorusGeometry(2.75, 0.1, 8, 40), glow);
   gateRing.position.set(0, 4.65, 8.5);
-  gateRing.rotation.y = Math.PI / 2;
-  gateRing.userData.isLandscapeRing = true;
   root.add(gateRing);
 
   // 中央可交互水晶由学习圣所 MapNode 提供，不在这里叠加第二颗发光核心。
