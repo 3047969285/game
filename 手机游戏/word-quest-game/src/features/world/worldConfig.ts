@@ -9,8 +9,8 @@ export const TERRAIN_ORIGIN_Z = 180;
 export const INTERACT_RADIUS = 12;
 export const PLAYER_SPEED = 22;
 export const PLAYER_TURN_SPEED = 10;
-export const CAMERA_DISTANCE = 12.5;
-export const CAMERA_HEIGHT = 6.0;
+export const CAMERA_DISTANCE = 18.0;
+export const CAMERA_HEIGHT = 7.2;
 
 /** 世界坐标 → 地形高度 */
 export function sampleTerrainY(worldX: number, worldZ: number, heightFn: (x: number, z: number) => number): number {

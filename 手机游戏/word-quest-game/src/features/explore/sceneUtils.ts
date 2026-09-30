@@ -1,4 +1,5 @@
 import type { ContextSegment, WordEntry } from "../../core/types";
+import { wordPattern } from "../learn/cloze";
 import { philosophyLine } from "./philosophy";
 
 export function escapeRegExp(s: string): string {
@@ -12,11 +13,11 @@ export function pickLine(word: WordEntry, slot: number): string {
 }
 
 export function wordInText(text: string, word: string): boolean {
-  return new RegExp(`\\b${escapeRegExp(word)}\\b`, "i").test(text);
+  return wordPattern(word).test(text);
 }
 
 export function sentenceToSegments(sentence: string, word: WordEntry): ContextSegment[] {
-  const re = new RegExp(`\\b(${escapeRegExp(word.word)})\\b`, "i");
+  const re = wordPattern(word.word);
   const match = sentence.match(re);
   if (!match || match.index === undefined) {
     return [
@@ -59,8 +60,8 @@ export function pickWordsFromText(words: WordEntry[], text: string, count: numbe
 export function passageWithAllWords(passage: string, words: WordEntry[]): ContextSegment[] {
   const inPassage = words.filter((w) => wordInText(passage, w.word));
   const sorted = [...inPassage].sort((a, b) => {
-    const ia = passage.search(new RegExp(`\\b${escapeRegExp(a.word)}\\b`, "i"));
-    const ib = passage.search(new RegExp(`\\b${escapeRegExp(b.word)}\\b`, "i"));
+    const ia = passage.search(wordPattern(a.word));
+    const ib = passage.search(wordPattern(b.word));
     return ia - ib;
   });
 
@@ -69,7 +70,7 @@ export function passageWithAllWords(passage: string, words: WordEntry[]): Contex
   const covered = new Set<string>();
 
   for (const w of sorted) {
-    const re = new RegExp(`(\\b${escapeRegExp(w.word)}\\b)`, "i");
+    const re = wordPattern(w.word);
     const m = rest.match(re);
     if (!m || m.index === undefined) continue;
     if (m.index > 0) segments.push({ type: "text", content: rest.slice(0, m.index) });

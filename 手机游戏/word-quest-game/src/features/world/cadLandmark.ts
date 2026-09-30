@@ -126,8 +126,13 @@ export async function createLandmarkWithCad(
 ): Promise<CadLandmarkResult> {
   const manifest = await getManifest();
   const theme = getTheme(node.theme);
+  // 单元探索有自己的空间骨架；这里不再把比例未经校准的 Unit GLB
+  // 塞进玩家出生点，避免入口被巨大斜梁和黑色块体吞掉。
+  const isUnitSanctuary = node.name.includes("学习圣所");
   const slot: ModelSlotConfig | null =
-    manifest ? (manifest.nodes?.[node.id] ?? manifest.themes?.[node.theme] ?? null) : null;
+    manifest && !isUnitSanctuary
+      ? (manifest.nodes?.[node.id] ?? manifest.themes?.[node.theme] ?? null)
+      : null;
 
   if (manifest && slot) {
     const model = await loadGlbModel(slot.file, slot, manifest);

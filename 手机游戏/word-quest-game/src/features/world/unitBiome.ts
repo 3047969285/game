@@ -25,7 +25,7 @@ export interface UnitBiome {
   /** 路径颜色 */
   pathColor: number;
   /** 装饰风格 */
-  decorStyle: "forest" | "coast" | "temple" | "market" | "plains" | "space";
+  decorStyle: "forest" | "coast" | "temple" | "market" | "exchange" | "plains" | "space";
 }
 
 export const UNIT_BIOMES: Record<string, UnitBiome> = {
@@ -42,70 +42,70 @@ export const UNIT_BIOMES: Record<string, UnitBiome> = {
     pathColor: 0x1060b0,
     decorStyle: "coast",
   },
-  /** 传记人物 — 晨曦金 */
+  /** 人物传记 — 档案馆晨光：温暖旧金与中性石色，保留历史感但不压暗细节。 */
   unit02: {
     id: "unit02", label: "传记人物",
-    skyTop: 0x0e0804, skyMid: 0x30180a, skyBot: 0x1a0e06,
-    fogColor: 0x281408, fogDensity: 0.0028,
-    sunColor: 0xffcc50, sunIntensity: 1.5,
-    hemiSky: 0xd08030, hemiGround: 0x281804,
-    ambientColor: 0x804020,
-    terrainTint: [0.22, 0.12, 0.04],
-    crystalColor: 0xffaa00, orbColor: 0xffd060, glowColor: 0xffb820,
-    pathColor: 0xa06020,
+    skyTop: 0x40566b, skyMid: 0x9b927f, skyBot: 0xdcc9a8,
+    fogColor: 0x958a77, fogDensity: 0.0024,
+    sunColor: 0xffd9a6, sunIntensity: 1.5,
+    hemiSky: 0xe2d5bf, hemiGround: 0x625344,
+    ambientColor: 0xa79577,
+    terrainTint: [0.34, 0.28, 0.19],
+    crystalColor: 0xb98742, orbColor: 0xe2c580, glowColor: 0x9d6d31,
+    pathColor: 0x76562f,
     decorStyle: "market",
   },
-  /** 旅行探索 — 翡翠丛林 */
+  /** 旅行探索 — 林间晨路：保留自然绿意，用晨光和灰绿远景维持方向感与可读性。 */
   unit03: {
     id: "unit03", label: "旅行探索",
-    skyTop: 0x061610, skyMid: 0x123824, skyBot: 0x0a2018,
-    fogColor: 0x102818, fogDensity: 0.0038,
-    sunColor: 0x90ffb0, sunIntensity: 1.2,
-    hemiSky: 0x40c060, hemiGround: 0x081c10,
-    ambientColor: 0x1a4428,
-    terrainTint: [0.06, 0.22, 0.10],
-    crystalColor: 0x40e060, orbColor: 0x60ff80, glowColor: 0x20d050,
-    pathColor: 0x1a7030,
+    skyTop: 0x13252c, skyMid: 0x49695a, skyBot: 0x91a795,
+    fogColor: 0x5b7065, fogDensity: 0.0028,
+    sunColor: 0xffd1a1, sunIntensity: 1.2,
+    hemiSky: 0xadc6bf, hemiGround: 0x3d4033,
+    ambientColor: 0x899c88,
+    terrainTint: [0.15, 0.23, 0.13],
+    crystalColor: 0x83b68a, orbColor: 0xb8d28e, glowColor: 0x71a68c,
+    pathColor: 0x536f56,
     decorStyle: "forest",
   },
-  /** 劳动传统 — 赤陶暖土 */
+  /** 劳动传统 — 柔和工坊暖光：让木作、金属工具和琥珀色灯光有清晰层次。 */
   unit04: {
     id: "unit04", label: "劳动传统",
-    skyTop: 0x0e0804, skyMid: 0x2c1408, skyBot: 0x180c04,
-    fogColor: 0x221004, fogDensity: 0.0032,
-    sunColor: 0xff8830, sunIntensity: 1.4,
-    hemiSky: 0xc04818, hemiGround: 0x200c04,
-    ambientColor: 0x602010,
-    terrainTint: [0.28, 0.12, 0.04],
-    crystalColor: 0xff6818, orbColor: 0xff9040, glowColor: 0xff5010,
-    pathColor: 0x904018,
+    skyTop: 0x1d1b1a, skyMid: 0x51463b, skyBot: 0x837765,
+    fogColor: 0x4e443b, fogDensity: 0.0028,
+    sunColor: 0xffd6a0, sunIntensity: 1.25,
+    hemiSky: 0xcbb8a1, hemiGround: 0x352f29,
+    ambientColor: 0x8c7964,
+    terrainTint: [0.2, 0.15, 0.1],
+    crystalColor: 0xc99658, orbColor: 0xe4bf7c, glowColor: 0xb47a42,
+    pathColor: 0x775d40,
     decorStyle: "temple",
   },
-  /** 中国航天 — 星际紫 */
+  /** 中国航天 — 月面晨光：冷静的银蓝远景，保证月球地形和探测器轮廓有明暗层次。 */
   unit05: {
     id: "unit05", label: "航天探索",
-    skyTop: 0x020208, skyMid: 0x0c0820, skyBot: 0x06041a,
-    fogColor: 0x080618, fogDensity: 0.0025,
-    sunColor: 0xc080ff, sunIntensity: 0.8,
-    hemiSky: 0x6018c0, hemiGround: 0x100830,
-    ambientColor: 0x380c60,
-    terrainTint: [0.08, 0.04, 0.22],
-    crystalColor: 0xc060ff, orbColor: 0xe080ff, glowColor: 0x9030e0,
-    pathColor: 0x5018a0,
+    skyTop: 0x11192c, skyMid: 0x344b6a, skyBot: 0x718394,
+    fogColor: 0x516377, fogDensity: 0.0026,
+    sunColor: 0xd5e5ff, sunIntensity: 1.15,
+    hemiSky: 0xa7bad2, hemiGround: 0x333947,
+    ambientColor: 0x7389a8,
+    terrainTint: [0.2, 0.21, 0.25],
+    crystalColor: 0x93bde8, orbColor: 0xdbeaff, glowColor: 0x79a8df,
+    pathColor: 0x526d88,
     decorStyle: "space",
   },
-  /** 共享经济 — 霓虹暮色 */
+  /** 共享经济 — 暮色中的共益交易城：暖石、旧木与低饱和青绿。 */
   unit06: {
-    id: "unit06", label: "共享经济",
-    skyTop: 0x100612, skyMid: 0x2c0c28, skyBot: 0x180812,
-    fogColor: 0x200818, fogDensity: 0.0035,
-    sunColor: 0xff50b0, sunIntensity: 1.0,
-    hemiSky: 0xd02880, hemiGround: 0x200812,
-    ambientColor: 0x501840,
-    terrainTint: [0.18, 0.04, 0.16],
-    crystalColor: 0xff30a0, orbColor: 0xff60c8, glowColor: 0xe01880,
-    pathColor: 0x801860,
-    decorStyle: "temple",
+    id: "unit06", label: "共益交易城",
+    skyTop: 0x102b3a, skyMid: 0x416c70, skyBot: 0x607d79,
+    fogColor: 0x344d52, fogDensity: 0.0028,
+    sunColor: 0xffd39a, sunIntensity: 1.25,
+    hemiSky: 0x9bbfca, hemiGround: 0x40352d,
+    ambientColor: 0x78999a,
+    terrainTint: [0.085, 0.13, 0.125],
+    crystalColor: 0xd5a36f, orbColor: 0x7dc9b0, glowColor: 0x4e9f91,
+    pathColor: 0x356d67,
+    decorStyle: "exchange",
   },
 };
 

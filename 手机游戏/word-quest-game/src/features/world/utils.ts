@@ -39,14 +39,47 @@ export function seededRand(seed: number): () => number {
   };
 }
 
-/** 释放 Group 内所有几何体与材质 */
+/** 释放 Group 内去重后的几何体、材质与贴图资源 */
 export function disposeGroup(group: THREE.Group): void {
+  const geometries = new Set<THREE.BufferGeometry>();
+  const materials = new Set<THREE.Material>();
+  const textures = new Set<THREE.Texture>();
+  const textureKeys = [
+    "map",
+    "alphaMap",
+    "aoMap",
+    "bumpMap",
+    "displacementMap",
+    "emissiveMap",
+    "envMap",
+    "lightMap",
+    "metalnessMap",
+    "normalMap",
+    "roughnessMap",
+  ];
+
   group.traverse((obj) => {
     const mesh = obj as THREE.Mesh;
-    mesh.geometry?.dispose();
-    if (Array.isArray(mesh.material)) mesh.material.forEach((m) => m.dispose());
-    else mesh.material?.dispose();
+    if (mesh.geometry && !geometries.has(mesh.geometry)) {
+      geometries.add(mesh.geometry);
+      mesh.geometry.dispose();
+    }
+
+    const meshMaterials = Array.isArray(mesh.material) ? mesh.material : mesh.material ? [mesh.material] : [];
+    for (const material of meshMaterials) {
+      if (materials.has(material)) continue;
+      materials.add(material);
+      for (const key of textureKeys) {
+        const texture = (material as unknown as Record<string, unknown>)[key];
+        if (texture && typeof texture === "object" && (texture as { isTexture?: boolean }).isTexture) {
+          textures.add(texture as THREE.Texture);
+        }
+      }
+      material.dispose();
+    }
   });
+
+  textures.forEach((texture) => texture.dispose());
 }
 
 /** 从场景移除并释放 Group */

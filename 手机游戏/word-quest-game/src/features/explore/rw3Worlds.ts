@@ -1,0 +1,351 @@
+import type { UnitWorldContent } from "../../core/types";
+
+/**
+ * 六个单元的原创游戏世界配置。
+ *
+ * 这里放的是游戏叙事、语法讲解和学习方法设计，不复制教材文章、原题或答案。
+ * 教材结构和词汇仍由 public/data 中的课程包提供；获得授权的教材扩展内容
+ * 将来可以沿用同一套数据接口接入，而不需要重写游戏流程。
+ */
+export const RW3_WORLDS: Record<string, UnitWorldContent> = {
+  unit01: {
+    unitId: "unit01",
+    worldName: "信号花园 · The Signal Garden",
+    worldTagline: "在信息洪流里，重新学会听见一个人。",
+    mentor: "静默园丁 Mira",
+    opening: "你抵达一座由光纤、树冠与旧电话亭组成的城市。每一盏灯都在传递消息，却没有一盏灯保证人真的被理解。",
+    mission: "穿过通知峡谷，修复四座对话信标，让城市重新获得完整的注意力。",
+    turningPoint: "当最后一座信标亮起，系统要求你同时打开所有频道。你必须主动关闭一半声音，才能听见队友的真正请求。",
+    ending: "花园没有变得更安静，它只是学会把重要的声音留在前景。你的通关印记是一小时不被打断的专注。",
+    landmarks: ["通知峡谷", "对话温室", "隐私水库", "专注观景台"],
+    grammar: [
+      {
+        id: "u01-not-only-but-also",
+        title: "not only ... but also ...",
+        concept: "把两个并列原因或结果同时推到句子的前景。",
+        pattern: "主语 + depends on / includes not only A but also B",
+        explanation: "not only 与 but also 连接同一语法层级的成分。正式写作中，若 not only 放在句首，后面的助动词要提前。",
+        examples: [
+          { en: "Good communication depends not only on speed but also on attention.", zh: "良好的交流不仅取决于速度，也取决于专注。" },
+          { en: "Not only does the app save time, but it also protects privacy.", zh: "这个应用不仅节省时间，还保护隐私。" },
+        ],
+        pitfall: "不要把 A 写成名词、B 写成完整句子；并列两边要保持结构一致。",
+      },
+      {
+        id: "u01-gerund-as-subject",
+        title: "动名词作主语",
+        concept: "把一个行为当作正在被讨论的对象。",
+        pattern: "Doing something + singular verb ...",
+        explanation: "当句子讨论一种习惯、行为或过程时，动名词短语可以直接放在句首作主语，谓语通常用单数。",
+        examples: [
+          { en: "Listening carefully takes more courage than sending a quick reply.", zh: "认真倾听比快速回复需要更多勇气。" },
+          { en: "Limiting notifications improves the quality of study.", zh: "限制通知能提高学习质量。" },
+        ],
+        pitfall: "动名词作主语时不要因为后面的名词是复数而把谓语写成复数。",
+      },
+    ],
+    practiceQuestions: [
+      { question: "Good communication depends ___ on speed ___ on attention.", options: ["either / or", "so / that", "not only / but also", "as / as"], answer: 2, explanation: "并列两个原因使用 not only ... but also ...。" },
+      { question: "___ carefully takes more courage than sending a quick reply.", options: ["Listening", "Listen", "Listened", "To listened"], answer: 0, explanation: "讨论一类行为时，动名词 Listening 作主语。" },
+      { question: "Not only ___ the app save time, but it also protects privacy.", options: ["do", "is", "has", "does"], answer: 3, explanation: "not only 置于句首时，助动词 does 提前。" },
+    ],
+    methods: [
+      { id: "u01-encode", title: "画面编码", principle: "把抽象词变成可见的动作和物体。", action: "在通知峡谷里为每个新词放置一个夸张物件，再用英文说出它的动作。", reward: "解锁一座记忆信标" },
+      { id: "u01-recall", title: "先答后看", principle: "先从记忆中取出答案，再看释义。", action: "点击词球时先遮住中文，在心里说出含义、词性和一个例句。", reward: "专注值 +1" },
+      { id: "u01-space", title: "间隔回访", principle: "把一次记忆分散到多个时间点。", action: "完成单元后在 1 天、3 天、7 天回到同一座信标复习。", reward: "获得连续记忆火花" },
+      { id: "u01-interleave", title: "交错使用", principle: "不要只做同一种题，把识别、理解和输出交替起来。", action: "按“读一段—听一句—写一句”的顺序完成三种挑战。", reward: "开启隐藏对话" },
+    ],
+    memoryAnchor: "一座会呼吸的蓝色信号塔",
+    memoryRoute: [
+      { place: "塔门", image: "巨大的手机屏幕长出藤蔓", recall: "digital / device / connect" },
+      { place: "温室", image: "两个人把耳朵种进透明花盆", recall: "conversation / attention / interact" },
+      { place: "水库", image: "泄漏的水变成隐私锁", recall: "privacy / secure / leak" },
+      { place: "观景台", image: "所有通知落成一条安静的星河", recall: "balance / mindful / restore" },
+    ],
+    recallPrompt: "关闭页面后，用四个地标复述：数字工具如何帮助连接，又如何要求我们主动保护注意力？",
+  },
+  unit02: {
+    unitId: "unit02",
+    worldName: "人生档案港 · The Harbor of Lives",
+    worldTagline: "一生不是一条直线，而是一组被重新解释的选择。",
+    mentor: "档案修复师 Lin",
+    opening: "港口停泊着无数艘人生之船。船身没有成绩单，只有一次次出发、转弯、坚持和重新命名自己的痕迹。",
+    mission: "修复四份被风暴打散的档案，找出人物经历背后的行动、困难与价值。",
+    turningPoint: "你发现最耀眼的履历页是空白的。真正决定航向的，藏在那些没有被写进标题的失败和耐心里。",
+    ending: "档案港把你的名字写进‘仍在成长’的栏目。你带走的不是一个传奇模板，而是一种阅读他人经历的方法。",
+    landmarks: ["远航码头", "舞台灯塔", "转折档案室", "未完成博物馆"],
+    grammar: [
+      {
+        id: "u02-relative-clause",
+        title: "定语从句：who / which / that",
+        concept: "用一个从句给人物、事物或经历补充身份信息。",
+        pattern: "先行词 + who / which / that + 从句",
+        explanation: "who 通常指人，which 指物，that 可指人或物。先行词在从句中充当成分，不能重复使用代词。",
+        examples: [
+          { en: "She met a teacher who changed her view of failure.", zh: "她遇到了一位改变她对失败看法的老师。" },
+          { en: "The decision that opened a new path was not an easy one.", zh: "开启新道路的那个决定并不容易。" },
+        ],
+        pitfall: "已有 who / which 后，不要再写 he / it；关系词本身已经承担从句成分。",
+      },
+      {
+        id: "u02-past-perfect",
+        title: "过去完成时：had done",
+        concept: "在过去的两个时间点中，标记更早发生的动作。",
+        pattern: "had + past participle before / when + 一般过去时",
+        explanation: "讲述人生经历时，过去完成时可以把‘先发生的背景’和‘后发生的转折’排出清晰顺序。",
+        examples: [
+          { en: "By the time she entered the stage, she had practiced the speech for weeks.", zh: "她登台时，已经练习那篇演讲好几周了。" },
+          { en: "He had failed once before he found a better method.", zh: "找到更好的方法之前，他已经失败过一次。" },
+        ],
+        pitfall: "不要把所有过去动作都写成 had done；只有需要强调‘更早’时才使用。",
+      },
+    ],
+    practiceQuestions: [
+      { question: "She met a teacher ___ changed her view of failure.", options: ["where", "what", "whose", "who"], answer: 3, explanation: "先行词 teacher 指人，关系代词用 who。" },
+      { question: "By the time she entered the stage, she ___ the speech for weeks.", options: ["practiced", "had practiced", "has practiced", "is practicing"], answer: 1, explanation: "登台前已经完成的动作使用过去完成时。" },
+      { question: "He ___ failed once before he found a better method.", options: ["had", "has", "would", "is"], answer: 0, explanation: "had failed 表示过去另一个动作之前已经发生。" },
+    ],
+    methods: [
+      { id: "u02-story", title: "故事链编码", principle: "把词汇放进有因果的行动链，而不是孤立背诵。", action: "为每个词补上“人物—障碍—行动—结果”四格故事。", reward: "修复一页人生档案" },
+      { id: "u02-contrast", title: "对比提取", principle: "通过相似经历的差异加深辨析。", action: "把两位人物的选择并排说出：谁做了什么、为什么、结果怎样。", reward: "开启双航线地图" },
+      { id: "u02-self-explain", title: "费曼复述", principle: "能用简单语言解释，才算真正理解。", action: "用不超过三句话向档案港的新学徒讲清一个语法点。", reward: "导师信任度 +1" },
+      { id: "u02-space", title: "延迟回忆", principle: "在答案消失后仍能重建线索。", action: "离开档案室 30 秒，再凭地标复述人物经历，不回看原文。", reward: "获得耐久记忆章" },
+    ],
+    memoryAnchor: "一艘把旧照片当船帆的黑色远航船",
+    memoryRoute: [
+      { place: "码头", image: "郑重的船长把地图卷成望远镜", recall: "explore / voyage / courage" },
+      { place: "灯塔", image: "舞台上的天使用光照亮观众", recall: "inspire / graceful / influence" },
+      { place: "档案室", image: "失败的红印章变成指南针", recall: "experience / overcome / transform" },
+      { place: "博物馆", image: "未完成的雕像正在自己长出手臂", recall: "legacy / identity / continue" },
+    ],
+    recallPrompt: "不看提示，按四个地标讲一段人物故事：背景是什么，转折是什么，选择带来了什么影响？",
+  },
+  unit03: {
+    unitId: "unit03",
+    worldName: "罗盘海岸 · The Compass Coast",
+    worldTagline: "出发不是逃离原点，而是让方向变得可验证。",
+    mentor: "潮汐领航员 Aya",
+    opening: "海岸上没有一条标注‘正确’的路。潮汐会改变地形，只有那些愿意观察、调整并继续走的人，才能找到自己的航线。",
+    mission: "沿着三条不同的旅路收集目的碎片：好奇、独处和归来。",
+    turningPoint: "风暴抹掉了地图上的终点。你必须从‘我要到哪里’转向‘我为什么出发’，让目的成为新的罗盘。",
+    ending: "海岸把返程也算作旅程的一部分。你的奖励不是远方的照片，而是一张写着‘我知道自己在寻找什么’的航海证。",
+    landmarks: ["出发沙滩", "独行灯塔", "目的潮汐洞", "归来集市"],
+    grammar: [
+      {
+        id: "u03-purpose-infinitive",
+        title: "不定式表示目的",
+        concept: "说明一个动作‘为了什么’。",
+        pattern: "主句 + to do / in order to do / so as to do",
+        explanation: "不定式作目的状语时，主句和目的动作的逻辑主语通常相同。否定目的可用 in order not to do。",
+        examples: [
+          { en: "She traveled alone to understand what she really wanted.", zh: "她独自旅行是为了理解自己真正想要什么。" },
+          { en: "We slowed down in order to notice the small changes in the village.", zh: "我们放慢脚步，以便注意村庄里的细微变化。" },
+        ],
+        pitfall: "不要把 to 后面写成过去式；这里的 to 是不定式符号，后接动词原形。",
+      },
+      {
+        id: "u03-would-rather",
+        title: "would rather ... than ...",
+        concept: "表达在两个选择中的偏好。",
+        pattern: "would rather do A than do B",
+        explanation: "rather 后使用动词原形，than 两边最好保持相同结构。它适合用来表达旅途中明确的选择和价值判断。",
+        examples: [
+          { en: "I would rather walk slowly than miss the view.", zh: "我宁愿慢慢走，也不愿错过风景。" },
+          { en: "They would rather ask a local than follow an outdated map.", zh: "他们宁愿问当地人，也不愿照着过时的地图走。" },
+        ],
+        pitfall: "不要写 would rather to walk；rather 后直接接动词原形。",
+      },
+    ],
+    practiceQuestions: [
+      { question: "She traveled alone ___ understand what she really wanted.", options: ["to", "for", "than", "as"], answer: 0, explanation: "to do 在这里表示旅行的目的。" },
+      { question: "I would rather ___ slowly than miss the view.", options: ["walking", "walked", "walk", "to walk"], answer: 2, explanation: "would rather 后接动词原形。" },
+      { question: "They slowed down in order ___ the village carefully.", options: ["notice", "to notice", "noticing", "noticed"], answer: 1, explanation: "in order to 后接动词原形表示目的。" },
+    ],
+    methods: [
+      { id: "u03-route", title: "空间路线", principle: "顺序和位置为抽象知识提供检索线索。", action: "沿海岸四个地标依次放置四组词，每到一个地点先口头回忆再拾取。", reward: "点亮个人罗盘" },
+      { id: "u03-question", title: "深加工提问", principle: "问‘为什么’比只问‘是什么’留下更深线索。", action: "每学一个重点词，补问一次 why / how，并用英文回答。", reward: "获得潮汐线索" },
+      { id: "u03-interleave", title: "混合路线", principle: "在不同类型任务间切换，训练灵活调用。", action: "把词汇、语法、翻译题交错排列，不能连续做同一类型超过两题。", reward: "解锁隐藏航道" },
+      { id: "u03-reflect", title: "出发复盘", principle: "把知识与个人经验连接，增强可迁移性。", action: "用一个真实经历造句，说明你曾经为什么出发或改变方向。", reward: "获得归来印记" },
+    ],
+    memoryAnchor: "一枚插在海边、会指向问题而不是北方的罗盘",
+    memoryRoute: [
+      { place: "沙滩", image: "脚印被潮水写成 to do 的箭头", recall: "depart / purpose / prepare" },
+      { place: "灯塔", image: "一盏灯分成独行与同行两束光", recall: "solo / route / explore" },
+      { place: "潮汐洞", image: "why 和 how 变成两条会发光的鱼", recall: "reflect / discover / insight" },
+      { place: "集市", image: "旅人把地图折成一封寄给自己的信", recall: "return / share / perspective" },
+    ],
+    recallPrompt: "沿着四个地点回答：这次旅程的目的是什么？哪个选择改变了路线？用两个目标语法句式复述。",
+  },
+  unit04: {
+    unitId: "unit04",
+    worldName: "意义铸造所 · The Forge of Meaning",
+    worldTagline: "工作不只制造结果，也制造一个人对世界的回答。",
+    mentor: "火花工匠 Chen",
+    opening: "铸造所昼夜运转，机器能计算产量，却无法计算一件工作为何值得被认真完成。你要在噪声中找回手艺人的判断。",
+    mission: "修复四件被遗忘的工具，理解工作、劳动、传统与自我价值之间的关系。",
+    turningPoint: "工厂要求你只追求更快。老工匠把一件慢慢打磨的器物交给你：它证明质量和尊严有时需要拒绝倒计时。",
+    ending: "铸造所没有停止生产，但每件工具都留下了制作者的名字。你学会用结果衡量工作，也用过程理解人。",
+    landmarks: ["火花车间", "传统锻台", "协作长廊", "质量钟楼"],
+    grammar: [
+      {
+        id: "u04-passive",
+        title: "被动语态",
+        concept: "当动作的承受者比执行者更重要时，把它放到句子前景。",
+        pattern: "be + past participle (+ by ...) ",
+        explanation: "被动语态强调‘什么被完成、保存或改变’。by 短语只有在执行者重要或未知时才需要出现。",
+        examples: [
+          { en: "The tradition is carried forward by several generations.", zh: "这项传统由几代人传承下来。" },
+          { en: "The tool was repaired before the workshop opened.", zh: "车间开门前，工具已经被修好。" },
+        ],
+        pitfall: "be 动词要随时态和主语变化；过去分词本身不能单独承担时态。",
+      },
+      {
+        id: "u04-make-have-something-done",
+        title: "have / get something done",
+        concept: "表达请别人完成、安排某件事被完成。",
+        pattern: "have / get + object + past participle",
+        explanation: "这个结构常用于工作流程：主语不一定亲自完成动作，而是负责安排或促成结果。",
+        examples: [
+          { en: "The team had the old machine repaired by a local craftsperson.", zh: "团队请当地工匠修好了旧机器。" },
+          { en: "We got the safety signs replaced before the event.", zh: "活动前我们安排更换了安全标识。" },
+        ],
+        pitfall: "不要把 object 放在过去分词后面；宾语必须位于 done 之前。",
+      },
+    ],
+    practiceQuestions: [
+      { question: "The tradition ___ forward by several generations.", options: ["carries", "carried", "is carried", "has carrying"], answer: 2, explanation: "tradition 是动作承受者，使用被动语态。" },
+      { question: "The team had the old machine ___.", options: ["repaired", "repair", "repairing", "to repairing"], answer: 0, explanation: "have + object + past participle 表示安排某事被完成。" },
+      { question: "We got the safety signs ___ before the event.", options: ["replace", "replacing", "to replace", "replaced"], answer: 3, explanation: "get + object + past participle 是安排完成的结构。" },
+    ],
+    methods: [
+      { id: "u04-chunk", title: "组块化", principle: "把长句拆成可操作的意义块。", action: "用三种颜色标记主语、动作和结果，再把句子重新组装。", reward: "修复一件工具" },
+      { id: "u04-output", title: "生成效应", principle: "自己生成答案比只看答案留下更强的检索路径。", action: "先写出你认为正确的句子，再查看系统反馈并改写一次。", reward: "铸造一枚语法齿轮" },
+      { id: "u04-feedback", title: "即时纠错", principle: "错误越快被解释，越不容易固化。", action: "每次答错都必须说出错因：时态、结构还是词义，再重新完成。", reward: "获得修复经验" },
+      { id: "u04-space", title: "周期打磨", principle: "高质量记忆需要多轮、低负担的打磨。", action: "把错题送进 1/3/7 天复习队列，每次只重做最不稳的两题。", reward: "点亮质量钟" },
+    ],
+    memoryAnchor: "一座把句子当金属条锻打的红色熔炉",
+    memoryRoute: [
+      { place: "车间", image: "工人把 work 变成飞溅的火花", recall: "labor / craft / effort" },
+      { place: "锻台", image: "被动语态的 be 变成一把承重铁钳", recall: "tradition / preserve / be done" },
+      { place: "长廊", image: "不同工种把齿轮扣在一起", recall: "cooperate / skill / quality" },
+      { place: "钟楼", image: "慢钟敲出 pride 而不是 hurry", recall: "meaning / dignity / pleasure" },
+    ],
+    recallPrompt: "用四个地点讲清：一件工作如何被完成、由谁推动、为什么值得认真做？至少使用一个被动句。",
+  },
+  unit05: {
+    unitId: "unit05",
+    worldName: "月背观测站 · The Lunar Archive",
+    worldTagline: "探索未知，需要精确，也需要把梦想交给一代又一代人。",
+    mentor: "轨道记录员 Yue",
+    opening: "月背观测站看不见地球的喧闹，只有信号延迟、精确计算和漫长等待。每一项突破都由许多未被看见的准备托起。",
+    mission: "把散落在轨道、实验室和地面控制中心的研究记录连成一条探索链。",
+    turningPoint: "一次信号中断让所有人停下。你发现真正的航天梦不是‘永不失败’，而是失败后仍能让系统继续学习。",
+    ending: "探测器传回第一束月背图像时，观测站没有欢呼太久。下一项任务已经开始，而你知道梦想的语法叫作持续行动。",
+    landmarks: ["发射走廊", "轨道实验舱", "月背信标", "地面控制台"],
+    grammar: [
+      {
+        id: "u05-participles",
+        title: "分词短语作后置修饰",
+        concept: "用 doing / done 压缩定语从句，让科技说明更紧凑。",
+        pattern: "名词 + doing ... / 名词 + done ...",
+        explanation: "doing 表示名词主动进行的动作，done 表示名词承受的动作。使用前先判断名词与分词之间是主动还是被动关系。",
+        examples: [
+          { en: "The data collected by the probe revealed a hidden pattern.", zh: "探测器收集的数据揭示了一个隐藏模式。" },
+          { en: "The engineers monitoring the signal noticed a small change.", zh: "监测信号的工程师注意到了一个小变化。" },
+        ],
+        pitfall: "不要只因为句子短就随意使用分词；先确认逻辑主语和主动/被动关系。",
+      },
+      {
+        id: "u05-present-perfect",
+        title: "现在完成时：has / have done",
+        concept: "把过去发生的探索和现在仍然相关的成果连接起来。",
+        pattern: "has / have + past participle + since / so far / already",
+        explanation: "现在完成时强调经验、变化或结果对现在的影响。若句子明确给出过去某个完成时间，通常改用一般过去时。",
+        examples: [
+          { en: "The project has changed how we understand the lunar surface.", zh: "这个项目改变了我们理解月球表面的方式。" },
+          { en: "The team completed the test last winter.", zh: "团队去年冬天完成了测试。" },
+        ],
+        pitfall: "不要把 yesterday / last year 与现在完成时直接连用。",
+      },
+    ],
+    practiceQuestions: [
+      { question: "The data ___ by the probe revealed a hidden pattern.", options: ["collect", "collected", "collecting", "to collect"], answer: 1, explanation: "data 承受 collect 的动作，使用过去分词作后置修饰。" },
+      { question: "The engineers ___ the signal noticed a small change.", options: ["monitored", "monitor", "to monitored", "monitoring"], answer: 3, explanation: "engineers 主动进行 monitor，使用现在分词。" },
+      { question: "The project ___ how we understand the lunar surface.", options: ["has changed", "changed yesterday", "is changing last year", "had change"], answer: 0, explanation: "成果与现在仍有联系，使用现在完成时。" },
+    ],
+    methods: [
+      { id: "u05-dual-code", title: "双通道编码", principle: "文字线索和空间/图像线索互相支持。", action: "把术语放到轨道地图上，同时读出它的英文定义和一个动作。", reward: "启动一颗探测器" },
+      { id: "u05-error-log", title: "错误日志", principle: "错误不是扣分，它是下一次检索的导航点。", action: "将答错的词或语法收进控制台日志，写下“我为什么错”。", reward: "获得故障诊断权限" },
+      { id: "u05-spaced", title: "延迟发射", principle: "稍有间隔的重复比连续刷题更能检验保持。", action: "完成一轮后离开月背站，先做另一类题，再回来重测。", reward: "解锁二次发射窗口" },
+      { id: "u05-transfer", title: "迁移表达", principle: "能在新情境中使用，才不是只会认。", action: "用本单元语法描述一个现实中的科技项目，不复述原句。", reward: "上传地面报告" },
+    ],
+    memoryAnchor: "一枚绕月运行、尾部拖着句子轨道的银色探测器",
+    memoryRoute: [
+      { place: "发射廊", image: "梦想被装进一个精确的倒计时", recall: "launch / mission / endeavor" },
+      { place: "实验舱", image: "doing 和 done 两只机械臂分别主动和被动工作", recall: "monitor / collect / observe" },
+      { place: "月背站", image: "黑暗里亮起一枚不会熄灭的信标", recall: "signal / surface / reveal" },
+      { place: "控制台", image: "错误日志长成一棵新的航天树", recall: "innovation / overcome / continue" },
+    ],
+    recallPrompt: "不看提示，按探测器路线解释一次探索：准备、观测、故障、修正、成果。至少使用一个分词短语。",
+  },
+  unit06: {
+    unitId: "unit06",
+    worldName: "共益交易城 · The Commons Exchange",
+    worldTagline: "经济不是远处的数字，它每天都在决定资源如何流动。",
+    mentor: "公共账本管理员 An",
+    opening: "这座城市的街道由需求和信任铺成。每个人既是消费者，也是资源的暂时保管者；每一次交换都留下社会关系的回声。",
+    mission: "追踪一次危机中的资源流动，判断分享、效率和公平如何共同影响日常生活。",
+    turningPoint: "交易城的数字突然上涨，但真正能用的物资变少了。你必须区分‘看起来繁荣’和‘真实改善’，重建一张公共账本。",
+    ending: "账本没有给出唯一答案。它提醒你：好的经济系统不仅让东西流动，也让机会、责任和信任流动。",
+    landmarks: ["供需广场", "危机仓库", "共享书屋", "公共账本塔"],
+    grammar: [
+      {
+        id: "u06-conditionals",
+        title: "条件句：if ...",
+        concept: "描述条件、结果和可能的选择。",
+        pattern: "If + present, will / can + verb; If + past, would + verb",
+        explanation: "第一条件句讨论真实或可能发生的未来；第二条件句讨论假设、建议或与现实距离较远的情况。",
+        examples: [
+          { en: "If people share unused books, more readers can access them.", zh: "如果人们分享闲置书籍，更多读者就能接触到它们。" },
+          { en: "If the city invested more in trust, the exchange would become fairer.", zh: "如果城市更多投资于信任，交换会变得更公平。" },
+        ],
+        pitfall: "第一条件句的 if 从句通常不用 will；第二条件句中 be 常用 were 表示假设。",
+      },
+      {
+        id: "u06-the-more",
+        title: "the more ..., the more ...",
+        concept: "表达两个变化相互推动的关系。",
+        pattern: "The + comparative ..., the + comparative ...",
+        explanation: "两边分别表示条件变化和结果变化，形容词或副词用比较级。它适合解释经济、学习和社会系统中的连锁反应。",
+        examples: [
+          { en: "The more transparent the rules are, the easier trust becomes.", zh: "规则越透明，信任就越容易建立。" },
+          { en: "The more carefully we use shared resources, the longer they last.", zh: "我们越谨慎地使用共享资源，它们持续的时间就越长。" },
+        ],
+        pitfall: "不要把两边写成普通的比较句；the 结构要成对出现。",
+      },
+    ],
+    practiceQuestions: [
+      { question: "If people share unused books, more readers ___ access them.", options: ["would have", "had", "are", "can"], answer: 3, explanation: "真实或可能的条件结果可以使用 can。" },
+      { question: "If the city invested more in trust, the exchange ___ fairer.", options: ["would become", "will become", "become", "has become"], answer: 0, explanation: "与现实有距离的假设使用 would + 动词原形。" },
+      { question: "The more transparent the rules are, ___ trust becomes.", options: ["easier", "the easiest", "the easier", "as easy"], answer: 2, explanation: "the more ..., the more ... 结构需要成对的比较级。" },
+    ],
+    methods: [
+      { id: "u06-network", title: "关系网络", principle: "把词汇放进角色、资源和结果的网络。", action: "在公共账本上连出‘谁提供—谁使用—产生什么结果’三条线。", reward: "获得交易城通行证" },
+      { id: "u06-case", title: "案例推理", principle: "用一个具体案例检验抽象概念。", action: "先判断一次共享行为是否公平，再用英文说明证据。", reward: "解锁危机仓库" },
+      { id: "u06-retrieval", title: "无提示回放", principle: "从零复建比顺着熟悉页面重读更能暴露漏洞。", action: "只看四个地标，复述本单元的经济链条和两个句型。", reward: "点亮公共账本" },
+      { id: "u06-transfer", title: "生活迁移", principle: "学习效果最终要回到真实决策。", action: "为自己的学习时间、物品或信息设计一个更公平的共享方案。", reward: "获得共益徽章" },
+    ],
+    memoryAnchor: "一座把书、粮食和信任都显示成流动光线的账本塔",
+    memoryRoute: [
+      { place: "广场", image: "供需两只手在空中交换一枚硬币", recall: "economy / demand / supply" },
+      { place: "仓库", image: "危机把数字压成沉重的箱子", recall: "crisis / impact / recover" },
+      { place: "书屋", image: "一本书在陌生人之间长出翅膀", recall: "share / access / community" },
+      { place: "账本塔", image: "透明的规则让城市重新发光", recall: "trust / fair / sustainable" },
+    ],
+    recallPrompt: "从供需广场走到公共账本塔，解释一项资源怎样流动、哪里出现风险、什么机制能让结果更公平。",
+  },
+};
+
+export function getRw3World(unitId: string): UnitWorldContent | undefined {
+  return RW3_WORLDS[unitId];
+}

@@ -51,6 +51,12 @@ export interface Rw3UnitContent {
       outline?: string[];
     };
   };
+  /** 项目为本地课程包编写的段落级理解校准题，不代表出版社原题。 */
+  micro_world_checks?: {
+    section_a?: Rw3QuizRaw[];
+    section_b?: Rw3QuizRaw[];
+    section_c?: Rw3QuizRaw[];
+  };
 }
 
 /** 拉取 JSON 并缓存 */

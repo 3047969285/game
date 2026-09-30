@@ -4,7 +4,7 @@ import { CAMERA_DISTANCE, CAMERA_HEIGHT } from "./worldConfig";
 /** 第三人称跟随相机 */
 export class ExplorerCamera {
   private yaw = 0;
-  private pitch = 0.28;
+  private pitch = 0.38;
   private readonly targetPos = new THREE.Vector3();
   private readonly desiredPos = new THREE.Vector3();
 

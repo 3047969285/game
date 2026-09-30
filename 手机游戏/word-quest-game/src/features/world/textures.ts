@@ -19,66 +19,12 @@ function canvasTexture(
   return tex;
 }
 
-/** 生成地形颜色 / 粗糙度 / 法线贴图（高质量分层草地） */
+/** 生成地形粗糙度 / 法线贴图，颜色层统一使用可读的主题色地表。 */
 export function createTerrainMaps(): {
-  color: THREE.Texture;
   roughness: THREE.Texture;
   normal: THREE.Texture;
 } {
   const rnd = seededRand(20260616);
-
-  const color = canvasTexture((ctx, size) => {
-    // 基底渐变
-    const grad = ctx.createLinearGradient(0, 0, size, size);
-    grad.addColorStop(0, "#26412b");
-    grad.addColorStop(0.4, "#2f5234");
-    grad.addColorStop(0.7, "#274a30");
-    grad.addColorStop(1, "#223d29");
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, size, size);
-
-    // 大尺度色块（明暗草地区域）
-    for (let i = 0; i < 90; i++) {
-      const r = 60 + rnd() * 160;
-      const cx = rnd() * size;
-      const cy = rnd() * size;
-      const light = rnd() > 0.5;
-      const blob = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-      const a = 0.06 + rnd() * 0.1;
-      blob.addColorStop(0, light ? `rgba(120,150,80,${a})` : `rgba(28,52,34,${a})`);
-      blob.addColorStop(1, "rgba(0,0,0,0)");
-      ctx.fillStyle = blob;
-      ctx.beginPath();
-      ctx.arc(cx, cy, r, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    // 泥土 / 碎石斑块
-    for (let i = 0; i < 28; i++) {
-      const cx = rnd() * size;
-      const cy = rnd() * size;
-      const r = 18 + rnd() * 46;
-      const blob = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-      blob.addColorStop(0, `rgba(86,68,44,${0.18 + rnd() * 0.18})`);
-      blob.addColorStop(1, "rgba(86,68,44,0)");
-      ctx.fillStyle = blob;
-      ctx.beginPath();
-      ctx.arc(cx, cy, r, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    // 细密草点（明 / 暗双层）
-    for (let i = 0; i < 26000; i++) {
-      const dark = rnd() > 0.5;
-      const g = 40 + rnd() * 70;
-      ctx.fillStyle = dark
-        ? `rgba(${g - 10},${g + 30},${g - 6},${0.05 + rnd() * 0.1})`
-        : `rgba(${g + 50},${g + 80},${g + 20},${0.05 + rnd() * 0.12})`;
-      ctx.beginPath();
-      ctx.arc(rnd() * size, rnd() * size, 0.5 + rnd() * 1.8, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  });
 
   const roughness = canvasTexture((ctx, size) => {
     ctx.fillStyle = "#9a9a9a";
@@ -129,8 +75,45 @@ export function createTerrainMaps(): {
     }
   }, THREE.NoColorSpace);
 
-  color.repeat.set(14, 18);
   roughness.repeat.set(14, 18);
   normal.repeat.set(14, 18);
-  return { color, roughness, normal };
+  return { roughness, normal };
+}
+
+/** 全课程世界共用浅色、低反差地表，保留空间细节并让单元主题色可辨。 */
+export function createReadableGroundMap(): THREE.Texture {
+  const rnd = seededRand(20260930);
+  const texture = canvasTexture((ctx, size) => {
+    const base = ctx.createLinearGradient(0, 0, size, size);
+    base.addColorStop(0, "#ece9df");
+    base.addColorStop(0.48, "#e6e6df");
+    base.addColorStop(1, "#e0e5df");
+    ctx.fillStyle = base;
+    ctx.fillRect(0, 0, size, size);
+
+    for (let i = 0; i < 88; i++) {
+      const radius = 34 + rnd() * 116;
+      const x = rnd() * size;
+      const y = rnd() * size;
+      const warm = rnd() > 0.56;
+      const color = warm ? "112,96,72" : "76,104,88";
+      const alpha = 0.018 + rnd() * 0.026;
+      const patch = ctx.createRadialGradient(x, y, 0, x, y, radius);
+      patch.addColorStop(0, `rgba(${color},${alpha})`);
+      patch.addColorStop(1, `rgba(${color},0)`);
+      ctx.fillStyle = patch;
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    for (let i = 0; i < 12000; i++) {
+      const light = rnd() > 0.52;
+      const tone = light ? "255,255,248" : "62,75,65";
+      ctx.fillStyle = `rgba(${tone},${light ? 0.055 : 0.035 + rnd() * 0.025})`;
+      ctx.fillRect(rnd() * size, rnd() * size, 0.5 + rnd() * 1.7, 0.5 + rnd() * 1.7);
+    }
+  }, THREE.SRGBColorSpace, 1024);
+  texture.repeat.set(14, 18);
+  return texture;
 }

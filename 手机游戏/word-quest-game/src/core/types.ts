@@ -155,6 +155,78 @@ export interface TranslationSentence {
   keywords: string[];
 }
 
+/** 单元世界中的原创语法讲解点 */
+export interface GrammarPoint {
+  id: string;
+  title: string;
+  concept: string;
+  pattern: string;
+  explanation: string;
+  examples: Array<{ en: string; zh: string }>;
+  pitfall: string;
+}
+
+/** 记忆宫殿路线中的一个空间锚点 */
+export interface MemoryRouteStop {
+  place: string;
+  image: string;
+  recall: string;
+}
+
+/** 把记忆方法转化为游戏动作，而不是只放在说明文字里 */
+export interface MethodStep {
+  id: string;
+  title: string;
+  principle: string;
+  action: string;
+  reward: string;
+}
+
+/** 学习科学策略及其在游戏中的可执行动作。 */
+export interface LearningMethod {
+  id: string;
+  title: string;
+  principle: string;
+  action: string;
+}
+
+/** 读写3 单元内部的逻辑子世界。单元入口固定，文章与训练可以拥有多个世界。 */
+export type Rw3SubWorldKind =
+  | "section_a"
+  | "section_b"
+  | "stories_of_china"
+  | "learning_lab"
+  | "unit_project";
+
+export interface Rw3SubWorld {
+  id: string;
+  kind: Rw3SubWorldKind;
+  title: string;
+  subtitle: string;
+  icon: string;
+  order: number;
+  phaseKinds: Rw3Phase["kind"][];
+}
+
+/** 读写3 每个单元的原创世界、叙事、语法与记忆训练配置 */
+export interface UnitWorldContent {
+  unitId: string;
+  worldName: string;
+  worldTagline: string;
+  mentor: string;
+  opening: string;
+  mission: string;
+  turningPoint: string;
+  ending: string;
+  landmarks: string[];
+  grammar: GrammarPoint[];
+  practiceQuestions: QuizQuestion[];
+  methods: MethodStep[];
+  memoryAnchor: string;
+  memoryRoute: MemoryRouteStop[];
+  recallPrompt: string;
+}
+
 /** 读写3 单元学习阶段 */
 export type Rw3Phase =
   | {
@@ -163,6 +235,14 @@ export type Rw3Phase =
       title: string;
       segments: ContextSegment[];
       words: WordInContext[];
+      /** 文章段落拆出的微世界身份与主动检索任务。 */
+      worldId?: string;
+      worldTitle?: string;
+      landmark?: string;
+      memoryImage?: string;
+      recallPrompt?: string;
+      /** 文章微世界的段落级理解校准题。 */
+      checkpoint?: QuizQuestion;
     }
   | {
       kind: "vocab";
@@ -178,6 +258,13 @@ export type Rw3Phase =
       questions: QuizQuestion[];
     }
   | {
+      kind: "grammar";
+      label: string;
+      title: string;
+      points: GrammarPoint[];
+      questions: QuizQuestion[];
+    }
+  | {
       kind: "listening";
       label: string;
       title: string;
@@ -187,11 +274,25 @@ export type Rw3Phase =
     }
   | { kind: "cloze"; label: string; items: ClozeItem[] }
   | { kind: "translation"; label: string; sentences: TranslationSentence[] }
-  | { kind: "writing"; label: string; prompt: string; outline: string[] };
+  | { kind: "writing"; label: string; prompt: string; outline: string[] }
+  | {
+      kind: "memory";
+      label: string;
+      title: string;
+      mentor: string;
+      methods: MethodStep[];
+      memoryAnchor: string;
+      memoryRoute: MemoryRouteStop[];
+      recallPrompt: string;
+    };
 
 /** 语境阅读场景 */
 export interface ContextScene {
   levelId: string;
+  /** 读写3 子世界所属单元，便于单元进度与子世界进度分离。 */
+  unitId?: string;
+  /** 读写3 单元内部子世界 ID。 */
+  worldId?: string;
   title: string;
   settingEn: string;
   chapter: string;
@@ -202,6 +303,10 @@ export interface ContextScene {
   words: WordInContext[];
   /** 读写3 完整单元管线（Section A/B/C + 词汇 + 阅读/听力 + 填空 + 翻译 + 写作） */
   rw3Phases?: Rw3Phase[];
+  /** 贯穿本单元的学习科学策略，不只是展示文案。 */
+  learningMethods?: LearningMethod[];
+  /** 该单元的原创世界与学习方法配置 */
+  unitWorld?: UnitWorldContent;
 }
 
 /** 地图上可拾取的词汇光球（原神风格探索收集点） */
@@ -221,6 +326,8 @@ export interface WordPickup {
 export interface UnitExploreState {
   unitId: string;
   unitLabel: string;
+  /** 当前单元入口中的子世界节点，返回入口时重新生成。 */
+  subWorlds: Rw3SubWorld[];
   pickups: WordPickup[];
   collectedIds: Set<string>;
 }
@@ -232,4 +339,6 @@ export interface GameSave {
   mapNodeId: string;
   discoveredWords: string[];
   wordMemory: Record<string, WordMemory>;
+  rewardIds: string[];
+  experience: number;
 }

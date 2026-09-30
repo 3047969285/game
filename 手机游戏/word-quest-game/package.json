@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "pack": "python scripts/pack_game_data.py",
+    "pack": "py -3 scripts/pack_game_data.py",
     "dev": "npm run pack && vite",
     "build": "npm run pack && tsc && vite build",
     "preview": "vite preview",

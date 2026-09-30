@@ -9,5 +9,7 @@ export function createDefaultSave(): GameSave {
     mapNodeId: "",
     discoveredWords: [],
     wordMemory: {},
+    rewardIds: [],
+    experience: 0,
   };
 }

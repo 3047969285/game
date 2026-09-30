@@ -27,16 +27,112 @@
     "rw3_unit04_19",
     "rw3_unit04_20"
   ],
+  "micro_world_checks": {
+    "section_a": [
+      {
+        "question": "What caution does the instructor make about the words worker and laborer?",
+        "options": [
+          "They should not rank people; any task can require skill and judgment.",
+          "They should rank jobs according to physical or mental effort.",
+          "They describe fixed levels of social worth.",
+          "They apply only to work done in a craft workshop."
+        ],
+        "answer": 0,
+        "explanation": "The instructor rejects a hierarchy between job types: physical and repetitive work can also require skill and judgment."
+      },
+      {
+        "question": "What idea did the violin maker's demonstration support?",
+        "options": [
+          "Only artists need judgment when completing a task.",
+          "A traditional method should never be reconsidered.",
+          "Careful measurement helps protect the quality of a repair.",
+          "Special tools can replace the need for practice."
+        ],
+        "answer": 2,
+        "explanation": "The passage uses the violin maker's careful measurement to show how attention to detail protects quality."
+      },
+      {
+        "question": "What shared idea about meaningful work emerges from the discussion?",
+        "options": [
+          "Only prestigious occupations can produce fulfillment.",
+          "Taking responsibility for quality can make many kinds of work meaningful.",
+          "Routine work has no value unless it becomes easy.",
+          "People should avoid changing traditional methods."
+        ],
+        "answer": 1,
+        "explanation": "The passages connect craft with care, judgment, and responsibility for quality rather than with a job title or social rank."
+      }
+    ],
+    "section_b": [
+      {
+        "question": "What did the apprentice learn by watching the master?",
+        "options": [
+          "That shortcuts are the fastest path to excellence",
+          "That tradition should be hidden from young learners",
+          "That a workshop needs no patient practice",
+          "Measuring each joint twice protects repair quality and customer trust"
+        ],
+        "answer": 3,
+        "explanation": "The passage explains that a tiny gap can affect the instrument's sound and how long the repair lasts."
+      },
+      {
+        "question": "Why did the apprentice continue the measurement routine?",
+        "options": [
+          "It allowed the workshop to avoid learning new techniques.",
+          "It guaranteed that every instrument would sound identical.",
+          "It protected the repair's quality and the customer's trust.",
+          "It made the work finish faster than taking shortcuts."
+        ],
+        "answer": 2,
+        "explanation": "The passage says careful measurement protects the quality of the repair and the customer's trust."
+      },
+      {
+        "question": "How does heritage survive among young learners?",
+        "options": [
+          "By passing on useful knowledge while remaining willing to improve it",
+          "By replacing every master with a machine",
+          "By choosing shortcuts over careful work",
+          "By treating tradition as a museum label"
+        ],
+        "answer": 0,
+        "explanation": "The passage presents heritage as active practice: keep useful knowledge, question weak habits, and teach the next generation."
+      }
+    ],
+    "section_c": [
+      {
+        "question": "How does silk embroidery support the artisans in Suzhou?",
+        "options": [
+          "It turns every tradition into a museum label.",
+          "It removes the need for skilled workers.",
+          "It separates visitors from the community.",
+          "It connects heritage with local jobs and dignity."
+        ],
+        "answer": 3,
+        "explanation": "The story presents heritage work as a source of both livelihood and dignity."
+      },
+      {
+        "question": "What does ‘living labor’ mean in the final world?",
+        "options": [
+          "Work that can be completed without people",
+          "Work that preserves culture and community identity in the present",
+          "Work whose only purpose is to decorate a museum",
+          "Work that avoids every connection with tradition"
+        ],
+        "answer": 1,
+        "explanation": "Tradition remains alive when rewarding work continues to serve culture and community."
+      }
+    ]
+  },
   "sections": {
     "section_a": {
-      "title": "Will you be a worker or a laborer?",
+      "title": "What Makes Work Meaningful?",
       "type": "reading",
-      "passage": "In a career workshop, students debated the difference between a worker and a laborer. One instructor argued that a laborer repeats tasks for pay, while a worker invests skill and judgment even in small jobs. A visiting craftsman showed how he repaired violins by hand. He said tradition was not nostalgia; it was a standard. When work becomes pleasure, people stop watching the clock and start caring about quality."
+      "passage": "At a campus career workshop, students compared the words worker and laborer and asked whether occupation determines a person's worth. The instructor challenged the attitude that job titles determine a person's value: physical and repetitive tasks also demand judgment, skill, and care. A violin maker showed his apprentice how the master measured each joint with precision. The class concluded that craft is not a job title; taking pride in quality can make many kinds of work meaningful."
     },
     "section_b": {
-      "title": "The joy of a prideful tradition",
+      "title": "A Craft Tradition, Practiced with Care",
       "type": "reading",
-      "passage": "In a small workshop, a violin craftsman demonstrated prideful tradition. As an apprentice years ago, he watched his master measure every joint with precision. Craft was not nostalgia; it was a standard of excellence. Workers who love their occupation stop watching the clock and invest skill in each detail. Heritage survives when young learners choose dedication over shortcuts."
+      "passage": "An apprentice once wondered why a violin maker measured each joint twice. The maker explained that even a tiny gap could weaken a repair, change the instrument's sound, and undermine a customer's trust. Years later, the apprentice kept the careful routine but did not treat tradition as a rule that could never change. Repeating a measurement may seem slow, yet it protects quality and customer trust; he found fulfillment in knowing the repair would carry music safely into the future. He compared new tools with the workshop's tested methods and kept the ones that improved the work; his dedication and passion for the craft gradually earned the master's trust. Heritage stays alive when craftspeople preserve useful knowledge, question weak habits, and teach the next generation to pursue excellence with care."
     },
     "section_c": {
       "title": "Stories of China",
@@ -49,7 +145,7 @@
     },
     "reading": {
       "title": "More Than a Paycheck",
-      "passage": "In a career workshop, students debated the difference between a worker and a laborer. One instructor argued that a laborer repeats tasks for pay, while a worker invests skill and judgment even in small jobs. A visiting craftsman showed how he repaired violins by hand. He said tradition was not nostalgia; it was a standard. When work becomes pleasure, people stop watching the clock and start caring about quality.",
+      "passage": "At a career workshop, students asked what distinguishes routine labor from engaged work. Their instructor warned against treating the difference as a ranking of people: physical and repetitive jobs can require judgment and skill. A visiting violin maker measured each joint before repairing an instrument. For him, tradition was not nostalgia; it was a quality standard carried forward through practice. Work became meaningful not because it stopped being difficult, but because the craftsperson took responsibility for quality and kept learning.",
       "questions": [
         {
           "question": "How does the craftsman view tradition?",
@@ -66,18 +162,40 @@
     },
     "listening": {
       "title": "Listening: When work is a pleasure",
-      "script": "In a career workshop, students debated the difference between a worker and a laborer. One instructor argued that a laborer repeats tasks for pay, while a worker invests skill and judgment even in small jobs. A visiting craftsman showed how he repaired violins by hand. He said tradition was not nostalgia; it was a standard. When work becomes pleasure, people stop watching the clock and start caring about quality. In a small workshop, a violin craftsman demonstrated prideful tradition. As an apprentice years ago, he watched his master measure every joint with precision. Craft was not nostalgia; it was a standard of excellence. Workers who love their occupation stop watching the clock and invest skill in each detail. Heritage survives when young learners choose dedication over shortcuts.",
+      "script": "At a career workshop, the instructor asked whether a job's value depends on being physical or mental. She warned against that false division: the word laborer does not mean a person lacks judgment or dignity. A routine task can still demand skill and pride. A violin maker then described what he learned as an apprentice from his master. His master asked him to measure each joint twice; too wide a gap can change the instrument's sound. Repeated checks once seemed slow, but they protected quality. The maker called tradition a standard carried forward through practice, not a wish to return to the past. The instructor concluded that a rewarding occupation can bring fulfillment when people take responsibility for quality, practice with dedication, and keep developing their craft toward excellence.",
       "questions": [
         {
-          "question": "How does the craftsman view tradition?",
+          "question": "What point does the instructor use the worker/laborer distinction to emphasize?",
           "options": [
-            "As outdated nostalgia",
-            "As a standard of quality",
-            "As a reason to quit",
-            "As a marketing trick"
+            "A task becomes meaningful only when it requires complex equipment.",
+            "Pay is a better measure of work than care or judgment.",
+            "Physical and mental tasks should be valued as separate kinds of work.",
+            "Skill and judgment can make even a small job meaningful."
+          ],
+          "answer": 3,
+          "explanation": "讲者借这组概念强调把技艺与判断投入工作；这是文章的论述框架，不应误读为体力劳动者缺少技能或价值。"
+        },
+        {
+          "question": "What did the violin-maker learn by watching his master?",
+          "options": [
+            "That accurate work matters only on instruments made by hand.",
+            "That careful measurement helps maintain a standard of craftsmanship.",
+            "That a repair should be finished quickly, even if a joint is uneven.",
+            "That an apprentice should copy each step without understanding it."
           ],
           "answer": 1,
-          "explanation": "工匠把传统视为品质标准。"
+          "explanation": "学徒记得师傅会精确测量每个接合处；这个细节说明传统是一套靠练习维持的工艺标准，而非怀旧。"
+        },
+        {
+          "question": "What does the speaker suggest makes work rewarding?",
+          "options": [
+            "External praise arriving before a person has learned the work.",
+            "Removing every routine task from a person's occupation.",
+            "Taking responsibility for quality and continuing to improve.",
+            "Finishing more tasks, regardless of the standard of quality."
+          ],
+          "answer": 2,
+          "explanation": "讲者用“测量两次保护维修质量”的例子说明，成就感来自承担质量责任并持续磨炼技艺，不是单纯加快速度或等待表扬。"
         }
       ]
     },

@@ -20,6 +20,12 @@ def load_json(path: Path):
 
 
 def main() -> None:
+    # 发布仓库已经带有可运行的数据包；没有旁边的源数据仓库时，
+    # 不要先删除它，否则单独 clone 本项目会在打包阶段变成空数据。
+    if not DATA_SRC.exists():
+        print(f"Source data not found at {DATA_SRC}; keep existing game bundle.")
+        return
+
     if OUT.exists():
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)

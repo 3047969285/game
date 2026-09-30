@@ -1,0 +1,1838 @@
+import * as THREE from "three";
+import type { MapNode } from "../../core/types";
+import type { UnitBiome } from "./unitBiome";
+
+type PassageKind = "section_a" | "section_b" | "section_c";
+type PassageSceneKind =
+  | "message" | "dialogue" | "focus" | "notification" | "study-desk" | "filter" | "offline-rest"
+  | "clinic" | "telemedicine" | "community" | "timeline" | "perseverance" | "legacy"
+  | "spotlight" | "humanitarian" | "lasting-service" | "fleet" | "peace-contact"
+  | "itinerary" | "detour" | "hostel" | "open-route" | "confidence" | "rail-platform" | "rail-car"
+  | "career" | "violin" | "craft-quality" | "bench" | "caliper" | "trust-bridge" | "loom" | "heritage"
+  | "lunar-probe" | "test-console" | "lander" | "orbit-adjustment" | "training" | "science-exhibit"
+  | "bookshop" | "exchange" | "resilience" | "exchange-wall" | "resource-cycle" | "library" | "digital-lending";
+
+const PASSAGE_SCENES: Record<string, Partial<Record<PassageKind, PassageSceneKind[]>>> = {
+  unit01: {
+    section_a: ["message", "dialogue", "focus"],
+    section_b: ["notification", "study-desk", "filter", "offline-rest"],
+    section_c: ["clinic", "telemedicine", "community"],
+  },
+  unit02: {
+    section_a: ["timeline", "perseverance", "legacy"],
+    section_b: ["spotlight", "humanitarian", "lasting-service"],
+    section_c: ["fleet", "peace-contact"],
+  },
+  unit03: {
+    section_a: ["itinerary", "detour"],
+    section_b: ["hostel", "open-route", "confidence"],
+    section_c: ["rail-platform", "rail-car"],
+  },
+  unit04: {
+    section_a: ["career", "violin", "craft-quality"],
+    section_b: ["bench", "caliper", "trust-bridge"],
+    section_c: ["loom", "heritage"],
+  },
+  unit05: {
+    section_a: ["lunar-probe", "test-console"],
+    section_b: ["lander", "orbit-adjustment"],
+    section_c: ["training", "science-exhibit"],
+  },
+  unit06: {
+    section_a: ["bookshop", "exchange", "resilience"],
+    section_b: ["exchange-wall", "resource-cycle"],
+    section_c: ["library", "digital-lending"],
+  },
+};
+
+/**
+ * 读写教程 3 的单元场景骨架。
+ *
+ * 这里不依赖外部 3D 资产，先用低多边形几何把“可走的空间”搭出来：
+ * 中央学习圣所、四条学习路径、远景地标和主题装置。这样在 GLB 资产
+ * 加载慢、移动端降画质或资源缺失时，世界仍然有明确的空间结构。
+ */
+export function buildUnitLandscape(biome: UnitBiome, _anchor: MapNode, worldId?: string, worldTitle?: string): THREE.Group {
+  const root = new THREE.Group();
+  root.name = ["unit-landscape", biome.id, worldId ?? "hub"].join("-");
+
+  const focus = getWorldFocusPalette(biome, worldId);
+  const accent = new THREE.Color(focus.accent);
+  const secondary = new THREE.Color(focus.secondary);
+  const groundColor = new THREE.Color(...biome.terrainTint);
+  groundColor.multiplyScalar(0.88);
+
+  const ground = new THREE.MeshStandardMaterial({
+    color: groundColor,
+    roughness: 0.72,
+    metalness: 0.16,
+  });
+  const dark = new THREE.MeshStandardMaterial({
+    color: 0x34485e,
+    roughness: 0.84,
+    metalness: 0.12,
+  });
+  const glow = new THREE.MeshStandardMaterial({
+    color: secondary,
+    emissive: secondary,
+    emissiveIntensity: 1.2,
+    roughness: 0.2,
+    metalness: 0.36,
+  });
+  const edge = new THREE.MeshStandardMaterial({
+    color: accent,
+    emissive: accent,
+    emissiveIntensity: 0.75,
+    roughness: 0.18,
+    metalness: 0.42,
+  });
+  // 场景远景可以进雾，但学习入口必须保持清晰，否则移动端会只剩一层色块。
+  dark.fog = false;
+  glow.fog = false;
+  edge.fog = false;
+  if (isFocusedLearningWorld(worldId)) {
+    glow.emissiveIntensity = 0.56;
+    edge.emissiveIntensity = 0.42;
+    dark.color.set(0x465a70);
+    dark.roughness = 0.86;
+    dark.metalness = 0.08;
+  }
+
+  if (isFocusedLearningWorld(worldId)) {
+    addFocusedLearningApproach(root, focus.route, edge);
+  } else {
+    addCentralSanctuary(root, ground, dark, glow, edge);
+    addLearningRoutes(root, ground, edge, biome.decorStyle, focus.route);
+    addStudyStations(root, dark, glow, edge);
+  }
+  if (isFocusedLearningWorld(worldId)) {
+    const landmark = new THREE.Group();
+    addLearningSceneLandmark(landmark, worldId, worldTitle, ground, dark, glow, edge, accent, biome.id);
+    landmark.scale.setScalar(0.78);
+    landmark.position.set(0, 1.8, -15);
+    root.add(landmark);
+  } else if (!addLearningSceneLandmark(root, worldId, worldTitle, ground, dark, glow, edge, accent, biome.id)) {
+    addWorldFocusLandmark(root, worldId, ground, dark, glow, edge);
+  }
+  // 学习页已有固定地标铭牌；近景再放大型 3D 文字牌会被阅读层裁切成黑色块。
+  if (!isFocusedLearningWorld(worldId)) addWorldTitleSign(root, worldId, worldTitle, focus.accent);
+
+  const environment = new THREE.Group();
+  switch (biome.decorStyle) {
+    case "coast":
+      addDigitalCoast(environment, dark, glow, edge, isFocusedLearningWorld(worldId));
+      break;
+    case "market":
+      addKnowledgeMarket(environment, ground, dark, glow);
+      break;
+    case "forest":
+      addMemoryForest(environment, ground, glow, edge, isFocusedLearningWorld(worldId));
+      break;
+    case "temple":
+      addIdeaTemple(environment, ground, dark, glow, edge, isFocusedLearningWorld(worldId));
+      break;
+    case "space":
+      addOrbitCampus(environment, dark, glow, edge, isFocusedLearningWorld(worldId));
+      break;
+    case "exchange":
+      addCommonsExchange(environment, ground, dark, glow, edge, isFocusedLearningWorld(worldId));
+      break;
+    default:
+      addLibraryCampus(environment, ground, dark, glow, edge);
+      break;
+  }
+  if (isFocusedLearningWorld(worldId)) {
+    environment.scale.setScalar(0.72);
+    environment.position.z = 14;
+  }
+  root.add(environment);
+
+  root.traverse((object) => {
+    object.castShadow = object instanceof THREE.Mesh;
+    object.receiveShadow = object instanceof THREE.Mesh && !isFocusedLearningWorld(worldId);
+  });
+  return root;
+}
+
+export function isFocusedLearningWorld(worldId?: string): boolean {
+  return Boolean(
+    worldId &&
+    (/^section_[abc]-world-\d+$/.test(worldId) ||
+      /^lab-vocab-\d+$/.test(worldId) ||
+      [
+        "lab-grammar",
+        "lab-cloze",
+        "lab-translation",
+        "project-reading",
+        "project-listening",
+        "project-writing",
+        "project-memory",
+      ].includes(worldId))
+  );
+}
+
+/** 段落/训练微世界从入口直达自己的地标，不再被共用的单元圣所遮住。 */
+function addFocusedLearningApproach(root: THREE.Group, routeColor: number, edge: THREE.Material): void {
+  const route = new THREE.MeshStandardMaterial({
+    color: routeColor,
+    emissive: routeColor,
+    emissiveIntensity: 0.12,
+    roughness: 0.62,
+    metalness: 0.12,
+  });
+  for (let index = 0; index < 5; index++) {
+    const z = 1.8 + index * 2.1;
+    const stepY = 0.54 + index * 0.32;
+    const slab = new THREE.Mesh(new THREE.BoxGeometry(5.2, 0.18, 3.3), route);
+    slab.position.set(index % 2 === 0 ? -0.28 : 0.28, stepY, z);
+    slab.rotation.y = index % 2 === 0 ? -0.035 : 0.035;
+    slab.userData.isLandscapeRoute = true;
+    root.add(slab);
+
+    const marker = new THREE.Mesh(new THREE.OctahedronGeometry(0.34, 0), edge);
+    marker.position.set(0, stepY + 0.42, z);
+    marker.userData.isLandscapeBeacon = true;
+    root.add(marker);
+  }
+}
+
+interface WorldFocusPalette {
+  accent: number;
+  secondary: number;
+  route: number;
+}
+
+/** 子世界保留任务色，同时优先呈现单元本身的主题色，避免六个单元看起来像同一张地图。 */
+function getWorldFocusPalette(biome: UnitBiome, worldId?: string): WorldFocusPalette {
+  if (!worldId || worldId === "hub") {
+    return { accent: biome.crystalColor, secondary: biome.orbColor, route: biome.pathColor };
+  }
+  const articleScene = worldId.match(/^(section_[abc])-world-(\d+)$/);
+  if (articleScene) {
+    const sectionPalettes: Record<string, WorldFocusPalette[]> = {
+      section_a: [
+        { accent: 0x62d8ff, secondary: 0xb8f1ff, route: 0x2c86ff },
+        { accent: 0x79f2d0, secondary: 0xc1fff0, route: 0x238b78 },
+        { accent: 0xffc56a, secondary: 0xffe1a3, route: 0x9d6b1d },
+        { accent: 0xf4a2ff, secondary: 0xffd96b, route: 0x9c5cff },
+      ],
+      section_b: [
+        { accent: 0x79b8ff, secondary: 0xb7d8ff, route: 0x376fbb },
+        { accent: 0xb5a0ff, secondary: 0xe0d7ff, route: 0x694ac2 },
+        { accent: 0x67e8a5, secondary: 0xbaffd5, route: 0x288956 },
+        { accent: 0xffbd78, secondary: 0xffdfb4, route: 0xa76b29 },
+      ],
+      section_c: [
+        { accent: 0xff7b72, secondary: 0xffc17a, route: 0xd65352 },
+        { accent: 0xf6a6bd, secondary: 0xffd6e4, route: 0xb05276 },
+        { accent: 0x7ce7cf, secondary: 0xc6fff0, route: 0x328d79 },
+        { accent: 0xffd36a, secondary: 0xffedaa, route: 0x9e7428 },
+      ],
+    };
+    const palette = sectionPalettes[articleScene[1]][(Number(articleScene[2]) - 1) % 4];
+    return {
+      accent: new THREE.Color(palette.accent).lerp(new THREE.Color(biome.crystalColor), 0.66).getHex(),
+      secondary: new THREE.Color(palette.secondary).lerp(new THREE.Color(biome.orbColor), 0.56).getHex(),
+      route: new THREE.Color(palette.route).lerp(new THREE.Color(biome.pathColor), 0.6).getHex(),
+    };
+  }
+  const vocabScene = worldId.match(/^lab-vocab-(\d+)$/);
+  if (vocabScene) {
+    const levelPalette = [0x55d6ff, 0x74e0b0, 0xb5a0ff, 0xffbe69, 0xff8f9d, 0x8eb7ff];
+    const accent = levelPalette[(Number(vocabScene[1]) - 1) % levelPalette.length];
+    return {
+      accent: new THREE.Color(accent).lerp(new THREE.Color(biome.crystalColor), 0.52).getHex(),
+      secondary: biome.orbColor,
+      route: biome.pathColor,
+    };
+  }
+  const stagePalettes: Record<string, WorldFocusPalette> = {
+    "lab-grammar": { accent: 0x7dd3fc, secondary: 0xdbeafe, route: 0x3977b8 },
+    "lab-cloze": { accent: 0x84ccae, secondary: 0xd1fae5, route: 0x267a5d },
+    "lab-translation": { accent: 0xc4a5ff, secondary: 0xf0dcff, route: 0x7750b5 },
+    "project-reading": { accent: 0xffcb70, secondary: 0xffedb5, route: 0xa47328 },
+    "project-listening": { accent: 0x75d7ff, secondary: 0xbaf1ff, route: 0x377da7 },
+    "project-writing": { accent: 0xffa87c, secondary: 0xffdec1, route: 0x9f5736 },
+    "project-memory": { accent: 0xd3a2ff, secondary: 0xf1dcff, route: 0x7250b6 },
+  };
+  const stagePalette = stagePalettes[worldId];
+  if (stagePalette) {
+    return {
+      accent: new THREE.Color(stagePalette.accent).lerp(new THREE.Color(biome.crystalColor), 0.58).getHex(),
+      secondary: new THREE.Color(stagePalette.secondary).lerp(new THREE.Color(biome.orbColor), 0.5).getHex(),
+      route: new THREE.Color(stagePalette.route).lerp(new THREE.Color(biome.pathColor), 0.58).getHex(),
+    };
+  }
+  const palettes: Record<string, WorldFocusPalette> = {
+    "section-a": { accent: 0x62d8ff, secondary: 0xb8f1ff, route: 0x2c86ff },
+    "section-b": { accent: 0xffc56a, secondary: 0xffe1a3, route: 0x9d6b1d },
+    "stories-of-china": { accent: 0xff7b72, secondary: 0xffc17a, route: 0xd65352 },
+    "learning-lab": { accent: 0x8fffbe, secondary: 0x7dd3fc, route: 0x31b37e },
+    "unit-project": { accent: 0xf4a2ff, secondary: 0xffd96b, route: 0x9c5cff },
+  };
+  return palettes[worldId] ?? { accent: biome.crystalColor, secondary: biome.orbColor, route: biome.pathColor };
+}
+
+function addLearningSceneLandmark(
+  root: THREE.Group,
+  worldId: string | undefined,
+  worldTitle: string | undefined,
+  ground: THREE.MeshStandardMaterial,
+  dark: THREE.MeshStandardMaterial,
+  glow: THREE.MeshStandardMaterial,
+  edge: THREE.MeshStandardMaterial,
+  beaconAccent: THREE.Color,
+  biomeId: string
+): boolean {
+  if (!worldId) return false;
+  const add = (
+    geometry: THREE.BufferGeometry,
+    material: THREE.Material,
+    x: number,
+    y: number,
+    z: number,
+    rotationY = 0
+  ): THREE.Mesh => {
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(x, y, z);
+    mesh.rotation.y = rotationY;
+    root.add(mesh);
+    return mesh;
+  };
+  const beacon = (y = 5.2): THREE.Mesh => {
+    const material = glow.clone();
+    if (isFocusedLearningWorld(worldId)) {
+      material.color.copy(beaconAccent);
+      material.emissive.copy(beaconAccent);
+      material.emissiveIntensity = 0.24;
+      material.roughness = 0.42;
+      material.metalness = 0.16;
+    }
+    const mesh = add(new THREE.OctahedronGeometry(1.7, 1), material, 0, y, 27);
+    mesh.userData.isLandscapeBeacon = true;
+    return mesh;
+  };
+  const ring = (radius: number, y: number, rotation = Math.PI / 2): THREE.Mesh => {
+    const mesh = add(new THREE.TorusGeometry(radius, 0.16, 8, 40), edge, 0, y, 27);
+    mesh.rotation.x = rotation;
+    mesh.userData.isLandscapeRing = true;
+    return mesh;
+  };
+
+  const article = worldId.match(/^(section_[abc])-world-(\d+)$/);
+  if (article) {
+    const section = article[1];
+    const index = Number(article[2]);
+    const articleHeading = (worldTitle ?? "").split(" · ")[0];
+    const isDialogueWorld = /connection|conversation|communication|dialogue|social/i.test(articleHeading);
+    const platform = add(new THREE.CylinderGeometry(7.8, 8.8, 0.48, 8), dark, 0, 0.92, 27);
+    platform.userData.isLandscapeStage = true;
+
+    if (biomeId === "unit06" && section === "section_a" && index === 1) {
+      // Unit 6's opening passage is specifically about a neighborhood bookstore
+      // that survives by exchanging books; make that story visible, not generic.
+      const signFrame = new THREE.MeshStandardMaterial({
+        color: 0x624a36,
+        roughness: 0.78,
+        metalness: 0.04,
+      });
+      add(new THREE.BoxGeometry(9.2, 4.8, 0.42), signFrame, 0, 3.7, 29);
+      for (const x of [-4.2, 4.2]) add(new THREE.BoxGeometry(0.42, 5, 0.5), edge, x, 3.8, 27.2);
+      for (const y of [1.75, 2.7, 3.65, 4.6]) {
+        add(new THREE.BoxGeometry(7.9, 0.14, 0.6), ground, 0, y, 27.15);
+      }
+
+      const bookMaterials = [0xf2b36b, 0x80cbb4, 0x9bb9ef, 0xe48782].map((color) =>
+        new THREE.MeshStandardMaterial({ color, roughness: 0.72 })
+      );
+      for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 8; col++) {
+          const height = 0.42 + ((row + col) % 3) * 0.1;
+          const book = add(
+            new THREE.BoxGeometry(0.42, height, 0.34),
+            bookMaterials[(row * 3 + col) % bookMaterials.length],
+            -3.5 + col,
+            1.84 + row * 0.95 + height / 2,
+            26.78
+          );
+          book.userData.isLandscapeStage = true;
+        }
+      }
+
+      add(new THREE.BoxGeometry(6.2, 0.9, 1.05), dark, 0, 1.65, 23.7);
+      add(new THREE.BoxGeometry(6.45, 0.16, 1.18), glow, 0, 2.18, 23.7);
+      for (let i = 0; i < 3; i++) {
+        const stack = add(new THREE.BoxGeometry(0.92, 0.16, 0.7), bookMaterials[i], -1.8 + i * 1.8, 2.37, 23.7);
+        stack.userData.isLandscapeStage = true;
+      }
+
+      const awning = add(new THREE.BoxGeometry(10.2, 0.32, 2.3), ground, 0, 6.25, 26.2);
+      awning.userData.isLandscapeStage = true;
+      add(new THREE.BoxGeometry(8.45, 1.62, 0.18), signFrame, 0, 5.55, 27.02);
+
+      const signCanvas = document.createElement("canvas");
+      signCanvas.width = 1024;
+      signCanvas.height = 192;
+      const signContext = signCanvas.getContext("2d");
+      if (signContext) {
+        signContext.fillStyle = "#24483f";
+        signContext.fillRect(0, 0, signCanvas.width, signCanvas.height);
+        signContext.strokeStyle = "#d9b77a";
+        signContext.lineWidth = 8;
+        signContext.strokeRect(12, 12, signCanvas.width - 24, signCanvas.height - 24);
+        signContext.fillStyle = "#fff4dc";
+        signContext.textAlign = "center";
+        signContext.textBaseline = "middle";
+        signContext.font = "bold 68px Arial, sans-serif";
+        signContext.fillText("BOOK EXCHANGE", 512, 67);
+        signContext.font = "bold 32px Arial, sans-serif";
+        signContext.fillText("LEAVE ONE  ·  TAKE ONE", 512, 145);
+        const signTexture = new THREE.CanvasTexture(signCanvas);
+        signTexture.colorSpace = THREE.SRGBColorSpace;
+        const sign = new THREE.Mesh(
+          new THREE.PlaneGeometry(8.05, 1.38),
+          new THREE.MeshBasicMaterial({ map: signTexture, side: THREE.DoubleSide, toneMapped: false })
+        );
+        sign.position.set(0, 5.55, 26.88);
+        sign.rotation.y = Math.PI;
+        root.add(sign);
+      }
+
+      const shopLight = new THREE.PointLight(0xffdca0, 2.4, 18, 2);
+      shopLight.position.set(0, 5.2, 22.6);
+      root.add(shopLight);
+      const exchangePath = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-2.2, 2.65, 24.2),
+        new THREE.Vector3(0, 3.3, 25.4),
+        new THREE.Vector3(2.2, 2.65, 26.6),
+      ]);
+      const path = new THREE.Mesh(new THREE.TubeGeometry(exchangePath, 16, 0.065, 7, false), edge);
+      path.userData.isLandscapeRoute = true;
+      root.add(path);
+      return true;
+    }
+
+    const passageScene = PASSAGE_SCENES[biomeId]?.[section as PassageKind]?.[index - 1];
+    const keepDialogueLandmark = passageScene === "dialogue" && section === "section_a" && index === 1 && isDialogueWorld;
+    if (passageScene && passageScene !== "bookshop" && !keepDialogueLandmark) {
+      addPassageSceneLandmark(root, passageScene, add, ground, dark, glow, edge, beacon, ring);
+      return true;
+    }
+
+    if (section === "section_a") {
+      if (index === 1 && isDialogueWorld) {
+        add(new THREE.BoxGeometry(6.2, 0.32, 4.8), ground, -1.9, 4, 27, -0.12);
+        add(new THREE.BoxGeometry(6.2, 0.32, 4.8), glow, 1.9, 4, 27, 0.12);
+        for (const x of [-1.9, 1.9]) {
+          const support = add(new THREE.CylinderGeometry(0.24, 0.34, 2.7, 8), dark, x, 2.5, 27);
+          support.userData.isLandscapeStage = true;
+        }
+        const addSpeechBubble = (x: number, y: number, material: THREE.Material, tailRight: boolean): void => {
+          const shape = new THREE.Shape();
+          shape.moveTo(-1.15, -0.62);
+          if (tailRight) {
+            shape.lineTo(0.22, -0.62);
+            shape.lineTo(0.62, -1.08);
+            shape.lineTo(0.74, -0.62);
+          } else {
+            shape.lineTo(-0.72, -0.62);
+            shape.lineTo(-0.62, -1.08);
+            shape.lineTo(-0.22, -0.62);
+          }
+          shape.lineTo(1.02, -0.62);
+          shape.quadraticCurveTo(1.22, -0.62, 1.22, -0.42);
+          shape.lineTo(1.22, 0.48);
+          shape.quadraticCurveTo(1.22, 0.68, 1.02, 0.68);
+          shape.lineTo(-1.02, 0.68);
+          shape.quadraticCurveTo(-1.22, 0.68, -1.22, 0.48);
+          shape.lineTo(-1.22, -0.42);
+          shape.quadraticCurveTo(-1.22, -0.62, -1.15, -0.62);
+          const bubble = add(
+            new THREE.ExtrudeGeometry(shape, {
+              depth: 0.34,
+              bevelEnabled: true,
+              bevelSegments: 2,
+              steps: 1,
+              bevelSize: 0.055,
+              bevelThickness: 0.055,
+              curveSegments: 8,
+            }),
+            material,
+            x,
+            y,
+            26.7
+          );
+          bubble.userData.isLandscapeStage = true;
+        };
+        addSpeechBubble(-2.1, 5.6, edge, true);
+        addSpeechBubble(2.1, 4.9, glow, false);
+        const speechDot = new THREE.MeshStandardMaterial({
+          color: 0xf1f8ff,
+          emissive: 0xb9e7ff,
+          emissiveIntensity: 0.24,
+          roughness: 0.34,
+        });
+        for (const [centerX, centerY] of [[-2.1, 5.6], [2.1, 4.9]]) {
+          for (const offsetX of [-0.38, 0, 0.38]) {
+            add(new THREE.SphereGeometry(0.085, 8, 6), speechDot, centerX + offsetX, centerY, 26.62);
+          }
+        }
+        const exchange = new THREE.Mesh(
+          new THREE.TubeGeometry(
+            new THREE.CatmullRomCurve3([
+              new THREE.Vector3(-0.9, 5.25, 26.7),
+              new THREE.Vector3(0, 4.35, 26.7),
+              new THREE.Vector3(0.9, 4.55, 26.7),
+            ]),
+            20,
+            0.08,
+            6,
+            false
+          ),
+          edge
+        );
+        exchange.userData.isLandscapeRoute = true;
+        root.add(exchange);
+      } else if (index === 1) {
+        for (const x of [-3.6, 3.6]) {
+          add(new THREE.CylinderGeometry(0.55, 0.82, 5.6, 8), ground, x, 3.8, 27);
+        }
+        add(new THREE.BoxGeometry(9, 0.32, 0.52), edge, 0, 6.7, 27);
+        beacon(5.1);
+        ring(3.2, 4.4, 0.18);
+      } else if (index === 2) {
+        for (const x of [-4, 4]) add(new THREE.CylinderGeometry(0.62, 0.9, 7.2, 8), ground, x, 4.4, 27);
+        add(new THREE.BoxGeometry(10, 0.42, 0.5), edge, 0, 8.2, 27);
+        const core = beacon(4.9);
+        core.scale.setScalar(0.8);
+        ring(3.4, 4.9, Math.PI / 2.3);
+      } else if (index === 3) {
+        for (const side of [-1, 1]) {
+          const path = add(new THREE.BoxGeometry(2.3, 0.32, 10), ground, side * 2.8, 1.35, 27, side * 0.3);
+          path.userData.isLandscapeRoute = true;
+        }
+        beacon(5.8);
+        ring(3.1, 1.7);
+      } else {
+        for (const x of [-4.8, 4.8]) add(new THREE.CylinderGeometry(0.72, 1, 8, 8), edge, x, 4.8, 27);
+        add(new THREE.TorusGeometry(5, 0.22, 8, 40, Math.PI), glow, 0, 8.8, 27, Math.PI);
+        beacon(5.2);
+      }
+    } else if (section === "section_b") {
+      if (index === 1) {
+        for (const [x, height] of [[-5, 5], [0, 8], [5, 6]] as const) {
+          add(new THREE.BoxGeometry(2.4, height, 0.5), ground, x, height / 2 + 1.1, 27);
+        }
+        for (const y of [3.2, 5.8]) add(new THREE.BoxGeometry(11, 0.16, 0.28), edge, 0, y, 27);
+        beacon(10);
+      } else if (index === 2) {
+        add(new THREE.CylinderGeometry(1.8, 2.3, 7.4, 10), glow, 0, 4.7, 27);
+        ring(4.8, 4.7, 0.42);
+        ring(4.8, 4.7, -0.42);
+        beacon(9.2);
+      } else if (index === 3) {
+        add(new THREE.CylinderGeometry(5.8, 6.5, 1, 12), ground, 0, 2, 27);
+        add(new THREE.SphereGeometry(4.2, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2), edge, 0, 2.5, 27);
+        add(new THREE.CylinderGeometry(1.1, 1.6, 6.2, 8), dark, 0, 5.4, 27);
+        beacon(9.4);
+      } else {
+        add(new THREE.CylinderGeometry(0.55, 0.9, 5.5, 8), dark, 0, 3.4, 27);
+        const beam = add(new THREE.BoxGeometry(12, 0.42, 1.1), edge, 0, 6.1, 27, 0.06);
+        beam.userData.isLandscapeRoute = true;
+        for (const x of [-5, 5]) {
+          const orb = add(new THREE.SphereGeometry(1.2, 12, 8), glow, x, 6.8, 27);
+          orb.userData.isLandscapeBeacon = true;
+        }
+        ring(4.3, 1.5);
+      }
+    } else if (index === 1) {
+      for (const [radius, y, sides] of [[5.8, 2.3, 8], [4.6, 4.3, 6], [3.3, 6.1, 5]] as const) {
+        add(new THREE.CylinderGeometry(radius, radius + 0.55, 0.72, sides), ground, 0, y, 27);
+      }
+      const lantern = add(new THREE.OctahedronGeometry(1.9, 1), glow, 0, 9, 27);
+      lantern.userData.isLandscapeBeacon = true;
+      ring(2.8, 9);
+    } else if (index === 2) {
+      for (const angle of [0, Math.PI / 2, Math.PI, (Math.PI * 3) / 2]) {
+        const x = Math.cos(angle) * 4.7;
+        const z = 27 + Math.sin(angle) * 4.7;
+        const pillar = add(new THREE.CylinderGeometry(0.5, 0.78, 5.8, 8), ground, x, 3.8, z);
+        pillar.userData.isLandscapeBeacon = true;
+        const light = add(new THREE.SphereGeometry(0.72, 10, 8), glow, x, 7.1, z);
+        light.userData.isLandscapeBeacon = true;
+      }
+      ring(6, 1.8);
+      beacon(4.5);
+    } else if (index === 3) {
+      for (const x of [-5, 5]) add(new THREE.CylinderGeometry(0.65, 1, 7.4, 8), edge, x, 4.4, 27);
+      const bridge = add(new THREE.BoxGeometry(12, 0.4, 2.6), ground, 0, 3.2, 27);
+      bridge.userData.isLandscapeRoute = true;
+      add(new THREE.TorusGeometry(4.2, 0.18, 8, 36), glow, 0, 7.5, 27, Math.PI / 2);
+      beacon(5.2);
+    } else {
+      for (const [x, z] of [[-4, 24], [4, 24], [-4, 30], [4, 30]]) {
+        add(new THREE.BoxGeometry(1.2, 5.6, 1.2), ground, x, 3.8, z);
+      }
+      beacon(8.4);
+      ring(4.6, 2);
+    }
+    return true;
+  }
+
+  const vocab = worldId.match(/^lab-vocab-(\d+)$/);
+  if (vocab) {
+    const level = Number(vocab[1]);
+    for (let i = 0; i < 5; i++) {
+      const angle = (i / 5) * Math.PI * 2;
+      const x = Math.cos(angle) * 5.1;
+      const z = 27 + Math.sin(angle) * 5.1;
+      const stone = add(new THREE.BoxGeometry(1.35, 2.2 + ((i + level) % 2) * 0.8, 1.35), ground, x, 2.1, z, angle);
+      stone.userData.isLandscapeStage = true;
+      const wordCore = add(new THREE.OctahedronGeometry(0.82, 1), glow, x, 4.2, z);
+      wordCore.userData.isLandscapeBeacon = true;
+    }
+    ring(6.4, 1.1);
+    return true;
+  }
+
+  if (worldId === "lab-grammar") {
+    for (const x of [-4.5, 4.5]) add(new THREE.CylinderGeometry(0.7, 0.95, 7.2, 8), ground, x, 4.4, 27);
+    add(new THREE.TorusGeometry(4.5, 0.24, 8, 40, Math.PI), edge, 0, 8, 27, Math.PI);
+    beacon(4.9);
+    return true;
+  }
+  if (worldId === "lab-cloze") {
+    for (const x of [-4.1, 4.1]) {
+      const bridge = add(new THREE.BoxGeometry(4.4, 0.35, 5.6), ground, x, 2, 27);
+      bridge.userData.isLandscapeRoute = true;
+    }
+    for (const x of [-1.5, 0, 1.5]) {
+      const answer = add(new THREE.OctahedronGeometry(0.62, 0), glow, x, 2.6, 27);
+      answer.userData.isLandscapeBeacon = true;
+    }
+    ring(5.2, 1.2);
+    return true;
+  }
+  if (worldId === "lab-translation") {
+    for (const x of [-4.5, 4.5]) {
+      add(new THREE.CylinderGeometry(0.62, 0.92, 7.4, 8), ground, x, 4.4, 27);
+      const portal = add(new THREE.TorusGeometry(2.4, 0.16, 8, 32), edge, x, 5.4, 27, Math.PI / 2);
+      portal.userData.isLandscapeRing = true;
+    }
+    const bridge = add(new THREE.BoxGeometry(8, 0.26, 0.28), glow, 0, 5, 27);
+    bridge.userData.isLandscapeRoute = true;
+    return true;
+  }
+
+  const projectScenes: Record<string, string> = {
+    "project-reading": "reading",
+    "project-listening": "listening",
+    "project-writing": "writing",
+    "project-memory": "memory",
+  };
+  const project = projectScenes[worldId];
+  if (!project) return false;
+
+  if (project === "reading") {
+    add(new THREE.BoxGeometry(7.4, 0.34, 5.2), ground, -2, 3.7, 27, -0.14);
+    add(new THREE.BoxGeometry(7.4, 0.34, 5.2), glow, 2, 3.7, 27, 0.14);
+    add(new THREE.BoxGeometry(0.3, 2.1, 5.3), edge, 0, 2.6, 27);
+    ring(4.6, 1.2);
+  } else if (project === "listening") {
+    for (const [radius, y] of [[2.4, 3], [3.8, 4.6], [5.3, 6.2]] as const) {
+      const wave = add(new THREE.TorusGeometry(radius, 0.15, 8, 40), edge, 0, y, 27, Math.PI / 2.15);
+      wave.userData.isLandscapeRing = true;
+    }
+    beacon(3.4);
+  } else if (project === "writing") {
+    add(new THREE.BoxGeometry(8.5, 0.55, 5.2), dark, 0, 2.4, 27);
+    add(new THREE.BoxGeometry(5.8, 0.18, 3.4), glow, 0, 2.8, 27, -0.08);
+    for (const x of [-3.4, 3.4]) add(new THREE.BoxGeometry(0.35, 2.6, 0.35), edge, x, 1.2, 25.4);
+    beacon(5.2);
+  } else {
+    for (let i = 0; i < 4; i++) {
+      const angle = i * Math.PI / 3;
+      const stop = add(new THREE.SphereGeometry(0.72, 12, 8), glow, Math.cos(angle) * 5.3, 2.6 + (i % 2), 27 + Math.sin(angle) * 5.3);
+      stop.userData.isLandscapeBeacon = true;
+    }
+    ring(5.6, 1.3, 0.52);
+    beacon(6.1);
+  }
+  return true;
+}
+
+type PassageSceneAdd = (
+  geometry: THREE.BufferGeometry,
+  material: THREE.Material,
+  x: number,
+  y: number,
+  z: number,
+  rotationY?: number
+) => THREE.Mesh;
+
+function addPassageSceneLandmark(
+  root: THREE.Group,
+  kind: PassageSceneKind,
+  add: PassageSceneAdd,
+  ground: THREE.MeshStandardMaterial,
+  dark: THREE.MeshStandardMaterial,
+  glow: THREE.MeshStandardMaterial,
+  edge: THREE.MeshStandardMaterial,
+  beacon: (y?: number) => THREE.Mesh,
+  ring: (radius: number, y: number, rotation?: number) => THREE.Mesh
+): void {
+  const box = (x: number, y: number, z: number, w: number, h: number, d: number, material = ground, rotationY = 0): THREE.Mesh => {
+    const mesh = add(new THREE.BoxGeometry(w, h, d), material, x, y, z, rotationY);
+    mesh.userData.isLandscapeStage = true;
+    return mesh;
+  };
+  const cylinder = (x: number, y: number, z: number, radius: number, height: number, material = ground, sides = 10): THREE.Mesh => {
+    const mesh = add(new THREE.CylinderGeometry(radius * 0.86, radius, height, sides), material, x, y, z);
+    mesh.userData.isLandscapeStage = true;
+    return mesh;
+  };
+  const route = (points: [number, number, number][], material: THREE.Material = edge, radius = 0.12): void => {
+    const curve = new THREE.CatmullRomCurve3(points.map(([x, y, z]) => new THREE.Vector3(x, y, z)));
+    const mesh = new THREE.Mesh(new THREE.TubeGeometry(curve, 28, radius, 8, false), material);
+    mesh.userData.isLandscapeRoute = true;
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    root.add(mesh);
+  };
+  const arch = (width: number, height: number, material = ground, z = 27, centerX = 0): void => {
+    box(centerX - width / 2, height / 2, z, 0.52, height, 0.62, material);
+    box(centerX + width / 2, height / 2, z, 0.52, height, 0.62, material);
+    box(centerX, height, z, width + 0.52, 0.5, 0.62, material);
+  };
+  const book = (x: number, y: number, z: number, index: number, width = 0.48): void => {
+    const colors = [ground, edge, glow, dark];
+    box(x, y, z, width, 0.74 + (index % 2) * 0.16, 0.34, colors[index % colors.length], (index % 3 - 1) * 0.035);
+  };
+
+  switch (kind) {
+    case "message": {
+      box(0, 4.15, 27, 3.5, 5.6, 0.62, dark);
+      box(0, 4.15, 26.63, 2.92, 4.82, 0.12, glow);
+      box(0, 1.38, 27, 1.22, 0.16, 0.14, edge);
+      for (const [x, y, width] of [[-0.42, 5.65, 1.38], [0.36, 4.45, 1.72], [-0.25, 3.25, 1.32]] as const) {
+        box(x, y, 26.48, width, 0.34, 0.12, edge);
+      }
+      for (const x of [-3.4, 3.4]) {
+        const signal = add(new THREE.SphereGeometry(0.34, 10, 8), glow, x, 6.3, 27);
+        signal.userData.isLandscapeBeacon = true;
+      }
+      route([[-3.2, 6.1, 27], [-1.7, 5.6, 27], [0, 4.8, 27], [1.8, 5.1, 27], [3.2, 6.1, 27]], edge, 0.075);
+      break;
+    }
+    case "focus": {
+      const desk = cylinder(0, 1.5, 27, 3.4, 0.34, ground, 12);
+      desk.userData.isLandscapeRoute = true;
+      box(0, 2.2, 27, 2.1, 0.18, 1.6, glow, -0.08);
+      for (const x of [-3.2, 3.2]) {
+        const distraction = add(new THREE.OctahedronGeometry(0.36, 0), dark, x, 3.4, 27);
+        distraction.userData.isLandscapeBeacon = true;
+      }
+      const focusCore = add(new THREE.OctahedronGeometry(1.02, 1), edge, 0, 4.25, 27);
+      focusCore.userData.isLandscapeBeacon = true;
+      ring(4.7, 1.05, 0.08);
+      break;
+    }
+    case "notification": {
+      for (const [x, y, scale] of [[-3.4, 4.1, 0.86], [0, 5.6, 1.08], [3.4, 4.5, 0.9]] as const) {
+        box(x, y, 27, 2.2 * scale, 2.8 * scale, 0.42, dark, x * 0.035);
+        box(x, y, 26.73, 1.88 * scale, 2.44 * scale, 0.1, glow, x * 0.035);
+        const dot = add(new THREE.SphereGeometry(0.22 * scale, 10, 8), edge, x + 0.58 * scale, y + 0.68 * scale, 26.6);
+        dot.userData.isLandscapeBeacon = true;
+      }
+      route([[-4.4, 1.55, 27], [0, 1.55, 27], [4.4, 1.55, 27]], ground, 0.18);
+      break;
+    }
+    case "study-desk": {
+      box(0, 2.45, 27, 6.4, 0.42, 2.6, ground);
+      for (const x of [-2.65, 2.65]) for (const z of [26.15, 27.85]) box(x, 1.35, z, 0.22, 2, 0.22, dark);
+      box(-0.55, 2.75, 26.45, 1.5, 0.16, 1, glow, -0.12);
+      cylinder(2.15, 3.15, 27, 0.12, 1.3, edge, 8);
+      box(1.82, 3.82, 27, 0.8, 0.14, 0.54, edge, -0.18);
+      const lamp = add(new THREE.SphereGeometry(0.3, 10, 8), glow, 1.82, 3.55, 26.73);
+      lamp.userData.isLandscapeBeacon = true;
+      break;
+    }
+    case "filter": {
+      for (const [x, y, material] of [[-4, 4.1, ground], [0, 5.8, edge], [4, 4.1, ground]] as const) {
+        arch(2.2, 4.2, material, 27, x);
+        const gate = add(new THREE.TorusGeometry(1.5, 0.11, 8, 28), glow, x, y, 26.5);
+        gate.userData.isLandscapeRing = true;
+      }
+      route([[-4, 2, 27], [-2, 2.7, 27], [0, 3.7, 27], [2, 2.7, 27], [4, 2, 27]], edge, 0.16);
+      break;
+    }
+    case "offline-rest": {
+      arch(7.2, 6.2, edge, 27);
+      box(-2.4, 2.2, 27, 2.2, 0.24, 0.74, ground);
+      for (const x of [-3.15, -1.65]) box(x, 1.72, 27, 0.14, 0.76, 0.16, dark);
+      const orb = add(new THREE.SphereGeometry(0.72, 12, 10), glow, 2.15, 3.5, 27);
+      orb.userData.isLandscapeBeacon = true;
+      route([[-4.8, 1.15, 27], [-2.4, 1.35, 27], [0, 1.2, 27], [2.2, 2.1, 27]], edge, 0.12);
+      break;
+    }
+    case "clinic": {
+      box(0, 3.45, 27, 8, 4.5, 2.3, ground);
+      box(0, 3.38, 25.78, 1.25, 3.18, 0.18, dark);
+      for (const x of [-2.5, 2.5]) box(x, 4.05, 25.78, 1.14, 1.1, 0.18, glow);
+      box(0, 6.35, 25.72, 0.55, 1.8, 0.18, edge);
+      box(0, 6.35, 25.7, 1.8, 0.55, 0.2, edge);
+      route([[0, 1.2, 29], [0, 1.25, 27], [0, 1.3, 25.8]], edge, 0.14);
+      break;
+    }
+    case "telemedicine": {
+      arch(9.4, 6.5, ground, 27);
+      box(0, 4.5, 26.58, 4.8, 3.2, 0.16, dark);
+      box(0, 4.55, 26.45, 4.18, 2.6, 0.1, glow);
+      for (const x of [-4.2, 4.2]) {
+        const node = add(new THREE.SphereGeometry(0.55, 12, 10), edge, x, 2.7, 27);
+        node.userData.isLandscapeBeacon = true;
+      }
+      route([[-4.2, 2.9, 27], [-2.3, 3.5, 27], [0, 3.2, 27], [2.3, 3.5, 27], [4.2, 2.9, 27]], edge, 0.1);
+      break;
+    }
+    case "community": {
+      for (const [x, height] of [[-4, 2.8], [-1.4, 4.1], [1.5, 3.1], [4, 4.5]] as const) {
+        box(x, 1.3 + height / 2, 27, 1.8, height, 1.8, ground);
+        const roof = add(new THREE.ConeGeometry(1.4, 1.2, 4), edge, x, 2 + height, 27);
+        roof.rotation.y = Math.PI / 4;
+        roof.userData.isLandscapeStage = true;
+      }
+      const hub = add(new THREE.SphereGeometry(0.58, 12, 10), glow, 0, 2.7, 26);
+      hub.userData.isLandscapeBeacon = true;
+      for (const x of [-4, -1.4, 1.5, 4]) route([[x, 2.4, 27], [x / 2, 2.15, 26], [0, 2.7, 26]], edge, 0.075);
+      break;
+    }
+    case "timeline": {
+      const stops = [-4, 0, 4] as const;
+      for (const [index, x] of stops.entries()) {
+        const height = index === 1 ? 3.75 : 3.25;
+        const centerY = 3.55;
+        cylinder(x, 1.28, 27, 1.22, 0.34, dark, 8);
+        box(x, centerY, 27, 2.55, height, 0.48, dark);
+        box(x, centerY, 26.7, 2.2, height - 0.32, 0.1, ground);
+        box(x - 1.14, centerY, 26.58, 0.12, height + 0.08, 0.1, edge);
+        box(x + 1.14, centerY, 26.58, 0.12, height + 0.08, 0.1, edge);
+        box(x, centerY + height / 2, 26.58, 2.38, 0.12, 0.1, edge);
+        box(x, centerY - height / 2, 26.58, 2.38, 0.12, 0.1, edge);
+        box(x, 2.55, 26.55, 1.24, 0.075, 0.055, edge);
+        box(x, 2.33, 26.55, 0.92, 0.075, 0.055, edge);
+      }
+
+      route([[stops[0] - 0.84, 3.7, 26.34], [stops[0] + 0.84, 3.7, 26.34]], edge, 0.1);
+      for (const x of [-4.84, -4.28, -3.72, -3.16]) {
+        const stop = add(new THREE.SphereGeometry(0.16, 10, 8), glow, x, 3.7, 26.3);
+        stop.userData.isLandscapeBeacon = true;
+      }
+      const routeArrow = add(new THREE.ConeGeometry(0.2, 0.42, 4), edge, stops[0] + 0.98, 3.7, 26.3);
+      routeArrow.rotation.z = -Math.PI / 2;
+      routeArrow.userData.isLandscapeStage = true;
+
+      const hull = add(new THREE.CylinderGeometry(0.2, 0.44, 2.05, 6), dark, stops[1], 2.72, 26.42);
+      hull.rotation.z = Math.PI / 2;
+      hull.userData.isLandscapeStage = true;
+      cylinder(stops[1], 4.12, 26.46, 0.09, 2.3, edge, 8);
+      for (const [x, y, size] of [[-0.45, 4.2, 0.9], [0.48, 4.4, 1.12]] as const) {
+        const sail = add(new THREE.ConeGeometry(size * 0.42, size, 3), glow, x, y, 26.46);
+        sail.userData.isLandscapeStage = true;
+      }
+      const voyage = add(new THREE.OctahedronGeometry(0.22, 0), edge, stops[1], 5.05, 26.4);
+      voyage.userData.isLandscapeBeacon = true;
+
+      // Use two simple figures and a shared hand line so the exchange reads at scene distance.
+      for (const [index, x] of [-0.48, 0.48].entries()) {
+        const person = index === 0 ? glow : edge;
+        const head = add(new THREE.SphereGeometry(0.27, 12, 10), person, x, 4.2, 26.28);
+        head.userData.isLandscapeBeacon = true;
+        const torso = cylinder(x, 3.42, 26.28, 0.24, 0.82, person, 8);
+        torso.userData.isLandscapeStage = true;
+        const handX = x < 0 ? -0.12 : 0.12;
+        route([[x, 3.74, 26.24], [handX, 3.55, 26.24]], edge, 0.08);
+      }
+      route([[-0.12, 3.55, 26.24], [0.12, 3.55, 26.24]], glow, 0.08);
+      route([[-5.3, 1.52, 27], [-4, 1.52, 26.35], [0, 1.52, 26.35], [4, 1.52, 26.35], [5.3, 1.52, 27]], edge, 0.12);
+      break;
+    }
+    case "perseverance": {
+      for (let i = 0; i < 6; i++) box(-4.2 + i * 1.45, 1.15 + i * 0.53, 27, 1.55, 0.28, 2.1, i === 5 ? edge : ground);
+      const peak = add(new THREE.OctahedronGeometry(0.9, 1), glow, 3.3, 5.1, 27);
+      peak.userData.isLandscapeBeacon = true;
+      route([[-4.2, 1.45, 26.7], [-1.7, 2, 26.7], [0.2, 3.1, 26.7], [3.3, 5.1, 26.7]], edge, 0.09);
+      break;
+    }
+    case "legacy": {
+      for (let i = 0; i < 3; i++) {
+        const x = (i - 1) * 3.2;
+        arch(2.4, 4.6 + i * 1.1, i === 2 ? edge : ground, 27, x);
+        const light = add(new THREE.SphereGeometry(0.34 + i * 0.08, 10, 8), glow, x, 5 + i, 26.55);
+        light.userData.isLandscapeBeacon = true;
+      }
+      route([[-4.6, 1.4, 27], [0, 1.4, 27], [4.6, 1.4, 27]], edge, 0.13);
+      break;
+    }
+    case "spotlight": {
+      cylinder(0, 1.2, 27, 4.4, 0.5, dark, 12);
+      cylinder(0, 1.55, 27, 2.3, 0.22, edge, 12);
+      for (const x of [-4.2, 4.2]) {
+        const beam = add(new THREE.ConeGeometry(1.35, 6.8, 12, 1, true), glow, x, 5.1, 27);
+        beam.rotation.z = x < 0 ? -0.22 : 0.22;
+        beam.userData.isLandscapeStage = true;
+      }
+      const star = add(new THREE.OctahedronGeometry(0.62, 1), edge, 0, 3.25, 26.4);
+      star.userData.isLandscapeBeacon = true;
+      break;
+    }
+    case "humanitarian": {
+      arch(6.2, 5.6, edge, 27);
+      box(0, 2.15, 27, 4.2, 0.42, 2.2, ground);
+      for (const x of [-1.25, 0, 1.25]) {
+        box(x, 2.7, 26.85, 0.78, 0.62, 0.6, glow);
+        const parcel = add(new THREE.SphereGeometry(0.27, 10, 8), edge, x, 3.35, 26.82);
+        parcel.userData.isLandscapeBeacon = true;
+      }
+      route([[-4.5, 1.25, 27], [-2.4, 1.65, 26.3], [0, 1.85, 26.3], [2.4, 1.65, 26.3], [4.5, 1.25, 27]], edge, 0.1);
+      break;
+    }
+    case "lasting-service": {
+      cylinder(0, 1.4, 27, 3.2, 0.36, ground, 12);
+      cylinder(0, 4.25, 27, 0.32, 5.4, dark, 8);
+      for (const [x, y] of [[-1.1, 5.5], [0, 6.1], [1.1, 5.5], [-0.6, 7], [0.7, 7]] as const) {
+        const crown = add(new THREE.SphereGeometry(1.05, 10, 8), glow, x, y, 27);
+        crown.userData.isLandscapeStage = true;
+      }
+      for (const x of [-3.5, 3.5]) {
+        const seed = add(new THREE.OctahedronGeometry(0.42, 0), edge, x, 2.1, 27);
+        seed.userData.isLandscapeBeacon = true;
+      }
+      break;
+    }
+    case "fleet": {
+      const hull = box(0, 2.4, 27, 8.8, 1.15, 2.4, dark);
+      hull.rotation.z = Math.PI;
+      for (const x of [-2.6, 0, 2.6]) {
+        cylinder(x, 5.1, 27, 0.1, 5.1, edge, 8);
+        const sail = add(new THREE.ConeGeometry(1.65, 3.2, 3), x === 0 ? glow : ground, x, 5.1, 26.7);
+        sail.rotation.z = Math.PI / 2;
+        sail.rotation.y = Math.PI / 2;
+        sail.userData.isLandscapeStage = true;
+      }
+      route([[-5.5, 1.35, 27], [-2.8, 1.1, 26], [0, 1.1, 27], [2.8, 1.1, 28], [5.5, 1.35, 27]], edge, 0.16);
+      break;
+    }
+    case "peace-contact": {
+      for (const x of [-4.5, 4.5]) {
+        box(x, 2.2, 27, 2.2, 2.1, 2.2, ground);
+        box(x, 4.1, 26.55, 1.65, 1.1, 0.8, glow);
+      }
+      const bridge = box(0, 1.7, 27, 6.8, 0.34, 1.3, edge);
+      bridge.userData.isLandscapeRoute = true;
+      for (const x of [-1.8, 0, 1.8]) book(x, 2.35, 26.25, Math.round(x + 2));
+      ring(5.5, 1.2, 0.12);
+      break;
+    }
+    case "itinerary": {
+      const mapPaper = new THREE.MeshStandardMaterial({ color: 0xe4d3ad, emissive: 0x332f22, emissiveIntensity: 0.28, roughness: 0.96 });
+      const mapInk = new THREE.MeshStandardMaterial({ color: 0x425b4c, emissive: 0x18251c, emissiveIntensity: 0.12, roughness: 0.8 });
+      box(0, 3.5, 27, 9.4, 4.6, 0.42, dark);
+      box(0, 3.5, 26.7, 8.7, 3.9, 0.1, mapPaper);
+      route([[-3.4, 2.4, 26.54], [-1.9, 4.2, 26.54], [0.4, 3.2, 26.54], [2.7, 4.5, 26.54], [3.6, 2.5, 26.54]], mapInk, 0.1);
+      for (const [x, y] of [[-3.4, 2.4], [-1.9, 4.2], [0.4, 3.2], [2.7, 4.5], [3.6, 2.5]] as const) {
+        const pin = add(new THREE.SphereGeometry(0.22, 10, 8), glow, x, y, 26.45);
+        pin.userData.isLandscapeBeacon = true;
+      }
+      break;
+    }
+    case "detour": {
+      for (const [x, z, size] of [[-3.8, 27, 1.2], [-2.5, 28.1, 1.5], [2.8, 26.6, 1.2], [4, 27.4, 0.95]] as const) {
+        const rock = add(new THREE.DodecahedronGeometry(size, 0), ground, x, 1.15, z);
+        rock.userData.isLandscapeStage = true;
+      }
+      route([[-5.1, 1.35, 29], [-2.5, 1.5, 29.5], [0, 1.45, 28], [2.1, 1.4, 25.3], [5, 1.3, 25.6]], edge, 0.2);
+      for (const x of [-2.4, 2.1]) {
+        const waymark = add(new THREE.OctahedronGeometry(0.46, 0), glow, x, 2.4, 27.2);
+        waymark.userData.isLandscapeBeacon = true;
+      }
+      break;
+    }
+    case "hostel": {
+      box(0, 3.2, 27, 7.6, 3.8, 2, ground);
+      box(0, 3, 25.9, 1.55, 2.8, 0.16, dark);
+      for (const x of [-2.3, 2.3]) box(x, 4.05, 25.88, 1.12, 0.96, 0.15, glow);
+      const lamp = add(new THREE.SphereGeometry(0.42, 10, 8), edge, 0, 5.55, 25.75);
+      lamp.userData.isLandscapeBeacon = true;
+      route([[-4.3, 1.25, 29], [-2.2, 1.4, 27.6], [0, 1.45, 26], [2.4, 1.35, 25]], edge, 0.14);
+      break;
+    }
+    case "open-route": {
+      arch(8.4, 5.4, ground, 27);
+      route([[0, 1.35, 30], [0, 1.55, 28], [-2.5, 2.1, 26], [-4.1, 2.55, 24.8]], edge, 0.14);
+      route([[0, 1.35, 30], [0, 1.55, 28], [2.5, 2.1, 26], [4.1, 2.55, 24.8]], glow, 0.14);
+      for (const x of [-4.1, 4.1]) {
+        const end = add(new THREE.SphereGeometry(0.46, 10, 8), edge, x, 2.55, 24.8);
+        end.userData.isLandscapeBeacon = true;
+      }
+      break;
+    }
+    case "confidence": {
+      for (let i = 0; i < 4; i++) box(0, 1.05 + i * 0.47, 28 - i * 0.8, 7.6 - i * 1.25, 0.28, 1.2, i === 3 ? edge : ground);
+      box(0, 3.45, 24.65, 4.6, 0.28, 1.35, dark);
+      for (const x of [-1.9, 1.9]) box(x, 3.95, 24.65, 0.22, 0.9, 0.22, edge);
+      const horizon = add(new THREE.SphereGeometry(0.56, 12, 10), glow, 0, 5.25, 24.65);
+      horizon.userData.isLandscapeBeacon = true;
+      break;
+    }
+    case "rail-platform": {
+      for (const z of [25.6, 28.5]) box(0, 1.3, z, 10.5, 0.32, 1.3, ground);
+      for (const x of [-4.6, 4.6]) {
+        const signal = cylinder(x, 4.15, 27, 0.18, 5.7, dark, 8);
+        const lamp = add(new THREE.SphereGeometry(0.38, 10, 8), edge, x, 6.55, 26.78);
+        lamp.userData.isLandscapeBeacon = true;
+        signal.userData.isLandscapeStage = true;
+      }
+      arch(8.7, 5.8, edge, 27);
+      route([[-5.5, 1.12, 25.3], [0, 1.12, 25.3], [5.5, 1.12, 25.3]], dark, 0.08);
+      break;
+    }
+    case "rail-car": {
+      box(0, 3.15, 27, 9.6, 3.6, 2.6, dark);
+      box(0, 5.05, 27, 8.8, 0.4, 2.3, edge);
+      for (const x of [-3.5, -1.2, 1.2, 3.5]) box(x, 3.8, 25.63, 1.65, 1.35, 0.12, glow);
+      for (const x of [-3.5, 3.5]) {
+        const wheel = add(new THREE.SphereGeometry(0.52, 12, 10), ground, x, 1.15, 26.1);
+        wheel.userData.isLandscapeStage = true;
+      }
+      route([[-5.4, 0.92, 27], [0, 0.92, 27], [5.4, 0.92, 27]], edge, 0.14);
+      break;
+    }
+    case "career": {
+      cylinder(0, 2.15, 27, 3.25, 0.42, ground, 12);
+      for (const angle of [0, Math.PI / 3, (Math.PI * 2) / 3, Math.PI, (Math.PI * 4) / 3, (Math.PI * 5) / 3]) {
+        const x = Math.cos(angle) * 4.5;
+        const z = 27 + Math.sin(angle) * 2.4;
+        const chair = box(x, 1.6, z, 1.05, 1.35, 0.95, dark);
+        chair.userData.isLandscapeStage = true;
+        route([[x * 0.72, 2.2, 27 + (z - 27) * 0.7], [0, 2.25, 27]], edge, 0.055);
+      }
+      const shared = add(new THREE.OctahedronGeometry(0.62, 1), glow, 0, 3.1, 26.5);
+      shared.userData.isLandscapeBeacon = true;
+      break;
+    }
+    case "violin": {
+      const lower = add(new THREE.SphereGeometry(1.55, 16, 12), ground, -0.58, 3.25, 27);
+      lower.scale.set(0.82, 1, 0.28);
+      lower.userData.isLandscapeStage = true;
+      const upper = add(new THREE.SphereGeometry(1.2, 16, 12), edge, 0.62, 3.65, 27);
+      upper.scale.set(0.78, 0.86, 0.27);
+      upper.userData.isLandscapeStage = true;
+      box(0, 3.7, 27, 0.66, 3.25, 0.48, dark, -0.1);
+      box(0, 5.42, 26.65, 0.92, 0.16, 0.2, edge);
+      for (const x of [-0.16, 0, 0.16]) box(x, 4.1, 26.62, 0.035, 3.05, 0.05, glow);
+      route([[-2.65, 1.65, 26.5], [0.1, 1.45, 26.5], [2.8, 6.2, 26.5]], edge, 0.09);
+      break;
+    }
+    case "craft-quality": {
+      // 三件等高的作品共享同一张工作台，强调工艺价值来自质量与责任，而非职业等级。
+      box(0, 2.05, 27, 8.6, 0.42, 3.1, dark);
+      for (const x of [-3.5, 3.5]) {
+        box(x, 1.05, 26.05, 0.34, 1.65, 0.34, ground);
+        box(x, 1.05, 27.95, 0.34, 1.65, 0.34, ground);
+      }
+      for (const x of [-2.45, 0, 2.45]) {
+        const workpiece = box(x, 2.58, 26.92, 1.72, 0.58, 1.18, x === 0 ? glow : ground, x === 0 ? 0 : 0.08);
+        workpiece.userData.isLandscapeStage = true;
+        box(x, 2.91, 26.92, 1.32, 0.08, 0.82, edge, x === 0 ? 0 : 0.08);
+      }
+      for (const z of [25.95, 28.05]) box(0, 3.05, z, 6.1, 0.1, 0.12, edge);
+      route([[-3.7, 3.28, 25.55], [-1.8, 3.68, 25.18], [0, 3.92, 25.02], [1.8, 3.68, 25.18], [3.7, 3.28, 25.55]], edge, 0.07);
+      const finish = beacon(4.05);
+      finish.scale.setScalar(0.54);
+      ring(3.6, 3.72);
+      break;
+    }
+    case "bench": {
+      box(0, 2.35, 27, 7.2, 0.4, 2.6, ground);
+      for (const x of [-3, 3]) for (const z of [26.1, 27.9]) box(x, 1.35, z, 0.2, 1.8, 0.2, dark);
+      box(-1.55, 2.75, 26.48, 2.2, 0.22, 0.92, edge);
+      box(1.55, 2.8, 26.6, 1.35, 0.3, 0.72, glow);
+      cylinder(2.9, 3.4, 27, 0.12, 1.6, dark, 8);
+      route([[-3.4, 3, 26.6], [-1.6, 3.45, 26.4], [0, 3.1, 26.1], [1.55, 3.5, 26.6]], edge, 0.075);
+      break;
+    }
+    case "caliper": {
+      for (const x of [-3.1, 3.1]) box(x, 4.2, 27, 0.42, 5.8, 0.5, edge);
+      box(0, 7, 27, 6.6, 0.42, 0.5, edge);
+      box(-0.7, 4.95, 27, 0.35, 2.5, 0.45, glow);
+      box(0.25, 3.05, 27, 2.2, 1.25, 1.8, ground);
+      for (let i = 0; i < 5; i++) box(-2.35 + i * 0.5, 6.55, 26.72, 0.08, 0.24, 0.12, dark);
+      const measure = add(new THREE.SphereGeometry(0.36, 10, 8), glow, -0.78, 5.05, 26.68);
+      measure.userData.isLandscapeBeacon = true;
+      break;
+    }
+    case "trust-bridge": {
+      for (const x of [-5, 5]) for (const z of [26.2, 27.8]) cylinder(x, 2.5, z, 0.48, 3.4, ground, 8);
+      const deck = box(0, 2.25, 27, 10.5, 0.42, 2.5, edge);
+      deck.userData.isLandscapeRoute = true;
+      for (const x of [-4.1, 4.1]) box(x, 4.1, 27, 0.28, 3.5, 0.28, dark);
+      route([[-4.1, 5.6, 27], [0, 5.6, 27], [4.1, 5.6, 27]], glow, 0.12);
+      break;
+    }
+    case "loom": {
+      arch(8.2, 6.4, ground, 27);
+      for (let i = 0; i < 11; i++) {
+        const x = -3.45 + i * 0.69;
+        box(x, 3.95, 26.55, 0.075, 4.55, 0.12, i % 3 === 0 ? edge : glow);
+      }
+      for (let i = 0; i < 5; i++) box(0, 2.5 + i * 0.65, 26.45, 7.2, 0.1, 0.1, i % 2 ? ground : edge);
+      ring(4.8, 1.25, 0.05);
+      break;
+    }
+    case "heritage": {
+      box(0, 4.2, 27, 8.4, 5.6, 0.56, dark);
+      box(0, 4.2, 26.66, 7.7, 4.9, 0.12, ground);
+      for (let row = 0; row < 5; row++) for (let col = 0; col < 7; col++) {
+        const motif = add(new THREE.OctahedronGeometry(0.22 + ((row + col) % 2) * 0.08, 0), (row + col) % 3 === 0 ? edge : glow, -2.85 + col * 0.95, 2.4 + row * 0.85, 26.5);
+        motif.userData.isLandscapeStage = true;
+      }
+      route([[-4.7, 1.2, 27], [-2.2, 1.5, 26], [0, 1.35, 25.8], [2.3, 1.5, 26], [4.7, 1.2, 27]], edge, 0.1);
+      break;
+    }
+    case "lunar-probe": {
+      const moon = add(new THREE.SphereGeometry(4.8, 18, 12, 0, Math.PI * 2, 0, Math.PI / 2), ground, 0, 0.3, 33.5);
+      moon.userData.isLandscapeStage = true;
+      for (const [x, z, size] of [[-3.2, 32.2, 0.72], [-1.6, 34, 0.52], [2.8, 32.5, 0.84], [3.6, 34.1, 0.44]] as const) {
+        const crater = add(new THREE.TorusGeometry(size, 0.13, 6, 18), dark, x, 0.62, z);
+        crater.rotation.x = Math.PI / 2;
+        crater.userData.isLandscapeStage = true;
+      }
+      const rover = add(new THREE.BoxGeometry(1.8, 0.78, 1.35), edge, -1.8, 1.9, 25.4);
+      rover.userData.isLandscapeStage = true;
+      for (const x of [-2.6, -1]) for (const z of [24.85, 25.95]) {
+        const wheel = add(new THREE.CylinderGeometry(0.34, 0.34, 0.18, 10), dark, x, 1.38, z);
+        wheel.rotation.z = Math.PI / 2;
+        wheel.userData.isLandscapeStage = true;
+      }
+      for (const x of [-3.05, -0.55]) {
+        const panel = add(new THREE.BoxGeometry(0.92, 0.12, 1.2), ground, x, 2.18, 25.4);
+        panel.userData.isLandscapeStage = true;
+        for (let row = 0; row < 3; row++) box(x, 2.27, 24.95 + row * 0.3, 0.78, 0.035, 0.035, glow);
+      }
+      cylinder(-1.8, 2.9, 25.4, 0.08, 1.55, dark, 6);
+      const probe = add(new THREE.OctahedronGeometry(0.66, 0), glow, -1.8, 3.85, 25.4);
+      probe.userData.isLandscapeBeacon = true;
+      const antenna = add(new THREE.SphereGeometry(0.23, 10, 8), edge, -1.8, 4.7, 25.4);
+      antenna.userData.isLandscapeBeacon = true;
+      route([[-4.5, 0.82, 25.1], [-3.5, 0.85, 24.8], [-1.8, 0.85, 25.4], [0.1, 0.82, 26.2]], edge, 0.09);
+      break;
+    }
+    case "test-console": {
+      box(0, 2.45, 27, 7.8, 0.56, 2.6, dark);
+      box(0, 3.25, 26.55, 7.2, 1.1, 0.28, ground, -0.16);
+      for (let i = 0; i < 7; i++) {
+        const x = -2.8 + i * 0.92;
+        const lamp = add(new THREE.SphereGeometry(0.22 + (i % 2) * 0.07, 10, 8), i % 3 === 0 ? edge : glow, x, 3.42, 26.28);
+        lamp.userData.isLandscapeBeacon = true;
+      }
+      for (const x of [-2.3, 0, 2.3]) box(x, 4.75, 27, 1.35, 1.45, 0.65, ground);
+      route([[-3.3, 1.25, 29], [-1.7, 1.3, 27.9], [0, 1.28, 27], [1.7, 1.3, 27.9], [3.3, 1.25, 29]], edge, 0.1);
+      break;
+    }
+    case "lander": {
+      const body = add(new THREE.OctahedronGeometry(1.45, 1), glow, 0, 5.35, 27);
+      body.scale.y = 0.82;
+      body.userData.isLandscapeStage = true;
+      for (const [x, z] of [[-2.1, 25.2], [2.1, 25.2], [-2.1, 28.8], [2.1, 28.8]] as const) {
+        const leg = box(x * 0.68, 3.15, (z + 27) / 2, 0.16, 3.5, 0.16, edge);
+        leg.rotation.z = x < 0 ? -0.24 : 0.24;
+        box(x, 1.4, z, 1.1, 0.22, 0.82, dark);
+      }
+      for (const x of [-3.7, 3.7]) {
+        box(x, 5.2, 27, 1.25, 1.65, 0.14, edge);
+        for (let i = 0; i < 4; i++) box(x, 4.6 + i * 0.4, 26.9, 1.1, 0.055, 0.08, glow);
+      }
+      cylinder(0, 7.3, 27, 0.08, 2.2, dark, 6);
+      const pulse = add(new THREE.SphereGeometry(0.38, 10, 8), edge, 0, 8.55, 27);
+      pulse.userData.isLandscapeBeacon = true;
+      break;
+    }
+    case "orbit-adjustment": {
+      const moon = add(new THREE.SphereGeometry(2.1, 16, 12), ground, 0, 3.1, 27);
+      moon.userData.isLandscapeStage = true;
+      for (const [rotationX, rotationY] of [[0.2, 0], [0.72, 0.55], [-0.5, -0.72]] as const) {
+        const orbit = ring(4.4, 3.2, rotationX);
+        orbit.rotation.y = rotationY;
+      }
+      for (const [x, y, z] of [[3.6, 4.9, 27], [-1.8, 5.8, 27.5], [-2.2, 2.2, 26.7]] as const) {
+        const satellite = add(new THREE.OctahedronGeometry(0.44, 0), edge, x, y, z);
+        satellite.userData.isLandscapeBeacon = true;
+      }
+      route([[3.6, 4.9, 27], [1.9, 5.3, 27], [0, 5.4, 27], [-1.8, 5.8, 27.5]], glow, 0.07);
+      break;
+    }
+    case "training": {
+      const capsule = add(new THREE.SphereGeometry(1.2, 14, 10), glow, 0, 4.7, 27);
+      capsule.scale.set(0.82, 1.22, 0.82);
+      capsule.userData.isLandscapeStage = true;
+      for (const [radius, rotation] of [[3.4, 0.32], [4.2, 0.92], [4.8, 1.35]] as const) {
+        const gyro = ring(radius, 4.5, rotation);
+        gyro.rotation.z = rotation * 0.55;
+      }
+      cylinder(0, 1.2, 27, 2.7, 0.34, dark, 12);
+      const core = add(new THREE.OctahedronGeometry(0.58, 1), edge, 0, 4.7, 25.85);
+      core.userData.isLandscapeBeacon = true;
+      break;
+    }
+    case "science-exhibit": {
+      for (const [x, y, radius] of [[-3.5, 3.5, 0.65], [0, 5.1, 0.88], [3.5, 3.5, 0.65]] as const) {
+        const planet = add(new THREE.SphereGeometry(radius, 12, 10), x === 0 ? edge : glow, x, y, 27);
+        planet.userData.isLandscapeBeacon = true;
+      }
+      for (const x of [-2.5, 0, 2.5]) {
+        const stem = cylinder(x, 2.2, 27, 0.13, 2.7, dark, 8);
+        stem.rotation.z = x * 0.04;
+      }
+      ring(4.5, 5.4, 0.44);
+      ring(2.7, 3.6, -0.7);
+      break;
+    }
+    case "exchange": {
+      for (const x of [-3.8, 3.8]) {
+        box(x, 3.7, 27, 0.35, 5.8, 0.48, edge);
+        for (let row = 0; row < 3; row++) box(x * 0.85, 2.15 + row * 1.45, 27, 1.4, 0.12, 0.62, ground);
+      }
+      for (let i = 0; i < 8; i++) book(-3.1 + (i % 4) * 2.05, 2.65 + Math.floor(i / 4) * 1.45, 26.55, i, 0.34);
+      route([[-4.1, 1.35, 29], [-2.1, 1.6, 27.5], [0, 1.45, 26], [2.1, 1.6, 27.5], [4.1, 1.35, 29]], edge, 0.12);
+      break;
+    }
+    case "resilience": {
+      arch(8.6, 5.8, ground, 27);
+      for (let i = 0; i < 4; i++) {
+        const x = -3 + i * 2;
+        box(x, 2.25, 26.1, 1.28, 1.1, 0.94, i % 2 ? edge : glow);
+        const light = add(new THREE.SphereGeometry(0.27, 10, 8), glow, x, 3.05, 25.72);
+        light.userData.isLandscapeBeacon = true;
+      }
+      route([[-4.5, 1.25, 29], [-2.2, 1.45, 27.4], [0, 1.45, 26], [2.2, 1.45, 27.4], [4.5, 1.25, 29]], edge, 0.14);
+      break;
+    }
+    case "exchange-wall": {
+      box(0, 4, 27, 9.2, 5.8, 0.56, dark);
+      box(0, 4, 26.65, 8.5, 5.15, 0.12, ground);
+      for (const y of [2.2, 3.4, 4.6, 5.8]) box(0, y, 26.35, 8.1, 0.14, 0.44, edge);
+      for (let row = 0; row < 3; row++) for (let col = 0; col < 7; col++) book(-3.3 + col * 1.1, 2.68 + row * 1.2, 26.05, row * 7 + col, 0.37);
+      route([[-4.4, 1.2, 29], [0, 1.38, 28.2], [4.4, 1.2, 29]], glow, 0.1);
+      break;
+    }
+    case "resource-cycle": {
+      for (let i = 0; i < 3; i++) {
+        const angle = (i / 3) * Math.PI * 2 - Math.PI / 2;
+        const x = Math.cos(angle) * 3.4;
+        const z = 27 + Math.sin(angle) * 2.2;
+        cylinder(x, 1.55, z, 1.05, 0.5, ground, 8);
+        book(x, 2.2, z - 0.35, i, 0.7);
+      }
+      route([[-3.4, 2.6, 27], [0, 3, 24.7], [3.4, 2.6, 27], [0, 2.3, 29.2], [-3.4, 2.6, 27]], edge, 0.11);
+      const shared = add(new THREE.SphereGeometry(0.52, 12, 10), glow, 0, 3.8, 27);
+      shared.userData.isLandscapeBeacon = true;
+      break;
+    }
+    case "library": {
+      box(0, 3.55, 27, 8.8, 4.8, 2.3, ground);
+      for (const x of [-3.1, 0, 3.1]) {
+        box(x, 3.8, 25.78, 1.8, 3.1, 0.14, dark);
+        for (let row = 0; row < 3; row++) {
+          box(x, 2.65 + row * 0.92, 25.62, 1.56, 0.12, 0.18, edge);
+          for (let col = 0; col < 3; col++) book(x - 0.48 + col * 0.48, 3.1 + row * 0.92, 25.42, row * 3 + col, 0.24);
+        }
+      }
+      box(0, 3.1, 25.68, 1.12, 2.6, 0.18, glow);
+      arch(9.3, 6.3, edge, 28.1);
+      break;
+    }
+    case "digital-lending": {
+      box(0, 4.1, 27, 4.3, 6, 0.62, dark);
+      box(0, 4.1, 26.62, 3.72, 5.4, 0.12, glow);
+      for (const [x, y] of [[-0.62, 5.6], [0.52, 4.25], [-0.45, 2.9]] as const) {
+        box(x, y, 26.43, 1.68, 0.28, 0.08, edge);
+      }
+      for (const x of [-4.2, 4.2]) {
+        const bookcase = box(x, 3.5, 27, 1.7, 4.6, 1.2, ground);
+        bookcase.userData.isLandscapeStage = true;
+        for (let row = 0; row < 3; row++) box(x, 2.15 + row * 1.25, 26.35, 1.5, 0.1, 0.2, edge);
+      }
+      route([[-4, 2.2, 26.1], [-2.2, 2.8, 26.1], [0, 3.2, 26.1], [2.2, 2.8, 26.1], [4, 2.2, 26.1]], glow, 0.08);
+      break;
+    }
+    default:
+      beacon();
+  }
+}
+
+function addWorldTitleSign(root: THREE.Group, worldId: string | undefined, title: string | undefined, accent: number): void {
+  if (!worldId || !title || worldId === "hub" || worldId === "section-a" || worldId === "section-b" || worldId === "stories-of-china" || worldId === "learning-lab" || worldId === "unit-project") return;
+  const canvas = document.createElement("canvas");
+  canvas.width = 1024;
+  canvas.height = 256;
+  const context = canvas.getContext("2d");
+  if (!context) return;
+
+  context.fillStyle = "rgba(7, 14, 27, 0.88)";
+  context.fillRect(20, 24, 984, 208);
+  context.strokeStyle = `#${accent.toString(16).padStart(6, "0")}`;
+  context.lineWidth = 8;
+  context.strokeRect(24, 28, 976, 200);
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+  context.font = "bold 52px 'Microsoft YaHei', sans-serif";
+  context.fillStyle = "#f8fbff";
+  context.fillText(title.slice(0, 26), 512, 126, 920);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  const sign = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: texture,
+    transparent: true,
+    depthWrite: false,
+    toneMapped: false,
+  }));
+  sign.position.set(0, 11, 14);
+  sign.scale.set(19, 4.75, 1);
+  sign.renderOrder = 8;
+  root.add(sign);
+}
+
+function addCentralSanctuary(
+  root: THREE.Group,
+  ground: THREE.MeshStandardMaterial,
+  dark: THREE.MeshStandardMaterial,
+  glow: THREE.MeshStandardMaterial,
+  edge: THREE.MeshStandardMaterial
+): void {
+  const plaza = new THREE.Mesh(new THREE.CylinderGeometry(15, 17, 0.65, 8), ground);
+  plaza.position.y = 0.34;
+  root.add(plaza);
+
+  const lowerRing = new THREE.Mesh(new THREE.TorusGeometry(13.8, 0.18, 8, 48), edge);
+  lowerRing.rotation.x = Math.PI / 2;
+  lowerRing.position.y = 0.72;
+  lowerRing.userData.isLandscapeRing = true;
+  root.add(lowerRing);
+
+  const innerDisc = new THREE.Mesh(new THREE.CylinderGeometry(8.7, 9.2, 0.16, 8), dark);
+  innerDisc.position.y = 0.76;
+  root.add(innerDisc);
+
+  const innerRing = new THREE.Mesh(new THREE.TorusGeometry(8.3, 0.1, 8, 40), glow);
+  innerRing.rotation.x = Math.PI / 2;
+  innerRing.position.y = 0.9;
+  innerRing.userData.isLandscapeRing = true;
+  root.add(innerRing);
+
+  // 入口门廊放在玩家出生点正前方，保证打开单元时第一眼能感到“这是一个地方”。
+  const gateLeft = new THREE.Mesh(new THREE.BoxGeometry(0.72, 8.5, 0.72), edge);
+  gateLeft.position.set(-5.2, 4.8, 8.5);
+  const gateRight = gateLeft.clone();
+  gateRight.position.x = 5.2;
+  const gateTop = new THREE.Mesh(new THREE.BoxGeometry(11.1, 0.72, 0.72), edge);
+  gateTop.position.set(0, 8.7, 8.5);
+  root.add(gateLeft, gateRight, gateTop);
+
+  const gateRing = new THREE.Mesh(new THREE.TorusGeometry(3.2, 0.14, 8, 40), glow);
+  gateRing.position.set(0, 4.65, 8.5);
+  gateRing.rotation.y = Math.PI / 2;
+  gateRing.userData.isLandscapeRing = true;
+  root.add(gateRing);
+
+  const beacon = new THREE.Mesh(new THREE.OctahedronGeometry(2.1, 1), glow);
+  beacon.position.y = 4.2;
+  beacon.userData.isLandscapeBeacon = true;
+  root.add(beacon);
+
+  const halo = new THREE.Mesh(new THREE.TorusGeometry(3.3, 0.12, 8, 48), edge);
+  halo.rotation.x = Math.PI / 2;
+  halo.position.y = 4.2;
+  halo.userData.isLandscapeRing = true;
+  root.add(halo);
+
+  for (const [x, z] of [[-7, -7], [7, -7], [-7, 7], [7, 7]]) {
+    const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.42, 4.8, 8), dark);
+    pillar.position.set(x, 2.6, z);
+    root.add(pillar);
+
+    const cap = new THREE.Mesh(new THREE.SphereGeometry(0.43, 10, 8), glow);
+    cap.position.set(x, 5.05, z);
+    cap.userData.isLandscapeBeacon = true;
+    root.add(cap);
+  }
+}
+
+function addLearningRoutes(
+  root: THREE.Group,
+  ground: THREE.MeshStandardMaterial,
+  edge: THREE.MeshStandardMaterial,
+  style: UnitBiome["decorStyle"],
+  focusRoute: number
+): void {
+  const routeColor = focusRoute || (style === "space" ? 0x8b5cf6 : style === "market" ? 0xfbbf24 : 0x4ade80);
+  const route = new THREE.MeshStandardMaterial({
+    color: routeColor,
+    emissive: routeColor,
+    emissiveIntensity: 0.24,
+    roughness: 0.48,
+    metalness: 0.2,
+  });
+  const routeEdge = edge.clone();
+  routeEdge.emissiveIntensity = 0.16;
+
+  for (let i = 0; i < 4; i++) {
+    const angle = i * Math.PI / 2;
+    const length = 30 + (i % 2) * 6;
+    const slab = new THREE.Mesh(new THREE.BoxGeometry(5.4, 0.24, length), ground);
+    slab.position.set(Math.sin(angle) * (length / 2 + 13), 0.62, Math.cos(angle) * (length / 2 + 13));
+    slab.rotation.y = angle;
+    root.add(slab);
+
+    const strip = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.05, length - 1), routeEdge);
+    strip.position.copy(slab.position);
+    strip.position.y += 0.18;
+    strip.rotation.y = angle;
+    strip.userData.isLandscapeRoute = true;
+    root.add(strip);
+
+    for (let step = 0; step < 4; step++) {
+      const distance = 22 + step * 7;
+      const marker = new THREE.Mesh(new THREE.BoxGeometry(3.8, 0.12, 0.42), route);
+      marker.position.set(Math.sin(angle) * distance, 0.84, Math.cos(angle) * distance);
+      marker.rotation.y = angle;
+      root.add(marker);
+    }
+  }
+}
+
+/** 子世界的空间锚点：几何形状对应学习任务，帮助用户形成位置记忆。 */
+function addWorldFocusLandmark(
+  root: THREE.Group,
+  worldId: string | undefined,
+  ground: THREE.MeshStandardMaterial,
+  dark: THREE.MeshStandardMaterial,
+  glow: THREE.MeshStandardMaterial,
+  edge: THREE.MeshStandardMaterial
+): void {
+  if (!worldId || worldId === "hub") return;
+
+  const platform = new THREE.Mesh(new THREE.CylinderGeometry(7.8, 8.8, 0.4, 8), dark);
+  platform.position.set(0, 0.86, 27);
+  root.add(platform);
+
+  switch (worldId) {
+    case "section-a": {
+      const book = new THREE.Mesh(new THREE.BoxGeometry(8.4, 0.42, 5.6), ground);
+      book.position.set(-2.2, 3.5, 27);
+      book.rotation.y = -0.18;
+      const page = new THREE.Mesh(new THREE.BoxGeometry(5.8, 0.16, 4.4), glow);
+      page.position.set(2.2, 3.8, 27);
+      page.rotation.y = 0.18;
+      const spine = new THREE.Mesh(new THREE.BoxGeometry(0.32, 2.1, 5.8), edge);
+      spine.position.set(0, 2.25, 27);
+      root.add(book, page, spine);
+      markAnimatedBeacon(page);
+      break;
+    }
+    case "section-b": {
+      for (const x of [-3.8, 3.8]) {
+        const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.72, 1.05, 8.2, 8), ground);
+        pillar.position.set(x, 4.9, 27);
+        root.add(pillar);
+      }
+      const bridge = new THREE.Mesh(new THREE.TorusGeometry(4.1, 0.2, 8, 40, Math.PI), edge);
+      bridge.position.set(0, 8.2, 27);
+      bridge.rotation.z = Math.PI;
+      root.add(bridge);
+      const conversationCore = new THREE.Mesh(new THREE.SphereGeometry(1.25, 16, 12), glow);
+      conversationCore.position.set(0, 4.9, 27);
+      root.add(conversationCore);
+      markAnimatedBeacon(conversationCore);
+      break;
+    }
+    case "stories-of-china": {
+      for (const [radius, y, sides] of [[5.8, 2.0, 8], [4.4, 4.2, 6], [3.0, 6.2, 5]] as const) {
+        const tier = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius + 0.55, 0.7, sides), ground);
+        tier.position.set(0, y, 27);
+        root.add(tier);
+      }
+      const lantern = new THREE.Mesh(new THREE.OctahedronGeometry(1.7, 1), glow);
+      lantern.position.set(0, 9.0, 27);
+      root.add(lantern);
+      const lanternRing = new THREE.Mesh(new THREE.TorusGeometry(2.5, 0.13, 8, 32), edge);
+      lanternRing.rotation.x = Math.PI / 2;
+      lanternRing.position.set(0, 9, 27);
+      root.add(lanternRing);
+      markAnimatedBeacon(lantern);
+      markAnimatedRing(lanternRing);
+      break;
+    }
+    case "learning-lab": {
+      const labCore = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 2.8, 6.5, 12), glow);
+      labCore.position.set(0, 4.3, 27);
+      root.add(labCore);
+      for (const tilt of [0.35, -0.35]) {
+        const orbit = new THREE.Mesh(new THREE.TorusGeometry(4.9, 0.16, 8, 48), edge);
+        orbit.position.set(0, 4.3, 27);
+        orbit.rotation.set(tilt, 0.4, tilt * 1.4);
+        root.add(orbit);
+        markAnimatedRing(orbit);
+      }
+      markAnimatedBeacon(labCore);
+      break;
+    }
+    case "unit-project": {
+      const goal = new THREE.Mesh(new THREE.OctahedronGeometry(2.8, 1), glow);
+      goal.position.set(0, 7.4, 27);
+      root.add(goal);
+      for (const [x, z] of [[-5.3, 24], [5.3, 24], [-5.3, 30], [5.3, 30]]) {
+        const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.78, 6.8, 8), edge);
+        pillar.position.set(x, 3.9, z);
+        root.add(pillar);
+      }
+      const finishRing = new THREE.Mesh(new THREE.TorusGeometry(4.5, 0.18, 8, 48), edge);
+      finishRing.rotation.x = Math.PI / 2;
+      finishRing.position.set(0, 1.2, 27);
+      root.add(finishRing);
+      markAnimatedBeacon(goal);
+      markAnimatedRing(finishRing);
+      break;
+    }
+    default:
+      break;
+  }
+}
+
+function markAnimatedBeacon(object: THREE.Object3D): void {
+  object.userData.isLandscapeBeacon = true;
+}
+
+function markAnimatedRing(object: THREE.Object3D): void {
+  object.userData.isLandscapeRing = true;
+}
+
+function addStudyStations(root: THREE.Group, dark: THREE.MeshStandardMaterial, glow: THREE.MeshStandardMaterial, edge: THREE.MeshStandardMaterial): void {
+  const stations = [
+    { x: -21, z: -20, color: 0x38bdf8 },
+    { x: 21, z: -20, color: 0xfbbf24 },
+    { x: -21, z: 20, color: 0x4ade80 },
+    { x: 21, z: 20, color: 0xf472b6 },
+  ];
+
+  for (const station of stations) {
+    const platform = new THREE.Mesh(new THREE.CylinderGeometry(3.3, 3.7, 0.32, 6), dark);
+    platform.position.set(station.x, 0.7, station.z);
+    root.add(platform);
+
+    const stationMat = glow.clone();
+    stationMat.color.setHex(station.color);
+    stationMat.emissive.setHex(station.color);
+    stationMat.emissiveIntensity = 1.3;
+    const core = new THREE.Mesh(new THREE.IcosahedronGeometry(0.95, 1), stationMat);
+    core.position.set(station.x, 2.2, station.z);
+    core.userData.isLandscapeBeacon = true;
+    root.add(core);
+
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(1.55, 0.08, 6, 24), edge.clone());
+    (ring.material as THREE.MeshStandardMaterial).color.setHex(station.color);
+    (ring.material as THREE.MeshStandardMaterial).emissive.setHex(station.color);
+    ring.rotation.x = Math.PI / 2;
+    ring.position.set(station.x, 1.25, station.z);
+    ring.userData.isLandscapeRing = true;
+    root.add(ring);
+  }
+}
+
+function addDigitalCoast(
+  root: THREE.Group,
+  dark: THREE.MeshStandardMaterial,
+  glow: THREE.MeshStandardMaterial,
+  edge: THREE.MeshStandardMaterial,
+  focused: boolean
+): void {
+  if (focused) {
+    const canyonWall = new THREE.MeshStandardMaterial({
+      color: 0x33485e,
+      emissive: 0x102839,
+      emissiveIntensity: 0.14,
+      roughness: 0.78,
+      metalness: 0.18,
+    });
+    const canyonSignal = new THREE.MeshStandardMaterial({
+      color: 0x578396,
+      emissive: 0x286174,
+      emissiveIntensity: 0.18,
+      roughness: 0.62,
+      metalness: 0.12,
+    });
+    for (const side of [-1, 1]) {
+      const wall = new THREE.Mesh(new THREE.BoxGeometry(3.8, 5.2, 11), canyonWall);
+      wall.position.set(side * 12.8, 2.65, 34);
+      wall.rotation.y = -side * 0.08;
+      root.add(wall);
+
+      for (const y of [1.25, 2.1, 2.95]) {
+        const signal = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.07, 5.6), canyonSignal);
+        signal.position.set(side * 10.84, y, 34);
+        signal.userData.isLandscapeRoute = true;
+        root.add(signal);
+      }
+    }
+
+    const signalLine = new THREE.MeshStandardMaterial({
+      color: 0x3b6175,
+      emissive: 0x286c80,
+      emissiveIntensity: 0.28,
+      roughness: 0.52,
+      metalness: 0.2,
+    });
+    const curve = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(-9, 5.5, 42),
+      new THREE.Vector3(-6, 8, 42),
+      new THREE.Vector3(0, 9.2, 42),
+      new THREE.Vector3(6, 8, 42),
+      new THREE.Vector3(9, 5.5, 42),
+    ]);
+    const arc = new THREE.Mesh(new THREE.TubeGeometry(curve, 40, 0.07, 6, false), signalLine);
+    arc.userData.isLandscapeRoute = true;
+    root.add(arc);
+
+    const signalNode = new THREE.MeshStandardMaterial({
+      color: 0x9ed9dd,
+      emissive: 0x559dac,
+      emissiveIntensity: 0.34,
+      roughness: 0.4,
+      metalness: 0.18,
+    });
+    for (const x of [-9, 9]) {
+      const node = new THREE.Mesh(new THREE.SphereGeometry(0.46, 12, 8), signalNode);
+      node.position.set(x, 5.5, 42);
+      node.userData.isLandscapeBeacon = true;
+      root.add(node);
+    }
+    return;
+  }
+
+  const towers: ReadonlyArray<readonly [number, number, number]> = [[-28, 35, 13], [0, 43, 18], [28, 35, 11]];
+  for (const [x, z, h] of towers) {
+    const tower = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 3.3, h, 6), dark);
+    tower.position.set(x, h / 2, z);
+    root.add(tower);
+    const cap = new THREE.Mesh(new THREE.SphereGeometry(2.2, 12, 8), glow);
+    cap.position.set(x, h + 1.1, z);
+    cap.userData.isLandscapeBeacon = true;
+    root.add(cap);
+
+    const dataRing = new THREE.Mesh(new THREE.TorusGeometry(3.6, 0.08, 6, 32), edge);
+    dataRing.rotation.x = Math.PI / 2;
+    dataRing.position.set(x, h * 0.64, z);
+    dataRing.userData.isLandscapeRing = true;
+    root.add(dataRing);
+  }
+
+  const bridge = new THREE.Mesh(new THREE.BoxGeometry(54, 0.18, 0.34), dark);
+  bridge.position.set(0, 6.5, 35);
+  root.add(bridge);
+}
+
+function addKnowledgeMarket(root: THREE.Group, ground: THREE.MeshStandardMaterial, dark: THREE.MeshStandardMaterial, glow: THREE.MeshStandardMaterial): void {
+  for (const x of [-28, 0, 28]) {
+    const stall = new THREE.Mesh(new THREE.BoxGeometry(9, 0.4, 6), ground);
+    stall.position.set(x, 0.9, 34);
+    root.add(stall);
+    const roof = new THREE.Mesh(new THREE.ConeGeometry(7, 3.6, 4), dark);
+    roof.position.set(x, 4.2, 34);
+    roof.rotation.y = Math.PI / 4;
+    root.add(roof);
+    const lamp = new THREE.Mesh(new THREE.SphereGeometry(0.7, 10, 8), glow);
+    lamp.position.set(x, 5.3, 34);
+    lamp.userData.isLandscapeBeacon = true;
+    root.add(lamp);
+  }
+}
+
+function addMemoryForest(
+  root: THREE.Group,
+  ground: THREE.MeshStandardMaterial,
+  glow: THREE.MeshStandardMaterial,
+  edge: THREE.MeshStandardMaterial,
+  focusedWorld = false
+): void {
+  if (focusedWorld) return;
+  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(2.5, 4.2, 18, 8), ground);
+  trunk.position.set(0, 9, 38);
+  root.add(trunk);
+  for (const [x, y, z, s] of [[-7, 16, 38, 7], [7, 18, 38, 8], [0, 24, 38, 9]]) {
+    const crown = new THREE.Mesh(new THREE.IcosahedronGeometry(s, 1), glow);
+    crown.position.set(x, y, z);
+    crown.userData.isLandscapeBeacon = true;
+    root.add(crown);
+  }
+  for (const x of [-31, 31]) {
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(4, 0.16, 8, 32), edge);
+    ring.rotation.x = Math.PI / 2;
+    ring.position.set(x, 0.9, 36);
+    ring.userData.isLandscapeRing = true;
+    root.add(ring);
+  }
+}
+
+function addIdeaTemple(
+  root: THREE.Group,
+  ground: THREE.MeshStandardMaterial,
+  dark: THREE.MeshStandardMaterial,
+  glow: THREE.MeshStandardMaterial,
+  edge: THREE.MeshStandardMaterial,
+  focusedWorld = false
+): void {
+  if (focusedWorld) {
+    const floor = new THREE.Mesh(new THREE.BoxGeometry(18, 0.36, 8), ground);
+    floor.position.set(0, 0.85, 39);
+    root.add(floor);
+    for (const x of [-6.2, 6.2]) {
+      const post = new THREE.Mesh(new THREE.BoxGeometry(0.48, 5.8, 0.5), dark);
+      post.position.set(x, 3.9, 39);
+      root.add(post);
+    }
+    const canopy = new THREE.Mesh(new THREE.BoxGeometry(14, 0.48, 6.4), edge);
+    canopy.position.set(0, 6.9, 39);
+    root.add(canopy);
+    const workbench = new THREE.Mesh(new THREE.BoxGeometry(5.8, 0.3, 1.35), dark);
+    workbench.position.set(0, 1.9, 35.5);
+    workbench.userData.isLandscapeStage = true;
+    root.add(workbench);
+    for (const x of [-2.2, 2.2]) {
+      const leg = new THREE.Mesh(new THREE.BoxGeometry(0.22, 1.6, 0.22), edge);
+      leg.position.set(x, 1.05, 35.5);
+      root.add(leg);
+    }
+    const workLight = new THREE.Mesh(new THREE.SphereGeometry(0.48, 10, 8), glow);
+    workLight.position.set(0, 5.7, 38.6);
+    workLight.userData.isLandscapeBeacon = true;
+    root.add(workLight);
+    return;
+  }
+  const steps = new THREE.Mesh(new THREE.BoxGeometry(26, 0.7, 15), ground);
+  steps.position.set(0, 1.1, 39);
+  root.add(steps);
+  for (const x of [-9, -3, 3, 9]) {
+    const pillar = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.5, 13, 8), dark);
+    pillar.position.set(x, 7.5, 40);
+    root.add(pillar);
+  }
+  const crown = new THREE.Mesh(new THREE.ConeGeometry(12, 5, 4), glow);
+  crown.position.set(0, 17, 40);
+  crown.rotation.y = Math.PI / 4;
+  crown.userData.isLandscapeBeacon = true;
+  root.add(crown);
+  const halo = new THREE.Mesh(new THREE.TorusGeometry(8, 0.18, 8, 48), edge);
+  halo.rotation.x = Math.PI / 2;
+  halo.position.set(0, 15, 40);
+  halo.userData.isLandscapeRing = true;
+  root.add(halo);
+}
+
+function addOrbitCampus(
+  root: THREE.Group,
+  dark: THREE.MeshStandardMaterial,
+  glow: THREE.MeshStandardMaterial,
+  edge: THREE.MeshStandardMaterial,
+  focusedWorld = false
+): void {
+  if (focusedWorld) {
+    const station = new THREE.Mesh(new THREE.CylinderGeometry(5, 5.8, 0.3, 10), dark);
+    station.position.set(9, 0.65, 40);
+    root.add(station);
+    const rocket = new THREE.Mesh(new THREE.ConeGeometry(1.65, 8, 8), glow);
+    rocket.position.set(9, 4.8, 40);
+    rocket.userData.isLandscapeBeacon = true;
+    root.add(rocket);
+    const orbit = new THREE.Mesh(new THREE.TorusGeometry(3.7, 0.13, 8, 40), edge);
+    orbit.rotation.x = Math.PI / 2.4;
+    orbit.position.set(9, 5, 40);
+    orbit.userData.isLandscapeRing = true;
+    root.add(orbit);
+    return;
+  }
+  const pad = new THREE.Mesh(new THREE.CylinderGeometry(12, 14, 0.55, 8), dark);
+  pad.position.set(0, 1.1, 40);
+  root.add(pad);
+  const rocket = new THREE.Mesh(new THREE.ConeGeometry(3.2, 16, 8), glow);
+  rocket.position.set(0, 9.5, 40);
+  rocket.userData.isLandscapeBeacon = true;
+  root.add(rocket);
+  const ringA = new THREE.Mesh(new THREE.TorusGeometry(8, 0.2, 8, 48), edge);
+  ringA.rotation.x = Math.PI / 2.4;
+  ringA.position.set(0, 9, 40);
+  ringA.userData.isLandscapeRing = true;
+  root.add(ringA);
+  const ringB = ringA.clone();
+  ringB.rotation.x = -Math.PI / 3;
+  ringB.rotation.z = Math.PI / 5;
+  root.add(ringB);
+}
+
+function addCommonsExchange(
+  root: THREE.Group,
+  ground: THREE.MeshStandardMaterial,
+  dark: THREE.MeshStandardMaterial,
+  glow: THREE.MeshStandardMaterial,
+  edge: THREE.MeshStandardMaterial,
+  focusedWorld = false
+): void {
+  const square = new THREE.Mesh(new THREE.BoxGeometry(30, 0.55, 18), ground);
+  square.position.set(0, 1.0, 38);
+  root.add(square);
+
+  for (const x of [-12, 0, 12]) {
+    const stall = new THREE.Mesh(new THREE.BoxGeometry(8, 0.42, 5.5), dark);
+    stall.position.set(x, 2.0, 35);
+    root.add(stall);
+    const canopy = new THREE.Mesh(new THREE.ConeGeometry(5.7, 2.8, 4), glow);
+    canopy.position.set(x, 5.1, 35);
+    canopy.rotation.y = Math.PI / 4;
+    canopy.userData.isLandscapeBeacon = true;
+    root.add(canopy);
+  }
+
+  if (!focusedWorld) {
+    const ledger = new THREE.Mesh(new THREE.BoxGeometry(13, 13, 2.2), dark);
+    ledger.position.set(0, 7.2, 49);
+    root.add(ledger);
+    const ledgerFace = new THREE.Mesh(new THREE.BoxGeometry(10.5, 8.5, 0.22), glow);
+    ledgerFace.position.set(0, 7.4, 47.8);
+    ledgerFace.userData.isLandscapeBeacon = true;
+    root.add(ledgerFace);
+    for (let i = -3; i <= 3; i++) {
+      const line = new THREE.Mesh(new THREE.BoxGeometry(7.5, 0.08, 0.12), edge);
+      line.position.set(0, 5.0 + i * 1.15, 47.62);
+      line.userData.isLandscapeRing = true;
+      root.add(line);
+    }
+  }
+}
+
+function addLibraryCampus(root: THREE.Group, ground: THREE.MeshStandardMaterial, dark: THREE.MeshStandardMaterial, glow: THREE.MeshStandardMaterial, edge: THREE.MeshStandardMaterial): void {
+  const base = new THREE.Mesh(new THREE.BoxGeometry(20, 1, 14), ground);
+  base.position.set(0, 1.2, 38);
+  root.add(base);
+  const tower = new THREE.Mesh(new THREE.CylinderGeometry(5.5, 7, 16, 8), dark);
+  tower.position.set(0, 9.5, 38);
+  root.add(tower);
+  const roof = new THREE.Mesh(new THREE.ConeGeometry(8, 5, 8), glow);
+  roof.position.set(0, 20, 38);
+  roof.userData.isLandscapeBeacon = true;
+  root.add(roof);
+  const arch = new THREE.Mesh(new THREE.TorusGeometry(7, 0.18, 8, 40, Math.PI), edge);
+  arch.rotation.z = Math.PI;
+  arch.position.set(0, 11, 30);
+  arch.userData.isLandscapeRing = true;
+  root.add(arch);
+}

@@ -36,6 +36,8 @@ export class GameState {
     if (!this.save.mapNodeId) this.save.mapNodeId = "";
     if (!this.save.levelProgress) this.save.levelProgress = {};
     if (!this.save.wordMemory) this.save.wordMemory = {};
+    if (!this.save.rewardIds) this.save.rewardIds = [];
+    if (!Number.isFinite(this.save.experience)) this.save.experience = 0;
   }
 
   /** 记录当前地图站点 */
@@ -67,6 +69,15 @@ export class GameState {
     if (this.save.levelProgress[levelId]?.cleared) return;
     this.save.levelProgress[levelId] = { cleared: true };
     this.persist();
+  }
+
+  /** 首次获得奖励徽章并增加经验；重复领取会被忽略。 */
+  grantReward(rewardId: string, experience = 0): boolean {
+    if (this.save.rewardIds.includes(rewardId)) return false;
+    this.save.rewardIds.push(rewardId);
+    this.save.experience += Math.max(0, experience);
+    this.persist();
+    return true;
   }
 
   /** 探索拾取：直接记录词汇为已发现（不评分），用于地图词球收集 */

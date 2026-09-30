@@ -104,6 +104,48 @@
           "boss": false
         },
         {
+          "id": "rw3_unit01_lv05",
+          "title": "数字时代：我们准备好了吗？ · 词汇 5",
+          "title_en": "The digital age: Are we ready? Vocab 5",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit01_21",
+            "rw3_unit01_22",
+            "rw3_unit01_23",
+            "rw3_unit01_24",
+            "rw3_unit01_25"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit01_21",
+            "rw3_vocab:rw3_unit01_22",
+            "rw3_vocab:rw3_unit01_23",
+            "rw3_vocab:rw3_unit01_24",
+            "rw3_vocab:rw3_unit01_25"
+          ],
+          "boss": false
+        },
+        {
+          "id": "rw3_unit01_lv06",
+          "title": "数字时代：我们准备好了吗？ · 词汇 6",
+          "title_en": "The digital age: Are we ready? Vocab 6",
+          "stamina_cost": 2,
+          "word_ids": [
+            "rw3_unit01_26",
+            "rw3_unit01_27",
+            "rw3_unit01_28",
+            "rw3_unit01_29",
+            "rw3_unit01_30"
+          ],
+          "content_refs": [
+            "rw3_vocab:rw3_unit01_26",
+            "rw3_vocab:rw3_unit01_27",
+            "rw3_vocab:rw3_unit01_28",
+            "rw3_vocab:rw3_unit01_29",
+            "rw3_vocab:rw3_unit01_30"
+          ],
+          "boss": false
+        },
+        {
           "id": "rw3_unit01_read",
           "title": "数字时代：我们准备好了吗？ · 阅读",
           "title_en": "The digital age: Are we ready? Reading",
@@ -128,7 +170,17 @@
             "rw3_unit01_17",
             "rw3_unit01_18",
             "rw3_unit01_19",
-            "rw3_unit01_20"
+            "rw3_unit01_20",
+            "rw3_unit01_21",
+            "rw3_unit01_22",
+            "rw3_unit01_23",
+            "rw3_unit01_24",
+            "rw3_unit01_25",
+            "rw3_unit01_26",
+            "rw3_unit01_27",
+            "rw3_unit01_28",
+            "rw3_unit01_29",
+            "rw3_unit01_30"
           ],
           "content_refs": [
             "rw3_reading:unit01"
@@ -171,7 +223,17 @@
             "rw3_unit01_17",
             "rw3_unit01_18",
             "rw3_unit01_19",
-            "rw3_unit01_20"
+            "rw3_unit01_20",
+            "rw3_unit01_21",
+            "rw3_unit01_22",
+            "rw3_unit01_23",
+            "rw3_unit01_24",
+            "rw3_unit01_25",
+            "rw3_unit01_26",
+            "rw3_unit01_27",
+            "rw3_unit01_28",
+            "rw3_unit01_29",
+            "rw3_unit01_30"
           ],
           "content_refs": [
             "rw3_unit_boss:unit01"

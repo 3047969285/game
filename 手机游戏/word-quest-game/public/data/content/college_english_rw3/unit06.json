@@ -27,11 +27,96 @@
     "rw3_unit06_19",
     "rw3_unit06_20"
   ],
+  "micro_world_checks": {
+    "section_a": [
+      {
+        "question": "What pressures made the bookstore's situation difficult?",
+        "options": [
+          "An unexpected increase in free resources",
+          "A decision to stop serving every consumer",
+          "An economic crisis, recession, inflation, and a shrinking budget",
+          "A plan to invest only in luxury goods"
+        ],
+        "answer": 2,
+        "explanation": "The opening connects the bookstore's rent problem with a wider crisis, recession, inflation, and pressure on saving and budgets."
+      },
+      {
+        "question": "How did the book-sharing wall respond to demand?",
+        "options": [
+          "It created an affordable exchange that let readers reuse books.",
+          "It raised every price and reduced the supply of books.",
+          "It replaced local jobs with a single advertisement.",
+          "It required readers to buy a new book every day."
+        ],
+        "answer": 0,
+        "explanation": "Readers could exchange books for an affordable fee, easing demand for new copies and improving resource efficiency."
+      },
+      {
+        "question": "What larger idea do students learn from the bookstore?",
+        "options": [
+          "The economy is only a set of charts.",
+          "A crisis can be solved without cooperation.",
+          "Investment matters only to large companies.",
+          "The economy connects consumer prices, supply, demand, shared resources, and community resilience."
+        ],
+        "answer": 3,
+        "explanation": "The closing sentence brings economic ideas back to everyday prices, resources, and communities investing in one another."
+      }
+    ],
+    "section_b": [
+      {
+        "question": "What did the campus book exchange make possible?",
+        "options": [
+          "A guarantee of instant revenue",
+          "Affordable exchange and continued circulation of resources",
+          "The end of every local bookstore",
+          "A system based only on expensive new books"
+        ],
+        "answer": 1,
+        "explanation": "The exchange kept resources moving while offering an affordable option to readers."
+      },
+      {
+        "question": "Why was the startup model described as sustainable?",
+        "options": [
+          "It avoided every form of cooperation.",
+          "It depended on instant profit alone.",
+          "It balanced shared resources with support for local shops.",
+          "It made consumers ignore uncertain seasons."
+        ],
+        "answer": 2,
+        "explanation": "The model is sustainable because exchange can support local shops rather than pursuing instant revenue alone."
+      }
+    ],
+    "section_c": [
+      {
+        "question": "How did the county library support families during a recession?",
+        "options": [
+          "It stopped sharing resources with families.",
+          "It expanded digital lending and affordable access to reading.",
+          "It invested only in expensive printed collections.",
+          "It replaced reading with a private loan system."
+        ],
+        "answer": 1,
+        "explanation": "Digital lending gave families on tight budgets affordable access to reading materials."
+      },
+      {
+        "question": "What does the library project show about economic resilience?",
+        "options": [
+          "Communities can invest in knowledge even when income is unstable.",
+          "Resilience means avoiding every shared platform.",
+          "Economic strength depends only on higher prices.",
+          "Knowledge has no relationship with everyday resources."
+        ],
+        "answer": 0,
+        "explanation": "The story defines resilience through continued community investment in knowledge during uncertainty."
+      }
+    ]
+  },
   "sections": {
     "section_a": {
       "title": "Surviving an economic crisis",
       "type": "reading",
-      "passage": "After an economic downturn, a neighborhood bookstore struggled to pay rent. Instead of closing, the owner partnered with a campus club to create a book-sharing wall. Readers could leave a book and take another for a small fee. The model did not make anyone rich quickly, but it kept knowledge circulating and supported local jobs. Students learned that the economy is not only charts in textbooks; it is the system behind every price tag and every shared resource."
+      "passage": "After an economic crisis and recession, a neighborhood bookstore struggled to pay rent as inflation squeezed its budget and saving disappeared. Instead of closing, the owner used a small loan and partnered with a campus club to create a book-sharing wall. Readers could leave a book and take another through a sharing exchange for an affordable fee, easing demand for new copies. The model did not make anyone rich quickly, but it improved efficiency, kept knowledge circulating, and supported local jobs. Students learned that the economy is not only charts in textbooks; it is the system behind every consumer's price, supply, demand, and shared resource, and small communities show resilience when they invest in one another."
     },
     "section_b": {
       "title": "The sharing economy turns a new page with books",
@@ -49,7 +134,7 @@
     },
     "reading": {
       "title": "Books on the Move",
-      "passage": "After an economic downturn, a neighborhood bookstore struggled to pay rent. Instead of closing, the owner partnered with a campus club to create a book-sharing wall. Readers could leave a book and take another for a small fee. The model did not make anyone rich quickly, but it kept knowledge circulating and supported local jobs. Students learned that the economy is not only charts in textbooks; it is the system behind every price tag and every shared resource.",
+      "passage": "After an economic crisis and recession, a neighborhood bookstore struggled to pay rent as inflation squeezed its budget and saving disappeared. Instead of closing, the owner used a small loan and partnered with a campus club to create a book-sharing wall. Readers could leave a book and take another through a sharing exchange for an affordable fee, easing demand for new copies. The model did not make anyone rich quickly, but it improved efficiency, kept knowledge circulating, and supported local jobs. Students learned that the economy is not only charts in textbooks; it is the system behind every consumer's price, supply, demand, and shared resource, and small communities show resilience when they invest in one another.",
       "questions": [
         {
           "question": "How did the bookstore survive?",
@@ -66,18 +151,40 @@
     },
     "listening": {
       "title": "Listening: The economy: power behind everyday life",
-      "script": "After an economic downturn, a neighborhood bookstore struggled to pay rent. Instead of closing, the owner partnered with a campus club to create a book-sharing wall. Readers could leave a book and take another for a small fee. The model did not make anyone rich quickly, but it kept knowledge circulating and supported local jobs. Students learned that the economy is not only charts in textbooks; it is the system behind every price tag and every shared resource. The sharing economy turned a new page when a campus club built a book-exchange wall. Readers left a novel and took another for an affordable fee. The startup model did not create instant revenue, but it kept resources circulating. Consumers learned that sustainable exchange can support local shops during uncertain seasons.",
+      "script": "In an economics class project, students interviewed a neighborhood bookseller during a recession. Inflation had raised the shop's costs, and a tight budget left little room for new inventory. Instead of treating saving as the only response, the owner took a small loan and worked with a campus club to start a book-sharing exchange. A consumer could leave a used title, pay an affordable fee, and choose another copy. The startup brought no quick revenue, but it used resources efficiently and eased demand for new books. Students traced how supply, demand, and price affected an everyday choice. They concluded that a sustainable idea need not make its owner rich at once; cooperation can build resilience for a local business during a crisis.",
       "questions": [
         {
-          "question": "How did the bookstore survive?",
+          "question": "How did the neighborhood bookstore respond to financial pressure?",
           "options": [
-            "By raising prices sharply",
-            "By creating a book-sharing model",
-            "By selling only online ads",
-            "By refusing all customers"
+            "It cut prices sharply and stopped taking used books.",
+            "It borrowed a small amount and partnered on a book-sharing wall.",
+            "It moved all sales online to avoid local partnerships.",
+            "It expanded quickly by borrowing enough to buy new inventory."
           ],
           "answer": 1,
-          "explanation": "书店通过图书共享模式维持经营。"
+          "explanation": "听力给出两步应对：小额贷款，以及与校园社团合作建立共享墙。它没有靠大规模扩张或转为纯线上经营。"
+        },
+        {
+          "question": "How did the book-sharing wall work?",
+          "options": [
+            "Readers left a book and took another for an affordable fee.",
+            "Readers borrowed a book and returned that same copy later.",
+            "The club lent books free to members but did not exchange them.",
+            "The bookstore bought readers' used books at full retail price."
+          ],
+          "answer": 0,
+          "explanation": "听力的关键动作为 leave a book and take another，并且只收可负担的费用；这不同于借出后归还同一本书。"
+        },
+        {
+          "question": "What does the story suggest about the economy?",
+          "options": [
+            "It is shaped mainly by national charts, not everyday decisions.",
+            "A sharing model succeeds only when it creates fast private profit.",
+            "It affects everyday choices and how shared resources circulate.",
+            "Local exchange matters only when inflation and recession have ended."
+          ],
+          "answer": 2,
+          "explanation": "讲者把价格、供需和共享资源连到普通人的消费选择，并以社区合作说明经济也发生在日常生活中。"
         }
       ]
     },

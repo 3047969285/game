@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { Timer } from "three/src/core/Timer.js";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
@@ -57,8 +58,9 @@ import { createSignpost } from "./signpost";
 import type { MinimapBiomePalette, MinimapState } from "./Minimap";
 import { getTheme } from "./theme";
 import { DEFAULT_BIOME, getBiome, type UnitBiome } from "./unitBiome";
-import { createTerrainMaps } from "./textures";
+import { createReadableGroundMap, createTerrainMaps } from "./textures";
 import { applyLockedStyle, disposeGroup, removeGroup, seededRand, terrainHeight } from "./utils";
+import { buildUnitLandscape, isFocusedLearningWorld } from "./unitLandscape";
 import {
   INTERACT_RADIUS,
   sampleTerrainY,
@@ -98,11 +100,15 @@ export class World3D {
   private decorGroup?: THREE.Group;
   private waterGroup?: THREE.Group;
   private terrain?: THREE.Mesh;
+  private terrainMaps?: ReturnType<typeof createTerrainMaps>;
+  private readableGroundMap?: THREE.Texture;
   private mountains?: THREE.Group;
   private skyDome?: THREE.Mesh;
   private grassMesh?: THREE.InstancedMesh;
   private grassUniforms?: { uTime: { value: number }; uPlayer: { value: THREE.Vector3 } };
   private clouds?: THREE.Group;
+  /** 当前读写3单元专属的空间骨架 */
+  private unitLandscape?: THREE.Group;
   /** 脚步扬尘粒子池 */
   private dustGroup?: THREE.Group;
   private dustPool: THREE.Sprite[] = [];
@@ -139,7 +145,10 @@ export class World3D {
   private ambientLight?: THREE.AmbientLight;
   private animId = 0;
   private paused = true;
-  private clock = new THREE.Clock();
+  /** 页面进入后台时记住原状态，回到前台后只恢复原本正在运行的世界。 */
+  private pausedBeforeVisibility = true;
+  private spectatorMode = false;
+  private clock = new Timer();
   /** 帧率自适应 */
   private _fpsTs = 0;
   private _fpsFrames = 0;
@@ -156,16 +165,31 @@ export class World3D {
   /** 画质分级（按设备能力自适应，兼顾精细与流畅） */
   private readonly quality: QualityTier = detectQuality();
   private readonly qcfg: QualityConfig = QUALITY_PRESETS[this.quality];
+  /**
+   * Three.js 会把可见点光源 / 聚光灯展开成材质 uniforms。地图节点、灯笼和词汇光球
+   * 数量一多，WebGL1 / 移动端很容易超过 MAX_FRAGMENT_UNIFORM_VECTORS。只保留玩家
+   * 周围的动态灯光，既保留局部氛围，也让课程地图规模不再决定着色器是否能编译。
+   */
+  private readonly dynamicLightLimit = this.quality === "low" ? 5 : this.quality === "med" ? 8 : 12;
+  private dynamicLightBudgetFrames = 30;
+  private readonly _lightPosition = new THREE.Vector3();
   private rebuildToken = 0;
   private player = new PlayerController();
   private explorerCam = new ExplorerCamera();
   private nearNode: MapNode | null = null;
   private currentBiome: UnitBiome = DEFAULT_BIOME;
+  private activeUnitId?: string;
+  /** 当前单元内的子世界焦点，未进入子世界时为 hub。 */
+  private activeWorldId?: string;
+  private activeWorldTitle?: string;
   /** 词汇光球组 */
   private pickupGroup?: THREE.Group;
   private pickupMeshes = new Map<string, THREE.Group>();
   private pickupData: WordPickup[] = [];
   private nearPickup: WordPickup | null = null;
+  /** 小地图不需要跟随每一帧重绘，降低移动端主线程压力。 */
+  private lastExploreUpdateAt = 0;
+  private waterFrame = 0;
 
   constructor(container: HTMLElement, options: World3DOptions) {
     this.container = container;
@@ -192,7 +216,7 @@ export class World3D {
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, this.qcfg.pixelRatio));
     this.renderer.setSize(w, h);
     this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    this.renderer.shadowMap.type = THREE.PCFShadowMap;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.28;
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -210,7 +234,6 @@ export class World3D {
     this.spawnExplorer();
     this.setupPostFX(w, h);
     this.bindEvents();
-    this.animate();
   }
 
   /** 后期处理管线：泛光（Bloom）让水晶 / 光球 / 太阳产生电影级辉光 */
@@ -239,24 +262,58 @@ export class World3D {
     }
   }
 
-  setNodes(nodes: MapNode[], currentId: string): void {
+  setNodes(nodes: MapNode[], currentId: string, showNodeLandmarks = true): void {
     this.nodes = nodes;
     this.currentId = currentId;
     this.rebuildPath();
     this.rebuildDecor();
-    void this.rebuildNodesAsync();
+    if (showNodeLandmarks) {
+      void this.rebuildNodesAsync();
+    } else {
+      this.rebuildToken++;
+      for (const group of this.nodeGroups.values()) {
+        this.scene.remove(group);
+        disposeGroup(group);
+      }
+      this.nodeGroups.clear();
+      this.pickables = [];
+    }
     this.teleportToNode(currentId);
+    this.updateDynamicLightBudget(true);
   }
 
   resume(): void {
+    if (!this.paused) return;
     this.paused = false;
-    this.player.setEnabled(true);
+    this.player.setEnabled(!this.spectatorMode);
     this.onResize();
+    if (!this.animId) this.animate();
   }
 
   pause(): void {
     this.paused = true;
     this.player.setEnabled(false);
+    if (this.animId) {
+      cancelAnimationFrame(this.animId);
+      this.animId = 0;
+    }
+  }
+
+  private onVisibilityChange = (): void => {
+    if (document.hidden) {
+      this.pausedBeforeVisibility = this.paused;
+      this.pause();
+      return;
+    }
+    if (!this.pausedBeforeVisibility) this.resume();
+  };
+
+  /** 世界观赏模式：保留镜头拖拽，但不要求角色移动。 */
+  setSpectatorMode(enabled: boolean): void {
+    this.spectatorMode = enabled;
+    this.player.setStickInput(0, 0);
+    this.player.setEnabled(!enabled && !this.paused);
+    if (this.explorer) this.explorer.visible = !enabled;
   }
 
   /** 外部触发互动（按钮 / E 键）：优先收集光球，其次进入节点 */
@@ -277,12 +334,46 @@ export class World3D {
 
   /** 切换生物群系主题（单元地图风格） */
   setBiome(unitId?: string): void {
+    this.activeUnitId = unitId;
+    this.activeWorldId = undefined;
+    this.activeWorldTitle = undefined;
     const biome = getBiome(unitId);
     this.currentBiome = biome;
+    if (this.grassMesh) this.grassMesh.visible = biome.decorStyle !== "space";
     this.applyBiomeToSky(biome);
     this.applyBiomeToLights(biome);
+    this.applyBiomeToTerrain(biome, false);
     this.applyOutfitFromBiome(biome);
     this.scene.fog = new THREE.FogExp2(biome.fogColor, biome.fogDensity);
+  }
+
+  /** 切换单元内部子世界的空间焦点，不改变单元入口和词汇探索数据。 */
+  setSubWorld(worldId?: string, title?: string): void {
+    if (this.activeWorldId === worldId && this.activeWorldTitle === title) return;
+    this.activeWorldId = worldId;
+    this.activeWorldTitle = title;
+    this.applyBiomeToTerrain(this.currentBiome, isFocusedLearningWorld(worldId));
+    if (this.grassMesh) {
+      this.grassMesh.visible = this.currentBiome.decorStyle !== "space" && !isFocusedLearningWorld(worldId);
+    }
+    if (this.bloomPass) {
+      this.bloomPass.strength = isFocusedLearningWorld(worldId)
+        ? 0.2
+        : THREE.MathUtils.clamp(0.5 + (1.5 - this.currentBiome.sunIntensity) * 0.28, 0.45, 1.05);
+    }
+    if (this.activeUnitId && this.nodes.length > 0) {
+      this.rebuildUnitLandscape();
+      if (isFocusedLearningWorld(worldId)) {
+        const node = this.nodes.find((item) => item.id === this.currentId) ?? this.nodes[0];
+        if (node) {
+          const y = sampleTerrainY(node.x, node.z, terrainHeight);
+          this.player.yaw = 0;
+          this.player.setPosition(node.x, y, node.z + 2.5);
+          this.avatarYaw = 0;
+          this.explorerCam.resetBehind(0);
+        }
+      }
+    }
   }
 
   /** 角色换装：以颜色为镶边 / 披风主色（GLB 角色则做辉光染色） */
@@ -479,9 +570,11 @@ export class World3D {
 
   dispose(): void {
     cancelAnimationFrame(this.animId);
+    this.animId = 0;
     this.renderer.domElement.removeEventListener("pointerdown", this.onPointerDown);
     window.removeEventListener("keydown", this.onKeyDown);
     window.removeEventListener("resize", this.onResize);
+    document.removeEventListener("visibilitychange", this.onVisibilityChange);
     this.player.dispose();
 
     removeGroup(this.scene, this.pathGroup);
@@ -489,8 +582,9 @@ export class World3D {
     removeGroup(this.scene, this.waterGroup);
     removeGroup(this.scene, this.mountains);
     removeGroup(this.scene, this.clouds);
+    removeGroup(this.scene, this.unitLandscape);
     removeGroup(this.scene, this.explorer);
-    removeGroup(this.scene, this.pickupGroup);
+    this.removePickupGroup();
     if (this.grassMesh) {
       this.scene.remove(this.grassMesh);
       this.grassMesh.geometry.dispose();
@@ -512,12 +606,12 @@ export class World3D {
     this.mixer?.stopAllAction();
     this.composer?.dispose();
     for (const g of this.nodeGroups.values()) disposeGroup(g);
-    for (const g of this.pickupMeshes.values()) disposeGroup(g);
+    this.pickupMeshes.clear();
 
     if (this.terrain) {
       this.terrain.geometry.dispose();
       const mat = this.terrain.material as THREE.MeshStandardMaterial;
-      mat.map?.dispose();
+      for (const map of new Set([mat.map, this.readableGroundMap])) map?.dispose();
       mat.roughnessMap?.dispose();
       mat.normalMap?.dispose();
       mat.dispose();
@@ -534,6 +628,7 @@ export class World3D {
     removeGroup(this.scene, this.explorer);
     this.explorer = createExplorerAvatar();
     this.scene.add(this.explorer);
+    this.explorer.visible = !this.spectatorMode;
     this.applyOutfitFromBiome(this.currentBiome);
     void this.tryLoadGlbAvatar();
   }
@@ -578,7 +673,9 @@ export class World3D {
     const node = this.nodes.find((n) => n.id === nodeId) ?? this.nodes[0];
     if (!node) return;
     const y = sampleTerrainY(node.x, node.z, terrainHeight);
-    this.player.setPosition(node.x + 4, y, node.z + 6);
+    // 角色站在入口后方，镜头朝入口方向看，避免出生时把学习圣所放到镜头背面。
+    this.player.yaw = 0;
+    this.player.setPosition(node.x + 4, y, node.z - 8);
     if (this.explorer) {
       this.explorer.position.copy(this.player.position);
       this.explorer.rotation.set(0, this.player.yaw, 0);
@@ -587,7 +684,7 @@ export class World3D {
     this.avatarYaw = this.player.yaw;
     this.avatarLean = 0;
     this.explorerCam.resetBehind(this.player.yaw);
-    this.camera.position.set(node.x + 10, y + 7, node.z + 14);
+    this.camera.position.set(node.x + 10, y + 7, node.z - 16);
     this.camera.lookAt(node.x, y + 1.5, node.z);
   }
 
@@ -654,7 +751,7 @@ export class World3D {
       fog: false,
     });
     this.sunDisc = new THREE.Sprite(sunMat);
-    this.sunDisc.scale.set(90, 90, 1);
+    this.sunDisc.scale.set(52, 52, 1);
     this.scene.add(this.sunDisc);
   }
 
@@ -759,7 +856,43 @@ export class World3D {
     rim.position.set(-40, 28, -30);
     const moon = new THREE.PointLight(0xa5c8ff, 0.55, 160);
     moon.position.set(-35, 28, TERRAIN_ORIGIN_Z);
+    moon.userData.isGlobalLight = true;
     this.scene.add(rim, moon);
+  }
+
+  /**
+   * 限制当前场景参与材质编译的动态灯光数量。
+   *
+   * 不能只在创建时截断：玩家移动后，远处的灯应当熄灭，近处的灯应当恢复。这里保留
+   * 所有对象和动画，只切换 visible，避免反复创建 / 销毁灯光导致额外的 GPU 编译抖动。
+   */
+  private updateDynamicLightBudget(force = false): void {
+    if (!force && ++this.dynamicLightBudgetFrames < 30) return;
+    this.dynamicLightBudgetFrames = 0;
+
+    const candidates: Array<{ light: THREE.PointLight | THREE.SpotLight; distance: number }> = [];
+    this.scene.traverse((object) => {
+      const candidate = object as THREE.Object3D & {
+        isPointLight?: boolean;
+        isSpotLight?: boolean;
+        isLight?: boolean;
+      };
+      if (candidate.userData.isGlobalLight || !candidate.isLight || (!candidate.isPointLight && !candidate.isSpotLight)) {
+        return;
+      }
+
+      const light = candidate as THREE.PointLight | THREE.SpotLight;
+      light.getWorldPosition(this._lightPosition);
+      candidates.push({
+        light,
+        distance: this._lightPosition.distanceToSquared(this.player.position),
+      });
+    });
+
+    candidates.sort((a, b) => a.distance - b.distance);
+    for (let i = 0; i < candidates.length; i++) {
+      candidates[i].light.visible = i < this.dynamicLightLimit;
+    }
   }
 
   /** 更新天空 shader 颜色 */
@@ -792,9 +925,39 @@ export class World3D {
     }
   }
 
+  /** 让地面颜色跟随单元主题，避免所有单元都像同一块绿色平面。 */
+  private applyBiomeToTerrain(biome: UnitBiome, focusedWorld: boolean): void {
+    if (!this.terrain) return;
+    const [r, g, b] = biome.terrainTint;
+    const material = this.terrain.material as THREE.MeshStandardMaterial;
+    const nextMap = this.readableGroundMap ?? null;
+    const materialVariantChanged = material.map !== nextMap || material.vertexColors;
+    material.map = nextMap;
+    material.vertexColors = false;
+    if (focusedWorld) {
+      // Keep subtle surface detail in reading scenes without restoring the hub's dark grass palette.
+      material.color.setRGB(
+        THREE.MathUtils.clamp(0.28 + r * 0.34, 0.26, 0.48),
+        THREE.MathUtils.clamp(0.28 + g * 0.34, 0.26, 0.46),
+        THREE.MathUtils.clamp(0.29 + b * 0.32, 0.27, 0.44)
+      );
+      material.roughness = 0.94;
+      material.metalness = 0.02;
+    } else {
+      material.color.setRGB(
+        THREE.MathUtils.clamp(0.27 + r * 0.8, 0.28, 0.58),
+        THREE.MathUtils.clamp(0.28 + g * 0.62, 0.3, 0.58),
+        THREE.MathUtils.clamp(0.29 + b * 0.72, 0.3, 0.6)
+      );
+      material.roughness = 0.9;
+      material.metalness = 0.02;
+    }
+    if (materialVariantChanged) material.needsUpdate = true;
+  }
+
   /** 重建词汇光球 */
   private rebuildPickups(): void {
-    removeGroup(this.scene, this.pickupGroup);
+    this.removePickupGroup();
     this.pickupMeshes.clear();
 
     this.pickupGroup = new THREE.Group();
@@ -807,6 +970,7 @@ export class World3D {
     }
 
     this.scene.add(this.pickupGroup);
+    this.updateDynamicLightBudget(true);
   }
 
   /** 创建单个词汇光球 */
@@ -900,6 +1064,19 @@ export class World3D {
     return sprite;
   }
 
+  /** 释放词汇光球专属资源（包含每个单词精灵独立创建的 CanvasTexture）。 */
+  private disposePickupResources(group: THREE.Group): void {
+    disposeGroup(group);
+  }
+
+  /** 从场景移除当前词汇光球组，避免重建时遗留 GPU 资源。 */
+  private removePickupGroup(): void {
+    if (!this.pickupGroup) return;
+    this.scene.remove(this.pickupGroup);
+    this.disposePickupResources(this.pickupGroup);
+    this.pickupGroup = undefined;
+  }
+
   private buildTerrain(): void {
     const geo = new THREE.PlaneGeometry(
       TERRAIN_SIZE.width,
@@ -909,30 +1086,26 @@ export class World3D {
     );
     geo.rotateX(-Math.PI / 2);
     const pos = geo.attributes.position;
-    const colors = new Float32Array(pos.count * 3);
 
     for (let i = 0; i < pos.count; i++) {
       const x = pos.getX(i);
       const z = pos.getZ(i);
       const h = terrainHeight(x, z);
       pos.setY(i, h);
-      const g = 0.14 + Math.abs(h) * 0.06;
-      colors[i * 3] = 0.07 + g * 0.55;
-      colors[i * 3 + 1] = g * 0.95;
-      colors[i * 3 + 2] = 0.09 + g * 0.38;
     }
-    geo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
     geo.computeVertexNormals();
 
-    const maps = createTerrainMaps();
+    this.terrainMaps = createTerrainMaps();
+    this.readableGroundMap = createReadableGroundMap();
     this.terrain = new THREE.Mesh(
       geo,
       new THREE.MeshStandardMaterial({
-        map: maps.color,
-        roughnessMap: maps.roughness,
-        normalMap: maps.normal,
+        color: 0xffffff,
+        map: this.readableGroundMap,
+        roughnessMap: this.terrainMaps.roughness,
+        normalMap: this.terrainMaps.normal,
         normalScale: new THREE.Vector2(0.85, 0.85),
-        vertexColors: true,
+        vertexColors: false,
         roughness: 0.82,
         metalness: 0.06,
       })
@@ -940,6 +1113,7 @@ export class World3D {
     this.terrain.receiveShadow = true;
     this.terrain.position.set(0, TERRAIN_ORIGIN_Y, TERRAIN_ORIGIN_Z);
     this.scene.add(this.terrain);
+    this.applyBiomeToTerrain(this.currentBiome, false);
   }
 
   /** 远景低多边形山脉环带（大气透视 + 雪顶） */
@@ -1053,6 +1227,7 @@ export class World3D {
     mesh.userData.grassScales = new Float32Array(count).fill(1);
     mesh.userData.lodFrame = 0;
     this.grassMesh = mesh;
+    mesh.visible = this.currentBiome.decorStyle !== "space";
     this.scene.add(mesh);
   }
 
@@ -1216,38 +1391,59 @@ export class World3D {
 
     const rnd = seededRand(2024);
     const placed = new Set<string>();
+    const unitNode = this.activeUnitId ? (this.nodes.find((node) => node.unlocked) ?? this.nodes[0]) : undefined;
+    const unitMode = Boolean(unitNode && this.activeUnitId);
+    const anchorX = unitNode?.x ?? 0;
+    const anchorZ = unitNode?.z ?? TERRAIN_ORIGIN_Z;
+    const isNearGlobalEntry = (x: number, z: number): boolean =>
+      !unitMode && this.nodes.some((node) => Math.hypot(x - (node.x + 4), z - (node.z - 8)) < 26);
 
-    const treesPerNode = this.quality === "low" ? 16 : this.quality === "med" ? 24 : 34;
-    const scatterCount = this.quality === "low" ? 80 : this.quality === "med" ? 120 : 180;
+    this.rebuildUnitLandscape();
+
+    const treesPerNode = unitMode
+      ? (this.quality === "low" ? 8 : this.quality === "med" ? 12 : 18)
+      : (this.quality === "low" ? 16 : this.quality === "med" ? 24 : 34);
+    const scatterCount = unitMode
+      ? (this.quality === "low" ? 42 : this.quality === "med" ? 64 : 92)
+      : (this.quality === "low" ? 80 : this.quality === "med" ? 120 : 180);
 
     for (const node of this.nodes) {
       const rand = seededRand(node.id.length * 997 + node.z);
       for (let i = 0; i < treesPerNode; i++) {
         const angle = rand() * Math.PI * 2;
-        const dist = 6 + rand() * 24;
+        const dist = unitMode ? 32 + rand() * 22 : 6 + rand() * 24;
         const wx = node.x + Math.cos(angle) * dist;
         const wz = node.z + Math.sin(angle) * dist;
+        // Keep the spawn point and its third-person sightline clear on the global unit map.
+        if (isNearGlobalEntry(wx, wz)) continue;
         const key = `${Math.round(wx)}_${Math.round(wz)}`;
         if (placed.has(key)) continue;
         placed.add(key);
 
         const wy = sampleTerrainY(wx, wz, terrainHeight);
         const scale = 0.75 + rand() * 1.1;
-        this.addDecorAt(node.theme, wx, wy, wz, scale, rand);
+        this.addDecorAt(unitMode ? this.currentBiome.decorStyle : node.theme, wx, wy, wz, scale, rand);
       }
     }
 
-    // 全局零散植被 / 岩石，填充大世界（避开中央走廊保留道路）
+    // 全局零散植被 / 岩石：单元探索围绕当前单元铺开，避免视野只有一块空地。
     const scatter = seededRand(909);
-    const halfW = TERRAIN_SIZE.width * 0.46;
-    const halfD = TERRAIN_SIZE.depth * 0.46;
+    const halfW = unitMode ? 145 : TERRAIN_SIZE.width * 0.46;
+    const halfD = unitMode ? 190 : TERRAIN_SIZE.depth * 0.46;
     for (let i = 0; i < scatterCount; i++) {
-      const wx = (scatter() - 0.5) * 2 * halfW;
-      const wz = TERRAIN_ORIGIN_Z + (scatter() - 0.5) * 2 * halfD;
-      if (Math.abs(wx) < 14) continue;
+      const wx = anchorX + (scatter() - 0.5) * 2 * halfW;
+      const wz = anchorZ + (scatter() - 0.5) * 2 * halfD;
+      if (unitMode && Math.hypot(wx - anchorX, wz - anchorZ) < 25) continue;
+      if (isNearGlobalEntry(wx, wz)) continue;
+      if (!unitMode && Math.abs(wx) < 14) continue;
       const wy = sampleTerrainY(wx, wz, terrainHeight);
       const scale = 0.8 + scatter() * 1.5;
-      if (scatter() > 0.42) {
+      if (unitMode && this.currentBiome.decorStyle === "space") {
+        const rock = createRock(scale * 0.72);
+        rock.position.set(wx, wy + 0.16, wz);
+        rock.rotation.set(scatter() * 0.18, scatter() * Math.PI * 2, scatter() * 0.18);
+        this.decorGroup!.add(rock);
+      } else if (scatter() > 0.42) {
         const tree = scatter() > 0.5 ? createPine(scale) : createTree(scale);
         tree.position.set(wx, wy, wz);
         tree.rotation.y = scatter() * Math.PI * 2;
@@ -1260,15 +1456,15 @@ export class World3D {
       }
     }
 
-    // 河谷湖泊（沿两侧山脚分布）：近处镜面反射 + 远处程序化水面
-    const lakeCount = 6;
+    // 河谷湖泊（沿两侧山脚分布）：单元模式改为围绕当前区域的两处水面。
+    const lakeCount = unitMode && this.currentBiome.decorStyle === "space" ? 0 : unitMode ? 2 : 6;
     const reflectiveMax = this.qcfg.reflectors;
     for (let wi = 0; wi < lakeCount; wi++) {
       const side = wi % 2 === 0 ? -1 : 1;
-      const wx = side * (60 + rnd() * 55);
-      const wz = TERRAIN_ORIGIN_Z - halfD * 0.8 + wi * ((halfD * 1.5) / lakeCount) + rnd() * 18;
-      const lw = 48 + rnd() * 26;
-      const lh = 30 + rnd() * 18;
+      const wx = anchorX + side * (unitMode ? 52 + rnd() * 18 : 60 + rnd() * 55);
+      const wz = anchorZ - halfD * 0.8 + wi * ((halfD * 1.5) / lakeCount) + rnd() * 18;
+      const lw = unitMode ? 34 + rnd() * 14 : 48 + rnd() * 26;
+      const lh = unitMode ? 24 + rnd() * 12 : 30 + rnd() * 18;
       const ly = sampleTerrainY(wx, wz, terrainHeight) - 0.6;
       const reflective = wi < reflectiveMax;
 
@@ -1307,13 +1503,37 @@ export class World3D {
     }
 
     const mist = new THREE.Mesh(
-      new THREE.PlaneGeometry(TERRAIN_SIZE.width + 40, TERRAIN_SIZE.depth + 40),
+      new THREE.PlaneGeometry(unitMode ? halfW * 2.2 : TERRAIN_SIZE.width + 40, unitMode ? halfD * 2.2 : TERRAIN_SIZE.depth + 40),
       new THREE.MeshBasicMaterial({ color: 0x9ec8ff, transparent: true, opacity: 0.038, depthWrite: false })
     );
     mist.rotation.x = -Math.PI / 2;
-    mist.position.set(0, 5, TERRAIN_ORIGIN_Z);
+    mist.position.set(anchorX, 5, anchorZ);
     this.decorGroup.add(mist);
     this.scene.add(this.decorGroup, this.waterGroup);
+    this.updateDynamicLightBudget(true);
+  }
+
+  private rebuildUnitLandscape(): void {
+    removeGroup(this.scene, this.unitLandscape);
+    this.unitLandscape = undefined;
+
+    const unitNode = this.activeUnitId
+      ? this.nodes.find((node) => node.unlocked) ?? this.nodes[0]
+      : undefined;
+    if (!unitNode || !this.activeUnitId) return;
+
+    this.unitLandscape = buildUnitLandscape(
+      this.currentBiome,
+      unitNode,
+      this.activeWorldId,
+      this.activeWorldTitle
+    );
+    this.unitLandscape.position.set(
+      unitNode.x,
+      sampleTerrainY(unitNode.x, unitNode.z, terrainHeight),
+      unitNode.z
+    );
+    this.scene.add(this.unitLandscape);
   }
 
   private addDecorAt(theme: string, x: number, y: number, z: number, scale: number, rand: () => number): void {
@@ -1362,6 +1582,10 @@ export class World3D {
       group.userData.nodeId = node.id;
 
       const { root, crystal } = await createLandmarkWithCad(node, node.id === this.currentId);
+      if (token !== this.rebuildToken) {
+        disposeGroup(root);
+        return;
+      }
       group.add(root);
       crystal.userData.nodeId = node.id;
       this.pickables.push(crystal);
@@ -1372,6 +1596,7 @@ export class World3D {
       if (!node.unlocked) applyLockedStyle(group);
       this.nodeGroups.set(node.id, group);
       this.scene.add(group);
+      this.updateDynamicLightBudget(true);
     }
   }
 
@@ -1379,6 +1604,7 @@ export class World3D {
     this.renderer.domElement.addEventListener("pointerdown", this.onPointerDown);
     window.addEventListener("keydown", this.onKeyDown);
     window.addEventListener("resize", this.onResize);
+    document.addEventListener("visibilitychange", this.onVisibilityChange);
   }
 
   private onKeyDown = (e: KeyboardEvent): void => {
@@ -1467,12 +1693,16 @@ export class World3D {
     }
   }
 
-  private animate = (): void => {
+  private animate = (timestamp?: number): void => {
+    if (this.paused) {
+      this.animId = 0;
+      return;
+    }
     this.animId = requestAnimationFrame(this.animate);
-    if (this.paused) return;
 
+    this.clock.update(timestamp);
     const dt = Math.min(this.clock.getDelta(), 0.05);
-    const t = this.clock.getElapsedTime();
+    const t = this.clock.getElapsed();
 
     // 帧率自适应：连续 3 s 平均低于 40 fps 则降一档像素比
     if (!this._fpsAdapted) {
@@ -1608,21 +1838,27 @@ export class World3D {
     this.updateProximity();
     this.updatePickupProximity();
     this.updateDust(dt);
-    this.tickScene(t);
-    this.onExploreUpdate?.({
-      playerX: this.player.position.x,
-      playerZ: this.player.position.z,
-      playerYaw: this.player.yaw,
-      nodes: this.nodes,
-      nearNodeId: this.nearNode?.id,
-      pickups: this.pickupData,
-      biome: this.minimapPalette(),
-    });
+    this.tickScene(t, dt);
+    const updateNow = performance.now();
+    if (updateNow - this.lastExploreUpdateAt >= 66 || this.lastExploreUpdateAt === 0) {
+      this.lastExploreUpdateAt = updateNow;
+      this.onExploreUpdate?.({
+        playerX: this.player.position.x,
+        playerZ: this.player.position.z,
+        playerYaw: this.player.yaw,
+        nodes: this.nodes,
+        nearNodeId: this.nearNode?.id,
+        pickups: this.pickupData,
+        biome: this.minimapPalette(),
+      });
+    }
     if (this.composer) this.composer.render();
     else this.renderer.render(this.scene, this.camera);
   };
 
-  private tickScene(t: number): void {
+  private tickScene(t: number, dt: number): void {
+    this.updateDynamicLightBudget();
+    this.waterFrame++;
     // 昼夜循环：太阳沿天空划过，亮度 / 曝光 / 天光随之变化
     if (this.sun) {
       const day = t * 0.03; // 完整循环约 210s
@@ -1630,9 +1866,12 @@ export class World3D {
       const sy = 36 + Math.cos(day) * 46; // 约 -10 ~ 82
       this.sun.position.set(sx, Math.max(5, sy), 35);
       const daylight = THREE.MathUtils.clamp((sy + 8) / 90, 0.18, 1);
-      this.sun.intensity = this.currentBiome.sunIntensity * (0.32 + daylight * 0.68);
-      this.renderer.toneMappingExposure = 1.05 + daylight * 0.3;
-      if (this.hemi) this.hemi.intensity = 0.38 + daylight * 0.5;
+      const focusedWorld = isFocusedLearningWorld(this.activeWorldId);
+      this.sun.intensity = this.currentBiome.sunIntensity * (focusedWorld ? 0.82 + daylight * 0.18 : 0.52 + daylight * 0.38);
+      this.renderer.toneMappingExposure = focusedWorld
+        ? 1.14 + daylight * 0.12
+        : 1.08 + daylight * 0.1;
+      if (this.hemi) this.hemi.intensity = focusedWorld ? 0.78 + daylight * 0.22 : 0.58 + daylight * 0.26;
 
       // 太阳圆盘跟随光源方向（置于远空），夜间淡出
       if (this.sunDisc) {
@@ -1651,6 +1890,20 @@ export class World3D {
     // 云层缓慢漂移
     if (this.clouds) this.clouds.rotation.y = t * 0.006;
 
+    // 单元场景中的环、信标和学习站保持轻微运动，让空间不是静态模型堆。
+    this.unitLandscape?.traverse((object) => {
+      const mesh = object as THREE.Mesh;
+      if (mesh.userData?.isLandscapeRing) {
+        mesh.rotation.y += dt * 0.42;
+        mesh.rotation.z += dt * 0.18;
+      }
+      if (mesh.userData?.isLandscapeBeacon) {
+        if (mesh.userData.landscapeBaseY === undefined) mesh.userData.landscapeBaseY = mesh.position.y;
+        const baseY = mesh.userData.landscapeBaseY as number;
+        mesh.position.y = baseY + Math.sin(t * 1.5 + mesh.position.x * 0.08) * 0.24;
+      }
+    });
+
     // 词汇光球动画
     for (const [id, group] of this.pickupMeshes) {
       const isNear = this.nearPickup?.id === id;
@@ -1658,7 +1911,7 @@ export class World3D {
 
       // 消亡动画
       if (group.userData.dying) {
-        group.userData.dieTimer = (group.userData.dieTimer as number ?? 0) + 0.04;
+        group.userData.dieTimer = (group.userData.dieTimer as number ?? 0) + dt * 1.4;
         const p = group.userData.dieTimer as number;
         group.scale.setScalar(1 - p * 0.9);
         group.position.y = baseY + p * 3;
@@ -1668,6 +1921,7 @@ export class World3D {
         });
         if (p >= 1) {
           this.pickupGroup?.remove(group);
+          this.disposePickupResources(group);
           this.pickupMeshes.delete(id);
         }
         continue;
@@ -1745,7 +1999,7 @@ export class World3D {
       (w.material as THREE.MeshPhysicalMaterial).opacity =
         baseOp + Math.sin(t * 0.7) * Math.min(0.08, baseOp * 0.12);
 
-      if (!near) continue; // 远处跳过顶点计算
+      if (!near || this.waterFrame % 2 !== 0) continue; // 远处跳过，近处隔帧更新法线
 
       // 顶点涟漪（仅近处）
       const geo = w.geometry as THREE.PlaneGeometry;

@@ -42,14 +42,18 @@ export function buildWordPickups(
   const pickups: WordPickup[] = [];
   const placed: { x: number; z: number }[] = [];
 
-  for (const w of words) {
+  for (const [index, w] of words.entries()) {
     let attempts = 0;
     let px = 0, pz = 0;
 
     do {
-      const angle = rand() * Math.PI * 2;
-      // 距中心 10-SPREAD_RADIUS 之间，形成自然分布环形
-      const r = 10 + rand() * SPREAD_RADIUS;
+      // 四条路线各自承载一组词，玩家会沿着空间路径逐段探索，
+      // 而不是在一片空地里随机找 20 个点。
+      const route = index % 4;
+      const ring = Math.floor(index / 4);
+      const routeAngle = route * (Math.PI / 2);
+      const angle = routeAngle + (rand() - 0.5) * 0.42;
+      const r = Math.min(SPREAD_RADIUS, 18 + ring * 14 + rand() * 5);
       px = c.x + Math.cos(angle) * r;
       pz = c.z + Math.sin(angle) * r;
       attempts++;
@@ -57,7 +61,7 @@ export function buildWordPickups(
     } while (placed.some((p) => Math.hypot(px - p.x, pz - p.z) < MIN_GAP));
 
     placed.push({ x: px, z: pz });
-    const py = sampleTerrainY(px, pz, terrainHeight) + 1.6;
+    const py = sampleTerrainY(px, pz, terrainHeight) + 1.65 + (index % 3) * 0.18;
 
     pickups.push({
       id: w.id,

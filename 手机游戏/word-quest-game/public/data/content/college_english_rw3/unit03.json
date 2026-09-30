@@ -27,21 +27,106 @@
     "rw3_unit03_19",
     "rw3_unit03_20"
   ],
+  "micro_world_checks": {
+    "section_a": [
+      {
+        "question": "What do many students initially think travel is mainly about?",
+        "options": [
+          "Staying home to avoid every surprise",
+          "Collecting as much luggage as possible",
+          "Following a local shop owner everywhere",
+          "Reaching a destination with famous sights and photos"
+        ],
+        "answer": 3,
+        "explanation": "The opening contrasts the common focus on destinations, sights, and photos with deeper purposes of travel."
+      },
+      {
+        "question": "What can solo travelers gain when a trip does not go as planned?",
+        "options": [
+          "A fixed itinerary that never changes",
+          "More space to navigate uncertainty, reflect, and transform their perspective",
+          "A guarantee that every day will be comfortable",
+          "A reason to measure the trip only by photographs"
+        ],
+        "answer": 1,
+        "explanation": "The passage presents uncertainty as a chance for curiosity, reflection, and a changed view of daily life."
+      }
+    ],
+    "section_b": [
+      {
+        "question": "Why did Mei have room for unexpected encounters?",
+        "options": [
+          "She followed a fixed itinerary minute by minute.",
+          "She refused to speak with local people.",
+          "She traveled without a fixed itinerary and could wander.",
+          "She carried more luggage than other travelers."
+        ],
+        "answer": 2,
+        "explanation": "Without a fixed itinerary, Mei could wander through the hostel neighborhood and talk with local shop owners."
+      },
+      {
+        "question": "What did the wrong turn give Mei?",
+        "options": [
+          "A memorable landscape and a lesson in self-reliance",
+          "A new reservation and a shorter flight",
+          "A reason to abandon every future journey",
+          "A perfect plan that could not be changed"
+        ],
+        "answer": 0,
+        "explanation": "The unexpected route produced both a memorable view and a practical lesson about relying on herself."
+      },
+      {
+        "question": "How does the passage redefine departure?",
+        "options": [
+          "As an escape from every responsibility",
+          "As curiosity with purpose rather than simple escape",
+          "As a competition to reach a destination first",
+          "As a decision to avoid adapting to new places"
+        ],
+        "answer": 1,
+        "explanation": "The final sentence says that the best departure is curiosity with purpose, not escape."
+      }
+    ],
+    "section_c": [
+      {
+        "question": "What did the student learn from the route to Xi'an?",
+        "options": [
+          "The destination was important only for taking photographs.",
+          "High-speed rail prevents people from meeting others.",
+          "A route should never change a traveler's thinking.",
+          "The journey offered perspective beyond ordinary tourism."
+        ],
+        "answer": 3,
+        "explanation": "The route itself taught the student perspective, making the journey more than tourism."
+      },
+      {
+        "question": "How can travel infrastructure renew respect for diverse landscapes?",
+        "options": [
+          "By isolating cities from one another",
+          "By making every journey follow one identical plan",
+          "By connecting local travelers and their stories",
+          "By replacing personal encounters with advertisements"
+        ],
+        "answer": 2,
+        "explanation": "Movement creates opportunities for local encounters and shared stories across different landscapes."
+      }
+    ]
+  },
   "sections": {
     "section_a": {
       "title": "The Surprising purpose of travel",
       "type": "reading",
-      "passage": "Many students assume travel is only about famous sights and photos. Yet experienced travelers often say the real purpose is surprise: a conversation with a shop owner, a wrong turn that leads to a quiet street, or a day alone that teaches self-reliance. Solo travel can feel frightening at first, but it also creates space for reflection. The best trips do not always go as planned; they go deep enough to change how we see daily life back home."
+      "passage": "Many students assume travel is only about reaching a destination with an orderly itinerary and light luggage. Yet experienced travelers say the real purpose is the unexpected encounter: a conversation with a shop owner, a wrong turn that leads to a quiet street, or a day alone that teaches self-reliance. Solo travel can feel frightening at first, but learning to navigate uncertainty creates space for reflection and curiosity. The best trips do not always go as planned; they transform our perspective on daily life back home."
     },
     "section_b": {
       "title": "Traveling solo — a blessing overall!",
       "type": "reading",
-      "passage": "Traveling solo frightened Mei at first, yet it became a blessing overall. Without a fixed itinerary, she could wander through a hostel neighborhood and talk with local shop owners. A wrong turn led to a memorable landscape and a lesson in self-reliance. Solo travel creates space to adapt, reflect, and transform confidence. The best departure is not escape—it is curiosity with purpose."
+      "passage": "Traveling solo frightened Mei at first, yet it became a blessing overall. Without a fixed itinerary, she could wander through a hostel neighborhood and talk with local shop owners. Mei made a reservation for her first night, then left the next morning open for discovery. A wrong turn led to a memorable landscape and a lesson in self-reliance. Solo travel creates space to adapt, reflect, and transform confidence. The best departure is not escape—it is curiosity with purpose."
     },
     "section_c": {
       "title": "Stories of China",
       "type": "stories_of_china",
-      "passage": "High-speed rail now links cities that once required a full day on the road. A student from Chengdu described her journey to Xi'an as more than tourism: the route itself taught perspective. She met travelers who shared stories about work, family, and change. China's travel infrastructure shows how movement can connect people and renew respect for diverse landscapes."
+      "passage": "High-speed rail now links cities that once required a full day on the road. A student from Chengdu described her journey to Xi'an as more than tourism: the route itself taught perspective. She encountered local travelers who shared stories about work, family, and change. China's travel infrastructure shows how a route can connect people and renew respect for diverse landscapes."
     },
     "vocabulary": {
       "level_count": 4,
@@ -49,7 +134,7 @@
     },
     "reading": {
       "title": "Why We Leave Home",
-      "passage": "Many students assume travel is only about famous sights and photos. Yet experienced travelers often say the real purpose is surprise: a conversation with a shop owner, a wrong turn that leads to a quiet street, or a day alone that teaches self-reliance. Solo travel can feel frightening at first, but it also creates space for reflection. The best trips do not always go as planned; they go deep enough to change how we see daily life back home.",
+      "passage": "Many students assume travel is only about reaching a destination with an orderly itinerary and light luggage. Yet experienced travelers say the real purpose is the unexpected encounter: a conversation with a shop owner, a wrong turn that leads to a quiet street, or a day alone that teaches self-reliance. Solo travel can feel frightening at first, but learning to navigate uncertainty creates space for reflection and curiosity. The best trips do not always go as planned; they transform our perspective on daily life back home.",
       "questions": [
         {
           "question": "According to the passage, travel is mainly about ___.",
@@ -66,18 +151,40 @@
     },
     "listening": {
       "title": "Listening: Let's go",
-      "script": "Many students assume travel is only about famous sights and photos. Yet experienced travelers often say the real purpose is surprise: a conversation with a shop owner, a wrong turn that leads to a quiet street, or a day alone that teaches self-reliance. Solo travel can feel frightening at first, but it also creates space for reflection. The best trips do not always go as planned; they go deep enough to change how we see daily life back home. Traveling solo frightened Mei at first, yet it became a blessing overall. Without a fixed itinerary, she could wander through a hostel neighborhood and talk with local shop owners. A wrong turn led to a memorable landscape and a lesson in self-reliance. Solo travel creates space to adapt, reflect, and transform confidence. The best departure is not escape—it is curiosity with purpose.",
+      "script": "In her travel journal, Mei described her first solo journey beyond a familiar city. She had booked a bed at a hostel, packed light luggage, and left one afternoon open in her itinerary. When she took a wrong turn, she had to navigate unfamiliar lanes. Instead of hurrying back to her route, she asked a local shopkeeper for directions and began to wander. The detour led to a memorable landscape and an unexpected encounter with people who lived nearby. Mei felt nervous, but relying on her own judgment helped her adapt. Later, she said the trip changed her perspective: travel was not just reaching a destination. Curiosity made room for experiences she could not have reserved in advance.",
       "questions": [
         {
-          "question": "According to the passage, travel is mainly about ___.",
+          "question": "What does the speaker present as the deeper purpose of travel?",
           "options": [
-            "buying expensive gifts",
-            "growth and new perspectives",
-            "avoiding all risks",
-            "collecting photos only"
+            "Learning through unexpected encounters and new perspectives.",
+            "Reaching planned landmarks efficiently and documenting them.",
+            "Keeping to familiar routes so uncertainty does not interrupt the trip.",
+            "Avoiding local interaction so the traveler can reflect alone."
+          ],
+          "answer": 0,
+          "explanation": "Mei 的经历把意外相遇、独立应对和新视角联系起来；目的地是旅程的一部分，但不是讲者强调的唯一目的。"
+        },
+        {
+          "question": "How did Mei's wrong turn affect her journey?",
+          "options": [
+            "It interrupted the trip but convinced her to follow a fixed itinerary next time.",
+            "It kept her from talking with local shop owners.",
+            "It led to a memorable landscape and gave her practice in self-reliance.",
+            "It confirmed that traveling alone was too uncertain to be worthwhile."
+          ],
+          "answer": 2,
+          "explanation": "她走错路后看到了难忘的景色，并依靠自己的判断继续前行；稿件还提到她向当地店主问路，因此这次变化没有阻断交流。"
+        },
+        {
+          "question": "What can listeners infer about travel plans from Mei's experience?",
+          "options": [
+            "Only experienced travelers benefit from leaving their plans open.",
+            "Leaving room for change can create valuable experiences.",
+            "Travelers should avoid making any plans before they leave.",
+            "An unexpected change matters only when it leads to a famous attraction."
           ],
           "answer": 1,
-          "explanation": "旅行意义在于成长与新视角。"
+          "explanation": "Mei 没有固定行程，因此能漫步、交谈并从意外中学习。推论是给变化留空间，而不是完全不做计划。"
         }
       ]
     },

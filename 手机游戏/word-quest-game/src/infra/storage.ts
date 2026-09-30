@@ -20,13 +20,20 @@ function normalize(raw: Record<string, unknown> | null): GameSave {
     raw.wordMemory && typeof raw.wordMemory === "object"
       ? (raw.wordMemory as GameSave["wordMemory"])
       : {};
+  const rawCourseId = raw.courseId;
+  const courseId: CourseId =
+    rawCourseId === "cet4" || rawCourseId === "cet6" || rawCourseId === "college_english_rw3"
+      ? rawCourseId
+      : base.courseId;
 
   return {
-    courseId: (raw.courseId as CourseId) ?? base.courseId,
+    courseId,
     mapNodeId: (raw.mapNodeId as string) ?? "",
     discoveredWords: Array.isArray(raw.discoveredWords) ? (raw.discoveredWords as string[]) : [],
     levelProgress: progress,
     wordMemory,
+    rewardIds: Array.isArray(raw.rewardIds) ? (raw.rewardIds as string[]) : [],
+    experience: typeof raw.experience === "number" && Number.isFinite(raw.experience) ? raw.experience : 0,
   };
 }
 

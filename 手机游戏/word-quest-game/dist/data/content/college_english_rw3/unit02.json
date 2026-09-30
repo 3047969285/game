@@ -27,11 +27,107 @@
     "rw3_unit02_19",
     "rw3_unit02_20"
   ],
+  "micro_world_checks": {
+    "section_a": [
+      {
+        "question": "What connects life stories from different centuries?",
+        "options": [
+          "They must describe the same profession.",
+          "They can still speak to the same classroom.",
+          "They are all about collecting wealth.",
+          "They avoid difficult choices."
+        ],
+        "answer": 1,
+        "explanation": "The opening establishes that stories from different centuries can still become meaningful classroom lessons."
+      },
+      {
+        "question": "What did the actress need when helping children was difficult?",
+        "options": [
+          "A larger audience and a new film contract",
+          "A faster ship and a bigger fleet",
+          "A life without responsibility",
+          "Ambition and perseverance"
+        ],
+        "answer": 3,
+        "explanation": "The passage connects her ambition to help children with the perseverance required when comfort was easier."
+      },
+      {
+        "question": "What does the final image suggest about greatness?",
+        "options": [
+          "Greatness can appear in different places and leave a legacy that inspires others.",
+          "Greatness belongs only to famous performers.",
+          "Greatness can be measured by the size of a fleet.",
+          "Greatness requires people to choose comfort first."
+        ],
+        "answer": 0,
+        "explanation": "Both the explorer's voyages and the actress's service show that greatness can take different forms and inspire others."
+      }
+    ],
+    "section_b": [
+      {
+        "question": "What made Audrey Hepburn remarkable beyond her film career?",
+        "options": [
+          "Her elegant style alone",
+          "Her magazine portraits",
+          "Her humanitarian work",
+          "Her decision to avoid public life"
+        ],
+        "answer": 2,
+        "explanation": "The passage emphasizes that humanitarian work defined her later decades beyond the screen."
+      },
+      {
+        "question": "How did compassion change the meaning of Hepburn's fame?",
+        "options": [
+          "It turned fame into service.",
+          "It made her return to every film role.",
+          "It kept her away from children in need.",
+          "It reduced her mission to a magazine portrait."
+        ],
+        "answer": 0,
+        "explanation": "Compassion redirected public attention toward service for hungry children."
+      },
+      {
+        "question": "What does her biography teach students to look for?",
+        "options": [
+          "Only the most elegant public images",
+          "A career with no difficult choices",
+          "Devotion to others that can outlast the spotlight",
+          "A mission defined by fame alone"
+        ],
+        "answer": 2,
+        "explanation": "The closing sentence presents devotion to others as more lasting than celebrity attention."
+      }
+    ],
+    "section_c": [
+      {
+        "question": "What did Zheng He's voyages carry across the Indian Ocean?",
+        "options": [
+          "Only military orders",
+          "Magazine portraits and film scripts",
+          "A plan to isolate every country",
+          "Goods, maps, and mutual respect"
+        ],
+        "answer": 3,
+        "explanation": "The passage describes exchange through goods, maps, and mutual respect."
+      },
+      {
+        "question": "How does the passage describe Zheng He's legacy?",
+        "options": [
+          "As a story of conquest without exchange",
+          "As a narrative of peaceful contact across eras",
+          "As a private ambition with no modern meaning",
+          "As a warning against learning from history"
+        ],
+        "answer": 1,
+        "explanation": "The passage contrasts peaceful contact and shared responsibility with mere conquest."
+      }
+    ]
+  },
   "sections": {
     "section_a": {
-      "title": "Zheng He, the great ancient Chinese explorer",
+      "title": "Two Lives, One Lesson",
       "type": "reading",
-      "passage": "Life stories from different centuries can still speak to the same classroom. One story follows an explorer who sailed across oceans to build peaceful exchange. Another follows an actress who used her fame to help children in need. Their professions were different, yet both made difficult choices when comfort was easier. Students who compare such stories learn that greatness is not a single template. It can appear in a fleet on the sea or in a clinic in a small town."
+      "passage": "Life stories from different centuries can still speak to the same classroom. One story follows an explorer whose voyage across oceans built peaceful exchange. Another follows an actress whose ambition to help children demanded perseverance, even when comfort was easier. Their professions were different, yet both chose service over personal ease. Students who compare such stories learn that greatness is not a single template. It can appear in a fleet crossing distant seas or in years of service to children, leaving a legacy that inspires others."
     },
     "section_b": {
       "title": "Audrey Hepburn — a real angel in the world",
@@ -41,7 +137,7 @@
     "section_c": {
       "title": "Stories of China",
       "type": "stories_of_china",
-      "passage": "In the early fifteenth century, Zheng He commanded a fleet that crossed the Indian Ocean. His voyages carried exchange of goods, maps, and mutual respect. The explorer's legacy is not mere conquest; it is a narrative of peaceful contact across eras. Chinese students today witness how one era's courage can inspire another classroom's discussion about responsibility and global trust."
+      "passage": "In the early fifteenth century, Zheng He commanded a fleet that crossed the Indian Ocean. Each voyage carried goods, maps, and mutual respect. The explorer's legacy is not mere conquest; it is a narrative of peaceful contact across eras. Chinese students today witness how one era's courage can inspire another classroom's discussion about responsibility and global trust."
     },
     "vocabulary": {
       "level_count": 4,
@@ -49,7 +145,7 @@
     },
     "reading": {
       "title": "Two Lives, One Lesson",
-      "passage": "Life stories from different centuries can still speak to the same classroom. One story follows an explorer who sailed across oceans to build peaceful exchange. Another follows an actress who used her fame to help children in need. Their professions were different, yet both made difficult choices when comfort was easier. Students who compare such stories learn that greatness is not a single template. It can appear in a fleet on the sea or in a clinic in a small town.",
+      "passage": "Life stories from different centuries can still speak to the same classroom. One story follows an explorer whose voyage across oceans built peaceful exchange. Another follows an actress whose ambition to help children demanded perseverance, even when comfort was easier. Their professions were different, yet both chose service over personal ease. Students who compare such stories learn that greatness is not a single template. It can appear in a fleet crossing distant seas or in years of service to children, leaving a legacy that inspires others.",
       "questions": [
         {
           "question": "What do the two figures share?",
@@ -66,18 +162,40 @@
     },
     "listening": {
       "title": "Listening: Life stories",
-      "script": "Life stories from different centuries can still speak to the same classroom. One story follows an explorer who sailed across oceans to build peaceful exchange. Another follows an actress who used her fame to help children in need. Their professions were different, yet both made difficult choices when comfort was easier. Students who compare such stories learn that greatness is not a single template. It can appear in a fleet on the sea or in a clinic in a small town. Audrey Hepburn remains a remarkable figure long after her film career. Fans admire her elegant style, but humanitarian work defined her later decades. She devoted years to charity programs for hungry children. Compassion turned fame into service, and her mission went far beyond the portrait on a magazine cover. Students who read her biography learn that devotion to others can outlast any spotlight.",
+      "script": "During a history seminar, our group compared two biographies. One followed an explorer whose voyage with a fleet opened routes for exchange; the other traced Audrey Hepburn's career, from an elegant public image to humanitarian work. Years after acting, she supported charity programs for children facing hunger. That mission demanded perseverance: compassion had to become continued action. At first we wanted to rank their influence by fame. Our instructor asked us to witness a different measure—what each person chose to do for others. Neither chose only the easier, private path; both devoted time to service. Their lives belonged to different eras, yet ambition guided action in each. A meaningful legacy can take many forms and still inspire people.",
       "questions": [
         {
-          "question": "What do the two figures share?",
+          "question": "What do the explorer and the actress have in common?",
           "options": [
-            "The same profession",
-            "Difficult but meaningful choices",
-            "A dislike of travel",
-            "A focus only on wealth"
+            "They became influential through similar careers in the same era.",
+            "They devoted their later lives to the same charitable cause.",
+            "Their different professions both involved choosing service over personal ease.",
+            "Their service mattered only because both had already become famous."
           ],
-          "answer": 1,
-          "explanation": "两人都做出了艰难而有意义的选择。"
+          "answer": 2,
+          "explanation": "听力明确对照两种不同职业，并总结两人都选择服务而非个人安逸。相同点是价值取向，不是职业或时代相同。"
+        },
+        {
+          "question": "What did Audrey Hepburn devote years to after her film career?",
+          "options": [
+            "Taking part in charity programs for children facing hunger.",
+            "Returning to acting to keep her public profile in the spotlight.",
+            "Organizing peaceful exchanges between distant communities.",
+            "Training young performers to take over her film career."
+          ],
+          "answer": 0,
+          "explanation": "讲者说她在演艺生涯之后仍支持帮助饥饿儿童的慈善项目；这里考查的是时间顺序和她后来投入的工作。"
+        },
+        {
+          "question": "What conclusion about greatness does the listening support?",
+          "options": [
+            "A lasting legacy depends on staying in one profession.",
+            "Public recognition is a more reliable measure than service.",
+            "Service becomes meaningful only when it reaches a large audience.",
+            "Different forms of service can leave an inspiring legacy."
+          ],
+          "answer": 3,
+          "explanation": "结尾指出，两段人生经历的职业和时代不同，但都留下了服务他人的影响；因此，有启发性的遗产不只有一种形式。"
         }
       ]
     },

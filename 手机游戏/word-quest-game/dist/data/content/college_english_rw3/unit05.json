@@ -27,11 +27,85 @@
     "rw3_unit05_19",
     "rw3_unit05_20"
   ],
+  "micro_world_checks": {
+    "section_a": [
+      {
+        "question": "What did the lunar mission demonstrate beyond a single successful landing?",
+        "options": [
+          "That luck is more important than engineering",
+          "That a spacecraft can support long-term exploration through careful planning",
+          "That students should care only about spectacle",
+          "That future missions need no reliable systems"
+        ],
+        "answer": 1,
+        "explanation": "The mission is presented as a technical breakthrough in lunar exploration and a model of long-term planning."
+      },
+      {
+        "question": "What turns China's space dream into reliable capability?",
+        "options": [
+          "One dramatic launch without testing",
+          "Avoiding every failure and changing no system",
+          "Focusing on photographs instead of research",
+          "Thousands of tests, useful data, steady innovation, and attention to the frontier"
+        ],
+        "answer": 3,
+        "explanation": "The passage links tests and failures with reliable systems, innovation, and future exploration."
+      }
+    ],
+    "section_b": [
+      {
+        "question": "What did the Chang'e-4 breakthrough depend on?",
+        "options": [
+          "Thousands of tests rather than luck alone",
+          "A single unplanned launch",
+          "A decision to stop collecting data",
+          "A shorter training period"
+        ],
+        "answer": 0,
+        "explanation": "The passage directly contrasts systematic testing with relying on luck."
+      },
+      {
+        "question": "How do ambitious goals become routine capability?",
+        "options": [
+          "By removing every adjustment from an orbit",
+          "By treating engineering as a matter of publicity",
+          "Through cooperation, patient research, and long-term planning",
+          "Through speed without analysis"
+        ],
+        "answer": 2,
+        "explanation": "The closing sentence names cooperation and patient research as the path from ambition to capability."
+      }
+    ],
+    "section_c": [
+      {
+        "question": "What does the astronauts' training represent?",
+        "options": [
+          "A short event unrelated to science",
+          "A mission that requires no discipline",
+          "A replacement for every spacecraft",
+          "A long-term endeavor connected with generations of exploration"
+        ],
+        "answer": 3,
+        "explanation": "Training links the present mission with a longer history of exploration and scientific endeavor."
+      },
+      {
+        "question": "What do the nation's frontier dreams rely on?",
+        "options": [
+          "Spectacle without research",
+          "Discipline, innovation, and shared investment in science",
+          "Competition without cooperation",
+          "A single generation working alone"
+        ],
+        "answer": 1,
+        "explanation": "The final world identifies discipline, innovation, and shared investment as the foundation of frontier dreams."
+      }
+    ]
+  },
   "sections": {
     "section_a": {
       "title": "No limit for China's astronauts in their space exploration endeavors",
       "type": "reading",
-      "passage": "When a probe landed on the far side of the moon, students across the country followed the news in real time. The mission was not only a technical success; it showed how long-term planning turns dreams into routine capability. Engineers explained that each launch depends on thousands of small tests and failures. China's space dream, they said, is less about spectacle and more about building reliable systems for future generations."
+      "passage": "When a spacecraft carried a probe to the far side of the moon, students across the country followed the news in real time. The mission was not only a technical breakthrough in lunar exploration; it showed how long-term planning turns dreams into routine capability. Engineers explained that each launch depends on thousands of small tests and failures, with every data point improving the next design. China's space dream, they said, is less about spectacle and more about building reliable systems through steady innovation for the frontier of future generations."
     },
     "section_b": {
       "title": "Chang'e-4 kicked off a new space odyssey",
@@ -41,7 +115,7 @@
     "section_c": {
       "title": "Stories of China",
       "type": "stories_of_china",
-      "passage": "China's astronauts train for years before a single mission enters orbit. Their endeavor reflects generations of exploration—from early telescopes to modern spacecraft. Students visiting a space exhibit learn that the nation's frontier dreams rely on discipline, innovation, and shared investment in science for the future."
+      "passage": "China's astronauts train for years before a single mission enters orbit. Their endeavor reflects generations of exploration—from early telescopes to modern spacecraft. Students visiting a space exhibit learn that the nation's frontier dreams rely on discipline, innovation, and shared investment in science for the future. Training prepares each astronaut to use a telescope, respond to gravity changes, and live safely aboard a space station."
     },
     "vocabulary": {
       "level_count": 4,
@@ -49,7 +123,7 @@
     },
     "reading": {
       "title": "A New Chapter in Lunar Exploration",
-      "passage": "When a probe landed on the far side of the moon, students across the country followed the news in real time. The mission was not only a technical success; it showed how long-term planning turns dreams into routine capability. Engineers explained that each launch depends on thousands of small tests and failures. China's space dream, they said, is less about spectacle and more about building reliable systems for future generations.",
+      "passage": "When a spacecraft carried a probe to the far side of the moon, students across the country followed the news in real time. The mission was not only a technical breakthrough in lunar exploration; it showed how long-term planning turns dreams into routine capability. Engineers explained that each launch depends on thousands of small tests and failures, with every data point improving the next design. China's space dream, they said, is less about spectacle and more about building reliable systems through steady innovation for the frontier of future generations.",
       "questions": [
         {
           "question": "What does the passage emphasize?",
@@ -66,18 +140,40 @@
     },
     "listening": {
       "title": "Listening: China's space dream",
-      "script": "When a probe landed on the far side of the moon, students across the country followed the news in real time. The mission was not only a technical success; it showed how long-term planning turns dreams into routine capability. Engineers explained that each launch depends on thousands of small tests and failures. China's space dream, they said, is less about spectacle and more about building reliable systems for future generations. When Chang'e-4 landed on the far side of the moon, classrooms followed the odyssey in real time. The breakthrough depended on thousands of tests, not luck alone. Engineers analyzed data from each launch and orbit adjustment. A lunar landing is a lesson in long-term planning: ambitious goals become routine capability through cooperation and patient research.",
+      "script": "At a school visit, a mission engineer showed students a timeline from a lunar probe project. A long-term plan divided the work into stages, with small tests before each major step. Before launch, teams rehearsed procedures and checked systems one by one. After a simulation or orbit adjustment, they reviewed the readings and changed the next checklist when evidence called for it. A sensor value that looked minor could help engineers improve a later design. No single specialist made every decision: guidance, communication, and control teams compared their findings. The landing attracted headlines, but the engineer said a lasting achievement was making a difficult operation reliable enough for future teams to build on. Students took away a broader lesson: ambitious projects advance through patient research, cooperation, and honest attention to setbacks, not through luck or spectacle alone.",
       "questions": [
         {
-          "question": "What does the passage emphasize?",
+          "question": "What helped turn the space mission's goals into reliable capability?",
           "options": [
-            "Luck alone brings success",
-            "Long-term planning and reliable systems",
-            "Space travel has no scientific value",
-            "Students should avoid engineering"
+            "One successful launch that proved later testing unnecessary.",
+            "A focus on public attention rather than system reliability.",
+            "Repeated small tests and long-term planning.",
+            "A decision to keep early failures out of the design process."
+          ],
+          "answer": 2,
+          "explanation": "工程师说明长期计划把任务拆成阶段，每个大步骤前都做小型测试；可靠能力来自持续验证，不是一次成功。"
+        },
+        {
+          "question": "Why did engineers analyze data from launches and orbit adjustments?",
+          "options": [
+            "To use each data point to improve the next design.",
+            "To confirm that the original design should remain unchanged.",
+            "To replace cooperation with decisions made by one engineer.",
+            "To make the mission appear more dramatic to the public."
+          ],
+          "answer": 0,
+          "explanation": "听力直接说明每个数据点都能改进下一版设计；这是迭代改进的因果关系，不是为宣传或证明测试多余。"
+        },
+        {
+          "question": "What broader lesson does the speaker draw from lunar exploration?",
+          "options": [
+            "Patient research matters only after a breakthrough has succeeded.",
+            "Long-term capability grows through patient research and cooperation.",
+            "A new spectacle is needed to sustain progress each year.",
+            "Frontier achievements depend more on luck than on systems."
           ],
           "answer": 1,
-          "explanation": "文章强调长期规划与可靠体系。"
+          "explanation": "结尾把远大目标与合作、耐心研究联系起来，说明可持续进步依赖长期积累，不是不断追求轰动。"
         }
       ]
     },
