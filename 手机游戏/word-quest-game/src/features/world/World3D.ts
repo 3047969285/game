@@ -1294,6 +1294,7 @@ export class World3D {
     const curve = new THREE.CatmullRomCurve3(points, false, "catmullrom", 0.35);
     const steps = Math.max(points.length * 28, 80);
 
+    const unitRoute = Boolean(this.activeUnitId);
     for (let i = 0; i < this.nodes.length - 1; i++) {
       const a = this.nodes[i];
       const b = this.nodes[i + 1];
@@ -1308,12 +1309,20 @@ export class World3D {
       );
 
       const rail = new THREE.Mesh(
-        new THREE.TubeGeometry(sub, 16, 0.48, 12, false),
+        new THREE.TubeGeometry(sub, 16, unitRoute ? 0.16 : 0.48, 12, false),
         new THREE.MeshStandardMaterial({ color: cleared ? 0x4a8c72 : 0x3d4a5c, roughness: 0.68, metalness: 0.1 })
       );
       rail.receiveShadow = true;
-      const glow = new THREE.Mesh(new THREE.TubeGeometry(sub, 16, 0.26, 10, false), glowPath(cleared));
-      glow.position.y = 0.08;
+      const pathGlow = glowPath(cleared);
+      if (unitRoute) {
+        pathGlow.opacity = 0.48;
+        pathGlow.emissiveIntensity = 0.24;
+      }
+      const glow = new THREE.Mesh(
+        new THREE.TubeGeometry(sub, 16, unitRoute ? 0.055 : 0.26, 10, false),
+        pathGlow
+      );
+      glow.position.y = unitRoute ? 0.035 : 0.08;
       this.pathGroup.add(rail, glow);
     }
 
