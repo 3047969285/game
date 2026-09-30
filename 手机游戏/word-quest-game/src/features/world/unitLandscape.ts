@@ -1271,24 +1271,31 @@ function addPassageSceneLandmark(
         crater.rotation.x = Math.PI / 2;
         crater.userData.isLandscapeStage = true;
       }
-      const rover = add(new THREE.BoxGeometry(1.8, 0.78, 1.35), edge, -1.8, 1.9, 25.4);
+      const rover = add(new THREE.BoxGeometry(2.25, 0.86, 1.58), ground, -1.8, 2.02, 24.5);
       rover.userData.isLandscapeStage = true;
-      for (const x of [-2.6, -1]) for (const z of [24.85, 25.95]) {
-        const wheel = add(new THREE.CylinderGeometry(0.34, 0.34, 0.18, 10), dark, x, 1.38, z);
+      box(-1.8, 2.47, 24.5, 2.04, 0.16, 1.4, edge);
+      const solarPanel = new THREE.MeshStandardMaterial({ color: 0x294f70, emissive: 0x10283d, emissiveIntensity: 0.24, roughness: 0.58, metalness: 0.3 });
+      for (const x of [-3.72, 0.12]) {
+        box(x, 2.56, 24.5, 1.42, 0.14, 1.62, solarPanel);
+        for (let row = 0; row < 4; row++) {
+          box(x, 2.65, 23.92 + row * 0.38, 1.3, 0.035, 0.035, edge);
+        }
+        route([[x < -1.8 ? -2.86 : -0.74, 2.4, 24.5], [x, 2.45, 24.5]], edge, 0.055);
+      }
+      for (const x of [-3, -1.8, -0.6]) for (const z of [23.58, 25.42]) {
+        const wheel = add(new THREE.CylinderGeometry(0.4, 0.4, 0.24, 12), dark, x, 1.62, z);
         wheel.rotation.z = Math.PI / 2;
         wheel.userData.isLandscapeStage = true;
       }
-      for (const x of [-3.05, -0.55]) {
-        const panel = add(new THREE.BoxGeometry(0.92, 0.12, 1.2), ground, x, 2.18, 25.4);
-        panel.userData.isLandscapeStage = true;
-        for (let row = 0; row < 3; row++) box(x, 2.27, 24.95 + row * 0.3, 0.78, 0.035, 0.035, glow);
-      }
-      cylinder(-1.8, 2.9, 25.4, 0.08, 1.55, dark, 6);
-      const probe = add(new THREE.OctahedronGeometry(0.66, 0), glow, -1.8, 3.85, 25.4);
+      cylinder(-1.8, 3.32, 24.5, 0.08, 1.72, dark, 8);
+      box(-1.8, 4.2, 24.5, 0.82, 0.42, 0.52, ground);
+      const cameraLens = add(new THREE.SphereGeometry(0.13, 10, 8), edge, -1.8, 4.2, 24.2);
+      cameraLens.userData.isLandscapeBeacon = true;
+      const probe = add(new THREE.OctahedronGeometry(0.58, 0), glow, -1.8, 4.92, 24.5);
       probe.userData.isLandscapeBeacon = true;
-      const antenna = add(new THREE.SphereGeometry(0.23, 10, 8), edge, -1.8, 4.7, 25.4);
+      const antenna = add(new THREE.SphereGeometry(0.19, 10, 8), edge, -1.8, 5.72, 24.5);
       antenna.userData.isLandscapeBeacon = true;
-      route([[-4.5, 0.82, 25.1], [-3.5, 0.85, 24.8], [-1.8, 0.85, 25.4], [0.1, 0.82, 26.2]], edge, 0.09);
+      route([[-4.5, 0.82, 24.2], [-3.5, 0.85, 23.8], [-1.8, 0.85, 24.5], [0.1, 0.82, 25.4]], edge, 0.09);
       break;
     }
     case "test-console": {
