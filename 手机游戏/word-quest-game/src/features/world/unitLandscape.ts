@@ -49,7 +49,7 @@ const PASSAGE_SCENES: Record<string, Partial<Record<PassageKind, PassageSceneKin
  * 读写教程 3 的单元场景骨架。
  *
  * 这里不依赖外部 3D 资产，先用低多边形几何把“可走的空间”搭出来：
- * 中央学习圣所、四条学习路径、远景地标和主题装置。这样在 GLB 资产
+ * 中央学习圣所、远景地标和主题装置。这样在 GLB 资产
  * 加载慢、移动端降画质或资源缺失时，世界仍然有明确的空间结构。
  */
 export function buildUnitLandscape(biome: UnitBiome, _anchor: MapNode, worldId?: string, worldTitle?: string): THREE.Group {
@@ -102,7 +102,6 @@ export function buildUnitLandscape(biome: UnitBiome, _anchor: MapNode, worldId?:
     addFocusedLearningApproach(root, focus.route, edge);
   } else {
     addCentralSanctuary(root, ground, dark, glow, edge);
-    addLearningRoutes(root, ground, edge, biome.decorStyle, focus.route);
     addStudyStations(root, dark, glow, edge);
   }
   if (isFocusedLearningWorld(worldId)) {
@@ -144,6 +143,10 @@ export function buildUnitLandscape(biome: UnitBiome, _anchor: MapNode, worldId?:
   if (isFocusedLearningWorld(worldId)) {
     environment.scale.setScalar(0.72);
     environment.position.z = 14;
+  } else {
+    // Keep each unit's defining environment legible from the fixed sanctuary entrance.
+    environment.scale.setScalar(0.62);
+    environment.position.z = 1.5;
   }
   root.add(environment);
 
@@ -1311,21 +1314,21 @@ function addCentralSanctuary(
   glow: THREE.MeshStandardMaterial,
   edge: THREE.MeshStandardMaterial
 ): void {
-  const plaza = new THREE.Mesh(new THREE.CylinderGeometry(15, 17, 0.65, 8), ground);
+  const plaza = new THREE.Mesh(new THREE.CylinderGeometry(13, 14.5, 0.65, 8), ground);
   plaza.position.y = 0.34;
   root.add(plaza);
 
-  const lowerRing = new THREE.Mesh(new THREE.TorusGeometry(13.8, 0.18, 8, 48), edge);
+  const lowerRing = new THREE.Mesh(new THREE.TorusGeometry(11.8, 0.11, 8, 48), edge);
   lowerRing.rotation.x = Math.PI / 2;
   lowerRing.position.y = 0.72;
   lowerRing.userData.isLandscapeRing = true;
   root.add(lowerRing);
 
-  const innerDisc = new THREE.Mesh(new THREE.CylinderGeometry(8.7, 9.2, 0.16, 8), dark);
+  const innerDisc = new THREE.Mesh(new THREE.CylinderGeometry(7.2, 7.6, 0.16, 8), dark);
   innerDisc.position.y = 0.76;
   root.add(innerDisc);
 
-  const innerRing = new THREE.Mesh(new THREE.TorusGeometry(8.3, 0.1, 8, 40), glow);
+  const innerRing = new THREE.Mesh(new THREE.TorusGeometry(6.8, 0.07, 8, 40), glow);
   innerRing.rotation.x = Math.PI / 2;
   innerRing.position.y = 0.9;
   innerRing.userData.isLandscapeRing = true;
@@ -1340,22 +1343,13 @@ function addCentralSanctuary(
   gateTop.position.set(0, 8.7, 8.5);
   root.add(gateLeft, gateRight, gateTop);
 
-  const gateRing = new THREE.Mesh(new THREE.TorusGeometry(3.2, 0.14, 8, 40), glow);
+  const gateRing = new THREE.Mesh(new THREE.TorusGeometry(2.75, 0.1, 8, 40), glow);
   gateRing.position.set(0, 4.65, 8.5);
   gateRing.rotation.y = Math.PI / 2;
   gateRing.userData.isLandscapeRing = true;
   root.add(gateRing);
 
-  const beacon = new THREE.Mesh(new THREE.OctahedronGeometry(2.1, 1), glow);
-  beacon.position.y = 4.2;
-  beacon.userData.isLandscapeBeacon = true;
-  root.add(beacon);
-
-  const halo = new THREE.Mesh(new THREE.TorusGeometry(3.3, 0.12, 8, 48), edge);
-  halo.rotation.x = Math.PI / 2;
-  halo.position.y = 4.2;
-  halo.userData.isLandscapeRing = true;
-  root.add(halo);
+  // 中央可交互水晶由学习圣所 MapNode 提供，不在这里叠加第二颗发光核心。
 
   for (const [x, z] of [[-7, -7], [7, -7], [-7, 7], [7, 7]]) {
     const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.42, 4.8, 8), dark);
@@ -1366,49 +1360,6 @@ function addCentralSanctuary(
     cap.position.set(x, 5.05, z);
     cap.userData.isLandscapeBeacon = true;
     root.add(cap);
-  }
-}
-
-function addLearningRoutes(
-  root: THREE.Group,
-  ground: THREE.MeshStandardMaterial,
-  edge: THREE.MeshStandardMaterial,
-  style: UnitBiome["decorStyle"],
-  focusRoute: number
-): void {
-  const routeColor = focusRoute || (style === "space" ? 0x8b5cf6 : style === "market" ? 0xfbbf24 : 0x4ade80);
-  const route = new THREE.MeshStandardMaterial({
-    color: routeColor,
-    emissive: routeColor,
-    emissiveIntensity: 0.24,
-    roughness: 0.48,
-    metalness: 0.2,
-  });
-  const routeEdge = edge.clone();
-  routeEdge.emissiveIntensity = 0.16;
-
-  for (let i = 0; i < 4; i++) {
-    const angle = i * Math.PI / 2;
-    const length = 30 + (i % 2) * 6;
-    const slab = new THREE.Mesh(new THREE.BoxGeometry(5.4, 0.24, length), ground);
-    slab.position.set(Math.sin(angle) * (length / 2 + 13), 0.62, Math.cos(angle) * (length / 2 + 13));
-    slab.rotation.y = angle;
-    root.add(slab);
-
-    const strip = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.05, length - 1), routeEdge);
-    strip.position.copy(slab.position);
-    strip.position.y += 0.18;
-    strip.rotation.y = angle;
-    strip.userData.isLandscapeRoute = true;
-    root.add(strip);
-
-    for (let step = 0; step < 4; step++) {
-      const distance = 22 + step * 7;
-      const marker = new THREE.Mesh(new THREE.BoxGeometry(3.8, 0.12, 0.42), route);
-      marker.position.set(Math.sin(angle) * distance, 0.84, Math.cos(angle) * distance);
-      marker.rotation.y = angle;
-      root.add(marker);
-    }
   }
 }
 

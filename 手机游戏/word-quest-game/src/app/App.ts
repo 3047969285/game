@@ -832,7 +832,7 @@ export class App {
     };
 
     const subWorldNodes = subWorlds.map((subWorld, index): MapNode => {
-      const angle = -Math.PI / 2 + (index / Math.max(1, subWorlds.length)) * Math.PI * 2;
+      const angle = Math.PI / 2 + (index / Math.max(1, subWorlds.length)) * Math.PI * 2;
       const radius = 28 + (index % 2) * 7;
       const x = center.x + Math.cos(angle) * radius;
       const z = center.z + Math.sin(angle) * radius;

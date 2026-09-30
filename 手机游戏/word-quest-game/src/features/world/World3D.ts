@@ -1290,14 +1290,18 @@ export class World3D {
       return;
     }
 
-    const points = this.nodes.map((n) => new THREE.Vector3(n.x, sampleTerrainY(n.x, n.z, terrainHeight) + 0.45, n.z));
+    const unitRoute = Boolean(this.activeUnitId);
+    const routePairs: Array<readonly [MapNode, MapNode]> = unitRoute
+      ? this.nodes.slice(1).map((node) => [this.nodes[0], node] as const)
+      : this.nodes.slice(0, -1).map((node, index) => [node, this.nodes[index + 1]] as const);
+    const points = this.nodes.map((node) =>
+      new THREE.Vector3(node.x, sampleTerrainY(node.x, node.z, terrainHeight) + 0.45, node.z)
+    );
     const curve = new THREE.CatmullRomCurve3(points, false, "catmullrom", 0.35);
     const steps = Math.max(points.length * 28, 80);
+    const routeCurves: THREE.CatmullRomCurve3[] = [];
 
-    const unitRoute = Boolean(this.activeUnitId);
-    for (let i = 0; i < this.nodes.length - 1; i++) {
-      const a = this.nodes[i];
-      const b = this.nodes[i + 1];
+    for (const [a, b] of routePairs) {
       const cleared = a.cleared && b.cleared;
       const ay = sampleTerrainY(a.x, a.z, terrainHeight) + 0.45;
       const by = sampleTerrainY(b.x, b.z, terrainHeight) + 0.45;
@@ -1307,83 +1311,99 @@ export class World3D {
         "catmullrom",
         0.4
       );
+      routeCurves.push(sub);
 
-      const rail = new THREE.Mesh(
-        new THREE.TubeGeometry(sub, 16, unitRoute ? 0.16 : 0.48, 12, false),
-        new THREE.MeshStandardMaterial({ color: cleared ? 0x4a8c72 : 0x3d4a5c, roughness: 0.68, metalness: 0.1 })
-      );
-      rail.receiveShadow = true;
-      const pathGlow = glowPath(cleared);
-      if (unitRoute) {
-        pathGlow.opacity = 0.48;
-        pathGlow.emissiveIntensity = 0.24;
+      if (!unitRoute) {
+        const rail = new THREE.Mesh(
+          new THREE.TubeGeometry(sub, 16, 0.48, 12, false),
+          new THREE.MeshStandardMaterial({ color: cleared ? 0x4a8c72 : 0x3d4a5c, roughness: 0.68, metalness: 0.1 })
+        );
+        rail.receiveShadow = true;
+        const glow = new THREE.Mesh(new THREE.TubeGeometry(sub, 16, 0.26, 10, false), glowPath(cleared));
+        glow.position.y = 0.08;
+        this.pathGroup.add(rail, glow);
       }
-      const glow = new THREE.Mesh(
-        new THREE.TubeGeometry(sub, 16, unitRoute ? 0.055 : 0.26, 10, false),
-        pathGlow
-      );
-      glow.position.y = unitRoute ? 0.035 : 0.08;
-      this.pathGroup.add(rail, glow);
     }
 
     // 石板铺路（苔藓石砖 + 方向对齐）
-    const tileMatA = mossyStone(0x6b7280);
-    const tileMatB = mossyStone(0x8b939f);
-    const tileMatC = mossyStone(0x55606e);
+    const tileMatA = mossyStone(unitRoute ? 0x2b4157 : 0x6b7280);
+    const tileMatB = mossyStone(unitRoute ? 0x354f66 : 0x8b939f);
+    const tileMatC = mossyStone(unitRoute ? 0x26384b : 0x55606e);
     const tileMats = [tileMatA, tileMatB, tileMatC];
     const tileGeo = new THREE.BoxGeometry(1.05, 0.13, 0.72);
-    for (let s = 0; s <= steps; s++) {
-      const t0 = s / steps;
-      const t1 = Math.min(1, (s + 0.5) / steps);
-      const p = curve.getPoint(t0);
-      p.y = sampleTerrainY(p.x, p.z, terrainHeight) + 0.01;
-      const p2 = curve.getPoint(t1);
-      const tile = new THREE.Mesh(tileGeo, tileMats[s % 3]);
-      tile.position.copy(p);
-      tile.lookAt(p2.x, p.y, p2.z);
-      tile.receiveShadow = true;
-      this.pathGroup.add(tile);
+    if (unitRoute) {
+      routePairs.forEach(([a, b], routeIndex) => {
+        const branch = routeCurves[routeIndex];
+        const branchSteps = Math.max(16, Math.ceil(Math.hypot(a.x - b.x, a.z - b.z) / 1.6));
+        for (let step = 0; step <= branchSteps; step++) {
+          const t0 = step / branchSteps;
+          const t1 = Math.min(1, (step + 0.5) / branchSteps);
+          const p = branch.getPoint(t0);
+          p.y = sampleTerrainY(p.x, p.z, terrainHeight) + 0.01;
+          const p2 = branch.getPoint(t1);
+          const tile = new THREE.Mesh(tileGeo, tileMats[step % tileMats.length]);
+          tile.position.copy(p);
+          tile.lookAt(p2.x, p.y, p2.z);
+          tile.receiveShadow = true;
+          this.pathGroup!.add(tile);
+        }
+      });
+    } else {
+      for (let step = 0; step <= steps; step++) {
+        const t0 = step / steps;
+        const t1 = Math.min(1, (step + 0.5) / steps);
+        const p = curve.getPoint(t0);
+        p.y = sampleTerrainY(p.x, p.z, terrainHeight) + 0.01;
+        const p2 = curve.getPoint(t1);
+        const tile = new THREE.Mesh(tileGeo, tileMats[step % tileMats.length]);
+        tile.position.copy(p);
+        tile.lookAt(p2.x, p.y, p2.z);
+        tile.receiveShadow = true;
+        this.pathGroup.add(tile);
+      }
     }
 
-    // 路灯（每隔 6 节点放 1 对）
-    const glowTex = makeLanternGlowTexture("rgba(255,220,140,1)");
-    const poleGeo = new THREE.CylinderGeometry(0.055, 0.07, 2.6, 7);
-    const armGeo = new THREE.CylinderGeometry(0.03, 0.03, 0.8, 5);
-    const lampGeo = new THREE.SphereGeometry(0.14, 8, 6);
-    const poleMat = lanternMetal();
-    const lampMat = lanternGlass(0xffe080);
+    if (!unitRoute) {
+      // 路灯（每隔 6 节点放 1 对）；单元放射路线由主题地标照明。
+      const glowTex = makeLanternGlowTexture("rgba(255,220,140,1)");
+      const poleGeo = new THREE.CylinderGeometry(0.055, 0.07, 2.6, 7);
+      const armGeo = new THREE.CylinderGeometry(0.03, 0.03, 0.8, 5);
+      const lampGeo = new THREE.SphereGeometry(0.14, 8, 6);
+      const poleMat = lanternMetal();
+      const lampMat = lanternGlass(0xffe080);
 
-    for (let ni = 0; ni < this.nodes.length; ni += Math.max(1, Math.floor(this.nodes.length / 8))) {
-      const node = this.nodes[ni];
-      // 路灯方向：沿路径法线左右各一盏
-      const ti = Math.min(1, (ni + 0.5) / Math.max(1, this.nodes.length - 1));
-      const tang = curve.getTangent(ti);
-      const side = new THREE.Vector3(-tang.z, 0, tang.x).normalize();
+      for (let nodeIndex = 0; nodeIndex < this.nodes.length; nodeIndex += Math.max(1, Math.floor(this.nodes.length / 8))) {
+        const node = this.nodes[nodeIndex];
+        // 路灯方向：沿路径法线左右各一盏
+        const t = Math.min(1, (nodeIndex + 0.5) / Math.max(1, this.nodes.length - 1));
+        const tangent = curve.getTangent(t);
+        const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
 
-      for (const sign of [-1, 1]) {
-        const lx = node.x + side.x * 2.2 * sign;
-        const lz = node.z + side.z * 2.2 * sign;
-        const ly = sampleTerrainY(lx, lz, terrainHeight);
+        for (const sign of [-1, 1]) {
+          const lx = node.x + side.x * 2.2 * sign;
+          const lz = node.z + side.z * 2.2 * sign;
+          const ly = sampleTerrainY(lx, lz, terrainHeight);
 
-        const pole = new THREE.Mesh(poleGeo, poleMat);
-        pole.position.set(lx, ly + 1.3, lz);
-        pole.castShadow = true;
+          const pole = new THREE.Mesh(poleGeo, poleMat);
+          pole.position.set(lx, ly + 1.3, lz);
+          pole.castShadow = true;
 
-        const arm = new THREE.Mesh(armGeo, poleMat);
-        arm.rotation.z = Math.PI / 2;
-        arm.position.set(lx + 0.4 * sign * -1, ly + 2.55, lz);
+          const arm = new THREE.Mesh(armGeo, poleMat);
+          arm.rotation.z = Math.PI / 2;
+          arm.position.set(lx + 0.4 * sign * -1, ly + 2.55, lz);
 
-        const lamp = new THREE.Mesh(lampGeo, lampMat);
-        lamp.position.set(lx + 0.8 * sign * -1, ly + 2.55, lz);
+          const lamp = new THREE.Mesh(lampGeo, lampMat);
+          lamp.position.set(lx + 0.8 * sign * -1, ly + 2.55, lz);
 
-        // 光晕 sprite
-        const glow = new THREE.Sprite(new THREE.SpriteMaterial({
-          map: glowTex, transparent: true, opacity: 0.7, depthWrite: false, blending: THREE.AdditiveBlending,
-        }));
-        glow.scale.setScalar(1.8);
-        glow.position.set(lx + 0.8 * sign * -1, ly + 2.6, lz);
+          // 光晕 sprite
+          const glow = new THREE.Sprite(new THREE.SpriteMaterial({
+            map: glowTex, transparent: true, opacity: 0.7, depthWrite: false, blending: THREE.AdditiveBlending,
+          }));
+          glow.scale.setScalar(1.8);
+          glow.position.set(lx + 0.8 * sign * -1, ly + 2.6, lz);
 
-        this.pathGroup!.add(pole, arm, lamp, glow);
+          this.pathGroup!.add(pole, arm, lamp, glow);
+        }
       }
     }
 
@@ -1904,7 +1924,6 @@ export class World3D {
       const mesh = object as THREE.Mesh;
       if (mesh.userData?.isLandscapeRing) {
         mesh.rotation.y += dt * 0.42;
-        mesh.rotation.z += dt * 0.18;
       }
       if (mesh.userData?.isLandscapeBeacon) {
         if (mesh.userData.landscapeBaseY === undefined) mesh.userData.landscapeBaseY = mesh.position.y;
