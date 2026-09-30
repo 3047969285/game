@@ -202,8 +202,8 @@
     "translation": {
       "sentences": [
         {
-          "zh": "请将下列句子译为英文：伟大的人生故事提醒我们，影响力来自行动而非名声本身。",
-          "en_reference": "Great life stories remind us that influence comes from action, not fame itself.",
+          "zh": "请将下列句子译为英文：伟大探险家的人生与航行故事提醒我们，影响力来自行动而非名声本身。",
+          "en_reference": "The life stories and voyages of great explorers remind us that influence comes from action, not fame itself.",
           "keywords": [
             "explorer",
             "voyage"

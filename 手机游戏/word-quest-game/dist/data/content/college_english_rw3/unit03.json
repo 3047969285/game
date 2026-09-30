@@ -192,7 +192,7 @@
       "sentences": [
         {
           "zh": "请将下列句子译为英文：旅行的意义不只是到达某地，而是在路上重新认识自己。",
-          "en_reference": "The purpose of travel is not only to reach a place, but to rediscover ourselves along the way.",
+          "en_reference": "Travel is more than reaching a destination; each journey can help us rediscover ourselves along the way.",
           "keywords": [
             "travel",
             "journey"

@@ -191,8 +191,8 @@
     "translation": {
       "sentences": [
         {
-          "zh": "请将下列句子译为英文：共享经济提醒我们，资源的价值不仅在于拥有，还在于流动与再利用。",
-          "en_reference": "The sharing economy reminds us that value lies not only in ownership, but also in circulation and reuse.",
+          "zh": "请将下列句子译为英文：即使在危机中，共享经济也提醒我们，资源的价值不仅在于拥有，还在于流动与再利用。",
+          "en_reference": "Even in a crisis, the sharing economy reminds us that resources gain value not only through ownership but also through circulation and reuse.",
           "keywords": [
             "economy",
             "crisis"

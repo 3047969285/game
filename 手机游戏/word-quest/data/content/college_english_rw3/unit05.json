@@ -181,7 +181,7 @@
       "sentences": [
         {
           "zh": "请将下列句子译为英文：中国航天事业的进步，是无数代人持续探索与协作的结果。",
-          "en_reference": "China's progress in space is the result of continuous exploration and cooperation across generations.",
+          "en_reference": "The progress of China's space program reflects generations of exploration and cooperation by astronauts aboard spacecraft and the teams supporting them.",
           "keywords": [
             "astronaut",
             "spacecraft"
