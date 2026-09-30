@@ -714,17 +714,99 @@ function addPassageSceneLandmark(
 
   switch (kind) {
     case "message": {
-      box(0, 4.15, 27, 3.5, 5.6, 0.62, dark);
-      box(0, 4.15, 26.63, 2.92, 4.82, 0.12, glow);
-      box(0, 1.38, 27, 1.22, 0.16, 0.14, edge);
-      for (const [x, y, width] of [[-0.42, 5.65, 1.38], [0.36, 4.45, 1.72], [-0.25, 3.25, 1.32]] as const) {
-        box(x, y, 26.48, width, 0.34, 0.12, edge);
+      const cliffFace = new THREE.MeshStandardMaterial({ color: 0x355574, roughness: 0.92, metalness: 0.02 });
+      for (const [x, y, z, scaleX, scaleY, scaleZ] of [
+        [-6.15, 4.25, 28.7, 1.35, 2.05, 0.76], [-7.45, 3.55, 25.65, 1.05, 1.55, 0.65],
+        [6.15, 4.25, 28.7, 1.35, 2.05, 0.76], [7.45, 3.55, 25.65, 1.05, 1.55, 0.65],
+      ] as const) {
+        const cliff = add(new THREE.DodecahedronGeometry(1.6, 0), cliffFace, x, y, z);
+        cliff.scale.set(scaleX, scaleY, scaleZ);
+        cliff.rotation.z = x < 0 ? -0.035 : 0.035;
+        cliff.userData.isLandscapeStage = true;
       }
-      for (const x of [-3.4, 3.4]) {
-        const signal = add(new THREE.SphereGeometry(0.34, 10, 8), glow, x, 6.3, 27);
-        signal.userData.isLandscapeBeacon = true;
+
+      box(-3.9, 3.95, 26.35, 1.9, 3.55, 0.48, dark);
+      box(-3.9, 3.95, 26.06, 1.48, 3.05, 0.08, ground);
+      for (const [x, y, width] of [[-4.12, 4.75, 1.08], [-3.65, 4.18, 0.94], [-4.08, 3.55, 1.12]] as const) {
+        box(x, y, 25.98, width, 0.18, 0.08, edge);
       }
-      route([[-3.2, 6.1, 27], [-1.7, 5.6, 27], [0, 4.8, 27], [1.8, 5.1, 27], [3.2, 6.1, 27]], edge, 0.075);
+      const signal = add(new THREE.SphereGeometry(0.2, 10, 8), glow, -3.9, 6.18, 25.98);
+      signal.userData.isLandscapeBeacon = true;
+
+      for (const [x, y, material] of [[-1.65, 4.7, edge], [0, 5.45, glow], [1.62, 4.82, edge]] as const) {
+        box(x, y, 26.35, 1.05, 0.66, 0.16, material, x * 0.035);
+        for (const offsetX of [-0.2, 0, 0.2]) {
+          const dot = add(new THREE.SphereGeometry(0.055, 7, 6), dark, x + offsetX, y, 26.24);
+          dot.userData.isLandscapeBeacon = true;
+        }
+      }
+
+      box(3.72, 1.8, 27.1, 2.25, 0.3, 0.9, ground);
+      for (const x of [2.9, 4.54]) box(x, 1.42, 27.1, 0.14, 0.55, 0.16, dark);
+      const quietFigure = add(new THREE.CylinderGeometry(0.36, 0.52, 1.36, 8), dark, 3.72, 2.72, 27.1);
+      quietFigure.userData.isLandscapeStage = true;
+      const quietHead = add(new THREE.SphereGeometry(0.44, 12, 10), ground, 3.72, 3.72, 27.1);
+      quietHead.userData.isLandscapeStage = true;
+      const phoneBasket = box(-1.8, 1.74, 25.35, 1.8, 0.42, 0.72, ground);
+      phoneBasket.rotation.z = -0.08;
+      for (const x of [-2.28, -1.8, -1.32]) box(x, 2.03, 25.26, 0.3, 0.06, 0.42, edge);
+
+      route([[-3.15, 5.9, 26.22], [-1.72, 5.2, 26.22], [0, 5.7, 26.22], [1.75, 5.05, 26.22], [3.18, 4.4, 26.22]], edge, 0.075);
+      route([[-5.5, 1.35, 27], [-3.7, 1.35, 25.4], [0, 1.35, 25.4], [3.7, 1.35, 25.4], [5.5, 1.35, 27]], glow, 0.095);
+      const canyonLight = new THREE.PointLight(0x70cfff, 0.9, 15, 2);
+      canyonLight.position.set(0, 5.4, 25.2);
+      root.add(canyonLight);
+      break;
+    }
+    case "dialogue": {
+      for (const [index, z] of [25.1, 27.5, 29.9].entries()) {
+        arch(9.3 - index * 0.45, 6.45 - index * 0.2, index === 1 ? edge : ground, z);
+        const roofRib = add(new THREE.TorusGeometry(3.95 - index * 0.18, 0.075, 7, 24, Math.PI), index === 1 ? glow : edge, 0, 2.95, z + 0.05);
+        roofRib.userData.isLandscapeStage = true;
+      }
+      route([[-4.2, 6.35, 25.1], [-4.1, 6.65, 27.5], [-3.9, 6.45, 29.9]], edge, 0.075);
+      route([[4.2, 6.35, 25.1], [4.1, 6.65, 27.5], [3.9, 6.45, 29.9]], edge, 0.075);
+      route([[0, 6.6, 25.1], [0, 6.9, 27.5], [0, 6.6, 29.9]], glow, 0.075);
+
+      cylinder(0, 1.52, 26.35, 0.34, 1.32, dark, 10);
+      cylinder(0, 2.24, 26.35, 1.68, 0.22, ground, 12);
+      const sharedIdea = add(new THREE.OctahedronGeometry(0.34, 1), glow, 0, 2.55, 26.35);
+      sharedIdea.userData.isLandscapeBeacon = true;
+
+      const listenerMaterials = [edge, glow, ground] as const;
+      for (const [index, x] of [-3.25, 0, 3.25].entries()) {
+        box(x, 1.62, 28, 1.16, 0.24, 0.92, dark, x * -0.04);
+        box(x, 2.02, 28.38, 1.08, 0.78, 0.16, ground, x * -0.04);
+        const torso = add(new THREE.CylinderGeometry(0.34, 0.48, 1.22, 8), listenerMaterials[index], x, 2.82, 28);
+        torso.userData.isLandscapeStage = true;
+        const head = add(new THREE.SphereGeometry(0.4, 12, 10), ground, x, 3.72, 28);
+        head.userData.isLandscapeStage = true;
+      }
+
+      const leafMaterial = new THREE.MeshStandardMaterial({
+        color: 0x69bd91,
+        emissive: 0x163d2d,
+        emissiveIntensity: 0.28,
+        roughness: 0.86,
+      });
+      for (const [x, z] of [[-5.3, 26.2], [5.3, 26.2], [-5.3, 29.1], [5.3, 29.1]] as const) {
+        cylinder(x, 1.55, z, 0.43, 0.62, dark, 8);
+        cylinder(x, 2.22, z, 0.08, 1.05, edge, 7);
+        const leaf = add(new THREE.DodecahedronGeometry(0.46, 0), leafMaterial, x, 2.95, z);
+        leaf.scale.set(0.8, 1.35, 0.8);
+        leaf.userData.isLandscapeStage = true;
+      }
+
+      box(-4.35, 1.63, 25.55, 1.42, 0.34, 0.76, dark);
+      for (const x of [-4.78, -4.35, -3.92]) box(x, 1.9, 25.48, 0.24, 0.08, 0.38, edge);
+      for (const [radius, y] of [[0.65, 4.75], [0.98, 4.95], [1.31, 5.15]] as const) {
+        const wave = add(new THREE.TorusGeometry(radius, 0.055, 7, 24, Math.PI), glow, 0, y, 27.78);
+        wave.userData.isLandscapeRoute = true;
+      }
+      route([[-3.2, 4.25, 27.78], [0, 5.25, 27.78], [3.2, 4.25, 27.78]], edge, 0.07);
+      const greenhouseLight = new THREE.PointLight(0x9ce8c8, 0.85, 16, 2);
+      greenhouseLight.position.set(0, 5.4, 25.7);
+      root.add(greenhouseLight);
       break;
     }
     case "focus": {
