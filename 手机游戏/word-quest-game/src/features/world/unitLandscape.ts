@@ -1012,14 +1012,33 @@ function addPassageSceneLandmark(
       break;
     }
     case "career": {
+      cylinder(0, 1.15, 27, 6.15, 0.3, dark, 12);
       cylinder(0, 2.15, 27, 3.25, 0.42, ground, 12);
+      arch(10.4, 7.1, edge, 30.2);
+      box(0, 4.75, 30.52, 6.8, 3.5, 0.3, dark);
+      for (const x of [-2.15, 0, 2.15]) {
+        box(x, 4.75, 30.32, 1.72, 2.88, 0.12, x === 0 ? glow : ground);
+        box(x, 6.18, 30.21, 0.88, 0.12, 0.08, edge);
+        box(x, 3.55, 30.21, 1.1, 0.1, 0.08, edge);
+      }
+      for (const x of [-3.6, 0, 3.6]) {
+        cylinder(x, 5.95, 27.7, 0.07, 1.55, dark, 6);
+        const lamp = add(new THREE.SphereGeometry(0.3, 10, 8), glow, x, 5.05, 27.7);
+        lamp.userData.isLandscapeBeacon = true;
+      }
       for (const angle of [0, Math.PI / 3, (Math.PI * 2) / 3, Math.PI, (Math.PI * 4) / 3, (Math.PI * 5) / 3]) {
         const x = Math.cos(angle) * 4.5;
         const z = 27 + Math.sin(angle) * 2.4;
-        const chair = box(x, 1.6, z, 1.05, 1.35, 0.95, dark);
+        const chair = box(x, 1.52, z, 1.1, 0.28, 0.95, dark, angle + Math.PI / 2);
         chair.userData.isLandscapeStage = true;
+        const backrest = box(x + Math.cos(angle) * 0.42, 2.02, z + Math.sin(angle) * 0.32, 1.02, 0.82, 0.2, ground, angle + Math.PI / 2);
+        backrest.userData.isLandscapeStage = true;
         route([[x * 0.72, 2.2, 27 + (z - 27) * 0.7], [0, 2.25, 27]], edge, 0.055);
       }
+      box(-1.18, 2.58, 26.45, 1.12, 0.16, 0.78, ground, -0.08);
+      box(-1.18, 2.7, 26.45, 0.92, 0.08, 0.68, glow, -0.08);
+      const gear = add(new THREE.TorusGeometry(0.42, 0.1, 8, 16), edge, 1.25, 2.76, 26.5);
+      gear.userData.isLandscapeStage = true;
       const shared = add(new THREE.OctahedronGeometry(0.62, 1), glow, 0, 3.1, 26.5);
       shared.userData.isLandscapeBeacon = true;
       break;
