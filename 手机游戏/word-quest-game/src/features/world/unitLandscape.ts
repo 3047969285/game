@@ -1049,6 +1049,45 @@ function addPassageSceneLandmark(
         const pin = add(new THREE.SphereGeometry(0.22, 10, 8), glow, x, y, 26.45);
         pin.userData.isLandscapeBeacon = true;
       }
+
+      const trailBed = new THREE.MeshStandardMaterial({ color: 0x665b44, roughness: 0.96 });
+      route([[-4.8, 1.48, 25], [-2.8, 1.5, 24.2], [-0.2, 1.52, 24.6], [2.2, 1.52, 25.55], [4.5, 1.55, 25.35]], trailBed, 0.18);
+      route([[-0.2, 1.52, 24.6], [-1.6, 1.5, 26.1], [-2.9, 1.52, 27.8]], edge, 0.085);
+
+      box(-4.35, 1.95, 24.9, 1.55, 1.12, 0.95, dark);
+      box(-4.35, 2.56, 24.9, 1.62, 0.18, 1.02, edge);
+      for (const x of [-4.78, -3.92]) {
+        const wheel = add(new THREE.SphereGeometry(0.16, 10, 8), ground, x, 1.35, 24.84);
+        wheel.userData.isLandscapeStage = true;
+        cylinder(x, 2.83, 24.9, 0.055, 0.55, ground, 7);
+      }
+      box(-4.35, 3.12, 24.9, 0.92, 0.11, 0.12, ground);
+
+      cylinder(2.55, 2.55, 24.95, 0.12, 2.75, dark, 8);
+      box(2.05, 3.48, 24.95, 1.62, 0.35, 0.18, edge, -0.08);
+      box(3.03, 4.02, 24.95, 1.5, 0.35, 0.18, ground, 0.08);
+      const forkMarker = add(new THREE.OctahedronGeometry(0.26, 0), glow, 2.55, 4.35, 24.95);
+      forkMarker.userData.isLandscapeBeacon = true;
+
+      const shopX = 6.85;
+      box(shopX, 2.8, 26.45, 2.3, 2.45, 1.5, dark);
+      box(shopX, 2.92, 25.66, 1.9, 1.55, 0.12, mapPaper);
+      box(shopX, 4.12, 25.72, 2.45, 0.24, 1.68, edge);
+      box(shopX, 2.1, 25.42, 2.2, 0.38, 0.78, ground);
+      for (const x of [shopX - 1.02, shopX + 1.02]) box(x, 2.92, 25.54, 0.12, 1.65, 0.14, ground);
+      for (const x of [shopX - 0.5, shopX, shopX + 0.5]) box(x, 2.42, 25.3, 0.24, 0.28, 0.24, glow);
+      const shopLamp = add(new THREE.SphereGeometry(0.2, 10, 8), glow, shopX, 4.42, 25.56);
+      shopLamp.userData.isLandscapeBeacon = true;
+
+      const traveler = add(new THREE.CylinderGeometry(0.27, 0.38, 0.92, 8), edge, 3.95, 2.25, 25.1);
+      traveler.userData.isLandscapeStage = true;
+      const travelerHead = add(new THREE.SphereGeometry(0.29, 10, 8), ground, 3.95, 2.95, 25.1);
+      travelerHead.userData.isLandscapeStage = true;
+      const owner = add(new THREE.CylinderGeometry(0.27, 0.38, 0.92, 8), dark, shopX + 0.22, 2.92, 26.25);
+      owner.userData.isLandscapeStage = true;
+      const ownerHead = add(new THREE.SphereGeometry(0.29, 10, 8), ground, shopX + 0.22, 3.62, 26.25);
+      ownerHead.userData.isLandscapeStage = true;
+      route([[4.12, 2.72, 25.15], [5.1, 3.05, 25.15], [shopX - 0.72, 3.1, 25.15]], glow, 0.055);
       break;
     }
     case "detour": {
