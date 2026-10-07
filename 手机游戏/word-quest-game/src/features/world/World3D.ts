@@ -1993,6 +1993,7 @@ export class World3D {
       const isNear = this.nearNode?.id === id;
       group.traverse((obj) => {
         const mesh = obj as THREE.Mesh;
+        if (mesh.userData?.isSignpost) mesh.visible = !isNear;
         if (mesh.userData?.isCrystal) {
           if (mesh.userData.baseY === undefined) mesh.userData.baseY = mesh.position.y;
           mesh.rotation.y = t * 0.6 + id.length * 0.3;
