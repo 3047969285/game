@@ -1767,10 +1767,10 @@ export class App {
       </div>
     `;
 
-    const body = screen.querySelector("#scene-body")!;
+    const body = screen.querySelector("#scene-body");
     if (phase.kind === "vocab") {
-      body.innerHTML = `<p class="subtitle">本关词汇：请逐一点击下方词卡完成主动回忆（无段落阅读）。</p>`;
-    } else {
+      body?.remove();
+    } else if (body) {
       const readingMeta = el("div", "rw3-reading-meta");
       const readingLabel = el("div", "rw3-reading-label");
       readingLabel.textContent = isArticlePhase
