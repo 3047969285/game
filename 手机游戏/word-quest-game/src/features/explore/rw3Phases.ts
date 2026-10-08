@@ -68,9 +68,9 @@ const PASSAGE_WORLD_STORIES: Record<string, Partial<Record<PassageKind, PassageW
     section_c: { places: ["苏州织坊", "练习绣台", "共创展廊", "活态传承庭"], scenes: ["读懂纹样", "手上技艺", "共同决定", "代际续写"] },
   },
   unit05: {
-    section_a: { places: ["月背探测站", "测试控制台"], scenes: ["探测器抵达", "从失败中修正"] },
-    section_b: { places: ["嫦娥四号着陆点", "轨道调整台"], scenes: ["月背着陆", "数据引导航向"] },
-    section_c: { places: ["航天训练舱", "科学展厅"], scenes: ["多年准备", "共同投资未来"] },
+    section_a: { places: ["月背观测台", "鹊桥中继舱", "数据样本室", "远征地平线"], scenes: ["不可直达的月背", "信号接力", "证据校准", "把梦想交给下一代"] },
+    section_b: { places: ["任务控制厅", "轨道校准室", "系统模拟舱", "协同决策桥"], scenes: ["发现通信盲区", "判断轨道偏差", "用试验比较方案", "记录边界与责任"] },
+    section_c: { places: ["基础训练舱", "失重模拟池", "太空科学展厅", "未来前沿舱"], scenes: ["知识与身体准备", "在压力下协作", "把观测变成研究", "让探索延续"] },
   },
   unit06: {
     section_a: { places: ["邻里书店", "共享书架", "社区现场"], scenes: ["危机中的书店", "资源交换", "社区韧性"] },

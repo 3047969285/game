@@ -30,74 +30,140 @@
   "micro_world_checks": {
     "section_a": [
       {
-        "question": "What did the lunar mission demonstrate beyond a single successful landing?",
+        "question": "Why did the far-side probe need a relay link to communicate with Earth?",
         "options": [
-          "That luck is more important than engineering",
-          "That a spacecraft can support long-term exploration through careful planning",
-          "That students should care only about spectacle",
-          "That future missions need no reliable systems"
+          "The probe was too small to collect scientific data.",
+          "The Moon blocked a direct radio path between the probe and Earth.",
+          "The landing site had no sunlight for its instruments.",
+          "The spacecraft was designed to communicate only with astronauts."
         ],
         "answer": 1,
-        "explanation": "The mission is presented as a technical breakthrough in lunar exploration and a model of long-term planning."
+        "explanation": "The Moon blocks a direct line of communication from the far side, so the relay passes messages between the probe and Earth."
       },
       {
-        "question": "What turns China's space dream into reliable capability?",
+        "question": "What is the main purpose of repeating tests before a landing?",
         "options": [
-          "One dramatic launch without testing",
-          "Avoiding every failure and changing no system",
-          "Focusing on photographs instead of research",
-          "Thousands of tests, useful data, steady innovation, and attention to the frontier"
+          "To make every design appear perfect in public.",
+          "To remove the need for sensors during flight.",
+          "To guarantee that no unexpected condition can occur.",
+          "To learn whether a system works under defined conditions and improve it with evidence."
         ],
         "answer": 3,
-        "explanation": "The passage links tests and failures with reliable systems, innovation, and future exploration."
+        "explanation": "The passage treats tests as evidence about performance under specified conditions, not as proof that a system can never fail."
+      },
+      {
+        "question": "What helped the two student groups resolve their disagreement about the landing site?",
+        "options": [
+          "They compared their reference points and found a sensor had been read from the wrong scale.",
+          "They chose the site shown in the most dramatic image.",
+          "They ignored the slope readings and followed the original plan.",
+          "They asked the guide to choose without explaining the evidence."
+        ],
+        "answer": 0,
+        "explanation": "Comparing methods revealed a scale-reading error, which changed the evidence and the landing choice."
+      },
+      {
+        "question": "What does Lin learn about exploration by the end of the passage?",
+        "options": [
+          "A successful mission depends mainly on one brilliant inventor.",
+          "The best scientific story is the one with the most exciting pictures.",
+          "A dream becomes more reliable when generations inherit methods for testing it.",
+          "Future teams should repeat every earlier decision without review."
+        ],
+        "answer": 2,
+        "explanation": "Lin concludes that exploration passes both an ambition and an evidence-based method to future generations."
       }
     ],
     "section_b": [
       {
-        "question": "What did the Chang'e-4 breakthrough depend on?",
+        "question": "Why did the simulation team add a relay satellite to its model?",
         "options": [
-          "Thousands of tests rather than luck alone",
-          "A single unplanned launch",
-          "A decision to stop collecting data",
-          "A shorter training period"
-        ],
-        "answer": 0,
-        "explanation": "The passage directly contrasts systematic testing with relying on luck."
-      },
-      {
-        "question": "How do ambitious goals become routine capability?",
-        "options": [
-          "By removing every adjustment from an orbit",
-          "By treating engineering as a matter of publicity",
-          "Through cooperation, patient research, and long-term planning",
-          "Through speed without analysis"
+          "It could replace every navigation and science team.",
+          "It made the lunar surface easier to see through a telescope.",
+          "It could carry a message around the Moon's obstruction.",
+          "It allowed the spacecraft to skip orbit planning."
         ],
         "answer": 2,
-        "explanation": "The closing sentence names cooperation and patient research as the path from ambition to capability."
+        "explanation": "The direct radio route is blocked in the simulation, so the relay creates a communication path."
+      },
+      {
+        "question": "Why did An compare several sensor readings before changing the orbit?",
+        "options": [
+          "To separate a confirmed drift from an uncertain reading before acting.",
+          "To prove that the spacecraft should never be adjusted.",
+          "To reduce the number of people involved in the mission.",
+          "To make the control-room display more impressive."
+        ],
+        "answer": 0,
+        "explanation": "The team labels confirmed, estimated, and uncertain information so that a decision rests on reliable evidence."
+      },
+      {
+        "question": "What did the follow-up trial show about the smaller correction?",
+        "options": [
+          "It restored the signal only by ignoring the fuel limit.",
+          "It made the relay unnecessary for later communication.",
+          "It worked in every possible condition without further testing.",
+          "It restored the signal with less fuel under the tested conditions."
+        ],
+        "answer": 3,
+        "explanation": "The trial supports the smaller change for the tested setup; it does not establish that it works under every condition."
+      },
+      {
+        "question": "Why did An record both the successful result and its limitation?",
+        "options": [
+          "To hide the uncertain readings from the next team.",
+          "So another team can understand what was tested and where caution is still needed.",
+          "To show that a breakthrough never requires revision.",
+          "So the mission can be judged by speed alone."
+        ],
+        "answer": 1,
+        "explanation": "Recording the result and its boundary makes the procedure reviewable and prevents one test from being overstated."
       }
     ],
     "section_c": [
       {
-        "question": "What does the astronauts' training represent?",
+        "question": "What does Rui discover about astronaut preparation?",
         "options": [
-          "A short event unrelated to science",
-          "A mission that requires no discipline",
-          "A replacement for every spacecraft",
-          "A long-term endeavor connected with generations of exploration"
+          "A strong launch vehicle is enough to prepare a crew.",
+          "Training is mainly a public performance before launch.",
+          "An astronaut can rely on instinct instead of practicing procedures.",
+          "Technical knowledge, physical readiness, judgment, and team practice work together."
         ],
         "answer": 3,
-        "explanation": "Training links the present mission with a longer history of exploration and scientific endeavor."
+        "explanation": "The exhibit connects systems knowledge, physical and psychological preparation, emergency procedures, and coordination."
       },
       {
-        "question": "What do the nation's frontier dreams rely on?",
+        "question": "What does the simulated warning teach the trainee to do first?",
         "options": [
-          "Spectacle without research",
-          "Discipline, innovation, and shared investment in science",
-          "Competition without cooperation",
-          "A single generation working alone"
+          "Follow a checklist, communicate the reading, and confirm the next safe step.",
+          "Silence the alarm and continue the planned task.",
+          "Wait for one teammate to make every decision.",
+          "Change the spacecraft setting before checking the data."
+        ],
+        "answer": 0,
+        "explanation": "The scenario rewards a deliberate sequence: use the procedure, share evidence, and confirm a safe response."
+      },
+      {
+        "question": "Why does the exhibit include a model of a space station as well as a rocket?",
+        "options": [
+          "A station is used only to display a launch vehicle.",
+          "Long-term work in orbit depends on systems and research after launch, too.",
+          "A station removes the effects of gravity from every experiment.",
+          "The exhibit wants visitors to ignore crew preparation."
         ],
         "answer": 1,
-        "explanation": "The final world identifies discipline, innovation, and shared investment as the foundation of frontier dreams."
+        "explanation": "The station model helps Rui see that sustained experiments, maintenance, and crew routines continue after a launch."
+      },
+      {
+        "question": "Which idea best summarizes the passage's view of a space frontier?",
+        "options": [
+          "A frontier is meaningful when careful preparation and shared research let people explore responsibly.",
+          "Only astronauts contribute to a space program.",
+          "Scientific success should be measured by publicity rather than evidence.",
+          "Training can stop once the first mission has succeeded."
+        ],
+        "answer": 0,
+        "explanation": "The ending links exploration with disciplined preparation, reliable systems, and work shared across generations."
       }
     ]
   },
@@ -105,97 +171,172 @@
     "section_a": {
       "title": "No limit for China's astronauts in their space exploration endeavors",
       "type": "reading",
-      "passage": "When a spacecraft carried a probe to the far side of the moon, students across the country followed the news in real time. The mission was not only a technical breakthrough in lunar exploration; it showed how long-term planning turns dreams into routine capability. Engineers explained that each launch depends on thousands of small tests and failures, with every data point improving the next design. China's space dream, they said, is less about spectacle and more about building reliable systems through steady innovation for the frontier of future generations."
+      "passage": "At a university mission exhibit, Lin received a blank map of the Moon and a question: why does the far side ask more of a spacecraft than a powerful engine can provide? He drew Earth behind the lunar disk, then placed a relay satellite where both Earth and the hidden landing area could be reached. Only then did the communication problem become visible: a probe behind the Moon cannot send a direct radio signal to a ground station. The exhibit explained that Chang'e-4 achieved the first soft landing and rover operations on the lunar far side in 2019, supported by the Queqiao relay link. Lin had celebrated the breakthrough as a single moment, but the guide asked him to see the mission as a chain of decisions. A launch window, a planned orbit, and a controlled landing each depend on different checks. Before a model spacecraft descended, the team rehearsed the sequence in simulation and agreed on what every sensor should report. When one reading falls outside its expected range, engineers compare it with other data before changing course. The purpose of a test is not to prove a design perfect but to learn whether it works under specified conditions. Lin wrote down the claim, the evidence, and the uncertainty instead of trusting the brightest image. At the display, an animation showed the relay passing a message between the far-side probe and Earth. Lin followed the signal route with his finger and saw how cooperation joined operators, scientists, and equipment across distance. Research and innovation therefore appeared not as slogans but as tools for solving a communication constraint. A telescope can reveal a distant surface, yet a landing still requires measurements, communication, and safe decisions close to the Moon. The guide called the scientific frontier a place where curiosity must become a testable question. Students next received sample data and had to decide which model site was level enough for a safe descent. Two groups disagreed because they had used different reference points on the same slope. When they compared their methods, they found that one sensor had been read from the wrong scale. Lin revised his answer and explained why the corrected evidence changed the landing choice. He left with a more ambitious idea of exploration: each generation inherits not only a dream, but a method for checking it."
     },
     "section_b": {
       "title": "Chang'e-4 kicked off a new space odyssey",
       "type": "reading",
-      "passage": "When Chang'e-4 landed on the far side of the moon, classrooms followed the odyssey in real time. The breakthrough depended on thousands of tests, not luck alone. Engineers analyzed data from each launch and orbit adjustment. A lunar landing is a lesson in long-term planning: ambitious goals become routine capability through cooperation and patient research."
+      "passage": "In a campus control-room simulation, An joined a team asked to deliver a message from a lunar probe hidden behind the Moon. A direct route disappeared from the screen whenever the Moon blocked the line between the probe and Earth. Their model added a relay satellite, turning one broken connection into two monitored links. An wanted to move the spacecraft immediately, but the mentor asked her to inspect the data log first. The orbit trace showed a small drift; a second sensor confirmed it, while a third reading remained uncertain. The team labeled each fact, estimate, and open question rather than treating every number as equally reliable. They checked how a correction would affect fuel, timing, and the next communication window. No single control carried the whole mission: navigation, communication, and science teams had to compare their evidence. When An simulated an orbit adjustment, the relay link returned, but the margin for error narrowed. She recorded both the successful result and the condition that could make it fail. The mentor explained that a breakthrough is repeatable only when its method is documented and tested. The class then compared two designs, one simpler and one more ambitious. Students chose neither because it looked advanced; they asked what test would distinguish them. A follow-up trial showed that the smaller change restored the signal with less fuel under the tested conditions. This choice was not a rejection of innovation but a decision guided by evidence. An understood why exploration requires both courage and restraint. A lunar odyssey stretches across years, yet each careful check protects the next step. The simulation ended with an unanswered question about communication reliability. Rather than guess, the team planned a new trial and assigned one task to each member. An left the control room seeing cooperation not as a slogan, but as a way to expose weak assumptions before they became costly."
     },
     "section_c": {
       "title": "Stories of China",
       "type": "stories_of_china",
-      "passage": "China's astronauts train for years before a single mission enters orbit. Their endeavor reflects generations of exploration—from early telescopes to modern spacecraft. Students visiting a space exhibit learn that the nation's frontier dreams rely on discipline, innovation, and shared investment in science for the future. Training prepares each astronaut to use a telescope, respond to gravity changes, and live safely aboard a space station."
+      "passage": "At a science center, Rui expected an astronaut exhibit to focus on rockets, but the first room showed a crew practicing ordinary procedures. A guide explained that astronaut candidates study spacecraft systems and rehearse physical, psychological, and emergency tasks before a mission. Their preparation is an endeavor measured in careful practice, not a dramatic countdown. In a training pool, a crew learns to move steadily while a partner checks the route and the equipment. A simulated warning then interrupts the exercise. The trainee reads the panel, reports the data, and waits for the team to confirm which procedure applies. One student asks why the crew does not simply react by instinct. The guide answers that in a complex environment, practiced communication can prevent a small uncertainty from becoming a larger risk. The next display shows how gravity affects movement and why a station needs routines for work, rest, and research. A telescope is not just an impressive object on the wall; it represents questions that scientists can investigate when instruments, people, and records work together. Rui sees that a spacecraft launch is only one stage in a longer system. After liftoff, teams monitor the orbit, support the crew, and interpret results. The exhibit asks visitors to match each mission task with the evidence that would show it was completed safely. Rui first chooses a photograph, then notices that a checklist, measurement, and crew report provide stronger support. The group discusses how cooperation connects engineers on Earth with astronauts in orbit. Their work opens a frontier, but it also depends on shared preparation and public investment in research. Before leaving, Rui writes one question for a future science lesson and one skill he could practice now: explain a claim with evidence. He understands that exploration is not a promise of easy answers. It is a disciplined way for people across generations to ask better questions and test them together."
     },
     "vocabulary": {
       "level_count": 4,
       "words_per_level": 5
     },
     "reading": {
-      "title": "A New Chapter in Lunar Exploration",
-      "passage": "When a spacecraft carried a probe to the far side of the moon, students across the country followed the news in real time. The mission was not only a technical breakthrough in lunar exploration; it showed how long-term planning turns dreams into routine capability. Engineers explained that each launch depends on thousands of small tests and failures, with every data point improving the next design. China's space dream, they said, is less about spectacle and more about building reliable systems through steady innovation for the frontier of future generations.",
+      "title": "The Message That Crossed the Moon",
+      "passage": "During a public science workshop, a student team had to design a communication plan for a probe on the Moon's far side. Their first sketch pointed a radio line straight toward Earth, but a lunar model blocked it. A mentor asked the students to identify the constraint before adding equipment. They placed a relay satellite where it could pass messages between the hidden probe and Earth, then drew a second route for backup communication. The model did not prove that a real mission would succeed; it helped the team ask which parts would need testing. They listed power, orbit, timing, and signal quality as separate questions. One group wanted to choose a path because it looked shortest. Another compared the angles and found that a slightly longer route offered a clearer link. The students recorded what their model showed and what it could not show. Their report distinguished evidence from assumption and suggested a next test rather than claiming certainty. The mentor connected the exercise with Chang'e-4, whose far-side operations depended on a relay link because the Moon interrupts direct communication. The historic result was not a shortcut around engineering; it was evidence that careful system design can make a difficult task possible. By the end, the students understood that exploration is a chain: a question guides a model, a test challenges the model, and new data shapes the next decision. A successful mission may make headlines, but the habits that support it are patient research, clear records, and cooperation across different specialties.",
       "questions": [
         {
-          "question": "What does the passage emphasize?",
+          "question": "What problem did the lunar model reveal in the team's first sketch?",
           "options": [
-            "Luck alone brings success",
-            "Long-term planning and reliable systems",
-            "Space travel has no scientific value",
-            "Students should avoid engineering"
+            "A straight radio path was blocked by the Moon.",
+            "The probe had already landed in the wrong place.",
+            "The team had no measurements for the lunar surface.",
+            "The relay satellite was too close to Earth."
+          ],
+          "answer": 0,
+          "explanation": "The lunar model physically blocks the direct line drawn from the far-side probe to Earth."
+        },
+        {
+          "question": "Why did the students prefer a slightly longer communication route?",
+          "options": [
+            "It required no equipment or testing.",
+            "It offered a clearer link after they compared the angles.",
+            "It made the mission shorter in every stage.",
+            "It proved that the first plan was completely useless."
           ],
           "answer": 1,
-          "explanation": "文章强调长期规划与可靠体系。"
+          "explanation": "The team compared the geometry and found the longer route provided a clearer communication link."
+        },
+        {
+          "question": "What does the report distinguish?",
+          "options": [
+            "Public interest from scientific research.",
+            "The relay satellite from the spacecraft.",
+            "Evidence from assumption, along with limits of the model.",
+            "The Moon's near side from its craters."
+          ],
+          "answer": 2,
+          "explanation": "The students record what their model demonstrates, what it cannot show, and what should be tested next."
+        },
+        {
+          "question": "Which conclusion is best supported by the passage?",
+          "options": [
+            "A model removes the need for real mission tests.",
+            "A relay works only when every team uses the same specialty.",
+            "Historic missions succeed through luck more than planning.",
+            "Reliable exploration grows through models, tests, records, and cooperation."
+          ],
+          "answer": 3,
+          "explanation": "The passage closes with a chain from question to model, test, evidence, and collaboration."
         }
       ]
     },
     "listening": {
-      "title": "Listening: China's space dream",
-      "script": "At a school visit, a mission engineer showed students a timeline from a lunar probe project. A long-term plan divided the work into stages, with small tests before each major step. Before launch, teams rehearsed procedures and checked systems one by one. After a simulation or orbit adjustment, they reviewed the readings and changed the next checklist when evidence called for it. A sensor value that looked minor could help engineers improve a later design. No single specialist made every decision: guidance, communication, and control teams compared their findings. The landing attracted headlines, but the engineer said a lasting achievement was making a difficult operation reliable enough for future teams to build on. Students took away a broader lesson: ambitious projects advance through patient research, cooperation, and honest attention to setbacks, not through luck or spectacle alone.",
+      "title": "Listening: A Test Before the Next Step",
+      "script": "Welcome to the mission-training room. Today, our crew is not launching a spacecraft; it is rehearsing what to do when a sensor gives an unexpected reading. First, the trainee reads the procedure and says the value aloud. A teammate checks the number against a second display, while the instructor records the time and the system's status. The team does not change the orbit just because one signal looks unusual. They compare the data, identify what remains uncertain, and decide whether the mission rule calls for a pause or a correction. In a separate exercise, the crew practices moving through a station module in low gravity. The goal is not speed. Each person must secure the equipment, report a change, and leave a clear note for the next shift. After the rehearsal, the group reviews one mistake without blaming the trainee. They ask which cue was missed and how the checklist can make the next attempt safer. The instructor says that research missions depend on accurate instruments, but also on people who communicate honestly. When a later test improves the procedure, the change is recorded and shared with the whole team. A space mission may be ambitious, yet its reliability is built from small actions that can be checked and repeated. For your question, listen for the evidence the crew uses before it acts.",
       "questions": [
         {
-          "question": "What helped turn the space mission's goals into reliable capability?",
+          "question": "What does the crew do before changing the orbit in response to an unusual signal?",
           "options": [
-            "One successful launch that proved later testing unnecessary.",
-            "A focus on public attention rather than system reliability.",
-            "Repeated small tests and long-term planning.",
-            "A decision to keep early failures out of the design process."
-          ],
-          "answer": 2,
-          "explanation": "工程师说明长期计划把任务拆成阶段，每个大步骤前都做小型测试；可靠能力来自持续验证，不是一次成功。"
-        },
-        {
-          "question": "Why did engineers analyze data from launches and orbit adjustments?",
-          "options": [
-            "To use each data point to improve the next design.",
-            "To confirm that the original design should remain unchanged.",
-            "To replace cooperation with decisions made by one engineer.",
-            "To make the mission appear more dramatic to the public."
+            "They compare the reading with other data and identify uncertainty.",
+            "They silence the alarm and continue without recording it.",
+            "They ask one specialist to decide without checking the procedure.",
+            "They change the spacecraft setting immediately."
           ],
           "answer": 0,
-          "explanation": "听力直接说明每个数据点都能改进下一版设计；这是迭代改进的因果关系，不是为宣传或证明测试多余。"
+          "explanation": "The team checks a second display and identifies uncertainty before deciding whether to pause or correct."
         },
         {
-          "question": "What broader lesson does the speaker draw from lunar exploration?",
+          "question": "What is the goal of the low-gravity station exercise?",
           "options": [
-            "Patient research matters only after a breakthrough has succeeded.",
-            "Long-term capability grows through patient research and cooperation.",
-            "A new spectacle is needed to sustain progress each year.",
-            "Frontier achievements depend more on luck than on systems."
+            "To see who can finish the module route fastest.",
+            "To practice securing equipment, reporting changes, and leaving a useful note.",
+            "To avoid communicating with the next shift.",
+            "To prove that the station has normal gravity."
           ],
           "answer": 1,
-          "explanation": "结尾把远大目标与合作、耐心研究联系起来，说明可持续进步依赖长期积累，不是不断追求轰动。"
+          "explanation": "The exercise emphasizes safe equipment handling, clear reporting, and handover rather than speed."
+        },
+        {
+          "question": "How does the instructor respond to a mistake in rehearsal?",
+          "options": [
+            "The instructor removes the trainee from the next exercise.",
+            "The mistake is hidden so that the schedule stays on time.",
+            "The team identifies the missed cue and improves the checklist without blame.",
+            "The crew stops documenting procedures."
+          ],
+          "answer": 2,
+          "explanation": "The group asks what cue was missed and how the checklist can improve, without blaming the trainee."
+        },
+        {
+          "question": "Which idea best captures the speaker's final point?",
+          "options": [
+            "A mission is reliable when its small actions can be checked and repeated.",
+            "Only advanced equipment matters in scientific work.",
+            "A procedure should never change after its first use.",
+            "An ambitious mission can succeed without honest communication."
+          ],
+          "answer": 0,
+          "explanation": "The closing lines connect reliability with repeatable, checkable actions and honest communication."
         }
       ]
     },
     "translation": {
       "sentences": [
         {
-          "zh": "请将下列句子译为英文：中国航天事业的进步，是无数代人持续探索与协作的结果。",
-          "en_reference": "The progress of China's space program reflects generations of exploration and cooperation by astronauts aboard spacecraft and the teams supporting them.",
+          "zh": "由中继卫星传回的数据帮助工程师检查了月球背面的通信链路。",
+          "en_reference": "The data returned by the relay satellite helped engineers check the communication link on the far side of the Moon.",
           "keywords": [
-            "astronaut",
-            "spacecraft"
+            "data",
+            "returned",
+            "relay satellite",
+            "communication link"
+          ]
+        },
+        {
+          "zh": "正在监测信号的工程师发现轨道读数出现了细微变化。",
+          "en_reference": "The engineers monitoring the signal noticed a small change in the orbit readings.",
+          "keywords": [
+            "engineers",
+            "monitoring",
+            "signal",
+            "orbit"
+          ]
+        },
+        {
+          "zh": "团队已经记录了测试结果，并说明了它的适用条件。",
+          "en_reference": "The team has recorded the test result and explained the conditions under which it applies.",
+          "keywords": [
+            "has recorded",
+            "test result",
+            "conditions"
+          ]
+        },
+        {
+          "zh": "航天员在进入空间站前练习了应急程序。",
+          "en_reference": "The astronauts practiced emergency procedures before entering the space station.",
+          "keywords": [
+            "astronauts",
+            "practiced",
+            "emergency procedures",
+            "space station"
           ]
         }
       ]
     },
     "writing": {
-      "prompt": "Write 120-150 words about the theme: 中国的航天梦.",
+      "prompt": "Write 120–150 words: Explain how a challenging science mission can turn an ambitious idea into reliable work. Use one example of evidence or testing, explain how cooperation changes a decision, and connect the lesson to a goal you could pursue.",
       "outline": [
-        "Introduction",
-        "Example",
-        "Personal view",
-        "Conclusion"
+        "State your view: what makes a scientific goal reliable rather than merely exciting?",
+        "Describe one mission or classroom example and name the evidence used.",
+        "Explain how testing, feedback, or cooperation changes a decision.",
+        "Connect the lesson to your own learning or a future goal and conclude clearly."
       ]
     }
   }

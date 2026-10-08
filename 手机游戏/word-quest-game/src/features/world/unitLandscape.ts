@@ -11,6 +11,7 @@ type PassageSceneKind =
   | "career" | "violin" | "craft-quality" | "bench" | "caliper" | "trust-bridge" | "loom" | "heritage"
   | "work-dignity" | "craft-evolution" | "embroidery-table" | "living-heritage"
   | "lunar-probe" | "test-console" | "lander" | "orbit-adjustment" | "training" | "science-exhibit"
+  | "relay-bridge" | "sample-lab" | "moon-horizon" | "systems-simulation" | "mission-control" | "crew-simulation" | "future-frontier"
   | "bookshop" | "exchange" | "resilience" | "exchange-wall" | "resource-cycle" | "library" | "digital-lending";
 
 const PASSAGE_SCENES: Record<string, Partial<Record<PassageKind, PassageSceneKind[]>>> = {
@@ -35,9 +36,9 @@ const PASSAGE_SCENES: Record<string, Partial<Record<PassageKind, PassageSceneKin
     section_c: ["loom", "embroidery-table", "heritage", "living-heritage"],
   },
   unit05: {
-    section_a: ["lunar-probe", "test-console"],
-    section_b: ["lander", "orbit-adjustment"],
-    section_c: ["training", "science-exhibit"],
+    section_a: ["lunar-probe", "relay-bridge", "sample-lab", "moon-horizon"],
+    section_b: ["test-console", "orbit-adjustment", "systems-simulation", "mission-control"],
+    section_c: ["training", "crew-simulation", "science-exhibit", "future-frontier"],
   },
   unit06: {
     section_a: ["bookshop", "exchange", "resilience"],
@@ -1681,16 +1682,44 @@ function addPassageSceneLandmark(
       break;
     }
     case "training": {
-      const capsule = add(new THREE.SphereGeometry(1.2, 14, 10), glow, 0, 4.7, 27);
-      capsule.scale.set(0.82, 1.22, 0.82);
-      capsule.userData.isLandscapeStage = true;
-      for (const [radius, rotation] of [[3.4, 0.32], [4.2, 0.92], [4.8, 1.35]] as const) {
-        const gyro = ring(radius, 4.5, rotation);
-        gyro.rotation.z = rotation * 0.55;
+      // 以体能器械、舱内程序板和固定绳替代抽象行星模型，让“训练舱”语义一眼成立。
+      arch(9, 6.2, edge, 30.2);
+      box(0, 4.45, 30, 5.8, 2.7, 0.22, dark);
+      box(0, 4.45, 29.82, 5.35, 2.3, 0.08, ground);
+      for (let row = 0; row < 3; row++) {
+        const y = 5.2 - row * 0.62;
+        for (const x of [-1.55, 0, 1.55]) {
+          const step = add(new THREE.OctahedronGeometry(0.13, 0), row === 1 ? glow : edge, x, y, 29.72);
+          step.userData.isLandscapeStage = true;
+        }
+        box(0, y - 0.2, 29.72, 3.8, 0.035, 0.03, dark);
       }
-      cylinder(0, 1.2, 27, 2.7, 0.34, dark, 12);
-      const core = add(new THREE.OctahedronGeometry(0.58, 1), edge, 0, 4.7, 25.85);
-      core.userData.isLandscapeBeacon = true;
+      box(0, 1.28, 26.5, 3.25, 0.28, 1.55, dark);
+      for (const x of [-1.05, 1.05]) {
+        const wheel = add(new THREE.CylinderGeometry(0.42, 0.42, 0.18, 12), edge, x, 1.18, 26.5);
+        wheel.rotation.z = Math.PI / 2;
+        wheel.userData.isLandscapeStage = true;
+        box(x, 2.28, 26.45, 0.16, 1.78, 0.16, ground);
+      }
+      const suit = new THREE.MeshStandardMaterial({ color: 0xd8e0e4, roughness: 0.76, metalness: 0.04 });
+      const visor = new THREE.MeshStandardMaterial({ color: 0x325b7c, roughness: 0.22, metalness: 0.34, emissive: 0x17344b, emissiveIntensity: 0.18 });
+      const torso = box(0, 2.78, 25.6, 0.78, 1.18, 0.55, suit);
+      const helmet = add(new THREE.SphereGeometry(0.4, 12, 9), suit, 0, 3.62, 25.6);
+      const faceplate = add(new THREE.SphereGeometry(0.28, 10, 8), visor, 0, 3.64, 25.31);
+      faceplate.scale.set(1, 0.72, 0.45);
+      for (const side of [-1, 1]) {
+        const arm = box(side * 0.55, 2.72, 25.56, 0.22, 0.82, 0.25, suit);
+        arm.rotation.z = side * -0.18;
+        box(side * 0.22, 1.96, 25.45, 0.22, 0.72, 0.26, suit);
+        const tether = add(new THREE.TorusGeometry(0.17, 0.055, 7, 14), edge, side * 0.9, 2.0, 26.0);
+        tether.rotation.x = Math.PI / 2;
+        tether.userData.isLandscapeStage = true;
+      }
+      for (const mesh of [torso, helmet, faceplate]) mesh.userData.isLandscapeStage = true;
+      route([[-0.8, 3.7, 25.7], [-0.55, 4.55, 26.1], [0, 5.25, 26.4], [0.65, 5.75, 27]], glow, 0.07);
+      const status = add(new THREE.SphereGeometry(0.3, 10, 8), edge, 0, 5.7, 27);
+      status.userData.isLandscapeBeacon = true;
+      ring(3.2, 1.08, 0.1);
       break;
     }
     case "science-exhibit": {
@@ -1704,6 +1733,146 @@ function addPassageSceneLandmark(
       }
       ring(4.5, 5.4, 0.44);
       ring(2.7, 3.6, -0.7);
+      break;
+    }
+    case "relay-bridge": {
+      arch(10.2, 6.2, dark, 29.7);
+      const earth = add(new THREE.SphereGeometry(1.15, 14, 10), edge, -4.2, 3.7, 27.7);
+      earth.userData.isLandscapeBeacon = true;
+      const moon = add(new THREE.SphereGeometry(1.75, 16, 12), ground, 4.2, 2.7, 28.1);
+      moon.userData.isLandscapeStage = true;
+      for (const [x, z, radius] of [[3.35, 28.1, 0.38], [4.8, 28.1, 0.52], [5.05, 27.75, 0.24]] as const) {
+        const crater = add(new THREE.TorusGeometry(radius, 0.09, 6, 16), dark, x, 2.72, z);
+        crater.rotation.x = Math.PI / 2;
+        crater.userData.isLandscapeStage = true;
+      }
+      box(0, 4.65, 27, 0.92, 0.68, 0.7, glow);
+      for (const x of [-1.45, 1.45]) {
+        box(x, 4.68, 27, 1.52, 0.12, 0.82, edge);
+        for (let row = 0; row < 3; row++) box(x, 4.69, 26.72 + row * 0.27, 1.38, 0.035, 0.035, dark);
+      }
+      const link = add(new THREE.SphereGeometry(0.22, 10, 8), glow, 0, 5.75, 27);
+      link.userData.isLandscapeBeacon = true;
+      route([[-3.05, 4.15, 27.5], [-1.5, 5.4, 27], [0, 5.72, 27], [1.5, 4.3, 27.3], [3.2, 3.2, 27.8]], glow, 0.09);
+      ring(3.1, 5.2, 0.36);
+      break;
+    }
+    case "sample-lab": {
+      box(0, 2.05, 27, 8.4, 0.38, 3.2, dark);
+      for (const x of [-3.4, 3.4]) for (const z of [25.9, 28.1]) box(x, 1.14, z, 0.22, 1.62, 0.22, edge);
+      box(0, 4.7, 30, 6.8, 2.9, 0.22, ground);
+      for (const x of [-2.3, 0, 2.3]) {
+        const caseGlass = add(new THREE.BoxGeometry(1.55, 1.22, 1.06), glow, x, 3.0, 26.55);
+        caseGlass.material = new THREE.MeshStandardMaterial({ color: 0x9bb8cc, transparent: true, opacity: 0.2, roughness: 0.28, metalness: 0.08 });
+        caseGlass.userData.isLandscapeStage = true;
+        const sample = add(new THREE.DodecahedronGeometry(0.42, 0), x === 0 ? edge : ground, x, 2.68, 26.42);
+        sample.scale.set(1, 0.72, 0.82);
+        sample.userData.isLandscapeStage = true;
+        cylinder(x, 2.35, 26.42, 0.52, 0.1, dark, 12);
+      }
+      for (let row = 0; row < 3; row++) {
+        box(0, 5.35 - row * 0.6, 29.86, 3.4, 0.06, 0.035, row === 1 ? glow : edge);
+      }
+      const microscope = cylinder(3.05, 3.35, 26.55, 0.16, 1.75, edge, 10);
+      microscope.rotation.z = 0.28;
+      box(3.25, 4.05, 26.55, 0.85, 0.14, 0.14, glow, -0.28);
+      route([[-3.4, 3.1, 28.4], [-1.6, 3.7, 27.7], [0, 3.45, 27.2], [1.8, 3.1, 28.4], [3.05, 3.7, 27.7]], edge, 0.055);
+      break;
+    }
+    case "moon-horizon": {
+      const horizon = add(new THREE.SphereGeometry(6.3, 20, 12, 0, Math.PI * 2, 0, Math.PI / 2), ground, 0, 0.55, 34.5);
+      horizon.userData.isLandscapeStage = true;
+      for (const [x, z, radius] of [[-4.3, 32.2, 0.72], [-1.8, 34.4, 0.5], [2.1, 33.1, 0.86], [4.2, 35, 0.48]] as const) {
+        const crater = add(new THREE.TorusGeometry(radius, 0.11, 6, 18), dark, x, 0.8, z);
+        crater.rotation.x = Math.PI / 2;
+        crater.userData.isLandscapeStage = true;
+      }
+      box(0, 1.55, 25.6, 8.8, 0.34, 2.7, dark);
+      for (const x of [-3.6, 3.6]) box(x, 2.45, 25.7, 0.24, 1.62, 0.24, edge);
+      box(0, 3.35, 25.7, 7.4, 0.22, 0.35, glow);
+      const horizonBeacon = add(new THREE.OctahedronGeometry(0.46, 0), edge, 0, 4.15, 25.7);
+      horizonBeacon.userData.isLandscapeBeacon = true;
+      route([[-4.1, 1.02, 28.7], [-2.1, 1.06, 27.3], [0, 1.1, 26.6], [2.1, 1.06, 27.3], [4.1, 1.02, 28.7]], glow, 0.085);
+      break;
+    }
+    case "systems-simulation": {
+      for (const x of [-3.6, 0, 3.6]) {
+        box(x, 3.35, 27.8, 2.35, 2.25, 0.3, dark);
+        box(x, 3.55, 27.58, 1.95, 1.48, 0.08, ground);
+        for (let row = 0; row < 3; row++) {
+          route([[x - 0.78, 3.05 + row * 0.26, 27.48], [x - 0.18, 3.24 + row * 0.26, 27.48], [x + 0.28, 3.12 + row * 0.26, 27.48], [x + 0.78, 3.36 + row * 0.26, 27.48]], row === 1 ? glow : edge, 0.035);
+        }
+        cylinder(x, 1.82, 27.8, 0.1, 1.24, edge, 8);
+      }
+      box(0, 1.3, 27.7, 8.6, 0.22, 2.25, dark);
+      const dataCore = add(new THREE.IcosahedronGeometry(0.56, 1), glow, 0, 5.25, 27.48);
+      dataCore.userData.isLandscapeBeacon = true;
+      route([[-2.3, 4.8, 27.45], [0, 5.2, 27.45], [2.3, 4.8, 27.45]], edge, 0.07);
+      break;
+    }
+    case "mission-control": {
+      arch(10.8, 6.8, edge, 30.2);
+      box(0, 5.0, 30.0, 7.1, 3.0, 0.24, dark);
+      for (let i = 0; i < 5; i++) {
+        const x = -2.4 + i * 1.2;
+        const screen = box(x, 5.0, 29.82, 0.88, 1.65, 0.08, i === 2 ? glow : ground);
+        for (let row = 0; row < 4; row++) box(x, 4.5 + row * 0.27, 29.74, 0.58, 0.035, 0.025, row === 2 ? glow : edge);
+        screen.userData.isLandscapeStage = true;
+      }
+      for (const x of [-3.2, 0, 3.2]) {
+        box(x, 2.2, 26.7, 2.15, 0.35, 1.35, edge);
+        box(x, 2.65, 26.3, 1.75, 0.65, 0.18, ground, -0.18);
+        for (const dx of [-0.72, 0.72]) box(x + dx, 1.65, 26.72, 0.12, 1.1, 0.12, dark);
+      }
+      route([[-4.2, 3.1, 27.2], [-2.1, 3.75, 27], [0, 4.15, 27], [2.1, 3.75, 27], [4.2, 3.1, 27.2]], glow, 0.065);
+      const sharedSignal = add(new THREE.OctahedronGeometry(0.38, 1), glow, 0, 6.95, 29.7);
+      sharedSignal.userData.isLandscapeBeacon = true;
+      break;
+    }
+    case "crew-simulation": {
+      arch(8.6, 6.1, edge, 29.5);
+      for (const x of [-3.1, 3.1]) {
+        const pod = add(new THREE.SphereGeometry(1.2, 12, 10), dark, x, 3.2, 27.6);
+        pod.scale.set(0.9, 1.1, 0.62);
+        pod.userData.isLandscapeStage = true;
+        box(x, 3.2, 26.96, 1.7, 0.1, 0.1, glow);
+      }
+      const suit = new THREE.MeshStandardMaterial({ color: 0xd9e2e5, roughness: 0.78, metalness: 0.04 });
+      const visor = new THREE.MeshStandardMaterial({ color: 0x375a78, roughness: 0.24, metalness: 0.32, emissive: 0x18344a, emissiveIntensity: 0.16 });
+      for (const [x, z, turn] of [[-1.8, 25.9, -0.22], [1.8, 25.9, 0.22]] as const) {
+        const torso = box(x, 2.55, z, 0.72, 0.98, 0.48, suit, turn);
+        const helmet = add(new THREE.SphereGeometry(0.42, 12, 9), suit, x, 3.48, z);
+        const glass = add(new THREE.SphereGeometry(0.28, 10, 8), visor, x, 3.49, z - 0.22);
+        glass.scale.set(1, 0.72, 0.48);
+        for (const side of [-1, 1]) box(x + side * 0.5, 2.48, z - 0.04, 0.2, 0.76, 0.24, suit, turn);
+        const badge = add(new THREE.OctahedronGeometry(0.16, 0), edge, x, 2.75, z - 0.27);
+        for (const mesh of [torso, helmet, glass, badge]) mesh.userData.isLandscapeStage = true;
+      }
+      route([[-2.8, 2.1, 27.2], [-1.2, 2.55, 26.7], [0, 2.7, 26.1], [1.2, 2.55, 26.7], [2.8, 2.1, 27.2]], glow, 0.065);
+      const check = add(new THREE.SphereGeometry(0.28, 10, 8), edge, 0, 5.15, 27.15);
+      check.userData.isLandscapeBeacon = true;
+      break;
+    }
+    case "future-frontier": {
+      const habitat = add(new THREE.SphereGeometry(2.55, 16, 10, 0, Math.PI * 2, 0, Math.PI / 2), glow, 0, 1.42, 28);
+      habitat.userData.isLandscapeStage = true;
+      box(0, 1.45, 28, 5.15, 0.18, 0.3, dark);
+      for (const x of [-4.2, 4.2]) {
+        const panel = box(x, 2.05, 27.3, 2.35, 0.12, 1.25, edge, x < 0 ? -0.12 : 0.12);
+        panel.userData.isLandscapeStage = true;
+        for (let row = 0; row < 3; row++) box(x, 2.14, 26.86 + row * 0.42, 2.12, 0.03, 0.03, dark);
+        for (const dx of [-0.92, 0.92]) box(x + dx, 1.35, 27.3, 0.12, 1.35, 0.12, dark);
+      }
+      for (const angle of [0, Math.PI / 3, (Math.PI * 2) / 3, Math.PI, (Math.PI * 4) / 3, (Math.PI * 5) / 3]) {
+        const x = Math.cos(angle) * 3.2;
+        const z = 28 + Math.sin(angle) * 2.6;
+        const light = add(new THREE.SphereGeometry(0.16, 8, 6), edge, x, 1.25, z);
+        light.userData.isLandscapeBeacon = true;
+        route([[x, 1.05, z], [x * 0.55, 1.12, 28 + (z - 28) * 0.55], [0, 1.12, 28]], glow, 0.045);
+      }
+      const future = add(new THREE.OctahedronGeometry(0.48, 1), edge, 0, 5.1, 28);
+      future.userData.isLandscapeBeacon = true;
+      ring(5.2, 1.2, 0.1);
       break;
     }
     case "exchange": {
