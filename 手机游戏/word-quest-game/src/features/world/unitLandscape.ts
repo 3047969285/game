@@ -951,12 +951,52 @@ function addPassageSceneLandmark(
       break;
     }
     case "offline-rest": {
+      const plaza = cylinder(0, 0.98, 27, 7.1, 0.36, dark, 12);
+      plaza.userData.isLandscapeStage = true;
       arch(7.2, 6.2, edge, 27);
-      box(-2.4, 2.2, 27, 2.2, 0.24, 0.74, ground);
-      for (const x of [-3.15, -1.65]) box(x, 1.72, 27, 0.14, 0.76, 0.16, dark);
-      const orb = add(new THREE.SphereGeometry(0.72, 12, 10), glow, 2.15, 3.5, 27);
+
+      box(-3.1, 2.15, 27, 2.65, 0.24, 0.78, ground);
+      box(-3.1, 2.76, 27.34, 2.65, 0.84, 0.18, edge);
+      for (const x of [-4.08, -2.12]) {
+        for (const z of [26.76, 27.24]) box(x, 1.7, z, 0.14, 0.72, 0.14, dark);
+      }
+
+      cylinder(2.55, 1.82, 27, 0.78, 0.16, ground, 10);
+      cylinder(2.55, 1.3, 27, 0.14, 0.96, dark, 8);
+      box(2.55, 1.98, 26.86, 0.72, 0.08, 0.34, dark, -0.12);
+      box(2.55, 2.04, 26.86, 0.56, 0.025, 0.22, glow, -0.12);
+
+      for (const [x, material] of [[-0.68, edge], [0.68, ground]] as const) {
+        cylinder(x, 2.35, 27, 0.3, 1.05, material, 8);
+        const head = add(new THREE.SphereGeometry(0.29, 12, 10), material, x, 3.08, 27);
+        head.userData.isLandscapeStage = true;
+      }
+      route([[-0.3, 3.23, 27], [0, 3.62, 27], [0.3, 3.23, 27]], glow, 0.065);
+
+      for (const x of [-5.15, 5.15]) {
+        cylinder(x, 1.3, 27, 0.48, 0.62, ground, 8);
+        for (const [dx, dy, dz, scale] of [
+          [-0.28, 2.15, 0, 0.5],
+          [0.22, 2.45, 0.08, 0.58],
+          [0, 2.92, -0.08, 0.48],
+        ] as const) {
+          const leaf = add(new THREE.DodecahedronGeometry(scale, 0), glow, x + dx, dy, 27 + dz);
+          leaf.userData.isLandscapeStage = true;
+        }
+      }
+
+      for (let index = 0; index < 4; index++) {
+        const x = index % 2 === 0 ? -0.32 : 0.32;
+        box(x, 1.24, 32 - index * 1.1, 0.92, 0.12, 0.66, index % 2 === 0 ? ground : glow, x * 0.08);
+      }
+      route([[0, 1.2, 33], [0, 1.2, 30], [0, 1.2, 27.5]], edge, 0.1);
+
+      const orb = add(new THREE.SphereGeometry(0.62, 12, 10), glow, 0, 4.45, 27);
       orb.userData.isLandscapeBeacon = true;
-      route([[-4.8, 1.15, 27], [-2.4, 1.35, 27], [0, 1.2, 27], [2.2, 2.1, 27]], edge, 0.12);
+      for (const [radius, y] of [[0.92, 4.38], [1.2, 4.62]] as const) {
+        const halo = add(new THREE.TorusGeometry(radius, 0.055, 7, 28), edge, 0, y, 27);
+        halo.userData.isLandscapeRing = true;
+      }
       break;
     }
     case "clinic": {
