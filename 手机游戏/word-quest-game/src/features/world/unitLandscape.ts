@@ -5,8 +5,8 @@ import type { UnitBiome } from "./unitBiome";
 type PassageKind = "section_a" | "section_b" | "section_c";
 type PassageSceneKind =
   | "message" | "dialogue" | "focus" | "notification" | "study-desk" | "filter" | "offline-rest"
-  | "listening-bench" | "clinic" | "telemedicine" | "community" | "community-network" | "timeline" | "perseverance" | "legacy"
-  | "spotlight" | "humanitarian" | "lasting-service" | "fleet" | "peace-contact"
+  | "listening-bench" | "clinic" | "telemedicine" | "community" | "community-network" | "timeline" | "perseverance" | "route-evidence" | "legacy" | "archive-crossroads"
+  | "spotlight" | "humanitarian" | "lasting-service" | "community-witness" | "fleet" | "peace-contact" | "chart-room" | "exchange-harbor"
   | "itinerary" | "detour" | "hostel" | "open-route" | "confidence" | "rail-platform" | "rail-car"
   | "career" | "violin" | "craft-quality" | "bench" | "caliper" | "trust-bridge" | "loom" | "heritage"
   | "lunar-probe" | "test-console" | "lander" | "orbit-adjustment" | "training" | "science-exhibit"
@@ -19,9 +19,9 @@ const PASSAGE_SCENES: Record<string, Partial<Record<PassageKind, PassageSceneKin
     section_c: ["clinic", "telemedicine", "community", "community-network"],
   },
   unit02: {
-    section_a: ["timeline", "perseverance", "legacy"],
-    section_b: ["spotlight", "humanitarian", "lasting-service"],
-    section_c: ["fleet", "peace-contact"],
+    section_a: ["timeline", "route-evidence", "perseverance", "archive-crossroads"],
+    section_b: ["spotlight", "humanitarian", "lasting-service", "community-witness"],
+    section_c: ["fleet", "peace-contact", "chart-room", "exchange-harbor"],
   },
   unit03: {
     section_a: ["itinerary", "detour"],
@@ -1019,6 +1019,22 @@ function addPassageSceneLandmark(
       route([[-4.2, 1.45, 26.7], [-1.7, 2, 26.7], [0.2, 3.1, 26.7], [3.3, 5.1, 26.7]], edge, 0.09);
       break;
     }
+    case "route-evidence": {
+      cylinder(0, 1.2, 27, 5.2, 0.32, dark, 12);
+      box(0, 3.45, 27, 7.8, 3.8, 0.3, ground);
+      box(0, 3.45, 26.78, 7.1, 3.1, 0.08, dark);
+      route([[-3.1, 2.6, 26.62], [-1.7, 4.4, 26.62], [0.4, 3.3, 26.62], [2.8, 4.55, 26.62]], edge, 0.09);
+      for (const [index, x] of [-3.1, -1.7, 0.4, 2.8].entries()) {
+        const marker = add(new THREE.OctahedronGeometry(0.3, 0), index % 2 === 0 ? glow : edge, x, index % 2 === 0 ? 2.6 : 4.4, 26.48);
+        marker.userData.isLandscapeBeacon = true;
+      }
+      for (const x of [-1.75, 1.75]) {
+        box(x, 3.18, 26.45, 2.05, 1.48, 0.1, x < 0 ? glow : edge);
+        box(x, 3.18, 26.36, 1.58, 1.02, 0.06, dark);
+      }
+      ring(4.7, 1.05, 0.1);
+      break;
+    }
     case "legacy": {
       for (let i = 0; i < 3; i++) {
         const x = (i - 1) * 3.2;
@@ -1027,6 +1043,21 @@ function addPassageSceneLandmark(
         light.userData.isLandscapeBeacon = true;
       }
       route([[-4.6, 1.4, 27], [0, 1.4, 27], [4.6, 1.4, 27]], edge, 0.13);
+      break;
+    }
+    case "archive-crossroads": {
+      cylinder(0, 1.05, 27, 5.8, 0.34, dark, 12);
+      for (const x of [-3.15, 3.15]) {
+        box(x, 3.65, 27, 2.3, 3.55, 0.42, ground);
+        box(x, 3.65, 26.72, 1.78, 2.98, 0.08, dark);
+        arch(1.35, 3.5, x < 0 ? glow : edge, 26.58, x);
+      }
+      const crossing = box(0, 2.15, 26.35, 4.1, 0.3, 1.05, edge);
+      crossing.userData.isLandscapeRoute = true;
+      const center = add(new THREE.OctahedronGeometry(0.62, 1), glow, 0, 3.25, 26.18);
+      center.userData.isLandscapeBeacon = true;
+      route([[-4.4, 1.45, 27], [-2.5, 1.72, 26.2], [0, 1.9, 26.2], [2.5, 1.72, 26.2], [4.4, 1.45, 27]], edge, 0.1);
+      ring(5.1, 1.1, 0.12);
       break;
     }
     case "spotlight": {
@@ -1065,6 +1096,24 @@ function addPassageSceneLandmark(
       }
       break;
     }
+    case "community-witness": {
+      cylinder(0, 1.18, 27, 5.7, 0.34, dark, 12);
+      cylinder(0, 1.56, 27, 3.3, 0.18, edge, 12);
+      for (const [x, z, rotation] of [[-2.2, 28.2, -0.3], [0, 28.8, 0], [2.2, 28.2, 0.3]] as const) {
+        const seat = box(x, 1.95, z, 1.6, 0.2, 0.72, ground, rotation);
+        seat.userData.isLandscapeStage = true;
+        box(x, 2.34, z - 0.34, 1.6, 0.62, 0.16, edge, rotation);
+      }
+      const table = cylinder(0, 2.12, 26.15, 1.08, 0.2, ground, 10);
+      table.userData.isLandscapeStage = true;
+      for (const x of [-3.5, 0, 3.5]) {
+        const voice = add(new THREE.SphereGeometry(0.3, 10, 8), glow, x, 3.15, 26.55);
+        voice.userData.isLandscapeBeacon = true;
+      }
+      route([[-3.7, 2.75, 26.6], [-1.8, 3.3, 26.1], [0, 2.9, 25.95], [1.8, 3.3, 26.1], [3.7, 2.75, 26.6]], edge, 0.075);
+      ring(4.95, 1.08, 0.12);
+      break;
+    }
     case "fleet": {
       const hull = box(0, 2.4, 27, 8.8, 1.15, 2.4, dark);
       hull.rotation.z = Math.PI;
@@ -1087,6 +1136,43 @@ function addPassageSceneLandmark(
       bridge.userData.isLandscapeRoute = true;
       for (const x of [-1.8, 0, 1.8]) book(x, 2.35, 26.25, Math.round(x + 2));
       ring(5.5, 1.2, 0.12);
+      break;
+    }
+    case "chart-room": {
+      cylinder(0, 1.25, 27, 5.7, 0.42, dark, 16);
+      cylinder(0, 1.52, 27, 4.25, 0.14, ground, 16);
+      const chart = cylinder(0, 1.64, 27, 3.72, 0.12, edge, 16);
+      chart.scale.z = 0.68;
+      chart.userData.isLandscapeStage = true;
+      route([[-3.1, 1.82, 27], [-1.8, 2.05, 26.5], [0, 1.9, 27.1], [1.55, 2.15, 26.4], [3.1, 1.82, 27]], glow, 0.065);
+      route([[-2.65, 1.84, 27.6], [-1.4, 1.96, 27.2], [0.2, 1.86, 26.7], [1.95, 1.98, 27.35], [2.8, 1.84, 27.6]], edge, 0.065);
+      for (const [x, z] of [[-3.1, 27], [-1.8, 26.5], [0, 27.1], [1.55, 26.4], [3.1, 27]] as const) {
+        const port = add(new THREE.OctahedronGeometry(0.22, 0), glow, x, 2.03, z);
+        port.userData.isLandscapeBeacon = true;
+      }
+      const axis = cylinder(0, 3.25, 26.15, 0.12, 3.2, dark, 8);
+      axis.userData.isLandscapeStage = true;
+      const compass = add(new THREE.OctahedronGeometry(0.48, 1), edge, 0, 4.98, 26.15);
+      compass.userData.isLandscapeBeacon = true;
+      ring(5.15, 1.12, 0.1);
+      break;
+    }
+    case "exchange-harbor": {
+      cylinder(0, 1.05, 27, 6.2, 0.36, dark, 14);
+      for (const x of [-4, 4]) {
+        box(x, 1.62, 27, 2.1, 0.42, 5.4, ground);
+        for (const z of [25.2, 27, 28.8]) cylinder(x, 1.2, z, 0.17, 1.1, edge, 8);
+        box(x, 2.15, 26.2, 1.25, 0.86, 1.1, x < 0 ? glow : edge);
+        box(x, 2.15, 27.55, 1.25, 0.86, 1.1, ground);
+      }
+      const crossing = box(0, 1.78, 27, 5.4, 0.28, 1.25, edge);
+      crossing.userData.isLandscapeRoute = true;
+      for (const [x, y] of [[-1.55, 2.52], [0, 3.15], [1.55, 2.52]] as const) {
+        const exchange = add(new THREE.OctahedronGeometry(0.34, 0), glow, x, y, 26.35);
+        exchange.userData.isLandscapeBeacon = true;
+      }
+      route([[-4.8, 1.42, 27], [-2.5, 1.72, 26.2], [0, 2.1, 26.2], [2.5, 1.72, 26.2], [4.8, 1.42, 27]], glow, 0.085);
+      ring(5.55, 1.18, 0.14);
       break;
     }
     case "itinerary": {

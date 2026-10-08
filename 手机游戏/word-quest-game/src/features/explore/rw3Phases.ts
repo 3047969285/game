@@ -53,9 +53,9 @@ const PASSAGE_WORLD_STORIES: Record<string, Partial<Record<PassageKind, PassageW
     section_c: { places: ["山村诊所", "家庭连线", "共享进步塔", "协作之桥"], scenes: ["远程诊疗", "居家问诊", "科技向善", "有尊严的连接"] },
   },
   unit02: {
-    section_a: { places: ["人生档案馆", "坚持航线", "选择展厅"], scenes: ["跨世纪故事", "行动与耐心", "重新定义伟大"] },
-    section_b: { places: ["银幕灯塔", "慈善之路", "余光长廊"], scenes: ["聚光灯之外", "帮助儿童", "超越名声"] },
-    section_c: { places: ["远航码头", "印度洋航线"], scenes: ["舰队出发", "和平接触"] },
+    section_a: { places: ["人生档案馆", "航海证据廊", "使命阅览室", "选择展厅"], scenes: ["跨世纪故事", "航线与证据", "服务与责任", "留下的影响"] },
+    section_b: { places: ["银幕灯塔", "使命之路", "公共责任庭", "回声展厅"], scenes: ["公众形象", "援助使命", "倾听与伙伴", "服务超越聚光"] },
+    section_c: { places: ["远航码头", "印度洋航线", "海图档案", "交流港湾"], scenes: ["舰队出发", "港口与交换", "证据辨析", "留下的网络"] },
   },
   unit03: {
     section_a: { places: ["行程地图", "迷雾小径"], scenes: ["目的地之外", "在不确定中前行"] },

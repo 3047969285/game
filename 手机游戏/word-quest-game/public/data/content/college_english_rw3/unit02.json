@@ -30,96 +30,140 @@
   "micro_world_checks": {
     "section_a": [
       {
-        "question": "What connects life stories from different centuries?",
+        "question": "Why did the students organize the exhibit around choices and evidence?",
         "options": [
-          "They must describe the same profession.",
-          "They can still speak to the same classroom.",
-          "They are all about collecting wealth.",
-          "They avoid difficult choices."
+          "To rank famous people by the size of their audience.",
+          "To examine evidence that explains the subjects' choices and turning points.",
+          "To prove that every biography follows one pattern.",
+          "To replace historical sources with dramatic portraits."
         ],
         "answer": 1,
-        "explanation": "The opening establishes that stories from different centuries can still become meaningful classroom lessons."
+        "explanation": "The exhibit asks readers to connect choices with evidence instead of ranking people or inventing a universal model."
       },
       {
-        "question": "What did the actress need when helping children was difficult?",
+        "question": "Which materials helped the class follow the explorer's voyage?",
         "options": [
-          "A larger audience and a new film contract",
-          "A faster ship and a bigger fleet",
-          "A life without responsibility",
-          "Ambition and perseverance"
-        ],
-        "answer": 3,
-        "explanation": "The passage connects her ambition to help children with the perseverance required when comfort was easier."
-      },
-      {
-        "question": "What does the final image suggest about greatness?",
-        "options": [
-          "Greatness can appear in different places and leave a legacy that inspires others.",
-          "Greatness belongs only to famous performers.",
-          "Greatness can be measured by the size of a fleet.",
-          "Greatness requires people to choose comfort first."
+          "Maps, port names, and records of exchanged goods",
+          "A movie script and an imagined speech",
+          "A portrait with no dates or source note",
+          "A list of modern travel advertisements"
         ],
         "answer": 0,
-        "explanation": "Both the explorer's voyages and the actress's service show that greatness can take different forms and inspire others."
+        "explanation": "The passage names maps, ports, and trade records as evidence for tracing the route."
+      },
+      {
+        "question": "What did the class learn from Hepburn's public mission?",
+        "options": [
+          "One visitor can solve every part of a humanitarian crisis.",
+          "A public portrait is enough to explain a whole life.",
+          "Public attention can support a cause but is not a complete solution.",
+          "Fame removes the need to check historical evidence."
+        ],
+        "answer": 2,
+        "explanation": "The mission drew attention to children's needs while the class avoided claiming that one person could end a crisis."
+      },
+      {
+        "question": "How does the exhibit define a meaningful legacy?",
+        "options": [
+          "As a perfect legend that readers should never question.",
+          "As influence that people can inherit, examine, and continue.",
+          "As public recognition without evidence or context.",
+          "As a single career path everyone should follow."
+        ],
+        "answer": 1,
+        "explanation": "The ending treats legacy as an influence that invites evidence-based reflection and responsible action."
       }
     ],
     "section_b": [
       {
-        "question": "What made Audrey Hepburn remarkable beyond her film career?",
+        "question": "Why was the elegant portrait not enough for the biography exhibit?",
         "options": [
-          "Her elegant style alone",
-          "Her magazine portraits",
-          "Her humanitarian work",
-          "Her decision to avoid public life"
-        ],
-        "answer": 2,
-        "explanation": "The passage emphasizes that humanitarian work defined her later decades beyond the screen."
-      },
-      {
-        "question": "How did compassion change the meaning of Hepburn's fame?",
-        "options": [
-          "It turned fame into service.",
-          "It made her return to every film role.",
-          "It kept her away from children in need.",
-          "It reduced her mission to a magazine portrait."
+          "It showed a public image but could not tell the whole story.",
+          "It proved that her film career never mattered.",
+          "It contained every private thought she had.",
+          "It made historical dates impossible to check."
         ],
         "answer": 0,
-        "explanation": "Compassion redirected public attention toward service for hungry children."
+        "explanation": "The passage says a portrait can open the topic but cannot represent an entire life."
       },
       {
-        "question": "What does her biography teach students to look for?",
+        "question": "What did Hepburn do in 1988 according to the passage?",
         "options": [
-          "Only the most elegant public images",
-          "A career with no difficult choices",
-          "Devotion to others that can outlast the spotlight",
-          "A mission defined by fame alone"
+          "She traveled to Ethiopia to raise awareness of drought affecting children and women.",
+          "She opened a film school for every UNICEF worker.",
+          "She claimed to have ended drought in the region.",
+          "She stopped working with humanitarian organizations."
         ],
-        "answer": 2,
-        "explanation": "The closing sentence presents devotion to others as more lasting than celebrity attention."
+        "answer": 0,
+        "explanation": "The passage identifies the Ethiopia trip as an effort to draw attention to the drought's impact."
+      },
+      {
+        "question": "Why should local experience be heard in charitable work?",
+        "options": [
+          "A visiting celebrity always knows more than local groups.",
+          "Local people can understand needs that an outsider may miss.",
+          "Public attention makes long-term partnership unnecessary.",
+          "A portrait can replace conversations with a community."
+        ],
+        "answer": 1,
+        "explanation": "The passage emphasizes listening to people who live with an issue rather than assuming an outsider knows best."
+      },
+      {
+        "question": "What is the central lesson of the exhibit?",
+        "options": [
+          "Responsible support combines compassion with evidence, listening, and continued action.",
+          "A celebrated face can solve a crisis without local partners.",
+          "A public image matters more than the work behind it.",
+          "Readers should admire a person without asking questions."
+        ],
+        "answer": 0,
+        "explanation": "The final panels connect compassion to careful research, local knowledge, and responsible support."
       }
     ],
     "section_c": [
       {
-        "question": "What did Zheng He's voyages carry across the Indian Ocean?",
+        "question": "What did the class use to trace the voyages?",
         "options": [
-          "Only military orders",
-          "Magazine portraits and film scripts",
-          "A plan to isolate every country",
-          "Goods, maps, and mutual respect"
+          "Port names and directions found in maps and written accounts",
+          "A modern tourist guide with fictional destinations",
+          "A list of private conversations that no source recorded",
+          "Only a portrait of the explorer"
         ],
-        "answer": 3,
-        "explanation": "The passage describes exchange through goods, maps, and mutual respect."
+        "answer": 0,
+        "explanation": "The students began with recorded ports and direction marks, then compared maps with written accounts."
       },
       {
-        "question": "How does the passage describe Zheng He's legacy?",
+        "question": "Which goods are named in the passage?",
         "options": [
-          "As a story of conquest without exchange",
-          "As a narrative of peaceful contact across eras",
-          "As a private ambition with no modern meaning",
-          "As a warning against learning from history"
+          "Only books and musical instruments",
+          "Silk, porcelain, medicines, and metal objects",
+          "Modern engines and digital devices",
+          "Food grown only at the destination ports"
         ],
         "answer": 1,
-        "explanation": "The passage contrasts peaceful contact and shared responsibility with mere conquest."
+        "explanation": "Those four categories are listed as examples of goods carried on the voyages."
+      },
+      {
+        "question": "How did the learners avoid making unsupported claims?",
+        "options": [
+          "They treated one map as a complete record of every encounter.",
+          "They ignored written descriptions and relied on memory.",
+          "They compared maps and accounts, separating evidence from interpretation.",
+          "They assumed every stop had the same purpose."
+        ],
+        "answer": 2,
+        "explanation": "The class used more than one source and kept route evidence distinct from broader interpretations."
+      },
+      {
+        "question": "What does the chart-room lesson encourage readers to do?",
+        "options": [
+          "Memorize a legend without checking sources.",
+          "Study historical achievements while asking what the evidence can support.",
+          "Assume all historical encounters were identical.",
+          "Reject maps because they never contain useful information."
+        ],
+        "answer": 1,
+        "explanation": "The ending pairs curiosity about a historical legacy with verification of the sources behind it."
       }
     ]
   },
@@ -127,17 +171,17 @@
     "section_a": {
       "title": "Two Lives, One Lesson",
       "type": "reading",
-      "passage": "Life stories from different centuries can still speak to the same classroom. One story follows an explorer whose voyage across oceans built peaceful exchange. Another follows an actress whose ambition to help children demanded perseverance, even when comfort was easier. Their professions were different, yet both chose service over personal ease. Students who compare such stories learn that greatness is not a single template. It can appear in a fleet crossing distant seas or in years of service to children, leaving a legacy that inspires others."
+      "passage": "The class opened an exhibit called Lives in Motion in the campus archive, where biographies were read as sequences of choices. Its task was not to rank remarkable people, but to ask which evidence could explain a turning point. One case followed Zheng He, the explorer whose fleet traveled across Indian Ocean routes in the early fifteenth century. Another introduced Audrey Hepburn, whose public portrait later became linked to a humanitarian mission for children. Though the lives belonged to different eras and different professions, students searched for a shared question: what does service require? The first group placed maps and port names beside a short narrative of the voyage. Records show that trade goods moved across sea routes, yet a map cannot tell every story of the people along them. Students marked documented details in blue and their own interpretations in amber. This color code helped them witness the difference between a source and a conclusion. It also kept the display from presenting one simple motive as the whole explanation. In the second case, the class examined why an ambitious performer might use fame to draw attention to children's needs. They learned that Hepburn served UNICEF as Goodwill Ambassador and traveled to Ethiopia in 1988 to highlight the drought's effects. Her work did not mean one visitor could solve a complex crisis. It showed how compassion and sustained attention could support a wider humanitarian effort. Students compared what the sources stated with what a reader might only infer. When they turned to the final wall, neither figure seemed like a ready-made model for every life. The students could admire particular choices without treating a famous person as perfect. They described a legacy as influence people inherit, question, and sometimes continue in new ways. The exhibit's narrative joined evidence, context, and consequences instead of relying on a dramatic portrait. Each visitor left with one question about ambition, responsibility, and the next action they could take."
     },
     "section_b": {
       "title": "Audrey Hepburn — a real angel in the world",
       "type": "reading",
-      "passage": "Audrey Hepburn remains a remarkable figure long after her film career. Fans admire her elegant style, but humanitarian work defined her later decades. She devoted years to charity programs for hungry children. Compassion turned fame into service, and her mission went far beyond the portrait on a magazine cover. Students who read her biography learn that devotion to others can outlast any spotlight."
+      "passage": "Students built an original exhibit about Audrey Hepburn, and they started with the familiar elegant portrait on a screen. The image opened a door, but it could not tell visitors everything about a life. A biography becomes richer when it places public work beside career and context. Their teacher asked them to separate documented events from assumptions about a famous person's private thoughts. That rule turned the display into a lesson in evidence, not a shrine. The class added one verified fact: Hepburn served as a UNICEF Goodwill Ambassador. In 1988 she traveled to Ethiopia to raise awareness of drought affecting children and women. Her mission brought a humanitarian concern into view, but did not claim that one person could end a crisis. Students explained why a public witness can help an audience notice a problem. They also asked whose experience should be heard first: the people living with that problem. A local organization may understand needs that an outsider cannot see from a brief visit. For that reason, charity work needs listening, accountability, and long-term partnership as well as attention. Compassion is not a decoration added to a portrait; it is a reason to respond thoughtfully. Supporting a humanitarian mission also requires perseverance, because public attention alone cannot sustain long-term work. They admired her devotion without claiming that fame guarantees wisdom. The discussion made one tension visible: publicity can open a door, yet it can also simplify people's lives. Students revised their headline to include both career and service. A second panel told how readers can check dates and original sources before repeating a claim. Instead of copying a dramatic quotation, they wrote a precise summary and named the source. The exhibit closed by asking visitors to find one responsible action that could inspire others in their community."
     },
     "section_c": {
       "title": "Stories of China",
       "type": "stories_of_china",
-      "passage": "In the early fifteenth century, Zheng He commanded a fleet that crossed the Indian Ocean. Each voyage carried goods, maps, and mutual respect. The explorer's legacy is not mere conquest; it is a narrative of peaceful contact across eras. Chinese students today witness how one era's courage can inspire another classroom's discussion about responsibility and global trust."
+      "passage": "The class opened a chart room to study Zheng He's voyages as a historical narrative rather than a legend. Their guide explained that historians describe seven expeditions across the Indian Ocean in the early fifteenth century. The students began with a fleet route and traced the names of ports recorded in maps and written accounts. The archive showed that the voyages carried goods including silk, porcelain, medicines, and metal objects to trading ports. A route map helped them imagine distance, but also reminded them that maps select what to show. The group labeled locations and directions before drawing any conclusion about the purpose of a stop. Each stop was discussed as a place where people met, exchanged goods, and made decisions. Trade is one documented purpose, and historical records can reveal how maritime networks connected regions. However, no single map can witness every conversation or explain every participant's experience. The learners compared a chart with written descriptions rather than treating either source as complete. This practice made the lesson more remarkable than memorizing a list of destinations. One student asked whether a modern reader should admire a voyage without asking difficult questions. The class agreed that respect for achievement and careful criticism can exist together. They separated evidence about routes from broader claims about what every encounter meant. That distinction kept the story open to more than one question. A voyage can reveal planning, navigation, and exchange, while still leaving gaps in the record. The fleet's legacy is therefore a useful subject for comparing past and present ideas of connection. The class placed a route-map model beside a note about how historical knowledge is built. The display invited visitors to follow an explorer's path, then inspect the sources that support the narrative. At the exit, each learner wrote one question inspired by the map and one fact they could verify."
     },
     "vocabulary": {
       "level_count": 4,
@@ -145,79 +189,151 @@
     },
     "reading": {
       "title": "Two Lives, One Lesson",
-      "passage": "Life stories from different centuries can still speak to the same classroom. One story follows an explorer whose voyage across oceans built peaceful exchange. Another follows an actress whose ambition to help children demanded perseverance, even when comfort was easier. Their professions were different, yet both chose service over personal ease. Students who compare such stories learn that greatness is not a single template. It can appear in a fleet crossing distant seas or in years of service to children, leaving a legacy that inspires others.",
+      "passage": "The class opened an exhibit called Lives in Motion in the campus archive, where biographies were read as sequences of choices. Its task was not to rank remarkable people, but to ask which evidence could explain a turning point. One case followed Zheng He, the explorer whose fleet traveled across Indian Ocean routes in the early fifteenth century. Another introduced Audrey Hepburn, whose public portrait later became linked to a humanitarian mission for children. Though the lives belonged to different eras and different professions, students searched for a shared question: what does service require? The first group placed maps and port names beside a short narrative of the voyage. Records show that trade goods moved across sea routes, yet a map cannot tell every story of the people along them. Students marked documented details in blue and their own interpretations in amber. This color code helped them witness the difference between a source and a conclusion. It also kept the display from presenting one simple motive as the whole explanation. In the second case, the class examined why an ambitious performer might use fame to draw attention to children's needs. They learned that Hepburn served UNICEF as Goodwill Ambassador and traveled to Ethiopia in 1988 to highlight the drought's effects. Her work did not mean one visitor could solve a complex crisis. It showed how compassion and sustained attention could support a wider humanitarian effort. Students compared what the sources stated with what a reader might only infer. When they turned to the final wall, neither figure seemed like a ready-made model for every life. The students could admire particular choices without treating a famous person as perfect. They described a legacy as influence people inherit, question, and sometimes continue in new ways. The exhibit's narrative joined evidence, context, and consequences instead of relying on a dramatic portrait. Each visitor left with one question about ambition, responsibility, and the next action they could take.",
       "questions": [
         {
-          "question": "What do the two figures share?",
+          "question": "Why did students arrange the exhibit around choices instead of ranking the subjects?",
           "options": [
-            "The same profession",
-            "Difficult but meaningful choices",
-            "A dislike of travel",
-            "A focus only on wealth"
+            "To identify evidence that helps explain important turning points.",
+            "To show that one person's career is always superior.",
+            "To avoid discussing the sources behind each biography.",
+            "To prove that every life follows the same sequence."
+          ],
+          "answer": 0,
+          "explanation": "The exhibit focuses on choices and the evidence that can explain them, not on ranking people."
+        },
+        {
+          "question": "What did the map help students do, and what could it not do?",
+          "options": [
+            "It proved every motive and recorded every conversation.",
+            "It helped trace routes but could not tell every person's experience.",
+            "It replaced written accounts and all historical research.",
+            "It showed that every port had an identical purpose."
           ],
           "answer": 1,
-          "explanation": "两人都做出了艰难而有意义的选择。"
+          "explanation": "The passage uses maps to trace routes while noting that they cannot capture every story or motive."
+        },
+        {
+          "question": "What did the 1988 Ethiopia example help the class understand?",
+          "options": [
+            "A public mission can draw attention without solving a crisis by itself.",
+            "A famous visitor can replace all local organizations.",
+            "A portrait provides enough evidence to explain a humanitarian issue.",
+            "Public figures should never speak about children's needs."
+          ],
+          "answer": 0,
+          "explanation": "The students distinguish drawing attention from claiming that one person can solve a complex crisis."
+        },
+        {
+          "question": "Which idea best summarizes the exhibit?",
+          "options": [
+            "Famous people should be copied without questioning their choices.",
+            "A legacy is only a record of public attention.",
+            "Read biographies through evidence, context, and consequences.",
+            "Different eras make comparison impossible."
+          ],
+          "answer": 2,
+          "explanation": "The final sentences present biography as evidence-based interpretation that can inform responsible choices."
         }
       ]
     },
     "listening": {
       "title": "Listening: Life stories",
-      "script": "During a history seminar, our group compared two biographies. One followed an explorer whose voyage with a fleet opened routes for exchange; the other traced Audrey Hepburn's career, from an elegant public image to humanitarian work. Years after acting, she supported charity programs for children facing hunger. That mission demanded perseverance: compassion had to become continued action. At first we wanted to rank their influence by fame. Our instructor asked us to witness a different measure—what each person chose to do for others. Neither chose only the easier, private path; both devoted time to service. Their lives belonged to different eras, yet ambition guided action in each. A meaningful legacy can take many forms and still inspire people.",
+      "script": "In our seminar, we compared two biographies from different eras. One account described an explorer and the fleet that traveled across the Indian Ocean; another followed Audrey Hepburn from a celebrated film career to humanitarian work. Our instructor gave us a simple rule: write down what a source shows, then mark what is still an interpretation. A map helped us trace a voyage and identify ports, but it could not witness every conversation along the route. A public portrait showed an elegant image, but it could not explain a whole mission. We learned that Hepburn served as a UNICEF Goodwill Ambassador and traveled to Ethiopia in 1988 to raise awareness of drought affecting children and women. That fact helped us discuss how a public figure may draw attention to a need without replacing local knowledge or long-term work. One student asked whether admiration meant we should stop questioning a biography. Our mentor said the opposite: careful questions make respect more thoughtful. We compared records, checked dates, and revised a sentence that had gone beyond its evidence. The lesson was not to choose one remarkable life as a model for everyone. It was to notice ambition, perseverance, and compassion, then ask what action fits our own community. Stories can inspire us when we read them with curiosity and care.",
       "questions": [
         {
-          "question": "What do the explorer and the actress have in common?",
+          "question": "What rule did the seminar instructor give the group?",
           "options": [
-            "They became influential through similar careers in the same era.",
-            "They devoted their later lives to the same charitable cause.",
-            "Their different professions both involved choosing service over personal ease.",
-            "Their service mattered only because both had already become famous."
-          ],
-          "answer": 2,
-          "explanation": "听力明确对照两种不同职业，并总结两人都选择服务而非个人安逸。相同点是价值取向，不是职业或时代相同。"
-        },
-        {
-          "question": "What did Audrey Hepburn devote years to after her film career?",
-          "options": [
-            "Taking part in charity programs for children facing hunger.",
-            "Returning to acting to keep her public profile in the spotlight.",
-            "Organizing peaceful exchanges between distant communities.",
-            "Training young performers to take over her film career."
+            "Record what a source shows and separate it from interpretation.",
+            "Choose the most dramatic version of every story.",
+            "Treat a map as a complete record of every conversation.",
+            "Rank biographies by the subjects' popularity."
           ],
           "answer": 0,
-          "explanation": "讲者说她在演艺生涯之后仍支持帮助饥饿儿童的慈善项目；这里考查的是时间顺序和她后来投入的工作。"
+          "explanation": "The instructor asks students to distinguish information directly supported by a source from interpretation."
         },
         {
-          "question": "What conclusion about greatness does the listening support?",
+          "question": "What limitation of the map does the speaker mention?",
           "options": [
-            "A lasting legacy depends on staying in one profession.",
-            "Public recognition is a more reliable measure than service.",
-            "Service becomes meaningful only when it reaches a large audience.",
-            "Different forms of service can leave an inspiring legacy."
+            "It could trace a voyage but not witness every conversation.",
+            "It showed too many private thoughts to interpret.",
+            "It contained no ports or route information.",
+            "It proved that every stop served the same purpose."
           ],
-          "answer": 3,
-          "explanation": "结尾指出，两段人生经历的职业和时代不同，但都留下了服务他人的影响；因此，有启发性的遗产不只有一种形式。"
+          "answer": 0,
+          "explanation": "The speaker says the map helped trace the route but could not record every conversation."
+        },
+        {
+          "question": "What did the Ethiopia example help students discuss?",
+          "options": [
+            "How public attention can support a cause without replacing local knowledge.",
+            "Why one public figure can solve every humanitarian problem.",
+            "Why dates and sources are unnecessary in a biography.",
+            "How a portrait can provide long-term community services."
+          ],
+          "answer": 0,
+          "explanation": "The speaker distinguishes drawing attention to a need from replacing local expertise or sustained work."
+        },
+        {
+          "question": "What is the speaker's conclusion about admiration?",
+          "options": [
+            "Admiration is stronger when it includes careful questions and evidence.",
+            "Admiration requires choosing one perfect model for everyone.",
+            "A remarkable life should never be examined critically.",
+            "People should ignore stories that cross different eras."
+          ],
+          "answer": 0,
+          "explanation": "The seminar concludes that curiosity and care make respect more thoughtful, not less sincere."
         }
       ]
     },
     "translation": {
       "sentences": [
         {
-          "zh": "请将下列句子译为英文：伟大探险家的人生与航行故事提醒我们，影响力来自行动而非名声本身。",
-          "en_reference": "The life stories and voyages of great explorers remind us that influence comes from action, not fame itself.",
+          "zh": "请将下列句子译为英文：那位率领船队的探险家留下了值得后人研究的遗产。",
+          "en_reference": "The explorer who led the fleet left a legacy worth studying.",
           "keywords": [
             "explorer",
-            "voyage"
+            "fleet",
+            "legacy",
+            "who"
+          ]
+        },
+        {
+          "zh": "请将下列句子译为英文：学生打开展览时，已经比较了两篇人物传记。",
+          "en_reference": "By the time the students opened the exhibit, they had compared two biographies.",
+          "keywords": [
+            "by the time",
+            "had compared",
+            "biographies"
+          ]
+        },
+        {
+          "zh": "请将下列句子译为英文：一幅优雅的肖像无法讲述一个人的全部人生。",
+          "en_reference": "An elegant portrait cannot tell the whole story of a person's life.",
+          "keywords": [
+            "elegant",
+            "portrait"
+          ]
+        },
+        {
+          "zh": "请将下列句子译为英文：有证据支持的叙述能启发读者，也能提醒他们区分事实与推断。",
+          "en_reference": "A narrative supported by evidence can inspire readers and remind them to distinguish facts from inferences.",
+          "keywords": [
+            "narrative",
+            "evidence",
+            "inspire"
           ]
         }
       ]
     },
     "writing": {
-      "prompt": "Write 120-150 words about the theme: 人生故事.",
+      "prompt": "Write 120-150 words comparing two life stories. Use one checked fact, explain a meaningful choice, and distinguish evidence from your interpretation.",
       "outline": [
-        "Introduction",
-        "Example",
-        "Personal view",
-        "Conclusion"
+        "Introduce the two people and the context",
+        "Give one verified fact and explain its source",
+        "Compare a choice, obstacle, or act of service",
+        "Explain what readers may learn without treating either life as a perfect template"
       ]
     }
   }
