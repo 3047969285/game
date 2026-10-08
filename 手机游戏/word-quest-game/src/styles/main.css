@@ -1259,10 +1259,10 @@ body {
   max-width: 980px;
   height: 100dvh;
   margin: 0 auto;
-  padding: min(42vh, 360px) 16px max(24px, env(safe-area-inset-bottom));
+  padding: min(50vh, 420px) 16px max(24px, env(safe-area-inset-bottom));
   overflow-y: auto;
   overscroll-behavior: contain;
-  background: linear-gradient(180deg, transparent 0 38vh, rgba(8, 12, 20, 0.82) 47vh, #080c14 62vh);
+  background: linear-gradient(180deg, transparent 0 44vh, rgba(8, 12, 20, 0.82) 53vh, #080c14 68vh);
   scrollbar-color: rgba(148, 163, 184, 0.34) transparent;
 }
 #screen-scene.rw3-world-overlay .card {
@@ -1943,7 +1943,7 @@ body {
 @media (max-width: 540px) {
   #screen-scene.rw3-world-overlay {
     width: 100vw;
-    padding-top: min(40vh, 340px);
+    padding-top: min(44vh, 360px);
     padding-right: 10px;
     padding-left: 10px;
   }

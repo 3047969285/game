@@ -7,7 +7,7 @@ type PassageSceneKind =
   | "message" | "dialogue" | "focus" | "notification" | "study-desk" | "filter" | "offline-rest"
   | "listening-bench" | "clinic" | "telemedicine" | "community" | "community-network" | "timeline" | "perseverance" | "route-evidence" | "legacy" | "archive-crossroads"
   | "spotlight" | "humanitarian" | "lasting-service" | "community-witness" | "fleet" | "peace-contact" | "chart-room" | "exchange-harbor"
-  | "itinerary" | "detour" | "hostel" | "open-route" | "confidence" | "rail-platform" | "rail-car"
+  | "itinerary" | "detour" | "market-encounter" | "reflection-garden" | "hostel" | "open-route" | "rain-shelter" | "confidence" | "rail-platform" | "rail-car" | "landscape-window" | "route-network"
   | "career" | "violin" | "craft-quality" | "bench" | "caliper" | "trust-bridge" | "loom" | "heritage"
   | "lunar-probe" | "test-console" | "lander" | "orbit-adjustment" | "training" | "science-exhibit"
   | "bookshop" | "exchange" | "resilience" | "exchange-wall" | "resource-cycle" | "library" | "digital-lending";
@@ -24,9 +24,9 @@ const PASSAGE_SCENES: Record<string, Partial<Record<PassageKind, PassageSceneKin
     section_c: ["fleet", "peace-contact", "chart-room", "exchange-harbor"],
   },
   unit03: {
-    section_a: ["itinerary", "detour"],
-    section_b: ["hostel", "open-route", "confidence"],
-    section_c: ["rail-platform", "rail-car"],
+    section_a: ["itinerary", "detour", "market-encounter", "reflection-garden"],
+    section_b: ["hostel", "open-route", "rain-shelter", "confidence"],
+    section_c: ["rail-platform", "rail-car", "landscape-window", "route-network"],
   },
   unit04: {
     section_a: ["career", "violin", "craft-quality"],
@@ -1238,6 +1238,24 @@ function addPassageSceneLandmark(
       }
       break;
     }
+    case "market-encounter": {
+      cylinder(0, 1.08, 27, 5.8, 0.3, dark, 12);
+      for (const [index, x] of [-3.35, 3.35].entries()) {
+        box(x, 3.05, 27, 2.8, 0.18, 2.25, index === 0 ? edge : ground);
+        for (const dx of [-1.05, 1.05]) cylinder(x + dx, 2.12, 27, 0.08, 1.85, dark, 7);
+        box(x, 2.55, 27, 2.38, 0.72, 1.8, index === 0 ? ground : edge);
+        for (const z of [26.5, 27.5]) box(x, 1.82, z, 0.48, 0.36, 0.42, glow);
+      }
+      for (const [x, material] of [[-0.95, edge], [0.95, glow]] as const) {
+        const traveler = add(new THREE.CylinderGeometry(0.24, 0.33, 0.88, 8), material, x, 2.12, 25.7);
+        traveler.userData.isLandscapeStage = true;
+        const head = add(new THREE.SphereGeometry(0.25, 10, 8), ground, x, 2.78, 25.7);
+        head.userData.isLandscapeStage = true;
+      }
+      route([[-4.8, 1.38, 29], [-2.4, 1.46, 28.2], [0, 1.55, 27.6], [2.4, 1.46, 28.2], [4.8, 1.38, 29]], glow, 0.08);
+      ring(5.1, 1.08, 0.11);
+      break;
+    }
     case "hostel": {
       box(0, 3.2, 27, 7.6, 3.8, 2, ground);
       box(0, 3, 25.9, 1.55, 2.8, 0.16, dark);
@@ -1265,6 +1283,38 @@ function addPassageSceneLandmark(
       horizon.userData.isLandscapeBeacon = true;
       break;
     }
+    case "reflection-garden": {
+      cylinder(0, 1.05, 27, 6.1, 0.34, dark, 14);
+      for (let i = 0; i < 4; i++) box(0, 1.38 + i * 0.42, 29 - i * 1.05, 8.2 - i * 1.25, 0.24, 0.82, i % 2 === 0 ? ground : edge);
+      const pool = cylinder(0, 2.05, 24.8, 2.35, 0.16, glow, 16);
+      pool.scale.z = 0.55;
+      for (const x of [-3.45, 3.45]) {
+        box(x, 2.1, 25.6, 1.7, 0.2, 0.58, ground);
+        box(x, 2.62, 25.88, 1.7, 0.72, 0.16, edge);
+      }
+      const compass = add(new THREE.OctahedronGeometry(0.48, 1), glow, 0, 4.05, 24.55);
+      compass.userData.isLandscapeBeacon = true;
+      route([[-4.7, 1.45, 29.4], [-2.4, 1.65, 27.8], [0, 1.86, 26.5], [2.4, 1.65, 27.8], [4.7, 1.45, 29.4]], edge, 0.075);
+      ring(5.3, 1.1, 0.12);
+      break;
+    }
+    case "rain-shelter": {
+      cylinder(0, 1.04, 27, 5.7, 0.34, dark, 12);
+      for (const x of [-3.2, 3.2]) {
+        cylinder(x, 2.75, 26.4, 0.1, 3.15, edge, 8);
+        cylinder(x, 2.75, 28.1, 0.1, 3.15, edge, 8);
+      }
+      box(0, 4.48, 27.25, 7.25, 0.24, 3.6, ground, -0.08);
+      box(0, 4.63, 27.25, 7.25, 0.12, 3.6, edge, -0.08);
+      box(0, 1.95, 27.45, 3.6, 0.2, 0.72, dark);
+      box(0, 2.42, 27.78, 3.6, 0.68, 0.16, glow);
+      for (const x of [-4.1, -2.05, 0, 2.05, 4.1]) {
+        route([[x, 3.35, 24.8], [x + 0.35, 2.85, 24.8]], edge, 0.045);
+      }
+      route([[-4.9, 1.38, 29.4], [-2.3, 1.5, 28.8], [0, 1.55, 28.1], [2.4, 1.5, 28.8], [4.9, 1.38, 29.4]], glow, 0.08);
+      ring(5.15, 1.07, 0.1);
+      break;
+    }
     case "rail-platform": {
       for (const z of [25.6, 28.5]) box(0, 1.3, z, 10.5, 0.32, 1.3, ground);
       for (const x of [-4.6, 4.6]) {
@@ -1286,6 +1336,35 @@ function addPassageSceneLandmark(
         wheel.userData.isLandscapeStage = true;
       }
       route([[-5.4, 0.92, 27], [0, 0.92, 27], [5.4, 0.92, 27]], edge, 0.14);
+      break;
+    }
+    case "landscape-window": {
+      cylinder(0, 1.05, 27, 5.9, 0.34, dark, 14);
+      box(0, 3.62, 27, 8.5, 4.8, 0.42, ground);
+      box(0, 3.64, 26.74, 7.75, 4.05, 0.08, dark);
+      arch(6.9, 4.2, edge, 26.58);
+      for (const [x, width, height, material] of [[-2.9, 2.3, 2.1, glow], [-0.9, 2.5, 3.15, edge], [1.35, 2.9, 2.45, ground], [3.05, 1.65, 1.75, glow]] as const) {
+        const hill = add(new THREE.ConeGeometry(width, height, 5), material, x, 1.78 + height / 2, 26.48);
+        hill.userData.isLandscapeStage = true;
+      }
+      route([[-3.6, 1.7, 26.3], [-1.5, 2.02, 26.3], [0.4, 1.78, 26.3], [3.45, 2.08, 26.3]], edge, 0.075);
+      const sun = add(new THREE.SphereGeometry(0.4, 12, 10), glow, 2.6, 4.35, 26.25);
+      sun.userData.isLandscapeBeacon = true;
+      ring(5.2, 1.12, 0.1);
+      break;
+    }
+    case "route-network": {
+      cylinder(0, 1.06, 27, 6.2, 0.34, dark, 14);
+      for (const [x, z, width, height] of [[-4, 28.3, 2.1, 1.45], [0, 26.1, 2.7, 1.95], [4, 28.3, 2.1, 1.45]] as const) {
+        const city = box(x, 2.05, z, width, height, 1.15, x === 0 ? ground : edge);
+        city.userData.isLandscapeStage = true;
+        const marker = add(new THREE.OctahedronGeometry(x === 0 ? 0.38 : 0.28, 0), glow, x, 3.1 + height / 2, z);
+        marker.userData.isLandscapeBeacon = true;
+      }
+      route([[-4.2, 2.45, 28.05], [-2.2, 2.15, 27.25], [0, 2.12, 26.75], [2.2, 2.15, 27.25], [4.2, 2.45, 28.05]], glow, 0.1);
+      route([[-4.2, 1.18, 29], [-2.1, 1.2, 27], [0, 1.22, 26], [2.1, 1.2, 27], [4.2, 1.18, 29]], edge, 0.085);
+      arch(7.8, 5.1, edge, 27);
+      ring(5.55, 1.16, 0.13);
       break;
     }
     case "career": {

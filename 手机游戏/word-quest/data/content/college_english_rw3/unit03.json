@@ -30,103 +30,158 @@
   "micro_world_checks": {
     "section_a": [
       {
-        "question": "What do many students initially think travel is mainly about?",
+        "question": "What idea did the seminar ask students to examine?",
         "options": [
-          "Staying home to avoid every surprise",
-          "Collecting as much luggage as possible",
-          "Following a local shop owner everywhere",
-          "Reaching a destination with famous sights and photos"
+          "Whether famous sights alone explain the purpose of a journey",
+          "Whether travelers should avoid planning or safety checks",
+          "Whether every trip must include a hostel stay",
+          "Whether photos are more important than local conversations"
         ],
-        "answer": 3,
-        "explanation": "The opening contrasts the common focus on destinations, sights, and photos with deeper purposes of travel."
+        "answer": 0,
+        "explanation": "The seminar asks whether reaching a destination and collecting photos fully explain what a journey can change."
       },
       {
-        "question": "What can solo travelers gain when a trip does not go as planned?",
+        "question": "How did the solo traveler respond when her train connection was cancelled?",
         "options": [
-          "A fixed itinerary that never changes",
-          "More space to navigate uncertainty, reflect, and transform their perspective",
-          "A guarantee that every day will be comfortable",
-          "A reason to measure the trip only by photographs"
+          "She returned home without exploring the neighborhood.",
+          "She used a map to navigate nearby streets and choose another route.",
+          "She blamed the local shop owner for the delay.",
+          "She followed the original itinerary without checking it."
         ],
         "answer": 1,
-        "explanation": "The passage presents uncertainty as a chance for curiosity, reflection, and a changed view of daily life."
+        "explanation": "Rather than treating the cancelled connection as failure, she used a map to explore a nearby neighborhood."
+      },
+      {
+        "question": "What did the rain teach the travelers in the covered-market scene?",
+        "options": [
+          "A flexible traveler can adapt instead of forcing an unsafe plan.",
+          "A memorable trip must follow the shortest route.",
+          "A reservation makes every unexpected change unnecessary.",
+          "A local conversation should replace all safety checks."
+        ],
+        "answer": 0,
+        "explanation": "When rain blocked the footpath, the group changed plans and used the market as a safe place to pause."
+      },
+      {
+        "question": "How does the passage define a meaningful journey?",
+        "options": [
+          "By the number of landmarks completed on schedule",
+          "By how little luggage the traveler carries",
+          "By what travelers notice and reconsider along the way",
+          "By whether the trip ends at a famous destination"
+        ],
+        "answer": 2,
+        "explanation": "The conclusion measures a journey by attention and reflection, not only by distance or attractions."
       }
     ],
     "section_b": [
       {
-        "question": "Why did Mei have room for unexpected encounters?",
+        "question": "What did Mei prepare before departure to make the journey practical?",
         "options": [
-          "She followed a fixed itinerary minute by minute.",
-          "She refused to speak with local people.",
-          "She traveled without a fixed itinerary and could wander.",
-          "She carried more luggage than other travelers."
-        ],
-        "answer": 2,
-        "explanation": "Without a fixed itinerary, Mei could wander through the hostel neighborhood and talk with local shop owners."
-      },
-      {
-        "question": "What did the wrong turn give Mei?",
-        "options": [
-          "A memorable landscape and a lesson in self-reliance",
-          "A new reservation and a shorter flight",
-          "A reason to abandon every future journey",
-          "A perfect plan that could not be changed"
+          "She checked her reservation, kept the hostel address handy, and packed light luggage.",
+          "She memorized every street and refused to carry a phone.",
+          "She cancelled the hostel and left without telling anyone.",
+          "She packed extra bags and avoided checking her arrival time."
         ],
         "answer": 0,
-        "explanation": "The unexpected route produced both a memorable view and a practical lesson about relying on herself."
+        "explanation": "The opening describes her checked reservation, hostel address, arrival message, and light luggage."
       },
       {
-        "question": "How does the passage redefine departure?",
+        "question": "What route advice did the desk clerk give Mei?",
         "options": [
-          "As an escape from every responsibility",
-          "As curiosity with purpose rather than simple escape",
-          "As a competition to reach a destination first",
-          "As a decision to avoid adapting to new places"
+          "The clerk marked a route to the market and warned her about a closed riverside path.",
+          "The clerk told her to walk beside the river after dark.",
+          "The clerk asked her to cancel her hostel reservation.",
+          "The clerk recommended avoiding all local streets."
         ],
-        "answer": 1,
-        "explanation": "The final sentence says that the best departure is curiosity with purpose, not escape."
+        "answer": 0,
+        "explanation": "The clerk marks a simple market route and advises her to avoid the closed riverside path."
+      },
+      {
+        "question": "What did Mei learn from the rainy detour?",
+        "options": [
+          "Adapting can preserve both safety and curiosity.",
+          "A traveler should never change a planned route.",
+          "The landscape matters only when the weather is clear.",
+          "A solo traveler must refuse help from other people."
+        ],
+        "answer": 0,
+        "explanation": "She changed the slippery route, waited under a covered stall, and still noticed the landscape around her."
+      },
+      {
+        "question": "What does Mei's final reflection say about independence?",
+        "options": [
+          "It depends on controlling every detail in advance.",
+          "It means refusing directions and avoiding conversation.",
+          "It can include preparation, curiosity, and asking for help.",
+          "It is possible only when a traveler reaches a famous place."
+        ],
+        "answer": 2,
+        "explanation": "Mei concludes that traveling alone can combine preparation, curiosity, and trust rather than requiring isolation."
       }
     ],
     "section_c": [
       {
-        "question": "What did the student learn from the route to Xi'an?",
+        "question": "What did Lin's teacher ask each traveler to note before departure?",
         "options": [
-          "The destination was important only for taking photographs.",
-          "High-speed rail prevents people from meeting others.",
-          "A route should never change a traveler's thinking.",
-          "The journey offered perspective beyond ordinary tourism."
+          "One expectation and one question",
+          "A list of every shop at the destination",
+          "A promise not to speak with other passengers",
+          "A photograph of each station on the route"
         ],
-        "answer": 3,
-        "explanation": "The route itself taught the student perspective, making the journey more than tourism."
+        "answer": 0,
+        "explanation": "The travel assignment begins with one expectation and one question, giving the journey a reflective purpose."
       },
       {
-        "question": "How can travel infrastructure renew respect for diverse landscapes?",
+        "question": "How did Lin handle the retired teacher's account?",
         "options": [
-          "By isolating cities from one another",
-          "By making every journey follow one identical plan",
-          "By connecting local travelers and their stories",
-          "By replacing personal encounters with advertisements"
+          "She added it to her notes without treating it as a universal rule.",
+          "She presented it as proof that every family makes the same choices.",
+          "She ignored it because it did not describe a famous destination.",
+          "She replaced her teacher's assignment with a photograph."
         ],
-        "answer": 2,
-        "explanation": "Movement creates opportunities for local encounters and shared stories across different landscapes."
+        "answer": 0,
+        "explanation": "Lin listens and records the story, while explicitly avoiding a universal conclusion from one person's experience."
+      },
+      {
+        "question": "What did Lin do after the arrival track changed?",
+        "options": [
+          "She left the station without checking the signs.",
+          "She checked her destination, followed directions, and helped another traveler.",
+          "She insisted that the original platform must still be correct.",
+          "She cancelled her cousin's visit and returned home."
+        ],
+        "answer": 1,
+        "explanation": "Lin checks the destination information, follows the new signs, and helps someone else find the platform."
+      },
+      {
+        "question": "Which idea best summarizes the China travel story?",
+        "options": [
+          "Infrastructure provides a route, while people give a journey meaning.",
+          "Fast transportation makes local stories less important.",
+          "Travel is valuable only when the destination is unfamiliar.",
+          "A traveler should photograph a landscape instead of asking questions."
+        ],
+        "answer": 0,
+        "explanation": "The ending distinguishes the path offered by transport from the meaning created through curiosity and human encounters."
       }
     ]
   },
   "sections": {
     "section_a": {
-      "title": "The Surprising purpose of travel",
+      "title": "The Surprising Purpose of Travel",
       "type": "reading",
-      "passage": "Many students assume travel is only about reaching a destination with an orderly itinerary and light luggage. Yet experienced travelers say the real purpose is the unexpected encounter: a conversation with a shop owner, a wrong turn that leads to a quiet street, or a day alone that teaches self-reliance. Solo travel can feel frightening at first, but learning to navigate uncertainty creates space for reflection and curiosity. The best trips do not always go as planned; they transform our perspective on daily life back home."
+      "passage": "Many students imagine a successful trip as reaching a famous destination, taking clear photos, and returning without delay. Their itinerary lists landmarks in order, while a light bag of luggage keeps every step efficient. A campus travel seminar asked whether this plan explains what a journey can change. Its learners compared three journals rather than treating one traveler as a model for everyone. They found that travel also depends on curiosity: noticing details that a hurried schedule might hide. One journal belonged to a solo traveler whose train connection was cancelled before departure. Instead of calling the day a failure, she used a map to navigate a nearby neighborhood. She chose a quieter route, asked a local bookshop owner for directions, and began to wander. That brief encounter led to a conversation about the river, old streets, and everyday work. The new landscape became memorable not because it was famous, but because she had paid attention. Another student preferred a hostel where guests shared a kitchen and could exchange practical advice. She had made a reservation for the first night, yet left the following morning open. When rain blocked the footpath, the group had to adapt rather than force the original plan. A covered market gave them shelter, a warm drink, and time to compare their expectations. Their conversation shifted perspective: unfamiliar places were not puzzles to conquer but communities to meet. The seminar did not suggest that planning or safety checks were unnecessary. It recommended a flexible itinerary, reliable contacts, and enough time to reflect after an unexpected change. Students wrote one question about what they hoped to learn before choosing a destination. Later, they described how each detour could transform their attention to ordinary life at home. Their conclusion was simple: a meaningful journey is measured by what you notice and reconsider."
     },
     "section_b": {
-      "title": "Traveling solo — a blessing overall!",
+      "title": "Traveling Solo: Room to Adapt",
       "type": "reading",
-      "passage": "Traveling solo frightened Mei at first, yet it became a blessing overall. Without a fixed itinerary, she could wander through a hostel neighborhood and talk with local shop owners. Mei made a reservation for her first night, then left the next morning open for discovery. A wrong turn led to a memorable landscape and a lesson in self-reliance. Solo travel creates space to adapt, reflect, and transform confidence. The best departure is not escape—it is curiosity with purpose."
+      "passage": "Mei had traveled with family before, but her first solo departure made a familiar station feel enormous. She checked her reservation twice, placed a small card with the hostel address in her pocket, and told her sister when she expected to arrive. Packing light luggage let her keep one hand free for her ticket and phone. She had expected confidence to arrive before the trip began, but it came in smaller decisions. At the platform, she felt nervous and reminded herself why she had chosen to go. Her itinerary named the hostel and one museum, while leaving the afternoon unplanned. After checking in, she asked the desk clerk which streets remained busy before dusk. The clerk marked a simple route to a market and advised her to avoid a closed riverside path. Mei used the map to navigate the first turns, then put it away to notice shop signs and sounds. When she missed a turning, she did not pretend to understand the route. A local bookseller showed her a safer street and asked what she hoped to see. That encounter became a memorable conversation about the neighborhood's changing shops. Mei began to wander slowly, choosing a public square rather than chasing a distant destination. A sudden rain shower made the shortest path slippery, so she adapted and waited under a covered stall. The landscape looked different from beneath the awning, and a shop owner offered tea while the rain passed. By returning to the hostel before dusk, Mei kept her trip both open and sensible. Her journal noted that independence does not require refusing help. She had once thought a fixed itinerary was the only protection from uncertainty. Now she would rather ask a respectful question than follow a confusing route alone. The journey transformed her perspective: solo travel could combine preparation, curiosity, and trust."
     },
     "section_c": {
       "title": "Stories of China",
       "type": "stories_of_china",
-      "passage": "High-speed rail now links cities that once required a full day on the road. A student from Chengdu described her journey to Xi'an as more than tourism: the route itself taught perspective. She encountered local travelers who shared stories about work, family, and change. China's travel infrastructure shows how a route can connect people and renew respect for diverse landscapes."
+      "passage": "In an original practice story, Lin leaves Chengdu for Xi'an on a high-speed train to meet her cousin. She has visited stations with classmates, but never studied a route as part of a reading assignment. Before departure, her teacher asks each traveler to note one expectation and one question. Lin expects a quick arrival and plans to photograph the station architecture. She carries light luggage, a notebook, and an itinerary with an afternoon left open. Across the aisle, a retired teacher is traveling to visit an old friend. They compare the route with the places each hopes to see, without claiming one person's plan is better. Their encounter begins with a question about the landscape beyond the window. The teacher describes how moving between cities has changed the work and family routines of people she knows. Lin listens, then adds the story to her notes rather than treating it as a universal rule. As the train continues, fields, rivers, and denser neighborhoods appear in sequence. The shifting landscape helps her notice that a route connects places without making them identical. She uses a map to follow the journey and ask how people navigate changes in daily life. A station announcement changes the arrival track, and passengers adapt calmly to new directions. Lin checks her destination, follows signs, and helps another traveler locate the correct platform. Later, her cousin shows her a street market that does not appear on the short itinerary. The local vendors explain how seasonal choices shape what they sell, and Lin asks permission before taking a photo. The trip's memorable moments come from conversations as much as scenery. On returning, Lin says travel can transform perspective when curiosity is joined to respect. Her class concludes that transport infrastructure offers a path, but people give the journey meaning."
     },
     "vocabulary": {
       "level_count": 4,
@@ -134,79 +189,151 @@
     },
     "reading": {
       "title": "Why We Leave Home",
-      "passage": "Many students assume travel is only about reaching a destination with an orderly itinerary and light luggage. Yet experienced travelers say the real purpose is the unexpected encounter: a conversation with a shop owner, a wrong turn that leads to a quiet street, or a day alone that teaches self-reliance. Solo travel can feel frightening at first, but learning to navigate uncertainty creates space for reflection and curiosity. The best trips do not always go as planned; they transform our perspective on daily life back home.",
+      "passage": "Many students imagine a successful trip as reaching a famous destination, taking clear photos, and returning without delay. Their itinerary lists landmarks in order, while a light bag of luggage keeps every step efficient. A campus travel seminar asked whether this plan explains what a journey can change. Its learners compared three journals rather than treating one traveler as a model for everyone. They found that travel also depends on curiosity: noticing details that a hurried schedule might hide. One journal belonged to a solo traveler whose train connection was cancelled before departure. Instead of calling the day a failure, she used a map to navigate a nearby neighborhood. She chose a quieter route, asked a local bookshop owner for directions, and began to wander. That brief encounter led to a conversation about the river, old streets, and everyday work. The new landscape became memorable not because it was famous, but because she had paid attention. Another student preferred a hostel where guests shared a kitchen and could exchange practical advice. She had made a reservation for the first night, yet left the following morning open. When rain blocked the footpath, the group had to adapt rather than force the original plan. A covered market gave them shelter, a warm drink, and time to compare their expectations. Their conversation shifted perspective: unfamiliar places were not puzzles to conquer but communities to meet. The seminar did not suggest that planning or safety checks were unnecessary. It recommended a flexible itinerary, reliable contacts, and enough time to reflect after an unexpected change. Students wrote one question about what they hoped to learn before choosing a destination. Later, they described how each detour could transform their attention to ordinary life at home. Their conclusion was simple: a meaningful journey is measured by what you notice and reconsider.",
       "questions": [
         {
-          "question": "According to the passage, travel is mainly about ___.",
+          "question": "What idea did the seminar ask students to examine?",
           "options": [
-            "buying expensive gifts",
-            "growth and new perspectives",
-            "avoiding all risks",
-            "collecting photos only"
+            "Whether famous sights alone explain the purpose of a journey",
+            "Whether travelers should avoid planning or safety checks",
+            "Whether every trip must include a hostel stay",
+            "Whether photos are more important than local conversations"
+          ],
+          "answer": 0,
+          "explanation": "The seminar asks whether reaching a destination and collecting photos fully explain what a journey can change."
+        },
+      {
+        "question": "What did the unexpected encounter help the traveler notice?",
+          "options": [
+            "Only the landmarks listed in the original itinerary",
+            "Details of the neighborhood and the everyday work around her",
+            "That local people never change their routines",
+            "That the cancelled train had made the whole trip useless"
+          ],
+        "answer": 1,
+          "explanation": "The conversation about the river, streets, and everyday work made the local setting meaningful."
+        },
+        {
+          "question": "What did the seminar recommend after an unexpected change?",
+          "options": [
+            "Ignore contacts and continue without checking safety.",
+            "Keep a flexible plan and make time to reflect.",
+            "Avoid all future journeys that include uncertainty.",
+            "Replace the itinerary with a list of famous photographs."
           ],
           "answer": 1,
-          "explanation": "旅行意义在于成长与新视角。"
+          "explanation": "The passage supports planning and reliable contacts while leaving enough flexibility to reflect."
+        },
+        {
+          "question": "Which choice best expresses the passage's conclusion?",
+          "options": [
+            "A journey is meaningful only if it follows the original route.",
+            "A journey is measured by what travelers notice and reconsider.",
+            "A destination matters more than the people who live there.",
+            "Travel should be judged by how many landmarks are completed."
+          ],
+          "answer": 1,
+          "explanation": "The final sentence defines a meaningful journey through attention and reconsideration."
         }
       ]
     },
     "listening": {
       "title": "Listening: Let's go",
-      "script": "In her travel journal, Mei described her first solo journey beyond a familiar city. She had booked a bed at a hostel, packed light luggage, and left one afternoon open in her itinerary. When she took a wrong turn, she had to navigate unfamiliar lanes. Instead of hurrying back to her route, she asked a local shopkeeper for directions and began to wander. The detour led to a memorable landscape and an unexpected encounter with people who lived nearby. Mei felt nervous, but relying on her own judgment helped her adapt. Later, she said the trip changed her perspective: travel was not just reaching a destination. Curiosity made room for experiences she could not have reserved in advance.",
+      "script": "On my first solo journey, I thought successful travel meant following every point on an itinerary. I had made a reservation at a hostel and packed light luggage, so my departure felt organized. Yet a cancelled bus forced me to navigate a part of town I had not planned to see. I checked a printed route, asked a local shopkeeper for directions, and left enough time to wander safely. The detour led to a quiet garden and a memorable encounter with a woman who sold handmade paper. She explained how visitors often hurried past because they were trying to reach a famous destination before closing. Her comment changed my perspective. I began to notice the landscape, the shop signs, and the people whose routines continued around me. Later, rain made the path slippery, so I adapted and took a bus back to the hostel. I did not treat the change as a failure because I had built an alternative route into my plan. In my journal, I wrote that curiosity is not the same as ignoring safety. It means asking questions, checking directions, and staying open to a respectful conversation. Travel cannot promise that every encounter will transform us, but it can give us a reason to look more carefully. I would rather return with one new question than collect photos I never think about again.",
       "questions": [
         {
-          "question": "What does the speaker present as the deeper purpose of travel?",
+          "question": "What had the speaker arranged before departure?",
           "options": [
-            "Learning through unexpected encounters and new perspectives.",
-            "Reaching planned landmarks efficiently and documenting them.",
-            "Keeping to familiar routes so uncertainty does not interrupt the trip.",
-            "Avoiding local interaction so the traveler can reflect alone."
+            "A hostel reservation, light luggage, and an open afternoon",
+            "A fixed guide for every street and conversation",
+            "A promise to avoid asking anyone for directions",
+            "A ticket that guaranteed the weather would stay clear"
           ],
           "answer": 0,
-          "explanation": "Mei 的经历把意外相遇、独立应对和新视角联系起来；目的地是旅程的一部分，但不是讲者强调的唯一目的。"
+          "explanation": "The speaker says they had reserved a hostel, packed light, and left one afternoon open."
         },
         {
-          "question": "How did Mei's wrong turn affect her journey?",
+          "question": "Why did the speaker ask the shopkeeper for directions?",
           "options": [
-            "It interrupted the trip but convinced her to follow a fixed itinerary next time.",
-            "It kept her from talking with local shop owners.",
-            "It led to a memorable landscape and gave her practice in self-reliance.",
-            "It confirmed that traveling alone was too uncertain to be worthwhile."
+            "A cancelled bus led the speaker into an unfamiliar area.",
+            "The shopkeeper had taken the speaker's itinerary.",
+            "The hostel had permanently closed before the trip.",
+            "The speaker wanted to avoid every local street."
           ],
-          "answer": 2,
-          "explanation": "她走错路后看到了难忘的景色，并依靠自己的判断继续前行；稿件还提到她向当地店主问路，因此这次变化没有阻断交流。"
+          "answer": 0,
+          "explanation": "The cancelled bus changed the route, so the speaker checked a map and asked a local person for help."
         },
         {
-          "question": "What can listeners infer about travel plans from Mei's experience?",
+          "question": "What did the woman's comment help the speaker understand?",
           "options": [
-            "Only experienced travelers benefit from leaving their plans open.",
-            "Leaving room for change can create valuable experiences.",
-            "Travelers should avoid making any plans before they leave.",
-            "An unexpected change matters only when it leads to a famous attraction."
+            "Visitors can miss meaningful details when they hurry toward famous sights.",
+            "A destination is valuable only when it is difficult to reach.",
+            "Local conversations should be avoided during solo travel.",
+            "A printed route is always less useful than memory."
+          ],
+          "answer": 0,
+          "explanation": "The speaker notices that visitors may rush past local life while trying to reach an attraction."
+        },
+        {
+          "question": "How does the speaker define curiosity?",
+          "options": [
+            "Ignoring safety so every turn becomes a surprise",
+            "Asking questions, checking directions, and remaining open to respectful conversation",
+            "Collecting photographs without thinking about the experience",
+            "Following an itinerary even when conditions change"
           ],
           "answer": 1,
-          "explanation": "Mei 没有固定行程，因此能漫步、交谈并从意外中学习。推论是给变化留空间，而不是完全不做计划。"
+          "explanation": "The speaker links curiosity to questions, safe route-checking, and respectful openness."
         }
       ]
     },
     "translation": {
       "sentences": [
         {
-          "zh": "请将下列句子译为英文：旅行的意义不只是到达某地，而是在路上重新认识自己。",
-          "en_reference": "Travel is more than reaching a destination; each journey can help us rediscover ourselves along the way.",
+          "zh": "请将下列句子译为英文：为了给探索留出空间，Mei没有把每一分钟都写进行程表。",
+          "en_reference": "Mei left part of her itinerary open in order to make room for exploration.",
           "keywords": [
-            "travel",
-            "journey"
+            "itinerary",
+            "in order to",
+            "exploration"
+          ]
+        },
+        {
+          "zh": "请将下列句子译为英文：她宁愿向当地人问路，也不愿假装自己知道方向。",
+          "en_reference": "She would rather ask a local for directions than pretend to know the route.",
+          "keywords": [
+            "would rather",
+            "local",
+            "route"
+          ]
+        },
+        {
+          "zh": "请将下列句子译为英文：为了安全抵达旅店，旅行者调整了路线。",
+          "en_reference": "The traveler changed the route in order to reach the hostel safely.",
+          "keywords": [
+            "route",
+            "in order to",
+            "hostel"
+          ]
+        },
+        {
+          "zh": "请将下列句子译为英文：那次旅程改变了她看待目的地和旅途的视角。",
+          "en_reference": "That journey transformed her perspective on destinations and travel.",
+          "keywords": [
+            "journey",
+            "transformed",
+            "perspective"
           ]
         }
       ]
     },
     "writing": {
-      "prompt": "Write 120-150 words about the theme: 出发吧.",
+      "prompt": "Write 120-150 words about a real or imagined journey that changed your perspective. Explain your purpose, one unexpected encounter, and a choice you would rather make. Distinguish evidence from assumption.",
       "outline": [
-        "Introduction",
-        "Example",
-        "Personal view",
-        "Conclusion"
+        "State why you chose to travel and what you expected",
+        "Describe one encounter or change of route with concrete detail",
+        "Explain how you adapted and what evidence changed your view",
+        "Conclude with what the journey means beyond reaching a destination"
       ]
     }
   }

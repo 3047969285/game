@@ -58,9 +58,9 @@ const PASSAGE_WORLD_STORIES: Record<string, Partial<Record<PassageKind, PassageW
     section_c: { places: ["远航码头", "印度洋航线", "海图档案", "交流港湾"], scenes: ["舰队出发", "港口与交换", "证据辨析", "留下的网络"] },
   },
   unit03: {
-    section_a: { places: ["行程地图", "迷雾小径"], scenes: ["目的地之外", "在不确定中前行"] },
-    section_b: { places: ["初夜驿站", "开放路线", "信心观景台"], scenes: ["第一次独行", "留白与发现", "信心生长"] },
-    section_c: { places: ["高铁站台", "同行车厢"], scenes: ["城市相连", "旅途中的人"] },
+    section_a: { places: ["行程地图", "迷雾小径", "市集回声廊", "归来观景台"], scenes: ["目的地之外", "在不确定中前行", "意外相遇", "带着新视角归来"] },
+    section_b: { places: ["初夜驿站", "开放路线", "雨中市场", "信心观景台"], scenes: ["第一次独行", "留白与发现", "安全适应", "信心生长"] },
+    section_c: { places: ["高铁站台", "同行车厢", "山河观景窗", "城市连线桥"], scenes: ["城市相连", "旅途中的人", "流动的地貌", "交通与人的网络"] },
   },
   unit04: {
     section_a: { places: ["职业讨论厅", "提琴工坊", "品质工作台"], scenes: ["劳动的意义", "精确保护作品", "质量让工作有意义"] },
