@@ -5,7 +5,7 @@ import type { UnitBiome } from "./unitBiome";
 type PassageKind = "section_a" | "section_b" | "section_c";
 type PassageSceneKind =
   | "message" | "dialogue" | "focus" | "notification" | "study-desk" | "filter" | "offline-rest"
-  | "listening-bench" | "clinic" | "telemedicine" | "community" | "community-network" | "timeline" | "perseverance" | "route-evidence" | "legacy" | "archive-crossroads"
+  | "listening-bench" | "clinic" | "telemedicine" | "community" | "community-library" | "community-network" | "timeline" | "perseverance" | "route-evidence" | "legacy" | "archive-crossroads"
   | "spotlight" | "humanitarian" | "lasting-service" | "community-witness" | "fleet" | "peace-contact" | "chart-room" | "exchange-harbor"
   | "itinerary" | "detour" | "market-encounter" | "reflection-garden" | "hostel" | "open-route" | "rain-shelter" | "confidence" | "rail-platform" | "rail-car" | "landscape-window" | "route-network"
   | "career" | "violin" | "craft-quality" | "bench" | "caliper" | "trust-bridge" | "loom" | "heritage"
@@ -44,7 +44,7 @@ const PASSAGE_SCENES: Record<string, Partial<Record<PassageKind, PassageSceneKin
   unit06: {
     section_a: ["bookshop", "exchange", "resilience", "budget-board"],
     section_b: ["exchange-wall", "resource-cycle", "trust-ledger", "sustainable-market"],
-    section_c: ["library", "digital-lending", "community-network", "knowledge-bridge"],
+    section_c: ["library", "digital-lending", "community-library", "knowledge-bridge"],
   },
 };
 
@@ -916,6 +916,53 @@ function addPassageSceneLandmark(
       const hub = add(new THREE.SphereGeometry(0.58, 12, 10), glow, 0, 2.7, 26);
       hub.userData.isLandscapeBeacon = true;
       for (const x of [-4, -1.4, 1.5, 4]) route([[x, 2.4, 27], [x / 2, 2.15, 26], [0, 2.7, 26]], edge, 0.075);
+      break;
+    }
+    case "community-library": {
+      cylinder(0, 1.06, 27, 6.2, 0.4, dark, 14);
+
+      const table = cylinder(0, 1.62, 27, 2.05, 0.28, ground, 12);
+      table.userData.isLandscapeRoute = true;
+      cylinder(0, 1.8, 27, 1.86, 0.08, glow, 12);
+      for (let i = 0; i < 6; i++) {
+        const row = Math.floor(i / 3);
+        const col = i % 3;
+        book(-0.74 + col * 0.74, 2.07 + row * 0.04, 26.45 + row * 0.9, i, 0.42);
+      }
+
+      for (const x of [-4.65, 4.65]) {
+        box(x, 3.05, 27, 1.42, 3.6, 1.08, dark);
+        for (const y of [2.02, 3.12, 4.22]) {
+          box(x, y, 26.38, 1.28, 0.12, 0.16, edge);
+          for (let i = 0; i < 3; i++) book(x - 0.4 + i * 0.4, y + 0.46, 26.16, i + Math.round(y * 2), 0.24);
+        }
+      }
+
+      box(0, 4.15, 29.35, 7.8, 4.2, 0.4, dark);
+      box(0, 4.15, 29.08, 7.24, 3.62, 0.08, ground);
+      for (const x of [-2.3, 0, 2.3]) box(x, 4.12, 29.0, 0.08, 2.8, 0.06, edge);
+      for (const y of [3.18, 4.12, 5.06]) box(0, y, 28.98, 6.8, 0.06, 0.06, edge);
+      for (const [x, y, material] of [
+        [-1.4, 3.55, glow], [0.85, 3.55, edge], [-2.25, 4.5, edge], [1.55, 4.5, glow],
+        [-0.8, 5.42, edge], [2.25, 5.42, glow],
+      ] as const) {
+        const feedbackCard = box(x, y, 28.86, 0.48, 0.34, 0.08, material, -0.04);
+        feedbackCard.userData.isLandscapeBeacon = true;
+      }
+
+      for (const [index, [x, z]] of [[-3.15, 27], [3.15, 27], [0, 24.9]].entries()) {
+        const reader = cylinder(x, 2.05, z, 0.28, 0.86, index % 2 ? edge : dark, 8);
+        reader.userData.isLandscapeStage = true;
+        const head = add(new THREE.SphereGeometry(0.25, 10, 8), ground, x, 2.64, z);
+        head.userData.isLandscapeStage = true;
+      }
+
+      box(0, 2.0, 23.35, 1.72, 1.42, 1.06, edge);
+      box(0, 2.38, 22.78, 1.12, 0.12, 0.08, dark);
+      box(0, 1.42, 22.78, 0.84, 0.12, 0.08, glow);
+      route([[-4.2, 2.08, 27], [-2.5, 2.02, 26.1], [0, 2.08, 25.7], [2.5, 2.02, 26.1], [4.2, 2.08, 27]], glow, 0.08);
+      route([[0, 2.3, 24], [0, 2.75, 25.1], [0, 2.9, 27], [0, 3.6, 28.4], [0, 4.0, 29]], edge, 0.075);
+      ring(5.45, 1.28, 0.12);
       break;
     }
     case "community-network": {
