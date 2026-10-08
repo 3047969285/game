@@ -896,12 +896,58 @@ function addPassageSceneLandmark(
       break;
     }
     case "filter": {
-      for (const [x, y, material] of [[-4, 4.1, ground], [0, 5.8, edge], [4, 4.1, ground]] as const) {
-        arch(2.2, 4.2, material, 27, x);
-        const gate = add(new THREE.TorusGeometry(1.5, 0.11, 8, 28), glow, x, y, 26.5);
-        gate.userData.isLandscapeRing = true;
+      const platform = cylinder(0, 0.98, 27, 7.1, 0.36, dark, 12);
+      platform.userData.isLandscapeStage = true;
+      arch(10.4, 6.4, edge, 28.1);
+
+      const risk = new THREE.MeshStandardMaterial({
+        color: 0xc9636b,
+        emissive: 0x6b202a,
+        emissiveIntensity: 0.22,
+        roughness: 0.72,
+      });
+      const cardCenters = [-3.35, 0, 3.35] as const;
+      for (const [index, x] of cardCenters.entries()) {
+        box(x, 3.05, 25.72, 1.84, 2.35, 0.2, dark);
+        box(x, 3.05, 25.59, 1.58, 2.08, 0.06, index === 1 ? ground : glow);
+        box(x, 3.88, 25.53, 1.08, 0.1, 0.06, edge);
       }
-      route([[-4, 2, 27], [-2, 2.7, 27], [0, 3.7, 27], [2, 2.7, 27], [4, 2, 27]], edge, 0.16);
+
+      // A link, a credential request, and a public post enter one visible safety check.
+      for (const offset of [-0.2, 0.2]) {
+        const link = add(new THREE.TorusGeometry(0.26, 0.075, 8, 20), edge, -3.35 + offset, 3.12, 25.46);
+        link.rotation.z = offset < 0 ? -0.62 : 0.62;
+        link.userData.isLandscapeStage = true;
+      }
+      const lockShackle = add(new THREE.TorusGeometry(0.32, 0.075, 8, 20, Math.PI), edge, 0, 3.42, 25.45);
+      lockShackle.userData.isLandscapeStage = true;
+      box(0, 2.96, 25.45, 0.72, 0.56, 0.16, edge);
+      const profileHead = add(new THREE.SphereGeometry(0.2, 10, 8), edge, 3.35, 3.34, 25.44);
+      profileHead.userData.isLandscapeStage = true;
+      const profileBody = add(new THREE.SphereGeometry(0.36, 10, 8), edge, 3.35, 2.75, 25.44);
+      profileBody.scale.set(1.1, 0.68, 0.55);
+      profileBody.userData.isLandscapeStage = true;
+
+      const shieldShape = new THREE.Shape();
+      shieldShape.moveTo(0, 1.16);
+      shieldShape.lineTo(1.02, 0.72);
+      shieldShape.lineTo(0.86, -0.12);
+      shieldShape.quadraticCurveTo(0.62, -0.72, 0, -1.08);
+      shieldShape.quadraticCurveTo(-0.62, -0.72, -0.86, -0.12);
+      shieldShape.lineTo(-1.02, 0.72);
+      shieldShape.closePath();
+      const shield = add(
+        new THREE.ExtrudeGeometry(shieldShape, { depth: 0.18, bevelEnabled: true, bevelSegments: 2, bevelSize: 0.06, bevelThickness: 0.04 }),
+        edge,
+        0,
+        5.48,
+        28.4
+      );
+      shield.userData.isLandscapeBeacon = true;
+      route([[-3.35, 1.65, 25.5], [-3.35, 1.85, 27.2], [0, 2.05, 28.2]], risk, 0.1);
+      route([[0, 1.65, 25.5], [0, 2.2, 26.9], [0, 4.25, 28.3]], edge, 0.13);
+      route([[3.35, 1.65, 25.5], [3.35, 1.85, 27.2], [0, 2.05, 28.2]], risk, 0.1);
+      ring(5.4, 1.24, 0.08);
       break;
     }
     case "offline-rest": {
