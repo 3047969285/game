@@ -1212,6 +1212,30 @@ function addPassageSceneLandmark(
     }
     case "community-network": {
       cylinder(0, 0.98, 27, 6.1, 0.34, dark, 12);
+
+      const bridge = box(0, 1.34, 25.45, 8.3, 0.24, 1.72, ground);
+      bridge.userData.isLandscapeRoute = true;
+      box(0, 1.49, 25.45, 8.08, 0.08, 1.55, dark);
+      for (const z of [24.65, 26.25]) {
+        box(0, 2.06, z, 8.05, 0.1, 0.12, edge);
+        for (const x of [-3.65, -1.85, 0, 1.85, 3.65]) {
+          box(x, 1.77, z, 0.1, 0.62, 0.12, dark);
+        }
+      }
+
+      const accessRamp = add(new THREE.BoxGeometry(1.72, 0.16, 4.2), ground, 0, 1.35, 22.72);
+      accessRamp.rotation.x = -0.08;
+      accessRamp.userData.isLandscapeRoute = true;
+      for (const x of [-0.98, 0.98]) {
+        const rail = add(new THREE.BoxGeometry(0.08, 0.09, 4.05), edge, x, 1.76, 22.72);
+        rail.rotation.x = -0.08;
+        rail.userData.isLandscapeStage = true;
+        for (const z of [20.78, 24.66]) {
+          const post = box(x, 1.51, z, 0.09, 0.42, 0.09, dark);
+          post.userData.isLandscapeStage = true;
+        }
+      }
+
       for (const x of [-4, 4]) {
         box(x, 2.55, 27, 2.3, 2.55, 1.8, ground);
         box(x, 3.88, 27, 2.48, 0.18, 1.96, edge);
@@ -1229,6 +1253,32 @@ function addPassageSceneLandmark(
       box(0, 2.72, 26.42, 0.64, 0.92, 0.12, edge, -0.08);
       const screen = box(0, 2.75, 26.34, 0.48, 0.68, 0.06, glow, -0.08);
       screen.userData.isLandscapeStage = true;
+
+      const participantColors = [0x79aaa5, 0x9fb5c1, 0xb99b7c, 0x829fc0];
+      const participantSkin = new THREE.MeshStandardMaterial({ color: 0xd5aa88, roughness: 0.92 });
+      for (const [index, x] of [-2.75, -1.05, 1.05, 2.75].entries()) {
+        const clothing = new THREE.MeshStandardMaterial({
+          color: participantColors[index],
+          emissive: participantColors[index],
+          emissiveIntensity: 0.08,
+          roughness: 0.86,
+        });
+        for (const offset of [-0.14, 0.14]) {
+          const leg = add(new THREE.CylinderGeometry(0.1, 0.12, 0.43, 7), dark, x + offset, 1.69, 25.45);
+          leg.userData.isLandscapeStage = true;
+        }
+        const torso = add(new THREE.CylinderGeometry(0.28, 0.35, 0.68, 8), clothing, x, 2.14, 25.45);
+        torso.userData.isLandscapeStage = true;
+        const head = add(new THREE.SphereGeometry(0.27, 10, 8), participantSkin, x, 2.72, 25.45);
+        head.userData.isLandscapeStage = true;
+        for (const side of [-1, 1]) {
+          const inward = (x < 0 && side > 0) || (x > 0 && side < 0);
+          const arm = add(new THREE.CylinderGeometry(0.075, 0.085, 0.58, 6), clothing, x + side * 0.29, 2.1, 25.45);
+          arm.rotation.z = -side * (inward ? 0.92 : 0.42);
+          arm.userData.isLandscapeStage = true;
+        }
+      }
+
       route([[-4, 4.45, 26.65], [-2.35, 4.85, 26.25], [0, 4.15, 26.25], [2.35, 4.85, 26.25], [4, 4.45, 26.65]], edge, 0.09);
       route([[-4, 1.45, 27], [-2.2, 1.4, 25.9], [0, 1.5, 25.6], [2.2, 1.4, 25.9], [4, 1.45, 27]], glow, 0.08);
       ring(5.35, 1.3, 0.16);
