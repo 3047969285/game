@@ -6,6 +6,7 @@ export function createDefaultSave(): GameSave {
   return {
     courseId: DEFAULT_COURSE,
     levelProgress: {},
+    rw3PhaseProgress: {},
     mapNodeId: "",
     discoveredWords: [],
     wordMemory: {},

@@ -1509,6 +1509,9 @@ export class App {
 
     if (useRw3) {
       this.phase = "rw3";
+      this.rw3PhaseIndex = this.state.save.levelProgress[built.levelId]?.cleared
+        ? 0
+        : this.state.getRw3PhaseIndex(built.levelId, built.rw3Phases!.length);
       this.clozeItems = [];
       this.clozeIndex = 0;
       this.clozeDone = new Set();
@@ -2474,6 +2477,7 @@ export class App {
     if (!phases) return;
     if (this.rw3PhaseIndex < phases.length - 1) {
       this.rw3PhaseIndex += 1;
+      if (this.scene) this.state.setRw3PhaseIndex(this.scene.levelId, this.rw3PhaseIndex);
       this.rw3QuizIndex = 0;
       this.rw3QuizCorrect = new Set();
       this.rw3WorldRecallDone = new Set();
@@ -2775,6 +2779,7 @@ export class App {
       showToast("薄弱词巩固完成！继续探索新关卡吧");
     } else {
       const completionId = this.scene.levelId;
+      if (this.scene.rw3Phases?.length) this.state.clearRw3PhaseIndex(completionId);
       const isRw3SubWorld = this.state.save.courseId === "college_english_rw3" && Boolean(this.scene.worldId && this.scene.worldId !== "hub");
       const unitId = this.scene.unitId;
       const completesRw3Unit = isRw3SubWorld && this.scene.worldId === "unit-project" && Boolean(unitId);

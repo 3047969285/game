@@ -336,6 +336,7 @@ export interface UnitExploreState {
 export interface GameSave {
   courseId: CourseId;
   levelProgress: Record<string, LevelProgress>;
+  rw3PhaseProgress: Record<string, number>;
   mapNodeId: string;
   discoveredWords: string[];
   wordMemory: Record<string, WordMemory>;

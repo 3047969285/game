@@ -35,6 +35,7 @@ export class GameState {
     if (!this.save.discoveredWords) this.save.discoveredWords = [];
     if (!this.save.mapNodeId) this.save.mapNodeId = "";
     if (!this.save.levelProgress) this.save.levelProgress = {};
+    if (!this.save.rw3PhaseProgress) this.save.rw3PhaseProgress = {};
     if (!this.save.wordMemory) this.save.wordMemory = {};
     if (!this.save.rewardIds) this.save.rewardIds = [];
     if (!Number.isFinite(this.save.experience)) this.save.experience = 0;
@@ -68,6 +69,22 @@ export class GameState {
   completeLevel(levelId: string): void {
     if (this.save.levelProgress[levelId]?.cleared) return;
     this.save.levelProgress[levelId] = { cleared: true };
+    this.persist();
+  }
+
+  getRw3PhaseIndex(levelId: string, phaseCount: number): number {
+    const index = this.save.rw3PhaseProgress[levelId];
+    return Number.isInteger(index) && index >= 0 && index < phaseCount ? index : 0;
+  }
+
+  setRw3PhaseIndex(levelId: string, index: number): void {
+    this.save.rw3PhaseProgress[levelId] = Math.max(0, Math.floor(index));
+    this.persist();
+  }
+
+  clearRw3PhaseIndex(levelId: string): void {
+    if (!(levelId in this.save.rw3PhaseProgress)) return;
+    delete this.save.rw3PhaseProgress[levelId];
     this.persist();
   }
 

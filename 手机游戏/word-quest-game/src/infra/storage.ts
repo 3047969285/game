@@ -20,6 +20,12 @@ function normalize(raw: Record<string, unknown> | null): GameSave {
     raw.wordMemory && typeof raw.wordMemory === "object"
       ? (raw.wordMemory as GameSave["wordMemory"])
       : {};
+  const rw3PhaseProgress: GameSave["rw3PhaseProgress"] = {};
+  if (raw.rw3PhaseProgress && typeof raw.rw3PhaseProgress === "object" && !Array.isArray(raw.rw3PhaseProgress)) {
+    for (const [id, index] of Object.entries(raw.rw3PhaseProgress as Record<string, unknown>)) {
+      if (Number.isInteger(index) && (index as number) >= 0) rw3PhaseProgress[id] = index as number;
+    }
+  }
   const rawCourseId = raw.courseId;
   const courseId: CourseId =
     rawCourseId === "cet4" || rawCourseId === "cet6" || rawCourseId === "college_english_rw3"
@@ -31,6 +37,7 @@ function normalize(raw: Record<string, unknown> | null): GameSave {
     mapNodeId: (raw.mapNodeId as string) ?? "",
     discoveredWords: Array.isArray(raw.discoveredWords) ? (raw.discoveredWords as string[]) : [],
     levelProgress: progress,
+    rw3PhaseProgress,
     wordMemory,
     rewardIds: Array.isArray(raw.rewardIds) ? (raw.rewardIds as string[]) : [],
     experience: typeof raw.experience === "number" && Number.isFinite(raw.experience) ? raw.experience : 0,
