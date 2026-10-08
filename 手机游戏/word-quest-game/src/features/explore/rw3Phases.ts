@@ -48,9 +48,9 @@ interface PassageWorldStory {
 
 const PASSAGE_WORLD_STORIES: Record<string, Partial<Record<PassageKind, PassageWorldStory>>> = {
   unit01: {
-    section_a: { places: ["消息峡谷", "对话温室", "专注观景台"], scenes: ["孤独信号", "倾听实验", "主动选择"] },
+    section_a: { places: ["消息峡谷", "对话温室", "专注观景台", "回声长椅"], scenes: ["孤独信号", "倾听实验", "主动选择", "被理解的瞬间"] },
     section_b: { places: ["通知走廊", "专注书桌", "多任务迷宫", "安全休息站"], scenes: ["数字习惯", "注意力消耗", "隐形代价", "线上线下平衡"] },
-    section_c: { places: ["山村诊所", "家庭连线", "共享进步塔"], scenes: ["远程诊疗", "居家问诊", "科技向善"] },
+    section_c: { places: ["山村诊所", "家庭连线", "共享进步塔", "协作之桥"], scenes: ["远程诊疗", "居家问诊", "科技向善", "有尊严的连接"] },
   },
   unit02: {
     section_a: { places: ["人生档案馆", "坚持航线", "选择展厅"], scenes: ["跨世纪故事", "行动与耐心", "重新定义伟大"] },

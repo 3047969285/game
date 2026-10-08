@@ -40,118 +40,140 @@
   "micro_world_checks": {
     "section_a": [
       {
-        "question": "Why did the teacher ask students to keep their phones in bags during group discussions?",
+        "question": "What problem led the club to run a listening experiment?",
         "options": [
-          "To test whether their phone batteries worked",
-          "To punish students for using technology",
-          "To create space for longer group conversations",
-          "To collect their phones for the whole semester"
-        ],
-        "answer": 2,
-        "explanation": "The experiment created space for students to speak and listen without constant phone attention."
-      },
-      {
-        "question": "What changed after the students took part in three sessions?",
-        "options": [
-          "They spoke longer and listened more carefully.",
-          "They stopped communicating with one another.",
-          "They replaced every discussion with text messages.",
-          "They decided never to use a phone again."
+          "Members felt disconnected despite frequent digital contact.",
+          "The library had banned all electronic devices.",
+          "Students wanted to replace every class with a club meeting.",
+          "The group needed to test a new messaging application."
         ],
         "answer": 0,
-        "explanation": "The passage reports longer speaking and more careful listening after three sessions."
+        "explanation": "The club noticed that being constantly connected did not always help people feel heard."
       },
       {
-        "question": "What does the experiment suggest about readiness for the digital age?",
+        "question": "What changed by the third listening session?",
         "options": [
-          "It means owning as many devices as possible.",
-          "It means avoiding every form of online communication.",
-          "It means replying to every message immediately.",
-          "It means choosing when to connect and when to converse."
+          "Participants stopped using online tools for planning.",
+          "Pauses became useful, and listeners chose their words more carefully.",
+          "Every participant agreed that phones should be banned.",
+          "The club replaced discussion with written reports."
         ],
-        "answer": 3,
-        "explanation": "Digital readiness is presented as a thoughtful choice about connection and conversation."
+        "answer": 1,
+        "explanation": "The second world describes how participants grew more comfortable with pauses and attentive listening."
+      },
+      {
+        "question": "What limitation did the organizers place on their notes?",
+        "options": [
+          "They were collected before the activity began.",
+          "They measured the quality of the students' devices.",
+          "They described one club's experience, not a rule for everyone.",
+          "They proved that online friendships were harmful."
+        ],
+        "answer": 2,
+        "explanation": "The passage explicitly distinguishes local observations from universal scientific proof."
+      },
+      {
+        "question": "According to the final world, what does digital readiness involve?",
+        "options": [
+          "Choosing technology according to the purpose of the moment",
+          "Answering every notification as quickly as possible",
+          "Avoiding conversation whenever a device is available",
+          "Using the same communication routine in every situation"
+        ],
+        "answer": 0,
+        "explanation": "Readiness is framed as intentional choice: use a tool when it serves the need, and make room for conversation when it matters."
       }
     ],
     "section_b": [
       {
-        "question": "What does living in the digital world require according to the opening of the passage?",
+        "question": "How can an algorithm shape a student's digital feed?",
         "options": [
-          "Buying a new device every semester",
-          "Learning new habits",
-          "Studying only at night",
-          "Ignoring all notifications"
+          "It guarantees that every viewpoint appears equally often.",
+          "It filters posts and may repeatedly surface selected stories.",
+          "It decides when a student should sleep.",
+          "It removes the need to make privacy choices."
         ],
         "answer": 1,
-        "explanation": "The passage begins by connecting digital life with learning new habits."
+        "explanation": "The opening world explains that algorithms filter feeds, so repeated exposure should not be mistaken for a balanced view."
       },
       {
-        "question": "How can algorithms on social platforms influence users?",
+        "question": "Why did students schedule set times to check messages?",
         "options": [
-          "They decide when students sleep.",
-          "They repair damaged phones.",
-          "They prevent users from seeing any information.",
-          "They filter what users read and shape how they scroll."
-        ],
-        "answer": 3,
-        "explanation": "Algorithms filter content and shape scrolling behavior."
-      },
-      {
-        "question": "Why are privacy settings often ignored until a data leak occurs?",
-        "options": [
-          "They are available only on paper.",
-          "They automatically delete every account.",
-          "Their importance is easy to overlook during ordinary use.",
-          "They make online platforms impossible to use."
-        ],
-        "answer": 2,
-        "explanation": "The passage contrasts easy-to-ignore settings with the attention created by a data leak."
-      },
-      {
-        "question": "What can a mindful hour without devices help restore?",
-        "options": [
-          "Interaction with roommates and healthier habits",
-          "Only a faster internet connection",
-          "A lost social-media password",
-          "The battery life of every device"
+          "To make it easier to return attention to the study task",
+          "To avoid communicating with classmates altogether",
+          "To make every virtual meeting longer",
+          "To remove all notifications from their devices"
         ],
         "answer": 0,
-        "explanation": "Offline time can restore interaction and help rebuild healthier habits."
+        "explanation": "The class found that opening a device between tasks made it harder to resume the original question."
+      },
+      {
+        "question": "What did the cyber safety instructor ask students to consider?",
+        "options": [
+          "Whether all public posts should be deleted",
+          "Whether a link, request, or post has consequences before they act",
+          "How to avoid using a platform for school work",
+          "Why a privacy setting makes every online choice safe"
+        ],
+        "answer": 1,
+        "explanation": "The instructor teaches deliberate choices about links, password requests, and public posts."
+      },
+      {
+        "question": "Which practice helped students restore balance?",
+        "options": [
+          "Keeping a device-free meal and a clear end time for study",
+          "Checking each message as soon as it arrives",
+          "Joining several virtual groups at once",
+          "Treating every long evening online as an addiction"
+        ],
+        "answer": 0,
+        "explanation": "Small planned routines, including offline time, helped protect attention, rest, and interaction."
       }
     ],
     "section_c": [
       {
-        "question": "How did the clinic serve elderly patients in the mountain county?",
+        "question": "What was the local health center trying to make easier?",
         "options": [
-          "By asking them to travel to the coastal city",
-          "By adopting telemedicine",
-          "By replacing doctors with social platforms",
-          "By sending every patient a new phone"
+          "Replacing all local staff with a remote application",
+          "Making routine specialist advice available without an unnecessary long trip",
+          "Moving older residents to the coastal city",
+          "Collecting health information for public social media"
         ],
         "answer": 1,
-        "explanation": "The clinic used telemedicine so elderly patients could receive advice at home."
+        "explanation": "The first world introduces a local service designed to reduce avoidable travel for routine advice."
       },
       {
-        "question": "What changed for villagers after the digital project began?",
+        "question": "Who remained responsible for follow-up care?",
         "options": [
-          "They had to travel farther for medical advice.",
-          "They stopped using any local services.",
-          "They could receive advice at home instead of traveling for hours.",
-          "They moved to the coastal city."
+          "The local clinicians",
+          "The patient's distant family members alone",
+          "The makers of the telemedicine device",
+          "An automated platform without a medical team"
+        ],
+        "answer": 0,
+        "explanation": "Remote doctors reviewed information, while local clinicians stayed responsible for follow-up."
+      },
+      {
+        "question": "What limitation does the passage acknowledge about telemedicine?",
+        "options": [
+          "It works only when every patient owns the same phone.",
+          "It cannot replace every examination or suit every village.",
+          "It removes the need to protect private information.",
+          "It makes local health professionals unnecessary."
+        ],
+        "answer": 1,
+        "explanation": "The third world warns that online advice is not a universal substitute for in-person examination."
+      },
+      {
+        "question": "How does the final world define meaningful digital progress?",
+        "options": [
+          "By the number of screens installed in a community",
+          "By how quickly a remote platform can process every request",
+          "By whether residents can participate safely and with dignity",
+          "By replacing community services with one central system"
         ],
         "answer": 2,
-        "explanation": "The project reduced long travel by bringing medical advice closer to villagers."
-      },
-      {
-        "question": "What larger idea does the story use the project to illustrate?",
-        "options": [
-          "Technology is useful only in wealthy districts.",
-          "Local needs should be replaced by one national system.",
-          "Progress depends on separating technology from people.",
-          "Digital connection can support real communities when technology serves human needs."
-        ],
-        "answer": 3,
-        "explanation": "The story emphasizes human purpose, local needs and shared progress."
+        "explanation": "The conclusion measures progress by safe, dignified participation and shared responsibility, not by devices alone."
       }
     ]
   },
@@ -159,17 +181,17 @@
     "section_a": {
       "title": "Connection or conversation",
       "type": "reading",
-      "passage": "College students send hundreds of messages every week, yet many report feeling lonely. A communication teacher asked her class to keep phones in bags during group discussions. At first students felt anxious. After three sessions, however, they spoke longer and listened more carefully. One student said, 'Messages connect us quickly, but conversation helps us understand each other.' The experiment suggests that readiness for the digital age is not about owning more devices—it is about choosing when to connect and when to converse."
+      "passage": "A campus conversation club met each Thursday in a room that looked out over the library courtyard. Its members could send a message in seconds, yet during shared breaks some sat together without knowing how to begin. Several said they felt lonely even while their screens filled with names, photos, and alerts. The club asked a practical question: what kind of connection does this moment need? To explore it, student organizers designed a four-week listening experiment for learning, not a scientific study. At each session, members placed their devices in a basket for twenty minutes and took turns describing a small challenge. The listener had to ask one follow-up question and summarize what they had heard before replying. The rule felt awkward at first, and some participants were anxious that an urgent message might arrive. By the third session, a pause no longer seemed like a failure; it gave people time to choose words carefully. Members began noticing tone, hesitation, and the meaning behind a brief answer. They did not stop using group chats or video calls, which remained useful for planning and maintaining distant friendships. A quick digital message worked well when information was simple and time was short. A face-to-face conversation offered something different: people could revise an idea, respond to emotion, and build trust. The club's notes described its own practice, not proof that every student needed the same routine. That limit made the experiment more useful, because it invited discussion instead of imposing a universal rule. Readiness for the digital age therefore means choosing a tool with a purpose, rather than treating every notification as a command. On busy days, members used a shared calendar to protect an uninterrupted study session. On difficult days, they put phones away and asked a friend to listen before giving advice. Their goal was not less technology, but more intentional communication and a clearer sense of when to converse. Each Thursday ended with one question: did today's connection help someone feel understood?"
     },
     "section_b": {
       "title": "Living in the digital world",
       "type": "reading",
-      "passage": "Living in the digital world means learning new habits every semester. One notification can interrupt attention during late-night study, while an algorithm on social platforms filters what we read and shapes how we scroll. Over time, a student may develop a habit of checking a device after every message, even when a study session calls for focus. Virtual study groups connect distant classmates, while screen addiction can turn a quick check into an hour online. Many students multitask without noticing the cost. Privacy settings are easy to ignore until a data leak occurs. Cyber safety workshops remind users to balance online convenience with offline rest. A mindful hour without devices can restore interaction with roommates and rebuild healthier habits."
+      "passage": "For many students, the digital world begins before breakfast, when a notification lights up a device beside the bed. A student may intend to check one message and then scroll through a platform for several minutes. An algorithm filters the feed, quietly deciding which stories appear again and which disappear. Because the stream feels personal, users can mistake repeated exposure for a balanced view of the world. That is why digital literacy starts with attention: notice what a platform asks you to do, and decide whether it deserves the next minute. A first-year class tested a simple habit plan for two weeks, keeping short notes on when they checked screens during study. They found that opening a device between tasks often made it harder to return to the original question. Trying to multitask did not remove the work; it scattered the attention needed to understand complex ideas. The students began grouping messages into set check-in times and placing one offline study block on their daily schedule. One student found virtual study groups useful, provided that members agreed on a goal before joining. Another reviewed privacy settings after learning how much information a default profile could reveal. A cyber safety instructor asked the class to treat each link, password request, and public post as a choice with consequences. The lesson was not to fear every platform but to understand how its tools filter information and shape habits. When a data leak or unwanted contact occurs, prevention is valuable; afterwards, calm reporting and account changes matter too. Students also discussed screen addiction without using the term as a casual label for every long evening online. A habit becomes concerning when it repeatedly harms sleep, learning, or relationships and a person cannot easily adjust it. Restored balance came from small changes: a mindful walk between lectures, a device-free meal, and a clear end time for study. During an offline hour, roommates noticed more interaction and solved small disagreements before they grew. These routines did not make the internet less powerful; they helped students use it more deliberately. Living well online is not a contest to stay disconnected, but a practice of protecting attention, privacy, and human presence."
     },
     "section_c": {
       "title": "Stories of China",
       "type": "stories_of_china",
-      "passage": "In a mountain county in western China, a clinic adopted telemedicine to serve elderly patients. Doctors in a coastal city reviewed scans through a secure platform. Villagers who once traveled for hours now receive advice at home. The project shows how digital connection can support real communities, not only wealthy districts. China's development story includes such quiet innovation: technology with human purpose, respect for local needs, and pride in shared progress."
+      "passage": "This original practice story is set in a fictional mountain county, where the nearest specialist clinic is several hours from some villages. A local health center wanted older residents to receive advice without turning every checkup into a long journey. It partnered with doctors in a coastal teaching hospital and used a secure telemedicine platform to review basic scans. The small team added a familiar phone and a private room so patients could ask questions with a nurse nearby. At first, the technology was only one part of a bigger plan. Local staff helped residents learn how to place the device, describe symptoms, and ask for a second explanation. When a connection failed, the center recorded questions and arranged a call-back instead of pretending the screen had solved everything. Doctors reviewed images carefully and sent written guidance to local clinicians, who remained responsible for follow-up care. A daughter living far away could join one appointment, but the patient still chose what information to share. The process respected privacy as well as distance. This fictional example does not claim that every village has the same service or that online advice can replace an examination. It shows why human communication matters when a new tool enters healthcare. The clinic kept an offline option for people who lacked a suitable phone, steady signal, or confidence using an app. Volunteers explained how the service worked, while medical staff checked whether the advice was clear and useful. Gradually, families spent less time arranging travel for routine questions and more time planning care with local professionals. The change depended on trust, accessible design, and patient choice rather than on a device alone. Stories of China can include this kind of practical innovation: people using knowledge and technology to solve a local need. Its value is measured not by how advanced a screen looks, but by whether residents can participate safely. A shared project becomes stronger when city doctors, county clinicians, families, and public services each take a clear role. In that sense, digital progress is a human achievement: it expands connection while keeping dignity, responsibility, and community in view."
     },
     "vocabulary": {
       "level_count": 6,
@@ -177,68 +199,90 @@
     },
     "reading": {
       "title": "Connection or Conversation?",
-      "passage": "College students send hundreds of messages every week, yet many report feeling lonely. A communication teacher asked her class to keep phones in bags during group discussions. At first students felt anxious. After three sessions, however, they spoke longer and listened more carefully. One student said, 'Messages connect us quickly, but conversation helps us understand each other.' The experiment suggests that readiness for the digital age is not about owning more devices—it is about choosing when to connect and when to converse.",
+      "passage": "A campus conversation club met each Thursday in a room that looked out over the library courtyard. Its members could send a message in seconds, yet during shared breaks some sat together without knowing how to begin. Several said they felt lonely even while their screens filled with names, photos, and alerts. The club asked a practical question: what kind of connection does this moment need? To explore it, student organizers designed a four-week listening experiment for learning, not a scientific study. At each session, members placed their devices in a basket for twenty minutes and took turns describing a small challenge. The listener had to ask one follow-up question and summarize what they had heard before replying. The rule felt awkward at first, and some participants were anxious that an urgent message might arrive. By the third session, a pause no longer seemed like a failure; it gave people time to choose words carefully. Members began noticing tone, hesitation, and the meaning behind a brief answer. They did not stop using group chats or video calls, which remained useful for planning and maintaining distant friendships. A quick digital message worked well when information was simple and time was short. A face-to-face conversation offered something different: people could revise an idea, respond to emotion, and build trust. The club's notes described its own practice, not proof that every student needed the same routine. That limit made the experiment more useful, because it invited discussion instead of imposing a universal rule. Readiness for the digital age therefore means choosing a tool with a purpose, rather than treating every notification as a command. On busy days, members used a shared calendar to protect an uninterrupted study session. On difficult days, they put phones away and asked a friend to listen before giving advice. Their goal was not less technology, but more intentional communication and a clearer sense of when to converse. Each Thursday ended with one question: did today's connection help someone feel understood?",
       "questions": [
         {
-          "question": "What changed after students put away phones?",
+          "question": "What did the listening experiment ask members to do?",
           "options": [
-            "They stopped talking",
-            "They listened more carefully",
-            "They failed the course",
-            "They deleted social apps"
+            "Put devices away, take turns, and listen before replying",
+            "Stop using every online tool for the whole semester",
+            "Write a scientific report about phone manufacturers",
+            "Replace face-to-face meetings with longer messages"
           ],
-          "answer": 1,
-          "explanation": "学生表示对话更认真、倾听更仔细。"
+          "answer": 0,
+          "explanation": "The club used a short device-free session with turn-taking, a follow-up question, and a summary."
         },
         {
-          "question": "What is the main message?",
+          "question": "What claim did the organizers avoid making?",
           "options": [
-            "Devices should be banned forever",
-            "Digital readiness includes how we use technology",
-            "Messages are useless",
-            "Students should not study communication"
+            "That the club's observations created a universal rule for every student",
+            "That conversation can help people build trust",
+            "That messages can be useful for simple information",
+            "That different situations may call for different tools"
           ],
-          "answer": 1,
-          "explanation": "文章强调数字时代的关键在于如何使用技术。"
+          "answer": 0,
+          "explanation": "The passage presents the club's notes as local observations, not universal scientific proof."
+        },
+        {
+          "question": "What is the central argument of the passage?",
+          "options": [
+            "All communication should move to digital platforms.",
+            "Devices are harmful and should be removed from campus.",
+            "Digital readiness includes choosing a tool that fits the purpose.",
+            "A fast message always creates deeper understanding."
+          ],
+          "answer": 2,
+          "explanation": "The argument favors intentional choice rather than rejecting technology or responding automatically to every alert."
         }
       ]
     },
     "listening": {
       "title": "Listening: The digital age: Are we ready?",
-      "script": "During our campus digital-habits project, the teacher tried one small rule: phones stayed in bags for group discussions. The first meeting felt awkward. By the third, students took longer turns and responded to one another instead of checking a notification. The point was not to reject technology; a useful message still matters. We practiced asking, ‘Does this need an instant reply, or would a real conversation help more?’ In a later workshop, we studied how a social platform's algorithm filters posts into a feed and recommends what might hold attention during the next scroll. Privacy settings cannot make every choice for us. The balance is to use devices mindfully and leave some time offline for real interaction.",
+      "script": "In our first-year seminar, we kept a seven-day attention diary. I expected it to be a list of screen hours, but the useful question was what I had meant to do each time I picked up my device. On Monday, I opened a message during a reading task and followed a platform recommendation into several unrelated posts. The algorithm had not forced me to stay; it had made the next item easy to see. My group designed a small plan. We set two message check-in times, left urgent calls available, and used a twenty-five-minute offline block for reading. A classmate also showed us how to review privacy settings and check a link before entering account details. The plan did not remove virtual meetings or online research. It helped us choose them with a purpose. By Friday, I was still using the same phone, but I had fewer accidental interruptions and more time to finish one task before starting another. We learned that balance is not a perfect number of online and offline minutes. It is the ability to notice a habit, protect attention, and make room for real interaction when a conversation matters.",
       "questions": [
         {
-          "question": "What changed after students kept their phones in their bags for three sessions?",
+          "question": "What did the speaker's attention diary focus on?",
           "options": [
-            "They reported that discussions became shorter but more focused.",
-            "They spoke for about the same time and moved the conversation online.",
-            "They found that keeping phones away made group discussion less useful.",
-            "They took longer turns and responded to one another more."
+            "Only the total price of each device",
+            "What the speaker intended to do when picking up the device",
+            "How many virtual meetings the school cancelled",
+            "Which platform had the largest number of users"
           ],
-          "answer": 3,
-          "explanation": "听力证据是：到第三次讨论时，学生发言更长，也开始彼此回应；题干问的是活动后的变化，不是最初的不适应。"
+          "answer": 1,
+          "explanation": "The speaker says the diary was useful because it recorded the intention behind each device check, not just screen hours."
         },
         {
-          "question": "What is the speaker's main point about readiness for the digital age?",
+          "question": "Why did the group set message check-in times?",
           "options": [
-            "Readiness depends on choosing when to connect and when to converse.",
-            "It requires spending exactly the same amount of time online and offline.",
-            "It is measured mainly by how quickly someone responds to messages.",
-            "It means replacing online tools with face-to-face conversation."
+            "To remove all online communication from the seminar",
+            "To make it easier to protect a focused reading block",
+            "To prevent urgent calls from reaching students",
+            "To increase the number of unrelated posts they saw"
+          ],
+          "answer": 1,
+          "explanation": "Scheduled check-ins left space for a focused offline block while still allowing urgent calls."
+        },
+        {
+          "question": "What did the classmate show the group how to do?",
+          "options": [
+            "Review privacy settings and check links before entering account details",
+            "Delete every message before reading it",
+            "Turn all virtual meetings into offline events",
+            "Change the recommendation algorithm on the platform"
           ],
           "answer": 0,
-          "explanation": "讲者不主张拒绝技术，而是让学生判断何时需要即时回复、何时面对面交流更有帮助；主旨是有意识地选择，而非一律离线。"
+          "explanation": "The safety step combined a privacy review with checking a link before sharing account details."
         },
         {
-          "question": "According to the listening, what do algorithms on social platforms do?",
+          "question": "How does the speaker define balance?",
           "options": [
-            "They use privacy settings to prevent unreliable posts from appearing.",
-            "They make every user's feed predictable by showing the same posts.",
-            "They filter what users read and shape how they scroll.",
-            "They warn users whenever multitasking begins to affect attention."
+            "Using exactly equal amounts of online and offline time",
+            "Avoiding virtual meetings and online research",
+            "Noticing habits, protecting attention, and making room for real interaction",
+            "Responding to every message as soon as it arrives"
           ],
           "answer": 2,
-          "explanation": "讲者说明平台算法会把帖子筛入信息流，并推荐可能继续吸引注意的内容；隐私设置和通知是相关但不同的数字习惯问题。"
+          "explanation": "The conclusion defines balance as intentional attention and human connection, not a fixed time ratio."
         }
       ]
     },

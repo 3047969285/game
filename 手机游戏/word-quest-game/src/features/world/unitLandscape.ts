@@ -5,7 +5,7 @@ import type { UnitBiome } from "./unitBiome";
 type PassageKind = "section_a" | "section_b" | "section_c";
 type PassageSceneKind =
   | "message" | "dialogue" | "focus" | "notification" | "study-desk" | "filter" | "offline-rest"
-  | "clinic" | "telemedicine" | "community" | "timeline" | "perseverance" | "legacy"
+  | "listening-bench" | "clinic" | "telemedicine" | "community" | "community-network" | "timeline" | "perseverance" | "legacy"
   | "spotlight" | "humanitarian" | "lasting-service" | "fleet" | "peace-contact"
   | "itinerary" | "detour" | "hostel" | "open-route" | "confidence" | "rail-platform" | "rail-car"
   | "career" | "violin" | "craft-quality" | "bench" | "caliper" | "trust-bridge" | "loom" | "heritage"
@@ -14,9 +14,9 @@ type PassageSceneKind =
 
 const PASSAGE_SCENES: Record<string, Partial<Record<PassageKind, PassageSceneKind[]>>> = {
   unit01: {
-    section_a: ["message", "dialogue", "focus"],
+    section_a: ["message", "dialogue", "focus", "listening-bench"],
     section_b: ["notification", "study-desk", "filter", "offline-rest"],
-    section_c: ["clinic", "telemedicine", "community"],
+    section_c: ["clinic", "telemedicine", "community", "community-network"],
   },
   unit02: {
     section_a: ["timeline", "perseverance", "legacy"],
@@ -822,6 +822,29 @@ function addPassageSceneLandmark(
       ring(4.7, 1.05, 0.08);
       break;
     }
+    case "listening-bench": {
+      cylinder(0, 1.18, 27, 5.1, 0.34, dark, 12);
+      for (const x of [-2.25, 2.25]) {
+        box(x, 1.78, 27, 1.85, 0.22, 0.78, ground);
+        box(x, 2.34, x < 0 ? 27.38 : 26.62, 1.85, 0.78, 0.18, edge, x < 0 ? -0.04 : 0.04);
+        for (const z of [26.72, 27.28]) cylinder(x, 1.42, z, 0.1, 0.58, dark, 8);
+      }
+      for (const x of [-1.7, 1.7]) {
+        const torso = cylinder(x, 2.55, 27, 0.34, 1.02, x < 0 ? edge : ground, 8);
+        torso.userData.isLandscapeStage = true;
+        const head = add(new THREE.SphereGeometry(0.37, 12, 10), ground, x, 3.28, 27);
+        head.userData.isLandscapeStage = true;
+      }
+      const sharedFocus = add(new THREE.OctahedronGeometry(0.46, 1), glow, 0, 3.22, 27);
+      sharedFocus.userData.isLandscapeBeacon = true;
+      route([[-1.18, 3.05, 27], [-0.55, 3.55, 27], [0.42, 3.55, 27], [1.18, 3.05, 27]], edge, 0.075);
+      for (const [radius, y] of [[0.82, 4.26], [1.18, 4.56], [1.54, 4.86]] as const) {
+        const echo = add(new THREE.TorusGeometry(radius, 0.055, 7, 28, Math.PI), glow, 0, y, 27.25);
+        echo.userData.isLandscapeRoute = true;
+      }
+      ring(4.75, 1.05, 0.12);
+      break;
+    }
     case "notification": {
       for (const [x, y, scale] of [[-3.4, 4.1, 0.86], [0, 5.6, 1.08], [3.4, 4.5, 0.9]] as const) {
         box(x, y, 27, 2.2 * scale, 2.8 * scale, 0.42, dark, x * 0.035);
@@ -890,6 +913,33 @@ function addPassageSceneLandmark(
       const hub = add(new THREE.SphereGeometry(0.58, 12, 10), glow, 0, 2.7, 26);
       hub.userData.isLandscapeBeacon = true;
       for (const x of [-4, -1.4, 1.5, 4]) route([[x, 2.4, 27], [x / 2, 2.15, 26], [0, 2.7, 26]], edge, 0.075);
+      break;
+    }
+    case "community-network": {
+      cylinder(0, 0.98, 27, 6.1, 0.34, dark, 12);
+      for (const x of [-4, 4]) {
+        box(x, 2.55, 27, 2.3, 2.55, 1.8, ground);
+        box(x, 3.88, 27, 2.48, 0.18, 1.96, edge);
+        box(x - 0.48, 2.55, 26.06, 0.52, 0.78, 0.12, glow);
+        box(x + 0.48, 2.55, 26.06, 0.52, 0.78, 0.12, glow);
+      }
+      box(-4, 4.55, 26.02, 0.28, 1.18, 0.14, edge);
+      box(-4, 4.55, 26.02, 1.18, 0.28, 0.14, edge);
+      for (const x of [-4, 0, 4]) {
+        const node = add(new THREE.SphereGeometry(0.34, 12, 10), glow, x, x === 0 ? 4.1 : 4.45, 27);
+        node.userData.isLandscapeBeacon = true;
+      }
+      const device = box(0, 2.15, 26.88, 1.35, 0.18, 0.86, dark);
+      device.rotation.z = -0.08;
+      box(0, 2.72, 26.42, 0.64, 0.92, 0.12, edge, -0.08);
+      const screen = box(0, 2.75, 26.34, 0.48, 0.68, 0.06, glow, -0.08);
+      screen.userData.isLandscapeStage = true;
+      route([[-4, 4.45, 26.65], [-2.35, 4.85, 26.25], [0, 4.15, 26.25], [2.35, 4.85, 26.25], [4, 4.45, 26.65]], edge, 0.09);
+      route([[-4, 1.45, 27], [-2.2, 1.4, 25.9], [0, 1.5, 25.6], [2.2, 1.4, 25.9], [4, 1.45, 27]], glow, 0.08);
+      ring(5.35, 1.3, 0.16);
+      const networkLight = new THREE.PointLight(0xa9e6ff, 0.9, 16, 2);
+      networkLight.position.set(0, 5.2, 25.4);
+      root.add(networkLight);
       break;
     }
     case "timeline": {
