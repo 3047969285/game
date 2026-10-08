@@ -9,6 +9,7 @@ type PassageSceneKind =
   | "spotlight" | "humanitarian" | "lasting-service" | "community-witness" | "fleet" | "peace-contact" | "chart-room" | "exchange-harbor"
   | "itinerary" | "detour" | "market-encounter" | "reflection-garden" | "hostel" | "open-route" | "rain-shelter" | "confidence" | "rail-platform" | "rail-car" | "landscape-window" | "route-network"
   | "career" | "violin" | "craft-quality" | "bench" | "caliper" | "trust-bridge" | "loom" | "heritage"
+  | "work-dignity" | "craft-evolution" | "embroidery-table" | "living-heritage"
   | "lunar-probe" | "test-console" | "lander" | "orbit-adjustment" | "training" | "science-exhibit"
   | "bookshop" | "exchange" | "resilience" | "exchange-wall" | "resource-cycle" | "library" | "digital-lending";
 
@@ -29,9 +30,9 @@ const PASSAGE_SCENES: Record<string, Partial<Record<PassageKind, PassageSceneKin
     section_c: ["rail-platform", "rail-car", "landscape-window", "route-network"],
   },
   unit04: {
-    section_a: ["career", "violin", "craft-quality"],
-    section_b: ["bench", "caliper", "trust-bridge"],
-    section_c: ["loom", "heritage"],
+    section_a: ["career", "bench", "violin", "work-dignity"],
+    section_b: ["caliper", "craft-quality", "craft-evolution", "trust-bridge"],
+    section_c: ["loom", "embroidery-table", "heritage", "living-heritage"],
   },
   unit05: {
     section_a: ["lunar-probe", "test-console"],
@@ -1391,6 +1392,33 @@ function addPassageSceneLandmark(
         backrest.userData.isLandscapeStage = true;
         route([[x * 0.72, 2.2, 27 + (z - 27) * 0.7], [0, 2.25, 27]], edge, 0.055);
       }
+      // 让“职业讨论厅”一眼可读：三位静态低多边形参与者围坐讨论，避免只剩空椅和抽象面板。
+      const skin = new THREE.MeshStandardMaterial({ color: 0xd5a477, roughness: 0.86 });
+      const coats = [
+        new THREE.MeshStandardMaterial({ color: 0x7d573d, roughness: 0.9 }),
+        new THREE.MeshStandardMaterial({ color: 0x496c72, roughness: 0.88 }),
+        new THREE.MeshStandardMaterial({ color: 0x8a6844, roughness: 0.9 }),
+      ];
+      const participants = [
+        { x: 4.5, z: 27, coat: coats[0], facing: Math.PI },
+        { x: -2.25, z: 29.08, coat: coats[1], facing: -Math.PI / 3 },
+        { x: 2.25, z: 24.92, coat: coats[2], facing: Math.PI / 3 },
+      ];
+      for (const participant of participants) {
+        const { x, z, coat, facing } = participant;
+        const hips = box(x, 1.82, z, 0.66, 0.32, 0.48, coat, facing);
+        const torso = box(x, 2.32, z, 0.7, 0.82, 0.43, coat, facing);
+        const head = add(new THREE.SphereGeometry(0.3, 10, 8), skin, x, 2.98, z);
+        const hair = add(new THREE.SphereGeometry(0.305, 8, 6), dark, x, 3.08, z + 0.045);
+        hair.scale.set(1, 0.48, 0.92);
+        for (const side of [-1, 1]) {
+          const arm = box(x + side * 0.4, 2.29, z - 0.06, 0.2, 0.62, 0.24, coat, facing);
+          arm.rotation.z = side * -0.12;
+          const hand = add(new THREE.SphereGeometry(0.12, 8, 6), skin, x + side * 0.43, 1.98, z - 0.15);
+          hand.userData.isLandscapeStage = true;
+        }
+        for (const mesh of [hips, torso, head, hair]) mesh.userData.isLandscapeStage = true;
+      }
       box(-1.18, 2.58, 26.45, 1.12, 0.16, 0.78, ground, -0.08);
       box(-1.18, 2.7, 26.45, 0.92, 0.08, 0.68, glow, -0.08);
       const gear = add(new THREE.TorusGeometry(0.42, 0.1, 8, 16), edge, 1.25, 2.76, 26.5);
@@ -1432,12 +1460,37 @@ function addPassageSceneLandmark(
       break;
     }
     case "bench": {
+      // 服务观察台落在真实可辨的自习室维护现场：清单、课桌和待检椅子构成一段小叙事。
+      arch(9.2, 5.5, dark, 30.8);
+      box(0, 4.55, 30.45, 5.35, 2.9, 0.24, dark);
+      box(0, 4.55, 30.29, 4.95, 2.48, 0.08, ground);
+      for (let index = 0; index < 3; index++) {
+        const y = 5.35 - index * 0.64;
+        const mark = add(new THREE.OctahedronGeometry(0.16, 0), edge, -1.72, y, 30.2);
+        mark.userData.isLandscapeStage = true;
+        box(-0.25, y, 30.2, 2.35, 0.075, 0.05, glow);
+      }
+      for (const x of [-4, 4]) {
+        box(x, 2.35, 28.25, 1.65, 0.18, 1.25, ground);
+        for (const dx of [-0.58, 0.58]) for (const dz of [-0.42, 0.42]) box(x + dx, 1.65, 28.25 + dz, 0.12, 1.3, 0.12, dark);
+        box(x, 1.52, 26.25, 0.9, 0.2, 0.82, dark);
+        box(x, 2.12, 26.65, 0.86, 0.92, 0.16, edge);
+      }
       box(0, 2.35, 27, 7.2, 0.4, 2.6, ground);
       for (const x of [-3, 3]) for (const z of [26.1, 27.9]) box(x, 1.35, z, 0.2, 1.8, 0.2, dark);
       box(-1.55, 2.75, 26.48, 2.2, 0.22, 0.92, edge);
       box(1.55, 2.8, 26.6, 1.35, 0.3, 0.72, glow);
       cylinder(2.9, 3.4, 27, 0.12, 1.6, dark, 8);
       route([[-3.4, 3, 26.6], [-1.6, 3.45, 26.4], [0, 3.1, 26.1], [1.55, 3.5, 26.6]], edge, 0.075);
+      const looseSeat = box(3.65, 1.66, 24.55, 0.98, 0.2, 0.86, glow, 0.12);
+      looseSeat.rotation.z = 0.08;
+      box(3.65, 2.28, 24.94, 0.9, 0.92, 0.17, edge, 0.12);
+      for (const [dx, dz, height] of [[-0.34, -0.28, 0.72], [0.34, -0.28, 0.72], [-0.34, 0.28, 0.42], [0.34, 0.28, 0.72]] as const) {
+        box(3.65 + dx, 1.24, 24.55 + dz, 0.12, height, 0.12, dark);
+      }
+      const safetyRing = add(new THREE.TorusGeometry(0.82, 0.07, 8, 24), glow, 3.65, 1.1, 24.55);
+      safetyRing.rotation.x = Math.PI / 2;
+      safetyRing.userData.isLandscapeRing = true;
       break;
     }
     case "caliper": {
@@ -1476,6 +1529,76 @@ function addPassageSceneLandmark(
         motif.userData.isLandscapeStage = true;
       }
       route([[-4.7, 1.2, 27], [-2.2, 1.5, 26], [0, 1.35, 25.8], [2.3, 1.5, 26], [4.7, 1.2, 27]], edge, 0.1);
+      break;
+    }
+    case "work-dignity": {
+      cylinder(0, 1.18, 27, 5.6, 0.32, dark, 12);
+      for (const [index, x] of [-3.75, -1.25, 1.25, 3.75].entries()) {
+        const plinth = box(x, 1.96, 27, 1.55, 1.15, 1.5, index % 2 === 0 ? ground : dark);
+        plinth.userData.isLandscapeStage = true;
+        const emblem = add(
+          index % 2 === 0 ? new THREE.OctahedronGeometry(0.56, 0) : new THREE.TorusGeometry(0.42, 0.12, 7, 16),
+          index % 2 === 0 ? edge : glow,
+          x,
+          2.9,
+          26.45
+        );
+        emblem.userData.isLandscapeStage = true;
+        route([[x, 3.2, 26.4], [x / 2, 3.72, 26.2], [0, 4.05, 26.2]], edge, 0.055);
+      }
+      const shared = add(new THREE.OctahedronGeometry(0.48, 1), glow, 0, 4.25, 26.15);
+      shared.userData.isLandscapeBeacon = true;
+      ring(5.05, 1.12, 0.08);
+      break;
+    }
+    case "craft-evolution": {
+      box(0, 1.85, 27, 8.4, 0.42, 2.9, dark);
+      for (const x of [-3.2, 3.2]) {
+        box(x, 1.12, 26.08, 0.28, 1.35, 0.28, ground);
+        box(x, 1.12, 27.92, 0.28, 1.35, 0.28, ground);
+      }
+      const oldGauge = add(new THREE.TorusGeometry(0.88, 0.14, 8, 24), edge, -2.25, 3.55, 26.72);
+      oldGauge.userData.isLandscapeStage = true;
+      box(-2.25, 3.55, 26.68, 0.12, 1.38, 0.08, dark, -0.46);
+      box(2.25, 3.55, 26.7, 2.35, 1.7, 0.22, ground);
+      box(2.25, 3.55, 26.55, 1.85, 1.16, 0.08, glow);
+      for (const y of [3.3, 3.55, 3.8]) box(2.25, y, 26.49, 1.2, 0.055, 0.04, edge);
+      route([[-1.24, 3.55, 26.52], [0, 4.1, 26.52], [1.08, 3.55, 26.52]], glow, 0.085);
+      const result = add(new THREE.OctahedronGeometry(0.38, 1), edge, 0, 4.45, 26.45);
+      result.userData.isLandscapeBeacon = true;
+      break;
+    }
+    case "embroidery-table": {
+      box(0, 1.72, 27.15, 8.2, 0.4, 3.15, dark);
+      for (const x of [-3.25, 3.25]) for (const z of [26.15, 28.15]) box(x, 1.05, z, 0.24, 1.45, 0.24, ground);
+      box(0, 3.62, 26.58, 4.6, 3.35, 0.2, ground);
+      box(0, 3.62, 26.43, 4.12, 2.88, 0.08, dark);
+      for (let i = 0; i < 7; i++) {
+        const x = -1.5 + i * 0.5;
+        const thread = box(x, 3.62, 26.34, 0.075, 2.35, 0.06, i % 2 === 0 ? edge : glow);
+        thread.userData.isLandscapeStage = true;
+      }
+      for (let i = 0; i < 5; i++) box(0, 2.68 + i * 0.47, 26.32, 3.05, 0.065, 0.055, i % 2 === 0 ? glow : edge);
+      for (const x of [-3.15, 3.15]) {
+        cylinder(x, 2.25, 26.55, 0.3, 0.85, ground, 10);
+        const spool = add(new THREE.TorusGeometry(0.34, 0.1, 7, 16), edge, x, 2.75, 26.55);
+        spool.userData.isLandscapeStage = true;
+      }
+      route([[-3.3, 2.45, 28.1], [-1.8, 2.82, 27.1], [0, 2.55, 26.2], [1.8, 2.82, 27.1], [3.3, 2.45, 28.1]], glow, 0.06);
+      break;
+    }
+    case "living-heritage": {
+      for (const [index, z] of [29.2, 27, 24.8].entries()) {
+        const width = 7.8 - index * 0.75;
+        arch(width, 5.5 - index * 0.3, index === 1 ? edge : ground, z);
+        for (let i = 0; i < 5; i++) {
+          const motif = add(new THREE.OctahedronGeometry(0.2 + (i % 2) * 0.06, 0), i % 2 === 0 ? glow : edge, -1.6 + i * 0.8, 2.5 + (i % 2) * 0.7, z - 0.36);
+          motif.userData.isLandscapeStage = true;
+        }
+      }
+      route([[-3.2, 4.65, 29.2], [-1.5, 5.1, 27], [0, 4.45, 24.8], [1.5, 5.1, 27], [3.2, 4.65, 29.2]], edge, 0.08);
+      route([[-3.2, 2.1, 29.2], [-1.5, 2.25, 27], [0, 2.12, 24.8], [1.5, 2.25, 27], [3.2, 2.1, 29.2]], glow, 0.065);
+      ring(5.1, 1.12, 0.1);
       break;
     }
     case "lunar-probe": {

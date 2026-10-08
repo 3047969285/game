@@ -30,96 +30,140 @@
   "micro_world_checks": {
     "section_a": [
       {
-        "question": "What caution does the instructor make about the words worker and laborer?",
+        "question": "Why does the instructor reject ranking people by the labels worker and laborer?",
         "options": [
-          "They should not rank people; any task can require skill and judgment.",
-          "They should rank jobs according to physical or mental effort.",
-          "They describe fixed levels of social worth.",
-          "They apply only to work done in a craft workshop."
+          "Because physical and repetitive work can also require judgment, skill, and care.",
+          "Because only office occupations should be discussed at a career workshop.",
+          "Because the two words always have exactly the same dictionary meaning.",
+          "Because students should choose a job before learning what it involves."
         ],
         "answer": 0,
-        "explanation": "The instructor rejects a hierarchy between job types: physical and repetitive work can also require skill and judgment."
+        "explanation": "The opening discussion argues that a job label does not measure a person's worth; many kinds of work require judgment and care."
       },
       {
-        "question": "What idea did the violin maker's demonstration support?",
+        "question": "What did the student notice while observing a routine task?",
         "options": [
-          "Only artists need judgment when completing a task.",
-          "A traditional method should never be reconsidered.",
-          "Careful measurement helps protect the quality of a repair.",
-          "Special tools can replace the need for practice."
-        ],
-        "answer": 2,
-        "explanation": "The passage uses the violin maker's careful measurement to show how attention to detail protects quality."
-      },
-      {
-        "question": "What shared idea about meaningful work emerges from the discussion?",
-        "options": [
-          "Only prestigious occupations can produce fulfillment.",
-          "Taking responsibility for quality can make many kinds of work meaningful.",
-          "Routine work has no value unless it becomes easy.",
-          "People should avoid changing traditional methods."
+          "A repeated step is useful only when a supervisor is watching.",
+          "A worker can notice and report a safety problem beyond the checklist.",
+          "A checklist removes the need to understand the purpose of a task.",
+          "The fastest worker always produces the most reliable result."
         ],
         "answer": 1,
-        "explanation": "The passages connect craft with care, judgment, and responsibility for quality rather than with a job title or social rank."
+        "explanation": "The worker notices a loose chair and reports it; she uses judgment beyond simply following the routine checklist."
+      },
+      {
+        "question": "What does the violin maker's careful measurement demonstrate?",
+        "options": [
+          "A respected craft depends on titles rather than practice.",
+          "A repair should be completed before the customer can ask questions.",
+          "Careful attention protects the quality of a repair and the instrument's sound.",
+          "Traditional tools are always more accurate than new ones."
+        ],
+        "answer": 2,
+        "explanation": "The maker's example shows that a tiny gap can alter the sound, so careful measurement protects the quality of the work."
+      },
+      {
+        "question": "What conclusion does the workshop reach about meaningful work?",
+        "options": [
+          "Meaning comes only from work that is creative and unusual.",
+          "A high-status occupation matters more than the quality of its work.",
+          "Routine work becomes meaningful only when it is quick.",
+          "Respect, responsibility, and care can give many kinds of work meaning."
+        ],
+        "answer": 3,
+        "explanation": "The final discussion links fulfillment to responsibility for quality and respect for people, not to occupational status."
       }
     ],
     "section_b": [
       {
-        "question": "What did the apprentice learn by watching the master?",
+        "question": "Why did the master ask the apprentice to measure a violin joint twice?",
         "options": [
-          "That shortcuts are the fastest path to excellence",
-          "That tradition should be hidden from young learners",
-          "That a workshop needs no patient practice",
-          "Measuring each joint twice protects repair quality and customer trust"
-        ],
-        "answer": 3,
-        "explanation": "The passage explains that a tiny gap can affect the instrument's sound and how long the repair lasts."
-      },
-      {
-        "question": "Why did the apprentice continue the measurement routine?",
-        "options": [
-          "It allowed the workshop to avoid learning new techniques.",
-          "It guaranteed that every instrument would sound identical.",
-          "It protected the repair's quality and the customer's trust.",
-          "It made the work finish faster than taking shortcuts."
-        ],
-        "answer": 2,
-        "explanation": "The passage says careful measurement protects the quality of the repair and the customer's trust."
-      },
-      {
-        "question": "How does heritage survive among young learners?",
-        "options": [
-          "By passing on useful knowledge while remaining willing to improve it",
-          "By replacing every master with a machine",
-          "By choosing shortcuts over careful work",
-          "By treating tradition as a museum label"
+          "A small gap can change the sound and weaken the repair.",
+          "The customer wanted two identical instruments.",
+          "The apprentice had forgotten the name of the tool.",
+          "The workshop measured every object twice for no particular reason."
         ],
         "answer": 0,
-        "explanation": "The passage presents heritage as active practice: keep useful knowledge, question weak habits, and teach the next generation."
+        "explanation": "The passage traces a small measurement error to a weaker repair and a change in the instrument's sound."
+      },
+      {
+        "question": "How does the apprentice decide whether to keep a new tool?",
+        "options": [
+          "He keeps it only if it is more expensive than the old tool.",
+          "He compares the readings to see whether the new method makes the result clearer.",
+          "He replaces every familiar method as soon as a new tool appears.",
+          "He lets the tool's appearance decide whether it belongs in the workshop."
+        ],
+        "answer": 1,
+        "explanation": "Lin compares the readings and keeps the new method when it makes the result clearer."
+      },
+      {
+        "question": "Why does Lin record the improved procedure?",
+        "options": [
+          "So the whole team can use a method that made the result clearer.",
+          "So the customer will not ask how the repair was done.",
+          "So the workshop can stop measuring the joints.",
+          "So the older tool can be discarded without comparison."
+        ],
+        "answer": 0,
+        "explanation": "After the test shows the gauge improves clarity, Lin records the procedure for the team."
+      },
+      {
+        "question": "What does Lin's view of tradition show?",
+        "options": [
+          "Tradition must stay unchanged to remain valuable.",
+          "Only the oldest craftsperson should make decisions.",
+          "Useful knowledge can be preserved while weak habits are questioned.",
+          "A new tool automatically makes a craft less meaningful."
+        ],
+        "answer": 2,
+        "explanation": "Lin treats tradition as knowledge that can be carried forward, examined, and improved when evidence supports change."
       }
     ],
     "section_c": [
       {
-        "question": "How does silk embroidery support the artisans in Suzhou?",
+        "question": "What does Mei learn about creating a flower design?",
         "options": [
-          "It turns every tradition into a museum label.",
-          "It removes the need for skilled workers.",
-          "It separates visitors from the community.",
-          "It connects heritage with local jobs and dignity."
+          "A maker considers the line, its future use, and which details should remain clear.",
+          "The number of colors alone determines whether a pattern is accurate.",
+          "Visitors select the stitch direction before meeting the artisans.",
+          "Every flower design must be copied without changes."
         ],
-        "answer": 3,
-        "explanation": "The story presents heritage work as a source of both livelihood and dignity."
+        "answer": 0,
+        "explanation": "The passage states that makers consider the direction of a line, the fabric's use, and the details that need to stay clear."
       },
       {
-        "question": "What does ‘living labor’ mean in the final world?",
+        "question": "What helps the apprentice improve her stitching?",
         "options": [
-          "Work that can be completed without people",
-          "Work that preserves culture and community identity in the present",
-          "Work whose only purpose is to decorate a museum",
-          "Work that avoids every connection with tradition"
+          "Her mentor gives a correction and asks her to explain what changed.",
+          "She copies the whole pattern without looking at the thread.",
+          "Visitors choose the angle of each stitch for her.",
+          "She skips practice and studies only finished objects."
         ],
-        "answer": 1,
-        "explanation": "Tradition remains alive when rewarding work continues to serve culture and community."
+        "answer": 0,
+        "explanation": "The mentor corrects her angle and prompts her to describe the change, linking feedback to deliberate practice."
+      },
+      {
+        "question": "Why do the makers review the exhibition design together?",
+        "options": [
+          "To remove the familiar motif from the design.",
+          "To let visitors make every decision for the workshop.",
+          "To improve visibility while ensuring the change is not imposed on the makers.",
+          "To stop teaching the craft to new apprentices."
+        ],
+        "answer": 2,
+        "explanation": "The design is resized for visibility, but the makers review the change rather than having it imposed on them."
+      },
+      {
+        "question": "In this story, what keeps embroidery heritage alive?",
+        "options": [
+          "Putting every finished piece behind glass and ending daily practice.",
+          "Making visitors responsible for preserving the craft alone.",
+          "Keeping the craft secret from younger learners.",
+          "Passing on skill through valued work while allowing thoughtful renewal."
+        ],
+        "answer": 3,
+        "explanation": "Living heritage depends on skilled people, fair livelihoods, teaching, and careful adaptation—not display alone."
       }
     ]
   },
@@ -127,17 +171,17 @@
     "section_a": {
       "title": "What Makes Work Meaningful?",
       "type": "reading",
-      "passage": "At a campus career workshop, students compared the words worker and laborer and asked whether occupation determines a person's worth. The instructor challenged the attitude that job titles determine a person's value: physical and repetitive tasks also demand judgment, skill, and care. A violin maker showed his apprentice how the master measured each joint with precision. The class concluded that craft is not a job title; taking pride in quality can make many kinds of work meaningful."
+      "passage": "At a campus career workshop, students gathered around a question that sounded simple but unsettled them: what makes work meaningful? The facilitator wrote worker and laborer on the board, then asked whether either word could measure a person's worth. One student associated laborer with strength and routine, while another imagined worker as someone who made decisions. The instructor warned that this attitude can quietly rank people before anyone understands what their jobs require. A task may be physical, repetitive, or performed behind the scenes, yet still demand close attention. The group visited a campus service team and watched a worker prepare a busy study room. She followed a routine checklist, but she also noticed a loose chair and stopped to report it. A student asked whether that extra judgment was part of the occupation or simply personal kindness. The worker explained that safety and dignity often depend on small decisions no checklist can predict. Later, a violin maker invited the class into a workshop. He asked his apprentice to compare two joints that looked almost identical. With careful precision, the apprentice measured the narrow gap that could alter the instrument's sound. The demonstration did not make one occupation more valuable than another; instead, it showed how knowledge and responsibility shape the quality of work. Back at the workshop, the students revised their first definitions and saw that skill can grow inside a routine and that craft is not limited to objects displayed in galleries. The instructor asked everyone to name one contribution they had previously overlooked. Students mentioned cleaners, repairers, cooks, and laboratory assistants. Each example required different knowledge, but each could protect another person's time, safety, or trust. The discussion ended without ranking the jobs, and the students agreed that meaningful work is not defined by a title alone. Pride becomes durable when people take responsibility for quality and treat those affected by their work with respect. That kind of fulfillment can belong to many occupations."
     },
     "section_b": {
       "title": "A Craft Tradition, Practiced with Care",
       "type": "reading",
-      "passage": "An apprentice once wondered why a violin maker measured each joint twice. The maker explained that even a tiny gap could weaken a repair, change the instrument's sound, and undermine a customer's trust. Years later, the apprentice kept the careful routine but did not treat tradition as a rule that could never change. Repeating a measurement may seem slow, yet it protects quality and customer trust; he found fulfillment in knowing the repair would carry music safely into the future. He compared new tools with the workshop's tested methods and kept the ones that improved the work; his dedication and passion for the craft gradually earned the master's trust. Heritage stays alive when craftspeople preserve useful knowledge, question weak habits, and teach the next generation to pursue excellence with care."
+      "passage": "When Lin first entered the violin workshop, the master gave the apprentice a repair that seemed almost finished. A narrow joint still needed attention, although it was difficult to see without a lamp, so the master asked Lin to measure it twice and explain what the numbers meant. Lin wanted to hurry because a customer was waiting, but the master reminded him that a beautiful surface could hide a weak connection. A gap that was too wide might change the instrument's sound and shorten the repair's life. Lin repeated the measurement, adjusted the piece, and tested the fit before using glue. The routine felt slow, yet each step answered a different question about strength and balance. The master explained that precision was not perfection for its own sake; it was a promise about how the instrument would perform. Months later, Lin began to teach the same routine to a new apprentice. He kept the useful checks but also tried a digital gauge beside the workshop's older tool. Rather than accepting novelty or rejecting it, he compared the readings and asked whether the new method made the result clearer. When it did, he recorded the procedure so the whole team could use it. His dedication grew through repeated practice, and his passion became visible in how carefully he explained mistakes. A customer returned after hearing the repaired violin in a small concert. She thanked Lin not only for restoring the sound but also for describing what had been changed. That honest conversation strengthened trust between the workshop and its neighbors. Lin understood that tradition was not a command to repeat every motion forever. It was a body of knowledge carried forward, examined, and improved when evidence justified a change. The craft would remain rewarding only if young workers could learn, question, and contribute. In the final lesson of the day, the master asked Lin to name the standard he hoped to pass on. Lin answered: protect the work, respect the person who depends on it, and pursue excellence without confusing speed with skill."
     },
     "section_c": {
       "title": "Stories of China",
       "type": "stories_of_china",
-      "passage": "In Suzhou, a team restores silk embroidery patterns passed down for generations. Tour guides explain how heritage supports local jobs and dignity for artisans. Visitors learn that tradition is living labor, not a museum label. Such stories of China remind students that rewarding work can preserve culture and community identity."
+      "passage": "In this original learning story, a student named Mei visits a small silk-embroidery workshop in Suzhou with her class. She expects to see finished patterns, but the guide introduces the artisans who prepare the threads and study the designs, and Mei notices that a flower is not copied by counting colors alone. Each maker considers how a line turns, where the fabric will be used, and which details must remain clear. An artisan invites the students to look closely at a sample under a lamp. Mei records the explanation and asks before taking a photograph. The group learns that respect begins by listening to the people who hold the knowledge. At the next table, an apprentice practices a short row of stitches. Her mentor corrects the angle gently and asks her to describe what changed. The repeated exercise is not empty routine; it trains the hand to control tension and the eye to notice uneven thread. The student sees that heritage is carried by people who work, teach, and make decisions today. Later, the team discusses a new design for a community exhibition. They keep a familiar motif but adjust its size so visitors can see the stitch pattern from a distance. The change is reviewed with the makers rather than imposed by the visitors. Mei asks how the workshop can make this labor sustainable. The guide explains that fair payment, credit for makers, and opportunities to teach matter as much as displaying beautiful objects. Before leaving, each student chooses one question to investigate instead of claiming to understand the whole craft in an afternoon. Mei writes that an occupation can create income and also protect a shared memory. Her class understands that dignity is not supplied by praise alone; it grows when skilled people can make choices and be recognized for them. The visit changes their idea of tradition: it is not a silent object behind glass, but living knowledge practiced with care, renewed with permission, and shared across generations. These stories of China show how meaningful work can connect personal skill, community identity, and a future that still has room to change."
     },
     "vocabulary": {
       "level_count": 4,
@@ -145,79 +189,135 @@
     },
     "reading": {
       "title": "More Than a Paycheck",
-      "passage": "At a career workshop, students asked what distinguishes routine labor from engaged work. Their instructor warned against treating the difference as a ranking of people: physical and repetitive jobs can require judgment and skill. A visiting violin maker measured each joint before repairing an instrument. For him, tradition was not nostalgia; it was a quality standard carried forward through practice. Work became meaningful not because it stopped being difficult, but because the craftsperson took responsibility for quality and kept learning.",
+      "passage": "A neighborhood repair cooperative was preparing for its annual open workshop. Its members included a bicycle mechanic, a seamstress, a cook, and a retired engineer. At first, visitors asked which occupation was the most skilled. The coordinator changed the question: what evidence would show that a job had been done well? The mechanic pointed to a safe brake test, while the seamstress showed how a repaired seam could bear weight without tearing. The cook described how timing and temperature protected both flavor and food safety. The engineer explained that a clear instruction sheet could prevent a costly mistake for the next person. None of these examples depended on a prestigious title. Each required knowledge, practice, and responsibility for someone who would use the result. During the workshop, a teenager helped repair a lamp. She wanted to replace a loose part quickly, but the engineer asked her to test why it had loosened. They found a worn screw and chose a stronger fitting. The teenager wrote down the steps so another volunteer could repeat the repair safely. Later, she told the group that the task felt rewarding because she understood its purpose and could see who benefited. The coordinator added that good work also needs fair conditions: reasonable time, safe tools, honest credit, and a chance to learn. The cooperative did not claim that every job was enjoyable every day. Instead, its members showed how pride can grow when a person is trusted, supported, and able to improve a result. By closing time, visitors had repaired several items and learned to ask better questions about labor. Quality was visible in the object, but meaning came from the care, judgment, and shared responsibility behind it.",
       "questions": [
         {
-          "question": "How does the craftsman view tradition?",
+          "question": "What question does the coordinator use to replace ranking occupations?",
           "options": [
-            "As outdated nostalgia",
-            "As a standard of quality",
-            "As a reason to quit",
-            "As a marketing trick"
+            "Which job earns the most public attention?",
+            "What evidence shows the job was done well?",
+            "Which worker can finish without using tools?",
+            "Which occupation should be removed from the cooperative?"
           ],
           "answer": 1,
-          "explanation": "工匠把传统视为品质标准。"
+          "explanation": "The coordinator redirects the group from social ranking to evidence of quality."
+        },
+        {
+          "question": "Why does the teenager test the lamp before replacing its loose part?",
+          "options": [
+            "To identify the cause and choose a safe, durable repair.",
+            "To make the repair look more difficult than it is.",
+            "To avoid writing down the repair steps.",
+            "To prove that older tools are always unreliable."
+          ],
+          "answer": 0,
+          "explanation": "Testing reveals a worn screw, so the team can address the cause rather than make a temporary fix."
+        },
+        {
+          "question": "What helps the teenager find the task rewarding?",
+          "options": [
+            "The coordinator promises that the task will never be repeated.",
+            "Visitors praise the object without knowing who repaired it.",
+            "She understands its purpose and sees who benefits from the result.",
+            "She finishes before anyone can inspect the lamp."
+          ],
+          "answer": 2,
+          "explanation": "She explicitly connects fulfillment to understanding the purpose and seeing the beneficiary."
+        },
+        {
+          "question": "Which condition does the cooperative say supports good work?",
+          "options": [
+            "Competition for the highest-status title.",
+            "Removing every routine task from the day.",
+            "Keeping methods secret from new learners.",
+            "Safe tools, fair time, honest credit, and opportunities to learn."
+          ],
+          "answer": 3,
+          "explanation": "The coordinator lists these practical conditions as support for responsible, improving work."
         }
       ]
     },
     "listening": {
       "title": "Listening: When work is a pleasure",
-      "script": "At a career workshop, the instructor asked whether a job's value depends on being physical or mental. She warned against that false division: the word laborer does not mean a person lacks judgment or dignity. A routine task can still demand skill and pride. A violin maker then described what he learned as an apprentice from his master. His master asked him to measure each joint twice; too wide a gap can change the instrument's sound. Repeated checks once seemed slow, but they protected quality. The maker called tradition a standard carried forward through practice, not a wish to return to the past. The instructor concluded that a rewarding occupation can bring fulfillment when people take responsibility for quality, practice with dedication, and keep developing their craft toward excellence.",
+      "script": "Welcome to the community workshop. Today we are looking at a repaired wooden chair, but the lesson is not simply about furniture. First, ask what the chair must do: support a person safely, remain stable, and last through ordinary use. The repairer checked each joint before adding a new piece of wood. She explained that a quick repair might look finished while leaving the chair weak underneath. A volunteer suggested copying the old method exactly. The repairer agreed that the older method contained useful knowledge, then showed how a new clamp made the pressure easier to control. The team tested the clamp on a sample before changing its routine. That small experiment helped them keep the sound principle and improve one step. A student asked whether this kind of work could be called creative. The repairer answered that creativity is not limited to painting or performance. It can also mean noticing a problem, selecting a method, and taking responsibility for the result. She invited the student to explain each choice aloud. When the student missed a safety check, the repairer gave immediate feedback and asked her to try again. The second attempt was slower but more accurate. At the end, the chair was tested under weight and the repair was recorded for the next volunteer. The team did not celebrate speed alone. They discussed who would use the chair, what evidence showed the repair was safe, and what they should review next week. A useful tradition, the repairer said, is knowledge that remains open to careful testing. Work becomes more satisfying when people can practice, receive feedback, and see the value their effort brings to others. Thank you for listening; after the questions, choose one example and explain the evidence that supports your answer.",
       "questions": [
         {
-          "question": "What point does the instructor use the worker/laborer distinction to emphasize?",
+          "question": "What does the repairer check before adding a new piece of wood?",
           "options": [
-            "A task becomes meaningful only when it requires complex equipment.",
-            "Pay is a better measure of work than care or judgment.",
-            "Physical and mental tasks should be valued as separate kinds of work.",
-            "Skill and judgment can make even a small job meaningful."
-          ],
-          "answer": 3,
-          "explanation": "讲者借这组概念强调把技艺与判断投入工作；这是文章的论述框架，不应误读为体力劳动者缺少技能或价值。"
-        },
-        {
-          "question": "What did the violin-maker learn by watching his master?",
-          "options": [
-            "That accurate work matters only on instruments made by hand.",
-            "That careful measurement helps maintain a standard of craftsmanship.",
-            "That a repair should be finished quickly, even if a joint is uneven.",
-            "That an apprentice should copy each step without understanding it."
+            "Whether the chair can be sold as an antique.",
+            "Whether each joint is stable and the chair can be used safely.",
+            "Whether the volunteer can finish without feedback.",
+            "Whether the new wood looks exactly like the old paint."
           ],
           "answer": 1,
-          "explanation": "学徒记得师傅会精确测量每个接合处；这个细节说明传统是一套靠练习维持的工艺标准，而非怀旧。"
+          "explanation": "The repairer checks the joints and the chair's safety before adding material."
         },
         {
-          "question": "What does the speaker suggest makes work rewarding?",
+          "question": "How does the team decide whether to adopt the new clamp?",
           "options": [
-            "External praise arriving before a person has learned the work.",
-            "Removing every routine task from a person's occupation.",
-            "Taking responsibility for quality and continuing to improve.",
-            "Finishing more tasks, regardless of the standard of quality."
+            "They test it on a sample and compare whether it improves control.",
+            "They adopt it immediately because it is newer.",
+            "They reject it because tradition can never change.",
+            "They ask visitors to choose based on its color."
+          ],
+          "answer": 0,
+          "explanation": "The team tests the clamp before changing the routine, preserving evidence-based judgment."
+        },
+        {
+          "question": "What feedback does the student receive after missing a safety check?",
+          "options": [
+            "She is told to leave the workshop.",
+            "The repairer completes the task without explaining the error.",
+            "She is asked to explain the safety rule but not to retry.",
+            "The repairer explains the miss and invites her to try again."
+          ],
+          "answer": 3,
+          "explanation": "The repairer gives immediate feedback and has the student repeat the task more accurately."
+        },
+        {
+          "question": "Which evidence best supports the team's final judgment that the repair is ready?",
+          "options": [
+            "The chair looks clean from across the room.",
+            "The repair was completed before the other volunteers arrived.",
+            "The chair was tested under weight and the repair was recorded.",
+            "The team agrees that the old method should never be reviewed."
           ],
           "answer": 2,
-          "explanation": "讲者用“测量两次保护维修质量”的例子说明，成就感来自承担质量责任并持续磨炼技艺，不是单纯加快速度或等待表扬。"
+          "explanation": "The chair's load test and written record provide direct evidence of safety and repeatability."
         }
       ]
     },
     "translation": {
       "sentences": [
         {
-          "zh": "请将下列句子译为英文：当工作成为乐趣时，人们追求的不再是熬时间，而是把事做好。",
-          "en_reference": "A worker (or laborer) who finds pleasure in work aims to do the job well rather than simply pass the time.",
-          "keywords": [
-            "worker",
-            "laborer"
-          ]
+          "zh": "从业者应为工作质量负责，而不只是完成规定的步骤。",
+          "en_reference": "Workers should take responsibility for the quality of their work rather than simply complete the required steps.",
+          "keywords": ["workers", "responsibility", "quality"]
+        },
+        {
+          "zh": "这位学徒请师傅检查接合处，然后自己再次测量。",
+          "en_reference": "The apprentice had the master check the joint and then measured it again himself.",
+          "keywords": ["apprentice", "had", "check", "measured"]
+        },
+        {
+          "zh": "这项传统由工匠们传承下来，同时也根据新的证据不断改进。",
+          "en_reference": "The tradition is carried forward by craftspeople and continually improved in light of new evidence.",
+          "keywords": ["tradition", "is carried forward", "improved"]
+        },
+        {
+          "zh": "当人们看到自己的技艺帮助了他人，工作就可能变得更有意义。",
+          "en_reference": "Work can become more meaningful when people see how their skill helps others.",
+          "keywords": ["meaningful", "skill", "helps"]
         }
       ]
     },
     "writing": {
-      "prompt": "Write 120-150 words about the theme: 当工作成为乐趣.",
+      "prompt": "Write 120–150 words: Describe a task that can be done well only when someone uses judgment, not just speed. Explain the skill it requires, the evidence of quality, and how responsible work can benefit another person.",
       "outline": [
-        "Introduction",
-        "Example",
-        "Personal view",
-        "Conclusion"
+        "State your view: what makes work meaningful?",
+        "Give one concrete task and explain the skill or judgment it requires.",
+        "Describe how the worker checks quality and responds to feedback.",
+        "Explain who benefits and conclude with your own standard for good work."
       ]
     }
   }

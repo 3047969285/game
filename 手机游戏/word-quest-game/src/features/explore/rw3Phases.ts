@@ -63,9 +63,9 @@ const PASSAGE_WORLD_STORIES: Record<string, Partial<Record<PassageKind, PassageW
     section_c: { places: ["高铁站台", "同行车厢", "山河观景窗", "城市连线桥"], scenes: ["城市相连", "旅途中的人", "流动的地貌", "交通与人的网络"] },
   },
   unit04: {
-    section_a: { places: ["职业讨论厅", "提琴工坊", "品质工作台"], scenes: ["劳动的意义", "精确保护作品", "质量让工作有意义"] },
-    section_b: { places: ["师徒工作台", "校准长廊", "信任之桥"], scenes: ["传统的来处", "改进而非照搬", "质量与信任"] },
-    section_c: { places: ["苏州织坊", "纹样传承廊"], scenes: ["修复丝绣", "活着的传统"] },
+    section_a: { places: ["职业讨论厅", "服务观察台", "提琴工坊", "贡献圆厅"], scenes: ["标签之外", "日常判断", "精确与责任", "尊严与贡献"] },
+    section_b: { places: ["师徒工作台", "测量校准台", "工具试验场", "信任之桥"], scenes: ["问题与代价", "练习的证据", "保留并改进", "责任赢得信任"] },
+    section_c: { places: ["苏州织坊", "练习绣台", "共创展廊", "活态传承庭"], scenes: ["读懂纹样", "手上技艺", "共同决定", "代际续写"] },
   },
   unit05: {
     section_a: { places: ["月背探测站", "测试控制台"], scenes: ["探测器抵达", "从失败中修正"] },
