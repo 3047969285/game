@@ -1066,14 +1066,44 @@ function addPassageSceneLandmark(
       break;
     }
     case "telemedicine": {
+      const consultationFloor = cylinder(0, 0.98, 27, 7.1, 0.36, dark, 12);
+      consultationFloor.userData.isLandscapeStage = true;
       arch(9.4, 6.5, ground, 27);
       box(0, 4.5, 26.58, 4.8, 3.2, 0.16, dark);
       box(0, 4.55, 26.45, 4.18, 2.6, 0.1, glow);
+
+      for (const [x, material] of [[-0.88, edge], [0.88, ground]] as const) {
+        const clinicianHead = add(new THREE.SphereGeometry(0.27, 10, 8), material, x, 4.98, 26.34);
+        clinicianHead.userData.isLandscapeStage = true;
+        box(x, 4.3, 26.34, 0.68, 0.72, 0.1, material);
+      }
+      box(0, 4.3, 26.32, 0.12, 0.68, 0.08, edge);
+      box(0, 4.3, 26.32, 0.56, 0.12, 0.08, edge);
+
+      box(-3.45, 1.92, 27, 2.55, 0.28, 0.88, ground);
+      box(-3.45, 2.48, 27.34, 2.55, 0.82, 0.2, edge);
+      for (const x of [-4.35, -2.55]) {
+        box(x, 1.55, 26.72, 0.14, 0.72, 0.14, dark);
+        box(x, 1.55, 27.28, 0.14, 0.72, 0.14, dark);
+      }
+      const resident = cylinder(-3.45, 2.63, 26.82, 0.3, 0.82, ground, 8);
+      resident.userData.isLandscapeStage = true;
+      const residentHead = add(new THREE.SphereGeometry(0.27, 10, 8), ground, -3.45, 3.26, 26.82);
+      residentHead.userData.isLandscapeStage = true;
+
+      cylinder(3.15, 1.82, 27, 0.76, 0.16, dark, 10);
+      cylinder(3.15, 1.32, 27, 0.12, 0.94, dark, 8);
+      box(3.15, 2.3, 26.72, 0.5, 0.86, 0.1, edge);
+      box(3.15, 2.3, 26.65, 0.34, 0.68, 0.04, glow);
+      const privacyLock = add(new THREE.TorusGeometry(0.19, 0.055, 7, 18, Math.PI), edge, 3.15, 2.48, 26.6);
+      privacyLock.userData.isLandscapeStage = true;
+      box(3.15, 2.24, 26.6, 0.34, 0.22, 0.08, edge);
+
       for (const x of [-4.2, 4.2]) {
         const node = add(new THREE.SphereGeometry(0.55, 12, 10), edge, x, 2.7, 27);
         node.userData.isLandscapeBeacon = true;
       }
-      route([[-4.2, 2.9, 27], [-2.3, 3.5, 27], [0, 3.2, 27], [2.3, 3.5, 27], [4.2, 2.9, 27]], edge, 0.1);
+      route([[-4.2, 2.9, 27], [-3.45, 3.35, 27], [-1.6, 3.6, 27], [0, 3.2, 27], [1.7, 3.6, 27], [3.15, 3.4, 27], [4.2, 2.9, 27]], edge, 0.1);
       break;
     }
     case "community": {
