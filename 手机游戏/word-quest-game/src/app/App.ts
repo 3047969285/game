@@ -1697,6 +1697,9 @@ export class App {
     const progress = taskTotal ? taskDone / taskTotal : 1;
     const vocabHint =
       phase.kind === "vocab" ? ` · 第 ${phase.level}/${phase.totalLevels} 关（每关 5 词）` : "";
+    const vocabInstruction = phase.kind === "vocab"
+      ? `先主动回忆，再揭示释义并自评；本关需完成全部 ${total} 个词。`
+      : `先主动回忆，再揭示释义并自评；通关需完成本段全部 ${total} 个词，并通过理解题与口头复述（至少说出 2 个高亮词）。`;
     const progressLabel = total
       ? `词汇 <strong>${graded}/${total}</strong>${recallRequired ? ` · 复述 <strong>${recallDone ? 1 : 0}/1</strong>` : ""}${checkpointRequired ? ` · 理解 <strong>${checkpointDone ? 1 : 0}/1</strong>` : ""}${vocabHint}`
       : recallRequired || checkpointRequired
@@ -1723,7 +1726,7 @@ export class App {
       ${total ? `
         <div class="card rw3-vocab-practice">
           <div class="rw3-practice-heading"><div><span>主动检索</span><h3>核心词汇</h3></div><strong>${graded}/${total}</strong></div>
-          <p>不要先看释义。点击词语，在心里说出中文含义，再诚实评估记忆强度。</p>
+          <p>${vocabInstruction}</p>
           <div class="word-chips" id="word-chips">
             ${phase.words
               .map((w) => {
