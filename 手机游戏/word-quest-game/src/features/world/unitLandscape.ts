@@ -1107,15 +1107,60 @@ function addPassageSceneLandmark(
       break;
     }
     case "community": {
-      for (const [x, height] of [[-4, 2.8], [-1.4, 4.1], [1.5, 3.1], [4, 4.5]] as const) {
-        box(x, 1.3 + height / 2, 27, 1.8, height, 1.8, ground);
-        const roof = add(new THREE.ConeGeometry(1.4, 1.2, 4), edge, x, 2 + height, 27);
+      const villagePlaza = cylinder(0, 0.96, 27, 7.1, 0.36, dark, 12);
+      villagePlaza.userData.isLandscapeStage = true;
+      for (const [x, height] of [[-5.1, 2.8], [-3.05, 3.5], [3.05, 3.1], [5.1, 4.0]] as const) {
+        box(x, 1.3 + height / 2, 27.6, 1.7, height, 1.65, ground);
+        const roof = add(new THREE.ConeGeometry(1.28, 1.08, 4), edge, x, 1.9 + height, 27.6);
         roof.rotation.y = Math.PI / 4;
         roof.userData.isLandscapeStage = true;
       }
-      const hub = add(new THREE.SphereGeometry(0.58, 12, 10), glow, 0, 2.7, 26);
+
+      box(0, 2.55, 26.15, 2.45, 2.7, 1.7, ground);
+      box(0, 3.98, 26.15, 2.76, 0.22, 1.98, dark);
+      box(0, 2.05, 25.25, 0.74, 1.62, 0.14, dark);
+      box(-0.88, 2.8, 25.24, 0.56, 0.65, 0.14, glow);
+      box(0.88, 2.8, 25.24, 0.56, 0.65, 0.14, glow);
+      box(0, 4.62, 25.2, 0.28, 0.96, 0.12, edge);
+      box(0, 4.62, 25.18, 0.96, 0.28, 0.14, edge);
+      box(0, 1.32, 24.82, 1.9, 0.18, 0.72, ground);
+      route([[0, 1.16, 31], [0, 1.2, 28.6], [0, 1.28, 26.8], [0, 1.32, 25]], edge, 0.12);
+
+      const volunteerCloth = new THREE.MeshStandardMaterial({ color: 0x79aaa5, emissive: 0x18312f, emissiveIntensity: 0.3, roughness: 0.82 });
+      const clinicianCoat = new THREE.MeshStandardMaterial({ color: 0xd8e3e5, emissive: 0x23343b, emissiveIntensity: 0.22, roughness: 0.78 });
+      const personSkin = new THREE.MeshStandardMaterial({ color: 0xd5aa88, roughness: 0.92 });
+      const addCareWorker = (x: number, clothing: THREE.Material, armRotation: number): void => {
+        for (const offset of [-0.16, 0.16]) {
+          const leg = add(new THREE.CylinderGeometry(0.11, 0.13, 0.48, 7), dark, x + offset, 1.4, 24.18);
+          leg.userData.isLandscapeStage = true;
+        }
+        const torso = add(new THREE.CylinderGeometry(0.3, 0.38, 0.9, 8), clothing, x, 2.02, 24.18);
+        torso.userData.isLandscapeStage = true;
+        const head = add(new THREE.SphereGeometry(0.32, 10, 8), personSkin, x, 2.67, 24.18);
+        head.userData.isLandscapeStage = true;
+        const arm = add(new THREE.CylinderGeometry(0.085, 0.1, 0.72, 6), clothing, x + (armRotation < 0 ? 0.31 : -0.31), 2.0, 24.15);
+        arm.rotation.z = armRotation;
+        arm.userData.isLandscapeStage = true;
+      };
+      addCareWorker(-1.82, volunteerCloth, -0.92);
+      addCareWorker(1.82, clinicianCoat, 0.92);
+
+      box(-3.8, 1.46, 24.2, 1.55, 0.18, 0.48, dark);
+      for (const x of [-4.38, -3.22]) box(x, 1.28, 24.2, 0.12, 0.38, 0.14, edge);
+      const checkInStand = cylinder(3.75, 1.7, 24.2, 0.11, 1.02, dark, 8);
+      checkInStand.rotation.x = -0.12;
+      box(3.75, 2.34, 24.15, 0.72, 0.68, 0.13, glow, -0.12);
+      box(3.75, 2.34, 24.06, 0.12, 0.4, 0.06, edge, -0.12);
+      box(3.75, 2.34, 24.05, 0.4, 0.12, 0.06, edge, -0.12);
+
+      const hub = add(new THREE.SphereGeometry(0.34, 12, 10), glow, 0, 4.05, 26.15);
       hub.userData.isLandscapeBeacon = true;
-      for (const x of [-4, -1.4, 1.5, 4]) route([[x, 2.4, 27], [x / 2, 2.15, 26], [0, 2.7, 26]], edge, 0.075);
+      for (const x of [-5.1, -3.05, 3.05, 5.1]) {
+        route([[x, 1.36, 27.6], [x * 0.54, 1.28, 26.6], [Math.sign(x) * 0.9, 1.26, 25.7]], edge, 0.075);
+      }
+      const careLight = new THREE.PointLight(0xffd5a0, 0.72, 11, 2);
+      careLight.position.set(0, 4.1, 24.2);
+      root.add(careLight);
       break;
     }
     case "community-library": {
