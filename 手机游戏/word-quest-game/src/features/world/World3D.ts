@@ -89,6 +89,7 @@ export interface World3DOptions {
 export class World3D {
   private container: HTMLElement;
   private renderer: THREE.WebGLRenderer;
+  private resizeObserver?: ResizeObserver;
   private scene: THREE.Scene;
   private camera: THREE.PerspectiveCamera;
   private raycaster = new THREE.Raycaster();
@@ -575,6 +576,7 @@ export class World3D {
     window.removeEventListener("keydown", this.onKeyDown);
     window.removeEventListener("resize", this.onResize);
     document.removeEventListener("visibilitychange", this.onVisibilityChange);
+    this.resizeObserver?.disconnect();
     this.player.dispose();
 
     removeGroup(this.scene, this.pathGroup);
@@ -1634,6 +1636,10 @@ export class World3D {
     this.renderer.domElement.addEventListener("pointerdown", this.onPointerDown);
     window.addEventListener("keydown", this.onKeyDown);
     window.addEventListener("resize", this.onResize);
+    if (typeof ResizeObserver !== "undefined") {
+      this.resizeObserver = new ResizeObserver(this.onResize);
+      this.resizeObserver.observe(this.container);
+    }
     document.addEventListener("visibilitychange", this.onVisibilityChange);
   }
 
