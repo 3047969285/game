@@ -30,85 +30,140 @@
   "micro_world_checks": {
     "section_a": [
       {
-        "question": "What pressures made the bookstore's situation difficult?",
+        "question": "Which pressures first put Lantern Books at risk?",
         "options": [
-          "An unexpected increase in free resources",
-          "A decision to stop serving every consumer",
-          "An economic crisis, recession, inflation, and a shrinking budget",
-          "A plan to invest only in luxury goods"
+          "A sudden surplus of books and lower delivery costs",
+          "A plan to move the store to a larger building",
+          "Rising rent and delivery costs during a recession, alongside a tight budget",
+          "A new rule requiring every reader to buy a book"
         ],
         "answer": 2,
-        "explanation": "The opening connects the bookstore's rent problem with a wider crisis, recession, inflation, and pressure on saving and budgets."
+        "explanation": "The opening links the recession and inflation to higher rent and delivery costs, while the budget and savings are shrinking."
       },
       {
-        "question": "How did the book-sharing wall respond to demand?",
+        "question": "What did Mei and the campus club build to respond to readers' needs?",
         "options": [
-          "It created an affordable exchange that let readers reuse books.",
-          "It raised every price and reduced the supply of books.",
-          "It replaced local jobs with a single advertisement.",
-          "It required readers to buy a new book every day."
+          "A larger shop stocked only brand-new titles.",
+          "A book-sharing wall, funded by a small loan and run as a measured pilot.",
+          "A delivery service that charged readers before showing the books.",
+          "A private club that stopped serving neighborhood consumers."
+        ],
+        "answer": 1,
+        "explanation": "Mei used a small loan to build weatherproof shelves, then the club tracked exchanges during a two-week pilot."
+      },
+      {
+        "question": "Why did the exchange not automatically mean higher profit or effortless service?",
+        "options": [
+          "Cleaning, sorting, and checking missing copies still took staff time.",
+          "No readers wanted to reuse books after the first day.",
+          "The shop stopped keeping any records of its inventory.",
+          "The club required every customer to buy two new titles."
         ],
         "answer": 0,
-        "explanation": "Readers could exchange books for an affordable fee, easing demand for new copies and improving resource efficiency."
+        "explanation": "Reuse improved efficiency, but the passage explicitly names cleaning, sorting, and copy checks as continuing labor."
       },
       {
-        "question": "What larger idea do students learn from the bookstore?",
+        "question": "What best explains the bookstore's modest resilience by the end of term?",
         "options": [
-          "The economy is only a set of charts.",
-          "A crisis can be solved without cooperation.",
-          "Investment matters only to large companies.",
-          "The economy connects consumer prices, supply, demand, shared resources, and community resilience."
+          "A single investment guaranteed a large profit.",
+          "The neighborhood no longer needed affordable reading.",
+          "The shop stopped listening to customers and club members.",
+          "Trust, clear records, cooperation, and repeated adjustments kept value circulating."
         ],
         "answer": 3,
-        "explanation": "The closing sentence brings economic ideas back to everyday prices, resources, and communities investing in one another."
+        "explanation": "The ending credits resilience to trust, records, repair, and adjustment, not a guaranteed windfall."
       }
     ],
     "section_b": [
       {
-        "question": "What did the campus book exchange make possible?",
+        "question": "What was the campus club's first goal for its book exchange?",
         "options": [
-          "A guarantee of instant revenue",
-          "Affordable exchange and continued circulation of resources",
-          "The end of every local bookstore",
-          "A system based only on expensive new books"
+          "To promise instant revenue to every member",
+          "To make useful books affordable and keep them circulating among readers",
+          "To replace the campus library with a commercial store",
+          "To collect damaged books without recording their condition"
         ],
         "answer": 1,
-        "explanation": "The exchange kept resources moving while offering an affordable option to readers."
+        "explanation": "The opening frames the project as access and reuse, not as a promise of immediate profit."
       },
       {
-        "question": "Why was the startup model described as sustainable?",
+        "question": "Which practice helped users trust the exchange during its pilot?",
         "options": [
-          "It avoided every form of cooperation.",
-          "It depended on instant profit alone.",
-          "It balanced shared resources with support for local shops.",
-          "It made consumers ignore uncertain seasons."
+          "Keeping the fee and the checkout rules secret",
+          "Letting the first user decide who could borrow next",
+          "Removing all records to make the process faster",
+          "Logging book condition, exchanges, and clear return responsibilities"
         ],
-        "answer": 2,
-        "explanation": "The model is sustainable because exchange can support local shops rather than pursuing instant revenue alone."
+        "answer": 3,
+        "explanation": "Transparent condition notes and checkout records make responsibility visible and disputes easier to resolve."
+      },
+      {
+        "question": "Why did the club compare staffing and repair costs before expanding?",
+        "options": [
+          "A new site could add reach but weaken local support if no partner maintained the books.",
+          "They planned to stop recording damage and returns.",
+          "They wanted to prove that any increase in loans guarantees fair access.",
+          "A sponsor had already promised to cover every future cost."
+        ],
+        "answer": 0,
+        "explanation": "The passage names staffing and repair costs, then warns that expansion could weaken local support without a maintenance partner."
+      },
+      {
+        "question": "Which test best shows whether the project can continue responsibly?",
+        "options": [
+          "Compare access, maintenance costs, local-shop support, and user feedback over time.",
+          "Count only the most popular books on opening day.",
+          "Measure success only by how quickly the project expands.",
+          "Assume that every sharing platform is fair by definition."
+        ],
+        "answer": 0,
+        "explanation": "The final scene treats sustainability as a balance of usefulness, affordability, costs, and feedback."
       }
     ],
     "section_c": [
       {
-        "question": "How did the county library support families during a recession?",
+        "question": "In the students' fictional county case, what first made reading harder for families?",
         "options": [
-          "It stopped sharing resources with families.",
-          "It expanded digital lending and affordable access to reading.",
-          "It invested only in expensive printed collections.",
-          "It replaced reading with a private loan system."
+          "A sudden increase in free transport to the library",
+          "Lower household budgets and the cost of buying every title separately",
+          "A rule that families could use only printed maps",
+          "A lack of interest in reading among all age groups"
         ],
         "answer": 1,
-        "explanation": "Digital lending gave families on tight budgets affordable access to reading materials."
+        "explanation": "The fictional case begins with tight household budgets and the difficulty of purchasing each book individually."
       },
       {
-        "question": "What does the library project show about economic resilience?",
+        "question": "Why did the library keep an assisted, offline option alongside digital lending?",
         "options": [
-          "Communities can invest in knowledge even when income is unstable.",
-          "Resilience means avoiding every shared platform.",
-          "Economic strength depends only on higher prices.",
-          "Knowledge has no relationship with everyday resources."
+          "Some residents lacked reliable devices or felt unsure using the platform.",
+          "The digital catalog contained no books at all.",
+          "The library wanted to prevent volunteers from helping readers.",
+          "Offline service always costs less than maintaining a digital catalog."
         ],
         "answer": 0,
-        "explanation": "The story defines resilience through continued community investment in knowledge during uncertainty."
+        "explanation": "The story identifies device access and confidence as barriers, so a human-assisted route remains important."
+      },
+      {
+        "question": "How did cooperation improve the service rather than merely add publicity?",
+        "options": [
+          "Partners removed every lending rule and condition check.",
+          "The library transferred all decisions to one sponsor.",
+          "Residents stopped reporting problems with access.",
+          "Readers, volunteers, and librarians found barriers and adjusted the service together."
+        ],
+        "answer": 3,
+        "explanation": "The partners used reader feedback to improve assistance, catalog guidance, and device access."
+      },
+      {
+        "question": "What would be the strongest evidence that the library project is resilient?",
+        "options": [
+          "A large download count, even if many users cannot open the books",
+          "A one-time donation with no plan for maintenance",
+          "Sustained reading access, manageable costs, and useful feedback from different residents",
+          "An announcement that the service will never need revision"
+        ],
+        "answer": 2,
+        "explanation": "Resilience is shown by lasting access and an ability to learn and adapt, not by a single headline number."
       }
     ]
   },
@@ -116,97 +171,173 @@
     "section_a": {
       "title": "Surviving an economic crisis",
       "type": "reading",
-      "passage": "After an economic crisis and recession, a neighborhood bookstore struggled to pay rent as inflation squeezed its budget and saving disappeared. Instead of closing, the owner used a small loan and partnered with a campus club to create a book-sharing wall. Readers could leave a book and take another through a sharing exchange for an affordable fee, easing demand for new copies. The model did not make anyone rich quickly, but it improved efficiency, kept knowledge circulating, and supported local jobs. Students learned that the economy is not only charts in textbooks; it is the system behind every consumer's price, supply, demand, and shared resource, and small communities show resilience when they invest in one another."
+      "passage": "In the old harbor district, Lantern Books had served students for twenty years, but a recession changed the street. Inflation pushed up rent and delivery costs, while a tight budget left fewer new titles on its shelves. Owner Mei wrote each expense beside the supply of books and the demand from readers instead of guessing. Her savings covered only two months, and she feared the shop would close before the next school term. To understand the crisis, she asked customers what they needed and what they could afford. A campus club suggested a sharing wall where a reader could leave one book and choose another. Mei took a small loan to build weatherproof shelves and a simple checkout desk. During a two-week pilot, every exchange was entered in a paper ledger with a fair, affordable fee. The club recorded the book condition, the reader's choice, and the time each title remained on the shelf. The early numbers showed that a few popular subjects moved quickly while other titles waited. Rather than call the project an instant success, Mei compared its modest revenue with saved purchasing costs. Reusing books improved efficiency, but cleaning, sorting, and missing-copy checks still required staff time. Some consumers could not pay even a small fee, so the club created a no-fee exchange hour. The change widened access without hiding the real cost of keeping the service open. Mei explained that sharing works only when rules protect both the resource and the people using it. By the end of the term, the shop had not become rich, yet it had kept two local jobs and reopened a quiet reading corner. Readers returned with suggestions, and the club helped repair damaged covers instead of discarding every copy. This modest resilience came from trust, clear records, and repeated adjustments rather than one heroic investment. Students traced how price, supply, demand, and access shaped ordinary choices in the neighborhood. They left with a practical lesson: a healthy economy depends on choices that keep value circulating and responsibility visible."
     },
     "section_b": {
       "title": "The sharing economy turns a new page with books",
       "type": "reading",
-      "passage": "The sharing economy turned a new page when a campus club built a book-exchange wall. Readers left a novel and took another for an affordable fee. The startup model did not create instant revenue, but it kept resources circulating. Consumers learned that sustainable exchange can support local shops during uncertain seasons."
+      "passage": "On campus, a club found that students often bought a required book for one term and then let it collect dust. They designed a sharing exchange where members could lend or swap a copy through a staffed locker. The organizers called it Page Loop, an original student startup built to expand access, not promise instant revenue. Before opening, they surveyed consumers about prices, titles, and whether a refundable deposit felt fair. Their first design offered one flat fee, but readers warned that the rule could exclude people with a tight budget. The team revised the model: a small affordable charge covered checks, while members could volunteer during free-access hours. A barcode, condition note, and clear return date let volunteers track supply without treating every user as a risk. During a month-long trial, they logged which titles moved, which stayed untouched, and when the line grew. Demand shifted around exam weeks, so the club added high-use titles and asked departments to donate older editions. The records also revealed a bottleneck: volunteers spent too long checking books at a single desk. They arranged two return boxes and a short inspection rota, improving efficiency without removing a human check. One sponsor suggested rapid expansion, but the club compared extra staffing and repair costs first. The new site would add reach, yet could weaken local support if no partner helped maintain the books. A teacher asked the group to distinguish activity from impact: more loans did not automatically mean fairer access. Members compared user feedback, wait times, damaged copies, and costs before changing the rules. They kept a free weekly hour for students who could not pay, supported by a campus fund. During that hour, exchange still followed the same condition and return standards. After one term, the project had modest revenue and stronger ties between the club and the campus shop. The team described the model as sustainable only if access, maintenance, and local cooperation remained in balance. Page Loop taught them that sharing works best when transparency makes responsibility as visible as convenience."
     },
     "section_c": {
-      "title": "Stories of China",
+      "title": "Stories of China: A Fictional County Library Case",
       "type": "stories_of_china",
-      "passage": "During a recession, a county library in central China expanded digital lending services. Families on tight budgets accessed affordable reading through a shared platform. The project showed economic resilience: communities invest in knowledge when income is unstable. Such stories remind students that the economy is the system behind everyday prices and shared resources."
+      "passage": "For a class project, students created a fictional county case called Yunhe to examine access to reading during a downturn. In their story, many families had a tight budget, and the county library could not buy every new title. The students proposed a shared digital-lending catalog so one licensed copy could reach more readers over time. They did not present Yunhe as a documented real event; it was a model for testing choices, costs, and access. Their first question was simple: who might still be left out if the service moved online? A group of older residents had no reliable device, while some families shared one phone among several people. Librarians therefore kept printed guides and an assisted desk beside the digital screen. Volunteers helped readers request a title, set a return reminder, and find an offline alternative when needed. The team listed the resources: licenses, devices, staff time, network access, and community knowledge. Demand rose before exams, so a booking queue showed where extra copies or longer lending periods mattered. The students compared costs with the number of completed reads rather than counting clicks alone. A local school offered quiet study space, and a community group helped troubleshoot basic device problems. These partners could not erase the recession, but they reduced barriers that price alone could not explain. The library also collected feedback in short interviews, including from people who had not used the service. Their comments led to clearer instructions, larger text, and a weekly in-person help session. One student argued that digital lending was always more efficient, but the access notes challenged that claim. A shared platform saved travel for some readers while still requiring licenses, maintenance, and human support. In the fictional case, resilience meant keeping useful knowledge accessible while adjusting the system as needs changed. The class concluded that communities invest in one another when they plan for both convenience and exclusion. Their final report asked readers to judge an economy by who can participate, what it costs, and whether the value lasts."
     },
     "vocabulary": {
       "level_count": 4,
       "words_per_level": 5
     },
     "reading": {
-      "title": "Books on the Move",
-      "passage": "After an economic crisis and recession, a neighborhood bookstore struggled to pay rent as inflation squeezed its budget and saving disappeared. Instead of closing, the owner used a small loan and partnered with a campus club to create a book-sharing wall. Readers could leave a book and take another through a sharing exchange for an affordable fee, easing demand for new copies. The model did not make anyone rich quickly, but it improved efficiency, kept knowledge circulating, and supported local jobs. Students learned that the economy is not only charts in textbooks; it is the system behind every consumer's price, supply, demand, and shared resource, and small communities show resilience when they invest in one another.",
+      "title": "The Library of Useful Things",
+      "passage": "When a student housing cooperative noticed that residents were buying tools they used only once, it proposed a small lending room. At first, the idea sounded simple: place a drill, a sewing kit, and a bicycle pump on a shelf, then let anyone borrow them. But the student team quickly learned that access depends on more than putting objects in a room. A tool needs an inspection record, a return date, and a person responsible for checking damage. The cooperative created a modest membership fee to cover repairs, while reserving free borrowing hours for residents facing a tight budget. Its first month produced an unexpected pattern. The bicycle pump moved every week, but the drill waited until a repair workshop advertised its availability. Demand was therefore not a fixed number; it changed with information and timing. One resident argued that the team should buy more equipment immediately. Another asked them to compare actual use with storage and maintenance costs before spending the cooperative's limited saving. They checked the log, asked neighbors what repairs they planned, and borrowed a second drill from a nearby community center for one weekend. This test met the short-term need without creating an unnecessary purchase. The project also exposed a fairness problem: residents who worked late could not reach the room before it closed. Volunteers added a staffed evening slot and a simple booking board. The system did not remove every cost, and it was not automatically sustainable just because people shared. It became more useful when clear rules protected the tools, transparent records showed what was needed, and residents could suggest changes. By the end of the term, the cooperative had a better estimate of which resources deserved investment. The lesson was practical: a sharing economy is a set of choices about access, responsibility, and value, not merely a shelf of free things.",
       "questions": [
         {
-          "question": "How did the bookstore survive?",
+          "question": "Why did the team borrow a second drill instead of buying one immediately?",
           "options": [
-            "By raising prices sharply",
-            "By creating a book-sharing model",
-            "By selling only online ads",
-            "By refusing all customers"
+            "The log showed that immediate demand did not yet justify a permanent purchase.",
+            "The community center refused to lend any equipment.",
+            "Residents were not allowed to repair anything themselves.",
+            "The cooperative wanted to remove all maintenance records."
           ],
-          "answer": 1,
-          "explanation": "书店通过图书共享模式维持经营。"
+          "answer": 0,
+          "explanation": "The group checked real use and planned repairs, then borrowed a second drill for a short-term need instead of assuming a purchase was necessary."
+        },
+        {
+          "question": "What did the drill's use after a repair-workshop announcement show?",
+          "options": [
+            "Equipment use can change when people learn that a resource is available.",
+            "Residents prefer to buy a new tool every time.",
+            "The lending room no longer needed maintenance.",
+            "Demand always stays the same regardless of timing or information."
+          ],
+          "answer": 0,
+          "explanation": "The passage connects the drill's increased use to a repair workshop advertising it, showing that demand responds to information and timing."
+        },
+        {
+          "question": "Which change addressed the access problem for residents who worked late?",
+          "options": [
+            "The team bought more tools for storage.",
+            "The membership fee was doubled.",
+            "Volunteers added an evening borrowing slot and booking board.",
+            "The lending room was closed during weekends."
+          ],
+          "answer": 2,
+          "explanation": "A staffed evening slot and booking board made the service usable for residents who could not arrive earlier."
+        },
+        {
+          "question": "What is the passage's main conclusion about sharing?",
+          "options": [
+            "Shared resources require no rules or upkeep.",
+            "A fee automatically guarantees a fair outcome.",
+            "Every frequently used object should be purchased at once.",
+            "Sharing works better when access, responsibility, records, and feedback are balanced."
+          ],
+          "answer": 3,
+          "explanation": "The final sentences define sharing as choices about access, responsibility, and value, supported by clear rules and feedback."
         }
       ]
     },
     "listening": {
-      "title": "Listening: The economy: power behind everyday life",
-      "script": "In an economics class project, students interviewed a neighborhood bookseller during a recession. Inflation had raised the shop's costs, and a tight budget left little room for new inventory. Instead of treating saving as the only response, the owner took a small loan and worked with a campus club to start a book-sharing exchange. A consumer could leave a used title, pay an affordable fee, and choose another copy. The startup brought no quick revenue, but it used resources efficiently and eased demand for new books. Students traced how supply, demand, and price affected an everyday choice. They concluded that a sustainable idea need not make its owner rich at once; cooperation can build resilience for a local business during a crisis.",
+      "title": "Listening: Should the campus expand its book exchange?",
+      "script": "Welcome back to the campus economics podcast. Our student group has run a book exchange for one term, and the first result is encouraging but incomplete. More than a hundred books changed hands, yet the number alone cannot tell us whether the project was fair or sustainable. We compared the titles requested, the waiting time, repair costs, and the comments from students who could not pay the regular fee. During exam weeks, demand rose for a few subjects, so the club borrowed extra copies from two departments instead of purchasing a large stock. We also kept a free-access hour supported by a small campus fund. That choice widened access, but volunteers still had to inspect returns and maintain the shelves. A local shop now offers a discount on basic repairs, which keeps some spending in the community. Before expanding to another building, the club will run a second trial and ask evening students about opening hours. In other words, we will not treat popularity as proof of success. The more carefully we track costs and listen to users, the more responsibly we can decide what to share. A strong local economy is not simply about moving more goods; it is about making useful exchange possible while keeping its rules, costs, and benefits visible.",
       "questions": [
         {
-          "question": "How did the neighborhood bookstore respond to financial pressure?",
+          "question": "Why does the speaker say that the number of books exchanged is incomplete evidence?",
           "options": [
-            "It cut prices sharply and stopped taking used books.",
-            "It borrowed a small amount and partnered on a book-sharing wall.",
-            "It moved all sales online to avoid local partnerships.",
-            "It expanded quickly by borrowing enough to buy new inventory."
-          ],
-          "answer": 1,
-          "explanation": "听力给出两步应对：小额贷款，以及与校园社团合作建立共享墙。它没有靠大规模扩张或转为纯线上经营。"
-        },
-        {
-          "question": "How did the book-sharing wall work?",
-          "options": [
-            "Readers left a book and took another for an affordable fee.",
-            "Readers borrowed a book and returned that same copy later.",
-            "The club lent books free to members but did not exchange them.",
-            "The bookstore bought readers' used books at full retail price."
+            "It does not reveal fairness, waiting time, repair costs, or who was excluded.",
+            "It counts only books bought by the student group.",
+            "It proves that the exchange lost every book.",
+            "It measures how much money each student saved on transport."
           ],
           "answer": 0,
-          "explanation": "听力的关键动作为 leave a book and take another，并且只收可负担的费用；这不同于借出后归还同一本书。"
+          "explanation": "The speaker says the total cannot show whether the project was fair or sustainable, then names waiting, repair, and user feedback as additional evidence."
         },
         {
-          "question": "What does the story suggest about the economy?",
+          "question": "How did the club respond to higher demand during exam weeks?",
           "options": [
-            "It is shaped mainly by national charts, not everyday decisions.",
-            "A sharing model succeeds only when it creates fast private profit.",
-            "It affects everyday choices and how shared resources circulate.",
-            "Local exchange matters only when inflation and recession have ended."
+            "It purchased a large permanent stock immediately.",
+            "It cancelled the free-access hour.",
+            "It borrowed extra copies from two departments for the peak period.",
+            "It stopped lending the most requested subjects."
           ],
           "answer": 2,
-          "explanation": "讲者把价格、供需和共享资源连到普通人的消费选择，并以社区合作说明经济也发生在日常生活中。"
+          "explanation": "The club used a temporary supply from two departments rather than making a large permanent purchase."
+        },
+        {
+          "question": "What trade-off is mentioned about the free-access hour?",
+          "options": [
+            "It widens access, while volunteers still need time to inspect and maintain books.",
+            "It raises the price for students who pay the regular fee.",
+            "It prevents the shop from offering repair discounts.",
+            "It removes the need to ask students about opening hours."
+          ],
+          "answer": 0,
+          "explanation": "The speaker pairs wider access with ongoing volunteer labor for inspection and shelf maintenance."
+        },
+        {
+          "question": "What will the club do before opening an exchange in another building?",
+          "options": [
+            "Announce success based only on the number of books moved",
+            "Remove the trial and make all rules permanent",
+            "Ask one sponsor to decide without consulting users",
+            "Run another trial and ask evening students about access times"
+          ],
+          "answer": 3,
+          "explanation": "The final plan is to test again and consult evening students before expanding."
         }
       ]
     },
     "translation": {
       "sentences": [
         {
-          "zh": "请将下列句子译为英文：即使在危机中，共享经济也提醒我们，资源的价值不仅在于拥有，还在于流动与再利用。",
-          "en_reference": "Even in a crisis, the sharing economy reminds us that resources gain value not only through ownership but also through circulation and reuse.",
+          "zh": "如果读者在拿走一本书时登记，书店就能更准确地追踪库存。",
+          "en_reference": "If readers register when they take a book, the shop can track its inventory more accurately.",
           "keywords": [
-            "economy",
-            "crisis"
+            "if",
+            "register",
+            "track",
+            "inventory"
+          ]
+        },
+        {
+          "zh": "如果团队更透明地说明费用，学生就会更愿意信任这个交换项目。",
+          "en_reference": "If the team explained the fee more transparently, students would be more willing to trust the exchange program.",
+          "keywords": [
+            "if",
+            "explained",
+            "would",
+            "trust"
+          ]
+        },
+        {
+          "zh": "规则越清晰，资源就越容易公平地流动。",
+          "en_reference": "The clearer the rules are, the more fairly resources circulate.",
+          "keywords": [
+            "clearer",
+            "the more",
+            "fairly",
+            "resources"
+          ]
+        },
+        {
+          "zh": "在危机时期，小额储蓄和互助能够帮助社区保持韧性。",
+          "en_reference": "During a crisis, small savings and mutual support can help a community remain resilient.",
+          "keywords": [
+            "crisis",
+            "savings",
+            "support",
+            "resilient"
           ]
         }
       ]
     },
     "writing": {
-      "prompt": "Write 120-150 words about the theme: 经济：日常生活背后的力量.",
+      "prompt": "Write 120–150 words: Design a fair sharing scheme for a resource used by students or your community. Explain who provides it, who can access it, how rules cover cost and responsibility, and what evidence would show whether the system is sustainable.",
       "outline": [
-        "Introduction",
-        "Example",
-        "Personal view",
-        "Conclusion"
+        "State the resource and the need: who has it, who needs it, and what problem exists.",
+        "Describe the sharing process, including access, exchange or return rules, and an affordable option.",
+        "Explain the trade-off: name real costs, risks, and how transparent records or feedback address them.",
+        "Conclude with evidence you would track to judge fairness, efficiency, and long-term resilience."
       ]
     }
   }

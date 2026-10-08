@@ -12,7 +12,8 @@ type PassageSceneKind =
   | "work-dignity" | "craft-evolution" | "embroidery-table" | "living-heritage"
   | "lunar-probe" | "test-console" | "lander" | "orbit-adjustment" | "training" | "science-exhibit"
   | "relay-bridge" | "sample-lab" | "moon-horizon" | "systems-simulation" | "mission-control" | "crew-simulation" | "future-frontier"
-  | "bookshop" | "exchange" | "resilience" | "exchange-wall" | "resource-cycle" | "library" | "digital-lending";
+  | "bookshop" | "exchange" | "resilience" | "exchange-wall" | "resource-cycle" | "library" | "digital-lending"
+  | "budget-board" | "trust-ledger" | "sustainable-market" | "knowledge-bridge";
 
 const PASSAGE_SCENES: Record<string, Partial<Record<PassageKind, PassageSceneKind[]>>> = {
   unit01: {
@@ -41,9 +42,9 @@ const PASSAGE_SCENES: Record<string, Partial<Record<PassageKind, PassageSceneKin
     section_c: ["training", "crew-simulation", "science-exhibit", "future-frontier"],
   },
   unit06: {
-    section_a: ["bookshop", "exchange", "resilience"],
-    section_b: ["exchange-wall", "resource-cycle"],
-    section_c: ["library", "digital-lending"],
+    section_a: ["bookshop", "exchange", "resilience", "budget-board"],
+    section_b: ["exchange-wall", "resource-cycle", "trust-ledger", "sustainable-market"],
+    section_c: ["library", "digital-lending", "community-network", "knowledge-bridge"],
   },
 };
 
@@ -1941,6 +1942,74 @@ function addPassageSceneLandmark(
         for (let row = 0; row < 3; row++) box(x, 2.15 + row * 1.25, 26.35, 1.5, 0.1, 0.2, edge);
       }
       route([[-4, 2.2, 26.1], [-2.2, 2.8, 26.1], [0, 3.2, 26.1], [2.2, 2.8, 26.1], [4, 2.2, 26.1]], glow, 0.08);
+      break;
+    }
+    case "budget-board": {
+      box(0, 4.15, 28.7, 8.8, 5.2, 0.42, dark);
+      box(0, 4.15, 28.46, 8.2, 4.62, 0.08, ground);
+      for (const x of [-2.7, 0, 2.7]) box(x, 4.05, 28.38, 0.08, 3.55, 0.06, edge);
+      for (const y of [2.45, 3.65, 4.85, 6.05]) box(0, y, 28.38, 7.8, 0.07, 0.06, edge);
+      for (const [index, height] of [1.05, 1.7, 2.5].entries()) {
+        const bar = box(-1.8 + index * 1.8, 2.55 + height / 2, 28.18, 0.92, height, 0.18, index === 2 ? glow : edge);
+        bar.userData.isLandscapeStage = true;
+      }
+      for (let i = 0; i < 5; i++) cylinder(3.38, 1.48 + i * 0.24, 27, 0.48, 0.13, i % 2 ? edge : glow, 12);
+      route([[-4.5, 1.28, 29.2], [-2.2, 1.35, 27.8], [0, 1.4, 26.3], [2.1, 1.48, 25.6], [4.4, 1.55, 26.4]], edge, 0.1);
+      ring(5.1, 1.08, 0.1);
+      break;
+    }
+    case "trust-ledger": {
+      cylinder(0, 1.18, 27, 6.1, 0.34, dark, 12);
+      box(0, 1.92, 27, 7.4, 0.28, 3.5, ground);
+      box(-1.75, 2.13, 26.72, 2.5, 0.12, 2.45, glow, -0.08);
+      box(1.1, 2.13, 26.72, 2.5, 0.12, 2.45, edge, 0.08);
+      for (const x of [-2.45, -1.72, -0.98, 0.38, 1.1, 1.82]) box(x, 2.24, 26.35, 0.08, 0.04, 1.72, dark);
+      for (const z of [25.85, 26.42, 27.02]) box(-1.73, 2.24, z, 2.24, 0.04, 0.06, dark);
+      for (const x of [-4, 4]) {
+        const token = add(new THREE.OctahedronGeometry(0.62, 0), x < 0 ? edge : glow, x, 3.45, 27);
+        token.userData.isLandscapeBeacon = true;
+      }
+      route([[-4, 2.9, 27], [-2, 2.55, 27], [0, 2.42, 27], [2, 2.55, 27], [4, 2.9, 27]], edge, 0.08);
+      ring(5.15, 1.16, 0.1);
+      break;
+    }
+    case "sustainable-market": {
+      for (const [index, x] of [-3.55, 0, 3.55].entries()) {
+        box(x, 2.28, 27, 2.75, 0.22, 2.2, index === 1 ? edge : ground);
+        for (const dx of [-0.98, 0.98]) box(x + dx, 1.55, 27, 0.16, 1.35, 0.16, dark);
+        const canopy = box(x, 4.05, 27, 3.05, 0.24, 2.5, index === 1 ? glow : edge, index === 1 ? 0.03 : -0.03);
+        canopy.userData.isLandscapeStage = true;
+        for (let item = 0; item < 3; item++) {
+          const crate = box(x - 0.78 + item * 0.78, 2.76, 26.2, 0.56, 0.72, 0.54, item % 2 ? glow : dark);
+          crate.userData.isLandscapeStage = true;
+        }
+      }
+      for (const x of [-1.75, 1.75]) {
+        const shopper = add(new THREE.CylinderGeometry(0.24, 0.32, 0.9, 8), x < 0 ? edge : dark, x, 1.82, 24.9);
+        shopper.userData.isLandscapeStage = true;
+        add(new THREE.SphereGeometry(0.24, 10, 8), ground, x, 2.47, 24.9);
+      }
+      route([[-5.1, 1.2, 29.2], [-3, 1.28, 27.7], [0, 1.35, 26], [3, 1.28, 27.7], [5.1, 1.2, 29.2]], glow, 0.08);
+      ring(5.35, 1.08, 0.1);
+      break;
+    }
+    case "knowledge-bridge": {
+      for (const x of [-4.15, 4.15]) {
+        box(x, 3.4, 27, 1.55, 4.3, 1.55, ground);
+        for (let row = 0; row < 3; row++) {
+          box(x, 2.15 + row * 1.12, 26.12, 1.28, 0.12, 0.18, edge);
+          for (let col = 0; col < 3; col++) book(x - 0.42 + col * 0.42, 2.53 + row * 1.12, 25.96, row * 3 + col, 0.22);
+        }
+      }
+      arch(10.4, 5.35, edge, 28.8);
+      const bridge = box(0, 2.28, 27, 7.1, 0.36, 2.35, dark);
+      bridge.userData.isLandscapeRoute = true;
+      for (const x of [-2.3, 0, 2.3]) {
+        const steppingStone = box(x, 2.5, 27, 1.18, 0.14, 1.45, x === 0 ? glow : edge);
+        steppingStone.userData.isLandscapeStage = true;
+      }
+      route([[-4.2, 2.58, 27], [-2.2, 2.68, 27], [0, 2.72, 27], [2.2, 2.68, 27], [4.2, 2.58, 27]], glow, 0.08);
+      ring(5.3, 1.12, 0.1);
       break;
     }
     default:

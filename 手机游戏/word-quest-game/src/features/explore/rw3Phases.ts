@@ -73,9 +73,9 @@ const PASSAGE_WORLD_STORIES: Record<string, Partial<Record<PassageKind, PassageW
     section_c: { places: ["基础训练舱", "失重模拟池", "太空科学展厅", "未来前沿舱"], scenes: ["知识与身体准备", "在压力下协作", "把观测变成研究", "让探索延续"] },
   },
   unit06: {
-    section_a: { places: ["邻里书店", "共享书架", "社区现场"], scenes: ["危机中的书店", "资源交换", "社区韧性"] },
-    section_b: { places: ["校园换书墙", "资源循环路"], scenes: ["社团共享", "可持续流动"] },
-    section_c: { places: ["县图书馆", "数字借阅台"], scenes: ["低成本阅读", "知识与韧性"] },
+    section_a: { places: ["灯巷书店", "共享书架", "公共账簿", "社区韧性廊"], scenes: ["危机抵达街区", "资源重新流动", "公平与效率取舍", "信任让价值留下"] },
+    section_b: { places: ["校园换书墙", "循环分拣站", "透明规则台", "可持续市集"], scenes: ["从需求到设计", "记录建立信任", "把成本摊开", "衡量长期价值"] },
+    section_c: { places: ["云河图书馆", "数字借阅屏", "社区协作桌", "知识之桥"], scenes: ["虚构案例提出问题", "数字之外的门槛", "把反馈变成改进", "不落下任何读者"] },
   },
 };
 
