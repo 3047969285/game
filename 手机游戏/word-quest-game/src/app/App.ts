@@ -2213,14 +2213,14 @@ export class App {
         <span class="progress-pill">读写3 单元 · ${phaseNo}/${totalPhases} · ${phase.label}</span>
         ${this.rw3StepperHtml()}
         <div class="title" style="font-size:1.1rem">英汉互译练习</div>
-        <p class="learn-steps">将中文句子译成英文，需包含关键词 · 共 ${total} 句</p>
+        <p class="learn-steps">先独立翻译，提交后再看关键词与参考译文；关键词只提示覆盖，不代替语义或语法评分 · 共 ${total} 句</p>
         <div class="discover-bar"><div class="discover-fill" style="width:${(idx / total) * 100}%"></div></div>
         <div class="discover-label">第 <strong>${idx + 1}/${total}</strong> 句${allDone ? " · 全部完成 ✓" : ""}</div>
       </div>
       <div class="card translation-card">
         <div class="trans-sentence-no">第 ${idx + 1} 句</div>
         <p class="translation-zh">${sentence?.zh ?? ""}</p>
-        <div class="trans-keywords">
+        <div class="trans-keywords hidden" id="translation-keywords">
           ${(sentence?.keywords ?? []).map((kw) => `<span class="trans-kw-chip">${kw}</span>`).join("")}
         </div>
         <textarea class="translation-input" id="translation-input" rows="3" placeholder="在此输入英文译文…"></textarea>
@@ -2229,7 +2229,14 @@ export class App {
           ${sentence?.enReference ?? ""}
         </p>
         <p class="translation-feedback" id="translation-feedback"></p>
-        <button class="btn btn-primary" id="btn-check-translation" type="button">提交 · 检查关键词</button>
+        <button class="btn btn-primary" id="btn-check-translation" type="button">核对关键词与参考译文</button>
+        <div class="translation-review hidden" id="translation-review">
+          <p class="translation-review-note">请对照参考译文，回到上方输入框修订后再自检；系统只统计关键词，不会自动判定译文正确。</p>
+          <label><input type="checkbox" class="translation-review-check"> 我完整表达了原句意思，没有漏掉关键关系。</label>
+          <label><input type="checkbox" class="translation-review-check"> 我检查了语序、时态和主谓一致。</label>
+          <label><input type="checkbox" class="translation-review-check"> 我已修正表达，或确认当前译法无需修改。</label>
+          <button class="btn btn-primary" id="btn-translation-reviewed" type="button" disabled>完成自检，继续</button>
+        </div>
       </div>
       <div class="scene-actions">
         <button class="btn btn-ghost" id="btn-back-map" type="button">返回地图</button>
@@ -2239,33 +2246,48 @@ export class App {
 
     screen.querySelector("#btn-check-translation")?.addEventListener("click", () => {
       if (!sentence) return;
-      const input = (screen.querySelector("#translation-input") as HTMLTextAreaElement).value.trim();
+      const translationInput = screen.querySelector<HTMLTextAreaElement>("#translation-input");
+      const input = translationInput?.value.trim() ?? "";
       if (!input) return;
-      const result = checkTranslation(input, {
+      const sentenceForCheck = {
         zh: sentence.zh,
         enReference: sentence.enReference,
         keywords: sentence.keywords,
-      });
+      };
       const feedback = screen.querySelector("#translation-feedback");
       const ref = screen.querySelector("#translation-ref");
+      const keywords = screen.querySelector("#translation-keywords");
+      const review = screen.querySelector("#translation-review");
+      const checkButton = screen.querySelector<HTMLButtonElement>("#btn-check-translation");
       ref?.classList.remove("hidden");
+      keywords?.classList.remove("hidden");
+      review?.classList.remove("hidden");
+      const updateKeywordCoverage = (): void => {
+        const result = checkTranslation(translationInput?.value ?? "", sentenceForCheck);
+        const coverage = `${result.matched.length}/${sentence.keywords.length}`;
+        const missing = result.missing.length ? ` · 可再检查：${result.missing.join("、")}` : "";
+        if (feedback) feedback.innerHTML = `<span class="trans-hint">关键词覆盖 ${coverage}${missing}。这不是语义或语法评分。</span>`;
+      };
+      updateKeywordCoverage();
+      translationInput?.addEventListener("input", updateKeywordCoverage);
+      if (checkButton) checkButton.disabled = true;
 
-      if (result.ok) {
+      const checks = Array.from(review?.querySelectorAll<HTMLInputElement>(".translation-review-check") ?? []);
+      const continueButton = screen.querySelector<HTMLButtonElement>("#btn-translation-reviewed");
+      const updateContinueButton = (): void => {
+        if (continueButton) continueButton.disabled = !checks.length || !checks.every((check) => check.checked);
+      };
+      checks.forEach((check) => check.addEventListener("change", updateContinueButton));
+      continueButton?.addEventListener("click", () => {
+        if (continueButton.disabled) return;
         audio.play("win");
-        if (feedback) feedback.innerHTML = `<span class="trans-ok">✓ 关键词命中：${result.matched.join("、")}</span>`;
-        setTimeout(() => {
-          if (this.rw3TranslationIndex < total - 1) {
-            this.rw3TranslationIndex += 1;
-          } else {
-            this.rw3TranslationDone = true;
-          }
-          this.renderScene();
-        }, 900);
-      } else {
-        audio.play("click");
-        if (feedback)
-          feedback.innerHTML = `<span class="trans-hint">💡 请包含至少 2 个关键词：${sentence.keywords.join("、")}</span>`;
-      }
+        if (this.rw3TranslationIndex < total - 1) {
+          this.rw3TranslationIndex += 1;
+        } else {
+          this.rw3TranslationDone = true;
+        }
+        this.renderScene();
+      });
     });
 
     screen.querySelector("#btn-back-map")?.addEventListener("click", () => this.returnToMapFromScene());

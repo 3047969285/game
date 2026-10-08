@@ -796,6 +796,41 @@ body {
   color: #6ee7b7;
 }
 
+.translation-review {
+  display: grid;
+  gap: 9px;
+  margin-top: 14px;
+  padding: 12px;
+  border: 1px solid rgba(91, 141, 239, 0.24);
+  border-radius: var(--radius-sm);
+  background: rgba(91, 141, 239, 0.06);
+}
+
+.translation-review-note,
+.translation-review label {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.translation-review label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.translation-review input {
+  flex: 0 0 auto;
+  margin: 3px 0 0;
+  accent-color: #60a5fa;
+}
+
+.translation-review button {
+  justify-self: start;
+}
+
 .writing-prompt {
   font-size: 0.95rem;
   font-weight: 600;

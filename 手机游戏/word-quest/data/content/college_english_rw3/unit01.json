@@ -295,6 +295,35 @@
             "digital",
             "connection"
           ]
+        },
+        {
+          "zh": "请将下列句子译为英文：减少不必要的消息提醒有助于学生保护注意力。",
+          "en_reference": "Reducing unnecessary notifications helps students protect their attention.",
+          "keywords": [
+            "notifications",
+            "protect",
+            "attention"
+          ]
+        },
+        {
+          "zh": "请将下列句子译为英文：固定的消息查看时段不仅能保护整块阅读时间，也能为紧急联络留出空间。",
+          "en_reference": "Not only do scheduled message check-in times protect a focused reading block, but they also leave room for urgent contact.",
+          "keywords": [
+            "not only",
+            "but also",
+            "protect",
+            "urgent contact"
+          ]
+        },
+        {
+          "zh": "请将下列句子译为英文：多任务处理似乎节省时间，却可能使我们更难记住谈话的重点。",
+          "en_reference": "Multitasking may seem to save time, but it can make it harder for us to remember the main point of a conversation.",
+          "keywords": [
+            "multitasking",
+            "save time",
+            "harder",
+            "conversation"
+          ]
         }
       ]
     },
