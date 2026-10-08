@@ -1000,12 +1000,69 @@ function addPassageSceneLandmark(
       break;
     }
     case "clinic": {
-      box(0, 3.45, 27, 8, 4.5, 2.3, ground);
+      const clinicWall = new THREE.MeshStandardMaterial({
+        color: 0x6c8593,
+        emissive: 0x142936,
+        emissiveIntensity: 0.18,
+        roughness: 0.9,
+      });
+      clinicWall.fog = false;
+      const clinic = box(0, 3.45, 27, 8, 4.5, 2.3, clinicWall);
+      clinic.userData.isLandscapeStage = true;
+      box(0, 5.82, 27, 8.55, 0.3, 2.75, dark);
+
+      const ridge = new THREE.MeshStandardMaterial({ color: 0x354f61, roughness: 0.96 });
+      ridge.fog = false;
+      for (const [x, y, z, scale] of [[-7.7, 2.55, 32, 1], [-6.1, 1.75, 34, 0.7], [7.6, 2.35, 33, 0.88]] as const) {
+        const peak = add(new THREE.ConeGeometry(3.1 * scale, 4.8 * scale, 5), ridge, x, y, z);
+        peak.scale.set(1.2, 1, 0.7);
+        peak.userData.isLandscapeStage = true;
+      }
+
       box(0, 3.38, 25.78, 1.25, 3.18, 0.18, dark);
-      for (const x of [-2.5, 2.5]) box(x, 4.05, 25.78, 1.14, 1.1, 0.18, glow);
-      box(0, 6.35, 25.72, 0.55, 1.8, 0.18, edge);
-      box(0, 6.35, 25.7, 1.8, 0.55, 0.2, edge);
-      route([[0, 1.2, 29], [0, 1.25, 27], [0, 1.3, 25.8]], edge, 0.14);
+      box(-0.12, 3.42, 25.66, 0.78, 2.64, 0.06, glow);
+      box(0.58, 3.05, 25.6, 0.08, 0.12, 0.08, edge);
+      for (const x of [-2.5, 2.5]) {
+        box(x, 4.05, 25.78, 1.28, 1.24, 0.18, edge);
+        box(x, 4.05, 25.65, 1.08, 1.02, 0.06, glow);
+        box(x, 4.05, 25.59, 0.08, 1.02, 0.035, ground);
+        box(x, 4.05, 25.59, 1.08, 0.07, 0.035, ground);
+        box(x, 3.42, 25.55, 1.5, 0.12, 0.36, dark);
+      }
+      box(0, 4.98, 25.16, 2.55, 0.2, 0.92, edge);
+      box(0, 6.35, 25.64, 0.55, 1.8, 0.18, edge);
+      box(0, 6.35, 25.62, 1.8, 0.55, 0.2, edge);
+
+      box(0, 1.45, 25.12, 2.6, 0.22, 1.16, ground);
+      box(0, 1.24, 26.1, 3.2, 0.18, 0.82, dark);
+      route([[0, 1.18, 33], [0, 1.2, 30], [0, 1.32, 27.8], [0, 1.48, 25.5]], edge, 0.12);
+
+      for (const x of [-5.1, 5.1]) {
+        box(x, 1.72, 27.1, 1.85, 0.18, 0.62, dark);
+        box(x, 2.22, 27.38, 1.85, 0.68, 0.14, edge);
+        for (const dx of [-0.68, 0.68]) box(x + dx, 1.42, 27.1, 0.12, 0.54, 0.12, ground);
+      }
+
+      const kiosk = box(4.5, 2.72, 25.42, 1.18, 2.12, 0.28, dark);
+      kiosk.userData.isLandscapeStage = true;
+      box(4.5, 2.92, 25.24, 0.92, 1.38, 0.06, glow);
+      for (const [x, material] of [[4.28, edge], [4.72, ground]] as const) {
+        const patient = add(new THREE.SphereGeometry(0.13, 8, 6), material, x, 3.28, 25.18);
+        patient.userData.isLandscapeStage = true;
+        box(x, 2.92, 25.18, 0.22, 0.34, 0.07, material);
+      }
+      route([[4.5, 4.12, 25.2], [3.6, 4.75, 26], [2.5, 5.2, 27]], glow, 0.07);
+
+      const antenna = cylinder(2.8, 6.02, 27.5, 0.09, 0.62, dark, 8);
+      antenna.userData.isLandscapeStage = true;
+      const dish = add(new THREE.TorusGeometry(0.58, 0.08, 8, 24), edge, 2.8, 6.38, 27.5);
+      dish.rotation.y = Math.PI / 2;
+      dish.userData.isLandscapeBeacon = true;
+      for (const [radius, y] of [[0.58, 6.15], [0.82, 6.1]] as const) {
+        const signal = add(new THREE.TorusGeometry(radius, 0.045, 7, 24, Math.PI), glow, 2.8, y, 27.5);
+        signal.rotation.y = Math.PI / 2;
+        signal.userData.isLandscapeRing = true;
+      }
       break;
     }
     case "telemedicine": {
