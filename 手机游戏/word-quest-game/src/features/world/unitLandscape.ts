@@ -849,9 +849,20 @@ function addPassageSceneLandmark(
       break;
     }
     case "notification": {
-      for (const [x, y, scale] of [[-3.4, 4.1, 0.86], [0, 5.6, 1.08], [3.4, 4.5, 0.9]] as const) {
+      const panels = [
+        { x: -3.4, y: 4.1, scale: 0.86, rows: [0.76, 1.28, 0.94, 0.62] },
+        { x: 0, y: 5.6, scale: 1.08, rows: [1.34, 0.82, 1.12, 0.68] },
+        { x: 3.4, y: 4.5, scale: 0.9, rows: [0.92, 1.22, 0.74, 1.04] },
+      ] as const;
+      for (const { x, y, scale, rows } of panels) {
+        const rotationY = x * 0.035;
         box(x, y, 27, 2.2 * scale, 2.8 * scale, 0.42, dark, x * 0.035);
-        box(x, y, 26.73, 1.88 * scale, 2.44 * scale, 0.1, glow, x * 0.035);
+        box(x, y, 26.73, 1.88 * scale, 2.44 * scale, 0.1, glow, rotationY);
+        box(x - 0.1 * scale, y + 0.78 * scale, 26.62, 0.78 * scale, 0.15 * scale, 0.06, edge, rotationY);
+        rows.forEach((width, row) => {
+          const material = row === 1 && x === 0 ? edge : dark;
+          box(x - 0.08 * scale, y + (0.34 - row * 0.43) * scale, 26.62, width * scale, 0.14 * scale, 0.06, material, rotationY);
+        });
         const dot = add(new THREE.SphereGeometry(0.22 * scale, 10, 8), edge, x + 0.58 * scale, y + 0.68 * scale, 26.6);
         dot.userData.isLandscapeBeacon = true;
       }
