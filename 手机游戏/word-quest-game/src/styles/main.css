@@ -1304,7 +1304,7 @@ body {
   background: rgba(9, 15, 26, 0.94);
 }
 .rw3-world-ribbon {
-  position: fixed;
+  position: absolute;
   top: max(12px, env(safe-area-inset-top));
   left: 50%;
   z-index: 24;
