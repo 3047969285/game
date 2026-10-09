@@ -133,36 +133,36 @@
         "explanation": "The exhibit connects systems knowledge, physical and psychological preparation, emergency procedures, and coordination."
       },
       {
-        "question": "What does the simulated warning teach the trainee to do first?",
-        "options": [
-          "Follow a checklist, communicate the reading, and confirm the next safe step.",
-          "Silence the alarm and continue the planned task.",
-          "Wait for one teammate to make every decision.",
-          "Change the spacecraft setting before checking the data."
-        ],
-        "answer": 0,
+      "question": "What does the simulated warning teach the trainee to do first?",
+      "options": [
+        "Silence the alarm and continue the planned task.",
+        "Wait for one teammate to make every decision.",
+        "Follow a checklist, communicate the reading, and confirm the next safe step.",
+        "Change the spacecraft setting before checking the data."
+      ],
+      "answer": 2,
         "explanation": "The scenario rewards a deliberate sequence: use the procedure, share evidence, and confirm a safe response."
       },
       {
-        "question": "Why does the exhibit include a model of a space station as well as a rocket?",
-        "options": [
-          "A station is used only to display a launch vehicle.",
-          "Long-term work in orbit depends on systems and research after launch, too.",
-          "A station removes the effects of gravity from every experiment.",
-          "The exhibit wants visitors to ignore crew preparation."
-        ],
-        "answer": 1,
+      "question": "Why does the exhibit include a model of a space station as well as a rocket?",
+      "options": [
+        "Long-term work in orbit depends on systems and research after launch, too.",
+        "A station removes the effects of gravity from every experiment.",
+        "A station is used only to display a launch vehicle.",
+        "The exhibit wants visitors to ignore crew preparation."
+      ],
+      "answer": 0,
         "explanation": "The station model helps Rui see that sustained experiments, maintenance, and crew routines continue after a launch."
       },
       {
-        "question": "Which idea best summarizes the passage's view of a space frontier?",
-        "options": [
-          "A frontier is meaningful when careful preparation and shared research let people explore responsibly.",
-          "Only astronauts contribute to a space program.",
-          "Scientific success should be measured by publicity rather than evidence.",
-          "Training can stop once the first mission has succeeded."
-        ],
-        "answer": 0,
+      "question": "Which idea best summarizes the passage's view of a space frontier?",
+      "options": [
+        "Only astronauts contribute to a space program.",
+        "A frontier is meaningful when careful preparation and shared research let people explore responsibly.",
+        "Scientific success should be measured by publicity rather than evidence.",
+        "Training can stop once the first mission has succeeded."
+      ],
+      "answer": 1,
         "explanation": "The ending links exploration with disciplined preparation, reliable systems, and work shared across generations."
       }
     ]
@@ -192,14 +192,14 @@
       "passage": "During a public science workshop, a student team had to design a communication plan for a probe on the Moon's far side. Their first sketch pointed a radio line straight toward Earth, but a lunar model blocked it. A mentor asked the students to identify the constraint before adding equipment. They placed a relay satellite where it could pass messages between the hidden probe and Earth, then drew a second route for backup communication. The model did not prove that a real mission would succeed; it helped the team ask which parts would need testing. They listed power, orbit, timing, and signal quality as separate questions. One group wanted to choose a path because it looked shortest. Another compared the angles and found that a slightly longer route offered a clearer link. The students recorded what their model showed and what it could not show. Their report distinguished evidence from assumption and suggested a next test rather than claiming certainty. The mentor connected the exercise with Chang'e-4, whose far-side operations depended on a relay link because the Moon interrupts direct communication. The historic result was not a shortcut around engineering; it was evidence that careful system design can make a difficult task possible. By the end, the students understood that exploration is a chain: a question guides a model, a test challenges the model, and new data shapes the next decision. A successful mission may make headlines, but the habits that support it are patient research, clear records, and cooperation across different specialties.",
       "questions": [
         {
-          "question": "What problem did the lunar model reveal in the team's first sketch?",
-          "options": [
-            "A straight radio path was blocked by the Moon.",
-            "The probe had already landed in the wrong place.",
-            "The team had no measurements for the lunar surface.",
-            "The relay satellite was too close to Earth."
-          ],
-          "answer": 0,
+      "question": "What problem did the lunar model reveal in the team's first sketch?",
+      "options": [
+        "The probe had already landed in the wrong place.",
+        "The team had no measurements for the lunar surface.",
+        "The relay satellite was too close to Earth.",
+        "A straight radio path was blocked by the Moon."
+      ],
+      "answer": 3,
           "explanation": "The lunar model physically blocks the direct line drawn from the far-side probe to Earth."
         },
         {
@@ -214,25 +214,25 @@
           "explanation": "The team compared the geometry and found the longer route provided a clearer communication link."
         },
         {
-          "question": "What does the report distinguish?",
-          "options": [
-            "Public interest from scientific research.",
-            "The relay satellite from the spacecraft.",
-            "Evidence from assumption, along with limits of the model.",
-            "The Moon's near side from its craters."
-          ],
-          "answer": 2,
+      "question": "What does the report distinguish?",
+      "options": [
+        "Evidence from assumption, along with limits of the model.",
+        "Public interest from scientific research.",
+        "The relay satellite from the spacecraft.",
+        "The Moon's near side from its craters."
+      ],
+      "answer": 0,
           "explanation": "The students record what their model demonstrates, what it cannot show, and what should be tested next."
         },
         {
-          "question": "Which conclusion is best supported by the passage?",
-          "options": [
-            "A model removes the need for real mission tests.",
-            "A relay works only when every team uses the same specialty.",
-            "Historic missions succeed through luck more than planning.",
-            "Reliable exploration grows through models, tests, records, and cooperation."
-          ],
-          "answer": 3,
+      "question": "Which conclusion is best supported by the passage?",
+      "options": [
+        "A model removes the need for real mission tests.",
+        "A relay works only when every team uses the same specialty.",
+        "Reliable exploration grows through models, tests, records, and cooperation.",
+        "Historic missions succeed through luck more than planning."
+      ],
+      "answer": 2,
           "explanation": "The passage closes with a chain from question to model, test, evidence, and collaboration."
         }
       ]
@@ -242,36 +242,36 @@
       "script": "Welcome to the mission-training room. Today, our crew is not launching a spacecraft; it is rehearsing what to do when a sensor gives an unexpected reading. First, the trainee reads the procedure and says the value aloud. A teammate checks the number against a second display, while the instructor records the time and the system's status. The team does not change the orbit just because one signal looks unusual. They compare the data, identify what remains uncertain, and decide whether the mission rule calls for a pause or a correction. In a separate exercise, the crew practices moving through a station module in low gravity. The goal is not speed. Each person must secure the equipment, report a change, and leave a clear note for the next shift. After the rehearsal, the group reviews one mistake without blaming the trainee. They ask which cue was missed and how the checklist can make the next attempt safer. The instructor says that research missions depend on accurate instruments, but also on people who communicate honestly. When a later test improves the procedure, the change is recorded and shared with the whole team. A space mission may be ambitious, yet its reliability is built from small actions that can be checked and repeated. For your question, listen for the evidence the crew uses before it acts.",
       "questions": [
         {
-          "question": "What does the crew do before changing the orbit in response to an unusual signal?",
-          "options": [
-            "They compare the reading with other data and identify uncertainty.",
-            "They silence the alarm and continue without recording it.",
-            "They ask one specialist to decide without checking the procedure.",
-            "They change the spacecraft setting immediately."
-          ],
-          "answer": 0,
+      "question": "What does the crew do before changing the orbit in response to an unusual signal?",
+      "options": [
+        "They silence the alarm and continue without recording it.",
+        "They ask one specialist to decide without checking the procedure.",
+        "They compare the reading with other data and identify uncertainty.",
+        "They change the spacecraft setting immediately."
+      ],
+      "answer": 2,
           "explanation": "The team checks a second display and identifies uncertainty before deciding whether to pause or correct."
         },
         {
-          "question": "What is the goal of the low-gravity station exercise?",
-          "options": [
-            "To see who can finish the module route fastest.",
-            "To practice securing equipment, reporting changes, and leaving a useful note.",
-            "To avoid communicating with the next shift.",
-            "To prove that the station has normal gravity."
-          ],
-          "answer": 1,
+      "question": "What is the goal of the low-gravity station exercise?",
+      "options": [
+        "To see who can finish the module route fastest.",
+        "To avoid communicating with the next shift.",
+        "To prove that the station has normal gravity.",
+        "To practice securing equipment, reporting changes, and leaving a useful note."
+      ],
+      "answer": 3,
           "explanation": "The exercise emphasizes safe equipment handling, clear reporting, and handover rather than speed."
         },
         {
-          "question": "How does the instructor respond to a mistake in rehearsal?",
-          "options": [
-            "The instructor removes the trainee from the next exercise.",
-            "The mistake is hidden so that the schedule stays on time.",
-            "The team identifies the missed cue and improves the checklist without blame.",
-            "The crew stops documenting procedures."
-          ],
-          "answer": 2,
+      "question": "How does the instructor respond to a mistake in rehearsal?",
+      "options": [
+        "The instructor removes the trainee from the next exercise.",
+        "The team identifies the missed cue and improves the checklist without blame.",
+        "The mistake is hidden so that the schedule stays on time.",
+        "The crew stops documenting procedures."
+      ],
+      "answer": 1,
           "explanation": "The group asks what cue was missed and how the checklist can improve, without blaming the trainee."
         },
         {
