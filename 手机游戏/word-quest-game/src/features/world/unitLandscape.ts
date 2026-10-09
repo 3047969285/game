@@ -588,20 +588,120 @@ function addLearningSceneLandmark(
   const vocab = worldId.match(/^lab-vocab-(\d+)$/);
   if (vocab) {
     const level = Number(vocab[1]);
+    const layouts: Record<number, [number, number][]> = {
+      1: Array.from({ length: 5 }, (_, index) => {
+        const angle = (index / 5) * Math.PI * 2;
+        return [Math.cos(angle) * 5.1, 27 + Math.sin(angle) * 5.1];
+      }),
+      2: [[-6, 30], [-3, 28.5], [0, 27], [3, 25.5], [6, 24]],
+      3: [[-5.2, 30], [-2.6, 28.3], [0, 26.2], [2.6, 28.3], [5.2, 30]],
+      4: [[0, 23.5], [-4.4, 27], [0, 27], [4.4, 27], [0, 30.5]],
+      5: Array.from({ length: 5 }, (_, index) => {
+        const angle = -Math.PI / 2 + index * 1.12;
+        const radius = 1.8 + index * 0.92;
+        return [Math.cos(angle) * radius, 27 + Math.sin(angle) * radius];
+      }),
+      6: [[-4.5, 24.4], [-4.5, 29.6], [0, 27], [4.5, 24.4], [4.5, 29.6]],
+    };
+    const layout = layouts[level] ?? layouts[1];
+    const routePoints: THREE.Vector3[] = [];
     for (let i = 0; i < 5; i++) {
-      const angle = (i / 5) * Math.PI * 2;
-      const x = Math.cos(angle) * 5.1;
-      const z = 27 + Math.sin(angle) * 5.1;
-      const stone = add(new THREE.BoxGeometry(1.35, 2.2 + ((i + level) % 2) * 0.8, 1.35), ground, x, 2.1, z, angle);
+      const [x, z] = layout[i];
+      const height = level === 2 ? 1.7 + i * 0.55 : level === 3 ? [2.2, 1.6, 3.1, 1.6, 2.2][i] : level === 6 && i === 2 ? 3.6 : 2.2 + (i % 2) * 0.65;
+      const geometry = level === 2
+        ? new THREE.CylinderGeometry(0.72, 0.95, height, 7)
+        : level === 5
+          ? new THREE.ConeGeometry(0.96, height, 5)
+          : new THREE.BoxGeometry(1.35, height, 1.35);
+      const stone = add(geometry, ground, x, 1 + height / 2, z, i * 0.14);
       stone.userData.isLandscapeStage = true;
-      const wordCore = add(new THREE.OctahedronGeometry(0.82, 1), glow, x, 4.2, z);
+      const coreY = 1 + height + (level === 6 && i === 2 ? 1.15 : 0.9);
+      const wordCore = add(
+        new THREE.OctahedronGeometry(level === 6 && i === 2 ? 1.15 : 0.72, 1),
+        level === 6 && i === 2 ? edge : glow,
+        x,
+        coreY,
+        z
+      );
       wordCore.userData.isLandscapeBeacon = true;
+      routePoints.push(new THREE.Vector3(x, coreY - 0.35, z));
     }
-    ring(6.4, 1.1);
+    if (level > 1) {
+      const route = add(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(routePoints), 36, 0.055, 6, false), edge, 0, 0, 0);
+      route.userData.isLandscapeRoute = true;
+    }
+    const boundary = add(new THREE.TorusGeometry(level === 5 ? 6.6 : 6.2, 0.075, 7, 40), edge, 0, 0.8, 27);
+    boundary.rotation.x = Math.PI / 2;
     return true;
   }
 
   if (worldId === "lab-grammar") {
+    if (biomeId === "unit01") {
+      const actionPoints: THREE.Vector3[] = [];
+      const addSignal = (points: THREE.Vector3[], material: THREE.Material, radius = 0.085): void => {
+        const curve = new THREE.CatmullRomCurve3(points);
+        const signal = add(new THREE.TubeGeometry(curve, 24, radius, 7, false), material, 0, 0, 0);
+        signal.userData.isLandscapeRoute = true;
+      };
+
+      for (const side of [-1, 1]) {
+        const x = side * 4.1;
+        const stem = add(new THREE.CylinderGeometry(0.68, 0.92, 4.8, 8), side < 0 ? ground : dark, x, 3.35, 27);
+        stem.userData.isLandscapeStage = true;
+        const source = add(new THREE.OctahedronGeometry(0.52, 1), side < 0 ? glow : edge, x, 6.15, 27);
+        source.userData.isLandscapeBeacon = true;
+        addSignal([
+          new THREE.Vector3(x, 5.7, 27),
+          new THREE.Vector3(side * 2.5, 6.35, 26.5),
+          new THREE.Vector3(0, 5.2, 26.2),
+        ], side < 0 ? glow : edge);
+      }
+
+      const connector = add(new THREE.TorusGeometry(4.35, 0.13, 8, 40, Math.PI), edge, 0, 5.35, 27, Math.PI);
+      connector.scale.y = 0.55;
+      connector.userData.isLandscapeStage = true;
+      const conjunction = add(new THREE.OctahedronGeometry(1.05, 1), glow, 0, 5.05, 26.15);
+      conjunction.userData.isLandscapeBeacon = true;
+
+      for (let index = 0; index < 3; index++) {
+        const x = (index - 1) * 2.55;
+        const action = add(new THREE.CylinderGeometry(0.62, 0.82, 0.38, 6), ground, x, 1.28, 23.6);
+        action.userData.isLandscapeStage = true;
+        const verb = add(new THREE.DodecahedronGeometry(0.42, 0), index === 1 ? edge : glow, x, 2.0, 23.6);
+        verb.userData.isLandscapeBeacon = true;
+        actionPoints.push(new THREE.Vector3(x, 2.35, 23.6));
+      }
+
+      const subject = add(new THREE.BoxGeometry(3.3, 0.28, 1.28), dark, 0, 2.72, 23.6);
+      subject.userData.isLandscapeStage = true;
+      const singlePredicate = add(new THREE.CylinderGeometry(0.32, 0.48, 1.25, 8), edge, 0, 3.5, 23.6);
+      singlePredicate.userData.isLandscapeStage = true;
+      const predicateCore = add(new THREE.SphereGeometry(0.38, 12, 8), glow, 0, 4.25, 23.6);
+      predicateCore.userData.isLandscapeBeacon = true;
+      addSignal([
+        actionPoints[0],
+        new THREE.Vector3(-1.8, 2.55, 23.6),
+        new THREE.Vector3(0, 2.5, 23.6),
+      ], glow, 0.065);
+      addSignal([
+        actionPoints[2],
+        new THREE.Vector3(1.8, 2.55, 23.6),
+        new THREE.Vector3(0, 2.5, 23.6),
+      ], edge, 0.065);
+
+      const foliage = new THREE.MeshStandardMaterial({ color: 0x4c9b70, emissive: 0x173b2a, emissiveIntensity: 0.14, roughness: 0.9 });
+      for (const x of [-6.1, 6.1]) {
+        for (const z of [24.4, 29.6]) {
+          const planter = add(new THREE.CylinderGeometry(0.42, 0.62, 0.52, 7), ground, x, 1.28, z);
+          planter.userData.isLandscapeStage = true;
+          for (const [offset, y, size] of [[-0.22, 1.95, 0.48], [0.22, 2.25, 0.55], [0, 2.65, 0.45]] as const) {
+            const leaf = add(new THREE.DodecahedronGeometry(size, 0), foliage, x + offset, y, z);
+            leaf.userData.isLandscapeStage = true;
+          }
+        }
+      }
+      return true;
+    }
     for (const x of [-4.5, 4.5]) add(new THREE.CylinderGeometry(0.7, 0.95, 7.2, 8), ground, x, 4.4, 27);
     add(new THREE.TorusGeometry(4.5, 0.24, 8, 40, Math.PI), edge, 0, 8, 27, Math.PI);
     beacon(4.9);
