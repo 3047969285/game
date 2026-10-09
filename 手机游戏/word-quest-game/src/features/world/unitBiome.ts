@@ -32,6 +32,9 @@ export interface UnitBiome {
   pathColor: number;
   /** 装饰风格 */
   decorStyle: "forest" | "coast" | "temple" | "market" | "exchange" | "plains" | "space";
+  /** Focused learning-scene framing; omit to use the shared defaults. */
+  focusedLandscapeScale?: number;
+  focusedLandscapeOffsetZ?: number;
 }
 
 export const UNIT_BIOMES: Record<string, UnitBiome> = {
@@ -61,6 +64,8 @@ export const UNIT_BIOMES: Record<string, UnitBiome> = {
     crystalColor: 0xb98742, orbColor: 0xe2c580, glowColor: 0x9d6d31,
     pathColor: 0x76562f,
     decorStyle: "market",
+    focusedLandscapeScale: 0.86,
+    focusedLandscapeOffsetZ: 7,
   },
   /** 旅行探索 — 林间晨路：保留自然绿意，用晨光和灰绿远景维持方向感与可读性。 */
   unit03: {

@@ -144,8 +144,8 @@ export function buildUnitLandscape(biome: UnitBiome, _anchor: MapNode, worldId?:
       break;
   }
   if (isFocusedLearningWorld(worldId)) {
-    environment.scale.setScalar(0.72);
-    environment.position.z = 14;
+    environment.scale.setScalar(biome.focusedLandscapeScale ?? 0.72);
+    environment.position.z = biome.focusedLandscapeOffsetZ ?? 14;
   } else {
     // Keep each unit's defining environment legible from the fixed sanctuary entrance.
     environment.scale.setScalar(0.62);
@@ -2981,18 +2981,18 @@ function addLivesArchiveHarbor(
     routeBuoy.userData.isLandscapeBeacon = true;
   }
 
-  const archive = add(new THREE.BoxGeometry(17.5, 9.6, 1.2), dark, 0, 5.55, 51.2);
+  const archive = add(new THREE.BoxGeometry(17.5, 9.6, 1.2), dark, 0, 4.45, 51.2);
   archive.userData.isLandscapeStage = true;
   for (const x of [-8.5, 8.5]) {
-    const pillar = add(new THREE.CylinderGeometry(0.72, 1.02, 9, 8), ground, x, 5.35, 50.4);
+    const pillar = add(new THREE.CylinderGeometry(0.72, 1.02, 9, 8), ground, x, 4.25, 50.4);
     pillar.userData.isLandscapeStage = true;
   }
-  const archiveHeader = add(new THREE.BoxGeometry(16.3, 0.42, 0.18), edge, 0, 9.42, 50.45);
+  const archiveHeader = add(new THREE.BoxGeometry(16.3, 0.42, 0.18), edge, 0, 8.32, 50.45);
   archiveHeader.userData.isLandscapeStage = true;
   for (const x of [-5.2, 0, 5.2]) {
-    const plaque = add(new THREE.BoxGeometry(4.35, 4.45, 0.18), ground, x, 5.85, 50.42);
+    const plaque = add(new THREE.BoxGeometry(4.35, 4.45, 0.18), ground, x, 4.75, 50.42);
     plaque.userData.isLandscapeStage = true;
-    for (const y of [4.7, 5.45, 6.2, 6.95]) {
+    for (const y of [3.6, 4.35, 5.1, 5.85]) {
       const line = add(new THREE.BoxGeometry(2.8 + ((Math.round(y * 10) + Math.round(x)) % 2) * 0.55, 0.12, 0.09), glow, x, y, 50.28);
       line.userData.isLandscapeRoute = true;
     }
@@ -3018,18 +3018,18 @@ function addLivesArchiveHarbor(
     const texture = new THREE.CanvasTexture(headingCanvas);
     texture.colorSpace = THREE.SRGBColorSpace;
     const sign = new THREE.Mesh(new THREE.PlaneGeometry(14.8, 2.78), new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide, toneMapped: false }));
-    sign.position.set(0, 8.8, 50.12);
+    sign.position.set(0, 7.7, 50.12);
     sign.rotation.y = Math.PI;
     root.add(sign);
   }
 
-  const lighthouse = add(new THREE.CylinderGeometry(1.28, 1.8, 8.6, 8), ground, 0, 4.75, 58.2);
+  const lighthouse = add(new THREE.CylinderGeometry(1.28, 1.8, 8.6, 8), ground, 0, 3.65, 58.2);
   lighthouse.userData.isLandscapeStage = true;
-  const lampRoom = add(new THREE.CylinderGeometry(1.55, 1.55, 1.1, 8), edge, 0, 9.55, 58.2);
+  const lampRoom = add(new THREE.CylinderGeometry(1.55, 1.55, 1.1, 8), edge, 0, 8.45, 58.2);
   lampRoom.userData.isLandscapeStage = true;
-  const lighthouseBeacon = add(new THREE.OctahedronGeometry(0.94, 1), glow, 0, 10.45, 58.2);
+  const lighthouseBeacon = add(new THREE.OctahedronGeometry(0.94, 1), glow, 0, 9.35, 58.2);
   lighthouseBeacon.userData.isLandscapeBeacon = true;
-  const lighthouseHalo = add(new THREE.TorusGeometry(1.48, 0.1, 7, 28), edge, 0, 10.45, 58.2);
+  const lighthouseHalo = add(new THREE.TorusGeometry(1.48, 0.1, 7, 28), edge, 0, 9.35, 58.2);
   lighthouseHalo.userData.isLandscapeRing = true;
 
   for (const [x, z] of [[-31, 31], [-15, 46], [15, 46], [31, 31]] as const) {
