@@ -330,10 +330,10 @@ export const RW3_WORLDS: Record<string, UnitWorldContent> = {
       { question: "The more transparent the rules are, ___ trust becomes.", options: ["easier", "the easiest", "the easier", "as easy"], answer: 2, explanation: "the more ..., the more ... 结构需要成对的比较级。" },
     ],
     methods: [
-      { id: "u06-network", title: "关系网络", principle: "把词汇放进角色、资源和结果的网络。", action: "在公共账本上连出‘谁提供—谁使用—产生什么结果’三条线。", reward: "获得交易城通行证" },
-      { id: "u06-case", title: "案例推理", principle: "用一个具体案例检验抽象概念。", action: "先判断一次共享行为是否公平，再用英文说明证据。", reward: "解锁危机仓库" },
-      { id: "u06-retrieval", title: "无提示回放", principle: "从零复建比顺着熟悉页面重读更能暴露漏洞。", action: "只看四个地标，复述本单元的经济链条和两个句型。", reward: "点亮公共账本" },
-      { id: "u06-transfer", title: "生活迁移", principle: "学习效果最终要回到真实决策。", action: "为自己的学习时间、物品或信息设计一个更公平的共享方案。", reward: "获得共益徽章" },
+      { id: "u06-network", title: "关系网络", principle: "把词汇放进角色、资源和结果的关系中，有助于解释它们如何共同作用。", action: "在纸上或脑中连出“谁提供—谁使用—产生什么结果”，并用本单元词汇说清三者关系。", reward: "练习从角色和资源关系中提取并使用词汇" },
+      { id: "u06-case", title: "案例推理", principle: "公平判断要同时看参与机会、成本承担和规则影响，不能只凭结果好坏。", action: "评估一个共享案例：谁能使用、谁承担成本、谁可能被排除？选一条案例证据，用英文说明判断。", reward: "练习用证据检验公平与效率之间的取舍" },
+      { id: "u06-retrieval", title: "无提示回放", principle: "先尝试无提示提取，再核对线索，可以暴露熟悉感掩盖的遗漏。", action: "先遮住正文和地标线索，复述资源的提供、使用、成本与结果；之后看四个地标核对，并各造一个条件句和 the more ..., the more ... 句。", reward: "检查能否无提示重建经济链条，并应用本单元句型" },
+      { id: "u06-transfer", title: "生活迁移", principle: "在现实或可想象的决策中使用概念，有助于检验能否迁移。", action: "为熟悉的一项共享资源设计方案，写清提供者、使用者、准入规则、成本责任，并提出一个可观察指标评估公平与持续性。", reward: "把经济词汇和条件句迁移到一项可评估的方案" },
     ],
     memoryAnchor: "一座把书、粮食和信任都显示成流动光线的账本塔",
     memoryRoute: [
@@ -342,7 +342,7 @@ export const RW3_WORLDS: Record<string, UnitWorldContent> = {
       { place: "书屋", image: "一本书在陌生人之间长出翅膀", recall: "share / access / community" },
       { place: "账本塔", image: "透明的规则让城市重新发光", recall: "trust / fair / sustainable" },
     ],
-    recallPrompt: "从供需广场走到公共账本塔，解释一项资源怎样流动、哪里出现风险、什么机制能让结果更公平。",
+    recallPrompt: "先遮住地标线索，从供需广场走到公共账本塔，复述资源怎样流动、哪里出现风险、什么机制能让结果更公平；至少使用一个 if 条件句和一个 the more ..., the more ... 句，再看线索自查。",
   },
 };
 
