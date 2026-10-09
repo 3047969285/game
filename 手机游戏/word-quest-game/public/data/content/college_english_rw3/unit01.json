@@ -328,12 +328,12 @@
       ]
     },
     "writing": {
-      "prompt": "Write 120-150 words about the theme: 数字时代：我们准备好了吗？.",
+      "prompt": "Respond to the question: Are we ready for the digital age? State a clear position, support it with one concrete example from student life, and explain how people can balance useful technology with focused attention and meaningful face-to-face interaction.",
       "outline": [
-        "Introduction",
-        "Example",
-        "Personal view",
-        "Conclusion"
+        "State your position: What does being ready mean beyond owning digital devices?",
+        "Develop one student-life example: Show how a notification, platform, or device helps or interrupts learning.",
+        "Explain your reasoning: Connect a deliberate habit to attention and face-to-face interaction.",
+        "Conclude with one practical principle for responsible digital use."
       ]
     }
   }
