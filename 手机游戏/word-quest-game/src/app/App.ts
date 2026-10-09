@@ -2700,6 +2700,36 @@ export class App {
     const entry = this.wordMap.get(wordId);
     const phonetic = entry?.phonetic ? `<span class="word-phonetic">${entry.phonetic}</span>` : "";
     const mem = this.state.getMemory(wordId);
+    const example = entry?.example?.trim();
+    const exampleZh = entry?.example_zh
+      ? `<p class="word-example-zh">${entry.example_zh}</p>`
+      : "";
+    const contextLine = word.contextLine.trim();
+    const contextIsDictionaryExample = Boolean(example && contextLine === example);
+    const contextLabel = contextIsDictionaryExample
+      ? "例句"
+      : this.scene?.rw3Phases
+        ? "课文语境"
+        : "当前语境";
+    const contextBlock = `
+      <div class="word-context-block">
+        <span class="word-context-label">${contextLabel}</span>
+        <p class="en-clue recall-ctx">${contextLine}</p>
+      </div>
+    `;
+    const dictionaryExampleBlock = contextIsDictionaryExample
+      ? exampleZh
+        ? `<div class="word-example-block"><span class="word-context-label">例句译文</span>${exampleZh}</div>`
+        : ""
+      : entry?.example || entry?.example_zh
+        ? `
+          <div class="word-example-block">
+            <span class="word-context-label">词汇例句与译文</span>
+            ${example ? `<p class="word-example-en">${example}</p>` : ""}
+            ${exampleZh}
+          </div>
+        `
+        : "";
 
     const ttsBtn = `<button class="btn-tts" id="btn-tts" type="button" title="朗读单词">🔊</button>`;
 
@@ -2713,7 +2743,7 @@ export class App {
             ${ttsBtn}
           </div>
           <p class="recall-prompt">先回忆释义，再点开答案（生成效应 + 提取练习）</p>
-          <p class="en-clue recall-ctx">${word.contextLine}</p>
+          ${contextBlock}
           <div class="recall-hidden">释义已隐藏</div>
           <button class="btn btn-primary" id="btn-reveal" type="button">我想好了，显示答案</button>
         </div>
@@ -2726,9 +2756,6 @@ export class App {
       return;
     }
 
-    const exampleZh = entry?.example_zh
-      ? `<p class="word-example-zh">${entry.example_zh}</p>`
-      : "";
     const collocation = entry?.collocation
       ? `<p class="word-collocation"><span class="colloc-label">常用搭配：</span>${entry.collocation}</p>`
       : "";
@@ -2742,8 +2769,8 @@ export class App {
           ${ttsBtn}
         </div>
         <div class="word-detail-meaning">${word.meaning}</div>
-        <p class="en-clue">${word.contextLine}</p>
-        ${exampleZh}
+        ${contextBlock}
+        ${dictionaryExampleBlock}
         ${collocation}
         <p class="recall-grade-label">诚实自评（用于间隔重复调度）：</p>
         <div class="grade-grid">

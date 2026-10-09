@@ -949,6 +949,29 @@ body {
 
 .recall-ctx { margin-bottom: 12px; }
 
+.word-context-block,
+.word-example-block { margin: 10px 0; }
+.word-context-label {
+  display: block;
+  margin: 0 0 4px;
+  color: #7dd3fc;
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.05em;
+}
+.word-context-block .en-clue { margin: 0; line-height: 1.7; }
+.word-example-block {
+  padding-top: 9px;
+  border-top: 1px solid rgba(148, 163, 184, 0.18);
+}
+.word-example-en {
+  margin: 0;
+  color: #e2e8f0;
+  font-family: var(--font-en);
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+
 .recall-hidden {
   text-align: center;
   padding: 16px;
