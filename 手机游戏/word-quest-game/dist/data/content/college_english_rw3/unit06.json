@@ -76,47 +76,47 @@
     ],
     "section_b": [
       {
-        "question": "What was the campus club's first goal for its book exchange?",
-        "options": [
-          "To promise instant revenue to every member",
-          "To make useful books affordable and keep them circulating among readers",
-          "To replace the campus library with a commercial store",
-          "To collect damaged books without recording their condition"
-        ],
-        "answer": 1,
+      "question": "What was the campus club's first goal for its book exchange?",
+      "options": [
+        "To promise instant revenue to every member",
+        "To replace the campus library with a commercial store",
+        "To make useful books affordable and keep them circulating among readers",
+        "To collect damaged books without recording their condition"
+      ],
+      "answer": 2,
         "explanation": "The opening frames the project as access and reuse, not as a promise of immediate profit."
       },
       {
-        "question": "Which practice helped users trust the exchange during its pilot?",
-        "options": [
-          "Keeping the fee and the checkout rules secret",
-          "Letting the first user decide who could borrow next",
-          "Removing all records to make the process faster",
-          "Logging book condition, exchanges, and clear return responsibilities"
-        ],
-        "answer": 3,
+      "question": "Which practice helped users trust the exchange during its pilot?",
+      "options": [
+        "Logging book condition, exchanges, and clear return responsibilities",
+        "Keeping the fee and the checkout rules secret",
+        "Letting the first user decide who could borrow next",
+        "Removing all records to make the process faster"
+      ],
+      "answer": 0,
         "explanation": "Transparent condition notes and checkout records make responsibility visible and disputes easier to resolve."
       },
       {
-        "question": "Why did the club compare staffing and repair costs before expanding?",
-        "options": [
-          "A new site could add reach but weaken local support if no partner maintained the books.",
-          "They planned to stop recording damage and returns.",
-          "They wanted to prove that any increase in loans guarantees fair access.",
-          "A sponsor had already promised to cover every future cost."
-        ],
-        "answer": 0,
+      "question": "Why did the club compare staffing and repair costs before expanding?",
+      "options": [
+        "They planned to stop recording damage and returns.",
+        "They wanted to prove that any increase in loans guarantees fair access.",
+        "A sponsor had already promised to cover every future cost.",
+        "A new site could add reach but weaken local support if no partner maintained the books."
+      ],
+      "answer": 3,
         "explanation": "The passage names staffing and repair costs, then warns that expansion could weaken local support without a maintenance partner."
       },
       {
-        "question": "Which test best shows whether the project can continue responsibly?",
-        "options": [
-          "Compare access, maintenance costs, local-shop support, and user feedback over time.",
-          "Count only the most popular books on opening day.",
-          "Measure success only by how quickly the project expands.",
-          "Assume that every sharing platform is fair by definition."
-        ],
-        "answer": 0,
+      "question": "Which test best shows whether the project can continue responsibly?",
+      "options": [
+        "Count only the most popular books on opening day.",
+        "Compare access, maintenance costs, local-shop support, and user feedback over time.",
+        "Measure success only by how quickly the project expands.",
+        "Assume that every sharing platform is fair by definition."
+      ],
+      "answer": 1,
         "explanation": "The final scene treats sustainability as a balance of usefulness, affordability, costs, and feedback."
       }
     ],
@@ -192,14 +192,14 @@
       "passage": "When a student housing cooperative noticed that residents were buying tools they used only once, it proposed a small lending room. At first, the idea sounded simple: place a drill, a sewing kit, and a bicycle pump on a shelf, then let anyone borrow them. But the student team quickly learned that access depends on more than putting objects in a room. A tool needs an inspection record, a return date, and a person responsible for checking damage. The cooperative created a modest membership fee to cover repairs, while reserving free borrowing hours for residents facing a tight budget. Its first month produced an unexpected pattern. The bicycle pump moved every week, but the drill waited until a repair workshop advertised its availability. Demand was therefore not a fixed number; it changed with information and timing. One resident argued that the team should buy more equipment immediately. Another asked them to compare actual use with storage and maintenance costs before spending the cooperative's limited saving. They checked the log, asked neighbors what repairs they planned, and borrowed a second drill from a nearby community center for one weekend. This test met the short-term need without creating an unnecessary purchase. The project also exposed a fairness problem: residents who worked late could not reach the room before it closed. Volunteers added a staffed evening slot and a simple booking board. The system did not remove every cost, and it was not automatically sustainable just because people shared. It became more useful when clear rules protected the tools, transparent records showed what was needed, and residents could suggest changes. By the end of the term, the cooperative had a better estimate of which resources deserved investment. The lesson was practical: a sharing economy is a set of choices about access, responsibility, and value, not merely a shelf of free things.",
       "questions": [
         {
-          "question": "Why did the team borrow a second drill instead of buying one immediately?",
-          "options": [
-            "The log showed that immediate demand did not yet justify a permanent purchase.",
-            "The community center refused to lend any equipment.",
-            "Residents were not allowed to repair anything themselves.",
-            "The cooperative wanted to remove all maintenance records."
-          ],
-          "answer": 0,
+      "question": "Why did the team borrow a second drill instead of buying one immediately?",
+      "options": [
+        "The community center refused to lend any equipment.",
+        "Residents were not allowed to repair anything themselves.",
+        "The log showed that immediate demand did not yet justify a permanent purchase.",
+        "The cooperative wanted to remove all maintenance records."
+      ],
+      "answer": 2,
           "explanation": "The group checked real use and planned repairs, then borrowed a second drill for a short-term need instead of assuming a purchase was necessary."
         },
         {
@@ -214,25 +214,25 @@
           "explanation": "The passage connects the drill's increased use to a repair workshop advertising it, showing that demand responds to information and timing."
         },
         {
-          "question": "Which change addressed the access problem for residents who worked late?",
-          "options": [
-            "The team bought more tools for storage.",
-            "The membership fee was doubled.",
-            "Volunteers added an evening borrowing slot and booking board.",
-            "The lending room was closed during weekends."
-          ],
-          "answer": 2,
+      "question": "Which change addressed the access problem for residents who worked late?",
+      "options": [
+        "The team bought more tools for storage.",
+        "The membership fee was doubled.",
+        "The lending room was closed during weekends.",
+        "Volunteers added an evening borrowing slot and booking board."
+      ],
+      "answer": 3,
           "explanation": "A staffed evening slot and booking board made the service usable for residents who could not arrive earlier."
         },
         {
-          "question": "What is the passage's main conclusion about sharing?",
-          "options": [
-            "Shared resources require no rules or upkeep.",
-            "A fee automatically guarantees a fair outcome.",
-            "Every frequently used object should be purchased at once.",
-            "Sharing works better when access, responsibility, records, and feedback are balanced."
-          ],
-          "answer": 3,
+      "question": "What is the passage's main conclusion about sharing?",
+      "options": [
+        "Shared resources require no rules or upkeep.",
+        "Sharing works better when access, responsibility, records, and feedback are balanced.",
+        "A fee automatically guarantees a fair outcome.",
+        "Every frequently used object should be purchased at once."
+      ],
+      "answer": 1,
           "explanation": "The final sentences define sharing as choices about access, responsibility, and value, supported by clear rules and feedback."
         }
       ]
@@ -242,25 +242,25 @@
       "script": "Welcome back to the campus economics podcast. Our student group has run a book exchange for one term, and the first result is encouraging but incomplete. More than a hundred books changed hands, yet the number alone cannot tell us whether the project was fair or sustainable. We compared the titles requested, the waiting time, repair costs, and the comments from students who could not pay the regular fee. During exam weeks, demand rose for a few subjects, so the club borrowed extra copies from two departments instead of purchasing a large stock. We also kept a free-access hour supported by a small campus fund. That choice widened access, but volunteers still had to inspect returns and maintain the shelves. A local shop now offers a discount on basic repairs, which keeps some spending in the community. Before expanding to another building, the club will run a second trial and ask evening students about opening hours. In other words, we will not treat popularity as proof of success. The more carefully we track costs and listen to users, the more responsibly we can decide what to share. A strong local economy is not simply about moving more goods; it is about making useful exchange possible while keeping its rules, costs, and benefits visible.",
       "questions": [
         {
-          "question": "Why does the speaker say that the number of books exchanged is incomplete evidence?",
-          "options": [
-            "It does not reveal fairness, waiting time, repair costs, or who was excluded.",
-            "It counts only books bought by the student group.",
-            "It proves that the exchange lost every book.",
+      "question": "Why does the speaker say that the number of books exchanged is incomplete evidence?",
+      "options": [
+        "It counts only books bought by the student group.",
+        "It does not reveal fairness, waiting time, repair costs, or who was excluded.",
+        "It proves that the exchange lost every book.",
             "It measures how much money each student saved on transport."
           ],
-          "answer": 0,
+      "answer": 1,
           "explanation": "The speaker says the total cannot show whether the project was fair or sustainable, then names waiting, repair, and user feedback as additional evidence."
         },
         {
-          "question": "How did the club respond to higher demand during exam weeks?",
-          "options": [
-            "It purchased a large permanent stock immediately.",
-            "It cancelled the free-access hour.",
-            "It borrowed extra copies from two departments for the peak period.",
-            "It stopped lending the most requested subjects."
-          ],
-          "answer": 2,
+      "question": "How did the club respond to higher demand during exam weeks?",
+      "options": [
+        "It purchased a large permanent stock immediately.",
+        "It cancelled the free-access hour.",
+        "It stopped lending the most requested subjects.",
+        "It borrowed extra copies from two departments for the peak period."
+      ],
+      "answer": 3,
           "explanation": "The club used a temporary supply from two departments rather than making a large permanent purchase."
         },
         {
@@ -275,14 +275,14 @@
           "explanation": "The speaker pairs wider access with ongoing volunteer labor for inspection and shelf maintenance."
         },
         {
-          "question": "What will the club do before opening an exchange in another building?",
-          "options": [
-            "Announce success based only on the number of books moved",
-            "Remove the trial and make all rules permanent",
-            "Ask one sponsor to decide without consulting users",
-            "Run another trial and ask evening students about access times"
-          ],
-          "answer": 3,
+      "question": "What will the club do before opening an exchange in another building?",
+      "options": [
+        "Announce success based only on the number of books moved",
+        "Remove the trial and make all rules permanent",
+        "Run another trial and ask evening students about access times",
+        "Ask one sponsor to decide without consulting users"
+      ],
+      "answer": 2,
           "explanation": "The final plan is to test again and consult evening students before expanding."
         }
       ]
