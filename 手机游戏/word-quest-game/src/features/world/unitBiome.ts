@@ -29,17 +29,17 @@ export interface UnitBiome {
 }
 
 export const UNIT_BIOMES: Record<string, UnitBiome> = {
-  /** 数字时代 — 赛博蓝 */
+  /** 数字时代 — 深蓝夜空、青绿信号花园与电讯蓝节点 */
   unit01: {
     id: "unit01", label: "数字时代",
-    skyTop: 0x040e1e, skyMid: 0x0c2244, skyBot: 0x081630,
-    fogColor: 0x0e2038, fogDensity: 0.0030,
-    sunColor: 0x50aaff, sunIntensity: 1.0,
-    hemiSky: 0x2060b0, hemiGround: 0x081828,
-    ambientColor: 0x1850a0,
-    terrainTint: [0.04, 0.14, 0.28],
-    crystalColor: 0x40a8ff, orbColor: 0x00d4ff, glowColor: 0x0088ff,
-    pathColor: 0x1060b0,
+    skyTop: 0x061723, skyMid: 0x163c4b, skyBot: 0x6b9683,
+    fogColor: 0x4a6b61, fogDensity: 0.0026,
+    sunColor: 0xbce7d3, sunIntensity: 1.25,
+    hemiSky: 0x7bbab3, hemiGround: 0x213a30,
+    ambientColor: 0x4b8581,
+    terrainTint: [0.06, 0.42, 0.1],
+    crystalColor: 0x50a8ff, orbColor: 0x35e3ce, glowColor: 0x188f91,
+    pathColor: 0x247e83,
     decorStyle: "coast",
   },
   /** 人物传记 — 档案馆晨光：温暖旧金与中性石色，保留历史感但不压暗细节。 */
