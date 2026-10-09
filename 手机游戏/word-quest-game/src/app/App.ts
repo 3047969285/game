@@ -407,7 +407,7 @@ export class App {
     if (header) {
       header.innerHTML = `
         <div class="title">${this.template.name}</div>
-        <div class="subtitle">${isRw3 ? "第四版读写3 · 阅读/听力 · 词汇/语法 · 翻译/写作" : "三维探索 · 科学记忆（语境输入 + 主动回忆 + 间隔重复）"}</div>
+        <div class="subtitle">${isRw3 ? "第四版主题练习 · 原创仿学（非教材原文）" : "三维探索 · 科学记忆（语境输入 + 主动回忆 + 间隔重复）"}</div>
         <span class="progress-pill">${isRw3 ? "已完成单元" : "已完成关卡"} ${done}/${this.mapNodes.length}</span>
         <span class="progress-pill reward-pill">徽章 ${rewardCount} · XP ${this.state.save.experience}</span>
         ${stats.learned > 0 ? `<span class="progress-pill stats-pill">已学 ${stats.learned}</span>` : ""}
