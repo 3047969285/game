@@ -40,6 +40,7 @@ interface PassageWorldMeta {
 }
 
 type PassageKind = "section_a" | "section_b" | "section_c";
+const MAX_PASSAGE_WORDS_PER_WORLD = 5;
 
 interface PassageWorldStory {
   places: string[];
@@ -163,7 +164,9 @@ function splitPassageIntoWorldPhases(
     const sentenceEnd = sentenceStart + sentenceCount;
     const paragraph = sentences.slice(sentenceStart, sentenceEnd).join(" ");
     sentenceStart = sentenceEnd;
-    const words = allWords.filter((word) => wordInText(paragraph, word.word));
+    const words = allWords
+      .filter((word) => wordInText(paragraph, word.word))
+      .slice(0, MAX_PASSAGE_WORDS_PER_WORLD);
     const meta = buildPassageWorldMeta(unitId, kind, worldIndex, sectionTitle, landmarks);
     const worldId = `${kind}-world-${worldIndex + 1}`;
     const wordInstruction = words.length
