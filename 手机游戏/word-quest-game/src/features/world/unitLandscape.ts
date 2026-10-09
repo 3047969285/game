@@ -5,12 +5,12 @@ import type { UnitBiome } from "./unitBiome";
 type PassageKind = "section_a" | "section_b" | "section_c";
 type PassageSceneKind =
   | "message" | "dialogue" | "focus" | "notification" | "study-desk" | "filter" | "offline-rest"
-  | "listening-bench" | "clinic" | "telemedicine" | "community" | "community-library" | "community-network" | "timeline" | "perseverance" | "route-evidence" | "legacy" | "archive-crossroads"
+  | "listening-bench" | "clinic" | "telemedicine" | "community" | "community-library" | "community-network" | "timeline" | "perseverance" | "route-evidence" | "legacy"
   | "spotlight" | "humanitarian" | "lasting-service" | "community-witness" | "fleet" | "peace-contact" | "chart-room" | "exchange-harbor"
   | "itinerary" | "detour" | "market-encounter" | "reflection-garden" | "hostel" | "open-route" | "rain-shelter" | "confidence" | "rail-platform" | "rail-car" | "landscape-window" | "route-network"
   | "career" | "violin" | "craft-quality" | "bench" | "caliper" | "trust-bridge" | "loom" | "heritage"
   | "work-dignity" | "craft-evolution" | "embroidery-table" | "living-heritage"
-  | "lunar-probe" | "test-console" | "lander" | "orbit-adjustment" | "training" | "science-exhibit"
+  | "lunar-probe" | "test-console" | "orbit-adjustment" | "training" | "science-exhibit"
   | "relay-bridge" | "sample-lab" | "moon-horizon" | "systems-simulation" | "mission-control" | "crew-simulation" | "future-frontier"
   | "bookshop" | "exchange" | "resilience" | "exchange-wall" | "resource-cycle" | "library" | "digital-lending"
   | "budget-board" | "trust-ledger" | "sustainable-market" | "knowledge-bridge";
@@ -22,7 +22,7 @@ const PASSAGE_SCENES: Record<string, Partial<Record<PassageKind, PassageSceneKin
     section_c: ["clinic", "telemedicine", "community", "community-network"],
   },
   unit02: {
-    section_a: ["timeline", "route-evidence", "perseverance", "archive-crossroads"],
+    section_a: ["timeline", "route-evidence", "perseverance", "legacy"],
     section_b: ["spotlight", "humanitarian", "lasting-service", "community-witness"],
     section_c: ["fleet", "peace-contact", "chart-room", "exchange-harbor"],
   },
@@ -1616,21 +1616,6 @@ function addPassageSceneLandmark(
       route([[-4.6, 1.4, 27], [0, 1.4, 27], [4.6, 1.4, 27]], edge, 0.13);
       break;
     }
-    case "archive-crossroads": {
-      cylinder(0, 1.05, 27, 5.8, 0.34, dark, 12);
-      for (const x of [-3.15, 3.15]) {
-        box(x, 3.65, 27, 2.3, 3.55, 0.42, ground);
-        box(x, 3.65, 26.72, 1.78, 2.98, 0.08, dark);
-        arch(1.35, 3.5, x < 0 ? glow : edge, 26.58, x);
-      }
-      const crossing = box(0, 2.15, 26.35, 4.1, 0.3, 1.05, edge);
-      crossing.userData.isLandscapeRoute = true;
-      const center = add(new THREE.OctahedronGeometry(0.62, 1), glow, 0, 3.25, 26.18);
-      center.userData.isLandscapeBeacon = true;
-      route([[-4.4, 1.45, 27], [-2.5, 1.72, 26.2], [0, 1.9, 26.2], [2.5, 1.72, 26.2], [4.4, 1.45, 27]], edge, 0.1);
-      ring(5.1, 1.1, 0.12);
-      break;
-    }
     case "spotlight": {
       cylinder(0, 1.2, 27, 4.4, 0.5, dark, 12);
       cylinder(0, 1.55, 27, 2.3, 0.22, edge, 12);
@@ -2216,24 +2201,6 @@ function addPassageSceneLandmark(
       }
       for (const x of [-2.3, 0, 2.3]) box(x, 4.75, 27, 1.35, 1.45, 0.65, ground);
       route([[-3.3, 1.25, 29], [-1.7, 1.3, 27.9], [0, 1.28, 27], [1.7, 1.3, 27.9], [3.3, 1.25, 29]], edge, 0.1);
-      break;
-    }
-    case "lander": {
-      const body = add(new THREE.OctahedronGeometry(1.45, 1), glow, 0, 5.35, 27);
-      body.scale.y = 0.82;
-      body.userData.isLandscapeStage = true;
-      for (const [x, z] of [[-2.1, 25.2], [2.1, 25.2], [-2.1, 28.8], [2.1, 28.8]] as const) {
-        const leg = box(x * 0.68, 3.15, (z + 27) / 2, 0.16, 3.5, 0.16, edge);
-        leg.rotation.z = x < 0 ? -0.24 : 0.24;
-        box(x, 1.4, z, 1.1, 0.22, 0.82, dark);
-      }
-      for (const x of [-3.7, 3.7]) {
-        box(x, 5.2, 27, 1.25, 1.65, 0.14, edge);
-        for (let i = 0; i < 4; i++) box(x, 4.6 + i * 0.4, 26.9, 1.1, 0.055, 0.08, glow);
-      }
-      cylinder(0, 7.3, 27, 0.08, 2.2, dark, 6);
-      const pulse = add(new THREE.SphereGeometry(0.38, 10, 8), edge, 0, 8.55, 27);
-      pulse.userData.isLandscapeBeacon = true;
       break;
     }
     case "orbit-adjustment": {
