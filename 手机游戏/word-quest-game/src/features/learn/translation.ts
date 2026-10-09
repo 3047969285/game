@@ -11,7 +11,11 @@ export function checkTranslation(input: string, sentence: TranslationSentence): 
   const missing: string[] = [];
 
   for (const kw of sentence.keywords) {
-    if (text.includes(kw.toLowerCase())) matched.push(kw);
+    const normalizedKeyword = kw.toLowerCase();
+    const found = normalizedKeyword === "but also"
+      ? /\bbut(?:\s+\w+){0,3}\s+also\b/i.test(text)
+      : text.includes(normalizedKeyword);
+    if (found) matched.push(kw);
     else missing.push(kw);
   }
 
