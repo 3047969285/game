@@ -296,8 +296,8 @@
         },
         {
           "zh": "这位学徒请师傅检查接合处，然后自己再次测量。",
-          "en_reference": "The apprentice had the master check the joint and then measured it again himself.",
-          "keywords": ["apprentice", "had", "check", "measured"]
+          "en_reference": "The apprentice had the joint checked by the master before measuring it again himself.",
+          "keywords": ["apprentice", "had", "check", "measuring"]
         },
         {
           "zh": "这项传统由工匠们传承下来，同时也根据新的证据不断改进。",

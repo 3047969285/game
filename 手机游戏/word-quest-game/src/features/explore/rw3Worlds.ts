@@ -218,10 +218,10 @@ export const RW3_WORLDS: Record<string, UnitWorldContent> = {
       { question: "We got the safety signs ___ before the event.", options: ["replace", "replacing", "to replace", "replaced"], answer: 3, explanation: "get + object + past participle 是安排完成的结构。" },
     ],
     methods: [
-      { id: "u04-chunk", title: "组块化", principle: "把长句拆成可操作的意义块。", action: "用三种颜色标记主语、动作和结果，再把句子重新组装。", reward: "修复一件工具" },
-      { id: "u04-output", title: "生成效应", principle: "自己生成答案比只看答案留下更强的检索路径。", action: "先写出你认为正确的句子，再查看系统反馈并改写一次。", reward: "铸造一枚语法齿轮" },
-      { id: "u04-feedback", title: "即时纠错", principle: "错误越快被解释，越不容易固化。", action: "每次答错都必须说出错因：时态、结构还是词义，再重新完成。", reward: "获得修复经验" },
-      { id: "u04-space", title: "周期打磨", principle: "高质量记忆需要多轮、低负担的打磨。", action: "把错题送进 1/3/7 天复习队列，每次只重做最不稳的两题。", reward: "点亮质量钟" },
+      { id: "u04-chunk", title: "组块化", principle: "按意义切分长句，有助于看清成分关系并减轻一次处理的负担。", action: "选一句本单元长句，用斜线划分主语、动作和结果；遮住原句后按意义块复述或重组。", reward: "看清句子结构，并练习从意义重建表达" },
+      { id: "u04-output", title: "先生成再核对", principle: "先尝试生成答案，再看示例并修订，能让差异和知识缺口更容易被发现。", action: "先用纸笔或口头造一个目标句，再对照本单元例句找出一处差异并改写。", reward: "练习主动提取，并把反馈转成一次修订" },
+      { id: "u04-feedback", title: "解释性纠错", principle: "具体说明错误类型，能帮助选择下一步该练什么；只看到对错不等于学会。", action: "答错后先归因于时态、句型结构或词义，再读解释并独立重答一次。", reward: "把错误转成可执行的下一步练习" },
+      { id: "u04-space", title: "按期回访", principle: "间隔后再次提取能检验保持情况；复习间隔应依据实际记忆表现调整。", action: "把不稳的本单元词汇留在词卡复习队列：首次成功后 1 天、再次成功后 6 天回访，此后按难度调整；答错或忘记后从 1 天重来。按词卡到期提示复习，不将固定 1/3/7 天套用到错题。", reward: "依记忆表现安排词汇回访，避免把词汇算法误当成题目复习计划" },
     ],
     memoryAnchor: "一座把句子当金属条锻打的红色熔炉",
     memoryRoute: [
