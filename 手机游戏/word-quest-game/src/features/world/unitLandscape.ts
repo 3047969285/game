@@ -651,10 +651,29 @@ function addLearningSceneLandmark(
     }
     beacon(3.4);
   } else if (project === "writing") {
-    add(new THREE.BoxGeometry(8.5, 0.55, 5.2), dark, 0, 2.4, 27);
-    add(new THREE.BoxGeometry(5.8, 0.18, 3.4), glow, 0, 2.8, 27, -0.08);
+    const desk = add(new THREE.BoxGeometry(8.5, 0.55, 5.2), dark, 0, 2.4, 27);
+    desk.userData.isLandscapeStage = true;
+    const paperMaterial = new THREE.MeshStandardMaterial({ color: 0xf2ead8, roughness: 0.88 });
+    const paper = add(new THREE.BoxGeometry(5.8, 0.14, 3.4), paperMaterial, -0.25, 2.8, 27, -0.08);
+    paper.userData.isLandscapeStage = true;
+    for (let index = 0; index < 5; index++) {
+      const line = add(new THREE.BoxGeometry(3.6, 0.035, 0.045), edge, -0.25, 2.89, 26.15 + index * 0.42, -0.08);
+      line.userData.isLandscapeRoute = true;
+    }
+    const pen = add(new THREE.CylinderGeometry(0.035, 0.06, 2.15, 8), edge, 1.95, 2.98, 27.8);
+    pen.rotation.z = Math.PI / 2;
+    pen.rotation.y += 0.08;
+    pen.userData.isLandscapeStage = true;
     for (const x of [-3.4, 3.4]) add(new THREE.BoxGeometry(0.35, 2.6, 0.35), edge, x, 1.2, 25.4);
-    beacon(5.2);
+    const lampBase = add(new THREE.CylinderGeometry(0.42, 0.48, 0.16, 12), dark, 3.05, 2.77, 26.2);
+    lampBase.userData.isLandscapeStage = true;
+    const lampStem = add(new THREE.CylinderGeometry(0.055, 0.08, 1.15, 8), edge, 3.05, 3.35, 26.2);
+    lampStem.userData.isLandscapeStage = true;
+    const lamp = new THREE.Mesh(new THREE.SphereGeometry(0.42, 12, 8), glow);
+    lamp.position.set(3.05, 4.0, 26.2);
+    lamp.scale.set(1, 0.72, 0.78);
+    lamp.userData.isLandscapeBeacon = true;
+    root.add(lamp);
   } else {
     for (let i = 0; i < 4; i++) {
       const angle = i * Math.PI / 3;
