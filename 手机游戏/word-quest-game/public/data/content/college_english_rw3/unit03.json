@@ -30,72 +30,72 @@
   "micro_world_checks": {
     "section_a": [
       {
-        "question": "What idea did the seminar ask students to examine?",
-        "options": [
-          "Whether famous sights alone explain the purpose of a journey",
-          "Whether travelers should avoid planning or safety checks",
-          "Whether every trip must include a hostel stay",
-          "Whether photos are more important than local conversations"
+      "question": "What idea did the seminar ask students to examine?",
+      "options": [
+        "Whether travelers should avoid planning or safety checks",
+        "Whether every trip must include a hostel stay",
+        "Whether famous sights alone explain the purpose of a journey",
+        "Whether photos are more important than local conversations"
         ],
-        "answer": 0,
-        "explanation": "The seminar asks whether reaching a destination and collecting photos fully explain what a journey can change."
+      "answer": 2,
+      "explanation": "The seminar asks whether reaching a destination and collecting photos fully explain what a journey can change."
       },
       {
-        "question": "How did the solo traveler respond when her train connection was cancelled?",
-        "options": [
-          "She returned home without exploring the neighborhood.",
-          "She used a map to navigate nearby streets and choose another route.",
-          "She blamed the local shop owner for the delay.",
+      "question": "How did the solo traveler respond when her train connection was cancelled?",
+      "options": [
+        "She used a map to navigate nearby streets and choose another route.",
+        "She returned home without exploring the neighborhood.",
+        "She blamed the local shop owner for the delay.",
           "She followed the original itinerary without checking it."
         ],
-        "answer": 1,
-        "explanation": "Rather than treating the cancelled connection as failure, she used a map to explore a nearby neighborhood."
+      "answer": 0,
+      "explanation": "Rather than treating the cancelled connection as failure, she used a map to explore a nearby neighborhood."
       },
       {
-        "question": "What did the rain teach the travelers in the covered-market scene?",
-        "options": [
-          "A flexible traveler can adapt instead of forcing an unsafe plan.",
-          "A memorable trip must follow the shortest route.",
-          "A reservation makes every unexpected change unnecessary.",
-          "A local conversation should replace all safety checks."
+      "question": "What did the rain teach the travelers in the covered-market scene?",
+      "options": [
+        "A memorable trip must follow the shortest route.",
+        "A reservation makes every unexpected change unnecessary.",
+        "A local conversation should replace all safety checks.",
+        "A flexible traveler can adapt instead of forcing an unsafe plan."
         ],
-        "answer": 0,
-        "explanation": "When rain blocked the footpath, the group changed plans and used the market as a safe place to pause."
+      "answer": 3,
+      "explanation": "When rain blocked the footpath, the group changed plans and used the market as a safe place to pause."
       },
       {
-        "question": "How does the passage define a meaningful journey?",
-        "options": [
-          "By the number of landmarks completed on schedule",
-          "By how little luggage the traveler carries",
-          "By what travelers notice and reconsider along the way",
+      "question": "How does the passage define a meaningful journey?",
+      "options": [
+        "By the number of landmarks completed on schedule",
+        "By what travelers notice and reconsider along the way",
+        "By how little luggage the traveler carries",
           "By whether the trip ends at a famous destination"
         ],
-        "answer": 2,
-        "explanation": "The conclusion measures a journey by attention and reflection, not only by distance or attractions."
+      "answer": 1,
+      "explanation": "The conclusion measures a journey by attention and reflection, not only by distance or attractions."
       }
     ],
     "section_b": [
       {
-        "question": "What did Mei prepare before departure to make the journey practical?",
-        "options": [
-          "She checked her reservation, kept the hostel address handy, and packed light luggage.",
-          "She memorized every street and refused to carry a phone.",
+      "question": "What did Mei prepare before departure to make the journey practical?",
+      "options": [
+        "She memorized every street and refused to carry a phone.",
+        "She checked her reservation, kept the hostel address handy, and packed light luggage.",
           "She cancelled the hostel and left without telling anyone.",
           "She packed extra bags and avoided checking her arrival time."
         ],
-        "answer": 0,
-        "explanation": "The opening describes her checked reservation, hostel address, arrival message, and light luggage."
+      "answer": 1,
+      "explanation": "The opening describes her checked reservation, hostel address, arrival message, and light luggage."
       },
       {
-        "question": "What route advice did the desk clerk give Mei?",
-        "options": [
-          "The clerk marked a route to the market and warned her about a closed riverside path.",
-          "The clerk told her to walk beside the river after dark.",
-          "The clerk asked her to cancel her hostel reservation.",
-          "The clerk recommended avoiding all local streets."
+      "question": "What route advice did the desk clerk give Mei?",
+      "options": [
+        "The clerk told her to walk beside the river after dark.",
+        "The clerk asked her to cancel her hostel reservation.",
+        "The clerk recommended avoiding all local streets.",
+        "The clerk marked a route to the market and warned her about a closed riverside path."
         ],
-        "answer": 0,
-        "explanation": "The clerk marks a simple market route and advises her to avoid the closed riverside path."
+      "answer": 3,
+      "explanation": "The clerk marks a simple market route and advises her to avoid the closed riverside path."
       },
       {
         "question": "What did Mei learn from the rainy detour?",
@@ -105,8 +105,8 @@
           "The landscape matters only when the weather is clear.",
           "A solo traveler must refuse help from other people."
         ],
-        "answer": 0,
-        "explanation": "She changed the slippery route, waited under a covered stall, and still noticed the landscape around her."
+      "answer": 0,
+      "explanation": "She changed the slippery route, waited under a covered stall, and still noticed the landscape around her."
       },
       {
         "question": "What does Mei's final reflection say about independence?",
@@ -116,32 +116,32 @@
           "It can include preparation, curiosity, and asking for help.",
           "It is possible only when a traveler reaches a famous place."
         ],
-        "answer": 2,
-        "explanation": "Mei concludes that traveling alone can combine preparation, curiosity, and trust rather than requiring isolation."
+      "answer": 2,
+      "explanation": "Mei concludes that traveling alone can combine preparation, curiosity, and trust rather than requiring isolation."
       }
     ],
     "section_c": [
       {
-        "question": "What did Lin's teacher ask each traveler to note before departure?",
-        "options": [
-          "One expectation and one question",
-          "A list of every shop at the destination",
-          "A promise not to speak with other passengers",
-          "A photograph of each station on the route"
+      "question": "What did Lin's teacher ask each traveler to note before departure?",
+      "options": [
+        "A list of every shop at the destination",
+        "A promise not to speak with other passengers",
+        "A photograph of each station on the route",
+        "One expectation and one question"
         ],
-        "answer": 0,
-        "explanation": "The travel assignment begins with one expectation and one question, giving the journey a reflective purpose."
+      "answer": 3,
+      "explanation": "The travel assignment begins with one expectation and one question, giving the journey a reflective purpose."
       },
       {
-        "question": "How did Lin handle the retired teacher's account?",
-        "options": [
-          "She added it to her notes without treating it as a universal rule.",
-          "She presented it as proof that every family makes the same choices.",
-          "She ignored it because it did not describe a famous destination.",
-          "She replaced her teacher's assignment with a photograph."
+      "question": "How did Lin handle the retired teacher's account?",
+      "options": [
+        "She presented it as proof that every family makes the same choices.",
+        "She ignored it because it did not describe a famous destination.",
+        "She added it to her notes without treating it as a universal rule.",
+        "She replaced her teacher's assignment with a photograph."
         ],
-        "answer": 0,
-        "explanation": "Lin listens and records the story, while explicitly avoiding a universal conclusion from one person's experience."
+      "answer": 2,
+      "explanation": "Lin listens and records the story, while explicitly avoiding a universal conclusion from one person's experience."
       },
       {
         "question": "What did Lin do after the arrival track changed?",
@@ -151,8 +151,8 @@
           "She insisted that the original platform must still be correct.",
           "She cancelled her cousin's visit and returned home."
         ],
-        "answer": 1,
-        "explanation": "Lin checks the destination information, follows the new signs, and helps someone else find the platform."
+      "answer": 1,
+      "explanation": "Lin checks the destination information, follows the new signs, and helps someone else find the platform."
       },
       {
         "question": "Which idea best summarizes the China travel story?",
@@ -162,8 +162,8 @@
           "Travel is valuable only when the destination is unfamiliar.",
           "A traveler should photograph a landscape instead of asking questions."
         ],
-        "answer": 0,
-        "explanation": "The ending distinguishes the path offered by transport from the meaning created through curiosity and human encounters."
+      "answer": 0,
+      "explanation": "The ending distinguishes the path offered by transport from the meaning created through curiosity and human encounters."
       }
     ]
   },
@@ -192,47 +192,47 @@
       "passage": "Many students imagine a successful trip as reaching a famous destination, taking clear photos, and returning without delay. Their itinerary lists landmarks in order, while a light bag of luggage keeps every step efficient. A campus travel seminar asked whether this plan explains what a journey can change. Its learners compared three journals rather than treating one traveler as a model for everyone. They found that travel also depends on curiosity: noticing details that a hurried schedule might hide. One journal belonged to a solo traveler whose train connection was cancelled before departure. Instead of calling the day a failure, she used a map to navigate a nearby neighborhood. She chose a quieter route, asked a local bookshop owner for directions, and began to wander. That brief encounter led to a conversation about the river, old streets, and everyday work. The new landscape became memorable not because it was famous, but because she had paid attention. Another student preferred a hostel where guests shared a kitchen and could exchange practical advice. She had made a reservation for the first night, yet left the following morning open. When rain blocked the footpath, the group had to adapt rather than force the original plan. A covered market gave them shelter, a warm drink, and time to compare their expectations. Their conversation shifted perspective: unfamiliar places were not puzzles to conquer but communities to meet. The seminar did not suggest that planning or safety checks were unnecessary. It recommended a flexible itinerary, reliable contacts, and enough time to reflect after an unexpected change. Students wrote one question about what they hoped to learn before choosing a destination. Later, they described how each detour could transform their attention to ordinary life at home. Their conclusion was simple: a meaningful journey is measured by what you notice and reconsider.",
       "questions": [
         {
-          "question": "What idea did the seminar ask students to examine?",
-          "options": [
-            "Whether famous sights alone explain the purpose of a journey",
-            "Whether travelers should avoid planning or safety checks",
-            "Whether every trip must include a hostel stay",
-            "Whether photos are more important than local conversations"
-          ],
-          "answer": 0,
+      "question": "What idea did the seminar ask students to examine?",
+      "options": [
+        "Whether travelers should avoid planning or safety checks",
+        "Whether famous sights alone explain the purpose of a journey",
+        "Whether every trip must include a hostel stay",
+        "Whether photos are more important than local conversations"
+      ],
+      "answer": 1,
           "explanation": "The seminar asks whether reaching a destination and collecting photos fully explain what a journey can change."
         },
       {
-        "question": "What did the unexpected encounter help the traveler notice?",
-          "options": [
-            "Only the landmarks listed in the original itinerary",
-            "Details of the neighborhood and the everyday work around her",
-            "That local people never change their routines",
-            "That the cancelled train had made the whole trip useless"
+      "question": "What did the unexpected encounter help the traveler notice?",
+      "options": [
+        "Only the landmarks listed in the original itinerary",
+        "That local people never change their routines",
+        "That the cancelled train had made the whole trip useless",
+        "Details of the neighborhood and the everyday work around her"
           ],
-        "answer": 1,
+      "answer": 3,
           "explanation": "The conversation about the river, streets, and everyday work made the local setting meaningful."
         },
         {
-          "question": "What did the seminar recommend after an unexpected change?",
-          "options": [
-            "Ignore contacts and continue without checking safety.",
-            "Keep a flexible plan and make time to reflect.",
-            "Avoid all future journeys that include uncertainty.",
+      "question": "What did the seminar recommend after an unexpected change?",
+      "options": [
+        "Keep a flexible plan and make time to reflect.",
+        "Ignore contacts and continue without checking safety.",
+        "Avoid all future journeys that include uncertainty.",
             "Replace the itinerary with a list of famous photographs."
           ],
-          "answer": 1,
+      "answer": 0,
           "explanation": "The passage supports planning and reliable contacts while leaving enough flexibility to reflect."
         },
         {
-          "question": "Which choice best expresses the passage's conclusion?",
-          "options": [
-            "A journey is meaningful only if it follows the original route.",
-            "A journey is measured by what travelers notice and reconsider.",
-            "A destination matters more than the people who live there.",
+      "question": "Which choice best expresses the passage's conclusion?",
+      "options": [
+        "A journey is meaningful only if it follows the original route.",
+        "A destination matters more than the people who live there.",
+        "A journey is measured by what travelers notice and reconsider.",
             "Travel should be judged by how many landmarks are completed."
           ],
-          "answer": 1,
+      "answer": 2,
           "explanation": "The final sentence defines a meaningful journey through attention and reconsideration."
         }
       ]
@@ -242,14 +242,14 @@
       "script": "On my first solo journey, I thought successful travel meant following every point on an itinerary. I had made a reservation at a hostel and packed light luggage, so my departure felt organized. Yet a cancelled bus forced me to navigate a part of town I had not planned to see. I checked a printed route, asked a local shopkeeper for directions, and left enough time to wander safely. The detour led to a quiet garden and a memorable encounter with a woman who sold handmade paper. She explained how visitors often hurried past because they were trying to reach a famous destination before closing. Her comment changed my perspective. I began to notice the landscape, the shop signs, and the people whose routines continued around me. Later, rain made the path slippery, so I adapted and took a bus back to the hostel. I did not treat the change as a failure because I had built an alternative route into my plan. In my journal, I wrote that curiosity is not the same as ignoring safety. It means asking questions, checking directions, and staying open to a respectful conversation. Travel cannot promise that every encounter will transform us, but it can give us a reason to look more carefully. I would rather return with one new question than collect photos I never think about again.",
       "questions": [
       {
-        "question": "What had the speaker arranged before departure?",
-        "options": [
-          "A hostel reservation and light luggage",
-          "A fixed guide for every street and conversation",
-          "A promise to avoid asking anyone for directions",
-          "A ticket that guaranteed the weather would stay clear"
+      "question": "What had the speaker arranged before departure?",
+      "options": [
+        "A fixed guide for every street and conversation",
+        "A promise to avoid asking anyone for directions",
+        "A hostel reservation and light luggage",
+        "A ticket that guaranteed the weather would stay clear"
         ],
-        "answer": 0,
+      "answer": 2,
         "explanation": "The speaker says they had made a hostel reservation and packed light luggage; the script does not mention an open afternoon."
       },
         {
@@ -264,14 +264,14 @@
           "explanation": "The cancelled bus changed the route, so the speaker checked a map and asked a local person for help."
         },
         {
-          "question": "What did the woman's comment help the speaker understand?",
-          "options": [
-            "Visitors can miss meaningful details when they hurry toward famous sights.",
-            "A destination is valuable only when it is difficult to reach.",
-            "Local conversations should be avoided during solo travel.",
-            "A printed route is always less useful than memory."
+      "question": "What did the woman's comment help the speaker understand?",
+      "options": [
+        "A destination is valuable only when it is difficult to reach.",
+        "Local conversations should be avoided during solo travel.",
+        "A printed route is always less useful than memory.",
+        "Visitors can miss meaningful details when they hurry toward famous sights."
           ],
-          "answer": 0,
+      "answer": 3,
           "explanation": "The speaker notices that visitors may rush past local life while trying to reach an attraction."
         },
         {
