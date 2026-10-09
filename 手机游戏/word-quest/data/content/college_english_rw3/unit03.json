@@ -241,17 +241,17 @@
       "title": "Listening: Let's go",
       "script": "On my first solo journey, I thought successful travel meant following every point on an itinerary. I had made a reservation at a hostel and packed light luggage, so my departure felt organized. Yet a cancelled bus forced me to navigate a part of town I had not planned to see. I checked a printed route, asked a local shopkeeper for directions, and left enough time to wander safely. The detour led to a quiet garden and a memorable encounter with a woman who sold handmade paper. She explained how visitors often hurried past because they were trying to reach a famous destination before closing. Her comment changed my perspective. I began to notice the landscape, the shop signs, and the people whose routines continued around me. Later, rain made the path slippery, so I adapted and took a bus back to the hostel. I did not treat the change as a failure because I had built an alternative route into my plan. In my journal, I wrote that curiosity is not the same as ignoring safety. It means asking questions, checking directions, and staying open to a respectful conversation. Travel cannot promise that every encounter will transform us, but it can give us a reason to look more carefully. I would rather return with one new question than collect photos I never think about again.",
       "questions": [
-        {
-          "question": "What had the speaker arranged before departure?",
-          "options": [
-            "A hostel reservation, light luggage, and an open afternoon",
-            "A fixed guide for every street and conversation",
-            "A promise to avoid asking anyone for directions",
-            "A ticket that guaranteed the weather would stay clear"
-          ],
-          "answer": 0,
-          "explanation": "The speaker says they had reserved a hostel, packed light, and left one afternoon open."
-        },
+      {
+        "question": "What had the speaker arranged before departure?",
+        "options": [
+          "A hostel reservation and light luggage",
+          "A fixed guide for every street and conversation",
+          "A promise to avoid asking anyone for directions",
+          "A ticket that guaranteed the weather would stay clear"
+        ],
+        "answer": 0,
+        "explanation": "The speaker says they had made a hostel reservation and packed light luggage; the script does not mention an open afternoon."
+      },
         {
           "question": "Why did the speaker ask the shopkeeper for directions?",
           "options": [

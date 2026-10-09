@@ -162,10 +162,10 @@ export const RW3_WORLDS: Record<string, UnitWorldContent> = {
       { question: "They slowed down in order ___ the village carefully.", options: ["notice", "to notice", "noticing", "noticed"], answer: 1, explanation: "in order to 后接动词原形表示目的。" },
     ],
     methods: [
-      { id: "u03-route", title: "空间路线", principle: "顺序和位置为抽象知识提供检索线索。", action: "沿海岸四个地标依次放置四组词，每到一个地点先口头回忆再拾取。", reward: "点亮个人罗盘" },
-      { id: "u03-question", title: "深加工提问", principle: "问‘为什么’比只问‘是什么’留下更深线索。", action: "每学一个重点词，补问一次 why / how，并用英文回答。", reward: "获得潮汐线索" },
-      { id: "u03-interleave", title: "混合路线", principle: "在不同类型任务间切换，训练灵活调用。", action: "把词汇、语法、翻译题交错排列，不能连续做同一类型超过两题。", reward: "解锁隐藏航道" },
-      { id: "u03-reflect", title: "出发复盘", principle: "把知识与个人经验连接，增强可迁移性。", action: "用一个真实经历造句，说明你曾经为什么出发或改变方向。", reward: "获得归来印记" },
+      { id: "u03-route", title: "空间路线", principle: "顺序和位置可以为抽象知识增加检索线索。", action: "在脑中把四组词依次放到海岸地标；到每处先回忆词义并造句，再看线索核对。", reward: "用位置线索重建词义，并发现遗漏" },
+      { id: "u03-question", title: "深加工提问", principle: "追问 why / how 能把词义连接到原因和情境，形成更多回忆入口。", action: "选一个重点词，先用 why 或 how 提问，再用文中证据或自己的观察用英文回答。", reward: "把词义连到原因、证据或具体情境" },
+      { id: "u03-interleave", title: "交错调用", principle: "在词义、句型和表达间切换，练习判断该如何使用知识。", action: "每学一个旅行词，就用本单元目标语法造句；完成翻译时再回忆其中一个词，不把词汇和句型分开死记。", reward: "练习在新句子中调用词汇与语法" },
+      { id: "u03-reflect", title: "出发复盘", principle: "把语言连接到个人经验或观察，有助于练习迁移表达。", action: "用真实经历或身边观察造句，说明一次出发、改道或改变看法的原因。", reward: "把目标表达迁移到个人经验或观察" },
     ],
     memoryAnchor: "一枚插在海边、会指向问题而不是北方的罗盘",
     memoryRoute: [
@@ -174,7 +174,7 @@ export const RW3_WORLDS: Record<string, UnitWorldContent> = {
       { place: "潮汐洞", image: "why 和 how 变成两条会发光的鱼", recall: "reflect / discover / insight" },
       { place: "集市", image: "旅人把地图折成一封寄给自己的信", recall: "return / share / perspective" },
     ],
-    recallPrompt: "沿着四个地点回答：这次旅程的目的是什么？哪个选择改变了路线？用两个目标语法句式复述。",
+    recallPrompt: "先尝试不看线索，按四个地点复述：旅程目的是什么，哪个选择改变路线，学到了什么？复述中各用一次 to / in order to 和 would rather ... than ...，再看线索自查。",
   },
   unit04: {
     unitId: "unit04",
