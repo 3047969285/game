@@ -1629,14 +1629,42 @@ function addPassageSceneLandmark(
       break;
     }
     case "humanitarian": {
-      arch(6.2, 5.6, edge, 27);
-      box(0, 2.15, 27, 4.2, 0.42, 2.2, ground);
-      for (const x of [-1.25, 0, 1.25]) {
-        box(x, 2.7, 26.85, 0.78, 0.62, 0.6, glow);
-        const parcel = add(new THREE.SphereGeometry(0.27, 10, 8), edge, x, 3.35, 26.82);
-        parcel.userData.isLandscapeBeacon = true;
+      const canopy = new THREE.MeshStandardMaterial({ color: 0x82927a, roughness: 0.92, metalness: 0.02 });
+      const crateWood = new THREE.MeshStandardMaterial({ color: 0x9a7350, roughness: 0.9, metalness: 0.02 });
+      const water = new THREE.MeshStandardMaterial({ color: 0x6b9ca4, emissive: 0x183d48, emissiveIntensity: 0.16, roughness: 0.48, metalness: 0.12 });
+
+      for (const x of [-3.8, 3.8]) {
+        for (const z of [24.6, 29.4]) cylinder(x, 3.1, z, 0.18, 4.8, dark, 7);
       }
-      route([[-4.5, 1.25, 27], [-2.4, 1.65, 26.3], [0, 1.85, 26.3], [2.4, 1.65, 26.3], [4.5, 1.25, 27]], edge, 0.1);
+      box(0, 5.55, 27, 8.5, 0.28, 6.6, canopy);
+      box(0, 5.39, 27, 8.65, 0.12, 6.72, edge);
+
+      // Water and essential supplies are arranged as a working community aid station.
+      for (const x of [-3.15, 3.15]) {
+        cylinder(x, 1.93, 26.6, 0.52, 1.55, water, 10);
+        cylinder(x, 2.76, 26.6, 0.24, 0.16, dark, 8);
+        const handle = add(new THREE.TorusGeometry(0.3, 0.07, 7, 20), edge, x, 2.72, 26.6);
+        handle.rotation.x = Math.PI / 2;
+        handle.userData.isLandscapeStage = true;
+      }
+      for (const [index, x] of [-2.1, 0, 2.1].entries()) {
+        box(x, 1.78, 24.8, 1.48, 1.35, 1.18, crateWood);
+        box(x, 2.49, 24.8, 1.56, 0.12, 1.24, index === 1 ? glow : ground);
+        box(x, 1.78, 24.17, 0.1, 1.05, 0.08, edge);
+        box(x, 1.78, 24.15, 1.24, 0.1, 0.08, edge);
+      }
+
+      // A community needs board and branching route keep listening and local partnership visible.
+      box(0, 3.55, 29.82, 4.7, 2.15, 0.2, dark);
+      box(0, 4.63, 29.68, 4.45, 0.12, 0.08, edge);
+      for (const [index, x] of [-1.45, 0, 1.45].entries()) {
+        box(x, 3.84, 29.68, 0.12, 1.15, 0.08, index === 1 ? glow : ground);
+      }
+      route([[-4.5, 1.22, 27.5], [-2.8, 1.38, 26.8], [-1.4, 1.34, 25.8], [0, 1.32, 25.8], [1.4, 1.34, 25.8], [2.8, 1.38, 26.8], [4.5, 1.22, 27.5]], edge, 0.09);
+      for (const x of [-2.8, 0, 2.8]) {
+        const marker = add(new THREE.OctahedronGeometry(0.3, 1), glow, x, 3.03, 29.5);
+        marker.userData.isLandscapeBeacon = true;
+      }
       break;
     }
     case "lasting-service": {
