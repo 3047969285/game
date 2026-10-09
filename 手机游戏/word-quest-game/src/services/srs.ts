@@ -34,12 +34,12 @@ export function scheduleReview(prev: WordMemory, quality: number, now = Date.now
   return { interval, ease, reps, dueAt, lastQuality: q };
 }
 
-/** 是否已纳入长期记忆库（至少学习过一次） */
+/** 是否至少评估过一次；答错后仍须保留在薄弱词与到期复习队列中。 */
 export function isLearned(memory: WordMemory): boolean {
-  return memory.reps > 0;
+  return memory.reps > 0 || memory.lastQuality > 0;
 }
 
-/** 是否到期该复习（仅对已学过的词） */
+/** 是否到期该复习（仅对至少评估过一次的词） */
 export function isDue(memory: WordMemory, now = Date.now()): boolean {
   return isLearned(memory) && memory.dueAt <= now;
 }

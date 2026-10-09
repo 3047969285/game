@@ -52,7 +52,7 @@ export const RW3_WORLDS: Record<string, UnitWorldContent> = {
     methods: [
       { id: "u01-encode", title: "画面编码", principle: "把抽象词变成可见的动作和物体。", action: "在通知峡谷里为每个新词放置一个夸张物件，再用英文说出它的动作。", reward: "解锁一座记忆信标" },
       { id: "u01-recall", title: "先答后看", principle: "先从记忆中取出答案，再看释义。", action: "点击词球时先遮住中文，在心里说出含义、词性和一个例句。", reward: "专注值 +1" },
-      { id: "u01-space", title: "间隔回访", principle: "把一次记忆分散到多个时间点。", action: "完成单元后在 1 天、3 天、7 天回到同一座信标复习。", reward: "获得连续记忆火花" },
+      { id: "u01-space", title: "间隔回访", principle: "把一次记忆分散到多个时间点。", action: "每次自评后按词卡提示回访；忘记或答错后从 1 天重新开始，连续记住后逐步拉长间隔。", reward: "获得连续记忆火花" },
       { id: "u01-interleave", title: "交错使用", principle: "不要只做同一种题，把识别、理解和输出交替起来。", action: "按“读一段—听一句—写一句”的顺序完成三种挑战。", reward: "开启隐藏对话" },
     ],
     memoryAnchor: "一座会呼吸的蓝色信号塔",
