@@ -2255,6 +2255,40 @@ body {
     padding: 24px 28px 16px;
   }
 
+  #screen-scene.rw3-world-overlay {
+    padding-top: clamp(250px, 44vh, 380px);
+  }
+
+  .rw3-article-header {
+    padding: 12px 16px 9px;
+  }
+
+  .rw3-article-header .rw3-route {
+    margin: 5px 0 7px;
+  }
+
+  .rw3-article-header .rw3-section-badge {
+    margin: 5px 0 4px;
+  }
+
+  .rw3-article-header .passage-world-card {
+    margin: 4px 0 5px;
+    padding: 6px 10px;
+  }
+
+  .rw3-article-header .learn-steps {
+    margin-bottom: 5px;
+  }
+
+  .rw3-article-header .learning-methods {
+    margin: 5px 0 2px;
+  }
+
+  .rw3-article-header .learning-methods summary {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
   .world-viewport {
     height: min(74vh, 760px);
     min-height: 560px;

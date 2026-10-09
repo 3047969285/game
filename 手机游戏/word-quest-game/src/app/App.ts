@@ -1713,7 +1713,7 @@ export class App {
     const sectionColor = phase.kind === "section_c" ? "rw3-section-c" : phase.kind === "vocab" ? "rw3-section-vocab" : "";
 
     screen.innerHTML = `
-      <div class="card scene-header ${sectionColor}">
+      <div class="card scene-header ${sectionColor} ${isArticlePhase ? "rw3-article-header" : ""}">
         <span class="progress-pill">读写3 · ${phaseNo}/${totalPhases} · ${phase.label}</span>
         ${this.rw3StepperHtml()}
         <h2 class="rw3-section-badge">${sectionIcon} ${phase.kind === "vocab" ? "词汇专项练习" : phase.title}</h2>
