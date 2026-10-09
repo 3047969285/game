@@ -2302,18 +2302,18 @@ body {
 /* 宽屏学习时将课程面板停靠右侧，左侧三维场景保持连续可见。 */
 @media (min-width: 1024px) {
   #screen-scene.rw3-world-overlay {
-    width: min(64vw, 820px);
-    max-width: 820px;
+    width: clamp(420px, 40vw, 620px);
+    max-width: 620px;
     margin-right: 0;
     margin-left: auto;
-    padding: 96px clamp(20px, 2vw, 36px) max(28px, env(safe-area-inset-bottom));
+    padding: 96px 20px max(28px, env(safe-area-inset-bottom));
     background: linear-gradient(90deg, rgba(8, 12, 20, 0.18), rgba(8, 12, 20, 0.92) 16%, #080c14 38%);
   }
 
   .rw3-world-ribbon {
-    right: clamp(20px, 2vw, 36px);
+    right: 20px;
     left: auto;
-    width: min(calc(64vw - 40px), 748px);
+    width: calc(100% - 40px);
     transform: none;
   }
 }
