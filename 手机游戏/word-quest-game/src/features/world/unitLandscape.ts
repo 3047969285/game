@@ -2677,7 +2677,7 @@ function addDigitalCoast(
   focused: boolean
 ): void {
   if (focused) {
-    const canyonWall = new THREE.MeshStandardMaterial({
+    const signalPylon = new THREE.MeshStandardMaterial({
       color: 0x33485e,
       emissive: 0x102839,
       emissiveIntensity: 0.14,
@@ -2692,14 +2692,13 @@ function addDigitalCoast(
       metalness: 0.12,
     });
     for (const side of [-1, 1]) {
-      const wall = new THREE.Mesh(new THREE.BoxGeometry(3.8, 5.2, 11), canyonWall);
-      wall.position.set(side * 12.8, 2.65, 34);
-      wall.rotation.y = -side * 0.08;
-      root.add(wall);
+      const pylon = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.46, 2.8, 7), signalPylon);
+      pylon.position.set(side * 13.2, 1.4, 34);
+      root.add(pylon);
 
-      for (const y of [1.25, 2.1, 2.95]) {
-        const signal = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.07, 5.6), canyonSignal);
-        signal.position.set(side * 10.84, y, 34);
+      for (const y of [0.7, 1.35, 2]) {
+        const signal = new THREE.Mesh(new THREE.BoxGeometry(0.56, 0.07, 0.09), canyonSignal);
+        signal.position.set(side * 13.2, y, 33.56);
         signal.userData.isLandscapeRoute = true;
         root.add(signal);
       }
