@@ -955,6 +955,32 @@ function addPassageSceneLandmark(
       break;
     }
     case "study-desk": {
+      const interruption = new THREE.MeshStandardMaterial({
+        color: 0x9d7481,
+        emissive: 0x492b3b,
+        emissiveIntensity: 0.2,
+        roughness: 0.58,
+        metalness: 0.08,
+      });
+      const studyIsland = cylinder(0, 0.24, 27, 8.1, 0.42, ground, 12);
+      studyIsland.userData.isLandscapeStage = true;
+      arch(13.2, 6.3, edge, 31.1);
+      const boundary = add(new THREE.TorusGeometry(7.25, 0.08, 7, 48), ground, 0, 0.5, 27);
+      boundary.rotation.x = Math.PI / 2;
+
+      // 外侧提醒逐渐收束到桌面，表现“固定查看时间”对注意力的保护。
+      for (const [index, y] of [2.9, 4.15, 5.4].entries()) {
+        const x = -5.55 - index * 0.18;
+        const panel = box(x, y, 26.45, 1.48, 0.9, 0.18, dark, -0.08);
+        panel.userData.isLandscapeStage = true;
+        box(x - 0.12, y + 0.17, 26.33, 0.82, 0.1, 0.06, interruption);
+        box(x - 0.12, y - 0.08, 26.33, 1.04, 0.08, 0.06, edge);
+        box(x - 0.12, y - 0.28, 26.33, 0.68, 0.07, 0.06, edge);
+        const alert = add(new THREE.SphereGeometry(0.14, 10, 8), interruption, x + 0.52, y + 0.22, 26.3);
+        alert.userData.isLandscapeBeacon = true;
+      }
+      route([[-7.15, 1.28, 26.8], [-6.2, 1.35, 26.55], [-5.25, 1.42, 26.5]], interruption, 0.075);
+
       box(0, 2.45, 27, 8.2, 0.42, 3.2, ground);
       for (const x of [-3.45, 3.45]) for (const z of [25.8, 28.2]) box(x, 1.35, z, 0.24, 2, 0.24, dark);
       box(0, 2.12, 27, 5.2, 0.18, 0.22, dark);
@@ -978,6 +1004,21 @@ function addPassageSceneLandmark(
       box(2.82, 3.82, 27, 0.9, 0.14, 0.56, edge, -0.18);
       const lamp = add(new THREE.SphereGeometry(0.3, 10, 8), glow, 2.82, 3.55, 26.73);
       lamp.userData.isLandscapeBeacon = true;
+
+      // 右侧计时盘把“固定时段查看消息”变成可记忆的空间锚点。
+      cylinder(5.55, 1.55, 27.45, 0.2, 2.25, dark, 10);
+      const timerFace = cylinder(5.55, 3.86, 26.92, 1.18, 0.16, dark, 12);
+      timerFace.rotation.x = Math.PI / 2;
+      const timerRim = add(new THREE.TorusGeometry(1.22, 0.12, 8, 32), edge, 5.55, 3.86, 26.78);
+      timerRim.userData.isLandscapeStage = true;
+      for (const [x, y, width, height] of [
+        [5.55, 4.68, 0.12, 0.28], [5.55, 3.04, 0.12, 0.28],
+        [4.73, 3.86, 0.28, 0.12], [6.37, 3.86, 0.28, 0.12],
+      ] as const) box(x, y, 26.72, width, height, 0.08, edge);
+      box(5.55, 4.08, 26.67, 0.1, 0.58, 0.08, glow);
+      box(5.77, 3.86, 26.66, 0.48, 0.1, 0.08, glow);
+      const timerCore = add(new THREE.SphereGeometry(0.16, 12, 8), glow, 5.55, 3.86, 26.58);
+      timerCore.userData.isLandscapeBeacon = true;
       break;
     }
     case "filter": {
