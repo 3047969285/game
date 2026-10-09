@@ -106,10 +106,10 @@ export const RW3_WORLDS: Record<string, UnitWorldContent> = {
       { question: "He ___ failed once before he found a better method.", options: ["had", "has", "would", "is"], answer: 0, explanation: "had failed 表示过去另一个动作之前已经发生。" },
     ],
     methods: [
-      { id: "u02-story", title: "故事链编码", principle: "把词汇放进有因果的行动链，而不是孤立背诵。", action: "为每个词补上“人物—障碍—行动—结果”四格故事。", reward: "修复一页人生档案" },
-      { id: "u02-contrast", title: "对比提取", principle: "通过相似经历的差异加深辨析。", action: "把两位人物的选择并排说出：谁做了什么、为什么、结果怎样。", reward: "开启双航线地图" },
-      { id: "u02-self-explain", title: "费曼复述", principle: "能用简单语言解释，才算真正理解。", action: "用不超过三句话向档案港的新学徒讲清一个语法点。", reward: "导师信任度 +1" },
-      { id: "u02-space", title: "延迟回忆", principle: "在答案消失后仍能重建线索。", action: "离开档案室 30 秒，再凭地标复述人物经历，不回看原文。", reward: "获得耐久记忆章" },
+      { id: "u02-story", title: "故事链编码", principle: "把词汇放进有因果的行动链，而不是孤立背诵。", action: "任选 3 个本单元词汇，各用“人物—障碍—行动—结果”编成一句英文。", reward: "为词义建立因果情境，练习脱离释义提取" },
+      { id: "u02-contrast", title: "证据对比", principle: "对照异同并检查证据，能避免把人物经历压成单一模板。", action: "比较郑和与奥黛丽·赫本：各说一条文中事实、一项重要差异，再区分事实与自己的推断。", reward: "练习用证据支撑比较，而非凭印象概括" },
+      { id: "u02-self-explain", title: "费曼式复述", principle: "用自己的话简化解释有助于暴露理解缺口，但复述流畅不等于已经掌握。", action: "不看语法说明，用不超过三句话解释一个定语从句或过去完成时，并自造例句；再对照规则修正。", reward: "定位语法解释中的缺口，并练习迁移造句" },
+      { id: "u02-space", title: "间隔后回忆", principle: "先产生间隔再主动提取，比紧接着重读更能检验哪些内容仍记得。", action: "完成下一类练习后不看原文，按人物背景—行动—转折—影响复述；之后核对遗漏，并在后续复习时再试一次。", reward: "检验能否脱离原文重建人物脉络，并标记待复习内容" },
     ],
     memoryAnchor: "一艘把旧照片当船帆的黑色远航船",
     memoryRoute: [
@@ -118,7 +118,7 @@ export const RW3_WORLDS: Record<string, UnitWorldContent> = {
       { place: "档案室", image: "失败的红印章变成指南针", recall: "experience / overcome / transform" },
       { place: "博物馆", image: "未完成的雕像正在自己长出手臂", recall: "legacy / identity / continue" },
     ],
-    recallPrompt: "不看提示，按四个地标讲一段人物故事：背景是什么，转折是什么，选择带来了什么影响？",
+    recallPrompt: "先遮住下方地标线索，用口头或纸笔复述一段人物经历：背景、行动、转折与影响各是什么？再看线索核对遗漏，并指出一条文本事实和一项自己的推断。",
   },
   unit03: {
     unitId: "unit03",
