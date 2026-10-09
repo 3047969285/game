@@ -736,48 +736,114 @@ function addPassageSceneLandmark(
 
   switch (kind) {
     case "message": {
-      const cliffFace = new THREE.MeshStandardMaterial({ color: 0x355574, roughness: 0.92, metalness: 0.02 });
-      for (const [x, y, z, scaleX, scaleY, scaleZ] of [
-        [-6.15, 4.25, 28.7, 1.35, 2.05, 0.76], [-7.45, 3.55, 25.65, 1.05, 1.55, 0.65],
-        [6.15, 4.25, 28.7, 1.35, 2.05, 0.76], [7.45, 3.55, 25.65, 1.05, 1.55, 0.65],
-      ] as const) {
-        const cliff = add(new THREE.DodecahedronGeometry(1.6, 0), cliffFace, x, y, z);
-        cliff.scale.set(scaleX, scaleY, scaleZ);
-        cliff.rotation.z = x < 0 ? -0.035 : 0.035;
-        cliff.userData.isLandscapeStage = true;
+      const libraryWall = new THREE.MeshStandardMaterial({
+        color: 0x9aab91,
+        emissive: 0x25372e,
+        emissiveIntensity: 0.24,
+        roughness: 0.9,
+        metalness: 0.02,
+      });
+      const libraryTrim = new THREE.MeshStandardMaterial({ color: 0x344b49, roughness: 0.78 });
+      const libraryGlass = new THREE.MeshStandardMaterial({
+        color: 0x6faaa5,
+        emissive: 0x1a4848,
+        emissiveIntensity: 0.28,
+        roughness: 0.34,
+        metalness: 0.12,
+      });
+      const courtyardWood = new THREE.MeshStandardMaterial({ color: 0x765b42, roughness: 0.88 });
+      const personSkin = new THREE.MeshStandardMaterial({ color: 0xd2aa86, roughness: 0.92 });
+
+      // The passage opens at a campus library courtyard, not a metaphorical canyon.
+      box(0, 4.42, 31.15, 15.8, 6.55, 0.78, libraryWall);
+      box(0, 7.82, 31.15, 16.35, 0.34, 1.08, libraryTrim);
+      box(0, 1.28, 30.66, 15.5, 0.26, 0.48, libraryTrim);
+
+      for (const x of [-4.55, 4.55]) {
+        box(x, 4.62, 30.72, 3.5, 3.28, 0.16, libraryTrim);
+        box(x, 4.62, 30.6, 3.18, 2.96, 0.08, libraryGlass);
+        box(x, 4.62, 30.53, 0.12, 2.96, 0.06, edge);
+        box(x, 4.62, 30.53, 3.18, 0.12, 0.06, edge);
+        box(x, 4.62, 30.53, 0.1, 2.96, 0.06, libraryTrim);
+        box(x, 4.62, 30.53, 3.18, 0.1, 0.06, libraryTrim);
       }
 
-      box(-3.9, 3.95, 26.35, 1.9, 3.55, 0.48, dark);
-      box(-3.9, 3.95, 26.06, 1.48, 3.05, 0.08, ground);
-      for (const [x, y, width] of [[-4.12, 4.75, 1.08], [-3.65, 4.18, 0.94], [-4.08, 3.55, 1.12]] as const) {
-        box(x, y, 25.98, width, 0.18, 0.08, edge);
-      }
-      const signal = add(new THREE.SphereGeometry(0.2, 10, 8), glow, -3.9, 6.18, 25.98);
-      signal.userData.isLandscapeBeacon = true;
+      // A recessed, glazed entrance makes the building legible at a glance.
+      box(0, 2.88, 30.62, 2.6, 3.35, 0.2, libraryTrim);
+      box(-0.62, 2.72, 30.47, 1.08, 2.98, 0.08, libraryGlass);
+      box(0.62, 2.72, 30.47, 1.08, 2.98, 0.08, libraryGlass);
+      box(0, 2.72, 30.4, 0.1, 2.98, 0.06, edge);
+      box(0.38, 2.72, 30.35, 0.08, 0.12, 0.08, courtyardWood);
+      box(0, 1.18, 29.95, 3.5, 0.22, 1.2, courtyardWood);
 
-      for (const [x, y, material] of [[-1.65, 4.7, edge], [0, 5.45, glow], [1.62, 4.82, edge]] as const) {
-        box(x, y, 26.35, 1.05, 0.66, 0.16, material, x * 0.035);
-        for (const offsetX of [-0.2, 0, 0.2]) {
-          const dot = add(new THREE.SphereGeometry(0.055, 7, 6), dark, x + offsetX, y, 26.24);
-          dot.userData.isLandscapeBeacon = true;
+      const signCanvas = document.createElement("canvas");
+      signCanvas.width = 1024;
+      signCanvas.height = 192;
+      const signContext = signCanvas.getContext("2d");
+      if (signContext) {
+        signContext.fillStyle = "#263e3b";
+        signContext.fillRect(0, 0, signCanvas.width, signCanvas.height);
+        signContext.strokeStyle = "#d6c19a";
+        signContext.lineWidth = 8;
+        signContext.strokeRect(12, 12, signCanvas.width - 24, signCanvas.height - 24);
+        signContext.fillStyle = "#f4edda";
+        signContext.textAlign = "center";
+        signContext.textBaseline = "middle";
+        signContext.font = "bold 66px Arial, sans-serif";
+        signContext.fillText("CAMPUS LIBRARY", 512, 98);
+        const signTexture = new THREE.CanvasTexture(signCanvas);
+        signTexture.colorSpace = THREE.SRGBColorSpace;
+        const sign = new THREE.Mesh(
+          new THREE.PlaneGeometry(4.4, 0.82),
+          new THREE.MeshBasicMaterial({ map: signTexture, side: THREE.DoubleSide, toneMapped: false })
+        );
+        sign.position.set(0, 6.9, 30.55);
+        sign.rotation.y = Math.PI;
+        root.add(sign);
+      }
+
+      // Courtyard benches and two students show the central contrast: easy online contact,
+      // but an awkward silence when people sit together in person.
+      for (const x of [-2.05, 2.05]) {
+        box(x, 1.72, 25.9, 3.05, 0.24, 0.68, courtyardWood);
+        box(x, 2.18, 26.18, 3.05, 0.78, 0.16, courtyardWood);
+        for (const legX of [x - 1.2, x + 1.2]) {
+          box(legX, 1.38, 25.9, 0.12, 0.62, 0.14, libraryTrim);
+          box(legX, 1.84, 26.18, 0.12, 0.72, 0.14, libraryTrim);
         }
       }
 
-      box(3.72, 1.8, 27.1, 2.25, 0.3, 0.9, ground);
-      for (const x of [2.9, 4.54]) box(x, 1.42, 27.1, 0.14, 0.55, 0.16, dark);
-      const quietFigure = add(new THREE.CylinderGeometry(0.36, 0.52, 1.36, 8), dark, 3.72, 2.72, 27.1);
-      quietFigure.userData.isLandscapeStage = true;
-      const quietHead = add(new THREE.SphereGeometry(0.44, 12, 10), ground, 3.72, 3.72, 27.1);
-      quietHead.userData.isLandscapeStage = true;
-      const phoneBasket = box(-1.8, 1.74, 25.35, 1.8, 0.42, 0.72, ground);
-      phoneBasket.rotation.z = -0.08;
-      for (const x of [-2.28, -1.8, -1.32]) box(x, 2.03, 25.26, 0.3, 0.06, 0.42, edge);
+      for (const [index, x] of [-2.55, -1.55, 1.55, 2.55].entries()) {
+        const clothing = index % 2 === 0 ? edge : ground;
+        const torso = add(new THREE.CylinderGeometry(0.3, 0.4, 0.94, 8), clothing, x, 2.64, 25.92);
+        torso.userData.isLandscapeStage = true;
+        const head = add(new THREE.SphereGeometry(0.31, 12, 10), personSkin, x, 3.34, 25.92);
+        head.userData.isLandscapeStage = true;
+        box(x + (index % 2 === 0 ? 0.23 : -0.23), 2.53, 25.54, 0.13, 0.5, 0.12, clothing, index % 2 === 0 ? -0.3 : 0.3);
+      }
 
-      route([[-3.15, 5.9, 26.22], [-1.72, 5.2, 26.22], [0, 5.7, 26.22], [1.75, 5.05, 26.22], [3.18, 4.4, 26.22]], edge, 0.075);
-      route([[-5.5, 1.35, 27], [-3.7, 1.35, 25.4], [0, 1.35, 25.4], [3.7, 1.35, 25.4], [5.5, 1.35, 27]], glow, 0.095);
-      const canyonLight = new THREE.PointLight(0x70cfff, 0.9, 15, 2);
-      canyonLight.position.set(0, 5.4, 25.2);
-      root.add(canyonLight);
+      // Floating message cards are small cues above the real courtyard, not the setting itself.
+      for (const [x, y, width] of [[-2.9, 5.15, 1.25], [0, 5.75, 1.45], [2.9, 5.15, 1.25]] as const) {
+        box(x, y, 25.2, width, 0.68, 0.12, dark, x * 0.035);
+        box(x, y + 0.1, 25.11, width * 0.62, 0.08, 0.06, edge, x * 0.035);
+        const unread = add(new THREE.SphereGeometry(0.09, 8, 6), glow, x + width * 0.34, y + 0.29, 25.08);
+        unread.userData.isLandscapeBeacon = true;
+      }
+      route([[-2.15, 5.12, 25.14], [0, 5.7, 25.14], [2.15, 5.12, 25.14]], glow, 0.06);
+      route([[0, 1.24, 34], [0, 1.28, 31], [0, 1.28, 28], [0, 1.34, 26.8]], edge, 0.1);
+
+      for (const x of [-6.35, 6.35]) {
+        cylinder(x, 1.43, 27.65, 0.48, 0.46, courtyardWood, 8);
+        cylinder(x, 2.75, 27.65, 0.1, 2.55, libraryTrim, 8);
+        for (const [dx, y, scale] of [[-0.34, 3.55, 0.72], [0.28, 3.82, 0.8], [0, 4.38, 0.72]] as const) {
+          const crown = add(new THREE.DodecahedronGeometry(scale, 0), ground, x + dx, y, 27.65);
+          crown.userData.isLandscapeStage = true;
+        }
+      }
+
+      const courtyardLight = new THREE.PointLight(0xffd79b, 0.72, 16, 2);
+      courtyardLight.position.set(0, 5.2, 25.2);
+      root.add(courtyardLight);
       break;
     }
     case "dialogue": {
