@@ -259,8 +259,8 @@ export const RW3_WORLDS: Record<string, UnitWorldContent> = {
         id: "u05-present-perfect",
         title: "现在完成时：has / have done",
         concept: "把过去发生的探索和现在仍然相关的成果连接起来。",
-        pattern: "has / have + past participle + since / so far / already",
-        explanation: "现在完成时强调经验、变化或结果对现在的影响。若句子明确给出过去某个完成时间，通常改用一般过去时。",
+        pattern: "主语 + has / have + past participle（时间副词按语义选用）",
+        explanation: "现在完成时强调经验、变化或结果与现在的联系，不要求一定出现时间副词。already / yet / so far 可按语境使用；表示持续时，since 后接起点，for 后接时段。若句子明确给出过去某个完成时间，通常改用一般过去时。",
         examples: [
           { en: "The project has changed how we understand the lunar surface.", zh: "这个项目改变了我们理解月球表面的方式。" },
           { en: "The team completed the test last winter.", zh: "团队去年冬天完成了测试。" },
@@ -274,10 +274,10 @@ export const RW3_WORLDS: Record<string, UnitWorldContent> = {
       { question: "The project ___ how we understand the lunar surface.", options: ["has changed", "changed yesterday", "is changing last year", "had change"], answer: 0, explanation: "成果与现在仍有联系，使用现在完成时。" },
     ],
     methods: [
-      { id: "u05-dual-code", title: "双通道编码", principle: "文字线索和空间/图像线索互相支持。", action: "把术语放到轨道地图上，同时读出它的英文定义和一个动作。", reward: "启动一颗探测器" },
-      { id: "u05-error-log", title: "错误日志", principle: "错误不是扣分，它是下一次检索的导航点。", action: "将答错的词或语法收进控制台日志，写下“我为什么错”。", reward: "获得故障诊断权限" },
-      { id: "u05-spaced", title: "延迟发射", principle: "稍有间隔的重复比连续刷题更能检验保持。", action: "完成一轮后离开月背站，先做另一类题，再回来重测。", reward: "解锁二次发射窗口" },
-      { id: "u05-transfer", title: "迁移表达", principle: "能在新情境中使用，才不是只会认。", action: "用本单元语法描述一个现实中的科技项目，不复述原句。", reward: "上传地面报告" },
+      { id: "u05-dual-code", title: "双通道编码", principle: "把语言线索和空间或图像线索结合，可为回忆提供不止一个入口。", action: "选 3 个航天词，分别关联到发射廊、实验舱、月背站等地标；朗读英文并造句，再遮住词卡按路线回忆。", reward: "用位置与语言线索共同提取词义和用法" },
+      { id: "u05-error-log", title: "错误诊断", principle: "错误本身不自动带来学习；找出错因并再次提取，才能决定下一步练什么。", action: "把答错的词或句型记成“错因—正确形式—新例句”，隔开一道题后遮住答案重做。", reward: "把错误转化为明确的纠正线索与再练任务" },
+      { id: "u05-spaced", title: "按期回访", principle: "间隔后再次提取能检验保持情况；复习间隔应依据实际记忆表现调整。", action: "不稳词留在词卡复习队列：答错或忘记后从 1 天重来，首次成功后 1 天、再次成功后 6 天回访，此后按难度调整；依词卡到期提示复习，不连续刷同一词。", reward: "按记忆表现安排词汇回访，而不是把重复刷题误当成长效记忆" },
+      { id: "u05-transfer", title: "迁移表达", principle: "在新情境中准确使用词汇和结构，是检验能否迁移的一种方式。", action: "用至少两个本单元词汇和一个目标句型描述真实或设想中的科学项目，再说明什么证据可以检验你的判断。", reward: "练习将航天词汇与目标语法迁移到新问题" },
     ],
     memoryAnchor: "一枚绕月运行、尾部拖着句子轨道的银色探测器",
     memoryRoute: [
@@ -286,7 +286,7 @@ export const RW3_WORLDS: Record<string, UnitWorldContent> = {
       { place: "月背站", image: "黑暗里亮起一枚不会熄灭的信标", recall: "signal / surface / reveal" },
       { place: "控制台", image: "错误日志长成一棵新的航天树", recall: "innovation / overcome / continue" },
     ],
-    recallPrompt: "不看提示，按探测器路线解释一次探索：准备、观测、故障、修正、成果。至少使用一个分词短语。",
+    recallPrompt: "先遮住地标线索，按探测器路线复述一次探索：准备、观测、故障、修正、成果。至少使用一个分词短语；再看线索核对遗漏，并用现在完成时说明一项与现在仍相关的成果。",
   },
   unit06: {
     unitId: "unit06",
