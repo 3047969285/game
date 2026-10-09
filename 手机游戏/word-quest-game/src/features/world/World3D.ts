@@ -920,6 +920,8 @@ export class World3D {
     }
     if (this.sunDisc) {
       (this.sunDisc.material as THREE.SpriteMaterial).color.setHex(biome.sunColor);
+      const sunDiscScale = biome.sunDiscScale ?? 52;
+      this.sunDisc.scale.set(sunDiscScale, sunDiscScale, 1);
     }
     // 越暗的单元（夜空 / 星际）辉光越强，强化氛围
     if (this.bloomPass) {
@@ -1912,7 +1914,8 @@ export class World3D {
       // 太阳圆盘跟随光源方向（置于远空），夜间淡出
       if (this.sunDisc) {
         this.sunDisc.position.set(sx * 4.2, this.sun.position.y * 4.2, this.sun.position.z * 4.2 + TERRAIN_ORIGIN_Z);
-        (this.sunDisc.material as THREE.SpriteMaterial).opacity = THREE.MathUtils.clamp(daylight * 1.2, 0, 1);
+        const sunDiscOpacity = this.currentBiome.sunDiscOpacity ?? 1;
+        (this.sunDisc.material as THREE.SpriteMaterial).opacity = THREE.MathUtils.clamp(daylight * 1.2 * sunDiscOpacity, 0, 1);
       }
     }
 

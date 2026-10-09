@@ -11,6 +11,9 @@ export interface UnitBiome {
   fogDensity: number;
   sunColor: number;
   sunIntensity: number;
+  /** Optional per-biome sun sprite tuning for scene readability. */
+  sunDiscScale?: number;
+  sunDiscOpacity?: number;
   hemiSky: number;
   hemiGround: number;
   ambientColor: number;
@@ -34,7 +37,7 @@ export const UNIT_BIOMES: Record<string, UnitBiome> = {
     id: "unit01", label: "数字时代",
     skyTop: 0x061723, skyMid: 0x163c4b, skyBot: 0x6b9683,
     fogColor: 0x4a6b61, fogDensity: 0.0026,
-    sunColor: 0xbce7d3, sunIntensity: 1.25,
+    sunColor: 0xbce7d3, sunIntensity: 1.25, sunDiscScale: 34, sunDiscOpacity: 0.5,
     hemiSky: 0x7bbab3, hemiGround: 0x213a30,
     ambientColor: 0x4b8581,
     terrainTint: [0.06, 0.42, 0.1],
