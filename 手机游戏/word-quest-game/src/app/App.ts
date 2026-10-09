@@ -2336,7 +2336,7 @@ export class App {
       <div class="card method-card">
         <div class="memory-section-label">学习方法 → 游戏动作</div>
         <div class="method-list">
-          ${phase.methods.map((method) => `<label class="method-check"><input type="checkbox" data-memory-id="method-${method.id}" ${this.rw3MemoryDone.has(`method-${method.id}`) ? "checked" : ""}/><span><strong>${method.title}</strong><em>${method.principle}</em><small>现在执行：${method.action}</small><b>完成奖励：${method.reward}</b></span></label>`).join("")}
+          ${phase.methods.map((method) => `<label class="method-check"><input type="checkbox" data-memory-id="method-${method.id}" ${this.rw3MemoryDone.has(`method-${method.id}`) ? "checked" : ""}/><span><strong>${method.title}</strong><em>${method.principle}</em><small>现在执行：${method.action}</small><b>方法收益：${method.reward}</b></span></label>`).join("")}
         </div>
       </div>
       <div class="scene-actions">
