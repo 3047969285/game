@@ -30,71 +30,71 @@
   "micro_world_checks": {
     "section_a": [
       {
-        "question": "Why does the instructor reject ranking people by the labels worker and laborer?",
-        "options": [
-          "Because physical and repetitive work can also require judgment, skill, and care.",
-          "Because only office occupations should be discussed at a career workshop.",
-          "Because the two words always have exactly the same dictionary meaning.",
-          "Because students should choose a job before learning what it involves."
-        ],
-        "answer": 0,
+      "question": "Why does the instructor reject ranking people by the labels worker and laborer?",
+      "options": [
+        "Because only office occupations should be discussed at a career workshop.",
+        "Because the two words always have exactly the same dictionary meaning.",
+        "Because physical and repetitive work can also require judgment, skill, and care.",
+        "Because students should choose a job before learning what it involves."
+      ],
+      "answer": 2,
         "explanation": "The opening discussion argues that a job label does not measure a person's worth; many kinds of work require judgment and care."
       },
       {
-        "question": "What did the student notice while observing a routine task?",
-        "options": [
-          "A repeated step is useful only when a supervisor is watching.",
-          "A worker can notice and report a safety problem beyond the checklist.",
+      "question": "What did the student notice while observing a routine task?",
+      "options": [
+        "A worker can notice and report a safety problem beyond the checklist.",
+        "A repeated step is useful only when a supervisor is watching.",
           "A checklist removes the need to understand the purpose of a task.",
           "The fastest worker always produces the most reliable result."
         ],
-        "answer": 1,
+      "answer": 0,
         "explanation": "The worker notices a loose chair and reports it; she uses judgment beyond simply following the routine checklist."
       },
       {
-        "question": "What does the violin maker's careful measurement demonstrate?",
-        "options": [
-          "A respected craft depends on titles rather than practice.",
-          "A repair should be completed before the customer can ask questions.",
-          "Careful attention protects the quality of a repair and the instrument's sound.",
-          "Traditional tools are always more accurate than new ones."
-        ],
-        "answer": 2,
+      "question": "What does the violin maker's careful measurement demonstrate?",
+      "options": [
+        "A respected craft depends on titles rather than practice.",
+        "A repair should be completed before the customer can ask questions.",
+        "Traditional tools are always more accurate than new ones.",
+        "Careful attention protects the quality of a repair and the instrument's sound."
+      ],
+      "answer": 3,
         "explanation": "The maker's example shows that a tiny gap can alter the sound, so careful measurement protects the quality of the work."
       },
       {
-        "question": "What conclusion does the workshop reach about meaningful work?",
-        "options": [
-          "Meaning comes only from work that is creative and unusual.",
-          "A high-status occupation matters more than the quality of its work.",
-          "Routine work becomes meaningful only when it is quick.",
-          "Respect, responsibility, and care can give many kinds of work meaning."
-        ],
-        "answer": 3,
+      "question": "What conclusion does the workshop reach about meaningful work?",
+      "options": [
+        "Meaning comes only from work that is creative and unusual.",
+        "Respect, responsibility, and care can give many kinds of work meaning.",
+        "A high-status occupation matters more than the quality of its work.",
+        "Routine work becomes meaningful only when it is quick."
+      ],
+      "answer": 1,
         "explanation": "The final discussion links fulfillment to responsibility for quality and respect for people, not to occupational status."
       }
     ],
     "section_b": [
       {
-        "question": "Why did the master ask the apprentice to measure a violin joint twice?",
-        "options": [
-          "A small gap can change the sound and weaken the repair.",
-          "The customer wanted two identical instruments.",
+      "question": "Why did the master ask the apprentice to measure a violin joint twice?",
+      "options": [
+        "The customer wanted two identical instruments.",
+        "A small gap can change the sound and weaken the repair.",
           "The apprentice had forgotten the name of the tool.",
           "The workshop measured every object twice for no particular reason."
         ],
-        "answer": 0,
+      "answer": 1,
         "explanation": "The passage traces a small measurement error to a weaker repair and a change in the instrument's sound."
       },
       {
-        "question": "How does the apprentice decide whether to keep a new tool?",
-        "options": [
-          "He keeps it only if it is more expensive than the old tool.",
-          "He compares the readings to see whether the new method makes the result clearer.",
-          "He replaces every familiar method as soon as a new tool appears.",
-          "He lets the tool's appearance decide whether it belongs in the workshop."
-        ],
-        "answer": 1,
+      "question": "How does the apprentice decide whether to keep a new tool?",
+      "options": [
+        "He keeps it only if it is more expensive than the old tool.",
+        "He replaces every familiar method as soon as a new tool appears.",
+        "He lets the tool's appearance decide whether it belongs in the workshop.",
+        "He compares the readings to see whether the new method makes the result clearer."
+      ],
+      "answer": 3,
         "explanation": "Lin compares the readings and keeps the new method when it makes the result clearer."
       },
       {
@@ -122,47 +122,47 @@
     ],
     "section_c": [
       {
-        "question": "What does Mei learn about creating a flower design?",
-        "options": [
-          "A maker considers the line, its future use, and which details should remain clear.",
-          "The number of colors alone determines whether a pattern is accurate.",
-          "Visitors select the stitch direction before meeting the artisans.",
-          "Every flower design must be copied without changes."
-        ],
-        "answer": 0,
+      "question": "What does Mei learn about creating a flower design?",
+      "options": [
+        "The number of colors alone determines whether a pattern is accurate.",
+        "Visitors select the stitch direction before meeting the artisans.",
+        "Every flower design must be copied without changes.",
+        "A maker considers the line, its future use, and which details should remain clear."
+      ],
+      "answer": 3,
         "explanation": "The passage states that makers consider the direction of a line, the fabric's use, and the details that need to stay clear."
       },
       {
-        "question": "What helps the apprentice improve her stitching?",
-        "options": [
-          "Her mentor gives a correction and asks her to explain what changed.",
-          "She copies the whole pattern without looking at the thread.",
-          "Visitors choose the angle of each stitch for her.",
-          "She skips practice and studies only finished objects."
-        ],
-        "answer": 0,
+      "question": "What helps the apprentice improve her stitching?",
+      "options": [
+        "She copies the whole pattern without looking at the thread.",
+        "Visitors choose the angle of each stitch for her.",
+        "Her mentor gives a correction and asks her to explain what changed.",
+        "She skips practice and studies only finished objects."
+      ],
+      "answer": 2,
         "explanation": "The mentor corrects her angle and prompts her to describe the change, linking feedback to deliberate practice."
       },
       {
-        "question": "Why do the makers review the exhibition design together?",
-        "options": [
-          "To remove the familiar motif from the design.",
-          "To let visitors make every decision for the workshop.",
-          "To improve visibility while ensuring the change is not imposed on the makers.",
-          "To stop teaching the craft to new apprentices."
-        ],
-        "answer": 2,
+      "question": "Why do the makers review the exhibition design together?",
+      "options": [
+        "To remove the familiar motif from the design.",
+        "To improve visibility while ensuring the change is not imposed on the makers.",
+        "To let visitors make every decision for the workshop.",
+        "To stop teaching the craft to new apprentices."
+      ],
+      "answer": 1,
         "explanation": "The design is resized for visibility, but the makers review the change rather than having it imposed on them."
       },
       {
-        "question": "In this story, what keeps embroidery heritage alive?",
-        "options": [
-          "Putting every finished piece behind glass and ending daily practice.",
-          "Making visitors responsible for preserving the craft alone.",
-          "Keeping the craft secret from younger learners.",
-          "Passing on skill through valued work while allowing thoughtful renewal."
-        ],
-        "answer": 3,
+      "question": "In this story, what keeps embroidery heritage alive?",
+      "options": [
+        "Passing on skill through valued work while allowing thoughtful renewal.",
+        "Putting every finished piece behind glass and ending daily practice.",
+        "Making visitors responsible for preserving the craft alone.",
+        "Keeping the craft secret from younger learners."
+      ],
+      "answer": 0,
         "explanation": "Living heritage depends on skilled people, fair livelihoods, teaching, and careful adaptation—not display alone."
       }
     ]
@@ -192,47 +192,47 @@
       "passage": "A neighborhood repair cooperative was preparing for its annual open workshop. Its members included a bicycle mechanic, a seamstress, a cook, and a retired engineer. At first, visitors asked which occupation was the most skilled. The coordinator changed the question: what evidence would show that a job had been done well? The mechanic pointed to a safe brake test, while the seamstress showed how a repaired seam could bear weight without tearing. The cook described how timing and temperature protected both flavor and food safety. The engineer explained that a clear instruction sheet could prevent a costly mistake for the next person. None of these examples depended on a prestigious title. Each required knowledge, practice, and responsibility for someone who would use the result. During the workshop, a teenager helped repair a lamp. She wanted to replace a loose part quickly, but the engineer asked her to test why it had loosened. They found a worn screw and chose a stronger fitting. The teenager wrote down the steps so another volunteer could repeat the repair safely. Later, she told the group that the task felt rewarding because she understood its purpose and could see who benefited. The coordinator added that good work also needs fair conditions: reasonable time, safe tools, honest credit, and a chance to learn. The cooperative did not claim that every job was enjoyable every day. Instead, its members showed how pride can grow when a person is trusted, supported, and able to improve a result. By closing time, visitors had repaired several items and learned to ask better questions about labor. Quality was visible in the object, but meaning came from the care, judgment, and shared responsibility behind it.",
       "questions": [
         {
-          "question": "What question does the coordinator use to replace ranking occupations?",
-          "options": [
-            "Which job earns the most public attention?",
-            "What evidence shows the job was done well?",
-            "Which worker can finish without using tools?",
+      "question": "What question does the coordinator use to replace ranking occupations?",
+      "options": [
+        "What evidence shows the job was done well?",
+        "Which job earns the most public attention?",
+        "Which worker can finish without using tools?",
             "Which occupation should be removed from the cooperative?"
           ],
-          "answer": 1,
+      "answer": 0,
           "explanation": "The coordinator redirects the group from social ranking to evidence of quality."
         },
         {
-          "question": "Why does the teenager test the lamp before replacing its loose part?",
-          "options": [
-            "To identify the cause and choose a safe, durable repair.",
-            "To make the repair look more difficult than it is.",
-            "To avoid writing down the repair steps.",
-            "To prove that older tools are always unreliable."
-          ],
-          "answer": 0,
+      "question": "Why does the teenager test the lamp before replacing its loose part?",
+      "options": [
+        "To avoid writing down the repair steps.",
+        "To make the repair look more difficult than it is.",
+        "To identify the cause and choose a safe, durable repair.",
+        "To prove that older tools are always unreliable."
+      ],
+      "answer": 2,
           "explanation": "Testing reveals a worn screw, so the team can address the cause rather than make a temporary fix."
         },
         {
-          "question": "What helps the teenager find the task rewarding?",
-          "options": [
-            "The coordinator promises that the task will never be repeated.",
-            "Visitors praise the object without knowing who repaired it.",
-            "She understands its purpose and sees who benefits from the result.",
-            "She finishes before anyone can inspect the lamp."
-          ],
-          "answer": 2,
+      "question": "What helps the teenager find the task rewarding?",
+      "options": [
+        "The coordinator promises that the task will never be repeated.",
+        "Visitors praise the object without knowing who repaired it.",
+        "She finishes before anyone can inspect the lamp.",
+        "She understands its purpose and sees who benefits from the result."
+      ],
+      "answer": 3,
           "explanation": "She explicitly connects fulfillment to understanding the purpose and seeing the beneficiary."
         },
         {
-          "question": "Which condition does the cooperative say supports good work?",
-          "options": [
-            "Competition for the highest-status title.",
-            "Removing every routine task from the day.",
-            "Keeping methods secret from new learners.",
-            "Safe tools, fair time, honest credit, and opportunities to learn."
-          ],
-          "answer": 3,
+      "question": "Which condition does the cooperative say supports good work?",
+      "options": [
+        "Competition for the highest-status title.",
+        "Safe tools, fair time, honest credit, and opportunities to learn.",
+        "Removing every routine task from the day.",
+        "Keeping methods secret from new learners.",
+      ],
+      "answer": 1,
           "explanation": "The coordinator lists these practical conditions as support for responsible, improving work."
         }
       ]
@@ -242,14 +242,14 @@
       "script": "Welcome to the community workshop. Today we are looking at a repaired wooden chair, but the lesson is not simply about furniture. First, ask what the chair must do: support a person safely, remain stable, and last through ordinary use. The repairer checked each joint before adding a new piece of wood. She explained that a quick repair might look finished while leaving the chair weak underneath. A volunteer suggested copying the old method exactly. The repairer agreed that the older method contained useful knowledge, then showed how a new clamp made the pressure easier to control. The team tested the clamp on a sample before changing its routine. That small experiment helped them keep the sound principle and improve one step. A student asked whether this kind of work could be called creative. The repairer answered that creativity is not limited to painting or performance. It can also mean noticing a problem, selecting a method, and taking responsibility for the result. She invited the student to explain each choice aloud. When the student missed a safety check, the repairer gave immediate feedback and asked her to try again. The second attempt was slower but more accurate. At the end, the chair was tested under weight and the repair was recorded for the next volunteer. The team did not celebrate speed alone. They discussed who would use the chair, what evidence showed the repair was safe, and what they should review next week. A useful tradition, the repairer said, is knowledge that remains open to careful testing. Work becomes more satisfying when people can practice, receive feedback, and see the value their effort brings to others. Thank you for listening; after the questions, choose one example and explain the evidence that supports your answer.",
       "questions": [
         {
-          "question": "What does the repairer check before adding a new piece of wood?",
-          "options": [
-            "Whether the chair can be sold as an antique.",
-            "Whether each joint is stable and the chair can be used safely.",
-            "Whether the volunteer can finish without feedback.",
-            "Whether the new wood looks exactly like the old paint."
-          ],
-          "answer": 1,
+      "question": "What does the repairer check before adding a new piece of wood?",
+      "options": [
+        "Whether the chair can be sold as an antique.",
+        "Whether the volunteer can finish without feedback.",
+        "Whether the new wood looks exactly like the old paint.",
+        "Whether each joint is stable and the chair can be used safely."
+      ],
+      "answer": 3,
           "explanation": "The repairer checks the joints and the chair's safety before adding material."
         },
         {
@@ -264,25 +264,25 @@
           "explanation": "The team tests the clamp before changing the routine, preserving evidence-based judgment."
         },
         {
-          "question": "What feedback does the student receive after missing a safety check?",
-          "options": [
-            "She is told to leave the workshop.",
-            "The repairer completes the task without explaining the error.",
-            "She is asked to explain the safety rule but not to retry.",
-            "The repairer explains the miss and invites her to try again."
-          ],
-          "answer": 3,
+      "question": "What feedback does the student receive after missing a safety check?",
+      "options": [
+        "She is told to leave the workshop.",
+        "The repairer completes the task without explaining the error.",
+        "The repairer explains the miss and invites her to try again.",
+        "She is asked to explain the safety rule but not to retry."
+      ],
+      "answer": 2,
           "explanation": "The repairer gives immediate feedback and has the student repeat the task more accurately."
         },
         {
-          "question": "Which evidence best supports the team's final judgment that the repair is ready?",
-          "options": [
-            "The chair looks clean from across the room.",
-            "The repair was completed before the other volunteers arrived.",
-            "The chair was tested under weight and the repair was recorded.",
-            "The team agrees that the old method should never be reviewed."
-          ],
-          "answer": 2,
+      "question": "Which evidence best supports the team's final judgment that the repair is ready?",
+      "options": [
+        "The chair looks clean from across the room.",
+        "The chair was tested under weight and the repair was recorded.",
+        "The repair was completed before the other volunteers arrived.",
+        "The team agrees that the old method should never be reviewed."
+      ],
+      "answer": 1,
           "explanation": "The chair's load test and written record provide direct evidence of safety and repeatability."
         }
       ]
