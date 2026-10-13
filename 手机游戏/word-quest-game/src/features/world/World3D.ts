@@ -345,6 +345,7 @@ export class World3D {
     this.applyBiomeToLights(biome);
     this.applyBiomeToTerrain(biome, false);
     this.applyOutfitFromBiome(biome);
+    if (this.mountains) this.mountains.visible = biome.decorStyle !== "space";
     this.scene.fog = new THREE.FogExp2(biome.fogColor, biome.fogDensity);
   }
 
@@ -353,13 +354,15 @@ export class World3D {
     if (this.activeWorldId === worldId && this.activeWorldTitle === title) return;
     this.activeWorldId = worldId;
     this.activeWorldTitle = title;
-    this.applyBiomeToTerrain(this.currentBiome, isFocusedLearningWorld(worldId));
-    this.applySunDiscScale(isFocusedLearningWorld(worldId));
+    const focusedWorld = isFocusedLearningWorld(worldId);
+    this.applyBiomeToTerrain(this.currentBiome, focusedWorld);
+    this.applySunDiscScale(focusedWorld);
+    if (this.mountains) this.mountains.visible = !focusedWorld && this.currentBiome.decorStyle !== "space";
     if (this.grassMesh) {
-      this.grassMesh.visible = this.currentBiome.decorStyle !== "space" && !isFocusedLearningWorld(worldId);
+      this.grassMesh.visible = this.currentBiome.decorStyle !== "space" && !focusedWorld;
     }
     if (this.bloomPass) {
-      this.bloomPass.strength = isFocusedLearningWorld(worldId)
+      this.bloomPass.strength = focusedWorld
         ? 0.2
         : THREE.MathUtils.clamp(0.5 + (1.5 - this.currentBiome.sunIntensity) * 0.28, 0.45, 1.05);
     }
