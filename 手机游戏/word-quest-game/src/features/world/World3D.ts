@@ -340,12 +340,12 @@ export class World3D {
     this.activeWorldTitle = undefined;
     const biome = getBiome(unitId);
     this.currentBiome = biome;
-    if (this.grassMesh) this.grassMesh.visible = biome.decorStyle !== "space";
+    if (this.grassMesh) this.grassMesh.visible = ["coast", "forest", "plains"].includes(biome.decorStyle);
     this.applyBiomeToSky(biome);
     this.applyBiomeToLights(biome);
     this.applyBiomeToTerrain(biome, false);
     this.applyOutfitFromBiome(biome);
-    if (this.mountains) this.mountains.visible = biome.decorStyle !== "space";
+    if (this.mountains) this.mountains.visible = biome.decorStyle === "forest" || biome.decorStyle === "plains";
     this.scene.fog = new THREE.FogExp2(biome.fogColor, biome.fogDensity);
   }
 
@@ -357,9 +357,11 @@ export class World3D {
     const focusedWorld = isFocusedLearningWorld(worldId);
     this.applyBiomeToTerrain(this.currentBiome, focusedWorld);
     this.applySunDiscScale(focusedWorld);
-    if (this.mountains) this.mountains.visible = !focusedWorld && this.currentBiome.decorStyle !== "space";
+    if (this.mountains) {
+      this.mountains.visible = !focusedWorld && (this.currentBiome.decorStyle === "forest" || this.currentBiome.decorStyle === "plains");
+    }
     if (this.grassMesh) {
-      this.grassMesh.visible = this.currentBiome.decorStyle !== "space" && !focusedWorld;
+      this.grassMesh.visible = ["coast", "forest", "plains"].includes(this.currentBiome.decorStyle) && !focusedWorld;
     }
     if (this.bloomPass) {
       this.bloomPass.strength = focusedWorld
@@ -1488,6 +1490,8 @@ export class World3D {
         rock.position.set(wx, wy + 0.16, wz);
         rock.rotation.set(scatter() * 0.18, scatter() * Math.PI * 2, scatter() * 0.18);
         this.decorGroup!.add(rock);
+      } else if (unitMode && this.currentBiome.decorStyle !== "forest" && this.currentBiome.decorStyle !== "plains") {
+        this.addDecorAt(this.currentBiome.decorStyle, wx, wy, wz, scale, scatter);
       } else if (scatter() > 0.42) {
         const tree = scatter() > 0.5 ? createPine(scale) : createTree(scale);
         tree.position.set(wx, wy, wz);
