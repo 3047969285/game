@@ -697,11 +697,11 @@
       "id": "rw3_unit02_06",
       "word": "humanitarian",
       "phonetic": "/hjuːˌmænɪˈteəriən/",
-      "pos": "n.",
-      "meaning": "人道主义者；慈善工作者",
+      "pos": "adj./n.",
+      "meaning": "人道主义的；人道救援的；人道主义者",
       "meanings": [
-        "n. 人道主义者",
-        "adj. 人道主义的"
+        "adj. 人道主义的；人道救援的",
+        "n. 人道主义者"
       ],
       "example": "Hepburn was a humanitarian who used her public voice to advocate for children's rights.",
       "example_zh": "赫本是一位人道主义者，曾公开为儿童权利发声。",
@@ -930,8 +930,8 @@
       "id": "rw3_unit02_17",
       "word": "witness",
       "phonetic": "/ˈwɪtnɪs/",
-      "pos": "v.",
-      "meaning": "见证；目睹；亲历",
+      "pos": "v./n.",
+      "meaning": "见证；目睹；目击者；证人",
       "meanings": [
         "v. 见证；目睹",
         "n. 目击者；证人"
