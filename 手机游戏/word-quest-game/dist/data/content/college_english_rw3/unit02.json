@@ -33,11 +33,11 @@
         "question": "Why did the students organize the exhibit around choices and evidence?",
         "options": [
           "To rank famous people by the size of their audience.",
+          "To replace historical sources with dramatic portraits.",
           "To examine evidence that explains the subjects' choices and turning points.",
-          "To prove that every biography follows one pattern.",
-          "To replace historical sources with dramatic portraits."
+          "To prove that every biography follows one pattern."
         ],
-        "answer": 1,
+        "answer": 2,
         "explanation": "The exhibit asks readers to connect choices with evidence instead of ranking people or inventing a universal model."
       },
       {
@@ -56,10 +56,10 @@
         "options": [
           "One visitor can solve every part of a humanitarian crisis.",
           "A public portrait is enough to explain a whole life.",
-          "Public attention can support a cause but is not a complete solution.",
-          "Fame removes the need to check historical evidence."
+          "Fame removes the need to check historical evidence.",
+          "Public attention can support a cause but is not a complete solution."
         ],
-        "answer": 2,
+        "answer": 3,
         "explanation": "The mission drew attention to children's needs while the class avoided claiming that one person could end a crisis."
       },
       {
@@ -78,45 +78,45 @@
       {
         "question": "Why was the elegant portrait not enough for the biography exhibit?",
         "options": [
-          "It showed a public image but could not tell the whole story.",
           "It proved that her film career never mattered.",
+          "It showed a public image but could not tell the whole story.",
           "It contained every private thought she had.",
           "It made historical dates impossible to check."
         ],
-        "answer": 0,
+        "answer": 1,
         "explanation": "The passage says a portrait can open the topic but cannot represent an entire life."
       },
       {
         "question": "What did Hepburn do in 1988 according to the passage?",
         "options": [
-          "She traveled to Ethiopia to raise awareness of drought affecting children and women.",
           "She opened a film school for every UNICEF worker.",
           "She claimed to have ended drought in the region.",
-          "She stopped working with humanitarian organizations."
+          "She stopped working with humanitarian organizations.",
+          "She traveled to Ethiopia to raise awareness of drought affecting children and women."
         ],
-        "answer": 0,
+        "answer": 3,
         "explanation": "The passage identifies the Ethiopia trip as an effort to draw attention to the drought's impact."
       },
       {
         "question": "Why should local experience be heard in charitable work?",
         "options": [
-          "A visiting celebrity always knows more than local groups.",
           "Local people can understand needs that an outsider may miss.",
+          "A visiting celebrity always knows more than local groups.",
           "Public attention makes long-term partnership unnecessary.",
           "A portrait can replace conversations with a community."
         ],
-        "answer": 1,
+        "answer": 0,
         "explanation": "The passage emphasizes listening to people who live with an issue rather than assuming an outsider knows best."
       },
       {
         "question": "What is the central lesson of the exhibit?",
         "options": [
-          "Responsible support combines compassion with evidence, listening, and continued action.",
           "A celebrated face can solve a crisis without local partners.",
           "A public image matters more than the work behind it.",
+          "Responsible support combines compassion with evidence, listening, and continued action.",
           "Readers should admire a person without asking questions."
         ],
-        "answer": 0,
+        "answer": 2,
         "explanation": "The final panels connect compassion to careful research, local knowledge, and responsible support."
       }
     ],
@@ -124,12 +124,12 @@
       {
         "question": "What did the class use to trace the voyages?",
         "options": [
-          "Port names and directions found in maps and written accounts",
           "A modern tourist guide with fictional destinations",
           "A list of private conversations that no source recorded",
-          "Only a portrait of the explorer"
+          "Only a portrait of the explorer",
+          "Port names and directions found in maps and written accounts"
         ],
-        "answer": 0,
+        "answer": 3,
         "explanation": "The students began with recorded ports and direction marks, then compared maps with written accounts."
       },
       {
@@ -157,12 +157,12 @@
       {
         "question": "What does the chart-room lesson encourage readers to do?",
         "options": [
-          "Memorize a legend without checking sources.",
           "Study historical achievements while asking what the evidence can support.",
+          "Memorize a legend without checking sources.",
           "Assume all historical encounters were identical.",
           "Reject maps because they never contain useful information."
         ],
-        "answer": 1,
+        "answer": 0,
         "explanation": "The ending pairs curiosity about a historical legacy with verification of the sources behind it."
       }
     ]
@@ -194,23 +194,23 @@
         {
           "question": "Why did students arrange the exhibit around choices instead of ranking the subjects?",
           "options": [
-            "To identify evidence that helps explain important turning points.",
             "To show that one person's career is always superior.",
+            "To identify evidence that helps explain important turning points.",
             "To avoid discussing the sources behind each biography.",
             "To prove that every life follows the same sequence."
           ],
-          "answer": 0,
+          "answer": 1,
           "explanation": "The exhibit focuses on choices and the evidence that can explain them, not on ranking people."
         },
         {
           "question": "What did the map help students do, and what could it not do?",
           "options": [
             "It proved every motive and recorded every conversation.",
-            "It helped trace routes but could not tell every person's experience.",
             "It replaced written accounts and all historical research.",
-            "It showed that every port had an identical purpose."
+            "It showed that every port had an identical purpose.",
+            "It helped trace routes but could not tell every person's experience."
           ],
-          "answer": 1,
+          "answer": 3,
           "explanation": "The passage uses maps to trace routes while noting that they cannot capture every story or motive."
         },
         {
@@ -244,34 +244,34 @@
         {
           "question": "What rule did the seminar instructor give the group?",
           "options": [
-            "Record what a source shows and separate it from interpretation.",
             "Choose the most dramatic version of every story.",
             "Treat a map as a complete record of every conversation.",
-            "Rank biographies by the subjects' popularity."
+            "Rank biographies by the subjects' popularity.",
+            "Record what a source shows and separate it from interpretation."
           ],
-          "answer": 0,
+          "answer": 3,
           "explanation": "The instructor asks students to distinguish information directly supported by a source from interpretation."
         },
         {
           "question": "What limitation of the map does the speaker mention?",
           "options": [
-            "It could trace a voyage but not witness every conversation.",
             "It showed too many private thoughts to interpret.",
+            "It could trace a voyage but not witness every conversation.",
             "It contained no ports or route information.",
             "It proved that every stop served the same purpose."
           ],
-          "answer": 0,
+          "answer": 1,
           "explanation": "The speaker says the map helped trace the route but could not record every conversation."
         },
         {
           "question": "What did the Ethiopia example help students discuss?",
           "options": [
-            "How public attention can support a cause without replacing local knowledge.",
             "Why one public figure can solve every humanitarian problem.",
             "Why dates and sources are unnecessary in a biography.",
+            "How public attention can support a cause without replacing local knowledge.",
             "How a portrait can provide long-term community services."
           ],
-          "answer": 0,
+          "answer": 2,
           "explanation": "The speaker distinguishes drawing attention to a need from replacing local expertise or sustained work."
         },
         {
