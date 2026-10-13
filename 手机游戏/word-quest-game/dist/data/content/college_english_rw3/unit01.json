@@ -42,23 +42,23 @@
       {
         "question": "What problem led the club to run a listening experiment?",
         "options": [
-          "Members felt disconnected despite frequent digital contact.",
           "The library had banned all electronic devices.",
           "Students wanted to replace every class with a club meeting.",
+          "Members felt disconnected despite frequent digital contact.",
           "The group needed to test a new messaging application."
         ],
-        "answer": 0,
+        "answer": 2,
         "explanation": "The club noticed that being constantly connected did not always help people feel heard."
       },
       {
         "question": "What changed by the third listening session?",
         "options": [
-          "Participants stopped using online tools for planning.",
           "Pauses became useful, and listeners chose their words more carefully.",
+          "Participants stopped using online tools for planning.",
           "Every participant agreed that phones should be banned.",
           "The club replaced discussion with written reports."
         ],
-        "answer": 1,
+        "answer": 0,
         "explanation": "The second world describes how participants grew more comfortable with pauses and attentive listening."
       },
       {
@@ -66,21 +66,21 @@
         "options": [
           "They were collected before the activity began.",
           "They measured the quality of the students' devices.",
-          "They described one club's experience, not a rule for everyone.",
-          "They proved that online friendships were harmful."
+          "They proved that online friendships were harmful.",
+          "They described one club's experience, not a rule for everyone."
         ],
-        "answer": 2,
+        "answer": 3,
         "explanation": "The passage explicitly distinguishes local observations from universal scientific proof."
       },
       {
         "question": "According to the final world, what does digital readiness involve?",
         "options": [
-          "Choosing technology according to the purpose of the moment",
           "Answering every notification as quickly as possible",
+          "Choosing technology according to the purpose of the moment",
           "Avoiding conversation whenever a device is available",
           "Using the same communication routine in every situation"
         ],
-        "answer": 0,
+        "answer": 1,
         "explanation": "Readiness is framed as intentional choice: use a tool when it serves the need, and make room for conversation when it matters."
       }
     ],
@@ -89,44 +89,44 @@
         "question": "How can an algorithm shape a student's digital feed?",
         "options": [
           "It guarantees that every viewpoint appears equally often.",
-          "It filters posts and may repeatedly surface selected stories.",
           "It decides when a student should sleep.",
-          "It removes the need to make privacy choices."
+          "It removes the need to make privacy choices.",
+          "It filters posts and may repeatedly surface selected stories."
         ],
-        "answer": 1,
+        "answer": 3,
         "explanation": "The opening world explains that algorithms filter feeds, so repeated exposure should not be mistaken for a balanced view."
       },
       {
         "question": "Why did students schedule set times to check messages?",
         "options": [
-          "To make it easier to return attention to the study task",
           "To avoid communicating with classmates altogether",
+          "To make it easier to return attention to the study task",
           "To make every virtual meeting longer",
           "To remove all notifications from their devices"
         ],
-        "answer": 0,
+        "answer": 1,
         "explanation": "The class found that opening a device between tasks made it harder to resume the original question."
       },
       {
         "question": "What did the cyber safety instructor ask students to consider?",
         "options": [
-          "Whether all public posts should be deleted",
           "Whether a link, request, or post has consequences before they act",
+          "Whether all public posts should be deleted",
           "How to avoid using a platform for school work",
           "Why a privacy setting makes every online choice safe"
         ],
-        "answer": 1,
+        "answer": 0,
         "explanation": "The instructor teaches deliberate choices about links, password requests, and public posts."
       },
       {
         "question": "Which practice helped students restore balance?",
         "options": [
-          "Keeping a device-free meal and a clear end time for study",
           "Checking each message as soon as it arrives",
           "Joining several virtual groups at once",
+          "Keeping a device-free meal and a clear end time for study",
           "Treating every long evening online as an addiction"
         ],
-        "answer": 0,
+        "answer": 2,
         "explanation": "Small planned routines, including offline time, helped protect attention, rest, and interaction."
       }
     ],
@@ -135,11 +135,11 @@
         "question": "What was the local health center trying to make easier?",
         "options": [
           "Replacing all local staff with a remote application",
-          "Making routine specialist advice available without an unnecessary long trip",
           "Moving older residents to the coastal city",
+          "Making routine specialist advice available without an unnecessary long trip",
           "Collecting health information for public social media"
         ],
-        "answer": 1,
+        "answer": 2,
         "explanation": "The first world introduces a local service designed to reduce avoidable travel for routine advice."
       },
       {
@@ -157,22 +157,22 @@
         "question": "What limitation does the passage acknowledge about telemedicine?",
         "options": [
           "It works only when every patient owns the same phone.",
-          "It cannot replace every examination or suit every village.",
           "It removes the need to protect private information.",
-          "It makes local health professionals unnecessary."
+          "It makes local health professionals unnecessary.",
+          "It cannot replace every examination or suit every village."
         ],
-        "answer": 1,
+        "answer": 3,
         "explanation": "The third world warns that online advice is not a universal substitute for in-person examination."
       },
       {
         "question": "How does the final world define meaningful digital progress?",
         "options": [
           "By the number of screens installed in a community",
-          "By how quickly a remote platform can process every request",
           "By whether residents can participate safely and with dignity",
+          "By how quickly a remote platform can process every request",
           "By replacing community services with one central system"
         ],
-        "answer": 2,
+        "answer": 1,
         "explanation": "The conclusion measures progress by safe, dignified participation and shared responsibility, not by devices alone."
       }
     ]
@@ -204,12 +204,12 @@
         {
           "question": "What did the listening experiment ask members to do?",
           "options": [
-            "Put devices away, take turns, and listen before replying",
             "Stop using every online tool for the whole semester",
+            "Put devices away, take turns, and listen before replying",
             "Write a scientific report about phone manufacturers",
             "Replace face-to-face meetings with longer messages"
           ],
-          "answer": 0,
+          "answer": 1,
           "explanation": "The club used a short device-free session with turn-taking, a follow-up question, and a summary."
         },
         {
@@ -244,44 +244,44 @@
           "question": "What did the speaker's attention diary focus on?",
           "options": [
             "Only the total price of each device",
-            "What the speaker intended to do when picking up the device",
             "How many virtual meetings the school cancelled",
-            "Which platform had the largest number of users"
+            "Which platform had the largest number of users",
+            "What the speaker intended to do when picking up the device"
           ],
-          "answer": 1,
+          "answer": 3,
           "explanation": "The speaker says the diary was useful because it recorded the intention behind each device check, not just screen hours."
         },
         {
           "question": "Why did the group set message check-in times?",
           "options": [
-            "To remove all online communication from the seminar",
             "To make it easier to protect a focused reading block",
+            "To remove all online communication from the seminar",
             "To prevent urgent calls from reaching students",
             "To increase the number of unrelated posts they saw"
           ],
-          "answer": 1,
+          "answer": 0,
           "explanation": "Scheduled check-ins left space for a focused offline block while still allowing urgent calls."
         },
         {
           "question": "What did the classmate show the group how to do?",
           "options": [
-            "Review privacy settings and check links before entering account details",
             "Delete every message before reading it",
             "Turn all virtual meetings into offline events",
+            "Review privacy settings and check links before entering account details",
             "Change the recommendation algorithm on the platform"
           ],
-          "answer": 0,
+          "answer": 2,
           "explanation": "The safety step combined a privacy review with checking a link before sharing account details."
         },
         {
           "question": "How does the speaker define balance?",
           "options": [
             "Using exactly equal amounts of online and offline time",
-            "Avoiding virtual meetings and online research",
             "Noticing habits, protecting attention, and making room for real interaction",
+            "Avoiding virtual meetings and online research",
             "Responding to every message as soon as it arrives"
           ],
-          "answer": 2,
+          "answer": 1,
           "explanation": "The conclusion defines balance as intentional attention and human connection, not a fixed time ratio."
         }
       ]
