@@ -1750,7 +1750,7 @@ export class World3D {
     const dt = Math.min(this.clock.getDelta(), 0.05);
     const t = this.clock.getElapsed();
 
-    // 帧率自适应：连续 3 s 平均低于 40 fps 则降一档像素比
+    // 帧率自适应：连续 3 s 平均低于 40 fps 时逐级降低像素比，直到达到下限
     if (!this._fpsAdapted) {
       this._fpsFrames++;
       const now = performance.now();
@@ -1763,8 +1763,10 @@ export class World3D {
           if (next < cur) {
             this.renderer.setPixelRatio(next);
             this.composer?.setPixelRatio(next);
+            this._fpsAdapted = next <= 0.75;
+          } else {
+            this._fpsAdapted = true;
           }
-          this._fpsAdapted = true;
         }
         this._fpsTs = now;
         this._fpsFrames = 0;
