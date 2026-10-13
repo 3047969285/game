@@ -141,7 +141,7 @@ export function buildUnitLandscape(biome: UnitBiome, _anchor: MapNode, worldId?:
       addOrbitCampus(environment, dark, glow, edge, isFocusedLearningWorld(worldId));
       break;
     case "exchange":
-      addCommonsExchange(environment, ground, dark, glow, edge, isFocusedLearningWorld(worldId));
+      addCommonsExchange(environment, ground, dark, glow, edge, isFocusedLearningWorld(worldId), worldId);
       break;
     default:
       addLibraryCampus(environment, ground, dark, glow, edge);
@@ -3227,21 +3227,25 @@ function addCommonsExchange(
   dark: THREE.MeshStandardMaterial,
   glow: THREE.MeshStandardMaterial,
   edge: THREE.MeshStandardMaterial,
-  focusedWorld = false
+  focusedWorld = false,
+  worldId?: string
 ): void {
   const square = new THREE.Mesh(new THREE.BoxGeometry(30, 0.55, 18), ground);
   square.position.set(0, 1.0, 38);
   root.add(square);
 
-  for (const x of [-12, 0, 12]) {
-    const stall = new THREE.Mesh(new THREE.BoxGeometry(8, 0.42, 5.5), dark);
-    stall.position.set(x, 2.0, 35);
-    root.add(stall);
-    const canopy = new THREE.Mesh(new THREE.ConeGeometry(5.7, 2.8, 4), glow);
-    canopy.position.set(x, 5.1, 35);
-    canopy.rotation.y = Math.PI / 4;
-    canopy.userData.isLandscapeBeacon = true;
-    root.add(canopy);
+  const countyLibraryStory = focusedWorld && /^section_c-world-[1-4]$/.test(worldId ?? "");
+  if (!countyLibraryStory) {
+    for (const x of [-12, 0, 12]) {
+      const stall = new THREE.Mesh(new THREE.BoxGeometry(8, 0.42, 5.5), dark);
+      stall.position.set(x, 2.0, 35);
+      root.add(stall);
+      const canopy = new THREE.Mesh(new THREE.ConeGeometry(5.7, 2.8, 4), glow);
+      canopy.position.set(x, 5.1, 35);
+      canopy.rotation.y = Math.PI / 4;
+      canopy.userData.isLandscapeBeacon = true;
+      root.add(canopy);
+    }
   }
 
   if (!focusedWorld) {
