@@ -125,7 +125,11 @@ export function buildUnitLandscape(biome: UnitBiome, _anchor: MapNode, worldId?:
       addDigitalCoast(environment, dark, glow, edge, isFocusedLearningWorld(worldId));
       break;
     case "market":
-      addLivesArchiveHarbor(environment, ground, dark, glow, edge);
+      if (biome.id === "unit02" && /^section_b-world-\d+$/.test(worldId ?? "")) {
+        addEthiopianReliefLandscape(environment, edge);
+      } else {
+        addLivesArchiveHarbor(environment, ground, dark, glow, edge);
+      }
       break;
     case "forest":
       addMemoryForest(environment, ground, glow, edge, isFocusedLearningWorld(worldId));
@@ -154,8 +158,9 @@ export function buildUnitLandscape(biome: UnitBiome, _anchor: MapNode, worldId?:
   root.add(environment);
 
   root.traverse((object) => {
-    object.castShadow = object instanceof THREE.Mesh;
-    object.receiveShadow = object instanceof THREE.Mesh && !isFocusedLearningWorld(worldId);
+    const castsLandscapeShadow = object instanceof THREE.Mesh && !object.userData.noLandscapeShadow;
+    object.castShadow = castsLandscapeShadow;
+    object.receiveShadow = castsLandscapeShadow && !isFocusedLearningWorld(worldId);
   });
   return root;
 }
@@ -3034,6 +3039,65 @@ function addLivesArchiveHarbor(
     wave.userData.isLandscapeRing = true;
     root.add(wave);
   }
+}
+
+function addEthiopianReliefLandscape(
+  root: THREE.Group,
+  edge: THREE.MeshStandardMaterial
+): void {
+  const ridge = new THREE.MeshBasicMaterial({ color: 0x9f9077, side: THREE.DoubleSide });
+  const nearRidge = new THREE.MeshBasicMaterial({ color: 0xb29a73, side: THREE.DoubleSide });
+  const earthPath = new THREE.MeshStandardMaterial({ color: 0xb5966c, roughness: 0.96, metalness: 0 });
+  const acaciaTrunk = new THREE.MeshStandardMaterial({ color: 0x66513a, roughness: 1, metalness: 0 });
+  const acaciaCanopy = new THREE.MeshStandardMaterial({ color: 0x78815a, roughness: 0.96, metalness: 0 });
+
+  const addRidge = (z: number, material: THREE.Material, scale: number): void => {
+    const shape = new THREE.Shape();
+    shape.moveTo(-82, 0);
+    shape.lineTo(-82, 8 * scale);
+    shape.quadraticCurveTo(-64, 17 * scale, -48, 10 * scale);
+    shape.quadraticCurveTo(-28, 3 * scale, -10, 12 * scale);
+    shape.quadraticCurveTo(10, 21 * scale, 29, 11 * scale);
+    shape.quadraticCurveTo(49, 3 * scale, 64, 12 * scale);
+    shape.quadraticCurveTo(74, 16 * scale, 82, 8 * scale);
+    shape.lineTo(82, 0);
+    shape.closePath();
+    const ridgeMesh = new THREE.Mesh(new THREE.ShapeGeometry(shape, 20), material);
+    ridgeMesh.position.set(0, 0.35, z);
+    ridgeMesh.userData.noLandscapeShadow = true;
+    root.add(ridgeMesh);
+  };
+  addRidge(76, ridge, 1);
+  addRidge(65, nearRidge, 0.64);
+
+  for (const [x, z, width, depth, rotation] of [
+    [-1.6, 39, 5.6, 13, 0.08],
+    [-4.3, 51, 7.5, 15, 0.2],
+    [-7.1, 64, 9.4, 16, 0.28],
+  ] as const) {
+    const track = new THREE.Mesh(new THREE.BoxGeometry(width, 0.08, depth), earthPath);
+    track.position.set(x, 0.49, z);
+    track.rotation.y = rotation;
+    track.userData.isLandscapeRoute = true;
+    root.add(track);
+  }
+
+  for (const [x, z, scale] of [[-19, 46, 1], [19, 54, 0.84], [-28, 61, 0.72]] as const) {
+    const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.32, 3.6 * scale, 7), acaciaTrunk);
+    trunk.position.set(x, 2.3 * scale, z);
+    root.add(trunk);
+
+    const canopy = new THREE.Mesh(new THREE.SphereGeometry(1, 8, 5), acaciaCanopy);
+    canopy.position.set(x, 4.1 * scale, z);
+    canopy.scale.set(2.6 * scale, 0.62 * scale, 1.7 * scale);
+    canopy.userData.isLandscapeStage = true;
+    root.add(canopy);
+  }
+
+  const routeBeacon = new THREE.Mesh(new THREE.OctahedronGeometry(0.42, 0), edge);
+  routeBeacon.position.set(-7.1, 1.1, 64);
+  routeBeacon.userData.isLandscapeBeacon = true;
+  root.add(routeBeacon);
 }
 
 function addMemoryForest(
