@@ -45,6 +45,14 @@ function normalize(raw: Record<string, unknown> | null): GameSave {
       }
     }
   }
+  const rw3MemoryProgress: GameSave["rw3MemoryProgress"] = {};
+  if (raw.rw3MemoryProgress && typeof raw.rw3MemoryProgress === "object" && !Array.isArray(raw.rw3MemoryProgress)) {
+    for (const [levelId, actions] of Object.entries(raw.rw3MemoryProgress as Record<string, unknown>)) {
+      if (!Array.isArray(actions)) continue;
+      const actionIds = [...new Set(actions.filter((id): id is string => typeof id === "string" && id.length > 0))];
+      if (actionIds.length) rw3MemoryProgress[levelId] = actionIds;
+    }
+  }
   const rawCourseId = raw.courseId;
   const courseId: CourseId =
     rawCourseId === "cet4" || rawCourseId === "cet6" || rawCourseId === "college_english_rw3"
@@ -58,6 +66,7 @@ function normalize(raw: Record<string, unknown> | null): GameSave {
     levelProgress: progress,
     rw3PhaseProgress,
     rw3PassageProgress,
+    rw3MemoryProgress,
     wordMemory,
     rewardIds: Array.isArray(raw.rewardIds) ? (raw.rewardIds as string[]) : [],
     experience: typeof raw.experience === "number" && Number.isFinite(raw.experience) ? raw.experience : 0,

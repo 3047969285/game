@@ -37,6 +37,7 @@ export class GameState {
     if (!this.save.levelProgress) this.save.levelProgress = {};
     if (!this.save.rw3PhaseProgress) this.save.rw3PhaseProgress = {};
     if (!this.save.rw3PassageProgress) this.save.rw3PassageProgress = {};
+    if (!this.save.rw3MemoryProgress) this.save.rw3MemoryProgress = {};
     if (!this.save.wordMemory) this.save.wordMemory = {};
     if (!this.save.rewardIds) this.save.rewardIds = [];
     if (!Number.isFinite(this.save.experience)) this.save.experience = 0;
@@ -85,6 +86,25 @@ export class GameState {
 
   markRw3PassageCheckpointDone(levelId: string, worldId: string): void {
     this.ensureRw3PassageProgress(levelId, worldId).checkpointDone = true;
+    this.persist();
+  }
+
+  getRw3MemoryDoneIds(levelId: string): string[] {
+    return [...(this.save.rw3MemoryProgress[levelId] ?? [])];
+  }
+
+  setRw3MemoryAction(levelId: string, actionId: string, done: boolean): void {
+    const actions = new Set(this.save.rw3MemoryProgress[levelId] ?? []);
+    if (done) actions.add(actionId);
+    else actions.delete(actionId);
+    if (actions.size) this.save.rw3MemoryProgress[levelId] = [...actions];
+    else delete this.save.rw3MemoryProgress[levelId];
+    this.persist();
+  }
+
+  clearRw3MemoryProgress(levelId: string): void {
+    if (!(levelId in this.save.rw3MemoryProgress)) return;
+    delete this.save.rw3MemoryProgress[levelId];
     this.persist();
   }
 

@@ -2317,11 +2317,19 @@ export class App {
     phaseNo: number,
     totalPhases: number
   ): void {
+    const memoryProgressId = this.scene?.levelId;
     const ids = [
       ...phase.memoryRoute.map((_, index) => `route-${index}`),
       ...phase.methods.map((method) => `method-${method.id}`),
     ];
-    const done = ids.every((id) => this.rw3MemoryDone.has(id));
+    if (memoryProgressId) {
+      const validIds = new Set(ids);
+      this.rw3MemoryDone = new Set(
+        this.state.getRw3MemoryDoneIds(memoryProgressId).filter((id) => validIds.has(id))
+      );
+    }
+    const completedCount = ids.filter((id) => this.rw3MemoryDone.has(id)).length;
+    const done = completedCount === ids.length;
 
     screen.innerHTML = `
       <div class="card scene-header memory-header">
@@ -2335,8 +2343,8 @@ export class App {
         </section>
         <div class="memory-anchor"><span class="memory-anchor-label">本单元总锚点</span><strong>${phase.memoryAnchor}</strong></div>
         <p class="memory-prompt">${phase.recallPrompt}</p>
-        <div class="discover-bar"><div class="discover-fill" id="memory-progress-fill" style="width:${ids.length ? (this.rw3MemoryDone.size / ids.length) * 100 : 100}%"></div></div>
-        <div class="discover-label">记忆动作 <strong id="memory-progress-label">${this.rw3MemoryDone.size}/${ids.length}</strong></div>
+        <div class="discover-bar"><div class="discover-fill" id="memory-progress-fill" style="width:${ids.length ? (completedCount / ids.length) * 100 : 100}%"></div></div>
+        <div class="discover-label">记忆动作 <strong id="memory-progress-label">${completedCount}/${ids.length}</strong></div>
       </div>
       <div class="card memory-route-card">
         <div class="memory-section-label">记忆宫殿路线 · 从空间找回词义</div>
@@ -2361,7 +2369,7 @@ export class App {
     `;
 
     const refresh = () => {
-      const count = this.rw3MemoryDone.size;
+      const count = ids.filter((id) => this.rw3MemoryDone.has(id)).length;
       const fill = screen.querySelector("#memory-progress-fill") as HTMLElement | null;
       const label = screen.querySelector("#memory-progress-label");
       if (fill) fill.style.width = `${ids.length ? (count / ids.length) * 100 : 100}%`;
@@ -2379,6 +2387,7 @@ export class App {
         if (!id) return;
         if (input.checked) this.rw3MemoryDone.add(id);
         else this.rw3MemoryDone.delete(id);
+        if (memoryProgressId) this.state.setRw3MemoryAction(memoryProgressId, id, input.checked);
         refresh();
       });
     });
@@ -2840,6 +2849,16 @@ export class App {
     } else {
       const completionId = this.scene.levelId;
       if (this.scene.rw3Phases?.length) this.state.clearRw3PhaseIndex(completionId);
+      const currentPhase = this.scene.rw3Phases?.[this.rw3PhaseIndex];
+      if (currentPhase?.kind === "memory") {
+        const required = [
+          ...currentPhase.memoryRoute.map((_, index) => `route-${index}`),
+          ...currentPhase.methods.map((method) => `method-${method.id}`),
+        ];
+        if (required.every((id) => this.rw3MemoryDone.has(id))) {
+          this.state.clearRw3MemoryProgress(completionId);
+        }
+      }
       const isRw3SubWorld = this.state.save.courseId === "college_english_rw3" && Boolean(this.scene.worldId && this.scene.worldId !== "hub");
       const unitId = this.scene.unitId;
       const completesRw3Unit = isRw3SubWorld && this.scene.worldId === "unit-project" && Boolean(unitId);

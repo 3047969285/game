@@ -347,6 +347,7 @@ export interface GameSave {
   levelProgress: Record<string, LevelProgress>;
   rw3PhaseProgress: Record<string, number>;
   rw3PassageProgress: Record<string, Record<string, Rw3PassageProgress>>;
+  rw3MemoryProgress: Record<string, string[]>;
   mapNodeId: string;
   discoveredWords: string[];
   wordMemory: Record<string, WordMemory>;

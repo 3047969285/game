@@ -8,6 +8,7 @@ export function createDefaultSave(): GameSave {
     levelProgress: {},
     rw3PhaseProgress: {},
     rw3PassageProgress: {},
+    rw3MemoryProgress: {},
     mapNodeId: "",
     discoveredWords: [],
     wordMemory: {},
