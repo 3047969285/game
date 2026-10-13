@@ -1618,6 +1618,18 @@ body {
 .memory-anchor-label { color: rgba(255,255,255,0.45); font-size: 0.68rem; }
 .memory-anchor strong { color: #e9d5ff; font-weight: 600; }
 .memory-prompt { color: rgba(255,255,255,0.7); line-height: 1.65; margin: 8px 0; }
+.rw3-story-beat,
+.rw3-story-ending {
+  border: 1px solid rgba(251,191,36,0.2);
+  border-radius: 12px;
+  background: linear-gradient(120deg, rgba(120,73,18,0.16), rgba(15,23,42,0.16));
+}
+.rw3-story-beat { padding: 10px 12px; margin: 12px 0; }
+.rw3-story-ending { padding: 14px 16px; border-color: rgba(250,204,21,0.3); }
+.rw3-story-ending[hidden] { display: none; }
+.rw3-story-beat-label { color: #fcd34d; font-size: 0.68rem; letter-spacing: 0.1em; }
+.rw3-story-beat p,
+.rw3-story-ending p { color: rgba(255,255,255,0.82); line-height: 1.7; margin: 5px 0 0; }
 .memory-route-list,
 .method-list { display: grid; gap: 8px; }
 .memory-check,

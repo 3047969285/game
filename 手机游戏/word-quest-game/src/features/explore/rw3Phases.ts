@@ -353,6 +353,8 @@ export function buildRw3Phases(
       label: "记忆远征",
       title: `${world.worldName} · 记忆远征`,
       mentor: world.mentor,
+      turningPoint: world.turningPoint,
+      ending: world.ending,
       methods: world.methods,
       memoryAnchor: world.memoryAnchor,
       memoryRoute: world.memoryRoute,

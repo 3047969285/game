@@ -2329,6 +2329,10 @@ export class App {
         ${this.rw3StepperHtml()}
         <div class="title" style="font-size:1.1rem">🧠 ${phase.title}</div>
         <p class="learn-steps">导师 ${phase.mentor} · 不靠重复浏览，靠线索把知识从记忆里重新取出来。</p>
+        <section class="rw3-story-beat" aria-labelledby="rw3-turning-point-title">
+          <div class="rw3-story-beat-label" id="rw3-turning-point-title">故事转折 · 现在作出判断</div>
+          <p>${phase.turningPoint}</p>
+        </section>
         <div class="memory-anchor"><span class="memory-anchor-label">本单元总锚点</span><strong>${phase.memoryAnchor}</strong></div>
         <p class="memory-prompt">${phase.recallPrompt}</p>
         <div class="discover-bar"><div class="discover-fill" id="memory-progress-fill" style="width:${ids.length ? (this.rw3MemoryDone.size / ids.length) * 100 : 100}%"></div></div>
@@ -2346,6 +2350,10 @@ export class App {
           ${phase.methods.map((method) => `<label class="method-check"><input type="checkbox" data-memory-id="method-${method.id}" ${this.rw3MemoryDone.has(`method-${method.id}`) ? "checked" : ""}/><span><strong>${method.title}</strong><em>${method.principle}</em><small>现在执行：${method.action}</small><b>方法收益：${method.reward}</b></span></label>`).join("")}
         </div>
       </div>
+      <section class="card rw3-story-ending" id="rw3-story-ending" aria-labelledby="rw3-story-ending-title" ${done ? "" : "hidden"}>
+        <div class="rw3-story-beat-label" id="rw3-story-ending-title">幕终 · 记忆路线已完成</div>
+        <p>${phase.ending}</p>
+      </section>
       <div class="scene-actions">
         <button class="btn btn-ghost" id="btn-back-map" type="button">返回地图</button>
         <button class="btn btn-primary" id="btn-rw3-next" type="button" ${done ? "" : "disabled"}>🎉 完成本单元</button>
@@ -2359,7 +2367,10 @@ export class App {
       if (fill) fill.style.width = `${ids.length ? (count / ids.length) * 100 : 100}%`;
       if (label) label.textContent = `${count}/${ids.length}`;
       const finish = screen.querySelector("#btn-rw3-next") as HTMLButtonElement | null;
-      if (finish) finish.disabled = !ids.every((id) => this.rw3MemoryDone.has(id));
+      const complete = ids.every((id) => this.rw3MemoryDone.has(id));
+      if (finish) finish.disabled = !complete;
+      const ending = screen.querySelector("#rw3-story-ending") as HTMLElement | null;
+      if (ending) ending.hidden = !complete;
     };
 
     screen.querySelectorAll<HTMLInputElement>("[data-memory-id]").forEach((input) => {

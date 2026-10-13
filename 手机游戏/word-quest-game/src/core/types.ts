@@ -287,6 +287,8 @@ export type Rw3Phase =
       label: string;
       title: string;
       mentor: string;
+      turningPoint: string;
+      ending: string;
       methods: MethodStep[];
       memoryAnchor: string;
       memoryRoute: MemoryRouteStop[];
