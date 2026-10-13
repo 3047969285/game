@@ -84,6 +84,13 @@ export interface LevelProgress {
   cleared: boolean;
 }
 
+/** 读写3 文章微世界的未完成学习进度。 */
+export interface Rw3PassageProgress {
+  gradedWordIds: string[];
+  recallDone: boolean;
+  checkpointDone: boolean;
+}
+
 /** 地图探索节点 */
 export interface MapNode {
   id: string;
@@ -337,6 +344,7 @@ export interface GameSave {
   courseId: CourseId;
   levelProgress: Record<string, LevelProgress>;
   rw3PhaseProgress: Record<string, number>;
+  rw3PassageProgress: Record<string, Record<string, Rw3PassageProgress>>;
   mapNodeId: string;
   discoveredWords: string[];
   wordMemory: Record<string, WordMemory>;

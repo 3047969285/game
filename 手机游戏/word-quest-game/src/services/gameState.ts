@@ -1,4 +1,4 @@
-import type { CourseId, GameSave, WordMemory } from "../core/types";
+import type { CourseId, GameSave, Rw3PassageProgress, WordMemory } from "../core/types";
 import { createDefaultSave } from "../core/save";
 import { loadSave, writeSave } from "../infra/storage";
 import { createWordMemory, isDue, isLearned, scheduleReview } from "./srs";
@@ -36,6 +36,7 @@ export class GameState {
     if (!this.save.mapNodeId) this.save.mapNodeId = "";
     if (!this.save.levelProgress) this.save.levelProgress = {};
     if (!this.save.rw3PhaseProgress) this.save.rw3PhaseProgress = {};
+    if (!this.save.rw3PassageProgress) this.save.rw3PassageProgress = {};
     if (!this.save.wordMemory) this.save.wordMemory = {};
     if (!this.save.rewardIds) this.save.rewardIds = [];
     if (!Number.isFinite(this.save.experience)) this.save.experience = 0;
@@ -56,13 +57,45 @@ export class GameState {
    * 回忆自评并更新间隔重复
    * quality: 1=忘记 3=模糊 4=记住 5=秒懂
    */
-  gradeWord(wordId: string, quality: number): void {
+  gradeWord(wordId: string, quality: number, passage?: { levelId: string; worldId: string }): void {
     const next = scheduleReview(this.getMemory(wordId), quality);
     this.save.wordMemory[wordId] = next;
     if (quality >= 3 && !this.save.discoveredWords.includes(wordId)) {
       this.save.discoveredWords.push(wordId);
     }
+    if (passage) {
+      const progress = this.ensureRw3PassageProgress(passage.levelId, passage.worldId);
+      if (!progress.gradedWordIds.includes(wordId)) progress.gradedWordIds.push(wordId);
+    }
     this.persist();
+  }
+
+  getRw3PassageProgress(levelId: string, worldId: string): Rw3PassageProgress {
+    return this.save.rw3PassageProgress[levelId]?.[worldId] ?? {
+      gradedWordIds: [],
+      recallDone: false,
+      checkpointDone: false,
+    };
+  }
+
+  markRw3PassageRecallDone(levelId: string, worldId: string): void {
+    this.ensureRw3PassageProgress(levelId, worldId).recallDone = true;
+    this.persist();
+  }
+
+  markRw3PassageCheckpointDone(levelId: string, worldId: string): void {
+    this.ensureRw3PassageProgress(levelId, worldId).checkpointDone = true;
+    this.persist();
+  }
+
+  private ensureRw3PassageProgress(levelId: string, worldId: string): Rw3PassageProgress {
+    this.save.rw3PassageProgress[levelId] ??= {};
+    this.save.rw3PassageProgress[levelId][worldId] ??= {
+      gradedWordIds: [],
+      recallDone: false,
+      checkpointDone: false,
+    };
+    return this.save.rw3PassageProgress[levelId][worldId];
   }
 
   /** 完成关卡 */
@@ -79,6 +112,17 @@ export class GameState {
 
   setRw3PhaseIndex(levelId: string, index: number): void {
     this.save.rw3PhaseProgress[levelId] = Math.max(0, Math.floor(index));
+    this.persist();
+  }
+
+  advanceRw3Phase(levelId: string, index: number, completedWorldId?: string): void {
+    this.save.rw3PhaseProgress[levelId] = Math.max(0, Math.floor(index));
+    if (completedWorldId && this.save.rw3PassageProgress[levelId]) {
+      delete this.save.rw3PassageProgress[levelId][completedWorldId];
+      if (!Object.keys(this.save.rw3PassageProgress[levelId]).length) {
+        delete this.save.rw3PassageProgress[levelId];
+      }
+    }
     this.persist();
   }
 

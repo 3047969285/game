@@ -1683,17 +1683,22 @@ export class App {
       ? (this.scene?.rw3Phases ?? []).filter((candidate) => candidate.kind === phase.kind)
       : [];
     const currentWorldId = phase.kind === "vocab" ? undefined : phase.worldId;
+    const passageProgress = currentWorldId && this.scene
+      ? this.state.getRw3PassageProgress(this.scene.levelId, currentWorldId)
+      : undefined;
+    const isWordGraded = (wordId: string): boolean =>
+      this.sessionGraded.has(wordId) || Boolean(passageProgress?.gradedWordIds.includes(wordId));
     const articlePartIndex = currentWorldId
       ? Math.max(0, articlePhases.findIndex((candidate) => "worldId" in candidate && candidate.worldId === currentWorldId)) + 1
       : 0;
-    const graded = phase.words.filter((w) => this.sessionGraded.has(w.id)).length;
+    const graded = phase.words.filter((w) => isWordGraded(w.id)).length;
     const total = phase.words.length;
     const passageWorld = phase.kind === "vocab" ? null : phase;
     const recallRequired = Boolean(passageWorld?.worldId && passageWorld.recallPrompt);
-    const recallDone = !recallRequired || this.rw3WorldRecallDone.has(passageWorld!.worldId!);
+    const recallDone = !recallRequired || this.rw3WorldRecallDone.has(passageWorld!.worldId!) || Boolean(passageProgress?.recallDone);
     const checkpoint = passageWorld?.checkpoint;
     const checkpointRequired = Boolean(passageWorld?.worldId && checkpoint);
-    const checkpointDone = !checkpointRequired || this.rw3WorldCheckCorrect.has(passageWorld!.worldId!);
+    const checkpointDone = !checkpointRequired || this.rw3WorldCheckCorrect.has(passageWorld!.worldId!) || Boolean(passageProgress?.checkpointDone);
     const done = graded >= total && recallDone && checkpointDone;
     const taskTotal = total + (recallRequired ? 1 : 0) + (checkpointRequired ? 1 : 0);
     const taskDone = graded + (recallRequired && recallDone ? 1 : 0) + (checkpointRequired && checkpointDone ? 1 : 0);
@@ -1733,7 +1738,7 @@ export class App {
           <div class="word-chips" id="word-chips">
             ${phase.words
               .map((w) => {
-                const g = this.sessionGraded.has(w.id);
+                const g = isWordGraded(w.id);
                 const active = this.selectedWordId === w.id;
                 return `<button type="button" class="word-chip${g ? " done" : ""}${active ? " active" : ""}" data-wid="${w.id}" title="${w.meaning}">${w.word}</button>`;
               })
@@ -1788,7 +1793,7 @@ export class App {
           paragraph.append(seg.content);
           continue;
         }
-        const g = this.sessionGraded.has(seg.wordId!);
+        const g = isWordGraded(seg.wordId!);
         const btn = el("button", `ctx-word${g ? " discovered" : ""}${this.selectedWordId === seg.wordId ? " active" : ""}`);
         btn.type = "button";
         btn.textContent = seg.content;
@@ -1809,6 +1814,7 @@ export class App {
     screen.querySelector("#btn-rw3-recall")?.addEventListener("click", () => {
       if (!passageWorld?.worldId) return;
       this.rw3WorldRecallDone.add(passageWorld.worldId);
+      if (this.scene) this.state.markRw3PassageRecallDone(this.scene.levelId, passageWorld.worldId);
       audio.play("win");
       this.renderScene();
     });
@@ -1816,7 +1822,7 @@ export class App {
       const choices = screen.querySelector("#passage-checkpoint-choices");
       if (choices) {
         checkpoint.options.forEach((option, index) => {
-          const button = el("button", `passage-checkpoint-choice${checkpointDone ? " correct" : ""}`);
+          const button = el("button", `passage-checkpoint-choice${checkpointDone && index === checkpoint.answer ? " correct" : ""}`);
           button.type = "button";
           button.textContent = option;
           button.disabled = checkpointDone;
@@ -1847,6 +1853,7 @@ export class App {
     if (choiceIndex === checkpoint.answer) {
       button.classList.add("correct");
       this.rw3WorldCheckCorrect.add(phase.worldId);
+      if (this.scene) this.state.markRw3PassageCheckpointDone(this.scene.levelId, phase.worldId);
       audio.play("win");
       if (feedback) feedback.textContent = checkpoint.explanation ?? "理解正确。你已经抓住了这一段的关键关系。";
       setTimeout(() => this.renderScene(), 700);
@@ -2476,8 +2483,15 @@ export class App {
     const phases = this.scene?.rw3Phases;
     if (!phases) return;
     if (this.rw3PhaseIndex < phases.length - 1) {
+      const completedPhase = phases[this.rw3PhaseIndex];
       this.rw3PhaseIndex += 1;
-      if (this.scene) this.state.setRw3PhaseIndex(this.scene.levelId, this.rw3PhaseIndex);
+      if (this.scene) {
+        const completedWorldId = completedPhase &&
+          (completedPhase.kind === "section_a" || completedPhase.kind === "section_b" || completedPhase.kind === "section_c")
+          ? completedPhase.worldId
+          : undefined;
+        this.state.advanceRw3Phase(this.scene.levelId, this.rw3PhaseIndex, completedWorldId);
+      }
       this.rw3QuizIndex = 0;
       this.rw3QuizCorrect = new Set();
       this.rw3WorldRecallDone = new Set();
@@ -2787,7 +2801,15 @@ export class App {
     panel.querySelectorAll(".grade-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         const q = Number((btn as HTMLElement).dataset.q);
-        this.state.gradeWord(wordId, q);
+        const activePhase = this.scene?.rw3Phases?.[this.rw3PhaseIndex];
+        const articlePhase = activePhase &&
+          (activePhase.kind === "section_a" || activePhase.kind === "section_b" || activePhase.kind === "section_c")
+          ? activePhase
+          : undefined;
+        const passage = articlePhase?.worldId && this.scene
+          ? { levelId: this.scene.levelId, worldId: articlePhase.worldId }
+          : undefined;
+        this.state.gradeWord(wordId, q, passage);
         this.sessionGraded.add(wordId);
         this.selectedWordId = null;
         this.answerRevealed = false;
