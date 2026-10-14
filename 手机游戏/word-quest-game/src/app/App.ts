@@ -1752,7 +1752,8 @@ export class App {
           <div class="passage-checkpoint-label">理解校准 · ${checkpointDone ? "已通过" : "回到段落，找到支持答案的证据"}</div>
           <p>${checkpoint.question}</p>
           <div class="passage-checkpoint-choices" id="passage-checkpoint-choices"></div>
-          <p class="passage-checkpoint-feedback" id="passage-checkpoint-feedback"></p>
+          <p class="passage-checkpoint-feedback" id="passage-checkpoint-feedback" role="status" aria-live="polite"></p>
+          <button class="btn btn-ghost" id="btn-checkpoint-continue" type="button" hidden>读完解析并继续</button>
         </div>
       ` : ""}
       ${passageWorld?.recallPrompt ? `
@@ -1830,6 +1831,12 @@ export class App {
           choices.appendChild(button);
         });
       }
+      screen.querySelector("#btn-checkpoint-continue")?.addEventListener("click", () => {
+        if (passageWorld?.worldId && this.scene) {
+          this.state.markRw3PassageCheckpointDone(this.scene.levelId, passageWorld.worldId);
+        }
+        this.renderScene();
+      });
     }
     screen.querySelector("#btn-back-map")?.addEventListener("click", () => this.returnToMapFromScene());
     screen.querySelector("#btn-rw3-next")?.addEventListener("click", () => {
@@ -1846,22 +1853,26 @@ export class App {
     const checkpoint = phase.checkpoint;
     if (!checkpoint || !phase.worldId) return;
     const feedback = this.root.querySelector("#passage-checkpoint-feedback");
-    this.root.querySelectorAll("#passage-checkpoint-choices .passage-checkpoint-choice").forEach((choice) => {
-      (choice as HTMLButtonElement).disabled = true;
-    });
 
     if (choiceIndex === checkpoint.answer) {
+      this.root.querySelectorAll("#passage-checkpoint-choices .passage-checkpoint-choice").forEach((choice) => {
+        (choice as HTMLButtonElement).disabled = true;
+      });
       button.classList.add("correct");
       this.rw3WorldCheckCorrect.add(phase.worldId);
-      if (this.scene) this.state.markRw3PassageCheckpointDone(this.scene.levelId, phase.worldId);
       audio.play("win");
       if (feedback) feedback.textContent = checkpoint.explanation ?? "理解正确。你已经抓住了这一段的关键关系。";
-      setTimeout(() => this.renderScene(), 700);
+      const continueButton = this.root.querySelector<HTMLButtonElement>("#btn-checkpoint-continue");
+      if (continueButton) {
+        continueButton.hidden = false;
+        continueButton.focus();
+      }
     } else {
       button.classList.add("wrong");
+      button.disabled = true;
       audio.play("click");
-      if (feedback) feedback.textContent = `再回到段落找证据。正确选项：${checkpoint.options[checkpoint.answer]}。${checkpoint.explanation ?? ""}`;
-      setTimeout(() => this.renderScene(), 1100);
+      this.root.querySelector<HTMLButtonElement>("#passage-checkpoint-choices .passage-checkpoint-choice:not(:disabled)")?.focus();
+      if (feedback) feedback.textContent = "未命中。回到上方段落，找出能支持判断的句子，再试另一个选项；答对后会显示解析。";
     }
   }
 
@@ -1872,8 +1883,8 @@ export class App {
     phaseNo: number,
     totalPhases: number
   ): void {
-    const q = phase.questions[this.rw3GrammarIndex];
     const done = this.rw3GrammarCorrect.size >= phase.questions.length;
+    const q = done ? undefined : phase.questions[this.rw3GrammarIndex];
     const pointCards = phase.points
       .map(
         (point, index) => `
@@ -1903,7 +1914,7 @@ export class App {
         ${pointCards}
       </div>
       <div class="card quiz-card grammar-quiz-card" id="grammar-quiz-card">
-        ${q ? `<div class="grammar-quiz-meta">应用题 ${this.rw3GrammarIndex + 1}/${phase.questions.length}</div><p class="quiz-q">${q.question}</p><div class="quiz-choices" id="grammar-choices"></div><p class="quiz-feedback" id="grammar-feedback"></p>` : `<p class="grammar-complete">本单元语法已经完成。把句型带进下一段阅读或写作。</p>`}
+        ${q ? `<div class="grammar-quiz-meta">应用题 ${this.rw3GrammarIndex + 1}/${phase.questions.length}</div><p class="quiz-q">${q.question}</p><div class="quiz-choices" id="grammar-choices"></div><p class="quiz-feedback" id="grammar-feedback" role="status" aria-live="polite"></p><button class="btn btn-ghost" id="btn-grammar-continue" type="button" hidden>看懂解析，继续</button>` : `<p class="grammar-complete">本单元语法已经完成。把句型带进下一段阅读或写作。</p>`}
       </div>
       <div class="scene-actions">
         <button class="btn btn-ghost" id="btn-back-map" type="button">返回地图</button>
@@ -1919,6 +1930,10 @@ export class App {
         btn.textContent = option;
         btn.addEventListener("click", () => this.onRw3GrammarAnswer(phase, index, btn));
         choices.appendChild(btn);
+      });
+      screen.querySelector<HTMLButtonElement>("#btn-grammar-continue")?.addEventListener("click", () => {
+        if (this.rw3GrammarIndex < phase.questions.length - 1) this.rw3GrammarIndex += 1;
+        this.renderScene();
       });
     }
 
@@ -1937,26 +1952,26 @@ export class App {
     const feedback = this.root.querySelector("#grammar-feedback");
     if (!q) return;
 
-    this.root.querySelectorAll("#grammar-choices .quiz-choice").forEach((b) => {
-      (b as HTMLButtonElement).disabled = true;
-    });
-
     if (choiceIndex === q.answer) {
+      this.root.querySelectorAll("#grammar-choices .quiz-choice").forEach((b) => {
+        (b as HTMLButtonElement).disabled = true;
+      });
       btn.classList.add("correct");
       this.rw3GrammarCorrect.add(this.rw3GrammarIndex);
       audio.play("win");
       if (feedback) feedback.textContent = q.explanation ?? "正确！你已经把句型放进语境。";
-      setTimeout(() => {
-        if (this.rw3GrammarIndex < phase.questions.length - 1) {
-          this.rw3GrammarIndex += 1;
-        }
-        this.renderScene();
-      }, 700);
+      const continueButton = this.root.querySelector<HTMLButtonElement>("#btn-grammar-continue");
+      if (continueButton) {
+        continueButton.textContent = this.rw3GrammarIndex < phase.questions.length - 1 ? "看懂解析，下一题" : "看懂解析，完成语法";
+        continueButton.hidden = false;
+        continueButton.focus();
+      }
     } else {
       btn.classList.add("wrong");
+      btn.disabled = true;
       audio.play("click");
-      if (feedback) feedback.textContent = `再试一次。正确选项：${q.options[q.answer]}。${q.explanation ?? ""}`;
-      setTimeout(() => this.renderScene(), 1100);
+      this.root.querySelector<HTMLButtonElement>("#grammar-choices .quiz-choice:not(:disabled)")?.focus();
+      if (feedback) feedback.textContent = "未命中。回看上方句法规则，用结构排除已选项后再试；答对后会显示解析。";
     }
   }
 
@@ -1967,8 +1982,8 @@ export class App {
     totalPhases: number
   ): void {
     const questions = phase.questions;
-    const q = questions[this.rw3QuizIndex];
     const quizDone = this.rw3QuizCorrect.size >= questions.length;
+    const q = quizDone ? undefined : questions[this.rw3QuizIndex];
 
     screen.innerHTML = `
       <div class="card scene-header">
@@ -2067,13 +2082,16 @@ export class App {
       }
     }
 
+    const card = screen.querySelector("#quiz-card")!;
+    card.innerHTML = q
+      ? `
+          <p class="quiz-q">${q.question}</p>
+          <div class="quiz-choices" id="quiz-choices"></div>
+          <p class="quiz-feedback" id="quiz-feedback" role="status" aria-live="polite"></p>
+          <button class="btn btn-ghost" id="btn-quiz-continue" type="button" hidden>看懂解析，继续</button>
+        `
+      : `<p class="grammar-complete">本阶段题目已全部答对，可以进入下一阶段。</p>`;
     if (q) {
-      const card = screen.querySelector("#quiz-card")!;
-      card.innerHTML = `
-        <p class="quiz-q">${q.question}</p>
-        <div class="quiz-choices" id="quiz-choices"></div>
-        <p class="quiz-feedback" id="quiz-feedback"></p>
-      `;
       const choices = card.querySelector("#quiz-choices")!;
       for (let i = 0; i < q.options.length; i++) {
         const btn = el("button", "quiz-choice");
@@ -2082,6 +2100,10 @@ export class App {
         btn.addEventListener("click", () => this.onRw3QuizAnswer(phase, i, btn));
         choices.appendChild(btn);
       }
+      card.querySelector<HTMLButtonElement>("#btn-quiz-continue")?.addEventListener("click", () => {
+        if (this.rw3QuizIndex < phase.questions.length - 1) this.rw3QuizIndex += 1;
+        this.renderScene();
+      });
     }
 
     screen.querySelector("#btn-back-map")?.addEventListener("click", () => this.returnToMapFromScene());
@@ -2101,29 +2123,26 @@ export class App {
     const feedback = this.root.querySelector("#quiz-feedback");
     if (!q) return;
 
-    this.root.querySelectorAll(".quiz-choice").forEach((b) => {
-      (b as HTMLButtonElement).disabled = true;
-    });
-
     if (choiceIndex === q.answer) {
+      this.root.querySelectorAll("#quiz-choices .quiz-choice").forEach((b) => {
+        (b as HTMLButtonElement).disabled = true;
+      });
       btn.classList.add("correct");
       this.rw3QuizCorrect.add(this.rw3QuizIndex);
       audio.play("win");
       if (feedback) feedback.textContent = q.explanation ?? "正确！";
-      setTimeout(() => {
-        if (this.rw3QuizIndex < phase.questions.length - 1) {
-          this.rw3QuizIndex += 1;
-          this.renderScene();
-        } else {
-          this.renderScene();
-        }
-      }, 700);
+      const continueButton = this.root.querySelector<HTMLButtonElement>("#btn-quiz-continue");
+      if (continueButton) {
+        continueButton.textContent = this.rw3QuizIndex < phase.questions.length - 1 ? "看懂解析，下一题" : "看懂解析，完成本阶段";
+        continueButton.hidden = false;
+        continueButton.focus();
+      }
     } else {
       btn.classList.add("wrong");
+      btn.disabled = true;
       audio.play("click");
-      const correct = q.options[q.answer];
-      if (feedback) feedback.textContent = `再想想。参考答案：${correct}。${q.explanation ?? ""}`;
-      setTimeout(() => this.renderScene(), 1100);
+      this.root.querySelector<HTMLButtonElement>("#quiz-choices .quiz-choice:not(:disabled)")?.focus();
+      if (feedback) feedback.textContent = "未命中。根据记住的信息或上方原文定位证据，排除已选项后再试；答对后会显示解析。";
     }
   }
 
@@ -2133,10 +2152,10 @@ export class App {
     phaseNo: number,
     totalPhases: number
   ): void {
-    const item = phase.items[this.rw3ClozeIndex];
     const total = phase.items.length;
     const done = this.rw3ClozeDone.size;
     const allDone = done >= total;
+    const item = allDone ? undefined : phase.items[this.rw3ClozeIndex];
     const batchTotal = Math.ceil(total / CLOZE_BATCH);
     const batchNow = Math.floor(this.rw3ClozeIndex / CLOZE_BATCH) + 1;
 
@@ -2161,7 +2180,8 @@ export class App {
         <p class="cloze-word-hint">${item.word}</p>
         <p class="cloze-sentence en-clue">${item.sentence}</p>
         <div class="cloze-choices" id="cloze-choices"></div>
-        <p class="cloze-feedback" id="cloze-feedback"></p>
+        <p class="cloze-feedback" id="cloze-feedback" role="status" aria-live="polite"></p>
+        <button class="btn btn-ghost" id="btn-cloze-continue" type="button" hidden>看懂解析，继续</button>
       `;
       const choices = card.querySelector("#cloze-choices")!;
       for (const choice of item.choices) {
@@ -2171,6 +2191,12 @@ export class App {
         btn.addEventListener("click", () => this.onRw3ClozeAnswer(item, choice, btn));
         choices.appendChild(btn);
       }
+      card.querySelector<HTMLButtonElement>("#btn-cloze-continue")?.addEventListener("click", () => {
+        if (this.rw3ClozeIndex < phase.items.length - 1) this.rw3ClozeIndex += 1;
+        this.renderScene();
+      });
+    } else {
+      screen.querySelector("#cloze-card")!.innerHTML = `<p class="grammar-complete">本阶段填空已全部完成，可以进入下一阶段。</p>`;
     }
 
     screen.querySelector("#btn-back-map")?.addEventListener("click", () => this.returnToMapFromScene());
@@ -2183,30 +2209,30 @@ export class App {
   private onRw3ClozeAnswer(item: ClozeItem, choice: string, btn: HTMLButtonElement): void {
     const feedback = this.root.querySelector("#cloze-feedback");
     const correct = normalizeClozeAnswer(choice) === normalizeClozeAnswer(item.answer);
-    this.root.querySelectorAll(".cloze-choice").forEach((b) => {
-      (b as HTMLButtonElement).disabled = true;
-    });
     if (correct) {
+      this.root.querySelectorAll("#cloze-choices .cloze-choice").forEach((b) => {
+        (b as HTMLButtonElement).disabled = true;
+      });
       btn.classList.add("correct");
       this.rw3ClozeDone.add(item.wordId);
       audio.play("win");
-      if (feedback) feedback.textContent = "正确！";
-      setTimeout(() => {
-        const cp = this.scene?.rw3Phases?.[this.rw3PhaseIndex];
-        if (cp?.kind === "cloze" && this.rw3ClozeIndex < cp.items.length - 1) {
-          this.rw3ClozeIndex += 1;
-        }
-        this.renderScene();
-      }, 650);
+      if (feedback) feedback.textContent = "正确。请把这个词放回句意中复述一遍，再继续下一题。";
+      const continueButton = this.root.querySelector<HTMLButtonElement>("#btn-cloze-continue");
+      if (continueButton) {
+        continueButton.textContent = "理解句意，继续";
+        continueButton.hidden = false;
+        continueButton.focus();
+      }
     } else {
       btn.classList.add("wrong");
+      btn.disabled = true;
       audio.play("click");
+      this.root.querySelector<HTMLButtonElement>("#cloze-choices .cloze-choice:not(:disabled)")?.focus();
       if (!this.clozeWrongGraded.has(item.wordId)) {
         this.state.gradeWord(item.wordId, 2);
         this.clozeWrongGraded.add(item.wordId);
       }
-      if (feedback) feedback.textContent = `正确释义：${item.answer}`;
-      setTimeout(() => this.renderScene(), 1100);
+      if (feedback) feedback.textContent = "还不匹配。回到句中线索，排除已选项后再试；这次错误已安排更早复习。";
     }
   }
 
