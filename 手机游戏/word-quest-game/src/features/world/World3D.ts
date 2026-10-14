@@ -286,6 +286,9 @@ export class World3D {
   resume(): void {
     if (!this.paused) return;
     this.paused = false;
+    // 暂停时长不是渲染卡顿；恢复后重新计时，避免首帧把整段学习时间误判为低 FPS。
+    this._fpsTs = 0;
+    this._fpsFrames = 0;
     this.player.setEnabled(!this.spectatorMode);
     this.onResize();
     if (!this.animId) this.animate();
