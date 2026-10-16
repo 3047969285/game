@@ -23,10 +23,22 @@ function local(base: { x: number; z: number; ry: number }, lx: number, ly: numbe
  * 四根带灯笼的石柱、石砌门楼（藤蔓 + 吊灯）、长椅与花坛。
  * 发光件（光球、环）保持独立网格，供外部动画驱动。
  */
-export function buildUnit1Sanctuary(glow: THREE.MeshStandardMaterial, edge: THREE.MeshStandardMaterial): THREE.Group {
+export interface SanctuaryStyle {
+  /** 石材向主题色偏移的颜色 */
+  tint?: number;
+  /** 是否有藤蔓与花坛（星际单元关闭） */
+  greenery?: boolean;
+}
+
+export function buildUnit1Sanctuary(glow: THREE.MeshStandardMaterial, edge: THREE.MeshStandardMaterial, style: SanctuaryStyle = {}): THREE.Group {
   const root = new THREE.Group();
   root.name = "unit1-sanctuary";
   const m = createKitMaterials();
+  const greenery = style.greenery ?? true;
+  if (style.tint !== undefined) {
+    const tint = new THREE.Color(style.tint);
+    for (const key of ["stone", "stoneWarm", "stoneDark", "paveA", "paveB"] as const) m[key].color.lerp(tint, 0.16);
+  }
   const kit = new MergedBuilder();
   const rand = rng(1701);
 
@@ -132,13 +144,13 @@ export function buildUnit1Sanctuary(glow: THREE.MeshStandardMaterial, edge: THRE
   const addLeaf = (x: number, y: number, z: number, s: number): void => {
     kit.add(leafGeo, rand() > 0.5 ? m.leaf : m.leafLight, { x, y, z, sx: s, sy: s * 0.85, sz: s });
   };
-  for (const side of [-1, 1]) {
+  for (const side of greenery ? [-1, 1] : []) {
     for (let i = 0; i < 26; i++) {
       const t = i / 26;
       addLeaf(side * (5.3 + (rand() - 0.5) * 1.1), top + 0.9 + t * 4.3, gateZ + 0.62 + rand() * 0.18, 0.55 + rand() * 0.7);
     }
   }
-  for (let i = 0; i < 34; i++) {
+  for (let i = 0; i < (greenery ? 34 : 0); i++) {
     const x = -6 + rand() * 12;
     addLeaf(x, lintelY - 0.58 - rand() * (Math.abs(x) > 4.5 ? 0.9 : 0.35), gateZ + 0.7 + rand() * 0.15, 0.5 + rand() * 0.6);
   }
@@ -161,7 +173,7 @@ export function buildUnit1Sanctuary(glow: THREE.MeshStandardMaterial, edge: THRE
     const r = 12.0;
     const cx = Math.cos(a) * r;
     const cz = Math.sin(a) * r;
-    if (Math.abs(cx) < 6.8 && cz > 6) continue; // 门楼前方留出通道
+    if (!greenery || (Math.abs(cx) < 6.8 && cz > 6)) continue; // 门楼前方留出通道
     kit.add(cylGeo(0.95, 1.05, 0.42, 14), m.stoneDark, { x: cx, y: top + 0.21, z: cz });
     kit.add(cylGeo(0.8, 0.8, 0.05, 14), m.soil, { x: cx, y: top + 0.44, z: cz });
     for (let k = 0; k < 7; k++) {

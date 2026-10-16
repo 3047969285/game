@@ -5,6 +5,8 @@ import { buildUnit1Sanctuary } from "./unit1Sanctuary";
 import { createPerson } from "./people";
 import { buildApproachSlab, buildFocusedTerrace } from "./focusedTerrace";
 import { buildPortalTrim, buildSignFrame } from "./portalTrim";
+import { upgradeGeometry } from "./geometryUpgrade";
+import { buildSignalMasts, buildStudyStations } from "./stations";
 
 type PassageKind = "section_a" | "section_b" | "section_c";
 type PassageSceneKind =
@@ -108,9 +110,8 @@ export function buildUnitLandscape(biome: UnitBiome, _anchor: MapNode, worldId?:
   if (isFocusedLearningWorld(worldId)) {
     addFocusedLearningApproach(root, focus.route, edge);
   } else {
-    if (biome.id === "unit01") root.add(buildUnit1Sanctuary(glow, edge));
-    else addCentralSanctuary(root, ground, dark, glow, edge);
-    addStudyStations(root, dark, glow, edge);
+    root.add(buildUnit1Sanctuary(glow, edge, { tint: biome.crystalColor, greenery: biome.decorStyle !== "space" }));
+    root.add(buildStudyStations());
   }
   if (isFocusedLearningWorld(worldId)) {
     const landmark = new THREE.Group();
@@ -162,6 +163,7 @@ export function buildUnitLandscape(biome: UnitBiome, _anchor: MapNode, worldId?:
   }
   root.add(environment);
 
+  upgradeGeometry(root);
   root.traverse((object) => {
     const castsLandscapeShadow = object instanceof THREE.Mesh && !object.userData.noLandscapeShadow;
     object.castShadow = castsLandscapeShadow;
@@ -3287,60 +3289,6 @@ function addWorldTitleSign(root: THREE.Group, worldId: string | undefined, title
   root.add(sign);
 }
 
-function addCentralSanctuary(
-  root: THREE.Group,
-  ground: THREE.MeshStandardMaterial,
-  dark: THREE.MeshStandardMaterial,
-  glow: THREE.MeshStandardMaterial,
-  edge: THREE.MeshStandardMaterial
-): void {
-  const plaza = new THREE.Mesh(new THREE.CylinderGeometry(13, 14.5, 0.65, 8), ground);
-  plaza.position.y = 0.34;
-  root.add(plaza);
-
-  const lowerRing = new THREE.Mesh(new THREE.TorusGeometry(11.8, 0.11, 8, 48), edge);
-  lowerRing.rotation.x = Math.PI / 2;
-  lowerRing.position.y = 0.72;
-  lowerRing.userData.isLandscapeRing = true;
-  root.add(lowerRing);
-
-  const innerDisc = new THREE.Mesh(new THREE.CylinderGeometry(7.2, 7.6, 0.16, 8), dark);
-  innerDisc.position.y = 0.76;
-  root.add(innerDisc);
-
-  const innerRing = new THREE.Mesh(new THREE.TorusGeometry(6.8, 0.07, 8, 40), glow);
-  innerRing.rotation.x = Math.PI / 2;
-  innerRing.position.y = 0.9;
-  innerRing.userData.isLandscapeRing = true;
-  root.add(innerRing);
-
-  // 入口门廊放在玩家出生点正前方，保证打开单元时第一眼能感到“这是一个地方”。
-  const gateLeft = new THREE.Mesh(new THREE.BoxGeometry(0.72, 8.5, 0.72), edge);
-  gateLeft.position.set(-5.2, 4.8, 8.5);
-  const gateRight = gateLeft.clone();
-  gateRight.position.x = 5.2;
-  const gateTop = new THREE.Mesh(new THREE.BoxGeometry(11.1, 0.72, 0.72), edge);
-  gateTop.position.set(0, 8.7, 8.5);
-  root.add(gateLeft, gateRight, gateTop);
-
-  const gateRing = new THREE.Mesh(new THREE.TorusGeometry(2.75, 0.1, 8, 40), glow);
-  gateRing.position.set(0, 4.65, 8.5);
-  root.add(gateRing);
-
-  // 中央可交互水晶由学习圣所 MapNode 提供，不在这里叠加第二颗发光核心。
-
-  for (const [x, z] of [[-7, -7], [7, -7], [-7, 7], [7, 7]]) {
-    const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.42, 4.8, 8), dark);
-    pillar.position.set(x, 2.6, z);
-    root.add(pillar);
-
-    const cap = new THREE.Mesh(new THREE.SphereGeometry(0.43, 10, 8), glow);
-    cap.position.set(x, 5.05, z);
-    cap.userData.isLandscapeBeacon = true;
-    root.add(cap);
-  }
-}
-
 /** 子世界的空间锚点：几何形状对应学习任务，帮助用户形成位置记忆。 */
 function addWorldFocusLandmark(
   root: THREE.Group,
@@ -3447,41 +3395,9 @@ function markAnimatedRing(object: THREE.Object3D): void {
   object.userData.isLandscapeRing = true;
 }
 
-function addStudyStations(root: THREE.Group, dark: THREE.MeshStandardMaterial, glow: THREE.MeshStandardMaterial, edge: THREE.MeshStandardMaterial): void {
-  const stations = [
-    { x: -21, z: -20, color: 0x38bdf8 },
-    { x: 21, z: -20, color: 0xfbbf24 },
-    { x: -21, z: 20, color: 0x4ade80 },
-    { x: 21, z: 20, color: 0xf472b6 },
-  ];
-
-  for (const station of stations) {
-    const platform = new THREE.Mesh(new THREE.CylinderGeometry(3.3, 3.7, 0.32, 6), dark);
-    platform.position.set(station.x, 0.7, station.z);
-    root.add(platform);
-
-    const stationMat = glow.clone();
-    stationMat.color.setHex(station.color);
-    stationMat.emissive.setHex(station.color);
-    stationMat.emissiveIntensity = 1.3;
-    const core = new THREE.Mesh(new THREE.IcosahedronGeometry(0.95, 1), stationMat);
-    core.position.set(station.x, 2.2, station.z);
-    core.userData.isLandscapeBeacon = true;
-    root.add(core);
-
-    const ring = new THREE.Mesh(new THREE.TorusGeometry(1.55, 0.08, 6, 24), edge.clone());
-    (ring.material as THREE.MeshStandardMaterial).color.setHex(station.color);
-    (ring.material as THREE.MeshStandardMaterial).emissive.setHex(station.color);
-    ring.rotation.x = Math.PI / 2;
-    ring.position.set(station.x, 1.25, station.z);
-    ring.userData.isLandscapeRing = true;
-    root.add(ring);
-  }
-}
-
 function addDigitalCoast(
   root: THREE.Group,
-  dark: THREE.MeshStandardMaterial,
+  _dark: THREE.MeshStandardMaterial,
   glow: THREE.MeshStandardMaterial,
   edge: THREE.MeshStandardMaterial,
   focused: boolean
@@ -3548,26 +3464,7 @@ function addDigitalCoast(
     return;
   }
 
-  const towers: ReadonlyArray<readonly [number, number, number]> = [[-28, 35, 13], [0, 43, 18], [28, 35, 11]];
-  for (const [x, z, h] of towers) {
-    const tower = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 3.3, h, 6), dark);
-    tower.position.set(x, h / 2, z);
-    root.add(tower);
-    const cap = new THREE.Mesh(new THREE.SphereGeometry(2.2, 12, 8), glow);
-    cap.position.set(x, h + 1.1, z);
-    cap.userData.isLandscapeBeacon = true;
-    root.add(cap);
-
-    const dataRing = new THREE.Mesh(new THREE.TorusGeometry(3.6, 0.08, 6, 32), edge);
-    dataRing.rotation.x = Math.PI / 2;
-    dataRing.position.set(x, h * 0.64, z);
-    dataRing.userData.isLandscapeRing = true;
-    root.add(dataRing);
-  }
-
-  const bridge = new THREE.Mesh(new THREE.BoxGeometry(54, 0.18, 0.34), dark);
-  bridge.position.set(0, 6.5, 35);
-  root.add(bridge);
+  root.add(buildSignalMasts(glow, edge));
 }
 
 function addLivesArchiveHarbor(

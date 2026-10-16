@@ -1,4 +1,6 @@
 import * as THREE from "three";
+import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
+import { mergeGeometries, mergeVertices } from "three/addons/utils/BufferGeometryUtils.js";
 import { glassCrystal, stone } from "./materials";
 import { seededRand } from "./utils";
 
@@ -117,130 +119,224 @@ export function grassBladeGeometry(bladeCount = 7): THREE.BufferGeometry {
   return mergeBufferGeometries(geos);
 }
 
-/** 阔叶树：锥形树干 + 分枝 + 分层圆润树冠 */
+// ─────────────────────────────────────────────────────────────
+// 自然物：树 / 松 / 灌木 / 岩石。每个物体合并成 1~2 个网格（顶点色承载明暗与色调），
+// 共享材质与程序化的有机几何，既细致又不增加太多 draw call。
+// ─────────────────────────────────────────────────────────────
+
+const vcMats = new Map<string, THREE.MeshStandardMaterial>();
+function vcMaterial(roughness = 0.88, key = "leaf"): THREE.MeshStandardMaterial {
+  const id = `${key}:${roughness}`;
+  let m = vcMats.get(id);
+  if (!m) {
+    m = new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, roughness, metalness: 0.02 });
+    vcMats.set(id, m);
+  }
+  return m;
+}
+
+/** 顶点噪声（按位置确定性，保证相同位置的顶点位移一致，网格不开裂） */
+function vnoise(x: number, y: number, z: number, seed: number): number {
+  return (
+    Math.sin(x * 2.3 + seed) * Math.cos(y * 2.1 + seed * 1.3) * 0.5 +
+    Math.sin(z * 2.7 - seed * 0.7 + x * 1.1) * 0.35 +
+    Math.sin((x + y + z) * 4.1 + seed) * 0.15
+  );
+}
+
+const organicCache = new Map<string, THREE.BufferGeometry>();
+/** 不规则圆润团块（树冠 / 灌木 / 岩石），已焊接顶点并重算平滑法线 */
+function organicBlob(seed: number, detail: number, amount: number): THREE.BufferGeometry {
+  const key = `${seed}:${detail}:${amount}`;
+  const hit = organicCache.get(key);
+  if (hit) return hit;
+  const welded = mergeVertices(new THREE.IcosahedronGeometry(1, detail), 1e-4);
+  const p = welded.attributes.position;
+  const v = new THREE.Vector3();
+  for (let i = 0; i < p.count; i++) {
+    v.fromBufferAttribute(p, i);
+    const n = vnoise(v.x, v.y, v.z, seed);
+    v.multiplyScalar(1 + n * amount);
+    p.setXYZ(i, v.x, v.y, v.z);
+  }
+  welded.computeVertexNormals();
+  welded.deleteAttribute("uv");
+  organicCache.set(key, welded);
+  return welded;
+}
+
+/** 烘焙：套矩阵 + 写顶点色（color 为基色，shade 控制随高度 / 法线的明暗） */
+function bake(
+  source: THREE.BufferGeometry,
+  matrix: THREE.Matrix4,
+  color: THREE.Color,
+  shade: (y: number, ny: number) => number = () => 1
+): THREE.BufferGeometry {
+  const geo = source.clone();
+  geo.deleteAttribute("uv");
+  if (!geo.attributes.normal) geo.computeVertexNormals();
+  const p0 = geo.attributes.position;
+  const n0 = geo.attributes.normal;
+  const colors = new Float32Array(p0.count * 3);
+  for (let i = 0; i < p0.count; i++) {
+    const k = shade(p0.getY(i), n0.getY(i));
+    colors[i * 3] = color.r * k;
+    colors[i * 3 + 1] = color.g * k;
+    colors[i * 3 + 2] = color.b * k;
+  }
+  geo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+  geo.applyMatrix4(matrix);
+  return geo.index ? geo : mergeVertices(geo, 1e-4);
+}
+
+const TMP_M = new THREE.Matrix4();
+const TMP_Q = new THREE.Quaternion();
+const TMP_E = new THREE.Euler();
+const TMP_P = new THREE.Vector3();
+const TMP_S = new THREE.Vector3();
+function mat4(x: number, y: number, z: number, sx = 1, sy = sx, sz = sx, rx = 0, ry = 0, rz = 0): THREE.Matrix4 {
+  TMP_E.set(rx, ry, rz);
+  TMP_Q.setFromEuler(TMP_E);
+  TMP_P.set(x, y, z);
+  TMP_S.set(sx, sy, sz);
+  return TMP_M.clone().compose(TMP_P, TMP_Q, TMP_S);
+}
+
+function finish(group: THREE.Group, geos: THREE.BufferGeometry[], material: THREE.Material, cast = true): void {
+  if (geos.length === 0) return;
+  const merged = mergeGeometries(geos, false);
+  if (!merged) return;
+  const mesh = new THREE.Mesh(merged, material);
+  mesh.castShadow = cast;
+  mesh.receiveShadow = true;
+  group.add(mesh);
+}
+
+/** 树干：带根部外扩的旋转体（顶点色做树皮纵向纹） */
+function trunkGeometry(height: number, base: number, top: number, color: THREE.Color, lean: number): THREE.BufferGeometry {
+  const pts = [
+    new THREE.Vector2(base * 1.55, -0.1),
+    new THREE.Vector2(base * 1.22, height * 0.07),
+    new THREE.Vector2(base * 0.98, height * 0.2),
+    new THREE.Vector2((base + top) * 0.5, height * 0.55),
+    new THREE.Vector2(top, height),
+  ];
+  const lathe = new THREE.LatheGeometry(pts, 11);
+  const p = lathe.attributes.position;
+  const colors = new Float32Array(p.count * 3);
+  for (let i = 0; i < p.count; i++) {
+    const a = Math.atan2(p.getZ(i), p.getX(i));
+    const stripe = 0.82 + 0.18 * Math.sin(a * 7 + p.getY(i) * 1.3);
+    const dark = 0.7 + 0.3 * Math.min(1, p.getY(i) / (height * 0.3));
+    const k = stripe * dark;
+    colors[i * 3] = color.r * k;
+    colors[i * 3 + 1] = color.g * k;
+    colors[i * 3 + 2] = color.b * k;
+    // 微弯：越高偏移越多
+    p.setX(i, p.getX(i) + lean * Math.pow(p.getY(i) / height, 2) * height);
+  }
+  lathe.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+  lathe.deleteAttribute("uv");
+  lathe.computeVertexNormals();
+  return lathe;
+}
+
+/** 阔叶树：弯曲树干 + 分枝 + 九团不规则树冠（顶亮底暗），合并为 2 个网格 */
 export function createTree(scale = 1): THREE.Group {
   const g = new THREE.Group();
   const rnd = seededRand(Math.floor(scale * 10000) + 77);
+  const s = scale;
 
-  // 树干：明显上细下粗，带轻微倾斜，别像根笔直的木杆
-  const trunkH = 2.6 * scale;
-  const trunk = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.13 * scale, 0.34 * scale, trunkH, 9),
-    stone(0x4a3728, 0.95)
-  );
-  trunk.position.y = trunkH / 2;
-  trunk.rotation.z = (rnd() - 0.5) * 0.09;
-  trunk.castShadow = true;
-  trunk.receiveShadow = true;
-  g.add(trunk);
+  const trunkH = 2.7 * s;
+  const bark = new THREE.Color(0x5a4230);
+  const woodGeos: THREE.BufferGeometry[] = [trunkGeometry(trunkH, 0.2 * s, 0.1 * s, bark, (rnd() - 0.5) * 0.06)];
+  const branchGeo = new THREE.CylinderGeometry(0.035 * s, 0.09 * s, 1, 6, 1);
+  branchGeo.translate(0, 0.5, 0);
+  for (let i = 0; i < 5; i++) {
+    const a = (i / 5) * Math.PI * 2 + rnd() * 0.5;
+    const len = (0.9 + rnd() * 0.7) * s;
+    const tilt = 0.7 + rnd() * 0.4;
+    const y = trunkH * (0.62 + rnd() * 0.3);
+    woodGeos.push(bake(branchGeo, mat4(0, y, 0, 1, len, 1, Math.cos(a) * tilt, 0, -Math.sin(a) * tilt), bark.clone().multiplyScalar(0.9)));
+  }
+  finish(g, woodGeos, vcMaterial(0.95, "bark"));
 
-  // 分枝：从树干中上部斜伸出的几根枝桠，把树冠"撑"起来
-  for (let i = 0; i < 4; i++) {
-    const a = (i / 4) * Math.PI * 2 + rnd() * 0.4;
-    const len = (0.85 + rnd() * 0.6) * scale;
-    const branch = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.045 * scale, 0.11 * scale, len, 6),
-      stone(0x453425, 0.95)
+  const tones = [0x4a8a52, 0x3f7d4f, 0x56994f, 0x356b43, 0x62a050, 0x468a4a];
+  const crownY = trunkH + 0.25 * s;
+  const leafGeos: THREE.BufferGeometry[] = [];
+  const lumps = 9 + Math.floor(rnd() * 3);
+  for (let i = 0; i < lumps; i++) {
+    const a = rnd() * Math.PI * 2;
+    const ring = i === 0 ? 0 : 0.55 + rnd() * 0.7;
+    const layer = i === 0 ? 0.25 : (rnd() - 0.35) * 1.6;
+    const r = (i === 0 ? 1.1 : 0.62 + rnd() * 0.42) * s;
+    const col = new THREE.Color(tones[Math.floor(rnd() * tones.length)]).offsetHSL((rnd() - 0.5) * 0.03, 0, (rnd() - 0.5) * 0.05);
+    leafGeos.push(
+      bake(organicBlob(Math.floor(rnd() * 4) + 1, 3, 0.2), mat4(Math.cos(a) * ring * s, crownY + layer * s, Math.sin(a) * ring * s, r * 1.08, r * 0.86, r, rnd() * 3, rnd() * 6, rnd() * 3), col, (y, ny) => 0.62 + 0.38 * THREE.MathUtils.clamp(0.5 + 0.5 * ny, 0, 1) + y * 0.0)
     );
-    branch.position.set(Math.cos(a) * 0.2 * scale, trunkH * (0.68 + i * 0.07), Math.sin(a) * 0.2 * scale);
-    branch.rotation.set(Math.cos(a) * 0.75, 0, -Math.sin(a) * 0.75);
-    branch.castShadow = true;
-    g.add(branch);
   }
-
-  // 根部外扩（树干基座加粗一圈，避免"细杆插地"）
-  const root = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.4 * scale, 0.52 * scale, 0.34 * scale, 9),
-    stone(0x42331f, 0.95)
-  );
-  root.position.y = 0.14 * scale;
-  root.receiveShadow = true;
-  g.add(root);
-
-  // 树冠：多个球簇，色调有细微差异
-  const leafTones = [0x3f7d4f, 0x4a8c59, 0x356b43, 0x55996a, 0x2f6039];
-  const crownY = trunkH + 0.4 * scale;
-  const blobs: Array<[number, number, number, number]> = [
-    [0, 0.15, 0, 1.15],
-    [0.65, -0.15, 0.28, 0.82],
-    [-0.62, -0.08, -0.34, 0.8],
-    [0.2, 0.7, -0.14, 0.9],
-    [-0.28, 0.58, 0.56, 0.72],
-    [0.38, 0.48, -0.6, 0.68],
-    [-0.1, 1.1, 0.08, 0.6],
-  ];
-  for (const [bx, by, bz, br] of blobs) {
-    const mat = new THREE.MeshStandardMaterial({
-      color: leafTones[Math.floor(rnd() * leafTones.length)],
-      roughness: 0.86,
-      metalness: 0.02,
-      flatShading: true,
-    });
-    const blob = new THREE.Mesh(new THREE.IcosahedronGeometry(br * scale, 1), mat);
-    blob.position.set(bx * scale, crownY + by * scale, bz * scale);
-    blob.rotation.set(rnd() * Math.PI, rnd() * Math.PI, rnd() * Math.PI);
-    blob.scale.set(1, 0.86 + rnd() * 0.2, 1);
-    blob.castShadow = true;
-    g.add(blob);
-  }
+  finish(g, leafGeos, vcMaterial(0.86, "leaf"));
   return g;
 }
 
-/** 针叶松：更密的锥层 + 细微色差，剪影更自然 */
+/** 针叶松：七层下垂的锯齿枝裙（边缘起伏、底部更暗），合并为 2 个网格 */
 export function createPine(scale = 1): THREE.Group {
   const g = new THREE.Group();
   const rnd = seededRand(Math.floor(scale * 7919) + 13);
+  const s = scale;
+  const trunkH = 1.6 * s;
+  finish(g, [trunkGeometry(trunkH, 0.15 * s, 0.07 * s, new THREE.Color(0x4a382a), (rnd() - 0.5) * 0.04)], vcMaterial(0.95, "bark"));
 
-  const trunkH = 1.5 * scale;
-  const trunk = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.1 * scale, 0.2 * scale, trunkH, 8),
-    stone(0x3d2e22, 0.9)
-  );
-  trunk.position.y = trunkH / 2;
-  trunk.castShadow = true;
-  g.add(trunk);
-
-  const layers = 6;
+  const layers = 7;
+  const leafGeos: THREE.BufferGeometry[] = [];
   for (let i = 0; i < layers; i++) {
     const t = i / (layers - 1);
-    const radius = (1.25 - t * 0.85) * scale;
-    const height = (1.15 - t * 0.3) * scale;
-    const tone = new THREE.Color(0x1f4a37).offsetHSL(0, 0, (rnd() - 0.5) * 0.06);
-    const layer = new THREE.Mesh(
-      new THREE.ConeGeometry(radius, height, 9),
-      new THREE.MeshStandardMaterial({ color: tone, roughness: 0.8, metalness: 0.02, flatShading: true })
-    );
-    layer.position.y = (1.15 + t * 2.5) * scale;
-    layer.rotation.y = rnd() * Math.PI;
-    layer.castShadow = true;
-    g.add(layer);
+    const radius = (1.35 - t * 0.95) * s;
+    const height = (1.05 - t * 0.28) * s;
+    const cone = new THREE.ConeGeometry(1, 1, 16, 2);
+    const p = cone.attributes.position;
+    for (let k = 0; k < p.count; k++) {
+      const x = p.getX(k);
+      const z = p.getZ(k);
+      const y = p.getY(k);
+      const a = Math.atan2(z, x);
+      const rim = y < 0 ? 1 : 0;
+      const wob = 1 + rim * (0.16 * Math.sin(a * 8 + i * 1.7) + 0.08 * Math.sin(a * 13 + i));
+      p.setXYZ(k, x * wob, y - rim * 0.08 * (0.5 + 0.5 * Math.sin(a * 8 + i)), z * wob);
+    }
+    cone.computeVertexNormals();
+    const col = new THREE.Color(0x24543d).offsetHSL((rnd() - 0.5) * 0.02, 0, (rnd() - 0.5) * 0.05);
+    leafGeos.push(bake(cone, mat4(0, (1.05 + t * 2.6) * s, 0, radius, height, radius, 0, rnd() * Math.PI, 0), col, (y) => 0.55 + 0.45 * (y / 1.0 + 0.5)));
   }
+  finish(g, leafGeos, vcMaterial(0.82, "pine"));
   return g;
 }
 
-/** 灌木：低矮的球簇 */
+/** 灌木：6~8 团细密不规则叶丛，偶有浆果 */
 export function createBush(scale = 1): THREE.Group {
   const g = new THREE.Group();
   const rnd = seededRand(Math.floor(scale * 31337) + 5);
-  const tones = [0x3a6b45, 0x447a4f, 0x2f5a3a, 0x4d8557];
-  const count = 4 + Math.floor(rnd() * 3);
+  const tones = [0x3f7448, 0x4a8553, 0x35643f, 0x56915a, 0x6b9446];
+  const geos: THREE.BufferGeometry[] = [];
+  const count = 6 + Math.floor(rnd() * 3);
   for (let i = 0; i < count; i++) {
-    const r = (0.32 + rnd() * 0.3) * scale;
-    const blob = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(r, 1),
-      new THREE.MeshStandardMaterial({
-        color: tones[Math.floor(rnd() * tones.length)],
-        roughness: 0.88,
-        metalness: 0.02,
-        flatShading: true,
-      })
-    );
+    const r = (0.3 + rnd() * 0.3) * scale;
     const a = rnd() * Math.PI * 2;
-    const d = rnd() * 0.45 * scale;
-    blob.position.set(Math.cos(a) * d, r * 0.72, Math.sin(a) * d);
-    blob.rotation.set(rnd() * Math.PI, rnd() * Math.PI, rnd() * Math.PI);
-    blob.castShadow = true;
-    g.add(blob);
+    const d = Math.sqrt(rnd()) * 0.55 * scale;
+    const col = new THREE.Color(tones[Math.floor(rnd() * tones.length)]).offsetHSL(0, 0, (rnd() - 0.5) * 0.05);
+    geos.push(bake(organicBlob(Math.floor(rnd() * 3) + 1, 2, 0.24), mat4(Math.cos(a) * d, r * 0.78, Math.sin(a) * d, r * 1.1, r * 0.82, r, rnd() * 3, rnd() * 6, 0), col, (_y, ny) => 0.6 + 0.4 * THREE.MathUtils.clamp(0.5 + 0.5 * ny, 0, 1)));
+  }
+  finish(g, geos, vcMaterial(0.9, "bush"));
+  if (rnd() > 0.6) {
+    const berryGeos: THREE.BufferGeometry[] = [];
+    const berry = new THREE.SphereGeometry(0.035 * scale, 6, 5);
+    const tone = new THREE.Color([0xd94b58, 0x6a4bd9, 0xf2c14e][Math.floor(rnd() * 3)]);
+    for (let i = 0; i < 9; i++) {
+      const a = rnd() * Math.PI * 2;
+      const d = (0.25 + rnd() * 0.35) * scale;
+      berryGeos.push(bake(berry, mat4(Math.cos(a) * d, (0.35 + rnd() * 0.3) * scale, Math.sin(a) * d), tone));
+    }
+    finish(g, berryGeos, vcMaterial(0.5, "berry"), false);
   }
   return g;
 }
@@ -322,36 +418,69 @@ export function createFallenLog(scale = 1): THREE.Mesh {
   return log;
 }
 
-/** 岩石：不规则多面体，带轻微色差 */
+/** 岩石：1~3 块不规则石头，顶面生苔（按法线向上着色），合并为单个网格 */
 export function createRock(scale = 1): THREE.Mesh {
   const rnd = seededRand(Math.floor(scale * 9973) + 17);
-  const geo = new THREE.DodecahedronGeometry(0.55 * scale, 0);
-  // 随机扰动顶点，避免所有石头长得一样
-  const pos = geo.attributes.position;
-  for (let i = 0; i < pos.count; i++) {
-    const f = 0.82 + rnd() * 0.36;
-    pos.setXYZ(i, pos.getX(i) * f, pos.getY(i) * (f * 0.8), pos.getZ(i) * f);
+  const geos: THREE.BufferGeometry[] = [];
+  const stoneTone = new THREE.Color(0x77797c).offsetHSL(0, 0, (rnd() - 0.5) * 0.08);
+  const pieces = 1 + Math.floor(rnd() * 2.4);
+  for (let i = 0; i < pieces; i++) {
+    const r = (i === 0 ? 0.55 : 0.2 + rnd() * 0.22) * scale;
+    const a = rnd() * Math.PI * 2;
+    const d = i === 0 ? 0 : (0.5 + rnd() * 0.35) * scale;
+    const blob = organicBlob(Math.floor(rnd() * 5) + 20, 2, 0.34);
+    geos.push(
+      bake(
+        blob,
+        mat4(Math.cos(a) * d, r * 0.32, Math.sin(a) * d, r * 1.15, r * 0.7, r, (rnd() - 0.5) * 0.35, rnd() * 6, (rnd() - 0.5) * 0.35),
+        stoneTone.clone().offsetHSL(0, 0, (rnd() - 0.5) * 0.06),
+        (_y, ny) => 0.62 + 0.38 * THREE.MathUtils.clamp(0.4 + 0.6 * ny, 0, 1)
+      )
+    );
   }
-  geo.computeVertexNormals();
-  const tone = new THREE.Color(0x6a7078).offsetHSL(0, 0, (rnd() - 0.5) * 0.1);
-  const mesh = new THREE.Mesh(
-    geo,
-    new THREE.MeshStandardMaterial({ color: tone, roughness: 0.92, metalness: 0.03, flatShading: true })
-  );
+  const merged = mergeGeometries(geos, false)!;
+  // 苔藓：朝上的面向绿色混合
+  const n = merged.attributes.normal;
+  const col = merged.attributes.color;
+  const moss = new THREE.Color(0x58783f);
+  for (let i = 0; i < col.count; i++) {
+    const up = THREE.MathUtils.smoothstep(n.getY(i), 0.55, 0.9) * 0.85;
+    col.setXYZ(i, THREE.MathUtils.lerp(col.getX(i), moss.r * 0.9, up), THREE.MathUtils.lerp(col.getY(i), moss.g * 0.9, up), THREE.MathUtils.lerp(col.getZ(i), moss.b * 0.9, up));
+  }
+  const mesh = new THREE.Mesh(merged, vcMaterial(0.95, "rock"));
   mesh.castShadow = true;
   mesh.receiveShadow = true;
   return mesh;
 }
 
-/** 石灯笼 */
+/** 石灯笼：基座 + 灯柱 + 火袋（玻璃发光）+ 屋顶 + 宝珠 */
 export function createLantern(color: number): THREE.Group {
   const g = new THREE.Group();
-  const post = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.08, 1.4, 8), stone(0x374151, 0.6));
-  post.position.y = 0.7;
-  const lamp = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.45, 0.35), glassCrystal(color, 0.5));
-  lamp.position.y = 1.55;
+  const stoneTone = new THREE.Color(0x8c8b84);
+  const parts: THREE.BufferGeometry[] = [];
+  const add = (geo: THREE.BufferGeometry, y: number, tone = stoneTone, sx = 1, sy = 1, sz = 1): void => {
+    parts.push(bake(geo, mat4(0, y, 0, sx, sy, sz), tone, (_y, ny) => 0.78 + 0.22 * THREE.MathUtils.clamp(0.5 + 0.5 * ny, 0, 1)));
+  };
+  add(new RoundedBoxGeometry(0.46, 0.14, 0.46, 1, 0.03), 0.07);
+  add(new THREE.CylinderGeometry(0.075, 0.1, 0.62, 10), 0.45);
+  add(new RoundedBoxGeometry(0.34, 0.08, 0.34, 1, 0.025), 0.8);
+  // 火袋框架：四根立柱
+  for (const [x, z] of [[-0.13, -0.13], [0.13, -0.13], [-0.13, 0.13], [0.13, 0.13]] as const) {
+    parts.push(bake(new THREE.BoxGeometry(0.045, 0.34, 0.045), mat4(x, 1.02, z), stoneTone.clone().multiplyScalar(0.9)));
+  }
+  add(new RoundedBoxGeometry(0.4, 0.07, 0.4, 1, 0.025), 1.22);
+  const roof = new THREE.ConeGeometry(0.34, 0.24, 4, 1);
+  parts.push(bake(roof, mat4(0, 1.38, 0, 1, 1, 1, 0, Math.PI / 4, 0), stoneTone.clone().multiplyScalar(0.85)));
+  add(new THREE.SphereGeometry(0.05, 10, 8), 1.55);
+  const body = new THREE.Mesh(mergeGeometries(parts, false)!, vcMaterial(0.9, "lantern"));
+  body.castShadow = true;
+  body.receiveShadow = true;
+
+  const glass = glassCrystal(color, 0.9);
+  const lamp = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.3, 0.2), glass);
+  lamp.position.y = 1.02;
   const light = new THREE.PointLight(color, 0.8, 6);
-  light.position.y = 1.55;
-  g.add(post, lamp, light);
+  light.position.y = 1.05;
+  g.add(body, lamp, light);
   return g;
 }

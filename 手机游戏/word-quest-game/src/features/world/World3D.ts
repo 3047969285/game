@@ -55,7 +55,9 @@ import { createLandmarkWithCad } from "./cadLandmark";
 import { createExplorerAvatar, type AvatarRig } from "./explorerAvatar";
 import { ExplorerCamera } from "./ExplorerCamera";
 import { buildNearScatter } from "./nearScatter";
-import { applySurfaceGrain, glowPath, lanternGlass, lanternMetal, makeLanternGlowTexture, mossyStone, water } from "./materials";
+import { createMountainRing } from "./mountains";
+import { buildRoadRibbon } from "./roadRibbon";
+import { applySurfaceGrain, lanternGlass, lanternMetal, makeLanternGlowTexture, mossyStone, water } from "./materials";
 import { PlayerController } from "./PlayerController";
 import {
   createBush,
@@ -1397,49 +1399,15 @@ export class World3D {
     colorAttr.needsUpdate = true;
   }
 
-  /** 远景低多边形山脉环带（大气透视 + 雪顶） */
+  /** 远景山脉环带：山脊 / 岩层 / 林带 / 雪线（顶点色，合并为单个网格） */
   private buildMountains(): void {
     removeGroup(this.scene, this.mountains);
-    const group = new THREE.Group();
-    const rnd = seededRand(7);
-    const ringRadius = Math.max(TERRAIN_SIZE.width, TERRAIN_SIZE.depth) * 0.5;
-    const count = this.quality === "low" ? 18 : this.quality === "med" ? 24 : 30;
-    const snow = this.quality !== "low";
-
-    for (let i = 0; i < count; i++) {
-      const a = (i / count) * Math.PI * 2 + (rnd() - 0.5) * 0.18;
-      const r = ringRadius + rnd() * 40;
-      const x = Math.cos(a) * r;
-      const z = Math.sin(a) * r + TERRAIN_ORIGIN_Z;
-      const h = 42 + rnd() * 78;
-      const rad = 32 + rnd() * 46;
-      const shade = 0x2f3c52 + Math.floor(rnd() * 0x0a) * 0x010101;
-      const mat = new THREE.MeshStandardMaterial({
-        color: shade,
-        roughness: 1,
-        metalness: 0,
-        flatShading: true,
-        fog: true,
-      });
-      const peak = new THREE.Mesh(new THREE.ConeGeometry(rad, h, 5 + Math.floor(rnd() * 3), 1), mat);
-      peak.position.set(x, h / 2 - 8, z);
-      peak.rotation.y = rnd() * Math.PI;
-      peak.scale.set(1, 0.8 + rnd() * 0.5, 1);
-      group.add(peak);
-
-      // 高画质：远山雪顶
-      if (snow && h > 70) {
-        const capH = h * (0.18 + rnd() * 0.12);
-        const cap = new THREE.Mesh(
-          new THREE.ConeGeometry(rad * 0.42, capH, 5, 1),
-          new THREE.MeshStandardMaterial({ color: 0xd8e8f8, roughness: 0.95, metalness: 0, flatShading: true, fog: true })
-        );
-        cap.position.set(x, h - capH * 0.35 - 8, z);
-        cap.rotation.y = peak.rotation.y;
-        group.add(cap);
-      }
-    }
-
+    const group = createMountainRing({
+      count: this.quality === "low" ? 18 : this.quality === "med" ? 24 : 30,
+      ringRadius: Math.max(TERRAIN_SIZE.width, TERRAIN_SIZE.depth) * 0.5,
+      originZ: TERRAIN_ORIGIN_Z,
+      snow: this.quality !== "low",
+    });
     this.mountains = group;
     this.scene.add(group);
   }
@@ -1593,14 +1561,15 @@ export class World3D {
       routeCurves.push(sub);
 
       if (!unitRoute) {
-        const rail = new THREE.Mesh(
-          new THREE.TubeGeometry(sub, 16, 0.48, 12, false),
-          new THREE.MeshStandardMaterial({ color: cleared ? 0x4a8c72 : 0x3d4a5c, roughness: 0.68, metalness: 0.1 })
+        this.pathGroup.add(
+          buildRoadRibbon(sub, {
+            width: 3.4,
+            steps: Math.max(24, Math.ceil(sub.getLength() / 1.4)),
+            groundY: (x, z) => sampleTerrainY(x, z, terrainHeight),
+            base: cleared ? 0x8a9a86 : 0x8d8678,
+            inlay: cleared ? { color: 0x6ee7b7, emissive: 0x34d399, intensity: 0.55 } : { color: 0x5b8def, emissive: 0x3b82f6, intensity: 0.25 },
+          })
         );
-        rail.receiveShadow = true;
-        const glow = new THREE.Mesh(new THREE.TubeGeometry(sub, 16, 0.26, 10, false), glowPath(cleared));
-        glow.position.y = 0.08;
-        this.pathGroup.add(rail, glow);
       }
     }
 
@@ -1632,7 +1601,7 @@ export class World3D {
         const t0 = step / steps;
         const t1 = Math.min(1, (step + 0.5) / steps);
         const p = curve.getPoint(t0);
-        p.y = sampleTerrainY(p.x, p.z, terrainHeight) + 0.01;
+        p.y = sampleTerrainY(p.x, p.z, terrainHeight) + 0.17;
         const p2 = curve.getPoint(t1);
         const tile = new THREE.Mesh(tileGeo, tileMats[step % tileMats.length]);
         tile.position.copy(p);
