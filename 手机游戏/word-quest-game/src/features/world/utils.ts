@@ -101,6 +101,8 @@ export function disposeGroup(group: THREE.Group): void {
   ];
 
   group.traverse((obj) => {
+    if (obj instanceof THREE.InstancedMesh) obj.dispose();
+
     const mesh = obj as THREE.Mesh;
     if (mesh.geometry && !geometries.has(mesh.geometry)) {
       geometries.add(mesh.geometry);

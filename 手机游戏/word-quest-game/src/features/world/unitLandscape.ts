@@ -1190,54 +1190,324 @@ function addPassageSceneLandmark(
       break;
     }
     case "dialogue": {
-      for (const [index, z] of [25.1, 27.5, 29.9].entries()) {
-        arch(9.3 - index * 0.45, 6.45 - index * 0.2, index === 1 ? edge : ground, z);
-        const roofRib = add(new THREE.TorusGeometry(3.95 - index * 0.18, 0.075, 7, 24, Math.PI), index === 1 ? glow : edge, 0, 2.95, z + 0.05);
-        roofRib.userData.isLandscapeStage = true;
-      }
-      route([[-4.2, 6.35, 25.1], [-4.1, 6.65, 27.5], [-3.9, 6.45, 29.9]], edge, 0.075);
-      route([[4.2, 6.35, 25.1], [4.1, 6.65, 27.5], [3.9, 6.45, 29.9]], edge, 0.075);
-      route([[0, 6.6, 25.1], [0, 6.9, 27.5], [0, 6.6, 29.9]], glow, 0.075);
-
-      cylinder(0, 1.52, 26.35, 0.34, 1.32, dark, 10);
-      cylinder(0, 2.24, 26.35, 1.68, 0.22, ground, 12);
-      const sharedIdea = add(new THREE.OctahedronGeometry(0.34, 1), glow, 0, 2.55, 26.35);
-      sharedIdea.userData.isLandscapeBeacon = true;
-
-      const listenerMaterials = [edge, glow, ground] as const;
-      for (const [index, x] of [-3.25, 0, 3.25].entries()) {
-        box(x, 1.62, 28, 1.16, 0.24, 0.92, dark, x * -0.04);
-        box(x, 2.02, 28.38, 1.08, 0.78, 0.16, ground, x * -0.04);
-        const torso = add(new THREE.CylinderGeometry(0.34, 0.48, 1.22, 8), listenerMaterials[index], x, 2.82, 28);
-        torso.userData.isLandscapeStage = true;
-        const head = add(new THREE.SphereGeometry(0.4, 12, 10), ground, x, 3.72, 28);
-        head.userData.isLandscapeStage = true;
-      }
-
-      const leafMaterial = new THREE.MeshStandardMaterial({
-        color: 0x69bd91,
-        emissive: 0x163d2d,
-        emissiveIntensity: 0.28,
-        roughness: 0.86,
+      const roomWall = new THREE.MeshStandardMaterial({ color: 0xd1c7ae, roughness: 0.9 });
+      const roomTimber = new THREE.MeshStandardMaterial({ color: 0x755b43, roughness: 0.84 });
+      const roomFloor = new THREE.MeshStandardMaterial({ color: 0x88755f, roughness: 0.92 });
+      const roomTrim = new THREE.MeshStandardMaterial({ color: 0x526c63, roughness: 0.82 });
+      const windowGlass = new THREE.MeshStandardMaterial({
+        color: 0xa7c7bd,
+        emissive: 0x1d3530,
+        emissiveIntensity: 0.08,
+        roughness: 0.24,
+        metalness: 0.04,
+        transparent: true,
+        opacity: 0.28,
+        depthWrite: false,
       });
-      for (const [x, z] of [[-5.3, 26.2], [5.3, 26.2], [-5.3, 29.1], [5.3, 29.1]] as const) {
-        cylinder(x, 1.55, z, 0.43, 0.62, dark, 8);
-        cylinder(x, 2.22, z, 0.08, 1.05, edge, 7);
-        const leaf = add(new THREE.DodecahedronGeometry(0.46, 0), leafMaterial, x, 2.95, z);
-        leaf.scale.set(0.8, 1.35, 0.8);
-        leaf.userData.isLandscapeStage = true;
+      const courtyardLeaf = new THREE.MeshStandardMaterial({ color: 0x728d69, roughness: 0.94 });
+      type StaticPlacement = {
+        position: [number, number, number];
+        rotation?: [number, number, number];
+        scale?: [number, number, number];
+      };
+      const addStaticInstances = (
+        geometry: THREE.BufferGeometry,
+        material: THREE.Material,
+        placements: StaticPlacement[],
+        role: "stage" | "route" | "beacon" = "stage"
+      ): THREE.InstancedMesh => {
+        const mesh = new THREE.InstancedMesh(geometry, material, placements.length);
+        const position = new THREE.Vector3();
+        const scale = new THREE.Vector3();
+        const rotation = new THREE.Quaternion();
+        const euler = new THREE.Euler();
+        const matrix = new THREE.Matrix4();
+        placements.forEach((placement, index) => {
+          position.set(...placement.position);
+          euler.set(...(placement.rotation ?? [0, 0, 0]));
+          rotation.setFromEuler(euler);
+          scale.set(...(placement.scale ?? [1, 1, 1]));
+          matrix.compose(position, rotation, scale);
+          mesh.setMatrixAt(index, matrix);
+        });
+        mesh.instanceMatrix.needsUpdate = true;
+        mesh.computeBoundingSphere();
+        mesh.userData[`isLandscape${role[0].toUpperCase()}${role.slice(1)}`] = true;
+        root.add(mesh);
+        return mesh;
+      };
+
+      // A conversation room opens onto the library courtyard described in the passage.
+      box(0, 1.19, 28.15, 12.1, 0.08, 9.2, roomFloor);
+      addStaticInstances(
+        new THREE.BoxGeometry(11.85, 0.018, 0.035),
+        roomTimber,
+        [24.15, 24.95, 25.75, 26.55, 27.35, 28.15, 28.95, 29.75, 30.55, 31.35, 32.15]
+          .map((z) => ({ position: [0, 1.235, z] }))
+      );
+
+      // Side walls and a back facade frame the view without closing the entrance or hiding the room.
+      addStaticInstances(new THREE.BoxGeometry(0.26, 4, 9), roomWall, [
+        { position: [-6.05, 3.2, 28.25] },
+        { position: [6.05, 3.2, 28.25] },
+      ]);
+      addStaticInstances(new THREE.BoxGeometry(1.9, 5.4, 0.28), roomWall, [
+        { position: [-5.55, 3.9, 23.85] },
+        { position: [5.55, 3.9, 23.85] },
+      ]);
+      box(0, 1.78, 23.85, 9.2, 1.16, 0.28, roomWall);
+      box(0, 6.02, 23.85, 9.2, 1.28, 0.28, roomWall);
+      addStaticInstances(new THREE.BoxGeometry(0.12, 3.02, 0.12), roomTimber, [-4.58, -1.53, 1.53, 4.58].map((x) => ({
+        position: [x, 3.93, 24.02],
+      })));
+      addStaticInstances(new THREE.BoxGeometry(9.2, 0.12, 0.12), roomTimber, [2.43, 5.43].map((y) => ({
+        position: [0, y, 24.02],
+      })));
+      const windowPanes = addStaticInstances(new THREE.BoxGeometry(2.92, 2.88, 0.045), windowGlass, [-3.05, 0, 3.05].map((x) => ({
+        position: [x, 3.93, 24.015],
+      })));
+      windowPanes.userData.noLandscapeShadow = true;
+      addStaticInstances(new THREE.BoxGeometry(12.15, 0.18, 0.24), roomTimber, [24.1, 26.3, 28.5, 30.7, 32.85].map((z) => ({
+        position: [0, 6.34, z],
+      })));
+      addStaticInstances(new THREE.BoxGeometry(0.3, 4, 0.3), roomTrim, [
+        { position: [-6.03, 3.2, 32.75] },
+        { position: [6.03, 3.2, 32.75] },
+      ]);
+      box(0, 6.32, 32.75, 12.25, 0.2, 0.32, roomTimber);
+
+      // The tree line, low garden wall, and bench make the courtyard legible through the glazing.
+      addStaticInstances(new THREE.CylinderGeometry(0.103, 0.12, 1.8, 7), roomTimber, [-3.35, 0, 3.35].map((x) => ({
+        position: [x, 2.12, 21.55],
+      })));
+      addStaticInstances(new THREE.DodecahedronGeometry(1.08, 1), courtyardLeaf, [
+        { position: [-3.35, 3.55, 21.55], scale: [1.18, 0.9, 0.72] },
+        { position: [0, 3.95, 21.55], scale: [1.18, 0.9, 0.72] },
+        { position: [3.35, 3.6, 21.55], scale: [1.18, 0.9, 0.72] },
+      ]);
+      box(0, 1.56, 20.35, 5.2, 0.28, 0.52, roomTrim);
+      addStaticInstances(new THREE.BoxGeometry(0.16, 0.62, 0.4), roomTimber, [-2.1, 2.1].map((x) => ({
+        position: [x, 1.33, 20.35],
+      })));
+
+      // Three distinct seats form an open circle, leaving a clear route from the doorway.
+      const people = [
+        { x: -2.55, y: 1.22, z: 28, yaw: Math.PI / 2, shirt: 0x78968a, hair: 0x483a31 },
+        { x: 2.55, y: 1.22, z: 28, yaw: -Math.PI / 2, shirt: 0xc18168, hair: 0x343b43 },
+        { x: 0, y: 1.22, z: 25.45, yaw: 0, shirt: 0x718aa2, hair: 0x5d4736 },
+      ];
+      type FigurePlacement = {
+        person: number;
+        offset: [number, number, number];
+        scale?: [number, number, number];
+        rotation?: [number, number, number];
+        color?: number;
+      };
+      const addFigurePart = (
+        geometry: THREE.BufferGeometry,
+        material: THREE.Material,
+        placements: FigurePlacement[]
+      ): THREE.InstancedMesh => {
+        const mesh = new THREE.InstancedMesh(geometry, material, placements.length);
+        const up = new THREE.Vector3(0, 1, 0);
+        const offset = new THREE.Vector3();
+        const position = new THREE.Vector3();
+        const scale = new THREE.Vector3();
+        const yaw = new THREE.Quaternion();
+        const localRotation = new THREE.Quaternion();
+        const rotation = new THREE.Quaternion();
+        const euler = new THREE.Euler();
+        const matrix = new THREE.Matrix4();
+        placements.forEach((placement, index) => {
+          const person = people[placement.person];
+          yaw.setFromAxisAngle(up, person.yaw);
+          offset.set(...placement.offset).applyQuaternion(yaw);
+          position.set(person.x, person.y, person.z).add(offset);
+          euler.set(...(placement.rotation ?? [0, 0, 0]));
+          localRotation.setFromEuler(euler);
+          rotation.copy(yaw).multiply(localRotation);
+          scale.set(...(placement.scale ?? [1, 1, 1]));
+          matrix.compose(position, rotation, scale);
+          mesh.setMatrixAt(index, matrix);
+          if (placement.color !== undefined) mesh.setColorAt(index, new THREE.Color(placement.color));
+        });
+        mesh.instanceMatrix.needsUpdate = true;
+        if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+        mesh.computeBoundingSphere();
+        mesh.userData.isLandscapeStage = true;
+        root.add(mesh);
+        return mesh;
+      };
+      const chairSeat = new THREE.BoxGeometry(1.1, 0.14, 0.9);
+      const chairBack = new THREE.BoxGeometry(1.08, 0.78, 0.13);
+      const chairLeg = new THREE.CylinderGeometry(0.055, 0.07, 0.56, 6);
+      const chairSeats: FigurePlacement[] = [];
+      const chairBacks: FigurePlacement[] = [];
+      const chairLegs: FigurePlacement[] = [];
+      people.forEach((_, person) => {
+        chairSeats.push({ person, offset: [0, 0.48, -0.35] });
+        chairBacks.push({ person, offset: [0, 0.91, -0.79], rotation: [-0.06, 0, 0] });
+        for (const x of [-0.43, 0.43]) {
+          for (const z of [-0.68, -0.05]) chairLegs.push({ person, offset: [x, 0.17, z] });
+        }
+      });
+      addFigurePart(chairSeat, roomTimber, chairSeats);
+      addFigurePart(chairBack, roomTimber, chairBacks);
+      addFigurePart(chairLeg, roomTimber, chairLegs);
+
+      cylinder(0, 1.63, 27.95, 0.22, 0.82, roomTimber, 10);
+      cylinder(0, 2.08, 27.95, 1.28, 0.16, roomTimber, 16);
+      addStaticInstances(new THREE.BoxGeometry(0.34, 0.035, 0.5), new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.92 }), [
+        { position: [-0.42, 2.18, 27.95], scale: [1, 1, 1], rotation: [0, 0, 0] },
+        { position: [0, 2.18, 27.95], scale: [1, 1, 1], rotation: [0, 0, 0] },
+        { position: [0.42, 2.18, 27.95], scale: [1, 1, 1], rotation: [0, 0, 0] },
+      ]);
+
+      const shirtMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.86 });
+      const hairMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.92 });
+      const trousersMaterial = new THREE.MeshStandardMaterial({ color: 0x48525a, roughness: 0.9 });
+      const skinMaterial = new THREE.MeshStandardMaterial({ color: 0xd9b397, roughness: 0.84 });
+      const eyeMaterial = new THREE.MeshStandardMaterial({ color: 0xf3eee0, roughness: 0.7 });
+      const pupilMaterial = new THREE.MeshStandardMaterial({ color: 0x39342f, roughness: 0.8 });
+      addFigurePart(new THREE.CylinderGeometry(0.31, 0.42, 0.8, 10), shirtMaterial, people.map((person, index) => ({
+        person: index,
+        offset: [0, 1.05, 0],
+        color: person.shirt,
+      })));
+      addFigurePart(new THREE.CylinderGeometry(0.12, 0.14, 0.18, 8), skinMaterial, people.map((_, person) => ({ person, offset: [0, 1.47, 0.02] })));
+      addFigurePart(new THREE.SphereGeometry(0.32, 12, 10), skinMaterial, people.map((_, person) => ({
+        person,
+        offset: [0, 1.76, 0.04],
+        scale: [1, 1.04, 0.95],
+      })));
+      addFigurePart(new THREE.SphereGeometry(0.34, 10, 8), hairMaterial, people.map((person, index) => ({
+        person: index,
+        offset: [0, 1.98, 0.015],
+        scale: [1, 0.42, 1],
+        color: person.hair,
+      })));
+      const eyePlacements: FigurePlacement[] = [];
+      const pupilPlacements: FigurePlacement[] = [];
+      people.forEach((_, person) => {
+        for (const x of [-0.105, 0.105]) {
+          eyePlacements.push({ person, offset: [x, 1.79, 0.335], scale: [0.052, 0.052, 0.028] });
+          pupilPlacements.push({ person, offset: [x, 1.79, 0.36], scale: [0.024, 0.03, 0.018] });
+        }
+      });
+      addFigurePart(new THREE.SphereGeometry(1, 8, 6), eyeMaterial, eyePlacements);
+      addFigurePart(new THREE.SphereGeometry(1, 8, 6), pupilMaterial, pupilPlacements);
+      addFigurePart(new THREE.SphereGeometry(0.06, 8, 6), pupilMaterial, people.map((_, person) => ({
+        person,
+        offset: [0, 1.65, 0.36],
+        scale: [0.9, 0.32, 0.4],
+      })));
+      const thighs: FigurePlacement[] = [];
+      const shoes: FigurePlacement[] = [];
+      const upperArms: FigurePlacement[] = [];
+      const forearms: FigurePlacement[] = [];
+      const hands: FigurePlacement[] = [];
+      people.forEach((_, person) => {
+        for (const side of [-1, 1]) {
+          thighs.push({ person, offset: [side * 0.17, 0.54, 0.3], rotation: [0.1, 0, side * 0.06] });
+          shoes.push({ person, offset: [side * 0.18, 0.14, 0.65], scale: [1, 0.52, 1.3] });
+          const isSpeakingGesture = person === 2 && side === 1;
+          upperArms.push({
+            person,
+            offset: [side * 0.34, isSpeakingGesture ? 1.34 : 1.2, 0.04],
+            rotation: [isSpeakingGesture ? -0.35 : 0.72, 0, side * 0.38],
+          });
+          forearms.push({
+            person,
+            offset: [side * 0.48, isSpeakingGesture ? 1.47 : 0.87, isSpeakingGesture ? 0.18 : 0.43],
+            rotation: [isSpeakingGesture ? -0.1 : 1.18, 0, side * 0.18],
+          });
+          hands.push({
+            person,
+            offset: [side * 0.5, isSpeakingGesture ? 1.72 : 0.69, isSpeakingGesture ? 0.22 : 0.75],
+            scale: [0.13, 0.12, 0.13],
+          });
+        }
+      });
+      addFigurePart(new THREE.BoxGeometry(0.3, 0.28, 0.58), trousersMaterial, thighs);
+      addFigurePart(new THREE.BoxGeometry(0.22, 0.12, 0.28), trousersMaterial, shoes);
+      addFigurePart(new THREE.CylinderGeometry(0.1, 0.13, 0.54, 8), shirtMaterial, upperArms.map((part) => ({
+        ...part,
+        color: people[part.person].shirt,
+      })));
+      addFigurePart(new THREE.CylinderGeometry(0.075, 0.095, 0.48, 8), shirtMaterial, forearms.map((part) => ({
+        ...part,
+        color: people[part.person].shirt,
+      })));
+      addFigurePart(new THREE.SphereGeometry(1, 8, 6), skinMaterial, hands);
+
+      // The basket and four session markers carry the story from device-free arrival to repeated practice.
+      cylinder(4.65, 1.48, 32.05, 0.54, 0.46, roomTimber, 10);
+      const basketRim = add(new THREE.TorusGeometry(0.54, 0.075, 7, 24), roomTrim, 4.65, 1.73, 32.05);
+      basketRim.rotation.x = Math.PI / 2;
+      basketRim.userData.isLandscapeStage = true;
+      const phoneGeometry = new THREE.BoxGeometry(0.22, 0.045, 0.38);
+      const phonePlacements = [
+        { position: [4.38, 1.75, 31.98], rotation: -0.3 },
+        { position: [4.66, 1.76, 32.02], rotation: 0.18 },
+        { position: [4.91, 1.75, 32.14], rotation: -0.12 },
+      ];
+      addStaticInstances(phoneGeometry, dark, phonePlacements.map((phone) => ({
+        position: phone.position as [number, number, number],
+        rotation: [0, phone.rotation, 0],
+        scale: [1, 0.8, 1],
+      })));
+      addStaticInstances(new THREE.BoxGeometry(0.16, 0.012, 0.28), roomTrim, phonePlacements.map((phone) => ({
+        position: [phone.position[0], phone.position[1] + 0.03, phone.position[2]] as [number, number, number],
+        rotation: [0, phone.rotation, 0],
+      })));
+      addStaticInstances(new THREE.BoxGeometry(0.12, 0.48, 0.5), roomTrim, [2.85, 3.7, 4.55].map((y) => ({
+        position: [-5.88, y, 29.9],
+      })));
+      addStaticInstances(new THREE.BoxGeometry(0.12, 0.48, 0.5), edge, [{ position: [-5.88, 5.4, 29.9] }]);
+      addStaticInstances(new THREE.SphereGeometry(0.11, 8, 6), glow, [2.85, 3.7, 4.55, 5.4].map((y) => ({
+        position: [-5.78, y, 29.55],
+      })), "beacon");
+
+      const routeStepGeometry = new THREE.CylinderGeometry(0.2408, 0.28, 0.055, 10);
+      addStaticInstances(routeStepGeometry, edge, [31.5, 29.15].map((z) => ({ position: [0, 1.285, z] })), "route");
+      addStaticInstances(routeStepGeometry, glow, [{ position: [0, 1.285, 30.05] }], "route");
+      for (const [radius, y] of [[0.72, 4.45], [1.08, 4.78]] as const) {
+        const listeningWave = add(new THREE.TorusGeometry(radius, 0.045, 6, 24, Math.PI), glow, 0, y, 27.35);
+        listeningWave.userData.isLandscapeRoute = true;
       }
 
-      box(-4.35, 1.63, 25.55, 1.42, 0.34, 0.76, dark);
-      for (const x of [-4.78, -4.35, -3.92]) box(x, 1.9, 25.48, 0.24, 0.08, 0.38, edge);
-      for (const [radius, y] of [[0.65, 4.75], [0.98, 4.95], [1.31, 5.15]] as const) {
-        const wave = add(new THREE.TorusGeometry(radius, 0.055, 7, 24, Math.PI), glow, 0, y, 27.78);
-        wave.userData.isLandscapeRoute = true;
+      box(0, 5.92, 32.75, 9.9, 1.48, 0.24, roomTimber);
+      const signCanvas = document.createElement("canvas");
+      signCanvas.width = 1024;
+      signCanvas.height = 192;
+      const signContext = signCanvas.getContext("2d");
+      if (signContext) {
+        signContext.fillStyle = "#36574d";
+        signContext.fillRect(0, 0, signCanvas.width, signCanvas.height);
+        signContext.strokeStyle = "#d6c49d";
+        signContext.lineWidth = 8;
+        signContext.strokeRect(12, 12, signCanvas.width - 24, signCanvas.height - 24);
+        signContext.fillStyle = "#f6eedb";
+        signContext.textAlign = "center";
+        signContext.textBaseline = "middle";
+        signContext.font = "bold 48px Arial, sans-serif";
+        signContext.fillText("FOUR-WEEK LISTENING EXPERIMENT", 512, 65);
+        signContext.font = "bold 29px Arial, sans-serif";
+        signContext.fillText("20 MIN  ·  ASK ONE FOLLOW-UP  ·  SUMMARIZE BEFORE REPLYING", 512, 130);
+        const signTexture = new THREE.CanvasTexture(signCanvas);
+        signTexture.colorSpace = THREE.SRGBColorSpace;
+        const sign = new THREE.Mesh(
+          new THREE.PlaneGeometry(9.45, 1.22),
+          new THREE.MeshBasicMaterial({ map: signTexture, side: THREE.DoubleSide, toneMapped: false })
+        );
+        sign.position.set(0, 5.92, 33.02);
+        sign.userData.isLandscapeStage = true;
+        root.add(sign);
       }
-      route([[-3.2, 4.25, 27.78], [0, 5.25, 27.78], [3.2, 4.25, 27.78]], edge, 0.07);
-      const greenhouseLight = new THREE.PointLight(0x9ce8c8, 0.85, 16, 2);
-      greenhouseLight.position.set(0, 5.4, 25.7);
-      root.add(greenhouseLight);
+
+      const conversationLight = new THREE.PointLight(0xffd7a2, 0.72, 17, 2);
+      conversationLight.position.set(0, 5.35, 27.2);
+      root.add(conversationLight);
       break;
     }
     case "focus": {
