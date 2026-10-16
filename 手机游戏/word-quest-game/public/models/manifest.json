@@ -28,6 +28,6 @@
   },
   "world": {
     "terrain": { "file": "models/world/terrain.glb", "optional": true, "targetHeight": 2 },
-    "avatar": { "file": "models/avatar/avatar.glb", "optional": true, "targetHeight": 1.9, "label": "探险者角色（可选，放入即生效）" }
+    "_avatar_disabled": { "file": "models/avatar/avatar.glb", "optional": true, "targetHeight": 1.9, "label": "旧机器人角色，已停用；把键名改回 avatar 即可重新启用（会覆盖程序化人形）" }
   }
 }

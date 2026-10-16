@@ -1,5 +1,98 @@
 import * as THREE from "three";
 
+const grainPatched = new WeakSet<THREE.Material>();
+
+const GRAIN_NOISE_GLSL = /* glsl */ `
+varying vec3 vGrainWorld;
+float gHash(vec3 p) {
+  p = fract(p * 0.3183099 + vec3(0.1, 0.2, 0.3));
+  p *= 17.0;
+  return fract(p.x * p.y * p.z * (p.x + p.y + p.z));
+}
+float gNoise(vec3 x) {
+  vec3 i = floor(x);
+  vec3 f = fract(x);
+  f = f * f * (3.0 - 2.0 * f);
+  return mix(
+    mix(mix(gHash(i), gHash(i + vec3(1, 0, 0)), f.x), mix(gHash(i + vec3(0, 1, 0)), gHash(i + vec3(1, 1, 0)), f.x), f.y),
+    mix(mix(gHash(i + vec3(0, 0, 1)), gHash(i + vec3(1, 0, 1)), f.x), mix(gHash(i + vec3(0, 1, 1)), gHash(i + vec3(1, 1, 1)), f.x), f.y),
+    f.z);
+}
+// 大尺度明暗斑驳（低频，远处也稳定）
+float gGrain(vec3 p) {
+  return gNoise(p * 1.7) * 0.6 + gNoise(p * 6.5) * 0.4;
+}
+// 表面起伏高度（取解析梯度，避免 dFdx 产生 2x2 像素马赛克）
+float gBump(vec3 p) {
+  return gNoise(p * 5.0) * 0.6 + gNoise(p * 17.0) * 0.4;
+}
+`;
+
+/**
+ * 给场景中所有"纯色"标准材质注入世界空间微表面：颗粒凹凸、明暗斑驳与粗糙度起伏。
+ * 不依赖 UV，盒子 / 圆柱 / 球体上的纹理尺度一致，石头、木头、金属不再是一块平滑塑料。
+ * 带贴图、顶点色、自发光或透明的材质（地形、草、水晶、光效）保持原样。
+ */
+export function applySurfaceGrain(root: THREE.Object3D, strength = 1): void {
+  root.traverse((object) => {
+    const mesh = object as THREE.Mesh;
+    if (!mesh.isMesh) return;
+    const list = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+    for (const mat of list) {
+      if (grainPatched.has(mat) || mat.type !== "MeshStandardMaterial") continue;
+      const std = mat as THREE.MeshStandardMaterial;
+      if (std.map || std.normalMap || std.bumpMap || std.vertexColors || std.transparent) continue;
+      if (std.emissiveIntensity > 0.25 && std.emissive.getHex() !== 0) continue;
+      grainPatched.add(mat);
+      const prev = std.onBeforeCompile;
+      std.onBeforeCompile = (shader, renderer) => {
+        prev?.call(std, shader, renderer);
+        shader.vertexShader = "varying vec3 vGrainWorld;\n" + shader.vertexShader.replace(
+          "#include <begin_vertex>",
+          `#include <begin_vertex>
+           vec4 gLocal = vec4(transformed, 1.0);
+           #ifdef USE_INSTANCING
+             gLocal = instanceMatrix * gLocal;
+           #endif
+           vGrainWorld = (modelMatrix * gLocal).xyz;`
+        );
+        shader.fragmentShader = GRAIN_NOISE_GLSL + shader.fragmentShader
+          .replace(
+            "#include <color_fragment>",
+            `#include <color_fragment>
+             float gTone = gGrain(vGrainWorld);
+             diffuseColor.rgb *= 1.0 + (gTone - 0.5) * ${(0.10 * strength).toFixed(2)};`
+          )
+          .replace(
+            "#include <roughnessmap_fragment>",
+            `#include <roughnessmap_fragment>
+             roughnessFactor = clamp(roughnessFactor + (gTone - 0.5) * 0.22, 0.05, 1.0);`
+          )
+          .replace(
+            "#include <normal_fragment_maps>",
+            `#include <normal_fragment_maps>
+             {
+               // 像素覆盖面积越大（越远）凹凸越弱，避免远处闪烁
+               float gFade = 1.0 - smoothstep(0.02, 0.12, length(fwidth(vGrainWorld)));
+               const float gE = 0.012;
+               vec3 gW = vGrainWorld;
+               float gB0 = gBump(gW);
+               vec3 gGradW = vec3(
+                 gBump(gW + vec3(gE, 0.0, 0.0)) - gB0,
+                 gBump(gW + vec3(0.0, gE, 0.0)) - gB0,
+                 gBump(gW + vec3(0.0, 0.0, gE)) - gB0) / gE;
+               vec3 gGradV = mat3(viewMatrix) * gGradW;
+               gGradV -= normal * dot(gGradV, normal);
+               normal = normalize(normal - gGradV * ${(0.05 * strength).toFixed(3)} * gFade);
+             }`
+          );
+      };
+      std.customProgramCacheKey = () => "grain";
+      std.needsUpdate = true;
+    }
+  });
+}
+
 /** 水晶 / 玻璃质感 */
 export function glassCrystal(color: number, emissiveIntensity: number): THREE.MeshPhysicalMaterial {
   return new THREE.MeshPhysicalMaterial({

@@ -4,6 +4,7 @@ import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
 import { Reflector } from "three/addons/objects/Reflector.js";
 import type { MapNode, WordPickup } from "../../core/types";
 import { loadAvatarGlb, loadModelsManifest, enhanceAvatarMaterials, createContactShadow } from "./ModelLoader";
@@ -53,7 +54,7 @@ function detectQuality(): QualityTier {
 import { createLandmarkWithCad } from "./cadLandmark";
 import { createExplorerAvatar, type AvatarRig } from "./explorerAvatar";
 import { ExplorerCamera } from "./ExplorerCamera";
-import { glowPath, lanternGlass, lanternMetal, makeLanternGlowTexture, mossyStone, water } from "./materials";
+import { applySurfaceGrain, glowPath, lanternGlass, lanternMetal, makeLanternGlowTexture, mossyStone, water } from "./materials";
 import { PlayerController } from "./PlayerController";
 import {
   createBush,
@@ -256,7 +257,7 @@ export class World3D {
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, this.qcfg.pixelRatio));
     this.renderer.setSize(w, h);
     this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMap.type = THREE.PCFShadowMap;
+    this.renderer.shadowMap.type = this.quality === "low" ? THREE.PCFShadowMap : THREE.PCFSoftShadowMap;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.28;
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -286,6 +287,16 @@ export class World3D {
     try {
       const composer = new EffectComposer(this.renderer);
       composer.addPass(new RenderPass(this.scene, this.camera));
+
+      // 环境光遮蔽：让建筑根部、石阶缝隙、树下出现接触阴影，物体不再"漂"在地上
+      if (this.quality === "high") {
+        const ao = new GTAOPass(this.scene, this.camera, w, h);
+        ao.output = GTAOPass.OUTPUT.Default;
+        ao.blendIntensity = 0.85;
+        ao.updateGtaoMaterial({ radius: 1.1, distanceExponent: 1.4, thickness: 2, scale: 1.1, samples: 12, distanceFallOff: 1, screenSpaceRadius: false });
+        ao.updatePdMaterial({ lumaPhi: 10, depthPhi: 2, normalPhi: 3, radius: 5, rings: 2, samples: 8 });
+        composer.addPass(ao);
+      }
 
       const bs = this.qcfg.bloomScale;
       const bloom = new UnrealBloomPass(new THREE.Vector2(w * bs, h * bs), 0.62, 0.5, 0.78);
@@ -656,20 +667,21 @@ export class World3D {
     // 靠近站点 / 光球时自动微笑
     const eff = this.nearNode || this.nearPickup ? "happy" : this.expression;
 
-    let browY = 0.37;
+    // 表情偏移相对于角色面部静止位置（米），与具体模型比例解耦
+    let browY = rig.faceRest.browY;
     let mouthSX = 1;
     let mouthSY = 1;
-    let mouthY = 0.2;
+    let mouthY = rig.faceRest.mouthY;
     if (eff === "happy") {
-      browY = 0.39;
-      mouthSX = 1.5;
-      mouthSY = 0.85;
-      mouthY = 0.188;
+      browY += 0.006;
+      mouthSX = 1.45;
+      mouthSY = 0.9;
+      mouthY -= 0.004;
     } else if (eff === "surprised") {
-      browY = 0.42;
-      mouthSX = 0.7;
-      mouthSY = 2.4;
-      mouthY = 0.192;
+      browY += 0.014;
+      mouthSX = 0.6;
+      mouthSY = 2.2;
+      mouthY -= 0.006;
     }
 
     const k = Math.min(1, dt * 8);
@@ -1059,7 +1071,8 @@ export class World3D {
     cam.far = 340;
     cam.left = cam.bottom = -150;
     cam.right = cam.top = 150;
-    this.sun.shadow.bias = -0.00035;
+    this.sun.shadow.bias = -0.0003;
+    this.sun.shadow.normalBias = 0.04;
     this.scene.add(this.sun);
 
     const rim = new THREE.DirectionalLight(0x8cb4ff, 0.5);
@@ -1853,6 +1866,7 @@ export class World3D {
       sampleTerrainY(unitNode.x, unitNode.z, terrainHeight),
       unitNode.z
     );
+    applySurfaceGrain(this.unitLandscape);
     this.scene.add(this.unitLandscape);
   }
 
@@ -2102,8 +2116,8 @@ export class World3D {
           rig.leftArm.rotation.x = -swL * 0.8;
           rig.rightArm.rotation.x = -swR * 0.8;
           rig.head.rotation.z = 0;
-          // 披风随步伐飘起
-          rig.cape.rotation.x = -0.18 - (0.32 + Math.abs(Math.sin(this.walkPhase)) * 0.18) * (sprint ? 1.3 : 1);
+          // 围巾尾端随步伐向身后飘起
+          rig.cape.rotation.x = 0.16 + (0.3 + Math.abs(Math.sin(this.walkPhase)) * 0.2) * (sprint ? 1.4 : 1);
           rig.cape.rotation.z = Math.sin(this.walkPhase * 0.5) * 0.08;
         } else {
           // 回归站姿 + 待机呼吸
@@ -2116,7 +2130,7 @@ export class World3D {
           rig.rightArm.rotation.x *= 1 - k;
           rig.head.rotation.z = Math.sin(t * 1.4) * 0.05;
           // 披风静止微摆
-          rig.cape.rotation.x += (-0.2 - rig.cape.rotation.x) * k;
+          rig.cape.rotation.x += (0.16 - rig.cape.rotation.x) * k;
           rig.cape.rotation.z += (Math.sin(t * 1.1) * 0.04 - rig.cape.rotation.z) * k;
         }
 

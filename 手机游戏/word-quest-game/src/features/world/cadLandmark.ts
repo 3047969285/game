@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import type { MapNode } from "../../core/types";
 import { createLandmark } from "./landmarks";
-import { glassCrystal } from "./materials";
+import { applySurfaceGrain, glassCrystal } from "./materials";
 import {
   findPickMesh,
   loadGlbModel,
@@ -140,6 +140,7 @@ export async function createLandmarkWithCad(
       const root = new THREE.Group();
       addPlatform(root, node);
       model.position.y = 0.35;
+      applySurfaceGrain(model, 0.3);
       root.add(model);
 
       const pickNames = slot.pickMeshNames ?? manifest.defaults?.pickMeshNames ?? ["Crystal", "PICK"];

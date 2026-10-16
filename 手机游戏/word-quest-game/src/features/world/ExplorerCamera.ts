@@ -44,8 +44,8 @@ export class ExplorerCamera {
     const sin = Math.sin(this.yaw);
     const focusOnLandscape = !followPlayerYaw && Boolean(orbitTarget);
     const anchor = focusOnLandscape ? orbitTarget! : playerPos;
-    const dist = focusOnLandscape ? CAMERA_DISTANCE + 8 : CAMERA_DISTANCE;
-    const height = CAMERA_HEIGHT + Math.sin(this.pitch) * 3;
+    const dist = (focusOnLandscape ? CAMERA_DISTANCE + 8 : CAMERA_DISTANCE) * this.zoom;
+    const height = (CAMERA_HEIGHT + Math.sin(this.pitch) * 3) * (focusOnLandscape ? 1 : 0.4 + 0.6 * this.zoom);
 
     this.desiredPos.set(
       anchor.x - sin * dist,
@@ -60,6 +60,13 @@ export class ExplorerCamera {
 
     return this.yaw;
   }
+
+  /** 鼠标滚轮缩放：靠近可以近距离看角色 / 建筑细节 */
+  private zoom = 1;
+  private readonly onWheel = (e: WheelEvent): void => {
+    e.preventDefault();
+    this.zoom = THREE.MathUtils.clamp(this.zoom * Math.exp(e.deltaY * 0.0012), 0.22, 1.4);
+  };
 
   private isDragging = false;
   private lastX = 0;
@@ -102,6 +109,7 @@ export class ExplorerCamera {
     el.addEventListener("pointerup", this.onPointerEnd);
     el.addEventListener("pointercancel", this.onPointerEnd);
     el.addEventListener("lostpointercapture", this.onPointerEnd);
+    el.addEventListener("wheel", this.onWheel, { passive: false });
   }
 
   disposeDrag(): void {
@@ -112,6 +120,7 @@ export class ExplorerCamera {
     el.removeEventListener("pointerup", this.onPointerEnd);
     el.removeEventListener("pointercancel", this.onPointerEnd);
     el.removeEventListener("lostpointercapture", this.onPointerEnd);
+    el.removeEventListener("wheel", this.onWheel);
     if (this.activePointerId !== null && el.hasPointerCapture(this.activePointerId)) {
       el.releasePointerCapture(this.activePointerId);
     }

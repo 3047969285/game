@@ -1,6 +1,10 @@
 import * as THREE from "three";
 import type { MapNode } from "../../core/types";
 import type { UnitBiome } from "./unitBiome";
+import { buildUnit1Sanctuary } from "./unit1Sanctuary";
+import { createPerson } from "./people";
+import { buildApproachSlab, buildFocusedTerrace } from "./focusedTerrace";
+import { buildPortalTrim, buildSignFrame } from "./portalTrim";
 
 type PassageKind = "section_a" | "section_b" | "section_c";
 type PassageSceneKind =
@@ -104,7 +108,8 @@ export function buildUnitLandscape(biome: UnitBiome, _anchor: MapNode, worldId?:
   if (isFocusedLearningWorld(worldId)) {
     addFocusedLearningApproach(root, focus.route, edge);
   } else {
-    addCentralSanctuary(root, ground, dark, glow, edge);
+    if (biome.id === "unit01") root.add(buildUnit1Sanctuary(glow, edge));
+    else addCentralSanctuary(root, ground, dark, glow, edge);
     addStudyStations(root, dark, glow, edge);
   }
   if (isFocusedLearningWorld(worldId)) {
@@ -184,20 +189,12 @@ export function isFocusedLearningWorld(worldId?: string): boolean {
 
 /** 段落/训练微世界从入口直达自己的地标，不再被共用的单元圣所遮住。 */
 function addFocusedLearningApproach(root: THREE.Group, routeColor: number, edge: THREE.Material): void {
-  const route = new THREE.MeshStandardMaterial({
-    color: routeColor,
-    emissive: routeColor,
-    emissiveIntensity: 0.12,
-    roughness: 0.62,
-    metalness: 0.12,
-  });
   for (let index = 0; index < 5; index++) {
     const z = 1.8 + index * 2.1;
     const stepY = 0.54 + index * 0.32;
-    const slab = new THREE.Mesh(new THREE.BoxGeometry(5.2, 0.18, 3.3), route);
+    const slab = buildApproachSlab(routeColor);
     slab.position.set(index % 2 === 0 ? -0.28 : 0.28, stepY, z);
     slab.rotation.y = index % 2 === 0 ? -0.035 : 0.035;
-    slab.userData.isLandscapeRoute = true;
     root.add(slab);
 
     const marker = new THREE.Mesh(new THREE.OctahedronGeometry(0.34, 0), edge);
@@ -336,8 +333,7 @@ function addLearningSceneLandmark(
     const index = Number(article[2]);
     const articleHeading = (worldTitle ?? "").split(" · ")[0];
     const isDialogueWorld = /connection|conversation|communication|dialogue|social/i.test(articleHeading);
-    const platform = add(new THREE.CylinderGeometry(7.8, 8.8, 0.48, 8), dark, 0, 0.92, 27);
-    platform.userData.isLandscapeStage = true;
+    root.add(buildFocusedTerrace(beaconAccent.getHex()));
 
     if (biomeId === "unit06" && section === "section_a" && index === 1) {
       // Unit 6's opening passage is specifically about a neighborhood bookstore
@@ -1006,163 +1002,30 @@ function addPassageSceneLandmark(
         }
       }
 
-      // Instanced, seated figures add human scale and a readable "connected online, awkward in person" pose
-      // without multiplying draw calls for every small body part.
+      // 四位坐在长椅上低头看手机的同学：线上随时联络，线下却相对无言
       const studentXs = [-2.55, -1.55, 1.55, 2.55];
-      const studentColors = [0x708797, 0x9c705e, 0x596f69, 0x8a8169];
-      const trouserColors = [0x344453, 0x594940, 0x455b54, 0x4e4c56];
-      const skinColors = [0xd8ad8a, 0x9c684c, 0xc78e70, 0xe0bb9e];
-      const hairColors = [0x302924, 0x352d28, 0x42342b, 0x272a30];
-      const bodyMesh = new THREE.InstancedMesh(
-        new THREE.CapsuleGeometry(0.3, 0.46, 4, 8),
-        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.86 }),
-        studentXs.length
-      );
-      const headMesh = new THREE.InstancedMesh(
-        new THREE.SphereGeometry(1, 12, 10),
-        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.92 }),
-        studentXs.length * 4
-      );
-      const hairMesh = new THREE.InstancedMesh(
-        new THREE.SphereGeometry(1, 12, 8, 0, Math.PI * 2, 0, Math.PI * 0.43),
-        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.94 }),
-        studentXs.length
-      );
-      const eyeMesh = new THREE.InstancedMesh(
-        new THREE.SphereGeometry(1, 8, 6),
-        new THREE.MeshStandardMaterial({ color: 0x282b30, roughness: 0.72 }),
-        studentXs.length * 2
-      );
-      const mouthMesh = new THREE.InstancedMesh(
-        new THREE.BoxGeometry(1, 1, 1),
-        new THREE.MeshStandardMaterial({ color: 0x81594d, roughness: 0.82 }),
-        studentXs.length
-      );
-      const armMesh = new THREE.InstancedMesh(
-        new THREE.CylinderGeometry(0.075, 0.09, 1, 8),
-        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.88 }),
-        studentXs.length * 4
-      );
-      const legMesh = new THREE.InstancedMesh(
-        new THREE.CylinderGeometry(0.11, 0.14, 1, 8),
-        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.9 }),
-        studentXs.length * 4
-      );
-      const shoeMesh = new THREE.InstancedMesh(
-        new THREE.BoxGeometry(1, 1, 1),
-        new THREE.MeshStandardMaterial({ color: 0x303943, roughness: 0.72 }),
-        studentXs.length * 2
-      );
-      const handMesh = new THREE.InstancedMesh(
-        new THREE.SphereGeometry(1, 8, 6),
-        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.92 }),
-        studentXs.length * 2
-      );
-      const phoneMesh = new THREE.InstancedMesh(
-        new THREE.BoxGeometry(1, 1, 1),
-        new THREE.MeshStandardMaterial({ color: 0x26323b, roughness: 0.36, metalness: 0.26 }),
-        studentXs.length
-      );
-      const screenMesh = new THREE.InstancedMesh(
-        new THREE.BoxGeometry(1, 1, 1),
-        new THREE.MeshStandardMaterial({ color: 0x67c8c5, emissive: 0x1d8588, emissiveIntensity: 0.28, roughness: 0.32 }),
-        studentXs.length
-      );
-      const studentMeshes = [bodyMesh, headMesh, hairMesh, eyeMesh, mouthMesh, armMesh, legMesh, shoeMesh, handMesh, phoneMesh, screenMesh];
-      for (const mesh of studentMeshes) {
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
-        mesh.userData.isLandscapeStage = true;
-        root.add(mesh);
-      }
-
-      const instance = new THREE.Object3D();
-      const place = (
-        mesh: THREE.InstancedMesh,
-        index: number,
-        x: number,
-        y: number,
-        z: number,
-        sx: number,
-        sy: number,
-        sz: number
-      ): void => {
-        instance.position.set(x, y, z);
-        instance.rotation.set(0, 0, 0);
-        instance.scale.set(sx, sy, sz);
-        instance.updateMatrix();
-        mesh.setMatrixAt(index, instance.matrix);
-      };
-      const placeSegment = (
-        mesh: THREE.InstancedMesh,
-        index: number,
-        start: THREE.Vector3,
-        end: THREE.Vector3
-      ): void => {
-        const direction = end.clone().sub(start);
-        instance.position.copy(start).add(end).multiplyScalar(0.5);
-        instance.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.clone().normalize());
-        instance.scale.set(1, direction.length(), 1);
-        instance.updateMatrix();
-        mesh.setMatrixAt(index, instance.matrix);
-      };
-      let headIndex = 0;
-      let eyeIndex = 0;
-      let armIndex = 0;
-      let legIndex = 0;
-      let shoeIndex = 0;
-      let handIndex = 0;
+      const studentLooks = [
+        { shirt: 0x708797, hair: 0x302924, skin: 0xd8ad8a, trousers: 0x344453, style: "short" as const },
+        { shirt: 0x9c705e, hair: 0x352d28, skin: 0x9c684c, trousers: 0x594940, style: "long" as const },
+        { shirt: 0x596f69, hair: 0x42342b, skin: 0xc78e70, trousers: 0x455b54, style: "bun" as const },
+        { shirt: 0x8a8169, hair: 0x272a30, skin: 0xe0bb9e, trousers: 0x4e4c56, style: "short" as const },
+      ];
       for (const [studentIndex, x] of studentXs.entries()) {
-        const z = 25.92;
-        bodyMesh.setColorAt(studentIndex, new THREE.Color(studentColors[studentIndex]));
-        hairMesh.setColorAt(studentIndex, new THREE.Color(hairColors[studentIndex]));
-        place(bodyMesh, studentIndex, x, 2.6, z, 0.94, 1, 0.8);
-        place(hairMesh, studentIndex, x, 3.38, z, 0.29, 0.31, 0.25);
-
-        place(headMesh, headIndex, x, 3.37, z, 0.27, 0.31, 0.235);
-        headMesh.setColorAt(headIndex++, new THREE.Color(skinColors[studentIndex]));
-        place(headMesh, headIndex, x, 3.29, z - 0.25, 0.055, 0.07, 0.045);
-        headMesh.setColorAt(headIndex++, new THREE.Color(skinColors[studentIndex]));
-        for (const side of [-1, 1]) {
-          place(headMesh, headIndex, x + side * 0.26, 3.35, z - 0.02, 0.055, 0.072, 0.045);
-          headMesh.setColorAt(headIndex++, new THREE.Color(skinColors[studentIndex]));
-          place(eyeMesh, eyeIndex++, x + side * 0.082, 3.39, z - 0.251, 0.034, 0.043, 0.018);
-        }
-        place(mouthMesh, studentIndex, x, 3.27, z - 0.249, 0.075, 0.018, 0.012);
-        place(phoneMesh, studentIndex, x, 2.48, z - 0.42, 0.17, 0.28, 0.035);
-        place(screenMesh, studentIndex, x, 2.48, z - 0.441, 0.132, 0.22, 0.008);
-
-        const leftShoulder = new THREE.Vector3(x - 0.27, 2.88, z - 0.02);
-        const rightShoulder = new THREE.Vector3(x + 0.27, 2.88, z - 0.02);
-        const leftElbow = new THREE.Vector3(x - 0.29, 2.64, z - 0.24);
-        const rightElbow = new THREE.Vector3(x + 0.29, 2.64, z - 0.24);
-        const leftHand = new THREE.Vector3(x - 0.12, 2.52, z - 0.38);
-        const rightHand = new THREE.Vector3(x + 0.12, 2.52, z - 0.38);
-        armMesh.setColorAt(armIndex, new THREE.Color(studentColors[studentIndex]));
-        placeSegment(armMesh, armIndex++, leftShoulder, leftElbow);
-        armMesh.setColorAt(armIndex, new THREE.Color(studentColors[studentIndex]));
-        placeSegment(armMesh, armIndex++, leftElbow, leftHand);
-        armMesh.setColorAt(armIndex, new THREE.Color(studentColors[studentIndex]));
-        placeSegment(armMesh, armIndex++, rightShoulder, rightElbow);
-        armMesh.setColorAt(armIndex, new THREE.Color(studentColors[studentIndex]));
-        placeSegment(armMesh, armIndex++, rightElbow, rightHand);
-
-        for (const side of [-1, 1]) {
-          const legX = x + side * 0.14;
-          const hip = new THREE.Vector3(legX, 2.1, z);
-          const knee = new THREE.Vector3(legX, 1.75, z - 0.34);
-          const ankle = new THREE.Vector3(legX, 1.28, z - 0.57);
-          legMesh.setColorAt(legIndex, new THREE.Color(trouserColors[studentIndex]));
-          placeSegment(legMesh, legIndex++, hip, knee);
-          legMesh.setColorAt(legIndex, new THREE.Color(trouserColors[studentIndex]));
-          placeSegment(legMesh, legIndex++, knee, ankle);
-          place(shoeMesh, shoeIndex++, legX, 1.24, z - 0.67, 0.17, 0.13, 0.32);
-          place(handMesh, handIndex++, x + side * 0.12, 2.52, z - 0.39, 0.075, 0.075, 0.075);
-        }
-      }
-      for (const mesh of studentMeshes) {
-        mesh.instanceMatrix.needsUpdate = true;
-        if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+        const look = studentLooks[studentIndex];
+        const student = createPerson({
+          shirt: look.shirt,
+          hair: look.hair,
+          hairStyle: look.style,
+          skin: look.skin,
+          trousers: look.trousers,
+          seated: true,
+          pose: "phone",
+          lean: 0.08,
+          scale: 1.6,
+        });
+        student.position.set(x, 1.84, 25.98);
+        student.rotation.y = Math.PI;
+        root.add(student);
       }
 
       // Floating message cards are small cues above the real courtyard, not the setting itself.
@@ -1363,82 +1226,22 @@ function addPassageSceneLandmark(
         { position: [0.42, 2.18, 27.95], scale: [1, 1, 1], rotation: [0, 0, 0] },
       ]);
 
-      const shirtMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.86 });
-      const hairMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.92 });
-      const trousersMaterial = new THREE.MeshStandardMaterial({ color: 0x48525a, roughness: 0.9 });
-      const skinMaterial = new THREE.MeshStandardMaterial({ color: 0xd9b397, roughness: 0.84 });
-      const eyeMaterial = new THREE.MeshStandardMaterial({ color: 0xf3eee0, roughness: 0.7 });
-      const pupilMaterial = new THREE.MeshStandardMaterial({ color: 0x39342f, roughness: 0.8 });
-      addFigurePart(new THREE.CylinderGeometry(0.31, 0.42, 0.8, 10), shirtMaterial, people.map((person, index) => ({
-        person: index,
-        offset: [0, 1.05, 0],
-        color: person.shirt,
-      })));
-      addFigurePart(new THREE.CylinderGeometry(0.12, 0.14, 0.18, 8), skinMaterial, people.map((_, person) => ({ person, offset: [0, 1.47, 0.02] })));
-      addFigurePart(new THREE.SphereGeometry(0.32, 12, 10), skinMaterial, people.map((_, person) => ({
-        person,
-        offset: [0, 1.76, 0.04],
-        scale: [1, 1.04, 0.95],
-      })));
-      addFigurePart(new THREE.SphereGeometry(0.34, 10, 8), hairMaterial, people.map((person, index) => ({
-        person: index,
-        offset: [0, 1.98, 0.015],
-        scale: [1, 0.42, 1],
-        color: person.hair,
-      })));
-      const eyePlacements: FigurePlacement[] = [];
-      const pupilPlacements: FigurePlacement[] = [];
-      people.forEach((_, person) => {
-        for (const x of [-0.105, 0.105]) {
-          eyePlacements.push({ person, offset: [x, 1.79, 0.335], scale: [0.052, 0.052, 0.028] });
-          pupilPlacements.push({ person, offset: [x, 1.79, 0.36], scale: [0.024, 0.03, 0.018] });
-        }
+      // 三位同学围坐：中间一人在发言，其余两人专注倾听
+      people.forEach((spec, index) => {
+        const person = createPerson({
+          shirt: spec.shirt,
+          hair: spec.hair,
+          hairStyle: index === 0 ? "long" : "short",
+          skin: [0xd9a07c, 0xb97d5a, 0xe2b693][index],
+          seated: true,
+          pose: index === 2 ? "talk" : "listen",
+          lean: index === 2 ? 0 : 0.05,
+          scale: 1.45,
+        });
+        person.position.set(spec.x, spec.y + 0.55, spec.z);
+        person.rotation.y = spec.yaw;
+        root.add(person);
       });
-      addFigurePart(new THREE.SphereGeometry(1, 8, 6), eyeMaterial, eyePlacements);
-      addFigurePart(new THREE.SphereGeometry(1, 8, 6), pupilMaterial, pupilPlacements);
-      addFigurePart(new THREE.SphereGeometry(0.06, 8, 6), pupilMaterial, people.map((_, person) => ({
-        person,
-        offset: [0, 1.65, 0.36],
-        scale: [0.9, 0.32, 0.4],
-      })));
-      const thighs: FigurePlacement[] = [];
-      const shoes: FigurePlacement[] = [];
-      const upperArms: FigurePlacement[] = [];
-      const forearms: FigurePlacement[] = [];
-      const hands: FigurePlacement[] = [];
-      people.forEach((_, person) => {
-        for (const side of [-1, 1]) {
-          thighs.push({ person, offset: [side * 0.17, 0.54, 0.3], rotation: [0.1, 0, side * 0.06] });
-          shoes.push({ person, offset: [side * 0.18, 0.14, 0.65], scale: [1, 0.52, 1.3] });
-          const isSpeakingGesture = person === 2 && side === 1;
-          upperArms.push({
-            person,
-            offset: [side * 0.34, isSpeakingGesture ? 1.34 : 1.2, 0.04],
-            rotation: [isSpeakingGesture ? -0.35 : 0.72, 0, side * 0.38],
-          });
-          forearms.push({
-            person,
-            offset: [side * 0.48, isSpeakingGesture ? 1.47 : 0.87, isSpeakingGesture ? 0.18 : 0.43],
-            rotation: [isSpeakingGesture ? -0.1 : 1.18, 0, side * 0.18],
-          });
-          hands.push({
-            person,
-            offset: [side * 0.5, isSpeakingGesture ? 1.72 : 0.69, isSpeakingGesture ? 0.22 : 0.75],
-            scale: [0.13, 0.12, 0.13],
-          });
-        }
-      });
-      addFigurePart(new THREE.BoxGeometry(0.3, 0.28, 0.58), trousersMaterial, thighs);
-      addFigurePart(new THREE.BoxGeometry(0.22, 0.12, 0.28), trousersMaterial, shoes);
-      addFigurePart(new THREE.CylinderGeometry(0.1, 0.13, 0.54, 8), shirtMaterial, upperArms.map((part) => ({
-        ...part,
-        color: people[part.person].shirt,
-      })));
-      addFigurePart(new THREE.CylinderGeometry(0.075, 0.095, 0.48, 8), shirtMaterial, forearms.map((part) => ({
-        ...part,
-        color: people[part.person].shirt,
-      })));
-      addFigurePart(new THREE.SphereGeometry(1, 8, 6), skinMaterial, hands);
 
       // The basket and four session markers carry the story from device-free arrival to repeated practice.
       cylinder(4.65, 1.48, 32.05, 0.54, 0.46, roomTimber, 10);
@@ -1539,6 +1342,7 @@ function addPassageSceneLandmark(
       deck.userData.isLandscapeRoute = true;
       ring(6.15, 1.31, 0.08);
       arch(12.4, 7.15, edge, 31.25);
+      root.add(buildPortalTrim(12.4, 7.15, 31.25, "steel"));
 
       const railPosts = new THREE.InstancedMesh(new THREE.BoxGeometry(0.16, 1.05, 0.16), timber, 6);
       const railMatrix = new THREE.Matrix4();
@@ -1640,6 +1444,7 @@ function addPassageSceneLandmark(
       shrubs.userData.isLandscapeStage = true;
       root.add(shrubs);
 
+      root.add(buildSignFrame(10.9, 2.25, 0, 5.05, 31.25));
       const evidenceBoard = box(0, 5.05, 31.25, 10.9, 2.25, 0.24, dark);
       evidenceBoard.userData.isLandscapeStage = true;
       const boardCanvas = document.createElement("canvas");
@@ -1738,26 +1543,168 @@ function addPassageSceneLandmark(
       break;
     }
     case "listening-bench": {
-      cylinder(0, 1.18, 27, 5.1, 0.34, dark, 12);
-      for (const x of [-2.25, 2.25]) {
-        box(x, 1.78, 27, 1.85, 0.22, 0.78, ground);
-        box(x, 2.34, x < 0 ? 27.38 : 26.62, 1.85, 0.78, 0.18, edge, x < 0 ? -0.04 : 0.04);
-        for (const z of [26.72, 27.28]) cylinder(x, 1.42, z, 0.1, 0.58, dark, 8);
+      const stone = new THREE.MeshStandardMaterial({ color: 0x8d9085, roughness: 0.92 });
+      const inlay = new THREE.MeshStandardMaterial({ color: 0x6f7771, roughness: 0.86 });
+      const timber = new THREE.MeshStandardMaterial({ color: 0x765b45, roughness: 0.88 });
+      const foliage = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.94 });
+      const soil = new THREE.MeshStandardMaterial({ color: 0x4c4939, roughness: 1 });
+      const paper = new THREE.MeshStandardMaterial({ color: 0xece3cf, roughness: 0.96 });
+
+      const terrace = cylinder(0, 1.18, 27, 5.25, 0.34, stone, 16);
+      terrace.userData.isLandscapeRoute = true;
+      for (const radius of [3.55, 4.7]) {
+        const pavingEcho = add(new THREE.TorusGeometry(radius, 0.026, 6, 56), inlay, 0, 1.37, 27);
+        pavingEcho.rotation.x = Math.PI / 2;
+        pavingEcho.userData.isLandscapeRoute = true;
+        pavingEcho.userData.noLandscapeShadow = true;
       }
-      for (const x of [-1.7, 1.7]) {
-        const torso = cylinder(x, 2.55, 27, 0.34, 1.02, x < 0 ? edge : ground, 8);
-        torso.userData.isLandscapeStage = true;
-        const head = add(new THREE.SphereGeometry(0.37, 12, 10), ground, x, 3.28, 27);
-        head.userData.isLandscapeStage = true;
+
+      const benchSeats = new THREE.InstancedMesh(new THREE.BoxGeometry(0.9, 0.18, 1.9), timber, 2);
+      const benchBacks = new THREE.InstancedMesh(new THREE.BoxGeometry(0.16, 0.82, 1.9), timber, 2);
+      const benchLegs = new THREE.InstancedMesh(new THREE.BoxGeometry(0.12, 0.48, 0.12), dark, 8);
+      const benchMatrix = new THREE.Matrix4();
+      const benchCenters = [-1.65, 1.65] as const;
+      benchCenters.forEach((x, index) => {
+        benchMatrix.makeTranslation(x, 1.82, 27);
+        benchSeats.setMatrixAt(index, benchMatrix);
+        benchMatrix.makeTranslation(Math.sign(x) * 2.14, 2.31, 27);
+        benchBacks.setMatrixAt(index, benchMatrix);
+      });
+      let legIndex = 0;
+      for (const x of benchCenters) {
+        for (const dx of [-0.3, 0.3]) {
+          for (const dz of [-0.68, 0.68]) {
+            benchMatrix.makeTranslation(x + dx, 1.59, 27 + dz);
+            benchLegs.setMatrixAt(legIndex++, benchMatrix);
+          }
+        }
       }
-      const sharedFocus = add(new THREE.OctahedronGeometry(0.46, 1), glow, 0, 3.22, 27);
-      sharedFocus.userData.isLandscapeBeacon = true;
-      route([[-1.18, 3.05, 27], [-0.55, 3.55, 27], [0.42, 3.55, 27], [1.18, 3.05, 27]], edge, 0.075);
-      for (const [radius, y] of [[0.82, 4.26], [1.18, 4.56], [1.54, 4.86]] as const) {
-        const echo = add(new THREE.TorusGeometry(radius, 0.055, 7, 28, Math.PI), glow, 0, y, 27.25);
-        echo.userData.isLandscapeRoute = true;
+      for (const [mesh, name] of [
+        [benchSeats, "echo-bench-seats"],
+        [benchBacks, "echo-bench-backs"],
+        [benchLegs, "echo-bench-legs"],
+      ] as const) {
+        mesh.instanceMatrix.needsUpdate = true;
+        mesh.computeBoundingSphere();
+        mesh.name = name;
+        mesh.userData.isLandscapeStage = true;
+        root.add(mesh);
       }
-      ring(4.75, 1.05, 0.12);
+
+      // 两位坐在长椅上的同学：一人说话、一人倾听，面朝彼此（写实比例人物）
+      for (const [x, facing, shirtColor, hairColor, speaking] of [
+        [-1.78, Math.PI / 2, 0x789585, 0x443a34, true],
+        [1.78, -Math.PI / 2, 0x7d91a4, 0x2b2420, false],
+      ] as const) {
+        const person = createPerson({
+          shirt: shirtColor,
+          hair: hairColor,
+          hairStyle: speaking ? "short" : "long",
+          skin: speaking ? 0xd9a07c : 0xe2b693,
+          seated: true,
+          pose: speaking ? "talk" : "listen",
+          lean: speaking ? 0 : 0.07,
+          scale: 1.4,
+        });
+        person.name = speaking ? "echo-speaker" : "echo-listener";
+        person.position.set(x, 1.91, 27);
+        person.rotation.y = facing;
+        root.add(person);
+      }
+
+      cylinder(0, 1.55, 27, 0.15, 0.36, timber, 10);
+      cylinder(0, 1.78, 27, 0.62, 0.16, timber, 12);
+      box(-0.17, 1.875, 27, 0.36, 0.025, 0.46, paper, 0.08);
+      box(0.17, 1.875, 27, 0.36, 0.025, 0.46, paper, -0.08);
+      box(0, 1.895, 27, 0.025, 0.018, 0.46, inlay);
+      box(-0.42, 1.9, 27.25, 0.035, 0.025, 0.42, dark, -0.18);
+      for (const x of [-0.43, 0.43]) {
+        cylinder(x, 1.95, 27.32, 0.075, 0.14, paper, 8);
+        const cupHandle = add(new THREE.TorusGeometry(0.045, 0.012, 6, 12), paper, x + Math.sign(x) * 0.07, 1.95, 27.32);
+        cupHandle.userData.noLandscapeShadow = true;
+      }
+
+      for (const x of [-4.05, 4.05]) {
+        box(x, 1.57, 27, 1.3, 0.44, 2.7, timber);
+        box(x, 1.81, 27, 1.15, 0.06, 2.52, soil);
+      }
+      const gardenTrunks = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.09, 0.14, 1.2, 7), timber, 2);
+      const trunkMatrix = new THREE.Matrix4();
+      [-4.05, 4.05].forEach((x, index) => {
+        trunkMatrix.makeTranslation(x, 2.42, 27);
+        gardenTrunks.setMatrixAt(index, trunkMatrix);
+      });
+      gardenTrunks.instanceMatrix.needsUpdate = true;
+      gardenTrunks.computeBoundingSphere();
+      gardenTrunks.name = "echo-garden-tree-trunks";
+      gardenTrunks.userData.isLandscapeStage = true;
+      root.add(gardenTrunks);
+
+      const gardenCanopies = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(0.48, 1), foliage, 6);
+      const canopyMatrix = new THREE.Matrix4();
+      const canopyPosition = new THREE.Vector3();
+      const canopyScale = new THREE.Vector3();
+      const canopyColors = [0x607a62, 0x8da079, 0x708a6a, 0x708a6a, 0x8da079, 0x607a62];
+      for (const [index, [x, z]] of [
+        [-4.05, 26.42], [-4.05, 27.12], [-4.05, 27.78],
+        [4.05, 26.42], [4.05, 27.12], [4.05, 27.78],
+      ].entries()) {
+        canopyPosition.set(x, 3.05 + (index % 2) * 0.2, z);
+        canopyScale.set(1.1, 0.94 + (index % 2) * 0.14, 0.96);
+        canopyMatrix.compose(canopyPosition, new THREE.Quaternion(), canopyScale);
+        gardenCanopies.setMatrixAt(index, canopyMatrix);
+        gardenCanopies.setColorAt(index, new THREE.Color(canopyColors[index]));
+      }
+      gardenCanopies.instanceMatrix.needsUpdate = true;
+      if (gardenCanopies.instanceColor) gardenCanopies.instanceColor.needsUpdate = true;
+      gardenCanopies.computeBoundingSphere();
+      gardenCanopies.name = "echo-garden-canopies";
+      gardenCanopies.userData.isLandscapeStage = true;
+      root.add(gardenCanopies);
+
+      arch(9.2, 5.65, timber, 31.15);
+      root.add(buildPortalTrim(9.2, 5.65, 31.15, "timber"));
+      root.add(buildSignFrame(8.55, 1.9, 0, 4.55, 31.15));
+      box(0, 4.55, 31.15, 8.55, 1.9, 0.24, timber);
+      const signCanvas = document.createElement("canvas");
+      signCanvas.width = 1200;
+      signCanvas.height = 280;
+      const signContext = signCanvas.getContext("2d");
+      if (signContext) {
+        signContext.fillStyle = "#3a5045";
+        signContext.fillRect(0, 0, signCanvas.width, signCanvas.height);
+        signContext.strokeStyle = "#d8c9a8";
+        signContext.lineWidth = 8;
+        signContext.strokeRect(14, 14, signCanvas.width - 28, signCanvas.height - 28);
+        signContext.textAlign = "center";
+        signContext.textBaseline = "middle";
+        signContext.fillStyle = "#f4eddd";
+        signContext.font = "bold 48px Arial, sans-serif";
+        signContext.fillText("THE ECHO BENCH", 600, 52);
+        signContext.font = "bold 40px Arial, sans-serif";
+        signContext.fillText("DID SOMEONE FEEL HEARD TODAY?", 600, 132);
+        signContext.fillStyle = "#e5cf9d";
+        signContext.font = "bold 30px Arial, sans-serif";
+        signContext.fillText("LISTEN · ASK · REFLECT   |   I heard you say...", 600, 218);
+        const signTexture = new THREE.CanvasTexture(signCanvas);
+        signTexture.colorSpace = THREE.SRGBColorSpace;
+        const signFace = new THREE.Mesh(
+          new THREE.PlaneGeometry(8.2, 1.72),
+          new THREE.MeshBasicMaterial({ map: signTexture, side: THREE.DoubleSide, toneMapped: false })
+        );
+        signFace.position.set(0, 4.55, 31.28);
+        signFace.name = "echo-reflection-sign";
+        signFace.userData.isLandscapeStage = true;
+        signFace.userData.noLandscapeShadow = true;
+        root.add(signFace);
+      }
+
+      box(0, 1.62, 29.25, 1.25, 0.14, 0.62, timber);
+      for (const x of [-0.48, 0.48]) for (const z of [29.05, 29.45]) box(x, 1.48, z, 0.08, 0.28, 0.08, timber);
+      box(0.34, 1.715, 29.25, 0.18, 0.025, 0.32, dark, 0.12);
+      const terraceLight = new THREE.PointLight(0xffd9ad, 0.42, 11, 2);
+      terraceLight.position.set(0, 4.6, 27.4);
+      root.add(terraceLight);
       break;
     }
     case "notification": {
