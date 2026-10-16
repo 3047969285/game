@@ -850,17 +850,55 @@ function addPassageSceneLandmark(
       });
       const libraryTrim = new THREE.MeshStandardMaterial({ color: 0x344b49, roughness: 0.78 });
       const libraryGlass = new THREE.MeshStandardMaterial({
-        color: 0x6faaa5,
-        emissive: 0x1a4848,
-        emissiveIntensity: 0.28,
-        roughness: 0.34,
-        metalness: 0.12,
+        color: 0xa5c8c4,
+        emissive: 0x102c2b,
+        emissiveIntensity: 0.12,
+        roughness: 0.2,
+        metalness: 0.08,
+        transparent: true,
+        opacity: 0.36,
+        depthWrite: false,
       });
       const courtyardWood = new THREE.MeshStandardMaterial({ color: 0x765b42, roughness: 0.88 });
-      const personSkin = new THREE.MeshStandardMaterial({ color: 0xd2aa86, roughness: 0.92 });
 
       // The passage opens at a campus library courtyard, not a metaphorical canyon.
-      box(0, 4.42, 31.98, 15.8, 6.55, 2.5, libraryWall);
+      const facadeShape = new THREE.Shape();
+      facadeShape.moveTo(-7.9, -3.275);
+      facadeShape.lineTo(7.9, -3.275);
+      facadeShape.lineTo(7.9, 3.275);
+      facadeShape.lineTo(-7.9, 3.275);
+      facadeShape.closePath();
+      for (const [x, y, width, height] of [
+        [-4.55, 0.2, 3.18, 2.96],
+        [4.55, 0.2, 3.18, 2.96],
+        [0, -1.54, 2.6, 3.35],
+      ]) {
+        const opening = new THREE.Path();
+        opening.moveTo(x - width / 2, y - height / 2);
+        opening.lineTo(x - width / 2, y + height / 2);
+        opening.lineTo(x + width / 2, y + height / 2);
+        opening.lineTo(x + width / 2, y - height / 2);
+        opening.closePath();
+        facadeShape.holes.push(opening);
+      }
+      const facade = new THREE.Mesh(
+        new THREE.ExtrudeGeometry(facadeShape, { depth: 0.42, bevelEnabled: false }),
+        libraryWall
+      );
+      facade.position.set(0, 4.42, 30.73);
+      facade.userData.isLandscapeStage = true;
+      root.add(facade);
+      box(0, 4.42, 33.02, 15.38, 6.55, 0.42, libraryWall);
+      for (const side of [-1, 1]) {
+        const wallX = side * 7.69;
+        box(wallX, 6.93, 31.98, 0.42, 1.53, 2.5, libraryWall);
+        box(wallX, 2.11, 31.98, 0.42, 1.93, 2.5, libraryWall);
+        box(wallX, 4.62, 30.92, 0.42, 3.08, 0.38, libraryWall);
+        box(wallX, 4.62, 33.02, 0.42, 3.08, 0.42, libraryWall);
+        box(wallX, 4.62, 31.97, 0.035, 2.82, 1.68, libraryGlass);
+        for (const z of [31.1, 32.84]) box(wallX, 4.62, z, 0.42, 3.08, 0.1, libraryTrim);
+        for (const y of [3.13, 6.11]) box(wallX, y, 31.97, 0.42, 0.12, 1.84, libraryTrim);
+      }
       box(0, 7.82, 31.95, 16.35, 0.34, 2.85, libraryTrim);
       box(0, 1.28, 31.9, 15.5, 0.26, 2.6, libraryTrim);
 
@@ -873,13 +911,51 @@ function addPassageSceneLandmark(
         box(x, 4.62, 30.53, 3.18, 0.1, 0.06, libraryTrim);
       }
 
-      // Side glazing gives the library a readable building volume when the learner orbits the scene.
-      for (const side of [-1, 1]) {
-        box(side * 7.94, 4.62, 31.95, 0.18, 3.08, 1.98, libraryTrim);
-        box(side * 8.045, 4.62, 31.95, 0.04, 2.82, 1.7, libraryGlass);
-        box(side * 8.075, 4.62, 31.95, 0.04, 2.82, 0.08, libraryTrim);
-        box(side * 8.075, 4.62, 31.95, 0.04, 0.08, 1.7, libraryTrim);
+      // Shelves sit behind the glazing so the facade reads as a working library, not a painted box.
+      const shelfMaterial = new THREE.MeshStandardMaterial({ color: 0x574638, roughness: 0.88 });
+      const shelves = new THREE.InstancedMesh(new THREE.BoxGeometry(2.8, 0.075, 0.42), shelfMaterial, 6);
+      const books = new THREE.InstancedMesh(
+        new THREE.BoxGeometry(0.3, 0.72, 0.26),
+        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.84 }),
+        30
+      );
+      const shelfDummy = new THREE.Object3D();
+      const shelfYs = [3.35, 4.28, 5.21];
+      let shelfIndex = 0;
+      let bookIndex = 0;
+      const bookColors = [0xb87956, 0xd0ae72, 0x6f8b78, 0x70899a, 0x9b7378, 0xd8d0b8];
+      for (const windowX of [-4.55, 4.55]) {
+        for (const [row, y] of shelfYs.entries()) {
+          shelfDummy.position.set(windowX, y, 31.62);
+          shelfDummy.scale.set(1, 1, 1);
+          shelfDummy.rotation.set(0, 0, 0);
+          shelfDummy.updateMatrix();
+          shelves.setMatrixAt(shelfIndex++, shelfDummy.matrix);
+          for (let column = 0; column < 5; column++) {
+            shelfDummy.position.set(windowX - 1.08 + column * 0.54, y + 0.39, 31.58);
+            shelfDummy.scale.set(0.78 + ((row + column) % 2) * 0.12, 0.72 + ((row * 2 + column) % 3) * 0.14, 0.84);
+            shelfDummy.rotation.set(0, ((column % 3) - 1) * 0.035, 0);
+            shelfDummy.updateMatrix();
+            books.setMatrixAt(bookIndex, shelfDummy.matrix);
+            books.setColorAt(bookIndex, new THREE.Color(bookColors[(row + column * 2) % bookColors.length]));
+            bookIndex++;
+          }
+        }
       }
+      shelves.instanceMatrix.needsUpdate = true;
+      books.instanceMatrix.needsUpdate = true;
+      if (books.instanceColor) books.instanceColor.needsUpdate = true;
+      shelves.castShadow = true;
+      books.castShadow = true;
+      root.add(shelves, books);
+
+      // A shallow canopy and narrow fins give the entrance and window bays real architectural depth.
+      box(0, 4.82, 29.78, 4.9, 0.2, 1.4, libraryTrim);
+      for (const x of [-2.18, 2.18]) box(x, 3.05, 29.78, 0.16, 3.4, 0.18, libraryTrim);
+      for (const x of [-7.1, -2.68, 2.68, 7.1]) box(x, 4.62, 30.48, 0.14, 3.02, 0.22, libraryTrim);
+
+      // Side glazing gives the library a readable building volume when the learner orbits the scene.
+      // Side panes are now set into the side-wall openings rather than floating over a solid wall.
 
       // A recessed, glazed entrance makes the building legible at a glance.
       box(0, 2.88, 30.62, 2.6, 3.35, 0.2, libraryTrim);
@@ -924,15 +1000,169 @@ function addPassageSceneLandmark(
           box(legX, 1.38, 25.9, 0.12, 0.62, 0.14, libraryTrim);
           box(legX, 1.84, 26.18, 0.12, 0.72, 0.14, libraryTrim);
         }
+        for (const armX of [x - 1.43, x + 1.43]) {
+          box(armX, 2.0, 25.9, 0.14, 0.36, 0.68, libraryTrim);
+          box(armX, 2.2, 25.9, 0.22, 0.1, 0.76, courtyardWood);
+        }
       }
 
-      for (const [index, x] of [-2.55, -1.55, 1.55, 2.55].entries()) {
-        const clothing = index % 2 === 0 ? edge : ground;
-        const torso = add(new THREE.CylinderGeometry(0.3, 0.4, 0.94, 8), clothing, x, 2.64, 25.92);
-        torso.userData.isLandscapeStage = true;
-        const head = add(new THREE.SphereGeometry(0.31, 12, 10), personSkin, x, 3.34, 25.92);
-        head.userData.isLandscapeStage = true;
-        box(x + (index % 2 === 0 ? 0.23 : -0.23), 2.53, 25.54, 0.13, 0.5, 0.12, clothing, index % 2 === 0 ? -0.3 : 0.3);
+      // Instanced, seated figures add human scale and a readable "connected online, awkward in person" pose
+      // without multiplying draw calls for every small body part.
+      const studentXs = [-2.55, -1.55, 1.55, 2.55];
+      const studentColors = [0x708797, 0x9c705e, 0x596f69, 0x8a8169];
+      const trouserColors = [0x344453, 0x594940, 0x455b54, 0x4e4c56];
+      const skinColors = [0xd8ad8a, 0x9c684c, 0xc78e70, 0xe0bb9e];
+      const hairColors = [0x302924, 0x352d28, 0x42342b, 0x272a30];
+      const bodyMesh = new THREE.InstancedMesh(
+        new THREE.CapsuleGeometry(0.3, 0.46, 4, 8),
+        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.86 }),
+        studentXs.length
+      );
+      const headMesh = new THREE.InstancedMesh(
+        new THREE.SphereGeometry(1, 12, 10),
+        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.92 }),
+        studentXs.length * 4
+      );
+      const hairMesh = new THREE.InstancedMesh(
+        new THREE.SphereGeometry(1, 12, 8, 0, Math.PI * 2, 0, Math.PI * 0.43),
+        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.94 }),
+        studentXs.length
+      );
+      const eyeMesh = new THREE.InstancedMesh(
+        new THREE.SphereGeometry(1, 8, 6),
+        new THREE.MeshStandardMaterial({ color: 0x282b30, roughness: 0.72 }),
+        studentXs.length * 2
+      );
+      const mouthMesh = new THREE.InstancedMesh(
+        new THREE.BoxGeometry(1, 1, 1),
+        new THREE.MeshStandardMaterial({ color: 0x81594d, roughness: 0.82 }),
+        studentXs.length
+      );
+      const armMesh = new THREE.InstancedMesh(
+        new THREE.CylinderGeometry(0.075, 0.09, 1, 8),
+        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.88 }),
+        studentXs.length * 4
+      );
+      const legMesh = new THREE.InstancedMesh(
+        new THREE.CylinderGeometry(0.11, 0.14, 1, 8),
+        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.9 }),
+        studentXs.length * 4
+      );
+      const shoeMesh = new THREE.InstancedMesh(
+        new THREE.BoxGeometry(1, 1, 1),
+        new THREE.MeshStandardMaterial({ color: 0x303943, roughness: 0.72 }),
+        studentXs.length * 2
+      );
+      const handMesh = new THREE.InstancedMesh(
+        new THREE.SphereGeometry(1, 8, 6),
+        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.92 }),
+        studentXs.length * 2
+      );
+      const phoneMesh = new THREE.InstancedMesh(
+        new THREE.BoxGeometry(1, 1, 1),
+        new THREE.MeshStandardMaterial({ color: 0x26323b, roughness: 0.36, metalness: 0.26 }),
+        studentXs.length
+      );
+      const screenMesh = new THREE.InstancedMesh(
+        new THREE.BoxGeometry(1, 1, 1),
+        new THREE.MeshStandardMaterial({ color: 0x67c8c5, emissive: 0x1d8588, emissiveIntensity: 0.28, roughness: 0.32 }),
+        studentXs.length
+      );
+      const studentMeshes = [bodyMesh, headMesh, hairMesh, eyeMesh, mouthMesh, armMesh, legMesh, shoeMesh, handMesh, phoneMesh, screenMesh];
+      for (const mesh of studentMeshes) {
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        mesh.userData.isLandscapeStage = true;
+        root.add(mesh);
+      }
+
+      const instance = new THREE.Object3D();
+      const place = (
+        mesh: THREE.InstancedMesh,
+        index: number,
+        x: number,
+        y: number,
+        z: number,
+        sx: number,
+        sy: number,
+        sz: number
+      ): void => {
+        instance.position.set(x, y, z);
+        instance.rotation.set(0, 0, 0);
+        instance.scale.set(sx, sy, sz);
+        instance.updateMatrix();
+        mesh.setMatrixAt(index, instance.matrix);
+      };
+      const placeSegment = (
+        mesh: THREE.InstancedMesh,
+        index: number,
+        start: THREE.Vector3,
+        end: THREE.Vector3
+      ): void => {
+        const direction = end.clone().sub(start);
+        instance.position.copy(start).add(end).multiplyScalar(0.5);
+        instance.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.clone().normalize());
+        instance.scale.set(1, direction.length(), 1);
+        instance.updateMatrix();
+        mesh.setMatrixAt(index, instance.matrix);
+      };
+      let headIndex = 0;
+      let eyeIndex = 0;
+      let armIndex = 0;
+      let legIndex = 0;
+      let shoeIndex = 0;
+      let handIndex = 0;
+      for (const [studentIndex, x] of studentXs.entries()) {
+        const z = 25.92;
+        bodyMesh.setColorAt(studentIndex, new THREE.Color(studentColors[studentIndex]));
+        hairMesh.setColorAt(studentIndex, new THREE.Color(hairColors[studentIndex]));
+        place(bodyMesh, studentIndex, x, 2.6, z, 0.94, 1, 0.8);
+        place(hairMesh, studentIndex, x, 3.38, z, 0.29, 0.31, 0.25);
+
+        place(headMesh, headIndex, x, 3.37, z, 0.27, 0.31, 0.235);
+        headMesh.setColorAt(headIndex++, new THREE.Color(skinColors[studentIndex]));
+        place(headMesh, headIndex, x, 3.29, z - 0.25, 0.055, 0.07, 0.045);
+        headMesh.setColorAt(headIndex++, new THREE.Color(skinColors[studentIndex]));
+        for (const side of [-1, 1]) {
+          place(headMesh, headIndex, x + side * 0.26, 3.35, z - 0.02, 0.055, 0.072, 0.045);
+          headMesh.setColorAt(headIndex++, new THREE.Color(skinColors[studentIndex]));
+          place(eyeMesh, eyeIndex++, x + side * 0.082, 3.39, z - 0.251, 0.034, 0.043, 0.018);
+        }
+        place(mouthMesh, studentIndex, x, 3.27, z - 0.249, 0.075, 0.018, 0.012);
+        place(phoneMesh, studentIndex, x, 2.48, z - 0.42, 0.17, 0.28, 0.035);
+        place(screenMesh, studentIndex, x, 2.48, z - 0.441, 0.132, 0.22, 0.008);
+
+        const leftShoulder = new THREE.Vector3(x - 0.27, 2.88, z - 0.02);
+        const rightShoulder = new THREE.Vector3(x + 0.27, 2.88, z - 0.02);
+        const leftElbow = new THREE.Vector3(x - 0.29, 2.64, z - 0.24);
+        const rightElbow = new THREE.Vector3(x + 0.29, 2.64, z - 0.24);
+        const leftHand = new THREE.Vector3(x - 0.12, 2.52, z - 0.38);
+        const rightHand = new THREE.Vector3(x + 0.12, 2.52, z - 0.38);
+        armMesh.setColorAt(armIndex, new THREE.Color(studentColors[studentIndex]));
+        placeSegment(armMesh, armIndex++, leftShoulder, leftElbow);
+        armMesh.setColorAt(armIndex, new THREE.Color(studentColors[studentIndex]));
+        placeSegment(armMesh, armIndex++, leftElbow, leftHand);
+        armMesh.setColorAt(armIndex, new THREE.Color(studentColors[studentIndex]));
+        placeSegment(armMesh, armIndex++, rightShoulder, rightElbow);
+        armMesh.setColorAt(armIndex, new THREE.Color(studentColors[studentIndex]));
+        placeSegment(armMesh, armIndex++, rightElbow, rightHand);
+
+        for (const side of [-1, 1]) {
+          const legX = x + side * 0.14;
+          const hip = new THREE.Vector3(legX, 2.1, z);
+          const knee = new THREE.Vector3(legX, 1.75, z - 0.34);
+          const ankle = new THREE.Vector3(legX, 1.28, z - 0.57);
+          legMesh.setColorAt(legIndex, new THREE.Color(trouserColors[studentIndex]));
+          placeSegment(legMesh, legIndex++, hip, knee);
+          legMesh.setColorAt(legIndex, new THREE.Color(trouserColors[studentIndex]));
+          placeSegment(legMesh, legIndex++, knee, ankle);
+          place(shoeMesh, shoeIndex++, legX, 1.24, z - 0.67, 0.17, 0.13, 0.32);
+          place(handMesh, handIndex++, x + side * 0.12, 2.52, z - 0.39, 0.075, 0.075, 0.075);
+        }
+      }
+      for (const mesh of studentMeshes) {
+        mesh.instanceMatrix.needsUpdate = true;
+        if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
       }
 
       // Floating message cards are small cues above the real courtyard, not the setting itself.
