@@ -1511,16 +1511,230 @@ function addPassageSceneLandmark(
       break;
     }
     case "focus": {
-      const desk = cylinder(0, 1.5, 27, 3.4, 0.34, ground, 12);
-      desk.userData.isLandscapeRoute = true;
-      box(0, 2.2, 27, 2.1, 0.18, 1.6, glow, -0.08);
-      for (const x of [-3.2, 3.2]) {
-        const distraction = add(new THREE.OctahedronGeometry(0.36, 0), dark, x, 3.4, 27);
-        distraction.userData.isLandscapeBeacon = true;
+      const terrace = new THREE.MeshStandardMaterial({ color: 0x8b8a78, roughness: 0.9 });
+      const timber = new THREE.MeshStandardMaterial({ color: 0x745a43, roughness: 0.86 });
+      const screen = new THREE.MeshStandardMaterial({
+        color: 0x27443f,
+        emissive: 0x1d4138,
+        emissiveIntensity: 0.3,
+        roughness: 0.32,
+        metalness: 0.12,
+      });
+      const paper = new THREE.MeshStandardMaterial({ color: 0xe8dfc9, roughness: 0.92 });
+      const glass = new THREE.MeshStandardMaterial({
+        color: 0x9bb9b1,
+        roughness: 0.18,
+        metalness: 0.08,
+        transparent: true,
+        opacity: 0.28,
+        depthWrite: false,
+      });
+      const foliage = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.94 });
+      const messageRoute = new THREE.MeshStandardMaterial({ color: 0x718d99, roughness: 0.72 });
+      const remoteRoute = new THREE.MeshStandardMaterial({ color: 0x6f927c, roughness: 0.72 });
+      const conversationRoute = new THREE.MeshStandardMaterial({ color: 0xb98b65, roughness: 0.72 });
+
+      // An open observatory turns the paragraph's communication choices into three walkable routes.
+      const deck = cylinder(0, 1.18, 27, 6.65, 0.2, terrace, 12);
+      deck.userData.isLandscapeRoute = true;
+      ring(6.15, 1.31, 0.08);
+      arch(12.4, 7.15, edge, 31.25);
+
+      const railPosts = new THREE.InstancedMesh(new THREE.BoxGeometry(0.16, 1.05, 0.16), timber, 6);
+      const railMatrix = new THREE.Matrix4();
+      const railPosition = new THREE.Vector3();
+      const railScale = new THREE.Vector3(1, 1, 1);
+      const railRotation = new THREE.Quaternion();
+      let railIndex = 0;
+      for (const side of [-1, 1]) {
+        for (const z of [24.25, 27.15, 30.05]) {
+          railPosition.set(side * 5.75, 1.78, z);
+          railMatrix.compose(railPosition, railRotation, railScale);
+          railPosts.setMatrixAt(railIndex++, railMatrix);
+        }
       }
-      const focusCore = add(new THREE.OctahedronGeometry(1.02, 1), edge, 0, 4.25, 27);
-      focusCore.userData.isLandscapeBeacon = true;
-      ring(4.7, 1.05, 0.08);
+      railPosts.instanceMatrix.needsUpdate = true;
+      railPosts.computeBoundingSphere();
+      railPosts.name = "focus-terrace-rail-posts";
+      railPosts.userData.isLandscapeStage = true;
+      root.add(railPosts);
+      for (const side of [-1, 1]) box(side * 5.75, 2.24, 27.15, 0.14, 0.14, 5.8, timber);
+
+      const railGlass = new THREE.InstancedMesh(new THREE.BoxGeometry(0.055, 0.84, 2.72), glass, 4);
+      const glassMatrix = new THREE.Matrix4();
+      let glassIndex = 0;
+      for (const side of [-1, 1]) {
+        for (const z of [25.7, 28.6]) {
+          glassMatrix.makeTranslation(side * 5.75, 1.76, z);
+          railGlass.setMatrixAt(glassIndex++, glassMatrix);
+        }
+      }
+      railGlass.instanceMatrix.needsUpdate = true;
+      railGlass.computeBoundingSphere();
+      railGlass.name = "focus-terrace-glass-rails";
+      railGlass.userData.isLandscapeStage = true;
+      railGlass.userData.noLandscapeShadow = true;
+      root.add(railGlass);
+
+      const pergolaPosts = new THREE.InstancedMesh(new THREE.BoxGeometry(0.22, 4.55, 0.22), timber, 4);
+      const postMatrix = new THREE.Matrix4();
+      let postIndex = 0;
+      for (const x of [-5.25, 5.25]) {
+        for (const z of [24.35, 29.15]) {
+          postMatrix.makeTranslation(x, 4.05, z);
+          pergolaPosts.setMatrixAt(postIndex++, postMatrix);
+        }
+      }
+      pergolaPosts.instanceMatrix.needsUpdate = true;
+      pergolaPosts.computeBoundingSphere();
+      pergolaPosts.name = "focus-pergola-posts";
+      pergolaPosts.userData.isLandscapeStage = true;
+      root.add(pergolaPosts);
+
+      const pergolaBeams = new THREE.InstancedMesh(new THREE.BoxGeometry(0.18, 0.14, 4.9), timber, 2);
+      const beamMatrix = new THREE.Matrix4();
+      [-5.25, 5.25].forEach((x, index) => {
+        beamMatrix.makeTranslation(x, 6.25, 26.75);
+        pergolaBeams.setMatrixAt(index, beamMatrix);
+      });
+      pergolaBeams.instanceMatrix.needsUpdate = true;
+      pergolaBeams.computeBoundingSphere();
+      pergolaBeams.name = "focus-pergola-side-beams";
+      pergolaBeams.userData.isLandscapeStage = true;
+      root.add(pergolaBeams);
+
+      const pergolaSlats = new THREE.InstancedMesh(new THREE.BoxGeometry(10.6, 0.14, 0.28), timber, 3);
+      const slatMatrix = new THREE.Matrix4();
+      [25.15, 27.05, 28.95].forEach((z, index) => {
+        slatMatrix.makeTranslation(0, 6.25, z);
+        pergolaSlats.setMatrixAt(index, slatMatrix);
+      });
+      pergolaSlats.instanceMatrix.needsUpdate = true;
+      pergolaSlats.computeBoundingSphere();
+      pergolaSlats.name = "focus-pergola-slats";
+      pergolaSlats.userData.isLandscapeStage = true;
+      root.add(pergolaSlats);
+
+      for (const x of [-4.6, 4.6]) {
+        box(x, 1.52, 30.05, 1.88, 0.48, 1.08, timber);
+        box(x, 1.78, 30.05, 1.72, 0.08, 0.92, ground);
+      }
+      const shrubs = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(0.46, 1), foliage, 6);
+      const shrubMatrix = new THREE.Matrix4();
+      const shrubPosition = new THREE.Vector3();
+      const shrubScale = new THREE.Vector3();
+      const shrubRotation = new THREE.Quaternion();
+      const shrubColors = [0x66856d, 0x91a77d, 0x789277, 0x91a77d, 0x66856d, 0x789277];
+      const shrubXs = [-5.08, -4.6, -4.12, 4.12, 4.6, 5.08];
+      shrubXs.forEach((x, index) => {
+        shrubPosition.set(x, 2.02 + (index % 2) * 0.08, 30.05);
+        shrubScale.set(0.92 + (index % 3) * 0.12, 0.82 + (index % 2) * 0.18, 0.78 + (index % 3) * 0.1);
+        shrubMatrix.compose(shrubPosition, shrubRotation, shrubScale);
+        shrubs.setMatrixAt(index, shrubMatrix);
+        shrubs.setColorAt(index, new THREE.Color(shrubColors[index]));
+      });
+      shrubs.instanceMatrix.needsUpdate = true;
+      if (shrubs.instanceColor) shrubs.instanceColor.needsUpdate = true;
+      shrubs.computeBoundingSphere();
+      shrubs.name = "focus-raised-planter-shrubs";
+      shrubs.userData.isLandscapeStage = true;
+      root.add(shrubs);
+
+      const evidenceBoard = box(0, 5.05, 31.25, 10.9, 2.25, 0.24, dark);
+      evidenceBoard.userData.isLandscapeStage = true;
+      const boardCanvas = document.createElement("canvas");
+      boardCanvas.width = 1200;
+      boardCanvas.height = 320;
+      const boardContext = boardCanvas.getContext("2d");
+      if (boardContext) {
+        boardContext.fillStyle = "#263d3b";
+        boardContext.fillRect(0, 0, boardCanvas.width, boardCanvas.height);
+        boardContext.strokeStyle = "#d6c49d";
+        boardContext.lineWidth = 8;
+        boardContext.strokeRect(14, 14, boardCanvas.width - 28, boardCanvas.height - 28);
+        boardContext.textAlign = "center";
+        boardContext.textBaseline = "middle";
+        boardContext.fillStyle = "#f6eedb";
+        boardContext.font = "bold 54px Arial, sans-serif";
+        boardContext.fillText("CHOOSE BY PURPOSE", 600, 65);
+        boardContext.font = "bold 34px Arial, sans-serif";
+        boardContext.fillText("QUICK MESSAGE", 205, 145);
+        boardContext.fillText("CHAT / VIDEO", 600, 145);
+        boardContext.fillText("FACE-TO-FACE", 995, 145);
+        boardContext.font = "26px Arial, sans-serif";
+        boardContext.fillText("Simple information", 205, 194);
+        boardContext.fillText("Distant friends / planning", 600, 194);
+        boardContext.fillText("Emotion / trust", 995, 194);
+        boardContext.fillStyle = "#d8c598";
+        boardContext.font = "bold 25px Arial, sans-serif";
+        boardContext.fillText("ONE CLUB · FOUR WEEKS · NOT A UNIVERSAL RULE", 600, 265);
+        const boardTexture = new THREE.CanvasTexture(boardCanvas);
+        boardTexture.colorSpace = THREE.SRGBColorSpace;
+        const boardFace = new THREE.Mesh(
+          new THREE.PlaneGeometry(10.45, 1.98),
+          new THREE.MeshBasicMaterial({ map: boardTexture, side: THREE.DoubleSide, toneMapped: false })
+        );
+        boardFace.position.set(0, 5.05, 31.39);
+        boardFace.name = "focus-channel-choice-sign";
+        boardFace.userData.isLandscapeStage = true;
+        boardFace.userData.noLandscapeShadow = true;
+        root.add(boardFace);
+      }
+
+      cylinder(0, 1.43, 29.45, 0.95, 0.24, dark, 12);
+      const choiceDial = ring(0.9, 1.58, Math.PI / 2);
+      choiceDial.position.z = 29.45;
+      const compass = add(new THREE.ConeGeometry(0.38, 1.02, 4), edge, 0, 2.12, 29.45);
+      compass.rotation.x = Math.PI / 2;
+      compass.userData.isLandscapeBeacon = true;
+      route([[0, 1.315, 29.45], [-1.35, 1.315, 28.55], [-4.12, 1.315, 27.55]], messageRoute, 0.035);
+      route([[0, 1.315, 29.45], [0, 1.315, 27.55], [0, 1.315, 25.85]], remoteRoute, 0.035);
+      route([[0, 1.315, 29.45], [1.35, 1.315, 28.55], [4.12, 1.315, 27.55]], conversationRoute, 0.035);
+
+      // Simple, distant, and personal communication each has a distinct physical station.
+      cylinder(-4.25, 1.38, 27.4, 1.14, 0.18, ground, 10);
+      box(-4.25, 1.72, 27.4, 1.72, 0.28, 1.04, timber);
+      box(-4.25, 2.12, 27.4, 0.16, 0.62, 0.16, dark);
+      box(-4.25, 3.08, 27.4, 1.48, 1.56, 0.18, dark);
+      const messageScreen = box(-4.25, 3.08, 27.51, 1.2, 1.26, 0.045, screen);
+      messageScreen.userData.noLandscapeShadow = true;
+      for (const [index, width] of [0.78, 0.58, 0.9].entries()) {
+        box(-4.18, 3.44 - index * 0.3, 27.55, width, 0.055, 0.025, index === 0 ? glow : edge);
+      }
+      for (const x of [-4.62, -4.25, -3.88]) {
+        const messageDot = add(new THREE.SphereGeometry(0.075, 8, 6), x === -4.25 ? glow : edge, x, 2.68, 27.56);
+        messageDot.userData.isLandscapeBeacon = true;
+      }
+
+      cylinder(0, 1.38, 25.3, 1.12, 0.18, ground, 10);
+      box(0, 1.92, 25.3, 0.2, 1.04, 0.2, timber);
+      box(0, 2.78, 25.3, 2.45, 1.68, 0.2, dark);
+      const videoScreen = box(0, 2.78, 25.42, 2.2, 1.42, 0.05, screen);
+      videoScreen.userData.noLandscapeShadow = true;
+      for (const x of [-0.57, 0.57]) {
+        const avatar = add(new THREE.SphereGeometry(0.25, 10, 8), x < 0 ? edge : glow, x, 3.08, 25.49);
+        avatar.userData.isLandscapeStage = true;
+        box(x, 2.62, 25.49, 0.42, 0.22, 0.08, x < 0 ? edge : glow);
+      }
+      route([[-0.28, 3.1, 25.54], [0, 3.34, 25.54], [0.28, 3.1, 25.54]], glow, 0.035);
+
+      cylinder(4.3, 1.62, 27.4, 0.16, 0.72, timber, 9);
+      box(4.3, 2.02, 27.4, 1.48, 0.16, 0.92, timber);
+      box(4.3, 2.12, 27.4, 0.52, 0.035, 0.38, paper);
+      for (const x of [3.02, 5.58]) {
+        box(x, 1.58, 27.4, 0.94, 0.16, 0.9, dark);
+        box(x, 2.02, 27.02, 0.94, 0.78, 0.14, ground);
+        for (const z of [27.08, 27.72]) cylinder(x, 1.34, z, 0.07, 0.48, timber, 6);
+      }
+
+      for (const [x, z, material] of [
+        [-4.25, 27.4, edge],
+        [0, 25.3, glow],
+        [4.3, 27.4, edge],
+      ] as const) {
+        const stationBeacon = add(new THREE.OctahedronGeometry(0.32, 1), material, x, 4.35, z);
+        stationBeacon.userData.isLandscapeBeacon = true;
+      }
       break;
     }
     case "listening-bench": {
