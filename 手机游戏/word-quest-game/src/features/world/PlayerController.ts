@@ -83,8 +83,9 @@ export class PlayerController {
       if (forward !== 0 || strafe !== 0) {
         const sin = Math.sin(cameraYaw);
         const cos = Math.cos(cameraYaw);
-        dx = strafe * cos + forward * sin;
-        dz = strafe * -sin + forward * cos;
+        // 相机朝向 (sin, cos)，其右手方向为 (-cos, sin)（Three.js 右手系：朝 +Z 看时右边是 -X）
+        dx = -strafe * cos + forward * sin;
+        dz = strafe * sin + forward * cos;
         const len = Math.hypot(dx, dz) || 1;
         dx /= len;
         dz /= len;

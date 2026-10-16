@@ -2337,3 +2337,49 @@ body {
     transform: none;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   地图屏排版：三维世界尽量大。
+   宽屏：左侧标题 + 世界视窗占满，右侧一列放课程标签、指南、复习与单元导航；
+   窄屏：标题压成一行，视窗按屏高铺开，其余内容在下方滚动。
+   ───────────────────────────────────────────────────────────── */
+#screen-map.active:not(.rw3-world-backdrop) .map-header { margin: 0; padding: 10px 14px; }
+#screen-map.active:not(.rw3-world-backdrop) .map-header .subtitle { display: none; }
+#screen-map.active:not(.rw3-world-backdrop) .map-header .title { display: inline-block; margin-right: 8px; font-size: 1.05rem; }
+#screen-map.active:not(.rw3-world-backdrop) #course-tabs { margin: 0 0 10px; }
+#screen-map.active:not(.rw3-world-backdrop) #world-viewport {
+  height: calc(100dvh - 200px);
+  min-height: 380px;
+}
+
+@media (min-width: 900px) {
+  #screen-map.active:not(.rw3-world-backdrop) {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    max-width: none;
+    margin: 0;
+    padding: 12px 16px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    grid-template-rows: auto repeat(4, min-content) minmax(0, 1fr);
+    gap: 10px 14px;
+    overflow-y: auto;
+  }
+  #screen-map.active:not(.rw3-world-backdrop) .map-header { grid-column: 1; grid-row: 1; align-self: stretch; }
+  #screen-map.active:not(.rw3-world-backdrop) #course-tabs { grid-column: 2; grid-row: 1; margin: 0; align-self: stretch; }
+  #screen-map.active:not(.rw3-world-backdrop) #world-viewport {
+    grid-column: 1;
+    grid-row: 2 / -1;
+    height: auto;
+    min-height: 0;
+    margin: 0;
+  }
+  #screen-map.active:not(.rw3-world-backdrop) #play-guide,
+  #screen-map.active:not(.rw3-world-backdrop) #practice-panel,
+  #screen-map.active:not(.rw3-world-backdrop) #map-hint {
+    grid-column: 2;
+    margin: 0;
+  }
+}
+

@@ -54,6 +54,7 @@ function detectQuality(): QualityTier {
 import { createLandmarkWithCad } from "./cadLandmark";
 import { createExplorerAvatar, type AvatarRig } from "./explorerAvatar";
 import { ExplorerCamera } from "./ExplorerCamera";
+import { buildNearScatter } from "./nearScatter";
 import { applySurfaceGrain, glowPath, lanternGlass, lanternMetal, makeLanternGlowTexture, mossyStone, water } from "./materials";
 import { PlayerController } from "./PlayerController";
 import {
@@ -1787,6 +1788,30 @@ export class World3D {
         log.position.set(wx, wy + 0.12, wz);
         this.decorGroup!.add(log);
       }
+    }
+
+    // 单元模式的近景：入口周围一圈乔木 / 灌木 / 岩石 / 花丛 / 倒木 / 石板小径 / 路灯，
+    // 避免圣所之外是一片空地。
+    if (unitMode && style !== "space") {
+      this.decorGroup!.add(
+        buildNearScatter({
+          centerX: anchorX,
+          centerZ: anchorZ,
+          groundY: (x, z) => sampleTerrainY(x, z, terrainHeight),
+          density: this.quality === "low" ? 0.5 : this.quality === "med" ? 0.75 : 1,
+          avoid: [
+            [anchorX, anchorZ, 16],
+            [anchorX, anchorZ + 9.3, 17],
+            [anchorX - 21, anchorZ - 20, 6.5],
+            [anchorX + 21, anchorZ - 20, 6.5],
+            [anchorX - 21, anchorZ + 20, 6.5],
+            [anchorX + 21, anchorZ + 20, 6.5],
+            [anchorX - 17.4, anchorZ + 23.2, 6],
+            [anchorX, anchorZ + 28.2, 6.5],
+            [anchorX + 17.4, anchorZ + 23.2, 6],
+          ],
+        })
+      );
     }
 
     // 河谷湖泊（沿两侧山脚分布）：单元模式改为围绕当前区域的两处水面。
