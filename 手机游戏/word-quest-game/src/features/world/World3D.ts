@@ -6,15 +6,17 @@ import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js"
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { Reflector } from "three/addons/objects/Reflector.js";
 import type { MapNode, WordPickup } from "../../core/types";
-import { loadAvatarGlb, loadModelsManifest } from "./ModelLoader";
+import { loadAvatarGlb, loadModelsManifest, enhanceAvatarMaterials, createContactShadow } from "./ModelLoader";
 
 type QualityTier = "high" | "med" | "low";
 
 interface QualityConfig {
   /** 渲染像素比上限 */
   pixelRatio: number;
-  /** 草叶实例数量 */
-  grass: number;
+  /** 草丛铺设半径（米），草丛跟随玩家动态重排 */
+  grassRadius: number;
+  /** 草丛格子尺寸（米），越小越密 */
+  grassCell: number;
   /** 镜面反射湖泊数量（0 表示关闭反射，使用普通水面） */
   reflectors: number;
   /** 反射渲染目标分辨率 */
@@ -30,9 +32,9 @@ interface QualityConfig {
 }
 
 const QUALITY_PRESETS: Record<QualityTier, QualityConfig> = {
-  high: { pixelRatio: 2, grass: 7000, reflectors: 3, reflectRes: 512, reflectDist: 300, shadowMap: 2048, bloom: true, bloomScale: 1 },
-  med: { pixelRatio: 1.5, grass: 3800, reflectors: 2, reflectRes: 384, reflectDist: 220, shadowMap: 1536, bloom: true, bloomScale: 0.66 },
-  low: { pixelRatio: 1, grass: 1600, reflectors: 0, reflectRes: 256, reflectDist: 160, shadowMap: 1024, bloom: false, bloomScale: 0.5 },
+  high: { pixelRatio: 2, grassRadius: 40, grassCell: 1.25, reflectors: 3, reflectRes: 512, reflectDist: 300, shadowMap: 2048, bloom: true, bloomScale: 1 },
+  med: { pixelRatio: 1.5, grassRadius: 34, grassCell: 1.5, reflectors: 2, reflectRes: 384, reflectDist: 220, shadowMap: 1536, bloom: true, bloomScale: 0.66 },
+  low: { pixelRatio: 1, grassRadius: 26, grassCell: 1.9, reflectors: 0, reflectRes: 256, reflectDist: 160, shadowMap: 1024, bloom: false, bloomScale: 0.5 },
 };
 
 /** 依据设备能力推断画质档位 */
@@ -53,13 +55,33 @@ import { createExplorerAvatar, type AvatarRig } from "./explorerAvatar";
 import { ExplorerCamera } from "./ExplorerCamera";
 import { glowPath, lanternGlass, lanternMetal, makeLanternGlowTexture, mossyStone, water } from "./materials";
 import { PlayerController } from "./PlayerController";
-import { createLantern, createPine, createRock, createTree, grassBladeGeometry } from "./props";
+import {
+  createBush,
+  createFallenLog,
+  createFlower,
+  createLantern,
+  createPine,
+  createReed,
+  createRock,
+  createTree,
+  grassBladeGeometry,
+  GRASS_TUFT_HEIGHT,
+} from "./props";
 import { createSignpost } from "./signpost";
 import type { MinimapBiomePalette, MinimapState } from "./Minimap";
 import { getTheme } from "./theme";
-import { DEFAULT_BIOME, getBiome, type UnitBiome } from "./unitBiome";
-import { createReadableGroundMap, createTerrainMaps } from "./textures";
-import { applyLockedStyle, disposeGroup, removeGroup, seededRand, terrainHeight } from "./utils";
+import { DEFAULT_BIOME, getBiome, getGroundPalette, type UnitBiome } from "./unitBiome";
+import { createGroundDetailMap, createTerrainMaps } from "./textures";
+import {
+  applyLockedStyle,
+  disposeGroup,
+  fbm,
+  hash2,
+  removeGroup,
+  seededRand,
+  smoothstep,
+  terrainHeight,
+} from "./utils";
 import { buildUnitLandscape, isFocusedLearningWorld } from "./unitLandscape";
 import {
   INTERACT_RADIUS,
@@ -102,11 +124,23 @@ export class World3D {
   private waterGroup?: THREE.Group;
   private terrain?: THREE.Mesh;
   private terrainMaps?: ReturnType<typeof createTerrainMaps>;
-  private readableGroundMap?: THREE.Texture;
+  private groundDetailMap?: THREE.Texture;
+  /** PMREM 环境贴图（天空反射，提升材质真实感） */
+  private envRT?: THREE.WebGLRenderTarget;
   private mountains?: THREE.Group;
   private skyDome?: THREE.Mesh;
   private grassMesh?: THREE.InstancedMesh;
   private grassUniforms?: { uTime: { value: number }; uPlayer: { value: THREE.Vector3 } };
+  /** 草丛动态铺设状态（跟随玩家，只在附近铺设密草） */
+  private grassCellSize = 1.1;
+  private grassRadius = 54;
+  private readonly grassCellMap = new Map<number, number>();
+  private readonly grassNeeded = new Set<number>();
+  private grassFreeSlots: number[] = [];
+  private grassLastX = Number.POSITIVE_INFINITY;
+  private grassLastZ = Number.POSITIVE_INFINITY;
+  private readonly grassDummy = new THREE.Object3D();
+  private readonly grassColor = new THREE.Color();
   private clouds?: THREE.Group;
   /** 当前读写3单元专属的空间骨架 */
   private unitLandscape?: THREE.Group;
@@ -134,6 +168,8 @@ export class World3D {
   private glbWalk?: THREE.AnimationAction;
   private glbClips?: THREE.AnimationClip[];
   private glbEmoting = false;
+  /** 角色脚下接地阴影（GLB 与程序化人形各一份） */
+  private contactShadow?: THREE.Mesh;
   // 朝向计算复用对象（避免每帧分配）
   private readonly _n = new THREE.Vector3();
   private readonly _fwd = new THREE.Vector3();
@@ -174,6 +210,9 @@ export class World3D {
   private readonly dynamicLightLimit = this.quality === "low" ? 5 : this.quality === "med" ? 8 : 12;
   private dynamicLightBudgetFrames = 30;
   private readonly _lightPosition = new THREE.Vector3();
+  private readonly sunDirV = new THREE.Vector3();
+  private readonly spectatorFocus = new THREE.Vector3();
+  private hasSpectatorFocus = false;
   private rebuildToken = 0;
   private player = new PlayerController();
   private explorerCam = new ExplorerCamera();
@@ -228,6 +267,7 @@ export class World3D {
     this.buildSky();
     this.buildClouds();
     this.buildLights();
+    this.buildEnvironment(this.currentBiome);
     this.buildTerrain();
     this.buildMountains();
     this.buildGrass();
@@ -322,6 +362,7 @@ export class World3D {
 
   /** 外部触发互动（按钮 / E 键）：优先收集光球，其次进入节点 */
   tryInteract(): boolean {
+    if (this.spectatorMode || this.paused) return false;
     if (this.nearPickup) {
       this.onPickupCollect?.(this.nearPickup.id);
       return true;
@@ -341,11 +382,14 @@ export class World3D {
     this.activeUnitId = unitId;
     this.activeWorldId = undefined;
     this.activeWorldTitle = undefined;
+    this.hasSpectatorFocus = false;
     const biome = getBiome(unitId);
     this.currentBiome = biome;
     if (this.grassMesh) this.grassMesh.visible = ["coast", "forest", "plains"].includes(biome.decorStyle);
+    this.updateGrassPlacement(true);
     this.applyBiomeToSky(biome);
     this.applyBiomeToLights(biome);
+    this.buildEnvironment(biome);
     this.applyBiomeToTerrain(biome, false);
     this.applyOutfitFromBiome(biome);
     if (this.mountains) this.mountains.visible = biome.decorStyle === "forest" || biome.decorStyle === "plains";
@@ -358,6 +402,7 @@ export class World3D {
     this.activeWorldId = worldId;
     this.activeWorldTitle = title;
     const focusedWorld = isFocusedLearningWorld(worldId);
+    this.hasSpectatorFocus = false;
     this.applyBiomeToTerrain(this.currentBiome, focusedWorld);
     this.applySunDiscScale(focusedWorld);
     if (this.mountains) {
@@ -365,6 +410,7 @@ export class World3D {
     }
     if (this.grassMesh) {
       this.grassMesh.visible = ["coast", "forest", "plains"].includes(this.currentBiome.decorStyle) && !focusedWorld;
+      this.updateGrassPlacement(true);
     }
     if (this.bloomPass) {
       this.bloomPass.strength = focusedWorld
@@ -377,6 +423,9 @@ export class World3D {
         const node = this.nodes.find((item) => item.id === this.currentId) ?? this.nodes[0];
         if (node) {
           const y = sampleTerrainY(node.x, node.z, terrainHeight);
+          // The lesson panel overlays the right side on desktop; bias the stage focus left of it.
+          this.spectatorFocus.set(node.x - 3.5, y + 4.8, node.z + 11.5);
+          this.hasSpectatorFocus = true;
           this.player.yaw = 0;
           this.player.setPosition(node.x, y, node.z + 2.5);
           this.avatarYaw = 0;
@@ -401,7 +450,14 @@ export class World3D {
         const mesh = obj as THREE.Mesh;
         const mat = mesh.material as THREE.MeshStandardMaterial | undefined;
         if (mesh.isMesh && mat && "emissive" in mat) {
-          mat.emissive.setHex(accent).multiplyScalar(0.45);
+          const name = mesh.name;
+          // 主体装甲跟随单元水晶色，避免整只机器人自发光成"彩灯"
+          if (/^Torso$|^Body$/i.test(name)) {
+            mat.color.setHex(accent);
+            mat.emissive.setHex(accent).multiplyScalar(0.14);
+          } else {
+            mat.emissive.setHex(accent).multiplyScalar(0.06);
+          }
         }
       });
     }
@@ -459,44 +515,119 @@ export class World3D {
     return { ground, highland, path: b.pathColor };
   }
 
-  /** 草叶 LOD：每 30 帧把玩家 65 m 外的实例缩为 0，近处恢复 */
-  private updateGrassLOD(): void {
-    const mesh = this.grassMesh;
-    if (!mesh?.userData.grassPositions) return;
-    const frame: number = (mesh.userData.lodFrame ?? 0) + 1;
-    mesh.userData.lodFrame = frame;
-    if (frame % 30 !== 0) return;   // 30 帧刷新一次
+  /** 世界坐标 → 草丛格子的紧凑数值键 */
+  private grassKey(i: number, j: number): number {
+    return (i + 100000) * 262147 + (j + 100000);
+  }
 
-    const pos = mesh.userData.grassPositions as Float32Array;
-    const scales = mesh.userData.grassScales as Float32Array;
-    const count = mesh.count;
+  /** 把某个实例隐藏（缩放为 0 并移到地下） */
+  private hideGrassSlot(slot: number): void {
+    const mesh = this.grassMesh;
+    if (!mesh) return;
+    this.grassDummy.position.set(0, -9999, 0);
+    this.grassDummy.rotation.set(0, 0, 0);
+    this.grassDummy.scale.setScalar(0);
+    this.grassDummy.updateMatrix();
+    mesh.setMatrixAt(slot, this.grassDummy.matrix);
+  }
+
+  /** 在指定格子里种下一丛草 */
+  private placeGrass(slot: number, i: number, j: number): void {
+    const mesh = this.grassMesh;
+    if (!mesh) return;
+    const cs = this.grassCellSize;
+    const h1 = hash2(i * 1.7, j * 2.3);
+    const h2 = hash2(i * 3.1 + 5, j * 1.3 + 7);
+    const h3 = hash2(i * 0.7 + 11, j * 2.9 + 3);
+
+    const x = (i + 0.5) * cs + (h1 - 0.5) * cs;
+    const z = (j + 0.5) * cs + (h2 - 0.5) * cs;
+    const y = sampleTerrainY(x, z, terrainHeight);
+
+    // 陡坡上不长草
+    const e = 1.2;
+    const dh = Math.abs(sampleTerrainY(x + e, z, terrainHeight) - sampleTerrainY(x - e, z, terrainHeight));
+    if (dh / (2 * e) > 0.85) {
+      this.hideGrassSlot(slot);
+      return;
+    }
+
+    this.grassDummy.position.set(x, y, z);
+    this.grassDummy.rotation.set(0, h3 * Math.PI * 2, 0);
+    const s = 0.68 + h2 * 0.45;
+    this.grassDummy.scale.set(s, 0.72 + h1 * 0.45, s);
+    this.grassDummy.updateMatrix();
+    mesh.setMatrixAt(slot, this.grassDummy.matrix);
+
+    // 每丛草轻微冷暖色差，避免整片同色
+    const warm = h2;
+    this.grassColor.setRGB(
+      0.86 + warm * 0.34,
+      0.96 + h1 * 0.22,
+      0.8 + (1 - warm) * 0.26
+    );
+    mesh.setColorAt(slot, this.grassColor);
+  }
+
+  /**
+   * 按玩家位置动态铺设 / 回收草丛。只保留玩家周围半径内的格子，
+   * 让近处草皮足够密实，远处自动回收，兼顾观感与性能。
+   */
+  private updateGrassPlacement(force = false): void {
+    const mesh = this.grassMesh;
+    if (!mesh || !mesh.visible) return;
+
     const px = this.player.position.x;
     const pz = this.player.position.z;
-    const SHOW_SQ = 65 * 65;
-    const dummy = new THREE.Object3D();
-    let dirty = false;
-    for (let i = 0; i < count; i++) {
-      const dx = pos[i * 3] - px;
-      const dz = pos[i * 3 + 2] - pz;
-      const near = dx * dx + dz * dz < SHOW_SQ;
-      const cur = scales[i];
-      const want: number = near ? 1 : 0;
-      if (cur === want) continue;
-      scales[i] = want;
-      mesh.getMatrixAt(i, dummy.matrix);
-      dummy.matrix.decompose(dummy.position, dummy.quaternion, dummy.scale);
-      if (want === 0) {
-        dummy.scale.setScalar(0);
-      } else {
-        // 恢复原始缩放（从位置数组重建）
-        const s = 0.7 + ((Math.abs(pos[i * 3] * 7919 + pos[i * 3 + 2] * 3571) % 1000) / 1000) * 1.2;
-        dummy.scale.set(s, 0.8 + ((Math.abs(pos[i * 3 + 1] * 6271) % 1000) / 1000), s);
-      }
-      dummy.updateMatrix();
-      mesh.setMatrixAt(i, dummy.matrix);
-      dirty = true;
+    if (!force) {
+      const dx = px - this.grassLastX;
+      const dz = pz - this.grassLastZ;
+      if (dx * dx + dz * dz < 9) return; // 移动不足 3m 不重排
     }
-    if (dirty) mesh.instanceMatrix.needsUpdate = true;
+    this.grassLastX = px;
+    this.grassLastZ = pz;
+
+    const cs = this.grassCellSize;
+    const R = this.grassRadius;
+    const R2 = R * R;
+    const minI = Math.floor((px - R) / cs);
+    const maxI = Math.ceil((px + R) / cs);
+    const minJ = Math.floor((pz - R) / cs);
+    const maxJ = Math.ceil((pz + R) / cs);
+
+    const needed = this.grassNeeded;
+    needed.clear();
+    for (let i = minI; i <= maxI; i++) {
+      for (let j = minJ; j <= maxJ; j++) {
+        const dx = (i + 0.5) * cs - px;
+        const dz = (j + 0.5) * cs - pz;
+        if (dx * dx + dz * dz > R2) continue;
+        needed.add(this.grassKey(i, j));
+      }
+    }
+
+    // 回收离开范围的格子
+    for (const [key, slot] of this.grassCellMap) {
+      if (!needed.has(key)) {
+        this.grassCellMap.delete(key);
+        this.hideGrassSlot(slot);
+        this.grassFreeSlots.push(slot);
+      }
+    }
+
+    // 为新格子分配实例
+    for (const key of needed) {
+      if (this.grassCellMap.has(key)) continue;
+      const slot = this.grassFreeSlots.pop();
+      if (slot === undefined) break;
+      const jj = (key % 262147) - 100000;
+      const ii = (key - (jj + 100000)) / 262147 - 100000;
+      this.placeGrass(slot, ii, jj);
+      this.grassCellMap.set(key, slot);
+    }
+
+    mesh.instanceMatrix.needsUpdate = true;
+    if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
   }
 
   /** 释放镜面反射的渲染目标 */
@@ -582,6 +713,7 @@ export class World3D {
     cancelAnimationFrame(this.animId);
     this.animId = 0;
     this.renderer.domElement.removeEventListener("pointerdown", this.onPointerDown);
+    this.explorerCam.disposeDrag();
     window.removeEventListener("keydown", this.onKeyDown);
     window.removeEventListener("resize", this.onResize);
     document.removeEventListener("visibilitychange", this.onVisibilityChange);
@@ -622,11 +754,12 @@ export class World3D {
     if (this.terrain) {
       this.terrain.geometry.dispose();
       const mat = this.terrain.material as THREE.MeshStandardMaterial;
-      for (const map of new Set([mat.map, this.readableGroundMap])) map?.dispose();
+      for (const map of new Set([mat.map, this.groundDetailMap])) map?.dispose();
       mat.roughnessMap?.dispose();
       mat.normalMap?.dispose();
       mat.dispose();
     }
+    this.envRT?.dispose();
     if (this.skyDome) {
       this.skyDome.geometry.dispose();
       (this.skyDome.material as THREE.Material).dispose();
@@ -638,6 +771,8 @@ export class World3D {
   private spawnExplorer(): void {
     removeGroup(this.scene, this.explorer);
     this.explorer = createExplorerAvatar();
+    this.contactShadow = createContactShadow(1.9);
+    this.explorer.add(this.contactShadow);
     this.scene.add(this.explorer);
     this.explorer.visible = !this.spectatorMode;
     this.applyOutfitFromBiome(this.currentBiome);
@@ -653,9 +788,12 @@ export class World3D {
       const loaded = await loadAvatarGlb(cfg.file, cfg, manifest);
       if (!loaded) return;
 
-      // 替换为 GLB 角色
+      // 替换为 GLB 角色，并美化材质、补接地阴影
       removeGroup(this.scene, this.explorer);
+      enhanceAvatarMaterials(loaded.group);
       this.explorer = loaded.group;
+      this.contactShadow = createContactShadow(1.9);
+      this.explorer.add(this.contactShadow);
       this.explorer.position.copy(this.player.position);
       this.explorer.quaternion.setFromEuler(new THREE.Euler(0, this.avatarYaw, 0));
       this.scene.add(this.explorer);
@@ -766,6 +904,65 @@ export class World3D {
     this.scene.add(this.sunDisc);
   }
 
+  /**
+   * 由天空配色生成 PMREM 环境贴图。没有环境反射时，水晶 / 水面 / 金属 / 角色
+   * 都会呈现"死黑"的塑料感；生成后所有 PBR 材质都能反射天空与太阳。
+   */
+  private buildEnvironment(biome: UnitBiome): void {
+    try {
+      const pmrem = new THREE.PMREMGenerator(this.renderer);
+      const envScene = new THREE.Scene();
+      const mat = new THREE.ShaderMaterial({
+        side: THREE.BackSide,
+        depthWrite: false,
+        uniforms: {
+          topColor: { value: new THREE.Color(biome.skyTop) },
+          midColor: { value: new THREE.Color(biome.skyMid) },
+          bottomColor: { value: new THREE.Color(biome.skyBot) },
+          sunColor: { value: new THREE.Color(biome.sunColor) },
+          sunDir: { value: new THREE.Vector3(0.5, 0.72, 0.36).normalize() },
+        },
+        vertexShader: `
+          varying vec3 vDir;
+          void main() {
+            vDir = normalize(position);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform vec3 topColor, midColor, bottomColor, sunColor, sunDir;
+          varying vec3 vDir;
+          void main() {
+            vec3 d = normalize(vDir);
+            vec3 col = mix(bottomColor, midColor, smoothstep(-0.2, 0.35, d.y));
+            col = mix(col, topColor, smoothstep(0.2, 0.95, d.y));
+            float sd = max(dot(d, normalize(sunDir)), 0.0);
+            col += sunColor * pow(sd, 26.0) * 2.6;
+            col += sunColor * pow(sd, 3.0) * 0.26;
+            gl_FragColor = vec4(col, 1.0);
+          }
+        `,
+      });
+      envScene.add(new THREE.Mesh(new THREE.SphereGeometry(10, 32, 24), mat));
+
+      const rt = pmrem.fromScene(envScene, 0.02);
+      this.envRT?.dispose();
+      this.envRT = rt;
+      this.scene.environment = rt.texture;
+
+      envScene.traverse((o) => {
+        const m = o as THREE.Mesh;
+        if (m.isMesh) {
+          m.geometry.dispose();
+          (m.material as THREE.Material).dispose();
+        }
+      });
+      pmrem.dispose();
+    } catch {
+      // 环境贴图生成失败时退回无反射渲染
+    }
+  }
+
   /** 径向辉光贴图（太阳 / 光晕用） */
   private makeGlowTexture(): THREE.CanvasTexture {
     const size = 256;
@@ -846,9 +1043,11 @@ export class World3D {
   }
 
   private buildLights(): void {
-    this.hemi = new THREE.HemisphereLight(0xc8e0ff, 0x243828, 0.72);
+    // 注意：scene.environment（PMREM 天空反射）会再叠加一份环境光，
+    // 因此这里的半球光 / 环境光强度需低于早期无环境图的版本。
+    this.hemi = new THREE.HemisphereLight(0xc8e0ff, 0x243828, 0.5);
     this.scene.add(this.hemi);
-    this.ambientLight = new THREE.AmbientLight(0x9ab0cc, 0.32);
+    this.ambientLight = new THREE.AmbientLight(0x9ab0cc, 0.18);
     this.scene.add(this.ambientLight);
 
     this.sun = new THREE.DirectionalLight(0xfff4e0, 1.45);
@@ -945,34 +1144,17 @@ export class World3D {
     this.sunDisc.scale.set(sunDiscScale, sunDiscScale, 1);
   }
 
-  /** 让地面颜色跟随单元主题，避免所有单元都像同一块绿色平面。 */
+  /** 让地表配色跟随单元主题（顶点色重绘），告别所有单元同一块灰绿平面。 */
   private applyBiomeToTerrain(biome: UnitBiome, focusedWorld: boolean): void {
     if (!this.terrain) return;
-    const [r, g, b] = biome.terrainTint;
     const material = this.terrain.material as THREE.MeshStandardMaterial;
-    const nextMap = this.readableGroundMap ?? null;
-    const materialVariantChanged = material.map !== nextMap || material.vertexColors;
-    material.map = nextMap;
-    material.vertexColors = false;
-    if (focusedWorld) {
-      // Keep subtle surface detail in reading scenes without restoring the hub's dark grass palette.
-      material.color.setRGB(
-        THREE.MathUtils.clamp(0.28 + r * 0.34, 0.26, 0.48),
-        THREE.MathUtils.clamp(0.28 + g * 0.34, 0.26, 0.46),
-        THREE.MathUtils.clamp(0.29 + b * 0.32, 0.27, 0.44)
-      );
-      material.roughness = 0.94;
-      material.metalness = 0.02;
-    } else {
-      material.color.setRGB(
-        THREE.MathUtils.clamp(0.27 + r * 0.8, 0.28, 0.58),
-        THREE.MathUtils.clamp(0.28 + g * 0.62, 0.3, 0.58),
-        THREE.MathUtils.clamp(0.29 + b * 0.72, 0.3, 0.6)
-      );
-      material.roughness = 0.9;
-      material.metalness = 0.02;
-    }
-    if (materialVariantChanged) material.needsUpdate = true;
+    material.color.setRGB(1, 1, 1);
+    material.map = this.groundDetailMap ?? null;
+    material.vertexColors = true;
+    material.roughness = focusedWorld ? 0.95 : 0.9;
+    material.metalness = 0.02;
+    material.needsUpdate = true;
+    this.paintTerrain(biome, focusedWorld);
   }
 
   /** 重建词汇光球 */
@@ -1115,25 +1297,90 @@ export class World3D {
     }
     geo.computeVertexNormals();
 
+    // 顶点色：承载草 / 土 / 岩的自然分布（由 paintTerrain 填充）
+    geo.setAttribute("color", new THREE.BufferAttribute(new Float32Array(pos.count * 3).fill(1), 3));
+
     this.terrainMaps = createTerrainMaps();
-    this.readableGroundMap = createReadableGroundMap();
+    this.groundDetailMap = createGroundDetailMap();
     this.terrain = new THREE.Mesh(
       geo,
       new THREE.MeshStandardMaterial({
         color: 0xffffff,
-        map: this.readableGroundMap,
+        map: this.groundDetailMap,
         roughnessMap: this.terrainMaps.roughness,
         normalMap: this.terrainMaps.normal,
-        normalScale: new THREE.Vector2(0.85, 0.85),
-        vertexColors: false,
-        roughness: 0.82,
-        metalness: 0.06,
+        normalScale: new THREE.Vector2(0.7, 0.7),
+        vertexColors: true,
+        roughness: 0.92,
+        metalness: 0.02,
+        envMapIntensity: 0.32,
       })
     );
     this.terrain.receiveShadow = true;
     this.terrain.position.set(0, TERRAIN_ORIGIN_Y, TERRAIN_ORIGIN_Z);
     this.scene.add(this.terrain);
-    this.applyBiomeToTerrain(this.currentBiome, false);
+    this.paintTerrain(this.currentBiome, false);
+  }
+
+  /**
+   * 按生物群系与地形形态给顶点着色：
+   * 平坦处铺草、噪声斑块露出泥土、陡坡过渡为岩石，并叠加明暗起伏。
+   */
+  private paintTerrain(biome: UnitBiome, focusedWorld: boolean): void {
+    if (!this.terrain) return;
+    const geo = this.terrain.geometry;
+    const pos = geo.attributes.position;
+    const nor = geo.attributes.normal;
+    const colorAttr = geo.attributes.color as THREE.BufferAttribute;
+    const arr = colorAttr.array as Float32Array;
+
+    const palette = getGroundPalette(biome);
+    const grass = new THREE.Color(palette.grass);
+    const dirt = new THREE.Color(palette.dirt);
+    const rock = new THREE.Color(palette.rock);
+    // 聚焦学习场景（阅读 / 神殿）降低整体饱和度，保证 UI 文字可读
+    const desat = focusedWorld ? 0.72 : 1;
+
+    const c = new THREE.Color();
+    const tmp = new THREE.Color();
+
+    for (let i = 0; i < pos.count; i++) {
+      const x = pos.getX(i);
+      const z = pos.getZ(i);
+      const h = pos.getY(i);
+
+      // 泥土斑块：低频 + 中频噪声叠加
+      const n = fbm(x * 0.009 + 31, z * 0.009 + 17, 4) * 0.68 + fbm(x * 0.045, z * 0.045, 3) * 0.32;
+      const dirtMix = smoothstep(0.54, 0.78, n) * 0.75;
+
+      // 陡坡 → 岩石
+      const slope = 1 - nor.getY(i);
+      const rockMix = smoothstep(0.22, 0.55, slope);
+
+      c.copy(grass).lerp(dirt, dirtMix).lerp(rock, rockMix);
+
+      // 高度与噪声带来的明暗变化，避免整片死板
+      const shade = 0.86 + fbm(x * 0.02 + 5, z * 0.02 + 9, 3) * 0.26 + smoothstep(6, 34, h) * 0.1;
+      c.multiplyScalar(shade);
+
+      // 低处轻微压暗，制造体积感
+      c.multiplyScalar(0.94 + smoothstep(-6, 10, h) * 0.08);
+
+      if (desat < 1) {
+        tmp.copy(c);
+        const l = tmp.r * 0.299 + tmp.g * 0.587 + tmp.b * 0.114;
+        c.setRGB(
+          l + (c.r - l) * desat,
+          l + (c.g - l) * desat,
+          l + (c.b - l) * desat
+        );
+      }
+
+      arr[i * 3] = c.r;
+      arr[i * 3 + 1] = c.g;
+      arr[i * 3 + 2] = c.b;
+    }
+    colorAttr.needsUpdate = true;
   }
 
   /** 远景低多边形山脉环带（大气透视 + 雪顶） */
@@ -1183,12 +1430,12 @@ export class World3D {
     this.scene.add(group);
   }
 
-  /** 实例化草地（GPU 风吹摆动） */
+  /** 实例化草地：草丛跟随玩家动态铺设，近处密实、远处回收（GPU 风吹摆动） */
   private buildGrass(): void {
     const geo = grassBladeGeometry();
     const mat = new THREE.MeshStandardMaterial({
       vertexColors: true,
-      roughness: 0.9,
+      roughness: 0.92,
       metalness: 0,
       side: THREE.DoubleSide,
     });
@@ -1200,7 +1447,7 @@ export class World3D {
       shader.vertexShader = shader.vertexShader.replace(
         "#include <begin_vertex>",
         `#include <begin_vertex>
-         float gH = position.y / 0.5;
+         float gH = position.y / ${GRASS_TUFT_HEIGHT.toFixed(3)};
          vec4 gWp = instanceMatrix * vec4(0.0, 0.0, 0.0, 1.0);
          float gPh = gWp.x * 0.12 + gWp.z * 0.12;
          float gSway = sin(uTime * 1.5 + gPh) * 0.16 + sin(uTime * 2.7 + gPh * 1.6) * 0.06;
@@ -1216,39 +1463,37 @@ export class World3D {
       );
     };
 
-    const count = this.qcfg.grass;
-    const mesh = new THREE.InstancedMesh(geo, mat, count);
-    // 开启视锥剔除（Three.js 会对 InstancedMesh 做整体包围盒检测）
-    mesh.frustumCulled = true;
+    this.grassRadius = this.qcfg.grassRadius;
+    this.grassCellSize = this.qcfg.grassCell;
+    // 容量 = 半径内格子数 + 余量
+    const capacity =
+      Math.ceil((Math.PI * this.grassRadius * this.grassRadius) / (this.grassCellSize * this.grassCellSize)) + 96;
+    const mesh = new THREE.InstancedMesh(geo, mat, capacity);
+    // 实例位置随玩家变化，包围盒不可靠，关闭视锥剔除
+    mesh.frustumCulled = false;
     mesh.castShadow = false;
     mesh.receiveShadow = true;
 
-    const rnd = seededRand(31337);
-    const dummy = new THREE.Object3D();
-    // 预存所有草叶的世界坐标，用于运行时 LOD 剔除
-    const grassPositions: Float32Array = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      const x = (rnd() - 0.5) * 220;
-      const z = TERRAIN_ORIGIN_Z + (rnd() - 0.5) * TERRAIN_SIZE.depth * 0.9;
-      const y = sampleTerrainY(x, z, terrainHeight);
-      grassPositions[i * 3] = x;
-      grassPositions[i * 3 + 1] = y;
-      grassPositions[i * 3 + 2] = z;
-      dummy.position.set(x, y, z);
-      dummy.rotation.set(0, rnd() * Math.PI, 0);
-      const s = 0.7 + rnd() * 1.2;
-      dummy.scale.set(s, 0.8 + rnd() * 1.0, s);
-      dummy.updateMatrix();
-      mesh.setMatrixAt(i, dummy.matrix);
+    this.grassFreeSlots = [];
+    for (let i = 0; i < capacity; i++) {
+      this.grassFreeSlots.push(i);
+      this.hideGrassSlotInit(mesh, i);
     }
-    mesh.count = count;
     mesh.instanceMatrix.needsUpdate = true;
-    mesh.userData.grassPositions = grassPositions;
-    mesh.userData.grassScales = new Float32Array(count).fill(1);
-    mesh.userData.lodFrame = 0;
+
     this.grassMesh = mesh;
     mesh.visible = this.currentBiome.decorStyle !== "space";
     this.scene.add(mesh);
+    this.updateGrassPlacement(true);
+  }
+
+  /** 初始化时把实例藏到地下 */
+  private hideGrassSlotInit(mesh: THREE.InstancedMesh, slot: number): void {
+    this.grassDummy.position.set(0, -9999, 0);
+    this.grassDummy.rotation.set(0, 0, 0);
+    this.grassDummy.scale.setScalar(0);
+    this.grassDummy.updateMatrix();
+    mesh.setMatrixAt(slot, this.grassDummy.matrix);
   }
 
   /** 体积感云层（缓慢漂移） */
@@ -1476,10 +1721,11 @@ export class World3D {
       }
     }
 
-    // 全局零散植被 / 岩石：单元探索围绕当前单元铺开，避免视野只有一块空地。
+    // 全局零散植被：树木、灌木、野花、岩石、芦苇、倒木混合铺开，避免视野只有一块空地。
     const scatter = seededRand(909);
     const halfW = unitMode ? 145 : TERRAIN_SIZE.width * 0.46;
     const halfD = unitMode ? 190 : TERRAIN_SIZE.depth * 0.46;
+    const style = this.currentBiome.decorStyle;
     for (let i = 0; i < scatterCount; i++) {
       const wx = anchorX + (scatter() - 0.5) * 2 * halfW;
       const wz = anchorZ + (scatter() - 0.5) * 2 * halfD;
@@ -1488,23 +1734,45 @@ export class World3D {
       if (!unitMode && Math.abs(wx) < 14) continue;
       const wy = sampleTerrainY(wx, wz, terrainHeight);
       const scale = 0.8 + scatter() * 1.5;
-      if (unitMode && this.currentBiome.decorStyle === "space") {
+      const roll = scatter();
+
+      // 星际 / 月面：只有岩石与岩块
+      if (style === "space") {
         const rock = createRock(scale * 0.72);
         rock.position.set(wx, wy + 0.16, wz);
         rock.rotation.set(scatter() * 0.18, scatter() * Math.PI * 2, scatter() * 0.18);
         this.decorGroup!.add(rock);
-      } else if (unitMode && this.currentBiome.decorStyle !== "forest" && this.currentBiome.decorStyle !== "plains") {
-        this.addDecorAt(this.currentBiome.decorStyle, wx, wy, wz, scale, scatter);
-      } else if (scatter() > 0.42) {
+        continue;
+      }
+
+      if (roll < 0.24) {
         const tree = scatter() > 0.5 ? createPine(scale) : createTree(scale);
         tree.position.set(wx, wy, wz);
         tree.rotation.y = scatter() * Math.PI * 2;
         this.decorGroup!.add(tree);
-      } else {
-        const rock = createRock(scale * 0.85);
+      } else if (roll < 0.46) {
+        const bush = createBush(scale);
+        bush.position.set(wx, wy, wz);
+        bush.rotation.y = scatter() * Math.PI * 2;
+        this.decorGroup!.add(bush);
+      } else if (roll < 0.62) {
+        const rock = createRock(scale * 0.8);
         rock.position.set(wx, wy + 0.2, wz);
         rock.rotation.set(scatter(), scatter(), scatter());
         this.decorGroup!.add(rock);
+      } else if (roll < 0.8) {
+        const flower = createFlower(0.85 + scatter() * 0.7);
+        flower.position.set(wx, wy, wz);
+        this.decorGroup!.add(flower);
+      } else if (roll < 0.91) {
+        const reed = createReed(scale);
+        reed.position.set(wx, wy, wz);
+        reed.rotation.y = scatter() * Math.PI * 2;
+        this.decorGroup!.add(reed);
+      } else {
+        const log = createFallenLog(scale * 0.9);
+        log.position.set(wx, wy + 0.12, wz);
+        this.decorGroup!.add(log);
       }
     }
 
@@ -1664,14 +1932,14 @@ export class World3D {
   }
 
   private onKeyDown = (e: KeyboardEvent): void => {
-    if (this.paused) return;
+    if (this.paused || this.spectatorMode) return;
     if (e.key.toLowerCase() === "e" || e.key === "Enter") {
       this.tryInteract();
     }
   };
 
   private onPointerDown = (e: PointerEvent): void => {
-    if (this.paused) return;
+    if (this.paused || this.spectatorMode || e.button !== 0) return;
     const rect = this.renderer.domElement.getBoundingClientRect();
     this.pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
     this.pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
@@ -1785,7 +2053,14 @@ export class World3D {
 
     if (this.mixer) this.mixer.update(dt);
 
-    const camYaw = this.explorerCam.update(this.camera, this.player.position, this.player.yaw, dt);
+    const camYaw = this.explorerCam.update(
+      this.camera,
+      this.player.position,
+      this.player.yaw,
+      dt,
+      !this.spectatorMode,
+      this.spectatorMode && this.hasSpectatorFocus ? this.spectatorFocus : undefined
+    );
     this.player.update(dt, camYaw);
 
     if (this.explorer) {
@@ -1925,15 +2200,19 @@ export class World3D {
       this.sun.position.set(sx, Math.max(5, sy), 35);
       const daylight = THREE.MathUtils.clamp((sy + 8) / 90, 0.18, 1);
       const focusedWorld = isFocusedLearningWorld(this.activeWorldId);
-      this.sun.intensity = this.currentBiome.sunIntensity * (focusedWorld ? 0.82 + daylight * 0.18 : 0.52 + daylight * 0.38);
+      this.sun.intensity = this.currentBiome.sunIntensity * (focusedWorld ? 0.9 + daylight * 0.2 : 0.55 + daylight * 0.35);
       this.renderer.toneMappingExposure = focusedWorld
-        ? 1.14 + daylight * 0.12
-        : 1.08 + daylight * 0.1;
-      if (this.hemi) this.hemi.intensity = focusedWorld ? 0.78 + daylight * 0.22 : 0.58 + daylight * 0.26;
+        ? 1.06 + daylight * 0.12
+        : 1.0 + daylight * 0.11;
+      if (this.hemi) this.hemi.intensity = focusedWorld ? 0.6 + daylight * 0.2 : 0.46 + daylight * 0.26;
 
-      // 太阳圆盘跟随光源方向（置于远空），夜间淡出
+      // 太阳圆盘跟随光源方向，锚定在相机前方的固定远处（天空穹顶附近）。
+      // 之前锚定世界原点，玩家走远后圆盘会飘到相机旁边糊成一团白光。
       if (this.sunDisc) {
-        this.sunDisc.position.set(sx * 4.2, this.sun.position.y * 4.2, this.sun.position.z * 4.2 + TERRAIN_ORIGIN_Z);
+        this.sunDirV.set(sx, Math.max(5, sy), this.sun.position.z).normalize();
+        this.sunDisc.position
+          .copy(this.camera.position)
+          .addScaledVector(this.sunDirV, 480);
         const sunDiscOpacity = focusedWorld
           ? this.currentBiome.sunFocusedDiscOpacity ?? this.currentBiome.sunDiscOpacity ?? 1
           : this.currentBiome.sunDiscOpacity ?? 1;
@@ -1946,7 +2225,7 @@ export class World3D {
       this.grassUniforms.uTime.value = t;
       this.grassUniforms.uPlayer.value.copy(this.player.position);
     }
-    this.updateGrassLOD();
+    this.updateGrassPlacement();
 
     // 云层缓慢漂移
     if (this.clouds) this.clouds.rotation.y = t * 0.006;

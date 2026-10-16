@@ -1323,7 +1323,9 @@ body {
   overscroll-behavior: contain;
   background: linear-gradient(180deg, transparent 0 44vh, rgba(8, 12, 20, 0.82) 53vh, #080c14 68vh);
   scrollbar-color: rgba(148, 163, 184, 0.34) transparent;
+  pointer-events: none;
 }
+#screen-scene.rw3-world-overlay > * { pointer-events: auto; }
 #screen-scene.rw3-world-overlay .card {
   background: rgba(9, 15, 26, 0.94);
 }
@@ -1356,6 +1358,11 @@ body {
   line-height: 1.35;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.rw3-world-ribbon-hint {
+  color: rgba(219, 234, 254, 0.72);
+  font-size: 0.68rem;
+  letter-spacing: 0.035em;
 }
 
 /* Section 标签徽章 */

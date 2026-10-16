@@ -1667,7 +1667,9 @@ export class App {
     eyebrow.textContent = `${this.scene.title} · ${phase.label}`;
     const heading = el("strong", "rw3-world-ribbon-title");
     heading.textContent = landmark || title;
-    ribbon.append(eyebrow, heading);
+    const orbitHint = el("span", "rw3-world-ribbon-hint");
+    orbitHint.textContent = "拖动场景空白处左右查看";
+    ribbon.append(eyebrow, heading, orbitHint);
     screen.prepend(ribbon);
   }
 

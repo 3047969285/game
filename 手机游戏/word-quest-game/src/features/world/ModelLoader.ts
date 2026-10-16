@@ -154,6 +154,77 @@ export async function loadAvatarGlb(
   }
 }
 
+/**
+ * 美化角色模型：按材质名给机器人 / 探险家类模型换上可读的配色，
+ * 调平粗糙度与金属度，让角色不再是一团灰。
+ */
+export function enhanceAvatarMaterials(root: THREE.Object3D): void {
+  root.traverse((obj) => {
+    const mesh = obj as THREE.Mesh;
+    if (!mesh.isMesh) return;
+    const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+    for (const raw of mats) {
+      if (!raw) continue;
+      const mat = raw as THREE.MeshStandardMaterial;
+      if (mat.name === "Grey") {
+        // 机器人骨架 / 关节：深色合金
+        mat.color.setHex(0x3d4756);
+        mat.roughness = 0.42;
+        mat.metalness = 0.62;
+        mat.envMapIntensity = 1.1;
+      } else if (mat.name === "Main") {
+        // 主体装甲：探险家配色（靛蓝 + 暖橙）
+        mat.color.setHex(0x2f5f9e);
+        mat.roughness = 0.5;
+        mat.metalness = 0.34;
+        mat.envMapIntensity = 1.15;
+      } else if (mat.name === "Black") {
+        // 眼镜 / 靴子 / 描边：近黑高光
+        mat.color.setHex(0x14181f);
+        mat.roughness = 0.32;
+        mat.metalness = 0.5;
+        mat.envMapIntensity = 1;
+      } else {
+        mat.roughness = Math.max(0.3, Math.min(0.9, mat.roughness ?? 0.7));
+        mat.metalness = Math.max(0.1, Math.min(0.7, mat.metalness ?? 0.1));
+        mat.envMapIntensity = 1;
+      }
+      mat.needsUpdate = true;
+    }
+  });
+}
+
+/** 角色脚下的一圈柔和接地阴影，让角色"站"在地面上而不是浮着 */
+export function createContactShadow(height = 1.9): THREE.Mesh {
+  const size = height * 1.15;
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = 128;
+  const ctx = canvas.getContext("2d")!;
+  const g = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+  g.addColorStop(0, "rgba(0,0,0,0.55)");
+  g.addColorStop(0.45, "rgba(0,0,0,0.28)");
+  g.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, 128, 128);
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+
+  const mesh = new THREE.Mesh(
+    new THREE.PlaneGeometry(size, size),
+    new THREE.MeshBasicMaterial({
+      map: tex,
+      transparent: true,
+      opacity: 0.85,
+      depthWrite: false,
+    })
+  );
+  mesh.rotation.x = -Math.PI / 2;
+  mesh.position.y = 0.06;
+  mesh.renderOrder = -1;
+  mesh.name = "ContactShadow";
+  return mesh;
+}
+
 /** 解析节点应使用的模型配置：节点 ID 优先，否则主题 */
 export function resolveNodeModelConfig(
   nodeId: string,

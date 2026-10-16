@@ -1,5 +1,7 @@
 /** 每个单元专属的生物群系主题 — 原神风格地图氛围 */
 
+import * as THREE from "three";
+
 export interface UnitBiome {
   id: string;
   label: string;
@@ -32,6 +34,8 @@ export interface UnitBiome {
   pathColor: number;
   /** 装饰风格 */
   decorStyle: "forest" | "coast" | "temple" | "market" | "exchange" | "plains" | "space";
+  /** 地表配色（草 / 土 / 岩），缺省时由 terrainTint 推导 */
+  ground?: { grass: number; dirt: number; rock: number };
   /** Focused learning-scene framing; omit to use the shared defaults. */
   focusedLandscapeScale?: number;
   focusedLandscapeOffsetZ?: number;
@@ -51,6 +55,7 @@ export const UNIT_BIOMES: Record<string, UnitBiome> = {
     crystalColor: 0x50a8ff, orbColor: 0x35e3ce, glowColor: 0x188f91,
     pathColor: 0x247e83,
     decorStyle: "coast",
+    ground: { grass: 0x5c7865, dirt: 0x88745a, rock: 0x747c7b },
   },
   /** 人物传记 — 档案馆晨光：温暖旧金与中性石色，保留历史感但不压暗细节。 */
   unit02: {
@@ -64,6 +69,7 @@ export const UNIT_BIOMES: Record<string, UnitBiome> = {
     crystalColor: 0xb98742, orbColor: 0xe2c580, glowColor: 0x9d6d31,
     pathColor: 0x76562f,
     decorStyle: "market",
+    ground: { grass: 0x8a9455, dirt: 0x8d6d47, rock: 0x8c8272 },
     focusedLandscapeScale: 0.86,
     focusedLandscapeOffsetZ: 7,
   },
@@ -79,6 +85,7 @@ export const UNIT_BIOMES: Record<string, UnitBiome> = {
     crystalColor: 0x83b68a, orbColor: 0xb8d28e, glowColor: 0x71a68c,
     pathColor: 0x536f56,
     decorStyle: "forest",
+    ground: { grass: 0x4c7d4a, dirt: 0x6d583c, rock: 0x626c64 },
   },
   /** 劳动传统 — 柔和工坊暖光：让木作、金属工具和琥珀色灯光有清晰层次。 */
   unit04: {
@@ -92,6 +99,7 @@ export const UNIT_BIOMES: Record<string, UnitBiome> = {
     crystalColor: 0xc99658, orbColor: 0xe4bf7c, glowColor: 0xb47a42,
     pathColor: 0x775d40,
     decorStyle: "temple",
+    ground: { grass: 0x7a7c46, dirt: 0x7d5f3d, rock: 0x71695c },
   },
   /** 中国航天 — 月面晨光：冷静的银蓝远景，保证月球地形和探测器轮廓有明暗层次。 */
   unit05: {
@@ -105,6 +113,7 @@ export const UNIT_BIOMES: Record<string, UnitBiome> = {
     crystalColor: 0x93bde8, orbColor: 0xdbeaff, glowColor: 0x79a8df,
     pathColor: 0x526d88,
     decorStyle: "space",
+    ground: { grass: 0x8e929d, dirt: 0x7c7f88, rock: 0x9ca2ad },
   },
   /** 共享经济 — 暮色中的共益交易城：暖石、旧木与低饱和青绿。 */
   unit06: {
@@ -118,6 +127,7 @@ export const UNIT_BIOMES: Record<string, UnitBiome> = {
     crystalColor: 0xd5a36f, orbColor: 0x7dc9b0, glowColor: 0x4e9f91,
     pathColor: 0x356d67,
     decorStyle: "exchange",
+    ground: { grass: 0x5c7d5e, dirt: 0x7d6549, rock: 0x6d6d65 },
   },
 };
 
@@ -133,9 +143,33 @@ export const DEFAULT_BIOME: UnitBiome = {
   crystalColor: 0x60a5fa, orbColor: 0x80c0ff, glowColor: 0x4090ee,
   pathColor: 0x3060a0,
   decorStyle: "forest",
+  ground: { grass: 0x4c7d4a, dirt: 0x6d583c, rock: 0x626c64 },
 };
 
 export function getBiome(unitId?: string): UnitBiome {
   if (!unitId) return DEFAULT_BIOME;
   return UNIT_BIOMES[unitId] ?? DEFAULT_BIOME;
+}
+
+/** 地表配色：优先使用单元自定义，否则由 terrainTint 推导出自然的草 / 土 / 岩三色。 */
+export function getGroundPalette(biome: UnitBiome): { grass: number; dirt: number; rock: number } {
+  if (biome.ground) return biome.ground;
+
+  const [r, g, b] = biome.terrainTint;
+  const c = new THREE.Color(r, g, b);
+  const hsl = { h: 0, s: 0, l: 0 };
+  c.getHSL(hsl);
+
+  // 以主题色相为基准，提升饱和与亮度，得到可读的自然草地色
+  const grass = new THREE.Color().setHSL(hsl.h, Math.min(1, hsl.s * 0.85 + 0.28), 0.34);
+  // 泥土：色相偏暖，降低饱和
+  const dirt = new THREE.Color().setHSL((hsl.h + 0.07) % 1, Math.min(1, hsl.s * 0.5 + 0.18), 0.33);
+  // 岩石：几乎去饱和，略亮
+  const rock = new THREE.Color().setHSL(hsl.h, Math.min(1, hsl.s * 0.16), 0.46);
+
+  return {
+    grass: grass.getHex(),
+    dirt: dirt.getHex(),
+    rock: rock.getHex(),
+  };
 }

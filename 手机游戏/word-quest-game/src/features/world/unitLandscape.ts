@@ -110,7 +110,7 @@ export function buildUnitLandscape(biome: UnitBiome, _anchor: MapNode, worldId?:
   if (isFocusedLearningWorld(worldId)) {
     const landmark = new THREE.Group();
     addLearningSceneLandmark(landmark, worldId, worldTitle, ground, dark, glow, edge, accent, biome.id);
-    landmark.scale.setScalar(0.78);
+    landmark.scale.setScalar(0.9);
     landmark.position.set(0, 1.8, -15);
     root.add(landmark);
   } else if (!addLearningSceneLandmark(root, worldId, worldTitle, ground, dark, glow, edge, accent, biome.id)) {
@@ -860,9 +860,9 @@ function addPassageSceneLandmark(
       const personSkin = new THREE.MeshStandardMaterial({ color: 0xd2aa86, roughness: 0.92 });
 
       // The passage opens at a campus library courtyard, not a metaphorical canyon.
-      box(0, 4.42, 31.15, 15.8, 6.55, 0.78, libraryWall);
-      box(0, 7.82, 31.15, 16.35, 0.34, 1.08, libraryTrim);
-      box(0, 1.28, 30.66, 15.5, 0.26, 0.48, libraryTrim);
+      box(0, 4.42, 31.98, 15.8, 6.55, 2.5, libraryWall);
+      box(0, 7.82, 31.95, 16.35, 0.34, 2.85, libraryTrim);
+      box(0, 1.28, 31.9, 15.5, 0.26, 2.6, libraryTrim);
 
       for (const x of [-4.55, 4.55]) {
         box(x, 4.62, 30.72, 3.5, 3.28, 0.16, libraryTrim);
@@ -871,6 +871,14 @@ function addPassageSceneLandmark(
         box(x, 4.62, 30.53, 3.18, 0.12, 0.06, edge);
         box(x, 4.62, 30.53, 0.1, 2.96, 0.06, libraryTrim);
         box(x, 4.62, 30.53, 3.18, 0.1, 0.06, libraryTrim);
+      }
+
+      // Side glazing gives the library a readable building volume when the learner orbits the scene.
+      for (const side of [-1, 1]) {
+        box(side * 7.94, 4.62, 31.95, 0.18, 3.08, 1.98, libraryTrim);
+        box(side * 8.045, 4.62, 31.95, 0.04, 2.82, 1.7, libraryGlass);
+        box(side * 8.075, 4.62, 31.95, 0.04, 2.82, 0.08, libraryTrim);
+        box(side * 8.075, 4.62, 31.95, 0.04, 0.08, 1.7, libraryTrim);
       }
 
       // A recessed, glazed entrance makes the building legible at a glance.

@@ -80,40 +80,78 @@ export function createTerrainMaps(): {
   return { roughness, normal };
 }
 
-/** 全课程世界共用浅色、低反差地表，保留空间细节并让单元主题色可辨。 */
-export function createReadableGroundMap(): THREE.Texture {
-  const rnd = seededRand(20260930);
+/**
+ * 地面细节贴图：明亮的细节 / 明暗层，真正的色相由地形顶点色提供。
+ *
+ * 包含草叶笔触、泥土斑块、细小石子与柔和色斑，让地面在近处经得起细看，
+ * 同时保持整体亮度偏高（乘算后不会把顶点色压暗）。
+ */
+export function createGroundDetailMap(): THREE.Texture {
+  const rnd = seededRand(20261015);
   const texture = canvasTexture((ctx, size) => {
-    const base = ctx.createLinearGradient(0, 0, size, size);
-    base.addColorStop(0, "#ece9df");
-    base.addColorStop(0.48, "#e6e6df");
-    base.addColorStop(1, "#e0e5df");
-    ctx.fillStyle = base;
+    // 明亮基色（略带暖调，作为乘算底色）
+    ctx.fillStyle = "#dcd9cd";
     ctx.fillRect(0, 0, size, size);
 
-    for (let i = 0; i < 88; i++) {
-      const radius = 34 + rnd() * 116;
+    // 大块色斑：草地与泥土的冷暖差异
+    for (let i = 0; i < 130; i++) {
       const x = rnd() * size;
       const y = rnd() * size;
-      const warm = rnd() > 0.56;
-      const color = warm ? "112,96,72" : "76,104,88";
-      const alpha = 0.018 + rnd() * 0.026;
-      const patch = ctx.createRadialGradient(x, y, 0, x, y, radius);
-      patch.addColorStop(0, `rgba(${color},${alpha})`);
-      patch.addColorStop(1, `rgba(${color},0)`);
-      ctx.fillStyle = patch;
+      const r = 36 + rnd() * 150;
+      const warm = rnd() > 0.55;
+      const c = warm ? "156,132,98" : "116,138,100";
+      const a = 0.045 + rnd() * 0.085;
+      const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+      g.addColorStop(0, `rgba(${c},${a})`);
+      g.addColorStop(1, `rgba(${c},0)`);
+      ctx.fillStyle = g;
       ctx.beginPath();
-      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.arc(x, y, r, 0, Math.PI * 2);
       ctx.fill();
     }
 
-    for (let i = 0; i < 12000; i++) {
-      const light = rnd() > 0.52;
-      const tone = light ? "255,255,248" : "62,75,65";
-      ctx.fillStyle = `rgba(${tone},${light ? 0.055 : 0.035 + rnd() * 0.025})`;
-      ctx.fillRect(rnd() * size, rnd() * size, 0.5 + rnd() * 1.7, 0.5 + rnd() * 1.7);
+    // 草叶笔触：细短的明暗线条，模拟草皮肌理
+    for (let i = 0; i < 6000; i++) {
+      const x = rnd() * size;
+      const y = rnd() * size;
+      const len = 3 + rnd() * 7;
+      const ang = -Math.PI / 2 + (rnd() - 0.5) * 1.3;
+      const light = rnd() > 0.5;
+      ctx.strokeStyle = light
+        ? `rgba(232,236,214,${0.1 + rnd() * 0.2})`
+        : `rgba(84,100,72,${0.08 + rnd() * 0.17})`;
+      ctx.lineWidth = 0.8 + rnd() * 1.2;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + Math.cos(ang) * len, y + Math.sin(ang) * len);
+      ctx.stroke();
+    }
+
+    // 细小石子 / 沙粒
+    for (let i = 0; i < 1100; i++) {
+      const x = rnd() * size;
+      const y = rnd() * size;
+      const r = 0.8 + rnd() * 2.2;
+      const v = 168 + rnd() * 60;
+      ctx.fillStyle = `rgba(${v | 0},${(v - 4) | 0},${(v - 12) | 0},${0.2 + rnd() * 0.35})`;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // 干草 / 落叶点缀
+    for (let i = 0; i < 260; i++) {
+      const x = rnd() * size;
+      const y = rnd() * size;
+      ctx.strokeStyle = `rgba(170,150,104,${0.2 + rnd() * 0.3})`;
+      ctx.lineWidth = 1 + rnd() * 1.4;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + (rnd() - 0.5) * 8, y + (rnd() - 0.5) * 8);
+      ctx.stroke();
     }
   }, THREE.SRGBColorSpace, 1024);
-  texture.repeat.set(14, 18);
+  texture.repeat.set(56, 68);
+  texture.anisotropy = 8;
   return texture;
 }

@@ -29,6 +29,48 @@ export function terrainHeight(x: number, z: number): number {
   return macro * sideMask + mid * (0.4 + 0.6 * sideMask) + detail;
 }
 
+/** 二维哈希（确定性，用于程序化噪声） */
+export function hash2(x: number, y: number): number {
+  const s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453123;
+  return s - Math.floor(s);
+}
+
+/** 平滑值噪声（双线性 + smoothstep 插值） */
+export function valueNoise(x: number, y: number): number {
+  const xi = Math.floor(x);
+  const yi = Math.floor(y);
+  const xf = x - xi;
+  const yf = y - yi;
+  const u = xf * xf * (3 - 2 * xf);
+  const v = yf * yf * (3 - 2 * yf);
+  const a = hash2(xi, yi);
+  const b = hash2(xi + 1, yi);
+  const c = hash2(xi, yi + 1);
+  const d = hash2(xi + 1, yi + 1);
+  return a * (1 - u) * (1 - v) + b * u * (1 - v) + c * (1 - u) * v + d * u * v;
+}
+
+/** 分形叠加噪声（多倍频，返回 0~1） */
+export function fbm(x: number, y: number, octaves = 4): number {
+  let amp = 0.5;
+  let freq = 1;
+  let sum = 0;
+  let norm = 0;
+  for (let i = 0; i < octaves; i++) {
+    sum += amp * valueNoise(x * freq, y * freq);
+    norm += amp;
+    amp *= 0.5;
+    freq *= 2;
+  }
+  return sum / norm;
+}
+
+/** 平滑阶跃（与 GLSL smoothstep 一致） */
+export function smoothstep(edge0: number, edge1: number, x: number): number {
+  const t = Math.min(1, Math.max(0, (x - edge0) / (edge1 - edge0 || 1e-6)));
+  return t * t * (3 - 2 * t);
+}
+
 /** 可复现的伪随机数 */
 export function seededRand(seed: number): () => number {
   let s = seed % 2147483647;
