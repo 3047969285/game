@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { MergedBuilder, boxGeo, createKitMaterials, cylGeo, prismGeo, strutGeo, rng, type KitMaterials } from "./detailKit";
+import { MergedBuilder, boxGeo, createKitMaterials, cylGeo, gableGeo, prismGeo, strutGeo, rng, type KitMaterials } from "./detailKit";
 import { createTree } from "./props";
 
 /**
@@ -12,18 +12,6 @@ const mat = (color: number, roughness = 0.85, metalness = 0.02, extra: THREE.Mes
   m.fog = false;
   return m;
 };
-
-/** 三角山墙（挤出，底边中心在原点，朝 +Z） */
-function gableGeo(width: number, height: number, depth: number): THREE.BufferGeometry {
-  const s = new THREE.Shape();
-  s.moveTo(-width / 2, 0);
-  s.lineTo(width / 2, 0);
-  s.lineTo(0, height);
-  s.closePath();
-  const g = new THREE.ExtrudeGeometry(s, { depth, bevelEnabled: true, bevelThickness: 0.06, bevelSize: 0.06, bevelSegments: 1 });
-  g.translate(0, 0, -depth / 2);
-  return g;
-}
 
 /** 带分段的锥形旋转体（灯塔 / 火箭箭体） */
 function latheGeo(profile: Array<[number, number]>, radial = 32): THREE.BufferGeometry {

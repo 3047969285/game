@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { MergedBuilder, boxGeo, createKitMaterials, cylGeo, strutGeo, type KitMaterials } from "./detailKit";
+import { MergedBuilder, boxGeo, createKitMaterials, cylGeo, gableGeo, strutGeo, type KitMaterials } from "./detailKit";
 
 /**
  * 场景道具库：长椅、桌椅、书架、黑板、屏幕、讲台、花坛、栏杆、台阶、遮阳篷……
@@ -356,6 +356,29 @@ export function gazebo(k: SceneKit, f: Frame, r = 1.4, roof = k.m.terracottaRoof
   f.ball(k.m.brass, 0.07, 0, 3.55, 0);
 }
 
+/** 小房子：石基 + 抹灰墙 + 双坡瓦顶 + 门窗 + 烟囱；正面朝局部 +z */
+export function house(k: SceneKit, f: Frame, w = 2.4, h = 2.6, d = 2.2, roof = k.m.terracottaRoof, wall = k.m.paper): void {
+  const { m } = k;
+  f.box(m.stoneDark, w + 0.1, 0.3, d + 0.1, 0, 0, 0, 0.02);
+  f.box(wall, w, h - 0.3, d, 0, 0.3, 0, 0.03);
+  f.put(gableGeo(w + 0.5, 0.95 + w * 0.12, d + 0.5), roof, 0, h, 0);
+  f.put(gableGeo(w + 0.3, 0.8 + w * 0.12, d + 0.3), m.woodDark, 0, h - 0.04, 0, 0, 0, 0, 1, 0.97, 0.99);
+  // 门 + 门框 + 台阶
+  f.box(m.woodDark, 0.82, 1.65, 0.07, 0, 0.3, d / 2 + 0.01, 0.01);
+  f.box(m.wood, 0.7, 1.55, 0.06, 0, 0.3, d / 2 + 0.04, 0.01);
+  f.box(m.stoneWarm, 1.2, 0.16, 0.45, 0, 0, d / 2 + 0.22, 0.02);
+  f.box(m.brass, 0.05, 0.05, 0.04, 0.24, 1.05, d / 2 + 0.08, 0.008);
+  // 窗：框 + 玻璃 + 窗台 + 十字窗棂
+  for (const sx of [-1, 1]) {
+    const x = sx * (w / 2 - 0.55);
+    f.box(m.woodDark, 0.66, 0.74, 0.07, x, 1.15, d / 2 + 0.01, 0.01);
+    f.put(new THREE.PlaneGeometry(0.54, 0.62), m.glass, x, 1.52, d / 2 + 0.05);
+    f.box(m.woodDark, 0.03, 0.62, 0.03, x, 1.21, d / 2 + 0.06, 0.004);
+    f.box(m.woodDark, 0.54, 0.03, 0.03, x, 1.51, d / 2 + 0.06, 0.004);
+    f.box(m.stoneWarm, 0.78, 0.05, 0.14, x, 1.1, d / 2 + 0.07, 0.01);
+  }
+  f.box(m.stoneDark, 0.32, 1.0, 0.32, w / 2 - 0.45, h + 0.15, -d / 4, 0.02);
+}
 function mulberry(seed: number): () => number {
   let s = seed >>> 0;
   return () => {

@@ -89,6 +89,17 @@ export function archFrameGeo(ro: number, ri: number, depth: number, bevel = 0.04
   return geo;
 }
 
+/** 三角山墙 / 屋顶（挤出，底边中心在原点，朝 +Z），沿 Z 方向厚度 depth */
+export function gableGeo(width: number, height: number, depth: number): THREE.BufferGeometry {
+  const s = new THREE.Shape();
+  s.moveTo(-width / 2, 0);
+  s.lineTo(width / 2, 0);
+  s.lineTo(0, height);
+  s.closePath();
+  const g = new THREE.ExtrudeGeometry(s, { depth, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.03, bevelSegments: 1 });
+  g.translate(0, 0, -depth / 2);
+  return g;
+}
 export interface Placement {
   x?: number;
   y?: number;
@@ -154,6 +165,40 @@ export class MergedBuilder {
   }
 }
 
+/**
+ * 把一个 Group 下的所有网格按材质烘焙合并（保留 Group 本身及其变换）。
+ * 用于人物等由几十个小件组成、且不再需要单独动画的对象，draw call 从几十降到十来个。
+ */
+export function bakeGroupByMaterial(group: THREE.Group): void {
+  group.updateMatrixWorld(true);
+  const inv = new THREE.Matrix4().copy(group.matrixWorld).invert();
+  const buckets = new Map<THREE.Material, THREE.BufferGeometry[]>();
+  const meshes: THREE.Mesh[] = [];
+  group.traverse((o) => {
+    if ((o as THREE.Mesh).isMesh) meshes.push(o as THREE.Mesh);
+  });
+  for (const mesh of meshes) {
+    const geo = mesh.geometry.clone();
+    geo.deleteAttribute("uv");
+    geo.applyMatrix4(new THREE.Matrix4().multiplyMatrices(inv, mesh.matrixWorld));
+    const welded = geo.index ? geo : mergeVertices(geo, 1e-4);
+    const list = buckets.get(mesh.material as THREE.Material) ?? [];
+    list.push(welded);
+    buckets.set(mesh.material as THREE.Material, list);
+  }
+  for (const mesh of meshes) mesh.parent?.remove(mesh);
+  // 清掉空的中间组
+  for (const child of [...group.children]) if (child.type === "Group") group.remove(child);
+  for (const [material, geos] of buckets) {
+    const merged = mergeGeometries(geos, false);
+    if (!merged) continue;
+    const mesh = new THREE.Mesh(merged, material);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    mesh.userData.isLandscapeStage = true;
+    group.add(mesh);
+  }
+}
 /** 可重复的伪随机数 */
 export function rng(seed: number): () => number {
   let s = seed >>> 0;

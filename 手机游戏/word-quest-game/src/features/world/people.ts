@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
+import { bakeGroupByMaterial } from "./detailKit";
 
 /**
  * 场景中的"路人 / 同学"：与探险者角色同一套写实比例（约 8 头身）。
@@ -298,6 +299,7 @@ export function createPerson(opts: PersonOptions): THREE.Group {
   }
 
   // 坐姿：整个身体向下平移，使鞋底落在 y = -(0.91 - 0.1) 附近（由调用方按座高摆放）
+  bakeGroupByMaterial(root);
   root.scale.setScalar(opts.scale ?? 1);
   return root;
 }
