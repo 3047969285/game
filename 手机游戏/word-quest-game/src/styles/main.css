@@ -2383,3 +2383,55 @@ body {
   }
 }
 
+
+/* ─────────────────────────────────────────────────────────────
+   精简 + 丝滑：地图页信息减负、统一玻璃质感与过渡
+   ───────────────────────────────────────────────────────────── */
+html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+button { -webkit-tap-highlight-color: transparent; }
+* { scrollbar-width: thin; scrollbar-color: rgba(148, 163, 184, 0.28) transparent; }
+
+/* 顶栏：标题 + 三枚关键数据，一行放下 */
+#screen-map.active:not(.rw3-world-backdrop) .map-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 9px 14px;
+}
+#screen-map.active:not(.rw3-world-backdrop) .map-header .title { margin: 0; font-size: 1rem; letter-spacing: 0.01em; }
+.header-stats { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.header-stats .progress-pill { margin: 0; padding: 3px 9px; font-size: 0.72rem; }
+.map-header .account-actions { margin-left: 0; }
+
+/* 操作提示：单行，不再占一整块 */
+.play-guide { padding: 8px 12px; }
+.play-guide-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.play-guide-text { font-size: 0.8rem; color: var(--muted); }
+.play-guide-text strong { color: var(--text); font-weight: 700; }
+
+/* 统一过渡：只动 transform / opacity / 颜色，避免布局抖动 */
+.btn, .tab, .account-btn, .btn-ghost-sm, .btn-spectator-toggle, .btn-music-toggle, .btn-avatar-toggle,
+.unit-world-portal, .avatar-chip, .avatar-swatch {
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+}
+.btn:not(:disabled):hover, .tab:hover { transform: translateY(-1px); }
+.btn:not(:disabled):active, .tab:active, .btn-spectator-toggle:active, .btn-music-toggle:active { transform: scale(0.97); }
+
+/* 卡片：柔和进入，降低模糊半径减轻合成开销 */
+@keyframes softIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.card { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+#play-guide, #practice-panel, #map-hint > .card, #map-header { animation: softIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* 世界视窗：独立合成层，滚动 / 面板动画时不重绘画布 */
+.world-viewport { transform: translateZ(0); contain: layout paint; }
+.world-viewport > canvas:not(#explore-minimap) { will-change: transform; }
+
+/* HUD 小件统一尺寸，少一点装饰 */
+.btn-spectator-toggle, .btn-music-toggle { padding: 6px 10px; font-size: 0.7rem; }
+.world-hint-bar { font-size: 0.7rem; opacity: 0.85; }
+

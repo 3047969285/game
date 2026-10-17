@@ -280,8 +280,6 @@ export class App {
     const dueIds = this.state.getDueWordIds(this.wordMap.keys());
     const due = dueIds.length;
     const weakIds = this.state.getWeakWordIds(this.wordMap.keys(), 8, new Set(dueIds));
-    const stats = this.state.getLearningStats(this.wordMap.keys());
-    const rewardCount = this.state.save.rewardIds.length;
 
     if (this.renderedCourse !== this.state.save.courseId) {
       this.world?.dispose();
@@ -405,22 +403,20 @@ export class App {
 
     const header = screen.querySelector("#map-header");
     if (header) {
+      const hasAuth = Boolean(authUrl("qq") || authUrl("wechat"));
       header.innerHTML = `
         <div class="title">${this.template.name}</div>
-        <div class="subtitle">${isRw3 ? "第四版主题练习 · 原创仿学（非教材原文）" : "三维探索 · 科学记忆（语境输入 + 主动回忆 + 间隔重复）"}</div>
-        <span class="progress-pill">${isRw3 ? "已完成单元" : "已完成关卡"} ${done}/${this.mapNodes.length}</span>
-        <span class="progress-pill reward-pill">徽章 ${rewardCount} · XP ${this.state.save.experience}</span>
-        ${stats.learned > 0 ? `<span class="progress-pill stats-pill">已学 ${stats.learned}</span>` : ""}
-        ${stats.mastered > 0 ? `<span class="progress-pill stats-pill mastered-pill">掌握 ${stats.mastered}</span>` : ""}
-        ${due > 0 ? `<span class="progress-pill review-pill">待复习 ${due}</span>` : ""}
-        ${stats.weak > 0 ? `<span class="progress-pill weak-pill">薄弱 ${stats.weak}</span>` : ""}
-        <div class="account-actions">
-          <span class="account-label">账号</span>
-          <button type="button" class="account-btn" data-auth-provider="qq" ${authUrl("qq") ? "" : "disabled"}>QQ 登录</button>
-          <button type="button" class="account-btn" data-auth-provider="wechat" ${authUrl("wechat") ? "" : "disabled"}>微信登录</button>
+        <div class="header-stats">
+          <span class="progress-pill">${isRw3 ? "单元" : "关卡"} ${done}/${this.mapNodes.length}</span>
+          <span class="progress-pill reward-pill">XP ${this.state.save.experience}</span>
+          ${due > 0 ? `<span class="progress-pill review-pill">待复习 ${due}</span>` : ""}
         </div>
-      `;
-      this.bindAuthButtons(header);
+        ${hasAuth ? `
+        <div class="account-actions">
+          <button type="button" class="account-btn" data-auth-provider="qq" ${authUrl("qq") ? "" : "disabled"}>QQ</button>
+          <button type="button" class="account-btn" data-auth-provider="wechat" ${authUrl("wechat") ? "" : "disabled"}>微信</button>
+        </div>` : ""}
+      `;      this.bindAuthButtons(header);
     }
 
     this.renderPlayGuide();
@@ -595,17 +591,9 @@ export class App {
     card.id = "play-guide";
     card.innerHTML = `
       <div class="play-guide-head">
-        <span class="title" style="font-size:1rem">怎么玩？</span>
+        <span class="play-guide-text"><strong>WASD</strong> 移动 · 拖拽转向 · 走近水晶按 <strong>E</strong></span>
         <button class="btn-ghost-sm" id="btn-dismiss-guide" type="button">知道了</button>
       </div>
-      <ol class="play-guide-list">
-        <li><strong>走动探险</strong>：WASD 或左下摇杆移动，拖拽画面转向，走近水晶按 E</li>
-        <li><strong>读写3 路线</strong>：6 个单元 = 6 幕场景，按单元词库完成分级词汇</li>
-        <li><strong>读文章段落</strong>：一幕内包含 Section A/B/C 仿学段落 + 听力稿，高亮词来自单元词库</li>
-        <li><strong>主动回忆</strong>：点高亮词 → 先回忆 → 揭示 → 自评</li>
-        <li><strong>语境填空</strong>：按文章句子选释义，答错缩短复习间隔</li>
-        <li><strong>间隔复习</strong>：到期词在地图练习卡片，每轮约 12 词</li>
-      </ol>
     `;
 
     const hint = this.root.querySelector("#map-hint");
@@ -689,7 +677,7 @@ export class App {
         ` : ""}
         <div class="explore-header"><span class="explore-loc">📍 ${node.zoneName}</span></div>
         <div class="title" style="font-size:1rem">${node.icon} ${node.name}</div>
-        <div class="subtitle">${node.cleared ? "本单元已完成 · 可重温" : node.unlocked ? (this.state.save.courseId === "college_english_rw3" ? "完整单元：Section A/B/C → 分级词汇关卡 → 阅读题 → 听力 → 填空 → 翻译 → 写作" : "进入后：先读故事 → 回忆释义 → 语境填空") : "完成前一单元后解锁"}${node.dueCount ? ` · <span class="due-inline">${node.dueCount} 词待复习</span>` : ""}</div>
+        <div class="subtitle">${node.cleared ? "本单元已完成 · 可重温" : node.unlocked ? (this.state.save.courseId === "college_english_rw3" ? "Section A/B/C · 词汇 · 阅读 · 听力 · 写作" : "进入后：先读故事 → 回忆释义 → 语境填空") : "完成前一单元后解锁"}${node.dueCount ? ` · <span class="due-inline">${node.dueCount} 词待复习</span>` : ""}</div>
         ${node.unlocked ? `<button class="btn btn-primary" id="btn-enter-scene">进入学习场景</button>` : ""}
       </div>
     `;
