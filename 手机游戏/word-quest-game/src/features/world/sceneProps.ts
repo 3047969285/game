@@ -21,6 +21,8 @@ export interface PropMaterials {
   ceramic: THREE.MeshStandardMaterial;
   leather: THREE.MeshStandardMaterial;
   plasticDark: THREE.MeshStandardMaterial;
+  water: THREE.MeshStandardMaterial;
+  canvasOlive: THREE.MeshStandardMaterial;
 }
 
 export interface SceneKit {
@@ -53,6 +55,8 @@ export function createSceneKit(): SceneKit {
       ceramic: std(0xf1ece2, 0.35),
       leather: std(0x5a3a28, 0.7, 0.05),
       plasticDark: std(0x20262b, 0.45, 0.2),
+      water: std(0x2f6e7c, 0.45, 0.05, { transparent: true, opacity: 0.94, envMapIntensity: 0.3 }),
+      canvasOlive: std(0x7f8f6a, 0.95, 0, { side: THREE.DoubleSide }),
     },
   };
 }
@@ -378,6 +382,55 @@ export function house(k: SceneKit, f: Frame, w = 2.4, h = 2.6, d = 2.2, roof = k
     f.box(m.stoneWarm, 0.78, 0.05, 0.14, x, 1.1, d / 2 + 0.07, 0.01);
   }
   f.box(m.stoneDark, 0.32, 1.0, 0.32, w / 2 - 0.45, h + 0.15, -d / 4, 0.02);
+}
+/** 水面圆盘（池塘 / 码头水域）：石围 + 水面 */
+export function waterDisc(k: SceneKit, f: Frame, r = 2.4, sx = 1, sz = 1): void {
+  f.put(cylGeo(r + 0.28, r + 0.34, 0.3, 40), k.m.stoneDark, 0, 0.15, 0, 0, 0, 0, sx, 1, sz);
+  f.put(cylGeo(r, r, 0.2, 40), k.p.water, 0, 0.27, 0, 0, 0, 0, sx, 1, sz);
+}
+
+/** 帆船：木船体（侧面轮廓挤出）+ 甲板 + 舷墙 + 船舱 + 桅杆 + 弧形帆 + 缆索；船头朝局部 +x */
+export function ship(k: SceneKit, f: Frame, L = 3.2, masts = 1, sail: THREE.Material = k.p.fabricCream, hull: THREE.Material = k.m.woodDark): void {
+  const { m } = k;
+  const W = L * 0.3;
+  const H = L * 0.22;
+  const s = new THREE.Shape();
+  s.moveTo(-L / 2, H);
+  s.lineTo(-L * 0.36, 0);
+  s.lineTo(L * 0.3, 0);
+  s.quadraticCurveTo(L * 0.5, H * 0.25, L / 2 + 0.12, H * 0.92);
+  s.lineTo(-L / 2, H);
+  const geo = new THREE.ExtrudeGeometry(s, { depth: W, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.03, bevelSegments: 1 });
+  geo.translate(0, 0, -W / 2);
+  f.put(geo, hull, 0, 0.05, 0);
+  f.box(k.p.fabricRed, L * 0.98, 0.05, 0.04, 0, H * 0.95, W / 2 + 0.02, 0.01);
+  f.box(k.p.fabricRed, L * 0.98, 0.05, 0.04, 0, H * 0.95, -W / 2 - 0.02, 0.01);
+  f.box(m.wood, L * 0.9, 0.04, W * 0.92, 0, H * 0.9, 0, 0.01);
+  f.box(m.woodDark, L * 0.22, H * 0.55, W * 0.7, -L * 0.3, H * 0.92, 0, 0.02);
+  f.box(m.slate, L * 0.1, 0.1, 0.02, -L * 0.3, H * 1.25, W * 0.36, 0.005);
+  const step = L * 0.5 / Math.max(1, masts);
+  for (let i = 0; i < masts; i++) {
+    const x = L * 0.12 - i * step * 0.9;
+    const mh = L * (0.95 - i * 0.12);
+    f.cyl(m.woodDark, 0.025, 0.04, mh, x, H * 0.92, 0, 10);
+    f.box(m.woodDark, 0.03, 0.03, L * 0.3, x, H * 0.92 + mh * 0.32, -L * 0.04, 0.005);
+    const sg = new THREE.PlaneGeometry(L * 0.3, mh * 0.62, 8, 10);
+    const pos = sg.attributes.position;
+    for (let v = 0; v < pos.count; v++) pos.setZ(v, Math.cos((pos.getX(v) / (L * 0.3)) * Math.PI) * 0.12 * L * 0.3 + 0.02);
+    sg.computeVertexNormals();
+    f.put(sg, sail, x, H * 0.92 + mh * 0.66, 0, 0, Math.PI / 2 - Math.PI / 2, 0);
+    f.strut(m.steel, [x, H * 0.92 + mh, 0], [L / 2 + 0.05, H * 0.9, 0], 0.008, 4);
+    f.strut(m.steel, [x, H * 0.92 + mh, 0], [-L / 2, H * 1.0, 0], 0.008, 4);
+  }
+  f.box(k.p.fabricRed, 0.22, 0.14, 0.01, L * 0.12, H * 0.92 + L * 0.93, 0.0, 0.003);
+}
+
+/** 帐篷（救援站）：四根柱 + 倾斜帆布顶 + 前檐 */
+export function tent(k: SceneKit, f: Frame, w = 4.4, d = 3.4, h = 2.6, canvas: THREE.Material = k.p.canvasOlive): void {
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) f.cyl(k.m.woodDark, 0.05, 0.06, h, sx * (w / 2 - 0.1), 0, sz * (d / 2 - 0.1), 10);
+  for (const s of [-1, 1]) f.box(canvas, w + 0.4, 0.04, d * 0.62, 0, h + 0.28, s * d * 0.27, 0.01, -s * 0.22);
+  f.box(k.m.woodDark, w + 0.1, 0.06, 0.06, 0, h + 0.5, 0, 0.01);
+  f.box(canvas, w + 0.3, 0.45, 0.03, 0, h - 0.4, d / 2 + 0.02, 0.01);
 }
 function mulberry(seed: number): () => number {
   let s = seed >>> 0;
