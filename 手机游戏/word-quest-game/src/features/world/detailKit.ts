@@ -122,6 +122,17 @@ export class MergedBuilder {
     this.buckets.set(material, list);
   }
 
+  /** 用完整矩阵放置（局部坐标系 / 缩放 / 任意旋转组合时使用） */
+  addMatrix(geometry: THREE.BufferGeometry, material: THREE.Material, matrix: THREE.Matrix4): void {
+    const geo = geometry.clone();
+    geo.deleteAttribute("uv");
+    geo.applyMatrix4(matrix);
+    const welded = geo.index ? geo : mergeVertices(geo, 1e-4);
+    const list = this.buckets.get(material) ?? [];
+    list.push(welded);
+    this.buckets.set(material, list);
+  }
+
   /** 把已合并的几何放进 parent；返回生成的网格 */
   build(parent: THREE.Object3D, name = "detail", userData: Record<string, unknown> = {}): THREE.Mesh[] {
     const meshes: THREE.Mesh[] = [];

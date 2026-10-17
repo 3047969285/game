@@ -1,0 +1,101 @@
+﻿<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8" />
+<title>场景预览（开发工具）</title>
+<style>
+  html, body { margin: 0; background: #1b1f24; color: #cbd5e1; font: 12px/1.4 system-ui, sans-serif; }
+  canvas { display: block; }
+  #bar { position: fixed; left: 8px; top: 8px; display: flex; gap: 6px; flex-wrap: wrap; z-index: 2; }
+  #bar a { color: #e2e8f0; background: rgba(15, 23, 42, 0.78); padding: 3px 8px; border-radius: 999px; text-decoration: none; }
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<script type="module">
+/**
+ * 开发用场景预览：不进入游戏流程，直接构建某个单元的某个世界并截图检查。
+ *   ?u=unit01&w=hub|section_a-world-1|lab-grammar|project-reading ...
+ *   &p=front|top|close|side   机位预设（默认 front）
+ *   &a=&e=&d=&tx=&ty=&tz=     自定义机位（覆盖预设）
+ */
+import * as THREE from "three";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { buildUnitLandscape } from "/src/features/world/unitLandscape.ts";
+import { getBiome } from "/src/features/world/unitBiome.ts";
+import { applySurfaceGrain } from "/src/features/world/materials.ts";
+
+const q = new URLSearchParams(location.search);
+const unit = q.get("u") || "unit01";
+const world = q.get("w") || "section_a-world-1";
+const focused = world !== "hub";
+const preset = q.get("p") || "front";
+
+const bar = document.getElementById("bar");
+for (const p of ["front", "top", "close", "side"]) {
+  const a = document.createElement("a");
+  const u = new URLSearchParams(q);
+  u.set("p", p);
+  a.href = "?" + u.toString();
+  a.textContent = p;
+  bar.appendChild(a);
+}
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x6f8fb0);
+const pm = new THREE.PMREMGenerator(renderer);
+scene.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture;
+const sun = new THREE.DirectionalLight(0xfff1dd, 2.0);
+sun.position.set(30, 60, -10);
+sun.castShadow = true;
+sun.shadow.mapSize.set(4096, 4096);
+Object.assign(sun.shadow.camera, { left: -60, right: 60, top: 60, bottom: -60, near: 1, far: 220 });
+scene.add(sun, new THREE.HemisphereLight(0xcfe6ff, 0x405030, 0.6));
+
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(500, 500), new THREE.MeshStandardMaterial({ color: 0x55704a, roughness: 1 }));
+ground.rotation.x = -Math.PI / 2;
+ground.receiveShadow = true;
+scene.add(ground);
+
+const landscape = buildUnitLandscape(getBiome(unit), { id: "x", x: 0, y: 0, z: 0, name: "n", theme: "coast" }, world, q.get("title") || "Scene");
+applySurfaceGrain(landscape);
+scene.add(landscape);
+
+// 机位：聚焦世界的舞台中心约在 (0, 4.5, 9.5)（landmark 缩放 0.9、偏移 -15）；中枢在 (0, 4, 14)
+const center = focused ? new THREE.Vector3(0, 4.5, 9.5) : new THREE.Vector3(0, 4, 14);
+const presets = {
+  front: { a: 0.35, e: 0.28, d: focused ? 26 : 70 },
+  top: { a: 0.1, e: 1.0, d: focused ? 24 : 80 },
+  close: { a: 0.25, e: 0.18, d: focused ? 13 : 40 },
+  side: { a: 1.2, e: 0.26, d: focused ? 26 : 70 },
+};
+const pr = presets[preset] || presets.front;
+const num = (k, v) => (q.has(k) ? +q.get(k) : v);
+const a = num("a", pr.a), e = num("e", pr.e), d = num("d", pr.d);
+const tx = num("tx", center.x), ty = num("ty", center.y), tz = num("tz", center.z);
+
+const cam = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.1, 800);
+cam.position.set(tx + Math.sin(a) * d * Math.cos(e), ty + Math.sin(e) * d, tz - Math.cos(a) * d * Math.cos(e));
+cam.lookAt(tx, ty, tz);
+renderer.render(scene, cam);
+
+let stats = { calls: 0, tris: 0 };
+renderer.info.autoReset = false;
+renderer.info.reset();
+renderer.render(scene, cam);
+stats = { calls: renderer.info.render.calls, tris: renderer.info.render.triangles };
+window.__sceneStats = stats;
+const tag = document.createElement("a");
+tag.textContent = `${unit} / ${world} · draw ${stats.calls} · tris ${(stats.tris / 1000).toFixed(0)}k`;
+bar.appendChild(tag);
+</script>
+</body>
+</html>

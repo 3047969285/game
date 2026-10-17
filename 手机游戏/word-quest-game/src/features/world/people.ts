@@ -6,7 +6,7 @@ import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.j
  * 原点：站姿在脚底；坐姿在臀部正下方的座面上（面朝 +Z）。
  */
 
-export type PersonPose = "stand" | "phone" | "listen" | "talk";
+export type PersonPose = "stand" | "phone" | "listen" | "talk" | "write" | "read" | "walk" | "point";
 
 export interface PersonOptions {
   shirt: number;
@@ -20,6 +20,10 @@ export interface PersonOptions {
   scale?: number;
   /** 躯干前倾（弧度） */
   lean?: number;
+  /** 配饰：眼镜 / 围巾（颜色）/ 双肩包（颜色） */
+  glasses?: boolean;
+  scarf?: number;
+  backpack?: number;
 }
 
 const geo = {
@@ -86,6 +90,10 @@ const ARM_POSES: Record<PersonPose, { left: ArmPose; right: ArmPose }> = {
   phone: { left: { shoulder: -0.7, elbow: -1.35, side: -0.06 }, right: { shoulder: -0.7, elbow: -1.35, side: 0.06 } },
   listen: { left: { shoulder: -0.55, elbow: -0.95 }, right: { shoulder: -0.5, elbow: -0.95 } },
   talk: { left: { shoulder: -0.5, elbow: -0.95 }, right: { shoulder: -1.15, elbow: -0.75, side: 0.1 } },
+  write: { left: { shoulder: -0.55, elbow: -0.9 }, right: { shoulder: -0.85, elbow: -1.2, side: 0.05 } },
+  read: { left: { shoulder: -0.95, elbow: -1.45, side: -0.1 }, right: { shoulder: -0.95, elbow: -1.45, side: 0.1 } },
+  walk: { left: { shoulder: 0.45, elbow: -0.25 }, right: { shoulder: -0.45, elbow: -0.5 } },
+  point: { left: { shoulder: 0.04, elbow: -0.15 }, right: { shoulder: -1.45, elbow: -0.1, side: 0.12 } },
 };
 
 /** 创建一个写实比例的人物 */
@@ -131,7 +139,7 @@ export function createPerson(opts: PersonOptions): THREE.Group {
   // 颈 + 头
   const head = new THREE.Group();
   head.position.y = 0.58;
-  head.rotation.x = pose === "phone" ? 0.38 : opts.lean ? -(opts.lean) * 0.6 : 0;
+  head.rotation.x = pose === "phone" || pose === "read" ? 0.38 : pose === "write" ? 0.3 : opts.lean ? -(opts.lean) * 0.6 : 0;
   body.add(head);
   const neck = taper(0.05, 0.056, 0.1, skin, 12);
   neck.position.y = 0.04;
@@ -190,6 +198,30 @@ export function createPerson(opts: PersonOptions): THREE.Group {
     head.add(bun);
   }
 
+  // 配饰
+  if (opts.glasses) {
+    const frame = std(0x1a1a1a, 0.4, { metalness: 0.4 });
+    for (const sx of [-1, 1]) {
+      const rim = mesh(new THREE.TorusGeometry(0.026, 0.0035, 6, 18), frame);
+      rim.position.set(sx * 0.037, 0.2, 0.098);
+      head.add(rim);
+    }
+    const bridge = mesh(new THREE.CylinderGeometry(0.003, 0.003, 0.02, 5), frame);
+    bridge.rotation.z = Math.PI / 2;
+    bridge.position.set(0, 0.205, 0.099);
+    head.add(bridge);
+  }
+  if (opts.scarf !== undefined) {
+    const sc = mesh(new THREE.TorusGeometry(0.07, 0.034, 8, 20), std(opts.scarf, 0.92));
+    sc.rotation.x = Math.PI / 2;
+    sc.position.y = 0.6;
+    body.add(sc);
+  }
+  if (opts.backpack !== undefined) {
+    const bag = rbox(0.3, 0.38, 0.15, 0.05, std(opts.backpack, 0.85));
+    bag.position.set(0, 0.34, -0.17);
+    body.add(bag);
+  }
   // 双臂
   const arms = ARM_POSES[pose];
   for (const side of [-1, 1] as const) {
@@ -217,6 +249,18 @@ export function createPerson(opts: PersonOptions): THREE.Group {
     fingers.position.set(0, -0.105, 0.012);
     fingers.rotation.x = -0.35;
     hand.add(fingers);
+    if (pose === "read" && side === 1) {
+      const book = rbox(0.2, 0.03, 0.27, 0.008, std(0x2f5d8a, 0.8));
+      book.position.set(-0.12, -0.12, 0.06);
+      book.rotation.set(-0.9, 0, 0.1);
+      hand.add(book);
+    }
+    if (pose === "write" && side === -1) {
+      const pen = mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.15, 6), std(0x1d2b4d, 0.4));
+      pen.position.set(0, -0.12, 0.03);
+      pen.rotation.x = -0.9;
+      hand.add(pen);
+    }
     if (pose === "phone" && side === 1) {
       const phone = rbox(0.075, 0.016, 0.15, 0.006, s.phone);
       phone.position.set(-0.05, -0.1, 0.02);
@@ -233,13 +277,13 @@ export function createPerson(opts: PersonOptions): THREE.Group {
   for (const side of [-1, 1] as const) {
     const hip = new THREE.Group();
     hip.position.set(side * 0.09, 0, 0);
-    hip.rotation.x = seated ? -Math.PI / 2 + 0.03 : 0;
+    hip.rotation.x = seated ? -Math.PI / 2 + 0.03 : pose === "walk" ? 0.42 * -side : 0;
     body.add(hip);
     hip.add(ball(0.112, trousers, 1, 1, 1, 10));
     hip.add(taper(0.112, 0.08, 0.42, trousers, 14));
     const knee = new THREE.Group();
     knee.position.y = -0.42;
-    knee.rotation.x = seated ? Math.PI / 2 - 0.03 : 0.03;
+    knee.rotation.x = seated ? Math.PI / 2 - 0.03 : pose === "walk" && side === 1 ? 0.55 : 0.03;
     hip.add(knee);
     knee.add(ball(0.08, trousers, 1, 1, 1, 10));
     knee.add(taper(0.08, 0.06, 0.4, trousers, 12));
