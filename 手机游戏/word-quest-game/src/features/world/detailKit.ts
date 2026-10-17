@@ -172,6 +172,10 @@ export interface KitMaterials {
   soil: THREE.MeshStandardMaterial;
   lampGlass: THREE.MeshStandardMaterial;
   paper: THREE.MeshStandardMaterial;
+  glass: THREE.MeshStandardMaterial;
+  darkSteel: THREE.MeshStandardMaterial;
+  rock: THREE.MeshStandardMaterial;
+  terracottaRoof: THREE.MeshStandardMaterial;
 }
 
 /** 写实建筑常用材质。学习入口需要在雾中保持清晰，因此统一关闭雾。 */
@@ -198,5 +202,13 @@ export function createKitMaterials(): KitMaterials {
     soil: std(0x4a3b2c, 1),
     lampGlass: std(0xfff0c8, 0.3, 0, { emissive: 0xffc15a, emissiveIntensity: 0.9 }),
     paper: std(0xece3cf, 0.95),
+    darkSteel: std(0x2f353b, 0.5, 0.7),
+    rock: std(0x7b7d80, 0.95),
+    terracottaRoof: std(0xb5654a, 0.82),
+    glass: (() => {
+      const g = new THREE.MeshPhysicalMaterial({ color: 0x1f4a5c, roughness: 0.06, metalness: 0.1, transparent: true, opacity: 0.78, clearcoat: 1 });
+      g.fog = false;
+      return g;
+    })(),
   };
 }

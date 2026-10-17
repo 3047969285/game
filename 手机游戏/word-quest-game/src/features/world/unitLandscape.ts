@@ -7,6 +7,7 @@ import { buildApproachSlab, buildFocusedTerrace } from "./focusedTerrace";
 import { buildPortalTrim, buildSignFrame } from "./portalTrim";
 import { upgradeGeometry } from "./geometryUpgrade";
 import { buildSignalMasts, buildStudyStations } from "./stations";
+import { buildExchangeHub, buildHarborHub, buildIdeaTempleHub, buildLaunchComplex, buildMemoryTreeHub } from "./hubLandmarks";
 
 type PassageKind = "section_a" | "section_b" | "section_c";
 type PassageSceneKind =
@@ -3469,101 +3470,12 @@ function addDigitalCoast(
 
 function addLivesArchiveHarbor(
   root: THREE.Group,
-  ground: THREE.MeshStandardMaterial,
-  dark: THREE.MeshStandardMaterial,
+  _ground: THREE.MeshStandardMaterial,
+  _dark: THREE.MeshStandardMaterial,
   glow: THREE.MeshStandardMaterial,
   edge: THREE.MeshStandardMaterial
 ): void {
-  const water = new THREE.MeshStandardMaterial({ color: 0x244d5e, emissive: 0x102c37, emissiveIntensity: 0.22, roughness: 0.48, metalness: 0.22 });
-  const timber = new THREE.MeshStandardMaterial({ color: 0x765840, roughness: 0.86, metalness: 0.04 });
-  const sailcloth = new THREE.MeshStandardMaterial({ color: 0xe8dfc7, roughness: 0.88, side: THREE.DoubleSide });
-  const add = (geometry: THREE.BufferGeometry, material: THREE.Material, x: number, y: number, z: number): THREE.Mesh => {
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.position.set(x, y, z);
-    root.add(mesh);
-    return mesh;
-  };
-
-  const harborWater = add(new THREE.BoxGeometry(78, 0.22, 42), water, 0, 0.46, 39);
-  harborWater.userData.isLandscapeStage = true;
-  const quay = add(new THREE.BoxGeometry(66, 0.62, 5.2), ground, 0, 0.92, 29.4);
-  quay.userData.isLandscapeRoute = true;
-  for (const x of [-26, 0, 26]) {
-    const pier = add(new THREE.BoxGeometry(8.5, 0.46, 14), timber, x, 0.82, 36.2);
-    pier.userData.isLandscapeRoute = true;
-    for (const side of [-1, 1]) {
-      const post = add(new THREE.CylinderGeometry(0.2, 0.26, 2.2, 7), dark, x + side * 3.45, 0.45, 37.8);
-      post.userData.isLandscapeStage = true;
-      const mooring = add(new THREE.TorusGeometry(0.28, 0.06, 6, 16), edge, x + side * 3.45, 1.62, 37.8);
-      mooring.rotation.x = Math.PI / 2;
-      mooring.userData.isLandscapeRing = true;
-    }
-  }
-
-  const route = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
-    new THREE.Vector3(0, 1.3, 27), new THREE.Vector3(0, 1.45, 33), new THREE.Vector3(-2, 1.5, 40),
-    new THREE.Vector3(0, 1.6, 45), new THREE.Vector3(0, 1.8, 50),
-  ]), 32, 0.16, 8, false), glow);
-  route.userData.isLandscapeRoute = true;
-  root.add(route);
-
-  for (const [index, x] of [-18, -6, 6, 18].entries()) {
-    const pedestal = add(new THREE.CylinderGeometry(1.25, 1.58, 0.55, 8), dark, x, 1.2, 40.2);
-    pedestal.userData.isLandscapeStage = true;
-    const record = add(new THREE.BoxGeometry(1.12, 1.72 + (index % 2) * 0.45, 0.2), index % 2 ? edge : ground, x, 2.24, 40.2);
-    record.userData.isLandscapeStage = true;
-    const beacon = add(new THREE.OctahedronGeometry(0.36 + (index % 2) * 0.08, 0), glow, x, 3.35 + (index % 2) * 0.45, 40.02);
-    beacon.userData.isLandscapeBeacon = true;
-  }
-
-  for (const [index, x] of [-23, 23].entries()) {
-    const z = index === 0 ? 37.2 : 42.1;
-    const hullShape = new THREE.Shape();
-    hullShape.moveTo(-5.3, 0.48);
-    hullShape.lineTo(5.3, 0.48);
-    hullShape.lineTo(3.9, -0.72);
-    hullShape.lineTo(-3.8, -0.72);
-    hullShape.closePath();
-    const hull = add(new THREE.ExtrudeGeometry(hullShape, { depth: 2.35, bevelEnabled: true, bevelSegments: 1, steps: 1, bevelSize: 0.08, bevelThickness: 0.06 }), timber, x - 5.25, 1.55, z - 1.18);
-    hull.userData.isLandscapeStage = true;
-    const mast = add(new THREE.CylinderGeometry(0.08, 0.12, 4.7, 7), dark, x, 3.55, z);
-    mast.userData.isLandscapeStage = true;
-
-    const sailShape = new THREE.Shape();
-    sailShape.moveTo(-0.1, -1.2);
-    sailShape.lineTo(-0.1, 2.35);
-    sailShape.lineTo(-2.55, -0.78);
-    sailShape.closePath();
-    const sail = add(new THREE.ShapeGeometry(sailShape), index === 0 ? sailcloth : glow, x - 0.08, 2.9, z - 1.3);
-    sail.userData.isLandscapeStage = true;
-    const secondSailShape = new THREE.Shape();
-    secondSailShape.moveTo(0.12, -0.85);
-    secondSailShape.lineTo(0.12, 1.62);
-    secondSailShape.lineTo(1.88, -0.55);
-    secondSailShape.closePath();
-    const secondSail = add(new THREE.ShapeGeometry(secondSailShape), index === 0 ? edge : sailcloth, x + 0.12, 2.55, z - 1.34);
-    secondSail.userData.isLandscapeStage = true;
-    const routeBuoy = add(new THREE.SphereGeometry(0.48, 10, 8), edge, x, 5.95, z);
-    routeBuoy.userData.isLandscapeBeacon = true;
-  }
-
-  const archive = add(new THREE.BoxGeometry(17.5, 9.6, 1.2), dark, 0, 4.45, 51.2);
-  archive.userData.isLandscapeStage = true;
-  for (const x of [-8.5, 8.5]) {
-    const pillar = add(new THREE.CylinderGeometry(0.72, 1.02, 9, 8), ground, x, 4.25, 50.4);
-    pillar.userData.isLandscapeStage = true;
-  }
-  const archiveHeader = add(new THREE.BoxGeometry(16.3, 0.42, 0.18), edge, 0, 8.32, 50.45);
-  archiveHeader.userData.isLandscapeStage = true;
-  for (const x of [-5.2, 0, 5.2]) {
-    const plaque = add(new THREE.BoxGeometry(4.35, 4.45, 0.18), ground, x, 4.75, 50.42);
-    plaque.userData.isLandscapeStage = true;
-    for (const y of [3.6, 4.35, 5.1, 5.85]) {
-      const line = add(new THREE.BoxGeometry(2.8 + ((Math.round(y * 10) + Math.round(x)) % 2) * 0.55, 0.12, 0.09), glow, x, y, 50.28);
-      line.userData.isLandscapeRoute = true;
-    }
-  }
-
+  let texture: THREE.CanvasTexture | undefined;
   const headingCanvas = document.createElement("canvas");
   headingCanvas.width = 1024;
   headingCanvas.height = 192;
@@ -3581,32 +3493,11 @@ function addLivesArchiveHarbor(
     context.fillText("THE HARBOR OF LIVES", 512, 72);
     context.font = "bold 30px Arial, sans-serif";
     context.fillText("CHOICE  ·  SERVICE  ·  LEGACY", 512, 145);
-    const texture = new THREE.CanvasTexture(headingCanvas);
+    texture = new THREE.CanvasTexture(headingCanvas);
     texture.colorSpace = THREE.SRGBColorSpace;
-    const sign = new THREE.Mesh(new THREE.PlaneGeometry(14.8, 2.78), new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide, toneMapped: false }));
-    sign.position.set(0, 7.7, 50.12);
-    sign.rotation.y = Math.PI;
-    root.add(sign);
   }
-
-  const lighthouse = add(new THREE.CylinderGeometry(1.28, 1.8, 8.6, 8), ground, 0, 3.65, 58.2);
-  lighthouse.userData.isLandscapeStage = true;
-  const lampRoom = add(new THREE.CylinderGeometry(1.55, 1.55, 1.1, 8), edge, 0, 8.45, 58.2);
-  lampRoom.userData.isLandscapeStage = true;
-  const lighthouseBeacon = add(new THREE.OctahedronGeometry(0.94, 1), glow, 0, 9.35, 58.2);
-  lighthouseBeacon.userData.isLandscapeBeacon = true;
-  const lighthouseHalo = add(new THREE.TorusGeometry(1.48, 0.1, 7, 28), edge, 0, 9.35, 58.2);
-  lighthouseHalo.userData.isLandscapeRing = true;
-
-  for (const [x, z] of [[-31, 31], [-15, 46], [15, 46], [31, 31]] as const) {
-    const wave = new THREE.Mesh(new THREE.TorusGeometry(2.8, 0.08, 6, 28), water);
-    wave.rotation.x = Math.PI / 2;
-    wave.position.set(x, 0.66, z);
-    wave.userData.isLandscapeRing = true;
-    root.add(wave);
-  }
+  root.add(buildHarborHub(glow, edge, texture));
 }
-
 function addEthiopianReliefLandscape(
   root: THREE.Group,
   edge: THREE.MeshStandardMaterial
@@ -3668,30 +3559,14 @@ function addEthiopianReliefLandscape(
 
 function addMemoryForest(
   root: THREE.Group,
-  ground: THREE.MeshStandardMaterial,
+  _ground: THREE.MeshStandardMaterial,
   glow: THREE.MeshStandardMaterial,
   edge: THREE.MeshStandardMaterial,
   focusedWorld = false
 ): void {
   if (focusedWorld) return;
-  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(2.5, 4.2, 18, 8), ground);
-  trunk.position.set(0, 9, 38);
-  root.add(trunk);
-  for (const [x, y, z, s] of [[-7, 16, 38, 7], [7, 18, 38, 8], [0, 24, 38, 9]]) {
-    const crown = new THREE.Mesh(new THREE.IcosahedronGeometry(s, 1), glow);
-    crown.position.set(x, y, z);
-    crown.userData.isLandscapeBeacon = true;
-    root.add(crown);
-  }
-  for (const x of [-31, 31]) {
-    const ring = new THREE.Mesh(new THREE.TorusGeometry(4, 0.16, 8, 32), edge);
-    ring.rotation.x = Math.PI / 2;
-    ring.position.set(x, 0.9, 36);
-    ring.userData.isLandscapeRing = true;
-    root.add(ring);
-  }
+  root.add(buildMemoryTreeHub(glow, edge));
 }
-
 function addIdeaTemple(
   root: THREE.Group,
   ground: THREE.MeshStandardMaterial,
@@ -3727,110 +3602,40 @@ function addIdeaTemple(
     root.add(workLight);
     return;
   }
-  const steps = new THREE.Mesh(new THREE.BoxGeometry(26, 0.7, 15), ground);
-  steps.position.set(0, 1.1, 39);
-  root.add(steps);
-  for (const x of [-9, -3, 3, 9]) {
-    const pillar = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.5, 13, 8), dark);
-    pillar.position.set(x, 7.5, 40);
-    root.add(pillar);
-  }
-  const crown = new THREE.Mesh(new THREE.ConeGeometry(12, 5, 4), glow);
-  crown.position.set(0, 17, 40);
-  crown.rotation.y = Math.PI / 4;
-  crown.userData.isLandscapeBeacon = true;
-  root.add(crown);
-  const halo = new THREE.Mesh(new THREE.TorusGeometry(8, 0.18, 8, 48), edge);
-  halo.rotation.x = Math.PI / 2;
-  halo.position.set(0, 15, 40);
-  halo.userData.isLandscapeRing = true;
-  root.add(halo);
+  root.add(buildIdeaTempleHub(glow, edge));
 }
 
 function addOrbitCampus(
   root: THREE.Group,
-  dark: THREE.MeshStandardMaterial,
+  _dark: THREE.MeshStandardMaterial,
   glow: THREE.MeshStandardMaterial,
   edge: THREE.MeshStandardMaterial,
   focusedWorld = false
 ): void {
   if (focusedWorld) {
-    const station = new THREE.Mesh(new THREE.CylinderGeometry(5, 5.8, 0.3, 10), dark);
-    station.position.set(9, 0.65, 40);
-    root.add(station);
-    const rocket = new THREE.Mesh(new THREE.ConeGeometry(1.65, 8, 8), glow);
-    rocket.position.set(9, 4.8, 40);
-    rocket.userData.isLandscapeBeacon = true;
-    root.add(rocket);
-    const orbit = new THREE.Mesh(new THREE.TorusGeometry(3.7, 0.13, 8, 40), edge);
-    orbit.rotation.x = Math.PI / 2.4;
-    orbit.position.set(9, 5, 40);
-    orbit.userData.isLandscapeRing = true;
-    root.add(orbit);
+    const pivot = new THREE.Group();
+    pivot.position.set(9, 0, 40);
+    const complex = buildLaunchComplex(glow, edge, false);
+    complex.position.set(0, 0, -40);
+    pivot.scale.setScalar(0.62);
+    pivot.add(complex);
+    root.add(pivot);
     return;
   }
-  const pad = new THREE.Mesh(new THREE.CylinderGeometry(12, 14, 0.55, 8), dark);
-  pad.position.set(0, 1.1, 40);
-  root.add(pad);
-  const rocket = new THREE.Mesh(new THREE.ConeGeometry(3.2, 16, 8), glow);
-  rocket.position.set(0, 9.5, 40);
-  rocket.userData.isLandscapeBeacon = true;
-  root.add(rocket);
-  const ringA = new THREE.Mesh(new THREE.TorusGeometry(8, 0.2, 8, 48), edge);
-  ringA.rotation.x = Math.PI / 2.4;
-  ringA.position.set(0, 9, 40);
-  ringA.userData.isLandscapeRing = true;
-  root.add(ringA);
-  const ringB = ringA.clone();
-  ringB.rotation.x = -Math.PI / 3;
-  ringB.rotation.z = Math.PI / 5;
-  root.add(ringB);
+  root.add(buildLaunchComplex(glow, edge, true));
 }
-
 function addCommonsExchange(
   root: THREE.Group,
-  ground: THREE.MeshStandardMaterial,
-  dark: THREE.MeshStandardMaterial,
+  _ground: THREE.MeshStandardMaterial,
+  _dark: THREE.MeshStandardMaterial,
   glow: THREE.MeshStandardMaterial,
   edge: THREE.MeshStandardMaterial,
   focusedWorld = false,
   worldId?: string
 ): void {
-  const square = new THREE.Mesh(new THREE.BoxGeometry(30, 0.55, 18), ground);
-  square.position.set(0, 1.0, 38);
-  root.add(square);
-
   const countyLibraryStory = focusedWorld && /^section_c-world-[1-4]$/.test(worldId ?? "");
-  if (!countyLibraryStory) {
-    for (const x of [-12, 0, 12]) {
-      const stall = new THREE.Mesh(new THREE.BoxGeometry(8, 0.42, 5.5), dark);
-      stall.position.set(x, 2.0, 35);
-      root.add(stall);
-      const canopy = new THREE.Mesh(new THREE.ConeGeometry(5.7, 2.8, 4), glow);
-      canopy.position.set(x, 5.1, 35);
-      canopy.rotation.y = Math.PI / 4;
-      canopy.userData.isLandscapeBeacon = true;
-      root.add(canopy);
-    }
-  }
-
-  if (!focusedWorld) {
-    const ledger = new THREE.Mesh(new THREE.BoxGeometry(13, 13, 2.2), dark);
-    ledger.position.set(0, 7.2, 49);
-    root.add(ledger);
-    const ledgerFace = new THREE.Mesh(new THREE.BoxGeometry(10.5, 8.5, 0.22), glow);
-    ledgerFace.position.set(0, 7.4, 47.8);
-    ledgerFace.userData.isLandscapeBeacon = true;
-    root.add(ledgerFace);
-    for (let i = -3; i <= 3; i++) {
-      const line = new THREE.Mesh(new THREE.BoxGeometry(7.5, 0.08, 0.12), edge);
-      line.position.set(0, 5.0 + i * 1.15, 47.62);
-      line.userData.isLandscapeRing = true;
-      root.add(line);
-    }
-  }
+  root.add(buildExchangeHub(glow, edge, { stalls: !countyLibraryStory, ledger: !focusedWorld }));
 }
-
 function addLibraryCampus(root: THREE.Group, ground: THREE.MeshStandardMaterial, dark: THREE.MeshStandardMaterial, glow: THREE.MeshStandardMaterial, edge: THREE.MeshStandardMaterial): void {
   const base = new THREE.Mesh(new THREE.BoxGeometry(20, 1, 14), ground);
   base.position.set(0, 1.2, 38);

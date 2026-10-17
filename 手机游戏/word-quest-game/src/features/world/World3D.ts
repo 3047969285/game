@@ -288,7 +288,13 @@ export class World3D {
       return;
     }
     try {
-      const composer = new EffectComposer(this.renderer);
+      // 多重采样渲染目标：否则走后期管线时 renderer 的 antialias 不生效，边缘会有明显锯齿
+      const pr = Math.min(window.devicePixelRatio, this.qcfg.pixelRatio);
+      const target = new THREE.WebGLRenderTarget(Math.max(1, Math.floor(w * pr)), Math.max(1, Math.floor(h * pr)), {
+        type: THREE.HalfFloatType,
+        samples: this.quality === "high" ? 4 : 2,
+      });
+      const composer = new EffectComposer(this.renderer, target);
       composer.addPass(new RenderPass(this.scene, this.camera));
 
       // 环境光遮蔽：让建筑根部、石阶缝隙、树下出现接触阴影，物体不再"漂"在地上
