@@ -432,6 +432,55 @@ export function tent(k: SceneKit, f: Frame, w = 4.4, d = 3.4, h = 2.6, canvas: T
   f.box(k.m.woodDark, w + 0.1, 0.06, 0.06, 0, h + 0.5, 0, 0.01);
   f.box(canvas, w + 0.3, 0.45, 0.03, 0, h - 0.4, d / 2 + 0.02, 0.01);
 }
+/** 路标：立柱 + 若干块带朝向的指示牌（yaw 为牌面方向，len 为牌长） */
+export function signpost(k: SceneKit, f: Frame, signs: Array<{ yaw: number; len?: number; tone?: THREE.Material }>, h = 2.6): void {
+  f.cyl(k.m.woodDark, 0.06, 0.085, h, 0, 0, 0, 10);
+  f.cyl(k.m.stoneDark, 0.2, 0.24, 0.18, 0, 0, 0, 12);
+  signs.forEach((s, i) => {
+    const y = h - 0.3 - i * 0.34;
+    const len = s.len ?? 0.95;
+    const g = f.child(0, y, 0, s.yaw);
+    g.box(s.tone ?? k.m.wood, len, 0.24, 0.045, len / 2 - 0.05, 0, 0, 0.012);
+    g.put(new THREE.ConeGeometry(0.16, 0.2, 3), s.tone ?? k.m.wood, len + 0.04, 0.12, 0, 0, 0, -Math.PI / 2, 1, 1, 0.3);
+    g.box(k.m.paper, len * 0.6, 0.05, 0.01, len / 2 - 0.05, 0.1, 0.03, 0.003);
+  });
+  f.ball(k.m.brass, 0.07, 0, h + 0.05, 0);
+}
+
+/** 自行车（侧立）：两个轮圈带辐条 + 车架 + 座椅 + 把手 */
+export function bicycle(k: SceneKit, f: Frame, tone: THREE.Material = k.p.fabricRed): void {
+  const { m } = k;
+  for (const x of [-0.55, 0.55]) {
+    f.put(new THREE.TorusGeometry(0.33, 0.018, 8, 28), m.darkSteel, x, 0.36, 0);
+    for (let i = 0; i < 6; i++) {
+      const a = (i / 6) * Math.PI;
+      f.strut(m.steel, [x + Math.cos(a) * 0.32, 0.36 + Math.sin(a) * 0.32, 0], [x - Math.cos(a) * 0.32, 0.36 - Math.sin(a) * 0.32, 0], 0.004, 3);
+    }
+    f.cyl(m.steel, 0.03, 0.03, 0.05, x, 0.36, 0, 8);
+  }
+  f.strut(tone as THREE.Material, [-0.55, 0.36, 0], [-0.1, 0.38, 0], 0.016, 6);
+  f.strut(tone as THREE.Material, [-0.1, 0.38, 0], [0.4, 0.74, 0], 0.016, 6);
+  f.strut(tone as THREE.Material, [-0.55, 0.36, 0], [-0.1, 0.75, 0], 0.016, 6);
+  f.strut(tone as THREE.Material, [-0.1, 0.75, 0], [0.4, 0.74, 0], 0.016, 6);
+  f.strut(tone as THREE.Material, [0.4, 0.74, 0], [0.55, 0.36, 0], 0.016, 6);
+  f.box(k.p.leather, 0.22, 0.04, 0.1, -0.12, 0.8, 0, 0.015);
+  f.strut(m.darkSteel, [0.4, 0.74, 0], [0.38, 0.95, 0], 0.012, 5);
+  f.box(m.darkSteel, 0.03, 0.03, 0.4, 0.38, 0.95, 0, 0.008);
+}
+
+/** 铁轨：枕木 + 两根钢轨，沿局部 +x 延伸 length */
+export function rails(k: SceneKit, f: Frame, length = 6, gauge = 0.72): void {
+  const n = Math.floor(length / 0.42);
+  for (let i = 0; i <= n; i++) f.box(k.m.woodDark, 0.2, 0.1, gauge + 0.7, (i / n) * length, 0, 0, 0.02);
+  for (const sz of [-1, 1]) f.box(k.m.steel, length, 0.07, 0.07, length / 2, 0.1, (sz * gauge) / 2, 0.012);
+}
+
+/** 雨伞（撑开）：伞杆 + 伞面 + 伞尖 */
+export function umbrella(k: SceneKit, f: Frame, r = 0.55, tone: THREE.Material = k.p.fabricRed): void {
+  f.cyl(k.m.darkSteel, 0.012, 0.012, 1.5, 0, 0, 0, 6);
+  f.put(new THREE.ConeGeometry(r, 0.28, 16, 1, true), tone, 0, 1.58, 0);
+  f.ball(k.m.brass, 0.025, 0, 1.76, 0);
+}
 function mulberry(seed: number): () => number {
   let s = seed >>> 0;
   return () => {

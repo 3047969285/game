@@ -2,78 +2,12 @@ import * as THREE from "three";
 import { archFrameGeo } from "../detailKit";
 import { createPine, createTree } from "../props";
 import * as props from "../sceneProps";
-import { SCENE_SCALE, STAGE_Y, addBeacon, createStage, finishStage, makeSignTexture, placePerson, worldXZ, type SceneContext, type SceneModule } from "./context";
+import { SCENE_SCALE, STAGE_Y, addBeacon, addCanvasPlane, createStage, finishStage, makeRouteMap, makeSignTexture, placePerson, worldXZ, type SceneModule } from "./context";
 
 /**
  * 单元 2「人生档案港」12 个段落场景（局部米制坐标，+z 朝向观众）。
  * A：时间线 · 路线证据 · 坚持攀登 · 传承拱门　B：聚光灯 · 救援站 · 长久服务 · 社区见证　C：船队 · 和平往来 · 海图室 · 交换港
  */
-
-/** 把画布贴到平面上（世界坐标放置），用于地图 / 海图 / 告示 */
-function addCanvasPlane(ctx: SceneContext, tex: THREE.Texture | undefined, lx: number, ly: number, lz: number, w: number, h: number, yaw = 0, rx = 0): void {
-  if (!tex) return;
-  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w * SCENE_SCALE, h * SCENE_SCALE), new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide, toneMapped: false }));
-  const [x, z] = worldXZ(lx, lz);
-  mesh.position.set(x, STAGE_Y + ly * SCENE_SCALE, z);
-  mesh.rotation.set(rx, Math.PI + yaw, 0);
-  mesh.userData.isLandscapeStage = true;
-  mesh.userData.noLandscapeShadow = true;
-  ctx.root.add(mesh);
-}
-
-/** 程序化的航线地图：海面底色、陆地剪影、虚线航线和图钉位置 */
-function makeRouteMap(pins: Array<[number, number]>): THREE.CanvasTexture | undefined {
-  const canvas = document.createElement("canvas");
-  canvas.width = 1400;
-  canvas.height = 740;
-  const g = canvas.getContext("2d");
-  if (!g) return undefined;
-  g.fillStyle = "#b9d3d6";
-  g.fillRect(0, 0, canvas.width, canvas.height);
-  g.strokeStyle = "rgba(60,100,120,0.18)";
-  g.lineWidth = 1;
-  for (let i = 0; i < 28; i++) {
-    g.beginPath();
-    g.moveTo(i * 52, 0);
-    g.lineTo(i * 52, canvas.height);
-    g.stroke();
-  }
-  for (let i = 0; i < 15; i++) {
-    g.beginPath();
-    g.moveTo(0, i * 52);
-    g.lineTo(canvas.width, i * 52);
-    g.stroke();
-  }
-  g.fillStyle = "#d7c9a4";
-  for (const [cx, cy, rx, ry] of [[230, 250, 210, 150], [1120, 200, 240, 130], [700, 640, 330, 90], [1150, 560, 150, 110]] as const) {
-    g.beginPath();
-    g.ellipse(cx, cy, rx, ry, 0.2, 0, Math.PI * 2);
-    g.fill();
-  }
-  g.strokeStyle = "#7a6b45";
-  g.lineWidth = 3;
-  g.setLineDash([]);
-  g.stroke();
-  g.strokeStyle = "#b8473f";
-  g.lineWidth = 6;
-  g.setLineDash([18, 12]);
-  g.beginPath();
-  pins.forEach(([x, y], i) => (i === 0 ? g.moveTo(x * canvas.width, y * canvas.height) : g.lineTo(x * canvas.width, y * canvas.height)));
-  g.stroke();
-  g.setLineDash([]);
-  g.fillStyle = "#3a2d1a";
-  g.font = "bold 34px Georgia, serif";
-  g.fillText("N", 1310, 90);
-  g.beginPath();
-  g.moveTo(1322, 100);
-  g.lineTo(1312, 150);
-  g.lineTo(1332, 150);
-  g.fill();
-  const tex = new THREE.CanvasTexture(canvas);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  tex.anisotropy = 4;
-  return tex;
-}
 
 // ───────────────────────── Section A ─────────────────────────
 
