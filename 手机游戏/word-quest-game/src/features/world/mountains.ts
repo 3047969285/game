@@ -89,8 +89,8 @@ export function createMountainRing(opts: {
       shader.fragmentShader = shader.fragmentShader.replace(
         "#include <fog_fragment>",
         `#ifdef USE_FOG
-          float mFog = 1.0 - exp(-fogDensity * fogDensity * vFogDepth * vFogDepth * 5.5);
-          gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor, clamp(mFog, 0.0, 0.93));
+          float mFog = 1.0 - exp(-fogDensity * fogDensity * vFogDepth * vFogDepth * 3.0);
+          gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor, clamp(mFog, 0.0, 0.86));
         #endif`
       );
     };

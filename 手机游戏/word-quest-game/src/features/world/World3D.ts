@@ -117,6 +117,16 @@ export interface World3DOptions {
 }
 
 /** 三维探险世界：走动探索 + 走近互动（原神风格单元地图） */
+/** 不规则湖岸轮廓：椭圆 + 多频率径向噪声，逆时针，闭合 */
+function lakeOutline(rx: number, ry: number, seed: number, n = 56): THREE.Vector2[] {
+  const pts: THREE.Vector2[] = [];
+  for (let i = 0; i < n; i++) {
+    const a = (i / n) * Math.PI * 2;
+    const k = 1 + Math.sin(a * 3 + seed) * 0.12 + Math.sin(a * 5 + seed * 1.7) * 0.07 + Math.sin(a * 9 + seed * 2.3) * 0.035;
+    pts.push(new THREE.Vector2(Math.cos(a) * rx * k, Math.sin(a) * ry * k));
+  }
+  return pts;
+}
 export class World3D {
   private container: HTMLElement;
   private renderer: THREE.WebGLRenderer;
@@ -279,6 +289,10 @@ export class World3D {
     this.buildClouds();
     this.buildLights();
     this.buildEnvironment(this.currentBiome);
+    // 初始即应用默认生物群系：天空 / 灯光 / 雾，避免首帧沿用占位的深色夜景雾
+    this.applyBiomeToSky(this.currentBiome);
+    this.applyBiomeToLights(this.currentBiome);
+    this.scene.fog = new THREE.FogExp2(this.currentBiome.fogColor, this.currentBiome.fogDensity);
     this.buildTerrain();
     this.buildMountains();
     this.buildGrass();
@@ -287,6 +301,7 @@ export class World3D {
     this.spawnExplorer();
     this.setupPostFX(w, h);
     this.bindEvents();
+    if (import.meta.env.DEV) (window as unknown as { __world?: World3D }).__world = this;
   }
 
   /** 后期处理管线：泛光（Bloom）让水晶 / 光球 / 太阳产生电影级辉光 */
@@ -1486,6 +1501,14 @@ export class World3D {
          #endif
          float tMacro = tNoise(vTerrWorld.xz * 0.035) * 0.6 + tNoise(vTerrWorld.xz * 0.15) * 0.4;
          diffuseColor.rgb *= 0.88 + tMacro * 0.24;`
+      ).replace(
+        "#include <fog_fragment>",
+        `#ifdef USE_FOG
+           // 远处地形向雾色渐隐（大气透视），并让山谷外缘与远山融为一体
+           float tf = 1.0 - exp(-fogDensity * fogDensity * vFogDepth * vFogDepth);
+           tf = max(tf, smoothstep(150.0, 340.0, vFogDepth) * 0.92);
+           gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor, tf);
+         #endif`
       );
     };
     terrainMat.customProgramCacheKey = () => "terrain-v2";
@@ -1829,6 +1852,43 @@ export class World3D {
     this.scene.add(this.pathGroup);
   }
 
+  /** 湖岸：泡沫边、湿润泥岸带，以及沿岸的芦苇与卵石 */
+  private addLakeShore(outline: THREE.Vector2[], wx: number, ly: number, wz: number, rnd: () => number): void {
+    if (!this.decorGroup) return;
+    const ring = (inner: number, outer: number, color: number, opacity: number, y: number): void => {
+      const shape = new THREE.Shape(outline.map((p) => p.clone().multiplyScalar(outer)));
+      shape.holes.push(new THREE.Path(outline.map((p) => p.clone().multiplyScalar(inner)).reverse()));
+      const mat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+      mat.fog = true;
+      const mesh = new THREE.Mesh(new THREE.ShapeGeometry(shape, 1), mat);
+      mesh.rotation.x = -Math.PI / 2;
+      mesh.position.set(wx, y, wz);
+      mesh.renderOrder = 2;
+      mesh.userData.noLandscapeShadow = true;
+      this.decorGroup!.add(mesh);
+    };
+    ring(0.94, 1.0, 0xf2f8f6, 0.4, ly + 0.07);
+    ring(1.0, 1.22, 0x4a3d2a, 0.32, ly + 0.05);
+    for (let i = 0; i < outline.length; i += 4) {
+      const p = outline[i];
+      const out = 1.03 + rnd() * 0.12;
+      const sx = wx + p.x * out;
+      const sz = wz - p.y * out;
+      const sy = sampleTerrainY(sx, sz, terrainHeight);
+      const roll = rnd();
+      if (roll < 0.55) {
+        const reed = createReed(1 + rnd() * 0.8);
+        reed.position.set(sx, Math.min(sy, ly + 0.5), sz);
+        this.decorGroup.add(reed);
+      } else if (roll < 0.68) {
+        const rock = createRock(0.5 + rnd() * 0.7);
+        rock.position.set(sx, sy + 0.1, sz);
+        rock.rotation.y = rnd() * Math.PI * 2;
+        this.decorGroup.add(rock);
+      }
+    }
+  }
+
   private rebuildDecor(): void {
     this.disposeReflectors();
     removeGroup(this.scene, this.decorGroup);
@@ -1965,10 +2025,14 @@ export class World3D {
       const lh = unitMode ? 24 + rnd() * 12 : 30 + rnd() * 18;
       const ly = sampleTerrainY(wx, wz, terrainHeight) - 0.6;
       const reflective = wi < reflectiveMax;
+      // 不规则湖岸：噪声扰动的椭圆轮廓，而不是矩形水面
+      const outline = lakeOutline(lw * 0.5, lh * 0.5, wi * 7 + 3);
+      const lakeGeo = new THREE.ShapeGeometry(new THREE.Shape(outline), 1);
+      this.addLakeShore(outline, wx, ly, wz, rnd);
 
       if (reflective) {
         // 镜面反射层（仅近处少量湖泊，按画质分辨率）
-        const reflector = new Reflector(new THREE.PlaneGeometry(lw, lh), {
+        const reflector = new Reflector(lakeGeo.clone(), {
           textureWidth: this.qcfg.reflectRes,
           textureHeight: this.qcfg.reflectRes,
           color: 0x1d4456,
@@ -1979,7 +2043,7 @@ export class World3D {
         this.waterGroup.add(reflector);
 
         // 涟漪 / 高光叠层（半透明，让反射透出）
-        const ripple = new THREE.Mesh(new THREE.PlaneGeometry(lw, lh, 18, 12), water());
+        const ripple = new THREE.Mesh(lakeGeo.clone(), water());
         (ripple.material as THREE.MeshPhysicalMaterial).opacity = 0.26;
         ripple.rotation.x = -Math.PI / 2;
         ripple.position.set(wx, ly + 0.05, wz);
@@ -1989,7 +2053,7 @@ export class World3D {
         this.waterGroup.add(ripple);
       } else {
         // 无反射湖泊：单层半透明程序化水面（开销低）
-        const lake = new THREE.Mesh(new THREE.PlaneGeometry(lw, lh, 16, 10), water());
+        const lake = new THREE.Mesh(lakeGeo.clone(), water());
         (lake.material as THREE.MeshPhysicalMaterial).opacity = 0.82;
         lake.rotation.x = -Math.PI / 2;
         lake.position.set(wx, ly + 0.02, wz);
