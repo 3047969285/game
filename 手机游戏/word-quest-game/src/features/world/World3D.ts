@@ -1855,23 +1855,9 @@ export class World3D {
     this.scene.add(this.pathGroup);
   }
 
-  /** 湖岸：泡沫边、湿润泥岸带，以及沿岸的芦苇与卵石 */
+  /** 湖岸：沿岸的芦苇与卵石（平面的泡沫 / 泥岸带会在坡地上悬空成平板，故不使用） */
   private addLakeShore(outline: THREE.Vector2[], wx: number, ly: number, wz: number, rnd: () => number): void {
     if (!this.decorGroup) return;
-    const ring = (inner: number, outer: number, color: number, opacity: number, y: number): void => {
-      const shape = new THREE.Shape(outline.map((p) => p.clone().multiplyScalar(outer)));
-      shape.holes.push(new THREE.Path(outline.map((p) => p.clone().multiplyScalar(inner)).reverse()));
-      const mat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
-      mat.fog = true;
-      const mesh = new THREE.Mesh(new THREE.ShapeGeometry(shape, 1), mat);
-      mesh.rotation.x = -Math.PI / 2;
-      mesh.position.set(wx, y, wz);
-      mesh.renderOrder = 2;
-      mesh.userData.noLandscapeShadow = true;
-      this.decorGroup!.add(mesh);
-    };
-    ring(0.94, 1.0, 0xf2f8f6, 0.4, ly + 0.07);
-    ring(1.0, 1.22, 0x4a3d2a, 0.32, ly + 0.05);
     for (let i = 0; i < outline.length; i += 4) {
       const p = outline[i];
       const out = 1.03 + rnd() * 0.12;
@@ -2026,7 +2012,16 @@ export class World3D {
       const wz = anchorZ - halfD * 0.8 + wi * ((halfD * 1.5) / lakeCount) + rnd() * 18;
       const lw = unitMode ? 34 + rnd() * 14 : 48 + rnd() * 26;
       const lh = unitMode ? 24 + rnd() * 12 : 30 + rnd() * 18;
-      const ly = sampleTerrainY(wx, wz, terrainHeight) - 0.6;
+      // 水面高度取岸线最低点之上一点：低处被淹没成水域，高处的岸坡自然遮住水面，不会悬在坡上变成一块平板
+      let minShore = sampleTerrainY(wx, wz, terrainHeight);
+      let sumShore = 0;
+      const shorePts = lakeOutline(lw * 0.5, lh * 0.5, wi * 7 + 3, 24);
+      for (const p of shorePts) {
+        const sh = sampleTerrainY(wx + p.x * 0.97, wz - p.y * 0.97, terrainHeight);
+        minShore = Math.min(minShore, sh);
+        sumShore += sh;
+      }
+      const ly = (minShore + sumShore / shorePts.length) / 2 - 0.1;
       const reflective = wi < reflectiveMax;
       // 不规则湖岸：噪声扰动的椭圆轮廓，而不是矩形水面
       const outline = lakeOutline(lw * 0.5, lh * 0.5, wi * 7 + 3);
