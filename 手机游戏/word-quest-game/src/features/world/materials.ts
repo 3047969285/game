@@ -144,9 +144,15 @@ export function glowPath(cleared: boolean): THREE.MeshStandardMaterial {
   });
 }
 
-/** 水面材质 */
+/** 所有水面共享的时间 uniform（由 World3D.tickScene 每帧推进） */
+export const waterTime = { value: 0 };
+
+/**
+ * 水面材质：着色器内两层交叉滚动的世界空间法线扰动（不再依赖 CPU 顶点涟漪），
+ * 叠加随视角变化的浅 / 深水色与稀疏的白色浪尖高光。
+ */
 export function water(): THREE.MeshPhysicalMaterial {
-  return new THREE.MeshPhysicalMaterial({
+  const mat = new THREE.MeshPhysicalMaterial({
     color: 0x1e6a9a,
     roughness: 0.06,
     metalness: 0.12,
@@ -157,6 +163,61 @@ export function water(): THREE.MeshPhysicalMaterial {
     clearcoatRoughness: 0.08,
     envMapIntensity: 0.6,
   });
+  mat.onBeforeCompile = (shader) => {
+    shader.uniforms.uWaterTime = waterTime;
+    shader.vertexShader = "varying vec3 vWaterWorld;\n" + shader.vertexShader.replace(
+      "#include <begin_vertex>",
+      `#include <begin_vertex>
+       vWaterWorld = (modelMatrix * vec4(transformed, 1.0)).xyz;`
+    );
+    shader.fragmentShader = `
+      uniform float uWaterTime;
+      varying vec3 vWaterWorld;
+      float wHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+      float wNoise(vec2 p) {
+        vec2 i = floor(p), f = fract(p);
+        f = f * f * (3.0 - 2.0 * f);
+        return mix(mix(wHash(i), wHash(i + vec2(1.0, 0.0)), f.x), mix(wHash(i + vec2(0.0, 1.0)), wHash(i + vec2(1.0, 1.0)), f.x), f.y);
+      }
+      float wHeight(vec2 p) {
+        float t = uWaterTime;
+        return wNoise(p * 0.55 + vec2(t * 0.18, t * 0.07)) * 0.6
+             + wNoise(p * 1.35 + vec2(-t * 0.22, t * 0.15)) * 0.28
+             + wNoise(p * 3.1 + vec2(t * 0.35, -t * 0.3)) * 0.12;
+      }
+    ` + shader.fragmentShader
+      .replace(
+        "#include <normal_fragment_maps>",
+        `#include <normal_fragment_maps>
+         {
+           float wFade = 1.0 - smoothstep(60.0, 220.0, length(vViewPosition));
+           const float wE = 0.08;
+           float w0 = wHeight(vWaterWorld.xz);
+           vec2 wG = vec2(wHeight(vWaterWorld.xz + vec2(wE, 0.0)) - w0, wHeight(vWaterWorld.xz + vec2(0.0, wE)) - w0) / wE;
+           vec3 wGV = mat3(viewMatrix) * vec3(wG.x, 0.0, wG.y);
+           wGV -= normal * dot(wGV, normal);
+           normal = normalize(normal - wGV * 0.34 * wFade);
+         }`
+      )
+      .replace(
+        "#include <color_fragment>",
+        `#include <color_fragment>
+         {
+           float wDepth = wHeight(vWaterWorld.xz * 0.2 + 7.0);
+           diffuseColor.rgb = mix(diffuseColor.rgb * 0.62, diffuseColor.rgb * 1.35 + vec3(0.02, 0.07, 0.06), wDepth);
+         }`
+      )
+      .replace(
+        "#include <opaque_fragment>",
+        `{
+           float wCrest = smoothstep(0.80, 0.93, wHeight(vWaterWorld.xz * 1.9 + vec2(uWaterTime * 0.12, 0.0)));
+           outgoingLight += vec3(0.55, 0.62, 0.66) * wCrest * 0.28;
+         }
+         #include <opaque_fragment>`
+      );
+  };
+  mat.customProgramCacheKey = () => "water-v2";
+  return mat;
 }
 
 /** 路灯光晕 Sprite 纹理（软光点） */

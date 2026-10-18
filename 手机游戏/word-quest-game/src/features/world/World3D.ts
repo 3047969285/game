@@ -57,7 +57,7 @@ import { ExplorerCamera } from "./ExplorerCamera";
 import { buildNearScatter } from "./nearScatter";
 import { createMountainRing } from "./mountains";
 import { buildRoadRibbon } from "./roadRibbon";
-import { applySurfaceGrain, lanternGlass, lanternMetal, makeLanternGlowTexture, mossyStone, water } from "./materials";
+import { applySurfaceGrain, lanternGlass, lanternMetal, makeLanternGlowTexture, mossyStone, water, waterTime } from "./materials";
 import { PlayerController } from "./PlayerController";
 import {
   createBush,
@@ -98,6 +98,9 @@ import {
 
 /** 词汇光球靠近触发半径 */
 const PICKUP_RADIUS = 5;
+/** 环境微粒的环绕盒尺寸（水平）与浮动高度 */
+const MOTE_BOX = 70;
+const MOTE_HEIGHT = 12;
 
 /** 朝向计算常量 */
 const WORLD_UP = new THREE.Vector3(0, 1, 0);
@@ -150,6 +153,8 @@ export class World3D {
   private unitLandscape?: THREE.Group;
   /** 脚步扬尘粒子池 */
   private dustGroup?: THREE.Group;
+  private motes?: THREE.Points;
+  private moteBase?: Float32Array;
   private dustPool: THREE.Sprite[] = [];
   private lastStep = 0;
   private sunDisc?: THREE.Sprite;
@@ -276,6 +281,7 @@ export class World3D {
     this.buildMountains();
     this.buildGrass();
     this.buildDust();
+    this.buildMotes();
     this.spawnExplorer();
     this.setupPostFX(w, h);
     this.bindEvents();
@@ -766,6 +772,14 @@ export class World3D {
       for (const s of this.dustPool) (s.material as THREE.SpriteMaterial).dispose();
       this.dustPool = [];
     }
+    if (this.motes) {
+      this.scene.remove(this.motes);
+      this.motes.geometry.dispose();
+      const mm = this.motes.material as THREE.PointsMaterial;
+      mm.map?.dispose();
+      mm.dispose();
+      this.motes = undefined;
+    }
     this.disposeReflectors();
     this.mixer?.stopAllAction();
     this.composer?.dispose();
@@ -868,6 +882,9 @@ export class World3D {
         bottomColor: { value: new THREE.Color(0x0a1020) },
         offset: { value: 22 },
         exponent: { value: 0.52 },
+        sunDir: { value: new THREE.Vector3(0.5, 0.72, 0.36).normalize() },
+        sunColor: { value: new THREE.Color(0xfff0c8) },
+        uTime: { value: 0 },
       },
       vertexShader: `
         varying vec3 vWorldPosition;
@@ -878,13 +895,43 @@ export class World3D {
         }
       `,
       fragmentShader: `
-        uniform vec3 topColor, midColor, bottomColor;
-        uniform float offset, exponent;
+        uniform vec3 topColor, midColor, bottomColor, sunColor, sunDir;
+        uniform float offset, exponent, uTime;
         varying vec3 vWorldPosition;
+        float sHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+        float sNoise(vec2 p) {
+          vec2 i = floor(p), f = fract(p);
+          f = f * f * (3.0 - 2.0 * f);
+          return mix(mix(sHash(i), sHash(i + vec2(1.0, 0.0)), f.x), mix(sHash(i + vec2(0.0, 1.0)), sHash(i + vec2(1.0, 1.0)), f.x), f.y);
+        }
+        float sFbm(vec2 p) {
+          float v = 0.0, a = 0.5;
+          for (int i = 0; i < 5; i++) { v += a * sNoise(p); p = p * 2.03 + 11.7; a *= 0.5; }
+          return v;
+        }
         void main() {
           float h = normalize(vWorldPosition + offset).y;
           vec3 col = mix(bottomColor, midColor, smoothstep(-0.15, 0.35, h));
           col = mix(col, topColor, smoothstep(0.25, 0.95, h));
+
+          vec3 dir = normalize(vWorldPosition - cameraPosition);
+          float sd = max(dot(dir, normalize(sunDir)), 0.0);
+          // 地平线暖色雾带 + 太阳方向的大气散射
+          float horizon = exp(-abs(dir.y) * 7.0);
+          col += sunColor * horizon * (0.05 + pow(sd, 4.0) * 0.28);
+          col += sunColor * pow(sd, 18.0) * 0.22;
+
+          // 程序化云层：投影到高处平面，随时间缓慢漂移，向阳面被染亮
+          if (dir.y > 0.02) {
+            vec2 cp = dir.xz / (dir.y + 0.22) * 1.35 + vec2(uTime * 0.012, uTime * 0.005);
+            float cover = sFbm(cp);
+            float c = smoothstep(0.52, 0.8, cover);
+            float edge = smoothstep(0.52, 0.66, cover) - smoothstep(0.66, 0.84, cover) * 0.5;
+            vec3 cloudCol = mix(vec3(0.82, 0.86, 0.92), vec3(1.0), c) * (0.78 + 0.3 * pow(sd, 3.0));
+            cloudCol += sunColor * pow(sd, 6.0) * 0.22 * edge;
+            float fadeHorizon = smoothstep(0.02, 0.28, dir.y);
+            col = mix(col, cloudCol, c * 0.72 * fadeHorizon);
+          }
           gl_FragColor = vec4(col, 1.0);
         }
       `,
@@ -1022,6 +1069,64 @@ export class World3D {
     }
     this.dustGroup = group;
     this.scene.add(group);
+  }
+
+  /** 环境微粒：围绕玩家漂浮的花粉 / 萤火 / 尘埃，随生物群系变色，配合 Bloom 形成空气透视感 */
+  private buildMotes(): void {
+    const count = this.quality === "low" ? 70 : this.quality === "med" ? 120 : 190;
+    const rnd = seededRand(7311);
+    const pos = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      pos[i * 3] = (rnd() - 0.5) * MOTE_BOX;
+      pos[i * 3 + 1] = rnd() * MOTE_HEIGHT;
+      pos[i * 3 + 2] = (rnd() - 0.5) * MOTE_BOX;
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+    this.motes = new THREE.Points(
+      geo,
+      new THREE.PointsMaterial({
+        map: this.makeGlowTexture(),
+        color: this.currentBiome.sunColor,
+        size: 0.5,
+        transparent: true,
+        opacity: 0.55,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+        sizeAttenuation: true,
+        fog: false,
+      })
+    );
+    this.motes.frustumCulled = false;
+    this.moteBase = pos.slice();
+    this.scene.add(this.motes);
+  }
+
+  private updateMotes(t: number, _dt: number): void {
+    if (!this.motes || !this.moteBase) return;
+    const px = this.player.position.x;
+    const pz = this.player.position.z;
+    const py = this.player.position.y;
+    const geo = this.motes.geometry.attributes.position as THREE.BufferAttribute;
+    const arr = geo.array as Float32Array;
+    const half = MOTE_BOX / 2;
+    for (let i = 0; i < geo.count; i++) {
+      const bx = this.moteBase[i * 3];
+      const by = this.moteBase[i * 3 + 1];
+      const bz = this.moteBase[i * 3 + 2];
+      // 以玩家为中心的环形空间：粒子在盒内回绕，因此跟随玩家移动而不会成片消失
+      let x = bx - px;
+      let z = bz - pz;
+      x = ((((x + half) % MOTE_BOX) + MOTE_BOX) % MOTE_BOX) - half;
+      z = ((((z + half) % MOTE_BOX) + MOTE_BOX) % MOTE_BOX) - half;
+      arr[i * 3] = px + x + Math.sin(t * 0.35 + i * 1.7) * 0.9;
+      arr[i * 3 + 1] = py + 0.4 + ((by + t * 0.12 * (0.4 + (i % 5) * 0.15)) % MOTE_HEIGHT) + Math.sin(t * 0.6 + i) * 0.25;
+      arr[i * 3 + 2] = pz + z + Math.cos(t * 0.3 + i * 2.3) * 0.9;
+    }
+    geo.needsUpdate = true;
+    const mat = this.motes.material as THREE.PointsMaterial;
+    mat.color.setHex(this.currentBiome.sunColor);
+    mat.opacity = 0.42 + Math.sin(t * 0.8) * 0.1;
   }
 
   /** 在指定位置喷出几缕扬尘 */
@@ -1324,20 +1429,45 @@ export class World3D {
 
     this.terrainMaps = createTerrainMaps();
     this.groundDetailMap = createGroundDetailMap();
-    this.terrain = new THREE.Mesh(
-      geo,
-      new THREE.MeshStandardMaterial({
-        color: 0xffffff,
-        map: this.groundDetailMap,
-        roughnessMap: this.terrainMaps.roughness,
-        normalMap: this.terrainMaps.normal,
-        normalScale: new THREE.Vector2(0.7, 0.7),
-        vertexColors: true,
-        roughness: 0.92,
-        metalness: 0.02,
-        envMapIntensity: 0.32,
-      })
-    );
+    const terrainMat = new THREE.MeshStandardMaterial({
+      color: 0xffffff,
+      map: this.groundDetailMap,
+      roughnessMap: this.terrainMaps.roughness,
+      normalMap: this.terrainMaps.normal,
+      normalScale: new THREE.Vector2(0.7, 0.7),
+      vertexColors: true,
+      roughness: 0.92,
+      metalness: 0.02,
+      envMapIntensity: 0.32,
+    });
+    // 去重复：第二层不同尺度 / 偏移的细节采样 + 世界空间低频明暗斑，消除远处平铺条纹
+    terrainMat.onBeforeCompile = (shader) => {
+      shader.vertexShader = "varying vec3 vTerrWorld;\n" + shader.vertexShader.replace(
+        "#include <begin_vertex>",
+        `#include <begin_vertex>
+         vTerrWorld = (modelMatrix * vec4(transformed, 1.0)).xyz;`
+      );
+      shader.fragmentShader = `
+        varying vec3 vTerrWorld;
+        float tHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+        float tNoise(vec2 p) {
+          vec2 i = floor(p), f = fract(p);
+          f = f * f * (3.0 - 2.0 * f);
+          return mix(mix(tHash(i), tHash(i + vec2(1.0, 0.0)), f.x), mix(tHash(i + vec2(0.0, 1.0)), tHash(i + vec2(1.0, 1.0)), f.x), f.y);
+        }
+      ` + shader.fragmentShader.replace(
+        "#include <map_fragment>",
+        `#include <map_fragment>
+         #ifdef USE_MAP
+           vec4 tSecond = texture2D(map, vMapUv * 0.173 + vec2(0.31, 0.17));
+           diffuseColor.rgb *= mix(vec3(1.0), tSecond.rgb / 0.86, 0.5);
+         #endif
+         float tMacro = tNoise(vTerrWorld.xz * 0.035) * 0.6 + tNoise(vTerrWorld.xz * 0.15) * 0.4;
+         diffuseColor.rgb *= 0.88 + tMacro * 0.24;`
+      );
+    };
+    terrainMat.customProgramCacheKey = () => "terrain-v2";
+    this.terrain = new THREE.Mesh(geo, terrainMat);
     this.terrain.receiveShadow = true;
     this.terrain.position.set(0, TERRAIN_ORIGIN_Y, TERRAIN_ORIGIN_Z);
     this.scene.add(this.terrain);
@@ -2241,8 +2371,15 @@ export class World3D {
     }
     this.updateGrassPlacement();
 
-    // 云层缓慢漂移
+    // 云层缓慢漂移；天空着色器同步太阳方向与时间
     if (this.clouds) this.clouds.rotation.y = t * 0.006;
+    if (this.skyDome) {
+      const u = (this.skyDome.material as THREE.ShaderMaterial).uniforms;
+      u.uTime.value = t;
+      if (this.sun) u.sunDir.value.copy(this.sun.position).normalize();
+      u.sunColor.value.setHex(this.currentBiome.sunColor);
+    }
+    this.updateMotes(t, dt);
 
     // 单元场景中的环、信标和学习站保持轻微运动，让空间不是静态模型堆。
     this.unitLandscape?.traverse((object) => {
@@ -2353,24 +2490,10 @@ export class World3D {
       (w.material as THREE.MeshPhysicalMaterial).opacity =
         baseOp + Math.sin(t * 0.7) * Math.min(0.08, baseOp * 0.12);
 
-      if (!near || this.waterFrame % 2 !== 0) continue; // 远处跳过，近处隔帧更新法线
-
-      // 顶点涟漪（仅近处）
-      const geo = w.geometry as THREE.PlaneGeometry;
-      const pos = geo.attributes.position;
-      if (!w.userData.flat) w.userData.flat = Float32Array.from(pos.array as Float32Array);
-      const flat = w.userData.flat as Float32Array;
-      for (let i = 0; i < pos.count; i++) {
-        const ox = flat[i * 3];
-        const oy = flat[i * 3 + 1];
-        pos.setZ(i,
-          Math.sin(ox * 0.22 + t * 1.7) * 0.12 +
-          Math.cos(oy * 0.27 + t * 1.25) * 0.10
-        );
-      }
-      pos.needsUpdate = true;
-      geo.computeVertexNormals();
+      // 涟漪由水面着色器按世界坐标计算（waterTime），无需再逐帧改写顶点
+      void near;
     }
+    waterTime.value = t;
 
     // 距离超限时暂停 Reflector 渲染（节省 GPU）
     const reflectDistSq = this.qcfg.reflectDist * this.qcfg.reflectDist;
