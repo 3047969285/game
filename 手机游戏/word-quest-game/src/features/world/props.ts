@@ -49,47 +49,54 @@ function mergeBufferGeometries(geos: THREE.BufferGeometry[]): THREE.BufferGeomet
 }
 
 /** 草丛单元几何的最大高度（供着色器做摆动归一化） */
-export const GRASS_TUFT_HEIGHT = 0.58;
+export const GRASS_TUFT_HEIGHT = 0.5;
 
 /**
- * 草丛单元几何：由多片带弯曲的锥形草叶组成一簇。
- *
- * 相比原先"两片交叉细长矩形"的牙签造型，这里每片草叶根部宽、尖端收窄并向外弯曲，
- * 一簇 7 片，高度控制在膝下，看起来才像真正的草皮。
+ * 草丛单元几何：一丛 18 片草叶，根部散布在半径 ~0.45 m 的圆内并呈扇形外倾，
+ * 叶片根宽尖窄、二次弯曲；顶点色由根部深绿渐变到叶尖黄绿，少量叶片带枯黄色。
+ * 这样一格草是一撮有体积的草簇，铺开后才像草坪而不是稀疏的尖刺。
  */
-export function grassBladeGeometry(bladeCount = 7): THREE.BufferGeometry {
+export function grassBladeGeometry(bladeCount = 18): THREE.BufferGeometry {
   const rnd = seededRand(90210);
   const geos: THREE.BufferGeometry[] = [];
 
   for (let b = 0; b < bladeCount; b++) {
-    const h = 0.26 + rnd() * 0.32;
-    const w = 0.045 + rnd() * 0.03;
-    const bend = (rnd() - 0.5) * 0.3;
-    const bendZ = (rnd() - 0.5) * 0.3;
-    const segs = 4;
+    const t0 = rnd();
+    const dist = Math.sqrt(t0) * 0.45;
+    const ang = rnd() * Math.PI * 2;
+    const bx = Math.cos(ang) * dist;
+    const bz = Math.sin(ang) * dist;
+    const h = 0.16 + rnd() * 0.34;
+    const w = 0.05 + rnd() * 0.04;
+    const outward = 0.06 + dist * 0.7 + rnd() * 0.12;
+    const segs = 3;
 
     const positions: number[] = [];
     const uvs: number[] = [];
     const indices: number[] = [];
+    const dirX = Math.cos(ang);
+    const dirZ = Math.sin(ang);
+    const side = rnd() * Math.PI;
+    const sx = Math.cos(side);
+    const sz = Math.sin(side);
 
     for (let s = 0; s <= segs; s++) {
       const t = s / segs;
       const y = t * h;
-      // 尖端收窄
-      const halfW = (w * (1 - t * 0.9)) * 0.5;
-      // 二次弯曲，让草叶自然外翻
-      const ox = bend * t * t;
-      const oz = bendZ * t * t;
-      positions.push(-halfW + ox, y, oz);
-      positions.push(halfW + ox, y, oz);
+      const halfW = (w * (1 - t * 0.92)) * 0.5;
+      const bend = outward * t * t;
+      const cx = bx + dirX * bend;
+      const cz = bz + dirZ * bend;
+      positions.push(cx - sx * halfW, y, cz - sz * halfW);
+      positions.push(cx + sx * halfW, y, cz + sz * halfW);
       uvs.push(0, t, 1, t);
     }
     for (let s = 0; s < segs; s++) {
       const a = s * 2;
       const bb = s * 2 + 1;
-      const c = s * 2 + 2;
+      const c2 = s * 2 + 2;
       const d = s * 2 + 3;
-      indices.push(a, c, bb, bb, c, d);
+      indices.push(a, c2, bb, bb, c2, d);
     }
 
     const g = new THREE.BufferGeometry();
@@ -98,27 +105,22 @@ export function grassBladeGeometry(bladeCount = 7): THREE.BufferGeometry {
     g.setIndex(indices);
     g.computeVertexNormals();
 
-    // 每片草叶独立的明暗 / 冷暖，让整片草皮不再是一块同色
-    const tint = 0.82 + rnd() * 0.34;
-    const warm = rnd();
+    // 根部深、尖端亮；少量枯黄叶片
+    const tint = 0.78 + rnd() * 0.3;
+    const dry = rnd() > 0.82 ? 1 : 0;
     const colors = new Float32Array(positions.length);
     for (let v = 0; v < positions.length / 3; v++) {
       const t = THREE.MathUtils.clamp(positions[v * 3 + 1] / GRASS_TUFT_HEIGHT, 0, 1);
-      colors[v * 3] = (0.19 + t * 0.36 + warm * 0.06) * tint;
-      colors[v * 3 + 1] = (0.33 + t * 0.5) * tint;
-      colors[v * 3 + 2] = (0.12 + t * 0.24 + (1 - warm) * 0.05) * tint;
+      const green = [0.07 + t * 0.2, 0.15 + t * 0.34, 0.045 + t * 0.1];
+      const straw = [0.2 + t * 0.34, 0.17 + t * 0.26, 0.07 + t * 0.1];
+      for (let ch = 0; ch < 3; ch++) colors[v * 3 + ch] = (green[ch] * (1 - dry) + straw[ch] * dry) * tint;
     }
     g.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-
-    // 每片草叶随机朝向 + 轻微倾倒
-    g.rotateZ((rnd() - 0.5) * 0.4);
-    g.rotateY(rnd() * Math.PI * 2);
     geos.push(g);
   }
 
   return mergeBufferGeometries(geos);
 }
-
 // ─────────────────────────────────────────────────────────────
 // 自然物：树 / 松 / 灌木 / 岩石。每个物体合并成 1~2 个网格（顶点色承载明暗与色调），
 // 共享材质与程序化的有机几何，既细致又不增加太多 draw call。

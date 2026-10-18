@@ -34,7 +34,7 @@ interface QualityConfig {
 }
 
 const QUALITY_PRESETS: Record<QualityTier, QualityConfig> = {
-  high: { pixelRatio: 2, grassRadius: 40, grassCell: 1.25, reflectors: 3, reflectRes: 512, reflectDist: 300, shadowMap: 2048, bloom: true, bloomScale: 1 },
+  high: { pixelRatio: 2, grassRadius: 40, grassCell: 1.1, reflectors: 3, reflectRes: 512, reflectDist: 300, shadowMap: 2048, bloom: true, bloomScale: 1 },
   med: { pixelRatio: 1.5, grassRadius: 34, grassCell: 1.5, reflectors: 2, reflectRes: 384, reflectDist: 220, shadowMap: 1536, bloom: true, bloomScale: 0.66 },
   low: { pixelRatio: 1, grassRadius: 26, grassCell: 1.9, reflectors: 0, reflectRes: 256, reflectDist: 160, shadowMap: 1024, bloom: false, bloomScale: 0.5 },
 };
@@ -102,6 +102,7 @@ const PICKUP_RADIUS = 5;
 /** 环境微粒的环绕盒尺寸（水平）与浮动高度 */
 const MOTE_BOX = 70;
 const MOTE_HEIGHT = 12;
+const WARM_SUN = new THREE.Color(0xffb36b);
 
 /** 朝向计算常量 */
 const WORLD_UP = new THREE.Vector3(0, 1, 0);
@@ -328,8 +329,8 @@ export class World3D {
           void main() {
             vec3 c = texture2D(tDiffuse, vUv).rgb;
             float l = dot(c, vec3(0.2126, 0.7152, 0.0722));
-            c = mix(vec3(l), c, 1.12);
-            c = mix(c, c * c * (3.0 - 2.0 * c), 0.32);
+            c = mix(vec3(l), c, 1.32);
+            c = mix(c, c * c * (3.0 - 2.0 * c), 0.55);
             c += vec3(-0.012, 0.0, 0.016) * (1.0 - l) + vec3(0.02, 0.008, -0.014) * l * 0.6;
             vec2 q = vUv - 0.5;
             float vig = smoothstep(0.92, 0.28, length(q * vec2(1.0, 1.12)));
@@ -975,7 +976,7 @@ export class World3D {
     this.scene.add(
       new THREE.Points(
         starsGeo,
-        new THREE.PointsMaterial({ color: 0xe8eef8, size: 0.42, transparent: true, opacity: 0.82, sizeAttenuation: true })
+        new THREE.PointsMaterial({ color: 0xe8eef8, size: 0.42, transparent: true, opacity: 0.1, sizeAttenuation: true })
       )
     );
 
@@ -1204,15 +1205,15 @@ export class World3D {
     const cam = this.sun.shadow.camera;
     cam.near = 8;
     cam.far = 340;
-    cam.left = cam.bottom = -150;
-    cam.right = cam.top = 150;
+    cam.left = cam.bottom = -70;
+    cam.right = cam.top = 70;
     this.sun.shadow.bias = -0.0003;
     this.sun.shadow.normalBias = 0.04;
-    this.scene.add(this.sun);
+    this.scene.add(this.sun, this.sun.target);
 
-    const rim = new THREE.DirectionalLight(0x8cb4ff, 0.5);
+    const rim = new THREE.DirectionalLight(0xdfe8ff, 0.22);
     rim.position.set(-40, 28, -30);
-    const moon = new THREE.PointLight(0xa5c8ff, 0.55, 160);
+    const moon = new THREE.PointLight(0xa5c8ff, 0.1, 160);
     moon.position.set(-35, 28, TERRAIN_ORIGIN_Z);
     moon.userData.isGlobalLight = true;
     this.scene.add(rim, moon);
@@ -1511,6 +1512,13 @@ export class World3D {
     const grass = new THREE.Color(palette.grass);
     const dirt = new THREE.Color(palette.dirt);
     const rock = new THREE.Color(palette.rock);
+    const hsl0 = { h: 0, s: 0, l: 0 };
+    grass.getHSL(hsl0);
+    const grassLight = new THREE.Color().setHSL(hsl0.h - 0.02, hsl0.s * 0.9, Math.min(0.62, hsl0.l * 1.28));
+    const grassDry = new THREE.Color().setHSL((hsl0.h - 0.09 + 1) % 1, hsl0.s * 0.7, hsl0.l * 1.12);
+    const gravel = new THREE.Color(palette.rock).lerp(new THREE.Color(palette.dirt), 0.45).multiplyScalar(1.15);
+    const moss = new THREE.Color().setHSL(hsl0.h + 0.02, hsl0.s * 0.9, hsl0.l * 0.7);
+    const rockMixPre = (ny: number): number => smoothstep(0.22, 0.55, 1 - ny);
     // 聚焦学习场景（阅读 / 神殿）降低整体饱和度，保证 UI 文字可读
     const desat = focusedWorld ? 0.72 : 1;
 
@@ -1530,7 +1538,13 @@ export class World3D {
       const slope = 1 - nor.getY(i);
       const rockMix = smoothstep(0.22, 0.55, slope);
 
-      c.copy(grass).lerp(dirt, dirtMix).lerp(rock, rockMix);
+      // 多层地表：草色冷暖渐变、枯草斑、碎石滩、苔藓湿地，再叠加泥土与陡坡岩石
+      const warmN = fbm(x * 0.017 + 91, z * 0.017 + 47, 3);
+      c.copy(grass).lerp(grassLight, smoothstep(0.45, 0.8, warmN) * 0.7).lerp(grassDry, smoothstep(0.62, 0.85, fbm(x * 0.012 + 13, z * 0.012 + 71, 3)) * 0.6);
+      const gravelN = fbm(x * 0.028 + 150, z * 0.028 + 20, 4);
+      c.lerp(gravel, smoothstep(0.64, 0.8, gravelN) * (1 - rockMixPre(nor.getY(i))) * 0.85);
+      c.lerp(moss, smoothstep(0.58, 0.78, fbm(x * 0.035 + 7, z * 0.035 + 123, 3)) * 0.45 * (1 - dirtMix));
+      c.lerp(dirt, dirtMix).lerp(rock, rockMix);
 
       // 高度与噪声带来的明暗变化，避免整片死板
       const shade = 0.86 + fbm(x * 0.02 + 5, z * 0.02 + 9, 3) * 0.26 + smoothstep(6, 34, h) * 0.1;
@@ -2357,24 +2371,28 @@ export class World3D {
   private tickScene(t: number, dt: number): void {
     this.updateDynamicLightBudget();
     this.waterFrame++;
-    // 昼夜循环：太阳沿天空划过，亮度 / 曝光 / 天光随之变化
+    // 日照循环：太阳在 18°–50° 高度间缓慢摆动（始终是白天），低角度时偏暖；
+    // 光源来自相机一侧偏左，使建筑正面被照亮；阴影相机跟随玩家并对齐到网格，近处阴影精细且不闪烁。
     if (this.sun) {
-      const day = t * 0.03; // 完整循环约 210s
-      const sx = Math.sin(day) * 72;
-      const sy = 36 + Math.cos(day) * 46; // 约 -10 ~ 82
-      this.sun.position.set(sx, Math.max(5, sy), 35);
-      const daylight = THREE.MathUtils.clamp((sy + 8) / 90, 0.18, 1);
+      const day = t * 0.02;
+      const el = THREE.MathUtils.degToRad(34 + Math.cos(day) * 16);
+      const az = Math.sin(day) * 0.8;
+      this.sunDirV.set(Math.sin(az) * Math.cos(el) + 0.25, Math.sin(el), -0.55 * Math.cos(el)).normalize();
+      const snap = 3;
+      const tx = Math.round(this.player.position.x / snap) * snap;
+      const tz = Math.round(this.player.position.z / snap) * snap;
+      this.sun.target.position.set(tx, this.player.position.y, tz);
+      this.sun.target.updateMatrixWorld();
+      this.sun.position.set(tx, this.player.position.y, tz).addScaledVector(this.sunDirV, 140);
+      const daylight = THREE.MathUtils.clamp((Math.sin(el) - 0.15) / 0.6, 0.3, 1);
       const focusedWorld = isFocusedLearningWorld(this.activeWorldId);
-      this.sun.intensity = this.currentBiome.sunIntensity * (focusedWorld ? 0.9 + daylight * 0.2 : 0.55 + daylight * 0.35);
-      this.renderer.toneMappingExposure = focusedWorld
-        ? 1.06 + daylight * 0.12
-        : 1.0 + daylight * 0.11;
-      if (this.hemi) this.hemi.intensity = focusedWorld ? 0.6 + daylight * 0.2 : 0.46 + daylight * 0.26;
+      this.sun.color.setHex(this.currentBiome.sunColor).lerp(WARM_SUN, (1 - daylight) * 0.6);
+      this.sun.intensity = this.currentBiome.sunIntensity * (focusedWorld ? 0.92 : 0.88 + daylight * 0.12);
+      this.renderer.toneMappingExposure = focusedWorld ? 1.06 : 1.0 + daylight * 0.06;
+      if (this.hemi) this.hemi.intensity = focusedWorld ? 0.66 : 0.58 + daylight * 0.12;
 
       // 太阳圆盘跟随光源方向，锚定在相机前方的固定远处（天空穹顶附近）。
-      // 之前锚定世界原点，玩家走远后圆盘会飘到相机旁边糊成一团白光。
       if (this.sunDisc) {
-        this.sunDirV.set(sx, Math.max(5, sy), this.sun.position.z).normalize();
         this.sunDisc.position
           .copy(this.camera.position)
           .addScaledVector(this.sunDirV, 480);
@@ -2384,7 +2402,6 @@ export class World3D {
         (this.sunDisc.material as THREE.SpriteMaterial).opacity = THREE.MathUtils.clamp(daylight * 1.2 * sunDiscOpacity, 0, 1);
       }
     }
-
     // 草地风吹 + 角色踩踏
     if (this.grassUniforms) {
       this.grassUniforms.uTime.value = t;
@@ -2397,7 +2414,7 @@ export class World3D {
     if (this.skyDome) {
       const u = (this.skyDome.material as THREE.ShaderMaterial).uniforms;
       u.uTime.value = t;
-      if (this.sun) u.sunDir.value.copy(this.sun.position).normalize();
+      u.sunDir.value.copy(this.sunDirV);
       u.sunColor.value.setHex(this.currentBiome.sunColor);
     }
     this.updateMotes(t, dt);
