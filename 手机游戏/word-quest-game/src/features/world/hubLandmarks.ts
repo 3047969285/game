@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { MergedBuilder, boxGeo, createKitMaterials, cylGeo, gableGeo, prismGeo, strutGeo, rng, type KitMaterials } from "./detailKit";
-import { createTree } from "./props";
+import { createAncientTree } from "./props";
 
 /**
  * 单元 2–6 中枢（圣所之外的"单元主题建筑"）：港口档案馆、记忆古树、思想神殿、发射场、交易广场。
@@ -247,7 +247,7 @@ export function buildMemoryTreeHub(glow: THREE.MeshStandardMaterial, edge: THREE
   const root = new THREE.Group();
   root.name = "memory-tree-hub";
   const rand = rng(303);
-  const tree = createTree(7.5);
+  const tree = createAncientTree();
   tree.position.set(0, 0, 38);
   root.add(tree);
   // 发光记忆果：悬在树冠内的发光小球
