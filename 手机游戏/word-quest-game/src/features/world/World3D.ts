@@ -1618,8 +1618,9 @@ export class World3D {
     mat.onBeforeCompile = (shader) => {
       shader.uniforms.uTime = { value: 0 };
       shader.uniforms.uPlayer = { value: new THREE.Vector3(0, 0, 0) };
+      shader.uniforms.uFade = { value: new THREE.Vector2(this.grassRadius * 0.55, this.grassRadius * 0.96) };
       this.grassUniforms = shader.uniforms as { uTime: { value: number }; uPlayer: { value: THREE.Vector3 } };
-      shader.vertexShader = "uniform float uTime;\nuniform vec3 uPlayer;\n" + shader.vertexShader;
+      shader.vertexShader = "uniform float uTime;\nuniform vec3 uPlayer;\nuniform vec2 uFade;\n" + shader.vertexShader;
       shader.vertexShader = shader.vertexShader.replace(
         "#include <begin_vertex>",
         `#include <begin_vertex>
@@ -1635,7 +1636,9 @@ export class World3D {
          float gTramp = smoothstep(2.4, 0.5, gd);
          vec2 gDir = gToP / max(gd, 0.001);
          transformed.xz += gDir * gTramp * gH * 0.55;
-         transformed.y -= gTramp * gH * 0.4;`
+         transformed.y -= gTramp * gH * 0.4;
+         // 外圈渐隐：草簇随距离缩小直至消失，避免铺草范围出现生硬的圆形边界
+         transformed *= 1.0 - smoothstep(uFade.x, uFade.y, gd);`
       );
     };
 
