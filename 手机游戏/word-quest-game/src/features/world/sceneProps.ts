@@ -481,6 +481,35 @@ export function umbrella(k: SceneKit, f: Frame, r = 0.55, tone: THREE.Material =
   f.put(new THREE.ConeGeometry(r, 0.28, 16, 1, true), tone, 0, 1.58, 0);
   f.ball(k.m.brass, 0.025, 0, 1.76, 0);
 }
+/** 靠书架的木梯（斜靠，顶端朝局部 -z）：两侧立杆 + 踏板 */
+export function ladder(k: SceneKit, f: Frame, h = 2.4): void {
+  const lean = 0.2;
+  for (const sx of [-1, 1]) f.strut(k.m.wood, [sx * 0.22, 0, 0.3], [sx * 0.22, h, 0.3 - h * lean], 0.025, 6);
+  const n = Math.floor(h / 0.3);
+  for (let i = 1; i <= n; i++) {
+    const t = (i * 0.3) / h;
+    f.box(k.m.woodDark, 0.44, 0.03, 0.08, 0, t * h - 0.015, 0.3 - t * h * lean, 0.008);
+  }
+  for (const sx of [-1, 1]) f.cyl(k.p.plasticDark, 0.03, 0.03, 0.04, sx * 0.22, 0, 0.3, 8);
+}
+
+/** 书车：木推车 + 三层书（顺序随机的彩色书脊） */
+export function bookCart(k: SceneKit, f: Frame, seed = 2): void {
+  const rand = mulberry(seed);
+  f.box(k.m.wood, 1.2, 0.05, 0.5, 0, 0.35, 0, 0.012);
+  f.box(k.m.woodDark, 1.2, 0.3, 0.04, 0, 0.35, -0.23, 0.01);
+  for (const sx of [-1, 1]) f.box(k.m.woodDark, 0.05, 0.8, 0.5, sx * 0.58, 0.35, 0, 0.01);
+  f.box(k.m.woodDark, 1.2, 0.04, 0.4, 0, 0.7, 0, 0.01, -0.2);
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) f.put(new THREE.TorusGeometry(0.1, 0.03, 8, 14), k.m.darkSteel, sx * 0.5, 0.12, sz * 0.2, 0, Math.PI / 2);
+  for (let r = 0; r < 2; r++) {
+    let x = -0.52;
+    while (x < 0.5) {
+      const bw = 0.04 + rand() * 0.03;
+      f.box(k.p.books[Math.floor(rand() * k.p.books.length)], bw, 0.18 + rand() * 0.1, 0.22, x + bw / 2, r === 0 ? 0.4 : 0.74, -0.02, 0.004, 0, 0, r === 1 ? -0.2 : 0);
+      x += bw + 0.004;
+    }
+  }
+}
 function mulberry(seed: number): () => number {
   let s = seed >>> 0;
   return () => {
