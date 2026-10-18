@@ -25,6 +25,8 @@ export interface PersonOptions {
   glasses?: boolean;
   scarf?: number;
   backpack?: number;
+  /** 宇航头盔（白色盔体 + 深色面罩） */
+  helmet?: boolean;
 }
 
 const geo = {
@@ -199,6 +201,20 @@ export function createPerson(opts: PersonOptions): THREE.Group {
     head.add(bun);
   }
 
+  if (opts.helmet) {
+    const shell = mesh(new THREE.SphereGeometry(0.145, 24, 16), std(0xeef2f4, 0.3, { metalness: 0.2 }));
+    shell.scale.set(1.0, 1.12, 1.08);
+    shell.position.y = 0.19;
+    head.add(shell);
+    const visor = mesh(new THREE.SphereGeometry(0.12, 20, 12), std(0x1b3447, 0.12, { metalness: 0.7 }));
+    visor.scale.set(0.95, 0.68, 0.55);
+    visor.position.set(0, 0.2, 0.108);
+    head.add(visor);
+    const ring = mesh(new THREE.TorusGeometry(0.1, 0.018, 8, 20), std(0xc9d0d4, 0.4, { metalness: 0.5 }));
+    ring.rotation.x = Math.PI / 2;
+    ring.position.y = 0.07;
+    head.add(ring);
+  }
   // 配饰
   if (opts.glasses) {
     const frame = std(0x1a1a1a, 0.4, { metalness: 0.4 });

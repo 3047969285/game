@@ -3,6 +3,7 @@ import { UNIT01_SCENES } from "./unit01";
 import { UNIT02_SCENES } from "./unit02";
 import { UNIT03_SCENES } from "./unit03";
 import { UNIT04_SCENES } from "./unit04";
+import { UNIT05_SCENES } from "./unit05";
 
 /** 已重写为独立模块的段落场景（按 PassageSceneKind 分发）；未列出的仍走 unitLandscape.ts 的旧分支。 */
 export const SCENE_MODULES: Record<string, SceneModule> = {
@@ -10,4 +11,5 @@ export const SCENE_MODULES: Record<string, SceneModule> = {
   ...UNIT02_SCENES,
   ...UNIT03_SCENES,
   ...UNIT04_SCENES,
+  ...UNIT05_SCENES,
 };
