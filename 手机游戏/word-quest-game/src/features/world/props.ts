@@ -241,6 +241,59 @@ export function trunkGeometry(height: number, base: number, top: number, color: 
   return lathe;
 }
 
+const FOLIAGE_SOLID_UV = 0.02;
+
+/** 给无 UV 的团块几何写入常量 UV（指向叶贴图左上角的实心色块），与叶片卡片共用同一材质 */
+function withConstUV(geo: THREE.BufferGeometry): THREE.BufferGeometry {
+  const n = geo.attributes.position.count;
+  const uv = new Float32Array(n * 2);
+  for (let i = 0; i < n; i++) {
+    uv[i * 2] = FOLIAGE_SOLID_UV;
+    uv[i * 2 + 1] = 1 - FOLIAGE_SOLID_UV;
+  }
+  geo.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
+  return geo;
+}
+
+let foliageMat: THREE.MeshStandardMaterial | undefined;
+function getFoliageMaterial(): THREE.MeshStandardMaterial {
+  if (!foliageMat) {
+    foliageMat = new THREE.MeshStandardMaterial({ map: getLeafTexture(), alphaTest: 0.5, vertexColors: true, side: THREE.DoubleSide, roughness: 0.86, metalness: 0.02 });
+  }
+  return foliageMat;
+}
+
+/** 树冠：实心叶团打底 + 外层碎叶卡片，合并为一个网格（同一材质，一次 draw call） */
+function finishFoliage(group: THREE.Group, blobGeos: THREE.BufferGeometry[], lumps: Array<{ c: THREE.Vector3; r: number }>, rnd: () => number, scale: number): void {
+  const geos = [...blobGeos];
+  const tone = new THREE.Color();
+  const tmpM = new THREE.Matrix4();
+  const q = new THREE.Quaternion();
+  const e = new THREE.Euler();
+  for (const { c, r } of lumps) {
+    for (let k = 0; k < 20; k++) {
+      const dir = new THREE.Vector3(rnd() - 0.5, rnd() - 0.3, rnd() - 0.5).normalize();
+      const p = c.clone().addScaledVector(dir, r * (0.7 + rnd() * 0.5));
+      e.set(rnd() * Math.PI, rnd() * Math.PI * 2, rnd() * Math.PI);
+      q.setFromEuler(e);
+      const size = (0.95 + rnd() * 0.7) * scale;
+      tmpM.compose(p, q, new THREE.Vector3(size, size, size));
+      const card = new THREE.PlaneGeometry(1, 1);
+      const light = 0.7 + 0.5 * THREE.MathUtils.clamp(0.5 + dir.y * 0.6, 0, 1);
+      tone.setHSL(0.26 + (rnd() - 0.5) * 0.05, 0.5, 0.36 * light + 0.1).multiplyScalar(2.1);
+      const colors = new Float32Array(card.attributes.position.count * 3);
+      for (let i = 0; i < colors.length; i += 3) {
+        colors[i] = tone.r;
+        colors[i + 1] = tone.g;
+        colors[i + 2] = tone.b;
+      }
+      card.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+      card.applyMatrix4(tmpM);
+      geos.push(card);
+    }
+  }
+  finish(group, geos, getFoliageMaterial());
+}
 /** 阔叶树：弯曲树干 + 分枝 + 九团不规则树冠（顶亮底暗），合并为 2 个网格 */
 export function createTree(scale = 1): THREE.Group {
   const g = new THREE.Group();
@@ -265,17 +318,19 @@ export function createTree(scale = 1): THREE.Group {
   const crownY = trunkH + 0.25 * s;
   const leafGeos: THREE.BufferGeometry[] = [];
   const lumps = 9 + Math.floor(rnd() * 3);
+  const lumpInfo: Array<{ c: THREE.Vector3; r: number }> = [];
   for (let i = 0; i < lumps; i++) {
     const a = rnd() * Math.PI * 2;
     const ring = i === 0 ? 0 : 0.55 + rnd() * 0.7;
     const layer = i === 0 ? 0.25 : (rnd() - 0.35) * 1.6;
     const r = (i === 0 ? 1.1 : 0.62 + rnd() * 0.42) * s;
     const col = new THREE.Color(tones[Math.floor(rnd() * tones.length)]).offsetHSL((rnd() - 0.5) * 0.03, 0, (rnd() - 0.5) * 0.05);
+    lumpInfo.push({ c: new THREE.Vector3(Math.cos(a) * ring * s, crownY + layer * s, Math.sin(a) * ring * s), r });
     leafGeos.push(
-      bake(organicBlob(Math.floor(rnd() * 4) + 1, 3, 0.2), mat4(Math.cos(a) * ring * s, crownY + layer * s, Math.sin(a) * ring * s, r * 1.08, r * 0.86, r, rnd() * 3, rnd() * 6, rnd() * 3), col, (y, ny) => 0.62 + 0.38 * THREE.MathUtils.clamp(0.5 + 0.5 * ny, 0, 1) + y * 0.0)
+      withConstUV(bake(organicBlob(Math.floor(rnd() * 4) + 1, 3, 0.2), mat4(Math.cos(a) * ring * s, crownY + layer * s, Math.sin(a) * ring * s, r * 0.86, r * 0.7, r * 0.8, rnd() * 3, rnd() * 6, rnd() * 3), col, (y, ny) => 0.62 + 0.38 * THREE.MathUtils.clamp(0.5 + 0.5 * ny, 0, 1) + y * 0.0))
     );
   }
-  finish(g, leafGeos, vcMaterial(0.86, "leaf"));
+  finishFoliage(g, leafGeos, lumpInfo, rnd, s);
   return g;
 }
 
@@ -368,6 +423,9 @@ function getLeafTexture(): THREE.CanvasTexture {
   c.width = c.height = size;
   const g = c.getContext("2d")!;
   const rnd = seededRand(8821);
+  // 左上角实心色块：供团块几何（常量 UV）取样，保持不透明
+  g.fillStyle = "#ffffff";
+  g.fillRect(0, 0, 10, 10);
   for (let i = 0; i < 16; i++) {
     g.save();
     g.translate(size / 2 + (rnd() - 0.5) * 26, size * 0.62 + (rnd() - 0.5) * 30);

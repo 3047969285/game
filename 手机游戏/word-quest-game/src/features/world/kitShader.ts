@@ -75,6 +75,35 @@ export function applyKitPattern(mat: THREE.MeshStandardMaterial, kind: KitPatter
         "#include <roughnessmap_fragment>",
         `#include <roughnessmap_fragment>
          roughnessFactor = mix(roughnessFactor, 1.0, kGap);`
+      )
+      .replace(
+        "#include <normal_fragment_maps>",
+        `#include <normal_fragment_maps>
+         {
+           // 灰缝凹槽：沿主投影方向对缝隙强度求有限差分，把法线向缝内倾斜（远处淡出避免闪烁）
+           float kFade = 1.0 - smoothstep(22.0, 80.0, length(vViewPosition));
+           if (kFade > 0.01) {
+             vec3 ka = abs(normalize(vKitNormal));
+             const float kE = 0.012;
+             vec3 kg;
+             if (ka.y > ka.x && ka.y > ka.z) {
+               vec2 q = vKitWorld.xz;
+               float g0 = kPattern(q, ${course.toFixed(3)}, ${block.toFixed(3)}, ${k}).y;
+               kg = vec3(kPattern(q + vec2(kE, 0.0), ${course.toFixed(3)}, ${block.toFixed(3)}, ${k}).y - g0, 0.0, kPattern(q + vec2(0.0, kE), ${course.toFixed(3)}, ${block.toFixed(3)}, ${k}).y - g0) / kE;
+             } else if (ka.x > ka.z) {
+               vec2 q = vec2(vKitWorld.z, vKitWorld.y);
+               float g0 = kPattern(q, ${course.toFixed(3)}, ${block.toFixed(3)}, ${k}).y;
+               kg = vec3(0.0, kPattern(q + vec2(0.0, kE), ${course.toFixed(3)}, ${block.toFixed(3)}, ${k}).y - g0, kPattern(q + vec2(kE, 0.0), ${course.toFixed(3)}, ${block.toFixed(3)}, ${k}).y - g0) / kE;
+             } else {
+               vec2 q = vec2(vKitWorld.x, vKitWorld.y);
+               float g0 = kPattern(q, ${course.toFixed(3)}, ${block.toFixed(3)}, ${k}).y;
+               kg = vec3(kPattern(q + vec2(kE, 0.0), ${course.toFixed(3)}, ${block.toFixed(3)}, ${k}).y - g0, kPattern(q + vec2(0.0, kE), ${course.toFixed(3)}, ${block.toFixed(3)}, ${k}).y - g0, 0.0) / kE;
+             }
+             vec3 kv = mat3(viewMatrix) * kg;
+             kv -= normal * dot(kv, normal);
+             normal = normalize(normal + kv * 0.0055 * kFade);
+           }
+         }`
       );
   };
   mat.customProgramCacheKey = () => `kit-${kind}`;
