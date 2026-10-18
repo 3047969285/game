@@ -15,6 +15,8 @@ const _p = new THREE.Vector3();
 
 /** 倒角方块（底面中心在原点以上 h/2 处，需自行摆放） */
 export function boxGeo(w: number, h: number, d: number, radius = 0.04): THREE.BufferGeometry {
+  // 倒角小于 7.5 mm 在场景尺度下看不出来（书脊、薄板等），直接用 12 面的普通盒子省三角面
+  if (radius < 0.0075) return new THREE.BoxGeometry(w, h, d);
   return new RoundedBoxGeometry(w, h, d, 1, Math.min(radius, w / 2.01, h / 2.01, d / 2.01));
 }
 
