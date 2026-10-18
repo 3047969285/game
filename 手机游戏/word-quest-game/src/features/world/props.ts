@@ -212,28 +212,36 @@ export function finish(group: THREE.Group, geos: THREE.BufferGeometry[], materia
   group.add(mesh);
 }
 
-/** 树干：带根部外扩的旋转体（顶点色做树皮纵向纹） */
+/** 树干：带板根与树皮纵脊的旋转体（径向噪声位移 + 顶点色深浅沟壑） */
 export function trunkGeometry(height: number, base: number, top: number, color: THREE.Color, lean: number): THREE.BufferGeometry {
-  const pts = [
-    new THREE.Vector2(base * 1.55, -0.1),
-    new THREE.Vector2(base * 1.22, height * 0.07),
-    new THREE.Vector2(base * 0.98, height * 0.2),
-    new THREE.Vector2((base + top) * 0.5, height * 0.55),
-    new THREE.Vector2(top, height),
-  ];
-  const lathe = new THREE.LatheGeometry(pts, 11);
+  const rows = 16;
+  const pts: THREE.Vector2[] = [];
+  for (let i = 0; i <= rows; i++) {
+    const t = i / rows;
+    const flare = base * 0.6 * Math.exp(-t * 13);
+    pts.push(new THREE.Vector2(THREE.MathUtils.lerp(base, top, Math.pow(t, 0.85)) + flare, -0.08 * height + t * height * 1.08));
+  }
+  const lathe = new THREE.LatheGeometry(pts, 18);
   const p = lathe.attributes.position;
   const colors = new Float32Array(p.count * 3);
   for (let i = 0; i < p.count; i++) {
-    const a = Math.atan2(p.getZ(i), p.getX(i));
-    const stripe = 0.82 + 0.18 * Math.sin(a * 7 + p.getY(i) * 1.3);
-    const dark = 0.7 + 0.3 * Math.min(1, p.getY(i) / (height * 0.3));
-    const k = stripe * dark;
-    colors[i * 3] = color.r * k;
-    colors[i * 3 + 1] = color.g * k;
-    colors[i * 3 + 2] = color.b * k;
-    // 微弯：越高偏移越多
-    p.setX(i, p.getX(i) + lean * Math.pow(p.getY(i) / height, 2) * height);
+    const x = p.getX(i);
+    const z = p.getZ(i);
+    const y = p.getY(i);
+    const a = Math.atan2(z, x);
+    const r = Math.hypot(x, z);
+    const ridge = Math.sin(a * 7 + y * 0.9 / Math.max(0.2, height * 0.15)) * 0.5 + Math.sin(a * 13 - y * 1.7 / Math.max(0.2, height * 0.15)) * 0.3 + vnoise(x * 3, y * 2.2, z * 3, 3) * 0.6;
+    const lobe = Math.max(0, Math.sin(a * 5 + 0.7)) * Math.exp(-Math.max(0, y) / (height * 0.12));
+    const k = 1 + ridge * 0.055 + lobe * 0.28;
+    p.setX(i, x * k + lean * Math.pow(Math.max(0, y) / height, 2) * height);
+    p.setZ(i, z * k);
+    const crevice = 0.72 + 0.28 * THREE.MathUtils.clamp(0.5 + ridge * 0.6, 0, 1);
+    const dark = 0.7 + 0.3 * Math.min(1, Math.max(0, y) / (height * 0.3));
+    const kc = crevice * dark;
+    colors[i * 3] = color.r * kc;
+    colors[i * 3 + 1] = color.g * kc;
+    colors[i * 3 + 2] = color.b * kc;
+    void r;
   }
   lathe.setAttribute("color", new THREE.BufferAttribute(colors, 3));
   lathe.deleteAttribute("uv");
@@ -263,157 +271,133 @@ function getFoliageMaterial(): THREE.MeshStandardMaterial {
   return foliageMat;
 }
 
-/** 树冠：实心叶团打底 + 外层碎叶卡片，合并为一个网格（同一材质，一次 draw call） */
-function finishFoliage(group: THREE.Group, blobGeos: THREE.BufferGeometry[], lumps: Array<{ c: THREE.Vector3; r: number }>, rnd: () => number, scale: number): void {
-  const geos = [...blobGeos];
-  const tone = new THREE.Color();
-  const tmpM = new THREE.Matrix4();
-  const q = new THREE.Quaternion();
-  const e = new THREE.Euler();
-  for (const { c, r } of lumps) {
-    for (let k = 0; k < 20; k++) {
-      const dir = new THREE.Vector3(rnd() - 0.5, rnd() - 0.3, rnd() - 0.5).normalize();
-      const p = c.clone().addScaledVector(dir, r * (0.7 + rnd() * 0.5));
-      e.set(rnd() * Math.PI, rnd() * Math.PI * 2, rnd() * Math.PI);
-      q.setFromEuler(e);
-      const size = (0.95 + rnd() * 0.7) * scale;
-      tmpM.compose(p, q, new THREE.Vector3(size, size, size));
-      const card = new THREE.PlaneGeometry(1, 1);
-      const light = 0.7 + 0.5 * THREE.MathUtils.clamp(0.5 + dir.y * 0.6, 0, 1);
-      tone.setHSL(0.26 + (rnd() - 0.5) * 0.05, 0.5, 0.36 * light + 0.1).multiplyScalar(2.1);
-      const colors = new Float32Array(card.attributes.position.count * 3);
-      for (let i = 0; i < colors.length; i += 3) {
-        colors[i] = tone.r;
-        colors[i + 1] = tone.g;
-        colors[i + 2] = tone.b;
-      }
-      card.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-      card.applyMatrix4(tmpM);
-      geos.push(card);
-    }
+const UP = new THREE.Vector3(0, 1, 0);
+const LEAF_TONES = [0x4a8a52, 0x3f7d4f, 0x56994f, 0x356b43, 0x62a050, 0x468a4a, 0x6aa656];
+
+/** 叶片卡片：单个带顶点色的四边形，按位置 / 朝向 / 尺寸摆好 */
+function leafCard(p: THREE.Vector3, size: number, rnd: () => number, up: number, tmp: { m: THREE.Matrix4; q: THREE.Quaternion; e: THREE.Euler; c: THREE.Color }, tint: [number, number, number, number] = [0.26, 0.5, 0.36, 2.1]): THREE.BufferGeometry {
+  tmp.e.set(rnd() * Math.PI, rnd() * Math.PI * 2, rnd() * Math.PI);
+  tmp.q.setFromEuler(tmp.e);
+  tmp.m.compose(p, tmp.q, new THREE.Vector3(size, size, size));
+  const card = new THREE.PlaneGeometry(1, 1);
+  const light = 0.7 + 0.5 * THREE.MathUtils.clamp(0.5 + up * 0.6, 0, 1);
+  tmp.c.setHSL(tint[0] + (rnd() - 0.5) * 0.05, tint[1], tint[2] * light + 0.1).multiplyScalar(tint[3]);
+  const colors = new Float32Array(card.attributes.position.count * 3);
+  for (let i = 0; i < colors.length; i += 3) {
+    colors[i] = tmp.c.r;
+    colors[i + 1] = tmp.c.g;
+    colors[i + 2] = tmp.c.b;
   }
-  finish(group, geos, getFoliageMaterial());
+  card.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+  card.applyMatrix4(tmp.m);
+  return card;
 }
-/** 阔叶树：弯曲树干 + 分枝 + 九团不规则树冠（顶亮底暗），合并为 2 个网格 */
-export function createTree(scale = 1): THREE.Group {
-  const g = new THREE.Group();
-  const rnd = seededRand(Math.floor(scale * 10000) + 77);
-  const s = scale;
 
-  const trunkH = 2.7 * s;
-  const bark = new THREE.Color(0x5a4230);
-  const woodGeos: THREE.BufferGeometry[] = [trunkGeometry(trunkH, 0.2 * s, 0.1 * s, bark, (rnd() - 0.5) * 0.06)];
-  const branchGeo = new THREE.CylinderGeometry(0.035 * s, 0.09 * s, 1, 6, 1);
-  branchGeo.translate(0, 0.5, 0);
-  for (let i = 0; i < 5; i++) {
-    const a = (i / 5) * Math.PI * 2 + rnd() * 0.5;
-    const len = (0.9 + rnd() * 0.7) * s;
-    const tilt = 0.7 + rnd() * 0.4;
-    const y = trunkH * (0.62 + rnd() * 0.3);
-    woodGeos.push(bake(branchGeo, mat4(0, y, 0, 1, len, 1, Math.cos(a) * tilt, 0, -Math.sin(a) * tilt), bark.clone().multiplyScalar(0.9)));
-  }
-  finish(g, woodGeos, vcMaterial(0.95, "bark"));
-
-  const tones = [0x4a8a52, 0x3f7d4f, 0x56994f, 0x356b43, 0x62a050, 0x468a4a];
-  const crownY = trunkH + 0.25 * s;
-  const leafGeos: THREE.BufferGeometry[] = [];
-  const lumps = 9 + Math.floor(rnd() * 3);
-  const lumpInfo: Array<{ c: THREE.Vector3; r: number }> = [];
-  for (let i = 0; i < lumps; i++) {
-    const a = rnd() * Math.PI * 2;
-    const ring = i === 0 ? 0 : 0.55 + rnd() * 0.7;
-    const layer = i === 0 ? 0.25 : (rnd() - 0.35) * 1.6;
-    const r = (i === 0 ? 1.1 : 0.62 + rnd() * 0.42) * s;
-    const col = new THREE.Color(tones[Math.floor(rnd() * tones.length)]).offsetHSL((rnd() - 0.5) * 0.03, 0, (rnd() - 0.5) * 0.05);
-    lumpInfo.push({ c: new THREE.Vector3(Math.cos(a) * ring * s, crownY + layer * s, Math.sin(a) * ring * s), r });
-    leafGeos.push(
-      withConstUV(bake(organicBlob(Math.floor(rnd() * 4) + 1, 3, 0.2), mat4(Math.cos(a) * ring * s, crownY + layer * s, Math.sin(a) * ring * s, r * 0.86, r * 0.7, r * 0.8, rnd() * 3, rnd() * 6, rnd() * 3), col, (y, ny) => 0.62 + 0.38 * THREE.MathUtils.clamp(0.5 + 0.5 * ny, 0, 1) + y * 0.0))
-    );
-  }
-  finishFoliage(g, leafGeos, lumpInfo, rnd, s);
-  return g;
+interface BroadleafOpts {
+  /** 米 → 世界单位的缩放（远古树 1，普通树 ≈ 0.2 × scale） */
+  u: number;
+  limbs: number;
+  segs: number;
+  /** 从第几段起长出分叉小枝 */
+  forkFrom: number;
+  roots: number;
+  blobsPerTip: number;
+  blobDetail: number;
+  blobScale: number;
+  cardsPerTip: number;
+  cardSize: [number, number];
+  seed: number;
 }
 
 /**
- * 远古巨树（单元 3 记忆树）：厚实的板根与主干、八条向上分叉的粗枝（逐级收细）、
- * 枝端与枝中的叶团（约 50 团，顶亮底暗），整体合并为 2 个网格。尺寸直接按米给出。
+ * 阔叶树生成器：板根主干 → 放射状主枝（逐段收细并二次弯曲）→ 分叉小枝 →
+ * 枝梢处叶团 + 外层叶片卡片，木质 / 叶两个合并网格。
  */
-export function createAncientTree(): THREE.Group {
+function buildBroadleaf(o: BroadleafOpts): THREE.Group {
   const g = new THREE.Group();
-  const rnd = seededRand(4411);
+  const rnd = seededRand(o.seed);
+  const u = o.u;
   const bark = new THREE.Color(0x5b4533);
   const woodGeos: THREE.BufferGeometry[] = [];
-  const unitCyl = new THREE.CylinderGeometry(1, 1, 1, 8, 1);
-  unitCyl.translate(0, 0.5, 0);
-  const up = new THREE.Vector3(0, 1, 0);
   const limb = (a: THREE.Vector3, b: THREE.Vector3, r0: number, r1: number, tone = 1): void => {
     const dir = b.clone().sub(a);
     const len = dir.length();
-    const geo = new THREE.CylinderGeometry(r1, r0, len, 9, 1);
+    const geo = new THREE.CylinderGeometry(r1, r0, len, 7, 1);
     geo.translate(0, len / 2, 0);
-    const q = new THREE.Quaternion().setFromUnitVectors(up, dir.normalize());
+    const q = new THREE.Quaternion().setFromUnitVectors(UP, dir.normalize());
     woodGeos.push(bake(geo, new THREE.Matrix4().compose(a, q, new THREE.Vector3(1, 1, 1)), bark.clone().multiplyScalar(tone), (y) => 0.8 + 0.2 * Math.min(1, y / len)));
   };
 
-  // 主干 + 板根
-  const trunkH = 13;
-  woodGeos.push(trunkGeometry(trunkH, 1.9, 1.15, bark, 0.012));
-  for (let i = 0; i < 8; i++) {
-    const a = (i / 8) * Math.PI * 2 + rnd() * 0.3;
-    const out = 3.4 + rnd() * 2.2;
-    limb(new THREE.Vector3(Math.cos(a) * 1.0, 2.2, Math.sin(a) * 1.0), new THREE.Vector3(Math.cos(a) * out, -0.25, Math.sin(a) * out), 0.7, 0.18, 0.95);
+  const trunkH = 13 * u;
+  woodGeos.push(trunkGeometry(trunkH, 1.9 * u, 1.15 * u, bark, (rnd() - 0.5) * 0.02));
+  for (let i = 0; i < o.roots; i++) {
+    const a = (i / o.roots) * Math.PI * 2 + rnd() * 0.4;
+    const out = (3.4 + rnd() * 2.2) * u;
+    limb(new THREE.Vector3(Math.cos(a) * u, 2.2 * u, Math.sin(a) * u), new THREE.Vector3(Math.cos(a) * out, -0.25 * u, Math.sin(a) * out), 0.7 * u, 0.18 * u, 0.95);
   }
 
-  // 主枝：从树干上部放射状向外上方伸展，沿途二次弯曲并分出小枝
   const tips: Array<{ p: THREE.Vector3; r: number }> = [];
-  const limbs = 8;
-  for (let i = 0; i < limbs; i++) {
-    const a = (i / limbs) * Math.PI * 2 + rnd() * 0.4;
+  for (let i = 0; i < o.limbs; i++) {
+    const a = (i / o.limbs) * Math.PI * 2 + rnd() * 0.4;
     const y0 = trunkH * (0.62 + rnd() * 0.3);
-    const reach = 7.5 + rnd() * 3.5;
-    const rise = 5 + rnd() * 4;
-    let prev = new THREE.Vector3(Math.cos(a) * 0.5, y0, Math.sin(a) * 0.5);
-    const segs = 4;
-    for (let s = 1; s <= segs; s++) {
-      const t = s / segs;
-      const p = new THREE.Vector3(Math.cos(a) * reach * t, y0 + rise * Math.pow(t, 0.8) + Math.sin(t * 3 + i) * 0.4, Math.sin(a) * reach * t);
-      const r0 = 0.62 * (1 - (s - 1) / segs * 0.85);
-      const r1 = 0.62 * (1 - s / segs * 0.85);
-      limb(prev, p, Math.max(0.1, r0), Math.max(0.07, r1));
-      if (s >= 2) {
-        // 分叉小枝
+    const reach = (7.5 + rnd() * 3.5) * u;
+    const rise = (5 + rnd() * 4) * u;
+    let prev = new THREE.Vector3(Math.cos(a) * 0.5 * u, y0, Math.sin(a) * 0.5 * u);
+    for (let s = 1; s <= o.segs; s++) {
+      const t = s / o.segs;
+      const p = new THREE.Vector3(Math.cos(a) * reach * t, y0 + rise * Math.pow(t, 0.8) + Math.sin(t * 3 + i) * 0.4 * u, Math.sin(a) * reach * t);
+      const r0 = Math.max(0.1 * u, 0.62 * u * (1 - ((s - 1) / o.segs) * 0.85));
+      const r1 = Math.max(0.07 * u, 0.62 * u * (1 - (s / o.segs) * 0.85));
+      limb(prev, p, r0, r1);
+      if (s >= o.forkFrom) {
         for (const side of [-1, 1]) {
           const b = a + side * (0.5 + rnd() * 0.5);
-          const end = p.clone().add(new THREE.Vector3(Math.cos(b) * (2.2 + rnd() * 1.6), 1.6 + rnd() * 2.2, Math.sin(b) * (2.2 + rnd() * 1.6)));
-          limb(p, end, r1 * 0.8, 0.05);
-          tips.push({ p: end, r: 2.1 + rnd() * 1.2 });
+          const end = p.clone().add(new THREE.Vector3(Math.cos(b) * (2.2 + rnd() * 1.6) * u, (1.6 + rnd() * 2.2) * u, Math.sin(b) * (2.2 + rnd() * 1.6) * u));
+          limb(p, end, r1 * 0.8, 0.05 * u);
+          tips.push({ p: end, r: (2.1 + rnd() * 1.2) * u });
         }
       }
-      if (s === 2 || s === 3) tips.push({ p: p.clone().add(new THREE.Vector3(0, 1.2, 0)), r: 2.4 + rnd() * 1.2 });
+      if (s === 2) tips.push({ p: p.clone().add(new THREE.Vector3(0, 1.2 * u, 0)), r: (2.4 + rnd() * 1.2) * u });
       prev = p;
     }
-    tips.push({ p: prev.clone().add(new THREE.Vector3(0, 0.8, 0)), r: 2.8 + rnd() * 1.2 });
+    tips.push({ p: prev.clone().add(new THREE.Vector3(0, 0.8 * u, 0)), r: (2.8 + rnd() * 1.2) * u });
   }
-  tips.push({ p: new THREE.Vector3(0, trunkH + 4.5, 0), r: 3.8 });
+  tips.push({ p: new THREE.Vector3(0, trunkH + 4.5 * u, 0), r: 3.8 * u });
   finish(g, woodGeos, vcMaterial(0.95, "bark"));
 
-  // 叶团：枝梢处的不规则团块，向外 / 向上渐亮
-  const tones = [0x4a8a52, 0x3f7d4f, 0x56994f, 0x356b43, 0x62a050, 0x468a4a, 0x6aa656];
   const leafGeos: THREE.BufferGeometry[] = [];
-  for (const { p, r: baseR } of tips) {
-    const r = baseR * 1.0;
-    for (let k = 0; k < 4; k++) {
-      const col = new THREE.Color(tones[Math.floor(rnd() * tones.length)]).offsetHSL((rnd() - 0.5) * 0.04, 0, (rnd() - 0.5) * 0.07);
+  const tmp = { m: new THREE.Matrix4(), q: new THREE.Quaternion(), e: new THREE.Euler(), c: new THREE.Color() };
+  for (const { p, r } of tips) {
+    for (let k = 0; k < o.blobsPerTip; k++) {
+      const col = new THREE.Color(LEAF_TONES[Math.floor(rnd() * LEAF_TONES.length)]).offsetHSL((rnd() - 0.5) * 0.04, 0, (rnd() - 0.5) * 0.07).multiplyScalar(1.35);
       const spread = k === 0 ? 0 : r * 0.85;
-      const jitter = new THREE.Vector3((rnd() - 0.5) * spread, (rnd() - 0.3) * spread * 0.6, (rnd() - 0.5) * spread);
-      const rr = r * (k === 0 ? 0.78 : 0.34 + rnd() * 0.3);
-      leafGeos.push(bake(organicBlob(Math.floor(rnd() * 5) + 1, 2, 0.38), mat4(p.x + jitter.x, p.y + jitter.y, p.z + jitter.z, rr * 1.1, rr * 0.8, rr, rnd() * 3, rnd() * 6, rnd() * 3), col, (y, ny) => (0.5 + 0.5 * THREE.MathUtils.clamp(0.5 + 0.5 * ny, 0, 1)) * (0.93 + 0.1 * Math.sin(y * 19.3 + k))));
+      const jx = (rnd() - 0.5) * spread;
+      const jy = (rnd() - 0.3) * spread * 0.6;
+      const jz = (rnd() - 0.5) * spread;
+      const rr = r * (k === 0 ? o.blobScale : 0.34 + rnd() * 0.3);
+      leafGeos.push(withConstUV(bake(organicBlob(Math.floor(rnd() * 5) + 1, o.blobDetail, 0.38), mat4(p.x + jx, p.y + jy, p.z + jz, rr * 1.1, rr * 0.8, rr, rnd() * 3, rnd() * 6, rnd() * 3), col, (y, ny) => (0.5 + 0.5 * THREE.MathUtils.clamp(0.5 + 0.5 * ny, 0, 1)) * (0.93 + 0.1 * Math.sin(y * 19.3 + k)))));
+    }
+    for (let k = 0; k < o.cardsPerTip; k++) {
+      const dir = new THREE.Vector3(rnd() - 0.5, rnd() - 0.3, rnd() - 0.5).normalize();
+      const pos = p.clone().addScaledVector(dir, r * 1.05 * (0.65 + rnd() * 0.55));
+      const size = (o.cardSize[0] + rnd() * (o.cardSize[1] - o.cardSize[0])) * u;
+      leafGeos.push(leafCard(pos, size, rnd, dir.y, tmp));
     }
   }
-  finish(g, leafGeos, vcMaterial(0.86, "leaf"));
-  g.add(leafCardCloud(tips, rnd));
+  finish(g, leafGeos, getFoliageMaterial());
   return g;
 }
+
+/** 阔叶树：板根主干 + 放射分枝 + 枝梢叶团与叶片卡片 */
+export function createTree(scale = 1): THREE.Group {
+  return buildBroadleaf({ u: 0.2 * scale, limbs: 4, segs: 3, forkFrom: 3, roots: 3, blobsPerTip: 1, blobDetail: 2, blobScale: 0.6, cardsPerTip: 72, cardSize: [1.5, 2.8], seed: Math.floor(scale * 10000) + 77 });
+}
+
+/** 远古巨树（单元 3 记忆树）：尺寸直接按米给出，枝叶更密 */
+export function createAncientTree(): THREE.Group {
+  return buildBroadleaf({ u: 1, limbs: 8, segs: 4, forkFrom: 2, roots: 8, blobsPerTip: 4, blobDetail: 2, blobScale: 0.78, cardsPerTip: 40, cardSize: [1.7, 3.3], seed: 4411 });
+}
+
 let leafTexture: THREE.CanvasTexture | undefined;
 /** 叶丛贴图：一簇带叶脉的叶片喷射状散开，透明底（alphaTest 裁切） */
 function getLeafTexture(): THREE.CanvasTexture {
@@ -456,33 +440,6 @@ function getLeafTexture(): THREE.CanvasTexture {
   return leafTexture;
 }
 
-/** 树冠外层的叶片卡片云：实例化，随机朝向，写入每实例明暗，让轮廓出现真实的碎叶与透光 */
-function leafCardCloud(tips: Array<{ p: THREE.Vector3; r: number }>, rnd: () => number): THREE.InstancedMesh {
-  const count = 4200;
-  const mat = new THREE.MeshStandardMaterial({ map: getLeafTexture(), alphaTest: 0.5, side: THREE.DoubleSide, roughness: 0.85, metalness: 0 });
-  const mesh = new THREE.InstancedMesh(new THREE.PlaneGeometry(1, 1), mat, count);
-  const dummy = new THREE.Object3D();
-  const tone = new THREE.Color();
-  for (let i = 0; i < count; i++) {
-    const { p, r } = tips[Math.floor(rnd() * tips.length)];
-    const dir = new THREE.Vector3(rnd() - 0.5, rnd() - 0.35, rnd() - 0.5).normalize();
-    dummy.position.copy(p).addScaledVector(dir, r * 1.45 * (0.8 + rnd() * 0.45));
-    dummy.rotation.set(rnd() * Math.PI, rnd() * Math.PI * 2, rnd() * Math.PI);
-    const s = 1.7 + rnd() * 1.6;
-    dummy.scale.set(s, s, s);
-    dummy.updateMatrix();
-    mesh.setMatrixAt(i, dummy.matrix);
-    const light = 0.62 + 0.55 * THREE.MathUtils.clamp((dummy.position.y - 6) / 20, 0, 1) * (0.7 + rnd() * 0.3);
-    tone.setHSL(0.26 + (rnd() - 0.5) * 0.05, 0.5, 0.36 * light + 0.08);
-    mesh.setColorAt(i, tone.multiplyScalar(1.6));
-  }
-  mesh.instanceMatrix.needsUpdate = true;
-  if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
-  mesh.castShadow = false;
-  mesh.receiveShadow = true;
-  mesh.frustumCulled = false;
-  return mesh;
-}
 /** 针叶松：七层下垂的锯齿枝裙（边缘起伏、底部更暗），合并为 2 个网格 */
 export function createPine(scale = 1): THREE.Group {
   const g = new THREE.Group();
@@ -493,6 +450,7 @@ export function createPine(scale = 1): THREE.Group {
 
   const layers = 7;
   const leafGeos: THREE.BufferGeometry[] = [];
+  const pineTmp = { m: new THREE.Matrix4(), q: new THREE.Quaternion(), e: new THREE.Euler(), c: new THREE.Color() };
   for (let i = 0; i < layers; i++) {
     const t = i / (layers - 1);
     const radius = (1.35 - t * 0.95) * s;
@@ -510,9 +468,16 @@ export function createPine(scale = 1): THREE.Group {
     }
     cone.computeVertexNormals();
     const col = new THREE.Color(0x24543d).offsetHSL((rnd() - 0.5) * 0.02, 0, (rnd() - 0.5) * 0.05);
-    leafGeos.push(bake(cone, mat4(0, (1.05 + t * 2.6) * s, 0, radius, height, radius, 0, rnd() * Math.PI, 0), col, (y) => 0.55 + 0.45 * (y / 1.0 + 0.5)));
+    leafGeos.push(withConstUV(bake(cone, mat4(0, (1.05 + t * 2.6) * s, 0, radius * 0.92, height, radius * 0.92, 0, rnd() * Math.PI, 0), col, (y) => 0.55 + 0.45 * (y / 1.0 + 0.5))));
+    // 针叶簇：沿枝裙边缘向外下垂的卡片，打碎锥形轮廓
+    for (let k = 0; k < 34; k++) {
+      const ang = rnd() * Math.PI * 2;
+      const rr = radius * (0.35 + rnd() * 0.7);
+      const ph = (1.05 + t * 2.6) * s - height * 0.5 * (rr / radius) + height * 0.5 + (rnd() - 0.5) * height * 0.2;
+      leafGeos.push(leafCard(new THREE.Vector3(Math.cos(ang) * rr, ph - height * (rr / radius) * 0.55, Math.sin(ang) * rr), (0.5 + rnd() * 0.45) * s, rnd, -0.4, pineTmp, [0.38, 0.45, 0.2, 1.5]));
+    }
   }
-  finish(g, leafGeos, vcMaterial(0.82, "pine"));
+  finish(g, leafGeos, getFoliageMaterial());
   return g;
 }
 
@@ -523,14 +488,19 @@ export function createBush(scale = 1): THREE.Group {
   const tones = [0x3f7448, 0x4a8553, 0x35643f, 0x56915a, 0x6b9446];
   const geos: THREE.BufferGeometry[] = [];
   const count = 6 + Math.floor(rnd() * 3);
+  const bushTmp = { m: new THREE.Matrix4(), q: new THREE.Quaternion(), e: new THREE.Euler(), c: new THREE.Color() };
   for (let i = 0; i < count; i++) {
     const r = (0.3 + rnd() * 0.3) * scale;
     const a = rnd() * Math.PI * 2;
     const d = Math.sqrt(rnd()) * 0.55 * scale;
     const col = new THREE.Color(tones[Math.floor(rnd() * tones.length)]).offsetHSL(0, 0, (rnd() - 0.5) * 0.05);
-    geos.push(bake(organicBlob(Math.floor(rnd() * 3) + 1, 2, 0.24), mat4(Math.cos(a) * d, r * 0.78, Math.sin(a) * d, r * 1.1, r * 0.82, r, rnd() * 3, rnd() * 6, 0), col, (_y, ny) => 0.6 + 0.4 * THREE.MathUtils.clamp(0.5 + 0.5 * ny, 0, 1)));
+    geos.push(withConstUV(bake(organicBlob(Math.floor(rnd() * 3) + 1, 2, 0.24), mat4(Math.cos(a) * d, r * 0.7, Math.sin(a) * d, r * 0.9, r * 0.7, r * 0.84, rnd() * 3, rnd() * 6, 0), col.multiplyScalar(1.25), (_y, ny) => 0.6 + 0.4 * THREE.MathUtils.clamp(0.5 + 0.5 * ny, 0, 1))));
+    for (let k = 0; k < 16; k++) {
+      const dir = new THREE.Vector3(rnd() - 0.5, rnd() - 0.25, rnd() - 0.5).normalize();
+      geos.push(leafCard(new THREE.Vector3(Math.cos(a) * d, r * 0.7, Math.sin(a) * d).addScaledVector(dir, r * (0.8 + rnd() * 0.4)), (0.28 + rnd() * 0.22) * scale, rnd, dir.y, bushTmp, [0.27, 0.5, 0.34, 2.0]));
+    }
   }
-  finish(g, geos, vcMaterial(0.9, "bush"));
+  finish(g, geos, getFoliageMaterial());
   if (rnd() > 0.6) {
     const berryGeos: THREE.BufferGeometry[] = [];
     const berry = new THREE.SphereGeometry(0.035 * scale, 6, 5);

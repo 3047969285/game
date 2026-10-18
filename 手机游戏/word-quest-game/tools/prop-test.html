@@ -31,7 +31,7 @@ put(createPine(1.2), 11, 0);
 put(createBush(1.2), -10, 2);
 put(createRock(1.2), -12, -1);
 const cam = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 500);
-cam.position.set(1, 5, 16);
-cam.lookAt(1, 2.2, 0);
+cam.position.set(0, 6, 30);
+cam.lookAt(0, 2.4, 0);
 r.setAnimationLoop(() => r.render(s, cam));
 </script>
