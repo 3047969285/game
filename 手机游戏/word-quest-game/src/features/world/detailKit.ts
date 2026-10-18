@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { mergeGeometries, mergeVertices } from "three/addons/utils/BufferGeometryUtils.js";
+import { applyKitPattern } from "./kitShader";
 
 /**
  * 建筑细节工具箱：倒角体块、圆台、细杆、拱、八边形台阶，
@@ -243,7 +244,7 @@ export function createKitMaterials(): KitMaterials {
     mat.fog = false;
     return mat;
   };
-  return {
+  const mats = {
     stone: std(0xb9b3a6, 0.9),
     stoneDark: std(0x8a867d, 0.92),
     stoneWarm: std(0xc9bda6, 0.9),
@@ -269,4 +270,14 @@ export function createKitMaterials(): KitMaterials {
       return g;
     })(),
   };
+  applyKitPattern(mats.stone, "masonry");
+  applyKitPattern(mats.stoneDark, "masonry");
+  applyKitPattern(mats.stoneWarm, "masonry");
+  applyKitPattern(mats.paveA, "paving");
+  applyKitPattern(mats.paveB, "paving");
+  applyKitPattern(mats.wood, "wood");
+  applyKitPattern(mats.woodDark, "wood");
+  applyKitPattern(mats.terracottaRoof, "tiles");
+  applyKitPattern(mats.slate, "tiles");
+  return mats;
 }

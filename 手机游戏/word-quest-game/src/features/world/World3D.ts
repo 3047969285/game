@@ -4,6 +4,7 @@ import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
 import { Reflector } from "three/addons/objects/Reflector.js";
 import type { MapNode, WordPickup } from "../../core/types";
@@ -317,6 +318,26 @@ export class World3D {
       const bloom = new UnrealBloomPass(new THREE.Vector2(w * bs, h * bs), 0.62, 0.5, 0.78);
       composer.addPass(bloom);
       composer.addPass(new OutputPass());
+      // 调色：在输出空间做 S 曲线对比、分离色调（暗部偏冷 / 亮部偏暖）、饱和度与暗角，统一画面质感
+      composer.addPass(new ShaderPass({
+        uniforms: { tDiffuse: { value: null } },
+        vertexShader: `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+        fragmentShader: `
+          uniform sampler2D tDiffuse;
+          varying vec2 vUv;
+          void main() {
+            vec3 c = texture2D(tDiffuse, vUv).rgb;
+            float l = dot(c, vec3(0.2126, 0.7152, 0.0722));
+            c = mix(vec3(l), c, 1.12);
+            c = mix(c, c * c * (3.0 - 2.0 * c), 0.32);
+            c += vec3(-0.012, 0.0, 0.016) * (1.0 - l) + vec3(0.02, 0.008, -0.014) * l * 0.6;
+            vec2 q = vUv - 0.5;
+            float vig = smoothstep(0.92, 0.28, length(q * vec2(1.0, 1.12)));
+            c *= mix(0.78, 1.0, vig);
+            gl_FragColor = vec4(clamp(c, 0.0, 1.0), 1.0);
+          }
+        `,
+      }));
 
       composer.setPixelRatio(Math.min(window.devicePixelRatio, this.qcfg.pixelRatio));
       composer.setSize(w, h);

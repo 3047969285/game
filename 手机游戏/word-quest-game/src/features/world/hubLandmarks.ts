@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { MergedBuilder, boxGeo, createKitMaterials, cylGeo, gableGeo, prismGeo, strutGeo, rng, type KitMaterials } from "./detailKit";
 import { createAncientTree } from "./props";
+import { addExchangeDetail, addHarborDetail, addLaunchDetail, addMemoryTreeDetail, addTempleDetail } from "./hubDetail";
 
 /**
  * 单元 2–6 中枢（圣所之外的"单元主题建筑"）：港口档案馆、记忆古树、思想神殿、发射场、交易广场。
@@ -190,6 +191,7 @@ export function buildHarborHub(
       kit.add(boxGeo(0.8, 0.7, 0.8, 0.04), m.wood, { x, y: 1.68, z: 28.2 + rand() * 1.4, ry: rand() * 3 });
     }
   }
+  addHarborDetail(kit, m, rand);
   kit.build(root, "harbor-hub", { isLandscapeStage: true });
 
   // 发光件
@@ -273,6 +275,7 @@ export function buildMemoryTreeHub(glow: THREE.MeshStandardMaterial, edge: THREE
     const a = rand() * Math.PI * 2;
     kit.add(new THREE.DodecahedronGeometry(0.7 + rand() * 0.9, 1), m.rock, { x: Math.cos(a) * (11 + rand() * 4), y: 0.4, z: 38 + Math.sin(a) * (11 + rand() * 4), sy: 0.7, ry: rand() * 3 });
   }
+  root.add(addMemoryTreeDetail(kit, m, rand, glow));
   kit.build(root, "memory-tree-ring", { isLandscapeStage: true });
   for (const x of [-31, 31]) {
     const ring = new THREE.Mesh(new THREE.TorusGeometry(4, 0.16, 8, 48), edge);
@@ -330,6 +333,7 @@ export function buildIdeaTempleHub(glow: THREE.MeshStandardMaterial, edge: THREE
     kit.add(cylGeo(0.5, 0.2, 1.1, 14), m.brass, { x: s * 3.4, y: floor, z: cz - 8.2 });
     kit.add(cylGeo(0.75, 0.5, 0.35, 16), m.brass, { x: s * 3.4, y: floor + 1.1, z: cz - 8.2 });
   }
+  root.add(addTempleDetail(kit, m, rng(404)));
   kit.build(root, "idea-temple", { isLandscapeStage: true });
 
   // 山花浮雕：发光圆徽
@@ -452,6 +456,7 @@ export function buildLaunchComplex(glow: THREE.MeshStandardMaterial, edge: THREE
     kit.add(strutGeo([-1.4, padTop + 2.8, cz + 10.5], [-1.4, padTop + 5.2, cz + 10.5], 0.05, 6), m.steel);
     kit.add(new THREE.SphereGeometry(0.9, 20, 8, 0, Math.PI * 2, 0, Math.PI / 3), white, { x: -2.2, y: padTop + 5.0, z: cz + 10.5, rx: -0.9 });
   }
+  if (withGantry) addLaunchDetail(kit, m);
   kit.build(root, "launch-complex", { isLandscapeStage: true });
 
   // 动画件：鼻锥信标 + 双轨道环
@@ -522,6 +527,7 @@ export function buildExchangeHub(
     for (let i = -3; i <= 3; i++) kit.add(boxGeo(7.5, 0.08, 0.12, 0.01), m.brass, { y: 5.0 + i * 0.7 - 1.3, z: lz - 1.85 });
     kit.add(boxGeo(13, 0.4, 0.4, 0.05), m.brass, { y: 10.3, z: lz - 3.7 });
   }
+  root.add(addExchangeDetail(kit, m, opts, rand));
   kit.build(root, "exchange-hub", { isLandscapeStage: true });
 
   if (opts.ledger) {

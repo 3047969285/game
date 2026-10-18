@@ -346,7 +346,7 @@ export function createAncientTree(): THREE.Group {
   const tones = [0x4a8a52, 0x3f7d4f, 0x56994f, 0x356b43, 0x62a050, 0x468a4a, 0x6aa656];
   const leafGeos: THREE.BufferGeometry[] = [];
   for (const { p, r: baseR } of tips) {
-    const r = baseR * 1.45;
+    const r = baseR * 1.0;
     for (let k = 0; k < 4; k++) {
       const col = new THREE.Color(tones[Math.floor(rnd() * tones.length)]).offsetHSL((rnd() - 0.5) * 0.04, 0, (rnd() - 0.5) * 0.07);
       const spread = k === 0 ? 0 : r * 0.85;
@@ -356,7 +356,74 @@ export function createAncientTree(): THREE.Group {
     }
   }
   finish(g, leafGeos, vcMaterial(0.86, "leaf"));
+  g.add(leafCardCloud(tips, rnd));
   return g;
+}
+let leafTexture: THREE.CanvasTexture | undefined;
+/** 叶丛贴图：一簇带叶脉的叶片喷射状散开，透明底（alphaTest 裁切） */
+function getLeafTexture(): THREE.CanvasTexture {
+  if (leafTexture) return leafTexture;
+  const size = 256;
+  const c = document.createElement("canvas");
+  c.width = c.height = size;
+  const g = c.getContext("2d")!;
+  const rnd = seededRand(8821);
+  for (let i = 0; i < 16; i++) {
+    g.save();
+    g.translate(size / 2 + (rnd() - 0.5) * 26, size * 0.62 + (rnd() - 0.5) * 30);
+    g.rotate((rnd() - 0.5) * Math.PI * 1.6);
+    const len = 60 + rnd() * 46;
+    const wid = 15 + rnd() * 10;
+    const tone = 0.62 + rnd() * 0.38;
+    const grad = g.createLinearGradient(0, 0, len, 0);
+    grad.addColorStop(0, `rgb(${Math.round(74 * tone)},${Math.round(120 * tone)},${Math.round(52 * tone)})`);
+    grad.addColorStop(1, `rgb(${Math.round(150 * tone)},${Math.round(190 * tone)},${Math.round(84 * tone)})`);
+    g.fillStyle = grad;
+    g.beginPath();
+    g.moveTo(0, 0);
+    g.quadraticCurveTo(len * 0.5, -wid, len, 0);
+    g.quadraticCurveTo(len * 0.5, wid, 0, 0);
+    g.fill();
+    g.strokeStyle = "rgba(40,70,30,0.55)";
+    g.lineWidth = 1.2;
+    g.beginPath();
+    g.moveTo(0, 0);
+    g.lineTo(len * 0.92, 0);
+    g.stroke();
+    g.restore();
+  }
+  leafTexture = new THREE.CanvasTexture(c);
+  leafTexture.colorSpace = THREE.SRGBColorSpace;
+  leafTexture.anisotropy = 4;
+  return leafTexture;
+}
+
+/** 树冠外层的叶片卡片云：实例化，随机朝向，写入每实例明暗，让轮廓出现真实的碎叶与透光 */
+function leafCardCloud(tips: Array<{ p: THREE.Vector3; r: number }>, rnd: () => number): THREE.InstancedMesh {
+  const count = 4200;
+  const mat = new THREE.MeshStandardMaterial({ map: getLeafTexture(), alphaTest: 0.5, side: THREE.DoubleSide, roughness: 0.85, metalness: 0 });
+  const mesh = new THREE.InstancedMesh(new THREE.PlaneGeometry(1, 1), mat, count);
+  const dummy = new THREE.Object3D();
+  const tone = new THREE.Color();
+  for (let i = 0; i < count; i++) {
+    const { p, r } = tips[Math.floor(rnd() * tips.length)];
+    const dir = new THREE.Vector3(rnd() - 0.5, rnd() - 0.35, rnd() - 0.5).normalize();
+    dummy.position.copy(p).addScaledVector(dir, r * 1.45 * (0.8 + rnd() * 0.45));
+    dummy.rotation.set(rnd() * Math.PI, rnd() * Math.PI * 2, rnd() * Math.PI);
+    const s = 1.7 + rnd() * 1.6;
+    dummy.scale.set(s, s, s);
+    dummy.updateMatrix();
+    mesh.setMatrixAt(i, dummy.matrix);
+    const light = 0.62 + 0.55 * THREE.MathUtils.clamp((dummy.position.y - 6) / 20, 0, 1) * (0.7 + rnd() * 0.3);
+    tone.setHSL(0.26 + (rnd() - 0.5) * 0.05, 0.5, 0.36 * light + 0.08);
+    mesh.setColorAt(i, tone.multiplyScalar(1.6));
+  }
+  mesh.instanceMatrix.needsUpdate = true;
+  if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+  mesh.castShadow = false;
+  mesh.receiveShadow = true;
+  mesh.frustumCulled = false;
+  return mesh;
 }
 /** 针叶松：七层下垂的锯齿枝裙（边缘起伏、底部更暗），合并为 2 个网格 */
 export function createPine(scale = 1): THREE.Group {

@@ -87,7 +87,8 @@ export function applySurfaceGrain(root: THREE.Object3D, strength = 1): void {
              }`
           );
       };
-      std.customProgramCacheKey = () => "grain";
+      const prevKey = std.customProgramCacheKey();
+      std.customProgramCacheKey = () => `grain+${prevKey}`;
       std.needsUpdate = true;
     }
   });
