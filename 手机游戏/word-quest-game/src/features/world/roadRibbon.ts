@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { fbm } from "./utils";
+import { applyCobblePattern } from "./kitShader";
 
 /**
  * 贴地道路：沿曲线生成带路拱、两侧路缘与碎石渐变的带状网格，
@@ -40,6 +41,7 @@ export function buildRoadRibbon(
   const p = new THREE.Vector3();
   const t = new THREE.Vector3();
   const c = new THREE.Color();
+  const grassEdge = new THREE.Color(0x4f7a38);
 
   for (let i = 0; i <= opts.steps; i++) {
     const u = i / opts.steps;
@@ -55,6 +57,13 @@ export function buildRoadRibbon(
       positions.push(x, opts.groundY(x, z) + lift, z);
       const speck = 0.88 + 0.24 * fbm(x * 1.7, z * 1.7, 2);
       c.copy(base).multiplyScalar(tone * speck);
+      // 车辙：路面两侧 ±0.5 半宽处略暗；路缘外侧被草侵蚀，边界不规则
+      const rut = 1 - 0.14 * Math.exp(-Math.pow((Math.abs(off) - half * 0.5) / (half * 0.18), 2));
+      c.multiplyScalar(rut);
+      if (Math.abs(off) > half) {
+        const overgrown = 0.4 + 0.5 * fbm(x * 0.9 + 40, z * 0.9 + 12, 2);
+        c.lerp(grassEdge, Math.min(0.95, overgrown * ((Math.abs(off) - half) / 0.55 + 0.35)));
+      }
       colors.push(c.r, c.g, c.b);
     }
     if (i > 0) {
@@ -70,10 +79,9 @@ export function buildRoadRibbon(
   geo.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
   geo.setIndex(indices);
   geo.computeVertexNormals();
-  const road = new THREE.Mesh(
-    geo,
-    new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, roughness: 0.96, metalness: 0.02, side: THREE.DoubleSide })
-  );
+  const roadMat = new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, roughness: 0.96, metalness: 0.02, side: THREE.DoubleSide });
+  applyCobblePattern(roadMat);
+  const road = new THREE.Mesh(geo, roadMat);
   road.receiveShadow = true;
   group.add(road);
 

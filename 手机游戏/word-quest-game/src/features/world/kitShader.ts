@@ -109,3 +109,65 @@ export function applyKitPattern(mat: THREE.MeshStandardMaterial, kind: KitPatter
   mat.customProgramCacheKey = () => `kit-${kind}`;
   mat.needsUpdate = true;
 }
+
+/**
+ * 鹅卵石 / 碎石路面（Voronoi 圆顶石块）：石块间的缝隙变暗变粗糙，石面微隆，
+ * 世界空间图案，不依赖 UV，适合沿曲线铺设的路带。
+ */
+export function applyCobblePattern(mat: THREE.MeshStandardMaterial, scale = 5.5): void {
+  mat.onBeforeCompile = (shader) => {
+    shader.vertexShader = "varying vec3 vCobWorld;\n" + shader.vertexShader.replace(
+      "#include <begin_vertex>",
+      `#include <begin_vertex>
+       vCobWorld = (modelMatrix * vec4(transformed, 1.0)).xyz;`
+    );
+    shader.fragmentShader = `
+      varying vec3 vCobWorld;
+      float cHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+      vec3 cVor(vec2 p) {
+        vec2 i = floor(p), f = fract(p);
+        float d1 = 8.0, d2 = 8.0, id = 0.0;
+        for (int y = -1; y <= 1; y++) for (int x = -1; x <= 1; x++) {
+          vec2 g = vec2(float(x), float(y));
+          vec2 o = vec2(cHash(i + g), cHash(i + g + 19.3));
+          vec2 r = g + o - f;
+          float d = dot(r, r);
+          if (d < d1) { d2 = d1; d1 = d; id = cHash(i + g + 7.7); }
+          else if (d < d2) { d2 = d; }
+        }
+        return vec3(sqrt(d1), sqrt(d2), id);
+      }
+      float cDome(vec2 p) { vec3 v = cVor(p); return smoothstep(0.0, 0.3, v.y - v.x); }
+    ` + shader.fragmentShader
+      .replace(
+        "#include <color_fragment>",
+        `#include <color_fragment>
+         float cGap = 0.0;
+         {
+           vec3 v = cVor(vCobWorld.xz * ${scale.toFixed(2)});
+           float edge = v.y - v.x;
+           cGap = 1.0 - smoothstep(0.03, 0.16, edge);
+           diffuseColor.rgb *= (0.78 + v.z * 0.42) * (1.0 - cGap * 0.5);
+         }`
+      )
+      .replace("#include <roughnessmap_fragment>", `#include <roughnessmap_fragment>\n roughnessFactor = mix(roughnessFactor, 1.0, cGap);`)
+      .replace(
+        "#include <normal_fragment_maps>",
+        `#include <normal_fragment_maps>
+         {
+           float cFade = 1.0 - smoothstep(20.0, 70.0, length(vViewPosition));
+           if (cFade > 0.01) {
+             vec2 q = vCobWorld.xz * ${scale.toFixed(2)};
+             const float cE = 0.03;
+             float h0 = cDome(q);
+             vec2 gr = vec2(cDome(q + vec2(cE, 0.0)) - h0, cDome(q + vec2(0.0, cE)) - h0) / cE;
+             vec3 gv = mat3(viewMatrix) * vec3(gr.x, 0.0, gr.y);
+             gv -= normal * dot(gv, normal);
+             normal = normalize(normal - gv * 0.09 * cFade);
+           }
+         }`
+      );
+  };
+  mat.customProgramCacheKey = () => `cobble-${scale}`;
+  mat.needsUpdate = true;
+}

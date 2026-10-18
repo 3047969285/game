@@ -19,19 +19,21 @@ export function createMountainRing(opts: {
   const rnd = seededRand(opts.seed ?? 7);
   const geos: THREE.BufferGeometry[] = [];
   const v = new THREE.Vector3();
-  const rock = new THREE.Color(0x4a5568);
-  const rockWarm = new THREE.Color(0x5b5a5e);
-  const forest = new THREE.Color(0x2c4a3c);
+  const rock = new THREE.Color(0x6a7482);
+  const rockWarm = new THREE.Color(0x7b766f);
+  const forest = new THREE.Color(0x3b6648);
   const snowC = new THREE.Color(0xe9f1fb);
   const c = new THREE.Color();
 
-  for (let i = 0; i < opts.count; i++) {
-    const a = (i / opts.count) * Math.PI * 2 + (rnd() - 0.5) * 0.18;
-    const r = opts.ringRadius + rnd() * 40;
+  // 两层山脉：近层高耸，远层更低更宽、颜色靠雾色（大气透视由材质雾强化）
+  const layers = [{ mul: 1, hMul: 1, radMul: 1, n: opts.count }, { mul: 1.32, hMul: 0.72, radMul: 1.35, n: Math.round(opts.count * 1.3) }];
+  for (const layer of layers) for (let i = 0; i < layer.n; i++) {
+    const a = (i / layer.n) * Math.PI * 2 + (rnd() - 0.5) * 0.18;
+    const r = opts.ringRadius * layer.mul + rnd() * 40;
     const x = Math.cos(a) * r;
     const z = Math.sin(a) * r + opts.originZ;
-    const h = 46 + rnd() * 82;
-    const rad = 34 + rnd() * 48;
+    const h = (46 + rnd() * 82) * layer.hMul;
+    const rad = (34 + rnd() * 48) * layer.radMul;
     const seed = rnd() * 100;
 
     const cone = new THREE.ConeGeometry(1, 1, 40, 22, true);
@@ -81,10 +83,19 @@ export function createMountainRing(opts: {
 
   const merged = mergeGeometries(geos, false);
   if (merged) {
-    const mesh = new THREE.Mesh(
-      merged,
-      new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, roughness: 1, metalness: 0, side: THREE.DoubleSide, fog: true })
-    );
+    const mat = new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, roughness: 1, metalness: 0, side: THREE.DoubleSide, fog: true });
+    // 远山大气透视：把雾强度放大数倍，让山体向天空雾色渐隐
+    mat.onBeforeCompile = (shader) => {
+      shader.fragmentShader = shader.fragmentShader.replace(
+        "#include <fog_fragment>",
+        `#ifdef USE_FOG
+          float mFog = 1.0 - exp(-fogDensity * fogDensity * vFogDepth * vFogDepth * 5.5);
+          gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor, clamp(mFog, 0.0, 0.93));
+        #endif`
+      );
+    };
+    mat.customProgramCacheKey = () => "mountain-haze";
+    const mesh = new THREE.Mesh(merged, mat);
     mesh.castShadow = false;
     mesh.receiveShadow = false;
     group.add(mesh);

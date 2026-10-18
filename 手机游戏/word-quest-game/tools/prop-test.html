@@ -4,7 +4,7 @@
 <style>html,body{margin:0;background:#111}canvas{display:block}</style>
 <script type="module">
 import * as THREE from "three";
-import { createTree, createPine, createBush, createRock } from "/src/features/world/props.ts";
+import { createTree, createPine, createBush, createRock, createFlower, createReed, createFallenLog } from "/src/features/world/props.ts";
 const r = new THREE.WebGLRenderer({ antialias: true });
 r.setSize(innerWidth, innerHeight);
 r.toneMapping = THREE.ACESFilmicToneMapping;
@@ -30,8 +30,15 @@ put(createTree(1.1), 6, 0);
 put(createPine(1.2), 11, 0);
 put(createBush(1.2), -10, 2);
 put(createRock(1.2), -12, -1);
+put(createRock(2), -16, 2);
+put(createFlower(1.4), -3, 6);
+put(createFlower(1.4), -2, 7);
+put(createReed(1.5), 4, 6);
+put(createFallenLog(1.4), 8, 6);
 const cam = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 500);
-cam.position.set(0, 6, 30);
-cam.lookAt(0, 2.4, 0);
+const close = new URLSearchParams(location.search).get("p") === "close";
+const cx = +(new URLSearchParams(location.search).get("x") ?? -1);
+cam.position.set(close ? cx : 0, close ? 1.4 : 6, close ? 10.5 : 30);
+cam.lookAt(close ? cx : 0, close ? 0.4 : 2.4, close ? 6 : 0);
 r.setAnimationLoop(() => r.render(s, cam));
 </script>
