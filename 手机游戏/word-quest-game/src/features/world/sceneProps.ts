@@ -1,3 +1,4 @@
+import { getFoliageMaterial, shrubCardGeometries } from "./props";
 import * as THREE from "three";
 import { MergedBuilder, boxGeo, createKitMaterials, cylGeo, gableGeo, strutGeo, type KitMaterials } from "./detailKit";
 
@@ -275,6 +276,8 @@ export function planter(k: SceneKit, f: Frame, r = 0.5, seed = 5): void {
     f.ball(rand() > 0.5 ? k.m.leaf : k.m.leafLight, r * (0.28 + rand() * 0.14), Math.cos(a) * d, 0.62 + rand() * 0.1, Math.sin(a) * d, 1, 0.85, 1);
   }
   f.ball(k.m.leafLight, r * 0.36, 0, 0.82, 0, 1, 0.9, 1);
+  const fm = getFoliageMaterial();
+  for (const g of shrubCardGeometries(seed * 13 + 5, r * 0.75, 30)) f.put(g, fm, 0, 0.72, 0);
 }
 
 /** 路灯 */

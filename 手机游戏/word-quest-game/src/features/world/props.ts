@@ -254,7 +254,7 @@ export function trunkGeometry(height: number, base: number, top: number, color: 
 const FOLIAGE_SOLID_UV = 0.02;
 
 /** 给无 UV 的团块几何写入常量 UV（指向叶贴图左上角的实心色块），与叶片卡片共用同一材质 */
-function withConstUV(geo: THREE.BufferGeometry): THREE.BufferGeometry {
+export function withConstUV(geo: THREE.BufferGeometry): THREE.BufferGeometry {
   const n = geo.attributes.position.count;
   const uv = new Float32Array(n * 2);
   for (let i = 0; i < n; i++) {
@@ -266,7 +266,7 @@ function withConstUV(geo: THREE.BufferGeometry): THREE.BufferGeometry {
 }
 
 let foliageMat: THREE.MeshStandardMaterial | undefined;
-function getFoliageMaterial(): THREE.MeshStandardMaterial {
+export function getFoliageMaterial(): THREE.MeshStandardMaterial {
   if (!foliageMat) {
     foliageMat = new THREE.MeshStandardMaterial({ map: getLeafTexture(), alphaTest: 0.5, vertexColors: true, side: THREE.DoubleSide, roughness: 0.86, metalness: 0.02 });
   }
@@ -277,7 +277,7 @@ const UP = new THREE.Vector3(0, 1, 0);
 const LEAF_TONES = [0x4a8a52, 0x3f7d4f, 0x56994f, 0x356b43, 0x62a050, 0x468a4a, 0x6aa656];
 
 /** 叶片卡片：单个带顶点色的四边形，按位置 / 朝向 / 尺寸摆好 */
-function leafCard(p: THREE.Vector3, size: number, rnd: () => number, up: number, tmp: { m: THREE.Matrix4; q: THREE.Quaternion; e: THREE.Euler; c: THREE.Color }, tint: [number, number, number, number] = [0.26, 0.5, 0.36, 2.1]): THREE.BufferGeometry {
+export function leafCard(p: THREE.Vector3, size: number, rnd: () => number, up: number, tmp: { m: THREE.Matrix4; q: THREE.Quaternion; e: THREE.Euler; c: THREE.Color }, tint: [number, number, number, number] = [0.26, 0.5, 0.36, 2.1]): THREE.BufferGeometry {
   tmp.e.set(rnd() * Math.PI, rnd() * Math.PI * 2, rnd() * Math.PI);
   tmp.q.setFromEuler(tmp.e);
   tmp.m.compose(p, tmp.q, new THREE.Vector3(size, size, size));
@@ -770,4 +770,15 @@ export function wildflowerGeometry(): THREE.BufferGeometry {
   geos.push(bake(leaf, placeYX(0, 0.07, 0, 0.6, 0.4), new THREE.Color(0.22, 0.4, 0.14)));
   geos.push(bake(leaf, placeYX(0, 0.1, 0, 3.5, 0.4), new THREE.Color(0.22, 0.4, 0.14)));
   return mergeGeometries(geos, false)!;
+}
+/** 供场景道具复用：一丛灌木 / 花坛植物的叶片卡片几何（单位球半径 1，中心在原点）*/
+export function shrubCardGeometries(seed: number, radius: number, count = 26): THREE.BufferGeometry[] {
+  const rnd = seededRand(seed);
+  const tmp = { m: new THREE.Matrix4(), q: new THREE.Quaternion(), e: new THREE.Euler(), c: new THREE.Color() };
+  const out: THREE.BufferGeometry[] = [];
+  for (let i = 0; i < count; i++) {
+    const dir = new THREE.Vector3(rnd() - 0.5, rnd() * 0.7 - 0.1, rnd() - 0.5).normalize();
+    out.push(leafCard(dir.multiplyScalar(radius * (0.45 + rnd() * 0.6)), radius * (0.5 + rnd() * 0.4), rnd, dir.y, tmp, [0.27, 0.5, 0.34, 2.0]));
+  }
+  return out;
 }
