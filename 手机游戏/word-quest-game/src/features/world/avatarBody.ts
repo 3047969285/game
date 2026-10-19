@@ -49,22 +49,22 @@ function withFaceColors(geo: THREE.BufferGeometry): THREE.BufferGeometry {
 export function headGeometry(q = 1): THREE.BufferGeometry {
   const sdf: SDF = (x, y, z) => {
     const ax = Math.abs(x);
-    let d = sdEllipsoid(ax, y, z, 0, 0.215, -0.012, 0.077, 0.088, 0.093); // 颅
-    d = smin(d, sdEllipsoid(ax, y, z, 0, 0.183, 0.024, 0.066, 0.08, 0.07), 0.04); // 面部
-    d = smin(d, sdCone(ax, y, z, 0.052, 0.142, -0.016, 0, 0.098, 0.056, 0.029, 0.023), 0.03); // 下颌到下巴
-    d = smin(d, sdSphere(ax, y, z, 0, 0.093, 0.058, 0.023), 0.02); // 下巴
+    let d = sdEllipsoid(ax, y, z, 0, 0.217, -0.018, 0.078, 0.09, 0.098); // 颅（后脑更饱满）
+    d = smin(d, sdEllipsoid(ax, y, z, 0, 0.183, 0.02, 0.066, 0.08, 0.068), 0.045); // 面部
+    d = smin(d, sdCone(ax, y, z, 0.046, 0.144, -0.014, 0, 0.098, 0.058, 0.025, 0.021), 0.03); // 下颌到下巴
+    d = smin(d, sdSphere(ax, y, z, 0, 0.094, 0.06, 0.0215), 0.02); // 下巴
     d = smin(d, sdSphere(ax, y, z, 0.052, 0.176, 0.046, 0.024), 0.03); // 颧骨
-    d = smin(d, sdEllipsoid(ax, y, z, 0.042, 0.152, 0.048, 0.02, 0.022, 0.016), 0.03); // 脸颊
+    d = smin(d, sdEllipsoid(ax, y, z, 0.04, 0.155, 0.048, 0.017, 0.02, 0.014), 0.03); // 脸颊
     d = smin(d, sdCone(ax, y, z, 0, 0.212, 0.078, 0.046, 0.207, 0.069, 0.0115, 0.0105), 0.02); // 眉弓
     // 鼻：鼻梁 + 鼻头 + 鼻翼
     d = smin(d, sdCone(ax, y, z, 0, 0.206, 0.082, 0, 0.166, 0.096, 0.0075, 0.0095), 0.012);
-    d = smin(d, sdSphere(ax, y, z, 0, 0.159, 0.1, 0.0112), 0.01);
+    d = smin(d, sdSphere(ax, y, z, 0, 0.159, 0.097, 0.0108), 0.01);
     d = smin(d, sdSphere(ax, y, z, 0.0105, 0.155, 0.092, 0.0075), 0.008);
     // 颈
-    d = smin(d, sdCone(ax, y, z, 0, 0.12, -0.012, 0, 0.0, -0.004, 0.047, 0.053), 0.045);
+    d = smin(d, sdCone(ax, y, z, 0, 0.12, -0.016, 0, 0.0, -0.004, 0.041, 0.05), 0.045);
     d = smin(d, sdSphere(ax, y, z, 0, 0.07, 0.04, 0.009), 0.02); // 喉结
     // 耳
-    d = smin(d, sdEllipsoid(ax, y, z, 0.077, 0.192, -0.01, 0.008, 0.031, 0.019), 0.01);
+    d = smin(d, sdEllipsoid(ax, y, z, 0.0775, 0.191, -0.012, 0.0085, 0.034, 0.022), 0.012);
     // 唇：上唇（人中弓形）+ 下唇
     d = smin(d, sdCone(ax, y, z, 0, 0.1285, 0.0835, 0.019, 0.1255, 0.077, 0.0065, 0.0058), 0.006);
     d = smin(d, sdCone(ax, y, z, 0, 0.1135, 0.0795, 0.015, 0.1155, 0.074, 0.0078, 0.0066), 0.006);
@@ -73,7 +73,9 @@ export function headGeometry(q = 1): THREE.BufferGeometry {
     d = smax(d, -sdSphere(ax, y, z, 0.0066, 0.149, 0.097, 0.0042), 0.003);
     d = smax(d, -sdEllipsoid(ax, y, z, 0, 0.1212, 0.082, 0.021, 0.0013, 0.013), 0.002);
     d = smax(d, -sdCone(ax, y, z, 0, 0.14, 0.098, 0, 0.13, 0.092, 0.0018, 0.0018), 0.002);
-    // 眼睑：上睑皱褶与下睑（在眼窝挖空之后加回，包住眼球上下缘）
+    d = smin(d, sdSphere(ax, y, z, 0.05, 0.14, -0.012, 0.017), 0.03); // 下颌角（咬肌）
+    d = smin(d, sdCone(ax, y, z, 0.044, 0.125, -0.032, 0.02, 0.0, 0.016, 0.017, 0.016), 0.03); // 胸锁乳突肌
+    d = smax(d, -sdEllipsoid(ax, y, z, 0.085, 0.19, -0.008, 0.008, 0.02, 0.011), 0.006); // 耳甲腔    // 眼睑：上睑皱褶与下睑（在眼窝挖空之后加回，包住眼球上下缘）
     d = smin(d, sdEllipsoid(ax, y, z, 0.034, 0.2135, 0.0745, 0.0165, 0.0065, 0.0115), 0.006);
     d = smin(d, sdEllipsoid(ax, y, z, 0.034, 0.1865, 0.0745, 0.0155, 0.004, 0.01), 0.005);    return d;
   };
@@ -132,7 +134,8 @@ function jacketField(x: number, y: number, z: number): number {
   d = smin(d, sdEllipsoid(ax, y, z, 0.065, 1.31, 0.026, 0.08, 0.065, 0.075), 0.05); // 胸肌隆起
   d = smin(d, sdEllipsoid(ax, y, z, 0, 1.14, 0.0, 0.14, 0.17, 0.092), 0.06); // 腰腹
   d = smin(d, sdEllipsoid(ax, y, z, 0, 0.97, -0.004, 0.155, 0.13, 0.108), 0.06); // 髋臀
-  d = smin(d, sdCone(ax, y, z, 0, 1.475, 0, 0.17, 1.462, -0.004, 0.05, 0.054), 0.075); // 肩线（更圆润的斜肩）
+  d = smin(d, sdCone(ax, y, z, 0.03, 1.518, -0.012, 0.188, 1.452, -0.002, 0.064, 0.054), 0.085); // 斜方肌 → 肩峰的斜坡
+  d = smin(d, sdEllipsoid(ax, y, z, 0.2, 1.445, 0.0, 0.06, 0.062, 0.066), 0.05); // 三角肌肩头（与袖子衔接）
   d = smin(d, sdCone(ax, y, z, 0, 1.47, -0.02, 0, 1.54, -0.02, 0.095, 0.058), 0.07); // 斜方肌到颈根
   d = smin(d, sdTorus(ax, y, z, 0, 1.525, 0.0, 0.074, 0.026), 0.02); // 立领
   // 胸前口袋盖
@@ -172,6 +175,7 @@ export function zipperGeometry(): THREE.BufferGeometry {
 export function upperSleeveGeometry(q = 1): THREE.BufferGeometry {
   const sdf: SDF = (x, y, z) => {
     let d = sdCone(x, y, z, 0, 0.0, 0, 0, -0.28, 0, 0.056, 0.046);
+    d = smin(d, sdSphere(x, y, z, 0, 0.005, 0, 0.062), 0.03); // 肩头球：摆臂时与躯干肩部连续
     d = smin(d, sdEllipsoid(x, y, z, 0.004, -0.045, 0, 0.058, 0.08, 0.06), 0.04); // 三角肌
     d = smin(d, sdEllipsoid(x, y, z, 0, -0.13, 0.011, 0.048, 0.09, 0.046), 0.03); // 肱二头肌
     const ang = Math.atan2(z, x);
@@ -240,4 +244,56 @@ export function bootGeometry(q = 1): THREE.BufferGeometry {
     return d;
   };
   return meshFromSDF(sdf, [0, -0.36, 0.04], 0.21, Math.max(24, Math.round(80 * q)), { boundR: 0.28 });
+}
+
+/** 头发：包裹颅骨的连续发体（前发际线、耳后让位、后颈收口、额前几缕斜刘海），发束沟槽 + 顶点色明暗 */
+export function hairGeometry(q = 1, style: "short" | "long" = "short"): THREE.BufferGeometry {
+  const long = style === "long";
+  const clamp01 = (v: number): number => Math.min(1, Math.max(0, v));
+  const locks: Array<[number, number, number, number, number, number]> = [
+    [-0.045, 0.262, 0.066, -0.052, 0.236, 0.086],
+    [-0.025, 0.264, 0.07, -0.032, 0.232, 0.091],
+    [-0.004, 0.266, 0.072, 0.012, 0.234, 0.093],
+    [0.02, 0.265, 0.07, 0.038, 0.236, 0.09],
+    [0.042, 0.262, 0.066, 0.058, 0.24, 0.083],
+  ];
+  const sdf: SDF = (x, y, z) => {
+    const ax = Math.abs(x);
+    let d = sdEllipsoid(ax, y, z, 0, 0.221, -0.018, 0.0855, 0.099, 0.106);
+    d = smin(d, sdEllipsoid(ax, y, z, 0, 0.205, -0.055, 0.078, 0.088, 0.07), 0.02);
+    if (long) d = smin(d, sdCone(ax, y, z, 0, 0.17, -0.078, 0, -0.04, -0.09, 0.072, 0.06), 0.05);
+    // 前发际线：额头中央高、两鬓低
+    const hl = 0.262 - 0.05 * (ax / 0.08) * (ax / 0.08);
+    const w = clamp01((z + 0.01) / 0.03);
+    d = smax(d, (hl - y) * w - (1 - w) * 0.5, 0.014);
+    // 耳朵让位 + 后颈收口
+    d = smax(d, -sdEllipsoid(ax, y, z, 0.079, 0.191, -0.012, 0.022, 0.044, 0.034), 0.01);
+    d = smax(d, (long ? -0.07 : 0.158) - y, 0.014);
+    // 额前斜刘海
+    for (const l of locks) {
+      d = smin(d, sdCone(x, y, z, l[0], l[1], l[2], l[3], l[4], l[5], 0.0075, 0.0035), 0.006);
+    }
+    // 发束沟槽
+    const phi = Math.atan2(x, z);
+    d += 0.0012 * Math.sin(phi * 80 + Math.sin(y * 45) * 2.2);
+    return d;
+  };
+  const center: [number, number, number] = long ? [0, 0.1, -0.04] : [0, 0.19, -0.015];
+  const geo = meshFromSDF(sdf, center, long ? 0.24 : 0.15, Math.max(24, Math.round(80 * q)), { boundR: long ? 0.3 : 0.2 });
+  const p = geo.attributes.position;
+  const col = new Float32Array(p.count * 3);
+  for (let i = 0; i < p.count; i++) {
+    const x = p.getX(i);
+    const y = p.getY(i);
+    const z = p.getZ(i);
+    const phi = Math.atan2(x, z);
+    const strand = Math.sin(phi * 70 + Math.sin(y * 45) * 2.2) * 0.5 + 0.5;
+    const lock = Math.sin(phi * 9 + y * 22) * 0.5 + 0.5;
+    const tone = 0.55 + strand * 0.45 + lock * 0.25 + Math.max(0, y - 0.28) * 2.2; // 头顶更亮（高光）
+    col[i * 3] = 0.075 * tone;
+    col[i * 3 + 1] = 0.05 * tone;
+    col[i * 3 + 2] = 0.034 * tone;
+  }
+  geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
+  return geo;
 }

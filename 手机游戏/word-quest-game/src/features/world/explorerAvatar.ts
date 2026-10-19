@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { MergedBuilder, type Placement } from "./detailKit";
-import { bootGeometry, gearGeometry, zipperGeometry, handGeometry, handGeometryFor, headGeometry, jacketGeometry, lowerSleeveGeometry, shinGeometry, thighGeometry, upperSleeveGeometry } from "./avatarBody";
+import { hairGeometry, bootGeometry, gearGeometry, zipperGeometry, handGeometry, handGeometryFor, headGeometry, jacketGeometry, lowerSleeveGeometry, shinGeometry, thighGeometry, upperSleeveGeometry } from "./avatarBody";
 import { mirrorX } from "./sdf";
 import { seededRand } from "./utils";
 
@@ -153,7 +153,7 @@ function createMats(): Mats {
     boot: applySurface(std(0x6b4a30, 0.6, 0.05), "leather"),
     sole: std(0x1b1815, 0.9),
     hair: new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, roughness: 0.42, metalness: 0.15, side: THREE.DoubleSide }),
-    brow: std(0x241812, 0.7),
+    brow: std(0x3a281c, 0.7),
     trim: std(0xc9a24a, 0.4, 0.75, { emissive: 0x5a3a08, emissiveIntensity: 0.18 }),
     scarf: applySurface(std(0x9c3a2e, 0.9, 0, { side: THREE.DoubleSide }), "fabric"),
     brass: applySurface(std(0xb68a3c, 0.34, 0.85), "metal"),
@@ -267,132 +267,6 @@ function makeEye(m: Mats, side: 1 | -1): THREE.Mesh {
   return eye;
 }
 
-/** 单根发丝带：沿受重力 / 头型约束的路径，根部宽尖端细，顶点色从发根渐变到发梢 */
-function hairRibbon(root: THREE.Vector3, normal: THREE.Vector3, dir0: THREE.Vector3, len: number, w0: number, rnd: () => number, tone: number): THREE.BufferGeometry {
-  const segs = 7;
-  const pts: THREE.Vector3[] = [root.clone()];
-  const dir = dir0.clone().normalize();
-  let p = root.clone();
-  const center = new THREE.Vector3(0, 0.207, -0.012);
-  for (let k = 1; k <= segs; k++) {
-    p = p.clone().addScaledVector(dir, len / segs);
-    // 约束：不进入头部椭球内（略大于头皮半径）
-    const rel = p.clone().sub(center);
-    const e = Math.sqrt((rel.x / 0.097) ** 2 + (rel.y / 0.117) ** 2 + (rel.z / 0.108) ** 2);
-    if (e < 1) rel.multiplyScalar(1 / Math.max(0.2, e));
-    p = center.clone().add(rel);
-    dir.add(new THREE.Vector3((rnd() - 0.5) * 0.12, -0.34, -0.06)).normalize();
-    pts.push(p.clone());
-  }
-  const pos: number[] = [];
-  const col: number[] = [];
-  const idx: number[] = [];
-  const c = new THREE.Color();
-  for (let k = 0; k <= segs; k++) {
-    const t = k / segs;
-    const tangent = (k < segs ? pts[k + 1].clone().sub(pts[k]) : pts[k].clone().sub(pts[k - 1])).normalize();
-    const side = new THREE.Vector3().crossVectors(tangent, normal).normalize();
-    const hw = (w0 * (1 - t * 0.82)) / 2;
-    const a = pts[k].clone().addScaledVector(side, -hw);
-    const b = pts[k].clone().addScaledVector(side, hw);
-    pos.push(a.x, a.y, a.z, b.x, b.y, b.z);
-    c.setRGB(0.07 + tone * 0.05 + t * 0.08, 0.045 + tone * 0.035 + t * 0.05, 0.03 + tone * 0.02 + t * 0.03);
-    col.push(c.r, c.g, c.b, c.r, c.g, c.b);
-    if (k > 0) {
-      const i = (k - 1) * 2;
-      idx.push(i, i + 2, i + 1, i + 1, i + 2, i + 3);
-    }
-  }
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
-  geo.setAttribute("color", new THREE.Float32BufferAttribute(col, 3));
-  geo.setIndex(idx);
-  geo.computeVertexNormals();
-  return geo;
-}
-
-/** 现代短发：发壳（沿经线刻出发束沟槽，发际线前高后低）+ 两鬓短发 + 额前短刘海 */
-export function buildHair(style: "short" | "long" = "short", segs = 112): THREE.BufferGeometry {
-  const rnd = seededRand(2031);
-  const geos: THREE.BufferGeometry[] = [];
-  const center = new THREE.Vector3(0, 0.207, -0.012);
-  const R = new THREE.Vector3(0.086, 0.099, 0.105);
-  const cap = new THREE.SphereGeometry(1, segs, Math.round(segs * 0.64));
-  const cp = cap.attributes.position;
-  const keep: number[] = [];
-  const ci = cap.index!;
-  const centroid = new THREE.Vector3();
-  const vtmp = new THREE.Vector3();
-  const hairline = (x: number): number => 0.36 + 0.34 * Math.abs(x);
-  for (let i = 0; i < ci.count; i += 3) {
-    centroid.set(0, 0, 0);
-    for (let k = 0; k < 3; k++) centroid.add(vtmp.fromBufferAttribute(cp, ci.getX(i + k)));
-    centroid.multiplyScalar(1 / 3).normalize();
-    const earZone = Math.abs(centroid.x) > 0.74 && centroid.y > -0.4 && centroid.y < 0.32 && centroid.z > -0.35 && centroid.z < 0.6;
-    const hidden = earZone || centroid.y < -0.5 || (centroid.z > 0.45 && centroid.y < hairline(centroid.x));
-    if (!hidden) keep.push(ci.getX(i), ci.getX(i + 1), ci.getX(i + 2));
-  }
-  cap.setIndex(keep);
-  const colors = new Float32Array(cp.count * 3);
-  for (let i = 0; i < cp.count; i++) {
-    vtmp.fromBufferAttribute(cp, i).normalize();
-    const phi = Math.atan2(vtmp.x, vtmp.z);
-    const theta = Math.acos(THREE.MathUtils.clamp(vtmp.y, -1, 1));
-    const strand = Math.sin(phi * 58 + Math.sin(theta * 4 + phi * 3) * 2.2) * 0.5 + 0.5;
-    const lock = Math.sin(phi * 8 + theta * 2.4) * 0.5 + 0.5;
-    const edgeFront = vtmp.z > 0.05 ? THREE.MathUtils.smoothstep(vtmp.y - hairline(vtmp.x), 0.0, 0.1) : 1;
-    const edgeLow = THREE.MathUtils.smoothstep(vtmp.y + 0.5, 0.0, 0.16);
-    const clip = Math.min(edgeFront, edgeLow);
-    const r = THREE.MathUtils.lerp(0.84, 1.05 + 0.012 * strand + 0.012 * lock, clip);
-    cp.setXYZ(i, vtmp.x * r * R.x, vtmp.y * r * R.y, vtmp.z * r * R.z);
-    const tone = 0.55 + strand * 0.5 + lock * 0.25;
-    colors[i * 3] = 0.075 * tone;
-    colors[i * 3 + 1] = 0.05 * tone;
-    colors[i * 3 + 2] = 0.034 * tone;
-  }
-  cap.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-  cap.deleteAttribute("uv");
-  cap.computeVertexNormals();
-  cap.translate(center.x, center.y, center.z);
-  geos.push(cap);
-  // 刘海：短而自然，向两侧斜扫，止于眉上
-  for (let i = 0; i < 15; i++) {
-    const s = (i / 14 - 0.5) * 2;
-    const u = new THREE.Vector3(s * 0.62, 0.84 + (1 - Math.abs(s)) * 0.05, 0.4 + (1 - Math.abs(s)) * 0.1).normalize();
-    const root = center.clone().add(new THREE.Vector3(u.x * R.x * 1.05, u.y * R.y * 1.05, u.z * R.z * 1.05));
-    const dir = new THREE.Vector3(s * 0.7 + (Math.abs(s) < 0.1 ? 0.3 : 0), -0.42, 0.42).normalize();
-    geos.push(hairRibbon(root, u, dir, 0.066 + rnd() * 0.02, 0.02 + rnd() * 0.008, rnd, rnd()));
-  }
-  // 鬓角与后颈短发
-  for (const side of [-1, 1]) {
-    const u = new THREE.Vector3(side * 0.95, 0.18, -0.05).normalize();
-    const root = center.clone().add(new THREE.Vector3(u.x * R.x * 1.03, u.y * R.y * 1.03, u.z * R.z * 1.03));
-    geos.push(hairRibbon(root, u, new THREE.Vector3(side * 0.08, -1, 0.05).normalize(), 0.05, 0.026, rnd, 0.4));
-  }
-  for (let i = 0; i < 12; i++) {
-    const phi = Math.PI + (i / 11 - 0.5) * 1.6;
-    const theta = Math.PI * 0.62;
-    const u = new THREE.Vector3(Math.sin(theta) * Math.sin(phi), Math.cos(theta), Math.sin(theta) * Math.cos(phi));
-    const root = center.clone().add(new THREE.Vector3(u.x * R.x * 1.03, u.y * R.y * 1.03, u.z * R.z * 1.03));
-    geos.push(hairRibbon(root, u, new THREE.Vector3(u.x * 0.1, -1, -0.1).normalize(), 0.05 + rnd() * 0.02, 0.028, rnd, rnd()));
-  }
-  if (style === "long") {
-    // 长发：脑后与两侧垂到肩背的宽发束
-    let made = 0;
-    let guard = 0;
-    while (made < 46 && guard++ < 2000) {
-      const phi = rnd() * Math.PI * 2;
-      const theta = Math.PI * (0.5 + rnd() * 0.2);
-      const u = new THREE.Vector3(Math.sin(theta) * Math.sin(phi), Math.cos(theta), Math.sin(theta) * Math.cos(phi));
-      if (u.z > 0.0 || (u.z > -0.3 && Math.abs(u.x) < 0.7)) continue;
-      const root = center.clone().add(new THREE.Vector3(u.x * R.x * 1.03, u.y * R.y * 1.03, u.z * R.z * 1.03));
-      geos.push(hairRibbon(root, u, new THREE.Vector3(u.x * 0.2, -1, u.z * 0.2 - 0.12).normalize(), 0.2 + rnd() * 0.12, 0.034 + rnd() * 0.016, rnd, rnd()));
-      made++;
-    }
-  }
-  return mergeGeometries(geos, false)!;
-}
-
 function buildHead(m: Mats, rig: { eyeL?: THREE.Mesh; eyeR?: THREE.Mesh; brow?: THREE.Mesh; mouth?: THREE.Mesh }): { head: THREE.Group; browY: number; mouthY: number } {
   const head = group(0, 1.5, 0);
 
@@ -411,8 +285,8 @@ function buildHead(m: Mats, rig: { eyeL?: THREE.Mesh; eyeR?: THREE.Mesh; brow?: 
       new THREE.Vector3(s * 0.052, 0.002, 0.0),
       new THREE.Vector3(s * 0.062, -0.005, -0.006),
     ]);
-    const tube = new THREE.TubeGeometry(curve, 10, 0.0038, 6, false);
-    tube.scale(1, 0.8, 0.6);
+    const tube = new THREE.TubeGeometry(curve, 10, 0.0032, 6, false);
+    tube.scale(1, 0.7, 0.55);
     browGeos.push(tube);
   }
   const browY = 0.2165;
@@ -429,7 +303,7 @@ function buildHead(m: Mats, rig: { eyeL?: THREE.Mesh; eyeR?: THREE.Mesh; brow?: 
   mouth.scale.set(1, 1, 0.6);
   mouth.position.set(0, mouthY, 0.0875);
 
-  const hair = new THREE.Mesh(buildHair(), m.hair);
+  const hair = new THREE.Mesh(hairGeometry(), m.hair);
   hair.castShadow = true;
   head.add(eyeL, eyeR, brow, mouth, hair);
   rig.eyeL = eyeL;

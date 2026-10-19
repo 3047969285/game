@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { bakeGroupByMaterial } from "./detailKit";
 import { bootGeometry, handGeometry, handGeometryFor, headGeometry, jacketGeometry, lowerSleeveGeometry, shinGeometry, thighGeometry, upperSleeveGeometry } from "./avatarBody";
-import { buildHair } from "./explorerAvatar";
+import { hairGeometry } from "./avatarBody";
 import { mirrorX } from "./sdf";
 
 /**
@@ -49,7 +49,7 @@ const Q = 0.4;
 function parts(): NonNullable<typeof lod> {
   lod ??= {
     head: headGeometry(Q),
-    hair: { short: buildHair("short", 48), long: buildHair("long", 48) },
+    hair: { short: hairGeometry(Q, "short"), long: hairGeometry(Q, "long") },
     jacket: jacketGeometry(Q),
     upper: upperSleeveGeometry(Q),
     lower: lowerSleeveGeometry(Q),
