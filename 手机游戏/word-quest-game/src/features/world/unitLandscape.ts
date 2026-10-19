@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import type { MapNode } from "../../core/types";
 import type { UnitBiome } from "./unitBiome";
 import { buildUnit1Sanctuary } from "./unit1Sanctuary";
@@ -8,6 +9,7 @@ import { buildPortalTrim, buildSignFrame } from "./portalTrim";
 import { SCENE_MODULES } from "./scenes";
 import { LAB_SCENES } from "./scenes/labs";
 import { upgradeGeometry } from "./geometryUpgrade";
+import { applyFoliageShadow, foliageClumpGeometry, getFoliageMaterial } from "./props";
 import { buildSignalMasts, buildStudyStations } from "./stations";
 import { buildExchangeHub, buildHarborHub, buildIdeaTempleHub, buildLaunchComplex, buildMemoryTreeHub } from "./hubLandmarks";
 
@@ -712,10 +714,15 @@ function addPassageSceneLandmark(
       for (const x of [-6.35, 6.35]) {
         cylinder(x, 1.43, 27.65, 0.48, 0.46, courtyardWood, 8);
         cylinder(x, 2.75, 27.65, 0.1, 2.55, libraryTrim, 8);
-        for (const [dx, y, scale] of [[-0.34, 3.55, 0.72], [0.28, 3.82, 0.8], [0, 4.38, 0.72]] as const) {
-          const crown = add(new THREE.DodecahedronGeometry(scale, 0), ground, x + dx, y, 27.65);
-          crown.userData.isLandscapeStage = true;
-        }
+        // 树冠：三团叶片卡片（原先是三个实心十二面体），合并成一个网格
+        const crownParts = ([[-0.34, 3.55, 0.72], [0.28, 3.82, 0.8], [0, 4.38, 0.72]] as const).map(([dx, y, scale], ci) =>
+          foliageClumpGeometry(61 + ci + (x > 0 ? 7 : 0), scale * 0.82, 110).translate(dx, y, 0)
+        );
+        const crown = add(mergeGeometries(crownParts, false)!, getFoliageMaterial(), x, 0, 27.65);
+        for (const part of crownParts) part.dispose();
+        crown.castShadow = true;
+        applyFoliageShadow(crown, getFoliageMaterial());
+        crown.userData.isLandscapeStage = true;
       }
 
       const courtyardLight = new THREE.PointLight(0xffd79b, 0.72, 16, 2);
@@ -738,7 +745,6 @@ function addPassageSceneLandmark(
         opacity: 0.28,
         depthWrite: false,
       });
-      const courtyardLeaf = new THREE.MeshStandardMaterial({ color: 0x728d69, roughness: 0.94 });
       type StaticPlacement = {
         position: [number, number, number];
         rotation?: [number, number, number];
@@ -814,11 +820,13 @@ function addPassageSceneLandmark(
       addStaticInstances(new THREE.CylinderGeometry(0.103, 0.12, 1.8, 7), roomTimber, [-3.35, 0, 3.35].map((x) => ({
         position: [x, 2.12, 21.55],
       })));
-      addStaticInstances(new THREE.DodecahedronGeometry(1.08, 1), courtyardLeaf, [
-        { position: [-3.35, 3.55, 21.55], scale: [1.18, 0.9, 0.72] },
-        { position: [0, 3.95, 21.55], scale: [1.18, 0.9, 0.72] },
-        { position: [3.35, 3.6, 21.55], scale: [1.18, 0.9, 0.72] },
+      const courtyardCrowns = addStaticInstances(foliageClumpGeometry(83, 0.95, 150), getFoliageMaterial(), [
+        { position: [-3.35, 3.55, 21.55], scale: [1.18, 0.9, 0.78], rotation: [0, 0.4, 0] },
+        { position: [0, 3.95, 21.55], scale: [1.18, 0.9, 0.78], rotation: [0, 2.1, 0] },
+        { position: [3.35, 3.6, 21.55], scale: [1.18, 0.9, 0.78], rotation: [0, 4.0, 0] },
       ]);
+      courtyardCrowns.castShadow = true;
+      applyFoliageShadow(courtyardCrowns, getFoliageMaterial());
       box(0, 1.56, 20.35, 5.2, 0.28, 0.52, roomTrim);
       addStaticInstances(new THREE.BoxGeometry(0.16, 0.62, 0.4), roomTimber, [-2.1, 2.1].map((x) => ({
         position: [x, 1.33, 20.35],
@@ -988,7 +996,6 @@ function addPassageSceneLandmark(
       const stone = new THREE.MeshStandardMaterial({ color: 0x8d9085, roughness: 0.92 });
       const inlay = new THREE.MeshStandardMaterial({ color: 0x6f7771, roughness: 0.86 });
       const timber = new THREE.MeshStandardMaterial({ color: 0x765b45, roughness: 0.88 });
-      const foliage = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.94 });
       const soil = new THREE.MeshStandardMaterial({ color: 0x4c4939, roughness: 1 });
       const paper = new THREE.MeshStandardMaterial({ color: 0xece3cf, roughness: 0.96 });
 
@@ -1082,23 +1089,22 @@ function addPassageSceneLandmark(
       gardenTrunks.userData.isLandscapeStage = true;
       root.add(gardenTrunks);
 
-      const gardenCanopies = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(0.48, 1), foliage, 6);
+      const gardenCanopies = new THREE.InstancedMesh(foliageClumpGeometry(97, 0.44, 70), getFoliageMaterial(), 6);
+      gardenCanopies.castShadow = true;
+      applyFoliageShadow(gardenCanopies, getFoliageMaterial());
       const canopyMatrix = new THREE.Matrix4();
       const canopyPosition = new THREE.Vector3();
       const canopyScale = new THREE.Vector3();
-      const canopyColors = [0x607a62, 0x8da079, 0x708a6a, 0x708a6a, 0x8da079, 0x607a62];
       for (const [index, [x, z]] of [
         [-4.05, 26.42], [-4.05, 27.12], [-4.05, 27.78],
         [4.05, 26.42], [4.05, 27.12], [4.05, 27.78],
       ].entries()) {
         canopyPosition.set(x, 3.05 + (index % 2) * 0.2, z);
         canopyScale.set(1.1, 0.94 + (index % 2) * 0.14, 0.96);
-        canopyMatrix.compose(canopyPosition, new THREE.Quaternion(), canopyScale);
+        canopyMatrix.compose(canopyPosition, new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), index * 1.3), canopyScale);
         gardenCanopies.setMatrixAt(index, canopyMatrix);
-        gardenCanopies.setColorAt(index, new THREE.Color(canopyColors[index]));
       }
       gardenCanopies.instanceMatrix.needsUpdate = true;
-      if (gardenCanopies.instanceColor) gardenCanopies.instanceColor.needsUpdate = true;
       gardenCanopies.computeBoundingSphere();
       gardenCanopies.name = "echo-garden-canopies";
       gardenCanopies.userData.isLandscapeStage = true;

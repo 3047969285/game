@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { archFrameGeo } from "../detailKit";
-import { createPine, createTree } from "../props";
+import { createPine, createRock, createTree, foliageClumpGeometry, getFoliageMaterial } from "../props";
+import { getRockMaterial } from "../rockMaterial";
 import * as props from "../sceneProps";
 import { SCENE_SCALE, STAGE_Y, addBeacon, addCanvasPlane, createStage, finishStage, makeRouteMap, makeSignTexture, placePerson, worldXZ, type SceneModule } from "./context";
 
@@ -130,7 +131,8 @@ export const detourScene: SceneModule = (ctx) => {
   trail(s, [[-4.8, 2.6], [-2.4, 2.4], [0, 1.8]], m.paveA, 0.9, 0.6);
   // 滑落的岩石堆
   for (const [x, z, r] of [[-0.5, 1.4, 0.85], [0.5, 1.8, 0.7], [0.1, 0.8, 0.6], [1.2, 1.1, 0.5], [-1.1, 0.9, 0.45]] as const) {
-    f.put(new THREE.DodecahedronGeometry(r, 1), m.rock, x, r * 0.6, z, x, z, 0, 1.2, 0.8, 1);
+    const sc = r / 0.62;
+    f.put(createRock(1 + Math.abs(x * 0.37 + z * 0.19)).geometry, getRockMaterial(), x, -0.03 * sc, z, 0, x * 3 + z, 0, sc * 1.1, sc * 0.95, sc);
   }
   for (let i = 0; i < 18; i++) f.put(new THREE.DodecahedronGeometry(0.08 + (i % 4) * 0.03, 0), m.stoneDark, -1.6 + (i % 6) * 0.65, 0.06, 0.6 + Math.floor(i / 6) * 0.5, i, i * 2, 0);
   // 警示栏：红白相间横杆 + 立柱 + 告示牌
@@ -208,7 +210,7 @@ export const reflectionGardenScene: SceneModule = (ctx) => {
     f.box(m.stoneDark, w, 0.35 + (3 - i) * 0.3, 0.7, 0, 0, z, 0.04);
     f.box(m.soil, w - 0.2, 0.05, 0.5, 0, 0.33 + (3 - i) * 0.3, z, 0.01);
     for (let j = 0; j < Math.floor(w / 0.6); j++) {
-      f.ball(j % 2 ? m.leafLight : m.leaf, 0.2 + (j % 3) * 0.04, -w / 2 + 0.4 + j * 0.6, 0.55 + (3 - i) * 0.3, z, 1, 0.8, 1);
+      f.put(foliageClumpGeometry(31 + i * 17 + j, 0.2 + (j % 3) * 0.04 + 0.06, 16), getFoliageMaterial(), -w / 2 + 0.4 + j * 0.6, 0.55 + (3 - i) * 0.3, z, 0, j * 1.7, 0, 1, 0.85, 1);
     }
   }
   // 倒影池 + 汀步 + 睡莲

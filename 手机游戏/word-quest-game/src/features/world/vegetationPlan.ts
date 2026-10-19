@@ -180,7 +180,7 @@ export function planVegetation(input: VegetationPlanInput): VegetationInstance[]
         kind,
         variant: Math.min(VARIANTS_PER_KIND - 1, Math.floor(r6 * VARIANTS_PER_KIND)),
         x,
-        y: kind === "rock" ? gy + 0.15 * scale : gy,
+        y: kind === "rock" ? gy - 0.04 * scale : gy, // 岩石底面落在 y=0，略埋入地面
         z,
         scale,
         rotY: r7 * Math.PI * 2,

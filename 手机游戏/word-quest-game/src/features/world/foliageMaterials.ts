@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { generateBarkTexture, generateFoliageAtlas, type RGBA8Image } from "./foliageTextures";
+import { disposeRockResources } from "./rockMaterial";
 
 /**
  * 植被共享材质：叶片（图集 + 法线 + alpha 镂空 + 逆光透射 + 风）与树皮（程序纹理 + 整树摆动）。
@@ -161,6 +162,7 @@ export function getFoliageMaterial(): THREE.MeshStandardMaterial {
     shader.fragmentShader = shader.fragmentShader.replace("#include <common>", `#include <common>\n${TRANSLUCENCY_PARS}`).replace("#include <emissivemap_fragment>", `#include <emissivemap_fragment>\n${TRANSLUCENCY_FRAGMENT}`);
   };
   mat.customProgramCacheKey = () => "foliage-wind-v2";
+  mat.userData.shared = true;
   foliageMat = mat;
   registerShadowMaterials(mat, "foliage");
   return mat;
@@ -182,6 +184,7 @@ export function getBarkMaterial(kind: "broadleaf" | "conifer"): THREE.MeshStanda
   });
   mat.onBeforeCompile = (shader) => patchWindVertex(shader);
   mat.customProgramCacheKey = () => "bark-wind-v1";
+  mat.userData.shared = true;
   barkMats[kind] = mat;
   registerShadowMaterials(mat, `bark-${kind}`);
   return mat;
@@ -212,6 +215,7 @@ export function disposeFoliageResources(): void {
     s?.distance.dispose();
     shadowMats.delete(m);
   }
+  disposeRockResources();
   foliageMat = undefined;
   delete barkMats.broadleaf;
   delete barkMats.conifer;

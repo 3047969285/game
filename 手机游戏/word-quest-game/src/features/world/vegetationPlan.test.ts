@@ -52,7 +52,7 @@ describe("planVegetation", () => {
       expect(p.scale).toBeGreaterThanOrEqual(range[p.kind][0]);
       expect(p.scale).toBeLessThanOrEqual(range[p.kind][1]);
       const gy = base.groundY(p.x, p.z);
-      expect(p.y).toBeCloseTo(p.kind === "rock" ? gy + 0.15 * p.scale : gy, 6);
+      expect(p.y).toBeCloseTo(p.kind === "rock" ? gy - 0.04 * p.scale : gy, 6);
     }
     const med = planVegetation({ ...base, quality: "med" });
     for (const k of KINDS) {

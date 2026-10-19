@@ -10,6 +10,7 @@ import {
   strutGeo,
   type Placement,
 } from "./detailKit";
+import { bushParts, foliageClumpGeometry, getFoliageMaterial } from "./props";
 
 /** 把相对某个朝向的局部偏移转换成世界摆放参数 */
 function local(base: { x: number; z: number; ry: number }, lx: number, ly: number, lz: number): Placement {
@@ -140,9 +141,10 @@ export function buildUnit1Sanctuary(glow: THREE.MeshStandardMaterial, edge: THRE
     kit.add(cylGeo(0.12, 0.12, 0.05, 8), m.brass, { x, y: lintelY - 1.87, z: gateZ + 0.45 });
   }
   // 藤蔓：沿石墩攀爬、过梁垂落的叶团
-  const leafGeo = new THREE.IcosahedronGeometry(0.16, 1);
+  const fm = getFoliageMaterial();
+  const leafClumps = [0, 1, 2, 3].map((i) => foliageClumpGeometry(301 + i, 0.17, 9));
   const addLeaf = (x: number, y: number, z: number, s: number): void => {
-    kit.add(leafGeo, rand() > 0.5 ? m.leaf : m.leafLight, { x, y, z, sx: s, sy: s * 0.85, sz: s });
+    kit.add(leafClumps[Math.floor(rand() * leafClumps.length)], fm, { x, y, z, ry: rand() * 6.28, sx: s, sy: s * 0.85, sz: s });
   };
   for (const side of greenery ? [-1, 1] : []) {
     for (let i = 0; i < 26; i++) {
@@ -176,16 +178,10 @@ export function buildUnit1Sanctuary(glow: THREE.MeshStandardMaterial, edge: THRE
     if (!greenery || (Math.abs(cx) < 6.8 && cz > 6)) continue; // 门楼前方留出通道
     kit.add(cylGeo(0.95, 1.05, 0.42, 14), m.stoneDark, { x: cx, y: top + 0.21, z: cz });
     kit.add(cylGeo(0.8, 0.8, 0.05, 14), m.soil, { x: cx, y: top + 0.44, z: cz });
-    for (let k = 0; k < 7; k++) {
-      const b = (k / 7) * Math.PI * 2 + i;
-      kit.add(new THREE.IcosahedronGeometry(0.3, 1), k % 2 ? m.leaf : m.leafLight, {
-        x: cx + Math.cos(b) * 0.38,
-        y: top + 0.72 + (k % 3) * 0.06,
-        z: cz + Math.sin(b) * 0.38,
-        sy: 0.82,
-      });
+    // 修剪过的花坛灌木（写实叶簇 + 细枝）
+    for (const part of bushParts(0.8 + (i % 4) * 0.04, "high")) {
+      kit.add(part.geometry, part.material, { x: cx, y: top + 0.44, z: cz, ry: i * 0.9 });
     }
-    kit.add(new THREE.IcosahedronGeometry(0.4, 1), m.leafLight, { x: cx, y: top + 0.9, z: cz, sy: 0.85 });
   }
 
   kit.build(root, "unit1-sanctuary", { isLandscapeStage: true });

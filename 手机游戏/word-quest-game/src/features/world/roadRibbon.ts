@@ -2,6 +2,36 @@ import * as THREE from "three";
 import { fbm } from "./utils";
 import { applyCobblePattern } from "./kitShader";
 
+/** 路面横截面：路缘外侧 → 路缘 → 路肩 → 路面（含路拱）→ 对称 */
+function roadProfile(half: number): Array<{ off: number; lift: number; tone: number }> {
+  return [
+    { off: -half - 0.55, lift: -0.04, tone: 0.55 },
+    { off: -half - 0.18, lift: 0.1, tone: 0.78 },
+    { off: -half, lift: 0.17, tone: 0.95 },
+    { off: -half * 0.7, lift: 0.09, tone: 1.0 },
+    { off: 0, lift: 0.13, tone: 1.06 },
+    { off: half * 0.7, lift: 0.09, tone: 1.0 },
+    { off: half, lift: 0.17, tone: 0.95 },
+    { off: half + 0.18, lift: 0.1, tone: 0.78 },
+    { off: half + 0.55, lift: -0.04, tone: 0.55 },
+  ];
+}
+
+/** 路带横向偏移 off（米，距中线）处路面相对地形的抬升，与 buildRoadRibbon 的截面一致；石板沿它铺设 */
+export function roadLiftAt(off: number, half: number): number {
+  const prof = roadProfile(half);
+  if (off <= prof[0].off) return prof[0].lift;
+  for (let i = 1; i < prof.length; i++) {
+    if (off <= prof[i].off) {
+      const a = prof[i - 1];
+      const b = prof[i];
+      const t = (off - a.off) / (b.off - a.off || 1);
+      return a.lift + (b.lift - a.lift) * t;
+    }
+  }
+  return prof[prof.length - 1].lift;
+}
+
 /**
  * 贴地道路：沿曲线生成带路拱、两侧路缘与碎石渐变的带状网格，
  * 每个顶点单独采样地形高度，因此随地形起伏而不是一根悬空的管子。
@@ -22,18 +52,7 @@ export function buildRoadRibbon(
   const half = opts.width / 2;
   const base = new THREE.Color(opts.base);
 
-  // 横截面：路缘外侧 → 路缘 → 路肩 → 路面（含路拱）→ 对称
-  const profile: Array<{ off: number; lift: number; tone: number }> = [
-    { off: -half - 0.55, lift: -0.04, tone: 0.55 },
-    { off: -half - 0.18, lift: 0.1, tone: 0.78 },
-    { off: -half, lift: 0.17, tone: 0.95 },
-    { off: -half * 0.7, lift: 0.09, tone: 1.0 },
-    { off: 0, lift: 0.13, tone: 1.06 },
-    { off: half * 0.7, lift: 0.09, tone: 1.0 },
-    { off: half, lift: 0.17, tone: 0.95 },
-    { off: half + 0.18, lift: 0.1, tone: 0.78 },
-    { off: half + 0.55, lift: -0.04, tone: 0.55 },
-  ];
+  const profile = roadProfile(half);
   const cols = profile.length;
   const positions: number[] = [];
   const colors: number[] = [];

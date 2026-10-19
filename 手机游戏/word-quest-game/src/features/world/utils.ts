@@ -101,7 +101,7 @@ export function disposeGroup(group: THREE.Group): void {
   ];
 
   group.traverse((obj) => {
-    if (obj instanceof THREE.InstancedMesh) obj.dispose();
+    if (obj instanceof THREE.InstancedMesh || obj instanceof THREE.BatchedMesh) obj.dispose();
 
     const mesh = obj as THREE.Mesh;
     if (mesh.geometry && !geometries.has(mesh.geometry)) {
@@ -111,7 +111,8 @@ export function disposeGroup(group: THREE.Group): void {
 
     const meshMaterials = Array.isArray(mesh.material) ? mesh.material : mesh.material ? [mesh.material] : [];
     for (const material of meshMaterials) {
-      if (materials.has(material)) continue;
+      // 共享单例材质（植被 / 岩石 / 石板）及其纹理由各自的 dispose*Resources 统一释放
+      if (materials.has(material) || material.userData.shared) continue;
       materials.add(material);
       for (const key of textureKeys) {
         const texture = (material as unknown as Record<string, unknown>)[key];

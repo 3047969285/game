@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { MergedBuilder, boxGeo, createKitMaterials, cylGeo, gableGeo, prismGeo, strutGeo, rng, type KitMaterials } from "./detailKit";
-import { createAncientTree } from "./props";
+import { createAncientTree, createRock } from "./props";
+import { getRockMaterial } from "./rockMaterial";
 import { addExchangeDetail, addHarborDetail, addLaunchDetail, addMemoryTreeDetail, addTempleDetail } from "./hubDetail";
 
 /**
@@ -273,7 +274,8 @@ export function buildMemoryTreeHub(glow: THREE.MeshStandardMaterial, edge: THREE
   }
   for (let i = 0; i < 7; i++) {
     const a = rand() * Math.PI * 2;
-    kit.add(new THREE.DodecahedronGeometry(0.7 + rand() * 0.9, 1), m.rock, { x: Math.cos(a) * (11 + rand() * 4), y: 0.4, z: 38 + Math.sin(a) * (11 + rand() * 4), sy: 0.7, ry: rand() * 3 });
+    const sc = (0.7 + rand() * 0.9) / 0.55;
+    kit.add(createRock(1 + i * 0.11).geometry, getRockMaterial(), { x: Math.cos(a) * (11 + rand() * 4), y: -0.04 * sc, z: 38 + Math.sin(a) * (11 + rand() * 4), sx: sc, sy: sc * 0.85, sz: sc, ry: rand() * 6.28 });
   }
   root.add(addMemoryTreeDetail(kit, m, rand, glow));
   kit.build(root, "memory-tree-ring", { isLandscapeStage: true });

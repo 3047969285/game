@@ -1,11 +1,14 @@
 import * as THREE from "three";
-import { mergeVertices } from "three/addons/utils/BufferGeometryUtils.js";
-import { MergedBuilder, boxGeo, createKitMaterials, cylGeo, strutGeo } from "./detailKit";
-import { seededRand, valueNoise } from "./utils";
+import { MergedBuilder, createKitMaterials, cylGeo, strutGeo } from "./detailKit";
+import { buildFlagstonePaths } from "./flagstonePath";
+import { seededRand } from "./utils";
+import { buildVegetationField } from "./vegetationField";
+import { VARIANTS_PER_KIND, type VegetationInstance } from "./vegetationPlan";
 
 /**
- * 近景环境细节：围绕单元入口的一圈乔木、针叶树、灌木、岩石、花丛、倒木 / 树桩、
- * 石板小径与路灯。全部用 InstancedMesh（或按材质合并），单个类型一个 draw call。
+ * 近景环境细节：围绕单元入口的一圈乔木、针叶树、灌木、岩石（走 vegetationField 的 BatchedMesh，
+ * 与主世界植被同一套写实模型 / 材质）、花丛、倒木 / 树桩（InstancedMesh）、
+ * 不规则石板小径（合并成一个网格）与路灯（合并）。
  */
 
 export interface NearScatterOptions {
@@ -18,20 +21,6 @@ export interface NearScatterOptions {
   /** 密度档位 0.5 / 0.75 / 1 */
   density: number;
   seed?: number;
-}
-
-function organic(geo: THREE.BufferGeometry, amount: number, freq: number, seed: number): THREE.BufferGeometry {
-  const welded = mergeVertices(geo, 1e-4);
-  const p = welded.attributes.position;
-  const v = new THREE.Vector3();
-  for (let i = 0; i < p.count; i++) {
-    v.fromBufferAttribute(p, i);
-    const n = valueNoise(v.x * freq + seed, v.y * freq + v.z * freq * 0.7 + seed * 1.7);
-    v.multiplyScalar(1 + (n - 0.5) * 2 * amount);
-    p.setXYZ(i, v.x, v.y, v.z);
-  }
-  welded.computeVertexNormals();
-  return welded;
 }
 
 interface Inst {
@@ -74,7 +63,15 @@ function compose(x: number, y: number, z: number, sx: number, sy: number, sz: nu
   return M.compose(P, Q, S);
 }
 
-export function buildNearScatter(opts: NearScatterOptions): THREE.Group {
+export interface NearScatter {
+  group: THREE.Group;
+  /** 每帧调用：植被按相机距离切换精细 / 简化几何 */
+  update(camera: THREE.Camera): void;
+  /** 释放植被 BatchedMesh 的几何（共享材质不释放）并移出场景；其余网格仍由 removeGroup / disposeGroup 释放 */
+  dispose(): void;
+}
+
+export function buildNearScatter(opts: NearScatterOptions): NearScatter {
   const root = new THREE.Group();
   root.name = "near-scatter";
   const rand = seededRand(opts.seed ?? 4242);
@@ -86,20 +83,15 @@ export function buildNearScatter(opts: NearScatterOptions): THREE.Group {
   const white = (roughness = 0.9) => std(0xffffff, roughness);
 
   // ── 共享几何
-  const trunkGeo = cylGeo(0.16, 0.26, 1, 8);
-  trunkGeo.translate(0, 0.5, 0);
-  const lumpGeo = organic(new THREE.IcosahedronGeometry(1, 2), 0.16, 1.9, 3);
-  const bushGeo = organic(new THREE.IcosahedronGeometry(1, 2), 0.22, 2.4, 11);
-  const rockGeo = organic(new THREE.DodecahedronGeometry(1, 1), 0.28, 1.5, 7);
-  const coneGeo = new THREE.ConeGeometry(1, 1, 9, 1);
-  coneGeo.translate(0, 0.5, 0);
   const stemGeo = cylGeo(0.012, 0.014, 1, 4);
   stemGeo.translate(0, 0.5, 0);
   const headGeo = new THREE.SphereGeometry(0.06, 7, 5);
-  const slabGeo = boxGeo(1.5, 0.12, 1.05, 0.03);
   const logGeo = cylGeo(0.3, 0.32, 1, 9);
   logGeo.rotateZ(Math.PI / 2);
   const stumpGeo = cylGeo(0.34, 0.42, 0.5, 9);
+
+  const vegInstances: VegetationInstance[] = [];
+  const variantOf = (): number => Math.min(VARIANTS_PER_KIND - 1, Math.floor(rand() * VARIANTS_PER_KIND));
 
   const treeCount = Math.round(46 * d);
   const coniferCount = Math.round(26 * d);
@@ -108,17 +100,10 @@ export function buildNearScatter(opts: NearScatterOptions): THREE.Group {
   const flowerClusters = Math.round(34 * d);
   const logCount = Math.round(7 * d);
 
-  const trunks = makeInst(trunkGeo, std(0x6b5238, 0.95), treeCount + 1, true);
-  const lumps = makeInst(lumpGeo, white(0.92), treeCount * 4 + 1, true);
-  const coniferTrunk = makeInst(trunkGeo, std(0x5a4332, 0.95), coniferCount + 1, true);
-  const cones = makeInst(coneGeo, white(0.9), coniferCount * 3 + 1, true);
-  const bushes = makeInst(bushGeo, white(0.94), bushCount + 1, true);
-  const rocks = makeInst(rockGeo, white(0.95), rockCount + 1, true);
   const stems = makeInst(stemGeo, std(0x4e7a3c, 0.9), flowerClusters * 14 + 1, false);
   const heads = makeInst(headGeo, white(0.7), flowerClusters * 14 + 1, false);
   const logs = makeInst(logGeo, std(0x6a5440, 0.95), logCount + 1, true);
   const stumps = makeInst(stumpGeo, std(0x7a6247, 0.95), logCount + 1, true);
-  const slabs = makeInst(slabGeo, white(0.92), 40, false);
 
   const place = (minR: number, maxR: number, margin: number): [number, number] | null => {
     for (let attempt = 0; attempt < 14; attempt++) {
@@ -131,64 +116,34 @@ export function buildNearScatter(opts: NearScatterOptions): THREE.Group {
     return null;
   };
 
-  const leafTones = [0x4f7f3f, 0x5f9150, 0x6b9a4d, 0x3f6f45, 0x7ba35a, 0x8fae4f];
-  // ── 阔叶树：树干 + 4 团不规则树冠
+  // ── 阔叶树
   for (let i = 0; i < treeCount; i++) {
     const p = place(18, 56, 3.5);
     if (!p) continue;
     const [x, z] = p;
-    const y = opts.groundY(x, z);
-    const s = 0.8 + rand() * 0.75;
-    const yaw = rand() * Math.PI * 2;
-    trunks.push(compose(x, y - 0.1, z, s, 3.6 * s, s, (rand() - 0.5) * 0.08, yaw, (rand() - 0.5) * 0.08));
-    const tone = leafTones[Math.floor(rand() * leafTones.length)];
-    const offsets: Array<[number, number, number, number]> = [
-      [0, 4.7, 0, 1.9],
-      [1.1, 4.2, 0.5, 1.45],
-      [-0.9, 4.35, -0.7, 1.5],
-      [0.1, 5.7, -0.2, 1.3],
-    ];
-    for (const [ox, oy, oz, r] of offsets) {
-      const cy = Math.cos(yaw);
-      const sy = Math.sin(yaw);
-      const wx = x + (ox * cy + oz * sy) * s;
-      const wz = z + (-ox * sy + oz * cy) * s;
-      C.setHex(tone).offsetHSL((rand() - 0.5) * 0.03, 0, (rand() - 0.5) * 0.08);
-      lumps.push(compose(wx, y + oy * s, wz, r * s * 1.05, r * s * 0.82, r * s, 0, rand() * 6, 0), C.clone());
-    }
+    vegInstances.push({ kind: "broadleaf", variant: variantOf(), x, y: opts.groundY(x, z), z, scale: 0.85 + rand() * 0.65, rotY: rand() * Math.PI * 2 });
   }
-  // ── 针叶树：三层锥
+  // ── 针叶树
   for (let i = 0; i < coniferCount; i++) {
     const p = place(20, 60, 3);
     if (!p) continue;
     const [x, z] = p;
-    const y = opts.groundY(x, z);
-    const s = 0.9 + rand() * 0.8;
-    coniferTrunk.push(compose(x, y - 0.1, z, s * 0.8, 1.6 * s, s * 0.8));
-    const tone = rand() > 0.5 ? 0x2f5f45 : 0x3b6b4a;
-    for (let k = 0; k < 3; k++) {
-      C.setHex(tone).offsetHSL(0, 0, (rand() - 0.5) * 0.05 + k * 0.012);
-      cones.push(compose(x, y + (1.2 + k * 1.35) * s, z, (2.0 - k * 0.45) * s, 2.3 * s, (2.0 - k * 0.45) * s, 0, rand() * 6, 0), C.clone());
-    }
+    vegInstances.push({ kind: "pine", variant: variantOf(), x, y: opts.groundY(x, z), z, scale: 0.9 + rand() * 0.7, rotY: rand() * Math.PI * 2 });
   }
   // ── 灌木
-  const bushTones = [0x4a7a3c, 0x5c8c48, 0x3d6b3a, 0x6b9446, 0x7c8f3f];
   for (let i = 0; i < bushCount; i++) {
     const p = place(16.5, 46, 1.8);
     if (!p) continue;
     const [x, z] = p;
-    const s = 0.5 + rand() * 0.9;
-    C.setHex(bushTones[Math.floor(rand() * bushTones.length)]).offsetHSL(0, 0, (rand() - 0.5) * 0.06);
-    bushes.push(compose(x, opts.groundY(x, z) + 0.28 * s, z, s * 1.25, s * 0.85, s, 0, rand() * 6, 0), C.clone());
+    vegInstances.push({ kind: "bush", variant: variantOf(), x, y: opts.groundY(x, z), z, scale: 0.7 + rand() * 0.8, rotY: rand() * Math.PI * 2 });
   }
-  // ── 岩石（大小簇）
+  // ── 岩石（大小簇）：底面落在 y=0，略埋入地面
   for (let i = 0; i < rockCount; i++) {
     const p = place(16.5, 52, 1.5);
     if (!p) continue;
     const [x, z] = p;
-    const s = 0.3 + Math.pow(rand(), 2) * 1.5;
-    C.setHex(0x8a8a84).offsetHSL(0, (rand() - 0.5) * 0.04, (rand() - 0.5) * 0.12);
-    rocks.push(compose(x, opts.groundY(x, z) + 0.18 * s, z, s * 1.2, s * 0.75, s, (rand() - 0.5) * 0.3, rand() * 6, (rand() - 0.5) * 0.3), C.clone());
+    const scale = Math.min(2.2, (0.3 + Math.pow(rand(), 2) * 1.5) * 1.6);
+    vegInstances.push({ kind: "rock", variant: variantOf(), x, y: opts.groundY(x, z) - 0.04 * scale, z, scale, rotY: rand() * Math.PI * 2 });
   }
   // ── 花丛
   const flowerTones = [0xf2c14e, 0xe8707a, 0xf4f1de, 0xb18ae0, 0xff9e5e, 0x7cc0e8];
@@ -221,25 +176,47 @@ export function buildNearScatter(opts: NearScatterOptions): THREE.Group {
     const q = place(20, 50, 2);
     if (q) stumps.push(compose(q[0], opts.groundY(q[0], q[1]) + 0.24, q[1], 1, 0.8 + rand() * 0.6, 1));
   }
-  // ── 石板小径：从入口门楼向 +Z 蜿蜒而去
-  for (let i = 0; i < 38; i++) {
-    const t = i / 37;
-    const z = opts.centerZ + 15.2 + t * 38;
-    const x = opts.centerX + Math.sin(t * 5.2) * 3.2 * Math.min(1, t * 2.2);
-    if (blocked(x, z, -1.5)) continue;
-    C.setHex(i % 2 ? 0x9b9a92 : 0x86877f).offsetHSL(0, 0, (rand() - 0.5) * 0.04);
-    const dz = 38 / 37;
-    const dx = Math.cos(t * 5.2) * 5.2 * 3.2 * Math.min(1, t * 2.2) / 37;
-    slabs.push(compose(x, opts.groundY(x, z) + 0.05, z, 0.85 + rand() * 0.2, 1, 0.85 + rand() * 0.2, 0, Math.atan2(dx, dz) + (rand() - 0.5) * 0.15, 0), C.clone());
+  // ── 石板小径：从入口门楼向 +Z 蜿蜒而去；避让区内的部分断开，每段一条不规则石板路（合并成一个网格）
+  const pathAt = (t: number): { x: number; z: number } => ({
+    x: opts.centerX + Math.sin(t * 5.2) * 3.2 * Math.min(1, t * 2.2),
+    z: opts.centerZ + 15.2 + t * 38,
+  });
+  const runs: Array<Array<{ x: number; z: number }>> = [];
+  let run: Array<{ x: number; z: number }> = [];
+  const sampleN = 160;
+  for (let i = 0; i <= sampleN; i++) {
+    const pt = pathAt(i / sampleN);
+    if (blocked(pt.x, pt.z, -1.5)) {
+      if (run.length > 1) runs.push(run);
+      run = [];
+    } else {
+      run.push(pt);
+    }
+  }
+  if (run.length > 1) runs.push(run);
+  if (runs.length > 0) {
+    const pathGroup = buildFlagstonePaths(runs, {
+      width: 1.6,
+      groundY: opts.groundY,
+      seed: (opts.seed ?? 4242) + 5,
+      quality: d >= 1 ? "high" : d >= 0.75 ? "med" : "low",
+      lift: () => 0.06,
+    });
+    pathGroup.name = "near-flagstones";
+    root.add(pathGroup);
   }
 
-  for (const inst of [trunks, lumps, coniferTrunk, cones, bushes, rocks, stems, heads, logs, stumps, slabs]) {
+  for (const inst of [stems, heads, logs, stumps]) {
     inst.mesh.count = inst.count;
     inst.mesh.instanceMatrix.needsUpdate = true;
     if (inst.mesh.instanceColor) inst.mesh.instanceColor.needsUpdate = true;
     inst.mesh.computeBoundingSphere();
     if (inst.count > 0) root.add(inst.mesh);
   }
+
+  // ── 植被：BatchedMesh（按材质合并）；入口外圈距相机多半在 LOD 距离之内
+  const field = buildVegetationField(vegInstances, { lodDistance: 45, castShadow: d > 0.5 });
+  root.add(field.group);
 
   // ── 路灯：沿小径每隔一段一盏（合并）
   const kit = new MergedBuilder();
@@ -258,5 +235,9 @@ export function buildNearScatter(opts: NearScatterOptions): THREE.Group {
   }
   kit.build(root, "near-lamps", {});
 
-  return root;
+  return {
+    group: root,
+    update: (camera) => field.update(camera),
+    dispose: () => field.dispose(),
+  };
 }

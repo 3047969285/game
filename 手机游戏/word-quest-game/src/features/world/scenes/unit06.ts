@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { archFrameGeo, gableGeo } from "../detailKit";
+import { foliageClumpGeometry, getFoliageMaterial } from "../props";
 import * as props from "../sceneProps";
 import { SCENE_SCALE, STAGE_Y, addBeacon, addCanvasPlane, addGlowCard, createStage, finishStage, makeSignTexture, placePerson, worldXZ, type SceneModule, type Stage } from "./context";
 
@@ -279,7 +280,7 @@ export const resourceCycleScene: SceneModule = (ctx) => {
         const a = j * 1.3;
         c.cyl(m.soil, 0.12, 0.1, 0.12, Math.cos(a) * 0.4, 0.65, Math.sin(a) * 0.4, 10);
         c.cyl(m.leaf, 0.02, 0.02, 0.28, Math.cos(a) * 0.4, 0.77, Math.sin(a) * 0.4, 5);
-        c.ball(m.leafLight, 0.1, Math.cos(a) * 0.4, 1.08, Math.sin(a) * 0.4, 1, 0.8, 1);
+        c.put(foliageClumpGeometry(401 + j, 0.11, 12), getFoliageMaterial(), Math.cos(a) * 0.4, 1.08, Math.sin(a) * 0.4, 0, a, 0, 1, 0.85, 1);
       }
     } else {
       c.box(p.leather, 0.7, 0.14, 0.3, 0, 0.65, 0, 0.02);

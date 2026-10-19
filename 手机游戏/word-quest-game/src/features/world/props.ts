@@ -4,6 +4,7 @@ import { mergeGeometries, mergeVertices } from "three/addons/utils/BufferGeometr
 import { glassCrystal } from "./materials";
 import { seededRand } from "./utils";
 import { FOLIAGE_ATLAS_CELLS, atlasRect } from "./foliageTextures";
+import { getRockMaterial } from "./rockMaterial";
 import { applyFoliageShadow, disposeFoliageResources, foliageSun, getBarkMaterial, getFoliageMaterial, setFoliageQuality, windTime } from "./foliageMaterials";
 
 export { applyFoliageShadow, disposeFoliageResources, foliageSun, getBarkMaterial, getFoliageMaterial, setFoliageQuality, windTime };
@@ -915,62 +916,145 @@ export function createFallenLog(scale = 1): THREE.Mesh {
   return mesh;
 }
 
-/** 岩石：1~3 块凿刻感石头——脊线噪声位移 + 岩层条纹 + 地衣斑点 + 顶面苔藓，附 3–5 颗卵石，合并为单个网格 */
+const rockBaseCache = new Map<number, THREE.BufferGeometry>();
+/** 只含 position 的焊接球网格（切削 / 位移不会撕裂），按细分缓存 */
+function rockBase(detail: number): THREE.BufferGeometry {
+  let g = rockBaseCache.get(detail);
+  if (!g) {
+    const src = new THREE.IcosahedronGeometry(1, detail);
+    src.deleteAttribute("normal");
+    src.deleteAttribute("uv");
+    g = mergeVertices(src, 1e-4);
+    src.dispose();
+    rockBaseCache.set(detail, g);
+  }
+  return g;
+}
+
+interface RockPieceOpts {
+  detail: number;
+  seed: number;
+  /** 椭球半径（米） */
+  rx: number;
+  ry: number;
+  rz: number;
+  /** 平面切削刀数（让一部分面变成平的断裂面） */
+  cuts: number;
+  /** 分层节理台阶强度 0..1 */
+  strata: number;
+  tone: THREE.Color;
+}
+
+/**
+ * 一块岩石：球 → 低频团块 → 若干平面切削（断裂面 + 棱角）→ 沿倾斜方向的分层台阶（岩层节理）
+ * → 细微棱脊 → 椭球缩放 → 压平底部。底面落在 y=0。
+ * 附 color（每块岩石的明暗 / 冷暖色差）与 uv（按主轴的平面投影；材质实际用三向投影取样）。
+ */
+function sculptRock(rnd: () => number, o: RockPieceOpts): THREE.BufferGeometry {
+  const geo = rockBase(o.detail).clone();
+  const pos = geo.attributes.position;
+  const planes: Array<{ n: THREE.Vector3; d: number }> = [];
+  for (let k = 0; k < o.cuts; k++) {
+    const n = new THREE.Vector3(rnd() - 0.5, rnd() * 1.1 - 0.3, rnd() - 0.5).normalize();
+    planes.push({ n, d: 0.6 + rnd() * 0.22 });
+  }
+  const tilt = new THREE.Vector3((rnd() - 0.5) * 0.55, 1, (rnd() - 0.5) * 0.55).normalize();
+  const freq = 3.2 + rnd() * 2.2;
+  const phase = rnd() * 4;
+  const v = new THREE.Vector3();
+  const bottom = -0.56;
+  for (let i = 0; i < pos.count; i++) {
+    v.fromBufferAttribute(pos, i);
+    v.multiplyScalar(1 + vnoise(v.x * 1.4, v.y * 1.4, v.z * 1.4, o.seed) * 0.2);
+    for (const pl of planes) {
+      const dist = v.dot(pl.n);
+      if (dist > pl.d) v.addScaledVector(pl.n, pl.d - dist);
+    }
+    // 分层：沿倾斜轴的台阶，向外挑出 / 内收，形成岩层缝
+    const h = v.dot(tilt);
+    const sH = h * freq + phase;
+    const fr = sH - Math.floor(sH);
+    const ledge = Math.floor(sH) + THREE.MathUtils.smoothstep(fr, 0.62, 1);
+    const off = (ledge - sH) / freq;
+    const f = 1 + off * 0.55 * o.strata;
+    v.x *= f;
+    v.z *= f;
+    v.multiplyScalar(1 + vnoise(v.x * 7, v.y * 7, v.z * 7, o.seed + 5) * 0.035);
+    if (v.y < bottom) v.y = bottom;
+    pos.setXYZ(i, v.x * o.rx, (v.y - bottom) * o.ry, v.z * o.rz);
+  }
+  geo.computeVertexNormals();
+  const n = geo.attributes.normal;
+  const colors = new Float32Array(pos.count * 3);
+  const uvs = new Float32Array(pos.count * 2);
+  for (let i = 0; i < pos.count; i++) {
+    const k = 0.9 + 0.2 * (0.5 + vnoise(pos.getX(i) * 5, pos.getY(i) * 5, pos.getZ(i) * 5, o.seed + 9));
+    colors[i * 3] = o.tone.r * k;
+    colors[i * 3 + 1] = o.tone.g * k;
+    colors[i * 3 + 2] = o.tone.b * k;
+    const ax = Math.abs(n.getX(i));
+    const ay = Math.abs(n.getY(i));
+    const az = Math.abs(n.getZ(i));
+    if (ay >= ax && ay >= az) {
+      uvs[i * 2] = pos.getX(i);
+      uvs[i * 2 + 1] = pos.getZ(i);
+    } else if (ax >= az) {
+      uvs[i * 2] = pos.getZ(i);
+      uvs[i * 2 + 1] = pos.getY(i);
+    } else {
+      uvs[i * 2] = pos.getX(i);
+      uvs[i * 2 + 1] = pos.getY(i);
+    }
+  }
+  geo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+  geo.setAttribute("uv", new THREE.BufferAttribute(uvs, 2));
+  return geo;
+}
+
+/**
+ * 岩石：1~3 块风化石头（节理台阶 + 平面断裂面 + 棱角，底部压平）+ 2~4 颗碎石，合并为单个网格（≤ 1500 顶点）。
+ * 材质为 getRockMaterial()：三向投影岩石纹理 + 朝上面苔藓 + 接地湿润；顶点色只承载每块石头的色差。
+ */
 export function createRock(scale = 1): THREE.Mesh {
   const rnd = seededRand(Math.floor(scale * 9973) + 17);
   const geos: THREE.BufferGeometry[] = [];
-  const stoneTone = new THREE.Color(0x77797c).offsetHSL(0, 0, (rnd() - 0.5) * 0.08);
+  const baseTone = new THREE.Color().setHSL(0.09 + (rnd() - 0.5) * 0.08, 0.04 + rnd() * 0.05, 0.86 + (rnd() - 0.5) * 0.12);
   const pieces = 1 + Math.floor(rnd() * 2.4);
-  const chisel = (geo: THREE.BufferGeometry, seed: number, amt: number): void => {
-    const p = geo.attributes.position;
-    const n = geo.attributes.normal;
-    const col = geo.attributes.color;
-    for (let k = 0; k < p.count; k++) {
-      const x = p.getX(k);
-      const y = p.getY(k);
-      const z = p.getZ(k);
-      const ridge = 1 - Math.abs(vnoise(x * 5, y * 5, z * 5, seed)) * 1.6;
-      const fine = vnoise(x * 14, y * 14, z * 14, seed + 3);
-      const d = (Math.max(0, ridge) * 0.6 + fine * 0.25) * amt;
-      p.setXYZ(k, x + n.getX(k) * d, y + n.getY(k) * d, z + n.getZ(k) * d);
-      const strata = 0.9 + 0.1 * Math.sin(y * 26 / Math.max(0.2, amt * 6) + vnoise(x * 3, y * 3, z * 3, seed) * 3);
-      const lichen = THREE.MathUtils.smoothstep(vnoise(x * 9, y * 9, z * 9, seed + 7), 0.42, 0.62);
-      const kk = strata * (0.9 + fine * 0.18);
-      col.setXYZ(k, THREE.MathUtils.lerp(col.getX(k) * kk, 0.6, lichen * 0.35), THREE.MathUtils.lerp(col.getY(k) * kk, 0.62, lichen * 0.35), THREE.MathUtils.lerp(col.getZ(k) * kk, 0.34, lichen * 0.35));
-    }
-    geo.computeVertexNormals();
-  };
   for (let i = 0; i < pieces; i++) {
     const r = (i === 0 ? 0.55 : 0.2 + rnd() * 0.22) * scale;
     const a = rnd() * Math.PI * 2;
-    const d = i === 0 ? 0 : (0.5 + rnd() * 0.35) * scale;
-    const blob = organicBlob(Math.floor(rnd() * 5) + 20, i === 0 ? 3 : 2, 0.34);
-    const piece = bake(
-      blob,
-      mat4(Math.cos(a) * d, r * 0.32, Math.sin(a) * d, r * 1.15, r * 0.7, r, (rnd() - 0.5) * 0.35, rnd() * 6, (rnd() - 0.5) * 0.35),
-      stoneTone.clone().offsetHSL(0, 0, (rnd() - 0.5) * 0.06),
-      (_y, ny) => 0.62 + 0.38 * THREE.MathUtils.clamp(0.4 + 0.6 * ny, 0, 1)
+    const d = i === 0 ? 0 : (0.55 + rnd() * 0.3) * scale;
+    const geo = sculptRock(rnd, {
+      detail: i === 0 ? 6 : 4,
+      seed: 11 + i * 5 + Math.floor(rnd() * 40),
+      rx: r * (1.05 + rnd() * 0.25),
+      ry: r * (0.82 + rnd() * 0.3),
+      rz: r * (0.9 + rnd() * 0.25),
+      cuts: 4 + Math.floor(rnd() * 4),
+      strata: 0.6 + rnd() * 0.5,
+      tone: baseTone.clone().offsetHSL(0, 0, (rnd() - 0.5) * 0.07),
+    });
+    const m = new THREE.Matrix4().compose(
+      new THREE.Vector3(Math.cos(a) * d, 0, Math.sin(a) * d),
+      new THREE.Quaternion().setFromEuler(new THREE.Euler(i === 0 ? 0 : (rnd() - 0.5) * 0.2, rnd() * 6.28, i === 0 ? 0 : (rnd() - 0.5) * 0.2)),
+      new THREE.Vector3(1, 1, 1)
     );
-    chisel(piece, 11 + i * 5, r * 0.09);
-    geos.push(piece);
+    geo.applyMatrix4(m);
+    geos.push(geo);
   }
-  const pebbles = 3 + Math.floor(rnd() * 3);
+  const pebbles = 2 + Math.floor(rnd() * 3);
   for (let i = 0; i < pebbles; i++) {
-    const pr = (0.05 + rnd() * 0.07) * scale;
+    const pr = (0.05 + rnd() * 0.06) * scale;
     const a = rnd() * Math.PI * 2;
-    const d = (0.55 + rnd() * 0.55) * scale;
-    geos.push(bake(organicBlob(Math.floor(rnd() * 3) + 1, 1, 0.22), mat4(Math.cos(a) * d, pr * 0.4, Math.sin(a) * d, pr * 1.2, pr * 0.7, pr, rnd() * 3, rnd() * 6, 0), stoneTone.clone().offsetHSL(0, 0, (rnd() - 0.5) * 0.1), (_y, ny) => 0.7 + 0.3 * THREE.MathUtils.clamp(0.5 + 0.5 * ny, 0, 1)));
+    const d = (0.6 + rnd() * 0.5) * scale;
+    const geo = sculptRock(rnd, { detail: 2, seed: 40 + i, rx: pr * 1.2, ry: pr * 0.8, rz: pr, cuts: 3, strata: 0.2, tone: baseTone.clone().offsetHSL(0, 0, (rnd() - 0.5) * 0.1) });
+    geo.rotateY(rnd() * 6.28);
+    geo.translate(Math.cos(a) * d, 0, Math.sin(a) * d);
+    geos.push(geo);
   }
   const merged = mergeGeometries(geos, false)!;
-  // 苔藓：朝上的面向绿色混合
-  const n = merged.attributes.normal;
-  const col = merged.attributes.color;
-  const moss = new THREE.Color(0x58783f);
-  for (let i = 0; i < col.count; i++) {
-    const up = THREE.MathUtils.smoothstep(n.getY(i), 0.55, 0.9) * 0.85;
-    col.setXYZ(i, THREE.MathUtils.lerp(col.getX(i), moss.r * 0.9, up), THREE.MathUtils.lerp(col.getY(i), moss.g * 0.9, up), THREE.MathUtils.lerp(col.getZ(i), moss.b * 0.9, up));
-  }
-  const mesh = new THREE.Mesh(merged, vcMaterial(0.95, "rock"));
+  for (const g of geos) g.dispose();
+  const mesh = new THREE.Mesh(merged, getRockMaterial());
   mesh.castShadow = true;
   mesh.receiveShadow = true;
   return mesh;
@@ -1036,5 +1120,35 @@ export function shrubCardGeometries(seed: number, radius: number, count = 26): T
     const dir = new THREE.Vector3(rnd() - 0.5, rnd() * 0.7 - 0.1, rnd() - 0.5).normalize();
     out.push(leafCard(dir.multiplyScalar(radius * (0.35 + rnd() * 0.65)), radius * (0.7 + rnd() * 0.5), rnd, dir.y));
   }
+  return out;
+}
+
+/**
+ * 一团叶片卡片（修剪灌木 / 树冠叶团 / 藤蔓），中心在原点，叶片使用 getFoliageMaterial()。
+ * 代替场景里用实心多面体 / 球充当树叶的做法；可按椭球缩放（整体非均匀缩放不影响卡片法线明暗）。
+ */
+export function foliageClumpGeometry(seed: number, radius: number, count: number): THREE.BufferGeometry {
+  const cards = shrubCardGeometries(seed, radius, count);
+  const merged = mergeGeometries(cards, false)!;
+  for (const c of cards) c.dispose();
+  return merged;
+}
+
+/**
+ * 把一丛写实灌木拆成 (几何, 材质) 列表（树皮 + 叶片 [+ 浆果]），几何已含局部变换，
+ * 供 MergedBuilder / Frame.put 这类按材质合并的构建器使用。
+ */
+export function bushParts(scale = 1, detail: "high" | "low" = "high"): Array<{ geometry: THREE.BufferGeometry; material: THREE.Material }> {
+  const g = createBush(scale, detail);
+  g.updateMatrixWorld(true);
+  const out: Array<{ geometry: THREE.BufferGeometry; material: THREE.Material }> = [];
+  g.traverse((o) => {
+    const mesh = o as THREE.Mesh;
+    if (!mesh.isMesh) return;
+    const geometry = mesh.geometry.clone();
+    geometry.applyMatrix4(mesh.matrixWorld);
+    out.push({ geometry, material: mesh.material as THREE.Material });
+    mesh.geometry.dispose();
+  });
   return out;
 }

@@ -1,6 +1,7 @@
 import { buildVegetationField, type VegetationField } from "./vegetationField";
 import { planVegetation, type AvoidCircle, type AvoidEllipse, type AvoidSegment } from "./vegetationPlan";
 import * as THREE from "three";
+import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { Timer } from "three/src/core/Timer.js";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
@@ -57,10 +58,11 @@ function detectQuality(): QualityTier {
 import { createLandmarkWithCad } from "./cadLandmark";
 import { createExplorerAvatar, type AvatarRig } from "./explorerAvatar";
 import { ExplorerCamera } from "./ExplorerCamera";
-import { buildNearScatter } from "./nearScatter";
+import { buildNearScatter, type NearScatter } from "./nearScatter";
 import { createMountainRing } from "./mountains";
 import { buildRoadRibbon } from "./roadRibbon";
-import { applySurfaceGrain, lanternGlass, lanternMetal, makeLanternGlowTexture, mossyStone, water, waterTime } from "./materials";
+import { applySurfaceGrain, lanternGlass, lanternMetal, makeLanternGlowTexture, water, waterTime } from "./materials";
+import { addCornerBlend, buildFlagstonePaths } from "./flagstonePath";
 import { PlayerController } from "./PlayerController";
 import {
   createBush,
@@ -164,6 +166,7 @@ export class World3D {
   private pathGroup?: THREE.Group;
   private decorGroup?: THREE.Group;
   private vegetation?: VegetationField;
+  private nearScatter?: NearScatter;
   private waterGroup?: THREE.Group;
   private terrain?: THREE.Mesh;
   private terrainTex?: TerrainTextureSet;
@@ -865,6 +868,8 @@ export class World3D {
     this.resizeObserver?.disconnect();
     this.vegetation?.dispose();
     this.vegetation = undefined;
+    this.nearScatter?.dispose();
+    this.nearScatter = undefined;
     this.player.dispose();
 
     removeGroup(this.scene, this.pathGroup);
@@ -1944,12 +1949,8 @@ export class World3D {
     const routePairs: Array<readonly [MapNode, MapNode]> = unitRoute
       ? this.nodes.slice(1).map((node) => [this.nodes[0], node] as const)
       : this.nodes.slice(0, -1).map((node, index) => [node, this.nodes[index + 1]] as const);
-    const points = this.nodes.map((node) =>
-      new THREE.Vector3(node.x, sampleTerrainY(node.x, node.z, terrainHeight) + 0.45, node.z)
-    );
-    const curve = new THREE.CatmullRomCurve3(points, false, "catmullrom", 0.35);
-    const steps = Math.max(points.length * 28, 80);
     const routeCurves: THREE.CatmullRomCurve3[] = [];
+    const groundY = (x: number, z: number): number => sampleTerrainY(x, z, terrainHeight);
 
     for (const [a, b] of routePairs) {
       const cleared = a.cleared && b.cleared;
@@ -1964,64 +1965,50 @@ export class World3D {
       routeCurves.push(sub);
 
       if (!unitRoute) {
+        // 底层：泥土 / 碎石路基（石板缝隙里露出的就是它）；中线嵌条保留但很淡
         this.pathGroup.add(
           buildRoadRibbon(sub, {
             width: 3.4,
             steps: Math.max(24, Math.ceil(sub.getLength() / 1.4)),
-            groundY: (x, z) => sampleTerrainY(x, z, terrainHeight),
-            base: cleared ? 0x8a9a86 : 0x8d8678,
-            inlay: cleared ? { color: 0x6ee7b7, emissive: 0x34d399, intensity: 0.55 } : { color: 0x5b8def, emissive: 0x3b82f6, intensity: 0.25 },
+            groundY,
+            base: cleared ? 0x6f6a58 : 0x6b6050,
+            inlay: cleared ? { color: 0x7fa58f, emissive: 0x3f7d62, intensity: 0.1 } : { color: 0x6a80a8, emissive: 0x3a5590, intensity: 0.05 },
           })
         );
       }
     }
 
-    // 石板铺路（苔藓石砖 + 方向对齐）
-    const tileMatA = mossyStone(unitRoute ? 0x2b4157 : 0x6b7280);
-    const tileMatB = mossyStone(unitRoute ? 0x354f66 : 0x8b939f);
-    const tileMatC = mossyStone(unitRoute ? 0x26384b : 0x55606e);
-    const tileMats = [tileMatA, tileMatB, tileMatC];
-    const tileGeo = new THREE.BoxGeometry(1.05, 0.13, 0.72);
+    // 石板铺路：不规则石板 + 路缘碎石，合并成一个网格（单元路线用深蓝灰）
+    const flagQuality = this.quality;
     if (unitRoute) {
-      routePairs.forEach(([a, b], routeIndex) => {
-        const branch = routeCurves[routeIndex];
-        const branchSteps = Math.max(16, Math.ceil(Math.hypot(a.x - b.x, a.z - b.z) / 1.6));
-        for (let step = 0; step <= branchSteps; step++) {
-          const t0 = step / branchSteps;
-          const t1 = Math.min(1, (step + 0.5) / branchSteps);
-          const p = branch.getPoint(t0);
-          p.y = sampleTerrainY(p.x, p.z, terrainHeight) + 0.01;
-          const p2 = branch.getPoint(t1);
-          const tile = new THREE.Mesh(tileGeo, tileMats[step % tileMats.length]);
-          tile.position.copy(p);
-          tile.lookAt(p2.x, p.y, p2.z);
-          tile.receiveShadow = true;
-          this.pathGroup!.add(tile);
-        }
+      const branches = routeCurves.map((branch) => {
+        const len = branch.getLength();
+        return branch.getSpacedPoints(Math.max(4, Math.ceil(len / 0.5))).map((pt) => ({ x: pt.x, z: pt.z }));
       });
+      this.pathGroup.add(
+        buildFlagstonePaths(branches, { width: 1.5, groundY, seed: 1207, quality: flagQuality, palette: "unit", lift: () => 0.07, startInset: 2.5, endInset: 1 })
+      );
     } else {
-      for (let step = 0; step <= steps; step++) {
-        const t0 = step / steps;
-        const t1 = Math.min(1, (step + 0.5) / steps);
-        const p = curve.getPoint(t0);
-        p.y = sampleTerrainY(p.x, p.z, terrainHeight) + 0.17;
-        const p2 = curve.getPoint(t1);
-        const tile = new THREE.Mesh(tileGeo, tileMats[step % tileMats.length]);
-        tile.position.copy(p);
-        tile.lookAt(p2.x, p.y, p2.z);
-        tile.receiveShadow = true;
-        this.pathGroup.add(tile);
-      }
+      const line = addCornerBlend(this.nodes.map((node) => ({ x: node.x, z: node.z })), 6);
+      this.pathGroup.add(buildFlagstonePaths([line], { width: 3.4, groundY, seed: 1207, quality: flagQuality }));
     }
 
     if (!unitRoute) {
-      // 路灯（每隔 6 节点放 1 对）；单元放射路线由主题地标照明。
+      // 路灯（每隔 6 节点放 1 对）；单元放射路线由主题地标照明。杆 / 臂、灯罩、光晕各合并成一个网格。
+      const curve = new THREE.CatmullRomCurve3(
+        this.nodes.map((node) => new THREE.Vector3(node.x, sampleTerrainY(node.x, node.z, terrainHeight) + 0.45, node.z)),
+        false,
+        "catmullrom",
+        0.35
+      );
       const glowTex = makeLanternGlowTexture("rgba(255,220,140,1)");
       const poleGeo = new THREE.CylinderGeometry(0.055, 0.07, 2.6, 7);
       const armGeo = new THREE.CylinderGeometry(0.03, 0.03, 0.8, 5);
+      armGeo.rotateZ(Math.PI / 2);
       const lampGeo = new THREE.SphereGeometry(0.14, 8, 6);
-      const poleMat = lanternMetal();
-      const lampMat = lanternGlass(0xffe080);
+      const metalGeos: THREE.BufferGeometry[] = [];
+      const lampGeos: THREE.BufferGeometry[] = [];
+      const glowPos: number[] = [];
 
       for (let nodeIndex = 0; nodeIndex < this.nodes.length; nodeIndex += Math.max(1, Math.floor(this.nodes.length / 8))) {
         const node = this.nodes[nodeIndex];
@@ -2034,27 +2021,28 @@ export class World3D {
           const lx = node.x + side.x * 2.2 * sign;
           const lz = node.z + side.z * 2.2 * sign;
           const ly = sampleTerrainY(lx, lz, terrainHeight);
-
-          const pole = new THREE.Mesh(poleGeo, poleMat);
-          pole.position.set(lx, ly + 1.3, lz);
-          pole.castShadow = true;
-
-          const arm = new THREE.Mesh(armGeo, poleMat);
-          arm.rotation.z = Math.PI / 2;
-          arm.position.set(lx + 0.4 * sign * -1, ly + 2.55, lz);
-
-          const lamp = new THREE.Mesh(lampGeo, lampMat);
-          lamp.position.set(lx + 0.8 * sign * -1, ly + 2.55, lz);
-
-          // 光晕 sprite
-          const glow = new THREE.Sprite(new THREE.SpriteMaterial({
-            map: glowTex, transparent: true, opacity: 0.7, depthWrite: false, blending: THREE.AdditiveBlending,
-          }));
-          glow.scale.setScalar(1.8);
-          glow.position.set(lx + 0.8 * sign * -1, ly + 2.6, lz);
-
-          this.pathGroup!.add(pole, arm, lamp, glow);
+          metalGeos.push(poleGeo.clone().translate(lx, ly + 1.3, lz), armGeo.clone().translate(lx + 0.4 * sign * -1, ly + 2.55, lz));
+          lampGeos.push(lampGeo.clone().translate(lx + 0.8 * sign * -1, ly + 2.55, lz));
+          glowPos.push(lx + 0.8 * sign * -1, ly + 2.6, lz);
         }
+      }
+      poleGeo.dispose();
+      armGeo.dispose();
+      lampGeo.dispose();
+      if (metalGeos.length > 0) {
+        const poles = new THREE.Mesh(mergeGeometries(metalGeos, false)!, lanternMetal());
+        poles.castShadow = true;
+        const lamps = new THREE.Mesh(mergeGeometries(lampGeos, false)!, lanternGlass(0xffe080));
+        for (const g of [...metalGeos, ...lampGeos]) g.dispose();
+        // 光晕：一个 Points（加性混合），尺寸按世界单位随距离衰减
+        const glowGeo = new THREE.BufferGeometry();
+        glowGeo.setAttribute("position", new THREE.Float32BufferAttribute(glowPos, 3));
+        const glow = new THREE.Points(
+          glowGeo,
+          new THREE.PointsMaterial({ map: glowTex, size: 1.8, sizeAttenuation: true, transparent: true, opacity: 0.7, depthWrite: false, blending: THREE.AdditiveBlending })
+        );
+        glow.frustumCulled = false;
+        this.pathGroup.add(poles, lamps, glow);
       }
     }
 
@@ -2077,7 +2065,7 @@ export class World3D {
         this.decorGroup.add(reed);
       } else if (roll < 0.68) {
         const rock = createRock(0.5 + rnd() * 0.7);
-        rock.position.set(sx, sy + 0.1, sz);
+        rock.position.set(sx, sy - 0.03, sz);
         rock.rotation.y = rnd() * Math.PI * 2;
         this.decorGroup.add(rock);
       }
@@ -2088,6 +2076,8 @@ export class World3D {
     this.disposeReflectors();
     this.vegetation?.dispose();
     this.vegetation = undefined;
+    this.nearScatter?.dispose();
+    this.nearScatter = undefined;
     removeGroup(this.scene, this.decorGroup);
     removeGroup(this.scene, this.waterGroup);
     this.decorGroup = new THREE.Group();
@@ -2150,8 +2140,8 @@ export class World3D {
       // 星际 / 月面：只有岩石与岩块
       if (style === "space") {
         const rock = createRock(scale * 0.72);
-        rock.position.set(wx, wy + 0.16, wz);
-        rock.rotation.set(scatter() * 0.18, scatter() * Math.PI * 2, scatter() * 0.18);
+        rock.position.set(wx, wy - 0.03, wz);
+        rock.rotation.set(scatter() * 0.12, scatter() * Math.PI * 2, scatter() * 0.12);
         this.decorGroup!.add(rock);
         continue;
       }
@@ -2166,8 +2156,8 @@ export class World3D {
         this.decorGroup!.add(bush);
       } else if (roll < 0.62) {
         const rock = createRock(scale * 0.8);
-        rock.position.set(wx, wy + 0.2, wz);
-        rock.rotation.set(scatter(), scatter(), scatter());
+        rock.position.set(wx, wy - 0.03, wz);
+        rock.rotation.set(scatter() * 0.12, scatter() * Math.PI * 2, scatter() * 0.12);
         this.decorGroup!.add(rock);
       } else if (roll < 0.8) {
         const flower = createFlower(0.85 + scatter() * 0.7);
@@ -2199,15 +2189,14 @@ export class World3D {
       [anchorX + 17.4, anchorZ + 23.2, 6],
     ];
     if (unitMode && style !== "space") {
-      this.decorGroup!.add(
-        buildNearScatter({
-          centerX: anchorX,
-          centerZ: anchorZ,
-          groundY: (x, z) => sampleTerrainY(x, z, terrainHeight),
-          density: this.quality === "low" ? 0.5 : this.quality === "med" ? 0.75 : 1,
-          avoid: nearScatterAvoid,
-        })
-      );
+      this.nearScatter = buildNearScatter({
+        centerX: anchorX,
+        centerZ: anchorZ,
+        groundY: (x, z) => sampleTerrainY(x, z, terrainHeight),
+        density: this.quality === "low" ? 0.5 : this.quality === "med" ? 0.75 : 1,
+        avoid: nearScatterAvoid,
+      });
+      this.decorGroup!.add(this.nearScatter.group);
     }
 
     // 河谷湖泊（沿两侧山脚分布）：单元模式改为围绕当前区域的两处水面。
@@ -2346,14 +2335,14 @@ export class World3D {
     }
     if (theme === "coast" && rand() > 0.45) {
       const rock = createRock(scale * 0.85);
-      rock.position.set(x, y + 0.3, z);
-      rock.rotation.set(rand(), rand(), rand());
+      rock.position.set(x, y - 0.03, z);
+      rock.rotation.set(rand() * 0.12, rand() * Math.PI * 2, rand() * 0.12);
       this.decorGroup!.add(rock);
       return;
     }
     if (rand() > 0.5) {
       const rock = createRock(scale * 0.65);
-      rock.position.set(x, y + 0.2, z);
+      rock.position.set(x, y - 0.03, z);
       this.decorGroup!.add(rock);
     }
     if (rand() > 0.65) {
@@ -2682,6 +2671,7 @@ export class World3D {
 
   private tickScene(t: number, dt: number): void {
     this.vegetation?.update(this.camera);
+    this.nearScatter?.update(this.camera);
     this.updateDynamicLightBudget();
     this.waterFrame++;
     // 日照循环：太阳在 18°–50° 高度间缓慢摆动（始终是白天），低角度时偏暖；

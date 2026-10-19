@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { MergedBuilder, boxGeo, cylGeo, gableGeo, strutGeo, prismGeo, type KitMaterials } from "./detailKit";
-import { createPine, createTree } from "./props";
+import { bushParts, createPine, createTree } from "./props";
 
 /**
  * 中枢细节层：在各单元中枢的主体建筑之外，补上檐口 / 窗框 / 雕像 / 起重机 / 索具 / 灯桩 /
@@ -440,7 +440,7 @@ export function addMemoryTreeDetail(k: MergedBuilder, m: KitMaterials, rand: () 
   for (let i = 0; i < 24; i++) {
     const a = rand() * Math.PI * 2;
     const r = 3.2 + rand() * 6;
-    k.add(new THREE.SphereGeometry(0.4 + rand() * 0.3, 10, 7), m.leaf, { x: Math.cos(a) * r, y: 0.6, z: cz + Math.sin(a) * r, sy: 0.4 });
+    for (const part of bushParts(0.7 + rand() * 0.5, "low")) k.add(part.geometry, part.material, { x: Math.cos(a) * r, y: 0.45, z: cz + Math.sin(a) * r, ry: rand() * 6.28, sy: 0.5 });
   }
   // 记忆签：从枝头垂下的丝带 + 木牌，三层高度，随机朝向
   for (let i = 0; i < 70; i++) {

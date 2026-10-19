@@ -266,18 +266,11 @@ export function board(k: SceneKit, f: Frame, w = 2.4, h = 1.2, mat = k.p.boardGr
 
 /** 花坛（圆形）：石围 + 土 + 灌木 + 小花 */
 export function planter(k: SceneKit, f: Frame, r = 0.5, seed = 5): void {
-  const rand = mulberry(seed);
   f.cyl(k.m.stoneDark, r, r * 1.04, 0.38, 0, 0, 0, 24);
   f.cyl(k.m.stone, r * 1.05, r * 1.05, 0.05, 0, 0.38, 0, 24);
   f.cyl(k.m.soil, r * 0.88, r * 0.88, 0.05, 0, 0.38, 0, 24);
-  for (let i = 0; i < 6; i++) {
-    const a = rand() * Math.PI * 2;
-    const d = rand() * r * 0.5;
-    f.ball(rand() > 0.5 ? k.m.leaf : k.m.leafLight, r * (0.28 + rand() * 0.14), Math.cos(a) * d, 0.62 + rand() * 0.1, Math.sin(a) * d, 1, 0.85, 1);
-  }
-  f.ball(k.m.leafLight, r * 0.36, 0, 0.82, 0, 1, 0.9, 1);
   const fm = getFoliageMaterial();
-  for (const g of shrubCardGeometries(seed * 13 + 5, r * 0.62, 110)) f.put(g, fm, 0, 0.72, 0);
+  for (const g of shrubCardGeometries(seed * 13 + 5, r * 0.62, 130)) f.put(g, fm, 0, 0.72, 0);
 }
 
 /** 路灯 */
