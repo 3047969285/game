@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { Frame, createSceneKit, type SceneKit } from "../sceneProps";
+import { Frame, createSceneKit, type PropDetail, type SceneKit } from "../sceneProps";
 import { createPerson, type PersonOptions } from "../people";
 
 /**
@@ -12,6 +12,7 @@ export const STAGE_Y = 1.16;
 export const STAGE_Z = 27;
 
 export interface SceneContext {
+  detail?: PropDetail;
   root: THREE.Group;
   glow: THREE.MeshStandardMaterial;
   edge: THREE.MeshStandardMaterial;
@@ -33,7 +34,7 @@ export interface Stage {
 }
 
 export function createStage(ctx: SceneContext): Stage {
-  const k = createSceneKit();
+  const k = createSceneKit(ctx.detail);
   const f = new Frame(k.kit, 0, STAGE_Y, STAGE_Z, Math.PI, SCENE_SCALE);
   return { ctx, k, f };
 }

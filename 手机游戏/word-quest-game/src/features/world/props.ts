@@ -282,6 +282,9 @@ export function leafCard(p: THREE.Vector3, size: number, rnd: () => number, up: 
   tmp.q.setFromEuler(tmp.e);
   tmp.m.compose(p, tmp.q, new THREE.Vector3(size, size, size));
   const card = new THREE.PlaneGeometry(1, 1);
+  // 图集左上角 10×10 是给实心树冠用的白色区域；卡片采到它会出现悬空白点。
+  const uv = card.attributes.uv;
+  for (let i = 0; i < uv.count; i++) uv.setX(i, 0.05 + uv.getX(i) * 0.95);
   const light = 0.7 + 0.5 * THREE.MathUtils.clamp(0.5 + up * 0.6, 0, 1);
   tmp.c.setHSL(tint[0] + (rnd() - 0.5) * 0.05, tint[1], tint[2] * light + 0.1).multiplyScalar(tint[3]);
   const colors = new Float32Array(card.attributes.position.count * 3);

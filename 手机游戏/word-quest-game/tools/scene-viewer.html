@@ -24,12 +24,15 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { buildUnitLandscape } from "/src/features/world/unitLandscape.ts";
 import { getBiome } from "/src/features/world/unitBiome.ts";
 import { applySurfaceGrain } from "/src/features/world/materials.ts";
+import { createSceneKit, Frame, openBook, bookStack, laptop, bench, planter } from "/src/features/world/sceneProps.ts";
 
 const q = new URLSearchParams(location.search);
 const unit = q.get("u") || "unit01";
 const world = q.get("w") || "section_a-world-1";
 const focused = world !== "hub";
 const preset = q.get("p") || "front";
+const detail = q.get("detail") === "low" ? "low" : "high";
+const prop = q.get("prop");
 
 const bar = document.getElementById("bar");
 for (const p of ["front", "top", "close", "side"]) {
@@ -65,24 +68,48 @@ ground.rotation.x = -Math.PI / 2;
 ground.receiveShadow = true;
 scene.add(ground);
 
-const landscape = buildUnitLandscape(getBiome(unit), { id: "x", x: 0, y: 0, z: 0, name: "n", theme: "coast" }, world, q.get("title") || "Scene");
+let landscape;
+if (prop) {
+  const builders = { book: openBook, books: bookStack, laptop, bench, planter };
+  if (!builders[prop]) throw new Error("未知道具：" + prop);
+  const kit = createSceneKit(detail);
+  builders[prop](kit, new Frame(kit.kit));
+  landscape = new THREE.Group();
+  kit.kit.build(landscape, "prop-detail");
+  ground.material.color.set(0x9aada4);
+  sun.shadow.camera.left = sun.shadow.camera.bottom = -4;
+  sun.shadow.camera.right = sun.shadow.camera.top = 4;
+  sun.shadow.bias = -0.0001;
+  sun.shadow.normalBias = 0.001;
+} else {
+  landscape = buildUnitLandscape(getBiome(unit), { id: "x", x: 0, y: 0, z: 0, name: "n", theme: "coast" }, world, q.get("title") || "Scene", detail);
+}
 applySurfaceGrain(landscape);
 scene.add(landscape);
 
 // 机位：聚焦世界的舞台中心约在 (0, 4.5, 9.5)（landmark 缩放 0.9、偏移 -15）；中枢在 (0, 4, 14)
-const center = focused ? new THREE.Vector3(0, 4.5, 9.5) : new THREE.Vector3(0, 4, 14);
+const bounds = new THREE.Box3().setFromObject(landscape);
+const center = prop ? bounds.getCenter(new THREE.Vector3()) : focused ? new THREE.Vector3(0, 4.5, 9.5) : new THREE.Vector3(0, 4, 14);
+const size = bounds.getSize(new THREE.Vector3());
+const fit = Math.max(size.y, size.x / (innerWidth / innerHeight), size.z) / (2 * Math.tan(42 * Math.PI / 360)) * 1.7;
 const presets = {
   front: { a: 0.35, e: 0.28, d: focused ? 26 : 70 },
   top: { a: 0.1, e: 1.0, d: focused ? 24 : 80 },
   close: { a: 0.25, e: 0.18, d: focused ? 13 : 40 },
   side: { a: 1.2, e: 0.26, d: focused ? 26 : 70 },
 };
-const pr = presets[preset] || presets.front;
+const propPresets = {
+  front: { a: Math.PI + 0.45, e: 0.65, d: fit },
+  top: { a: Math.PI + 0.1, e: 1.2, d: fit },
+  close: { a: Math.PI + 0.35, e: 0.55, d: fit * 0.85 },
+  side: { a: Math.PI + 1.2, e: 0.35, d: fit },
+};
+const pr = prop ? propPresets[preset] || propPresets.front : presets[preset] || presets.front;
 const num = (k, v) => (q.has(k) ? +q.get(k) : v);
 const a = num("a", pr.a), e = num("e", pr.e), d = num("d", pr.d);
 const tx = num("tx", center.x), ty = num("ty", center.y), tz = num("tz", center.z);
 
-const cam = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.1, 800);
+const cam = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, prop ? 0.005 : 0.1, 800);
 cam.position.set(tx + Math.sin(a) * d * Math.cos(e), ty + Math.sin(e) * d, tz - Math.cos(a) * d * Math.cos(e));
 cam.lookAt(tx, ty, tz);
 renderer.render(scene, cam);
@@ -94,7 +121,7 @@ renderer.render(scene, cam);
 stats = { calls: renderer.info.render.calls, tris: renderer.info.render.triangles };
 window.__sceneStats = stats;
 const tag = document.createElement("a");
-tag.textContent = `${unit} / ${world} · draw ${stats.calls} · tris ${(stats.tris / 1000).toFixed(0)}k`;
+tag.textContent = `${prop || unit + " / " + world} · ${detail} · draw ${stats.calls} · tris ${(stats.tris / 1000).toFixed(1)}k`;
 bar.appendChild(tag);
 if (q.get('shot')) { fetch('http://localhost:5190/' + q.get('shot'), { method: 'POST', body: renderer.domElement.toDataURL('image/png') }); }
 </script>

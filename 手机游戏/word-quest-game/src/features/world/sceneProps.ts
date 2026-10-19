@@ -1,6 +1,7 @@
 import { getFoliageMaterial, shrubCardGeometries } from "./props";
 import * as THREE from "three";
 import { MergedBuilder, boxGeo, createKitMaterials, cylGeo, gableGeo, strutGeo, type KitMaterials } from "./detailKit";
+import { createBookPageBlock, createBookPrint, createBookRibbon, createPetalGeometry, createPlanterRim } from "./propGeometry";
 
 /**
  * 场景道具库：长椅、桌椅、书架、黑板、屏幕、讲台、花坛、栏杆、台阶、遮阳篷……
@@ -22,17 +23,21 @@ export interface PropMaterials {
   ceramic: THREE.MeshStandardMaterial;
   leather: THREE.MeshStandardMaterial;
   plasticDark: THREE.MeshStandardMaterial;
+  printInk: THREE.MeshStandardMaterial;
   water: THREE.MeshStandardMaterial;
   canvasOlive: THREE.MeshStandardMaterial;
 }
 
+export type PropDetail = "high" | "low";
+
 export interface SceneKit {
+  detail: PropDetail;
   kit: MergedBuilder;
   m: KitMaterials;
   p: PropMaterials;
 }
 
-export function createSceneKit(): SceneKit {
+export function createSceneKit(detail: PropDetail = "high"): SceneKit {
   const std = (color: number, roughness = 0.85, metalness = 0.02, extra: THREE.MeshStandardMaterialParameters = {}) => {
     const mat = new THREE.MeshStandardMaterial({ color, roughness, metalness, ...extra });
     mat.fog = false;
@@ -40,6 +45,7 @@ export function createSceneKit(): SceneKit {
   };
   const bookTones = [0x9b3d3a, 0x2f5d8a, 0x3f7a4f, 0xc79a3a, 0x6a4a8a, 0xd8d0b8, 0x7a5a3a, 0x2d3a46];
   return {
+    detail,
     kit: new MergedBuilder(),
     m: createKitMaterials(),
     p: {
@@ -56,6 +62,7 @@ export function createSceneKit(): SceneKit {
       ceramic: std(0xf1ece2, 0.35),
       leather: std(0x5a3a28, 0.7, 0.05),
       plasticDark: std(0x20262b, 0.45, 0.2),
+      printInk: std(0x41494d, 0.98, 0),
       water: std(0x2f6e7c, 0.45, 0.05, { transparent: true, opacity: 0.94, envMapIntensity: 0.3 }),
       canvasOlive: std(0x7f8f6a, 0.95, 0, { side: THREE.DoubleSide }),
     },
@@ -128,16 +135,31 @@ export class Frame {
 
 // ───────────────────────── 家具 ─────────────────────────
 
-/** 公园长椅：木条座面 + 靠背 + 铸铁侧板 + 扶手 */
+/** 公园长椅：木条、镂空铁支架、弧形扶手与固定件。 */
 export function bench(k: SceneKit, f: Frame, length = 1.8): void {
   const { m } = k;
   for (let i = 0; i < 4; i++) f.box(m.wood, length, 0.035, 0.085, 0, 0.44, -0.18 + i * 0.1, 0.008);
   for (let i = 0; i < 3; i++) f.box(m.wood, length, 0.08, 0.03, 0, 0.62 + i * 0.12, -0.27 - i * 0.02, 0.008, -0.12);
   for (const s of [-1, 1]) {
     const x = (s * (length - 0.12)) / 2;
-    f.box(m.darkSteel, 0.05, 0.44, 0.5, x, 0, -0.04, 0.01);
-    f.box(m.darkSteel, 0.05, 0.05, 0.5, x, 0.58, -0.04, 0.01);
-    f.box(m.darkSteel, 0.05, 0.38, 0.05, x, 0.4, -0.27, 0.01, -0.12);
+    for (const z of [-0.23, 0.19]) {
+      f.box(m.darkSteel, 0.10, 0.035, 0.13, x, 0, z, 0.006);
+      f.strut(m.darkSteel, [x, 0.035, z], [x, 0.435, z * 0.78], 0.026, 8);
+    }
+    f.strut(m.darkSteel, [x, 0.425, -0.28], [x, 0.425, 0.23], 0.027, 8);
+    f.strut(m.darkSteel, [x, 0.40, -0.27], [x, 0.96, -0.35], 0.024, 8);
+    const arm = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(x, 0.58, 0.20), new THREE.Vector3(x, 0.65, 0.13),
+      new THREE.Vector3(x, 0.66, -0.14), new THREE.Vector3(x, 0.63, -0.29),
+    ]);
+    f.put(new THREE.TubeGeometry(arm, k.detail === "high" ? 12 : 6, 0.024, 6, false), m.darkSteel);
+    f.strut(m.darkSteel, [x, 0.45, 0.18], [x, 0.61, 0.18], 0.020, 6);
+    if (k.detail === "high") {
+      for (let i = 0; i < 4; i++) f.cyl(m.steel, 0.008, 0.008, 0.004, x, 0.476, -0.18 + i * 0.1, 6);
+      for (let i = 0; i < 3; i++) {
+        f.put(cylGeo(0.008, 0.008, 0.004, 6), m.steel, x, 0.66 + i * 0.12, -0.248 - i * 0.02, Math.PI / 2);
+      }
+    }
   }
 }
 
@@ -212,16 +234,32 @@ export function bookStack(k: SceneKit, f: Frame, n = 4, seed = 3): void {
   let y = 0;
   for (let i = 0; i < n; i++) {
     const h = 0.03 + rand() * 0.03;
-    f.box(k.p.books[Math.floor(rand() * k.p.books.length)], 0.26 - i * 0.012, h, 0.19, 0, y, 0, 0.004, 0, (rand() - 0.5) * 0.4);
+    const cover = k.p.books[Math.floor(rand() * k.p.books.length)];
+    const w = Math.max(0.10, 0.26 - i * 0.012);
+    const book = f.child(0, y, 0, (rand() - 0.5) * 0.4);
+    book.box(cover, w, 0.003, 0.19, 0, 0, 0, 0.001);
+    book.box(k.m.paper, w - 0.01, h - 0.006, 0.18, 0.002, 0.003, 0, 0.001);
+    book.box(cover, w, 0.003, 0.19, 0, h - 0.003, 0, 0.001);
+    book.box(cover, 0.006, h, 0.19, -w / 2 + 0.003, 0, 0, 0.001);
+    if (k.detail === "high") {
+      for (const z of [-0.06, 0.06]) book.box(k.m.brass, 0.001, h * 0.6, 0.006, -w / 2 - 0.0006, h * 0.2, z, 0);
+      book.box(k.m.brass, w * 0.45, 0.0008, 0.035, 0, h + 0.0002, 0, 0);
+    }
     y += h;
   }
 }
 
-/** 翻开的书 */
+/** 翻开的书：独立纸页截面、装订沟、贴合曲面的印刷与书签。 */
 export function openBook(k: SceneKit, f: Frame): void {
-  f.box(k.p.leather, 0.42, 0.015, 0.3, 0, 0, 0, 0.004);
-  f.box(k.m.paper, 0.2, 0.025, 0.27, -0.105, 0.012, 0, 0.004, 0, 0, 0.05);
-  f.box(k.m.paper, 0.2, 0.025, 0.27, 0.105, 0.012, 0, 0.004, 0, 0, -0.05);
+  for (const side of [-1, 1] as const) {
+    f.box(k.p.leather, 0.216, 0.009, 0.3, side * 0.108, 0.002, 0, 0.003);
+    f.put(createBookPageBlock(side, k.detail === "high" ? 10 : 4), k.m.paper);
+    if (k.detail === "high") f.put(createBookPrint(side), k.p.printInk);
+  }
+  f.strut(k.p.leather, [0, 0.015, -0.15], [0, 0.015, 0.15], 0.008, 8);
+  if (k.detail === "high") {
+    f.put(createBookRibbon(), k.p.fabricRed);
+  }
 }
 
 // ───────────────────────── 屏幕 / 电子设备 ─────────────────────────
@@ -237,9 +275,32 @@ export function monitor(k: SceneKit, f: Frame, w = 0.62, h = 0.36, screen = k.p.
 /** 笔记本电脑（打开） */
 export function laptop(k: SceneKit, f: Frame, screen = k.p.screenOn): void {
   f.box(k.m.steel, 0.34, 0.015, 0.23, 0, 0, 0, 0.005);
-  f.box(k.p.plasticDark, 0.3, 0.003, 0.1, 0, 0.015, 0.03, 0.001);
-  f.box(k.m.steel, 0.34, 0.22, 0.01, 0, 0.012, -0.11, 0.004, -0.38);
-  f.put(new THREE.PlaneGeometry(0.31, 0.19), screen, 0, 0.115, -0.105, -0.38);
+  f.box(k.p.plasticDark, 0.292, 0.0015, 0.101, 0, 0.0152, -0.026, 0.001);
+  f.box(k.p.plasticDark, 0.098, 0.001, 0.048, 0, 0.0153, 0.073, 0.001);
+  f.box(k.m.steel, 0.094, 0.001, 0.044, 0, 0.0164, 0.073, 0.001);
+  f.strut(k.m.darkSteel, [-0.115, 0.018, -0.103], [0.115, 0.018, -0.103], 0.008, 8);
+  const angle = 0.30;
+  const c = Math.cos(angle), s = Math.sin(angle);
+  const lidPart = (geometry: THREE.BufferGeometry, material: THREE.Material, x: number, y: number, front: number) =>
+    f.put(geometry, material, x, 0.018 + y * c + front * s, -0.103 - y * s + front * c, -angle);
+  lidPart(boxGeo(0.34, 0.22, 0.009, 0.004), k.m.steel, 0, 0.11, 0);
+  lidPart(new THREE.PlaneGeometry(0.315, 0.193), k.p.plasticDark, 0, 0.11, 0.005);
+  lidPart(new THREE.PlaneGeometry(0.295, 0.169), screen, 0, 0.11, 0.0056);
+  if (k.detail === "high") {
+    for (let row = 0; row < 4; row++) for (let col = 0; col < 10; col++) {
+      f.box(k.m.darkSteel, 0.023, 0.0018, 0.017, -0.125 + col * 0.0278, 0.0168, -0.063 + row * 0.023, 0.0005);
+    }
+    f.box(k.m.darkSteel, 0.11, 0.0018, 0.013, 0, 0.0168, 0.026, 0.0005);
+    for (const x of [-0.157, 0.157]) for (let i = 0; i < 6; i++) {
+      f.box(k.p.plasticDark, 0.003, 0.0006, 0.010, x, 0.0155, -0.067 + i * 0.016, 0);
+    }
+    // 同一个盖板局部坐标系，屏幕内容不会随屏幕倾角脱离表面。
+    lidPart(new THREE.PlaneGeometry(0.258, 0.009), k.m.paper, 0, 0.174, 0.0059);
+    for (let row = 0; row < 4; row++) {
+      lidPart(new THREE.PlaneGeometry(0.16 - row * 0.018, 0.003), k.m.paper, -0.024, 0.145 - row * 0.020, 0.0059);
+    }
+    lidPart(new THREE.PlaneGeometry(0.003, 0.003), k.p.plasticDark, 0, 0.212, 0.0058);
+  }
 }
 
 /** 手机（平放） */
@@ -267,17 +328,34 @@ export function board(k: SceneKit, f: Frame, w = 2.4, h = 1.2, mat = k.p.boardGr
 /** 花坛（圆形）：石围 + 土 + 灌木 + 小花 */
 export function planter(k: SceneKit, f: Frame, r = 0.5, seed = 5): void {
   const rand = mulberry(seed);
-  f.cyl(k.m.stoneDark, r, r * 1.04, 0.38, 0, 0, 0, 24);
-  f.cyl(k.m.stone, r * 1.05, r * 1.05, 0.05, 0, 0.38, 0, 24);
-  f.cyl(k.m.soil, r * 0.88, r * 0.88, 0.05, 0, 0.38, 0, 24);
-  for (let i = 0; i < 6; i++) {
+  f.put(new THREE.CylinderGeometry(r, r * 1.04, 0.38, 24, 1, true), k.m.stoneDark, 0, 0.19, 0);
+  f.put(createPlanterRim(r, 0.08), k.m.stone, 0, 0.355, 0);
+  f.cyl(k.m.soil, r * 0.88, r * 0.88, 0.045, 0, 0.31, 0, 24);
+  for (let i = 0; i < 2; i++) {
     const a = rand() * Math.PI * 2;
     const d = rand() * r * 0.5;
-    f.ball(rand() > 0.5 ? k.m.leaf : k.m.leafLight, r * (0.28 + rand() * 0.14), Math.cos(a) * d, 0.62 + rand() * 0.1, Math.sin(a) * d, 1, 0.85, 1);
+    f.ball(rand() > 0.5 ? k.m.leaf : k.m.leafLight, r * (0.16 + rand() * 0.06), Math.cos(a) * d, 0.50 + rand() * 0.06, Math.sin(a) * d, 1, 0.85, 1);
   }
-  f.ball(k.m.leafLight, r * 0.36, 0, 0.82, 0, 1, 0.9, 1);
   const fm = getFoliageMaterial();
-  for (const g of shrubCardGeometries(seed * 13 + 5, r * 0.62, 110)) f.put(g, fm, 0, 0.72, 0);
+  for (const g of shrubCardGeometries(seed * 13 + 5, r * 0.62, k.detail === "high" ? 96 : 30)) {
+    const colors = g.attributes.color;
+    for (let i = 0; i < colors.count; i++) colors.setXYZ(i, colors.getX(i) * 0.82, colors.getY(i) * 0.82, colors.getZ(i) * 0.82);
+    f.put(g, fm, 0, 0.66, 0);
+  }
+  for (let i = 0; i < (k.detail === "high" ? 7 : 3); i++) {
+    const angle = rand() * Math.PI * 2;
+    const distance = Math.sqrt(rand()) * r * 0.60;
+    const x = Math.cos(angle) * distance, z = Math.sin(angle) * distance;
+    const height = 0.78 + rand() * 0.22;
+    const size = r * (0.12 + rand() * 0.05);
+    f.strut(k.m.leaf, [x * 0.85, 0.35, z * 0.85], [x, height, z], 0.008, 5);
+    const flower = f.child(x, height, z, angle);
+    const petals = k.detail === "high" ? 6 : 4;
+    for (let p = 0; p < petals; p++) {
+      flower.put(createPetalGeometry(), i % 2 ? k.p.fabricCream : k.p.fabricRed, 0, 0, 0, 0, p / petals * Math.PI * 2, 0, size, size, size);
+    }
+    flower.put(new THREE.SphereGeometry(size * 0.25, 8, 5), k.p.books[3], 0, 0.008, 0, 0, 0, 0, 1, 0.55, 1);
+  }
 }
 
 /** 路灯 */
@@ -363,20 +441,139 @@ export function gazebo(k: SceneKit, f: Frame, r = 1.4, roof = k.m.terracottaRoof
   f.ball(k.m.brass, 0.07, 0, 3.55, 0);
 }
 
-/** 小房子：石基 + 抹灰墙 + 双坡瓦顶 + 门窗 + 烟囱；正面朝局部 +z */
+export interface HouseFacadeOpening {
+  kind: "door" | "window";
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  curtain?: boolean;
+  sillOverhang?: number;
+  lintelOverhang?: number;
+}
+
+const WINDOW_FRAME_WIDTH = 0.045;
+
+/** 房屋正面洞口布局（局部米制坐标，底面 y=0，正面朝 +z）。 */
+export function getHouseFacadeLayout(w: number, h: number): HouseFacadeOpening[] {
+  const doorHeight = Math.min(1.65, h - 0.35);
+  const windowWidth = Math.min(0.56, Math.max(0.2, (w - 1.25) / 2));
+  const windowY = Math.min(1.2, h - 0.8);
+  const windowHeight = Math.min(0.64, h - windowY - 0.16);
+  const sillOverhang = 0.025;
+  const lintelOverhang = 0.025;
+  const sideClearance = 0.05;
+  const trimExtent = Math.max(sillOverhang, lintelOverhang, WINDOW_FRAME_WIDTH);
+  const windowX = w / 2 - sideClearance - trimExtent - windowWidth / 2;
+  return [
+    { kind: "door", x: 0, y: 0.3, width: Math.min(0.82, w - 0.08), height: doorHeight },
+    { kind: "window", x: -windowX, y: windowY, width: windowWidth, height: windowHeight, sillOverhang, lintelOverhang },
+    { kind: "window", x: windowX, y: windowY, width: windowWidth, height: windowHeight, curtain: true, sillOverhang, lintelOverhang },
+  ];
+}
+
+function addFrontFacadeWithOpenings(
+  f: Frame,
+  wall: THREE.Material,
+  width: number,
+  height: number,
+  frontZ: number,
+  wallBottom: number,
+  wallDepth: number,
+  openings: HouseFacadeOpening[],
+): void {
+  const xCuts = [...new Set([
+    -width / 2,
+    width / 2,
+    ...openings.flatMap((opening) => [opening.x - opening.width / 2, opening.x + opening.width / 2]),
+  ])].sort((a, b) => a - b);
+  for (let i = 0; i < xCuts.length - 1; i++) {
+    const left = xCuts[i];
+    const right = xCuts[i + 1];
+    if (right - left < 0.006) continue;
+    const x = (left + right) / 2;
+    const holes = openings
+      .filter((opening) => x > opening.x - opening.width / 2 && x < opening.x + opening.width / 2)
+      .sort((a, b) => a.y - b.y);
+    let y = wallBottom;
+    for (const opening of holes) {
+      const holeBottom = THREE.MathUtils.clamp(opening.y, wallBottom, height);
+      const holeTop = THREE.MathUtils.clamp(opening.y + opening.height, wallBottom, height);
+      if (holeBottom - y > 0.006) f.box(wall, right - left, holeBottom - y, wallDepth, x, y, frontZ - wallDepth / 2, 0);
+      y = Math.max(y, holeTop);
+    }
+    if (height - y > 0.006) f.box(wall, right - left, height - y, wallDepth, x, y, frontZ - wallDepth / 2, 0);
+  }
+}
+
+/** 小房子：石基 + 有真实门窗洞口的墙体 + 双坡瓦顶 + 门窗细节 + 烟囱；正面朝局部 +z */
 export function house(k: SceneKit, f: Frame, w = 2.4, h = 2.6, d = 2.2, roof = k.m.terracottaRoof, wall = k.m.paper): void {
   const { m } = k;
-  f.box(m.stoneDark, w + 0.1, 0.3, d + 0.1, 0, 0, 0, 0.02);
-  f.box(wall, w, h - 0.3, d, 0, 0.3, 0, 0.03);
+  const wallBottom = 0.3;
+  const wallHeight = Math.max(0.1, h - wallBottom);
+  const wallDepth = Math.min(0.16, d * 0.12);
+  const frontZ = d / 2;
+  const openings = getHouseFacadeLayout(w, h);
+  const door = openings[0];
+  const windows = openings.slice(1);
+
+  f.box(m.stoneDark, w + 0.1, wallBottom, d + 0.1, 0, 0, 0, 0.02);
+  // 三面封闭墙 + 正面按洞口分段，窗内透光板因此位于真实空隙中。
+  f.box(wall, wallDepth, wallHeight, d, -w / 2 + wallDepth / 2, wallBottom, 0, 0);
+  f.box(wall, wallDepth, wallHeight, d, w / 2 - wallDepth / 2, wallBottom, 0, 0);
+  f.box(wall, w, wallHeight, wallDepth, 0, wallBottom, -d / 2 + wallDepth / 2, 0);
+  addFrontFacadeWithOpenings(f, wall, w, h, frontZ, wallBottom, wallDepth, openings);
+
   f.put(gableGeo(w + 0.5, 0.95 + w * 0.12, d + 0.5), roof, 0, h, 0);
   f.put(gableGeo(w + 0.3, 0.8 + w * 0.12, d + 0.3), m.woodDark, 0, h - 0.04, 0, 0, 0, 0, 1, 0.97, 0.99);
-  // 门 + 门框 + 台阶
-  f.box(m.woodDark, 0.82, 1.65, 0.07, 0, 0.3, d / 2 + 0.01, 0.01);
-  f.box(m.wood, 0.7, 1.55, 0.06, 0, 0.3, d / 2 + 0.04, 0.01);
-  f.box(m.stoneWarm, 1.2, 0.16, 0.45, 0, 0, d / 2 + 0.22, 0.02);
-  f.box(m.brass, 0.05, 0.05, 0.04, 0.24, 1.05, d / 2 + 0.08, 0.008);
-  // 窗：带窗棂、窗台、过梁与窗帘的窗
-  for (const sx of [-1, 1]) windowPane(k, f.child(sx * (w / 2 - 0.55), 1.2, d / 2 + 0.01), 0.56, 0.64, { curtain: sx > 0 });
+
+  // 门洞保留原有中心、底边和台阶位置；门框压住洞口边缘，门板退后少许形成阴影缝。
+  const jambWidth = 0.06;
+  const doorFaceZ = frontZ + 0.008;
+  const doorLeft = door.x - door.width / 2;
+  const doorRight = door.x + door.width / 2;
+  const jambZ = frontZ - wallDepth / 2 + 0.01;
+  const jambHeight = Math.max(0.2, door.height - 0.08);
+  const headerY = door.y + jambHeight;
+  f.box(m.woodDark, jambWidth, jambHeight, wallDepth + 0.04, doorLeft + jambWidth / 2, door.y, jambZ, 0.008);
+  f.box(m.woodDark, jambWidth, jambHeight, wallDepth + 0.04, doorRight - jambWidth / 2, door.y, jambZ, 0.008);
+  f.box(m.woodDark, door.width, 0.08, wallDepth + 0.04, door.x, headerY, jambZ, 0.008);
+  const doorBoardWidth = Math.max(0.48, door.width - jambWidth * 2 - 0.08);
+  const doorBoardHeight = door.height - 0.11;
+  f.box(m.wood, doorBoardWidth, doorBoardHeight, 0.055, door.x, door.y, doorFaceZ, 0.008);
+  if (k.detail === "high") {
+    // 两道横档和三道窄木缝，合并进已有木材材质。
+    for (const y of [door.y + 0.56, door.y + 1.12]) {
+      if (y < door.y + doorBoardHeight - 0.04) f.box(m.woodDark, doorBoardWidth - 0.08, 0.025, 0.012, door.x, y, doorFaceZ + 0.034, 0.003);
+    }
+    for (const dx of [-0.14, 0, 0.14]) f.box(m.woodDark, 0.012, doorBoardHeight - 0.12, 0.012, door.x + dx, door.y + 0.06, doorFaceZ + 0.034, 0.002);
+    for (const y of [door.y + 0.16, door.y + door.height - 0.22]) {
+      f.box(m.brass, 0.035, 0.075, 0.012, doorLeft + jambWidth / 2, y, doorFaceZ + 0.038, 0.003);
+    }
+  }
+  f.box(m.stoneWarm, Math.max(0.9, door.width + 0.38), 0.16, 0.45, 0, 0, frontZ + 0.22, 0.02);
+  f.box(m.brass, 0.05, 0.05, 0.04, door.x + Math.min(0.24, doorBoardWidth * 0.4), door.y + Math.min(0.75, doorBoardHeight * 0.49), doorFaceZ + 0.04, 0.008);
+
+  for (const opening of windows) {
+    const windowFrame = f.child(opening.x, opening.y, frontZ + 0.006);
+    windowPane(k, windowFrame, opening.width, opening.height, {
+      cols: k.detail === "high" ? 2 : 1,
+      rows: k.detail === "high" ? 2 : 1,
+      curtain: k.detail === "high" && opening.curtain,
+      lit: true,
+      frame: m.woodDark,
+      recess: wallDepth + 0.03,
+      sillOverhang: opening.sillOverhang,
+      lintelOverhang: opening.lintelOverhang,
+    });
+    // 侧窗洞口加深色内侧边，窗框压在墙外表面，玻璃与暖光板留有真实前后距离。
+    const revealDepth = wallDepth;
+    const revealZ = frontZ - revealDepth / 2;
+    for (const sx of [-1, 1]) {
+      f.box(m.woodDark, 0.025, opening.height, revealDepth, opening.x + sx * opening.width / 2, opening.y, revealZ, 0.003);
+    }
+  }
+
   f.box(m.stoneDark, 0.32, 1.0, 0.32, w / 2 - 0.45, h + 0.15, -d / 4, 0.02);
 }
 /** 水面圆盘（池塘 / 码头水域）：石围 + 水面 */
@@ -559,7 +756,7 @@ const windowMatCache = new WeakMap<object, { glow: THREE.MeshStandardMaterial; c
  * 带窗框的窗：外框 + 窗台 + 过梁 + 窗棂格 + 玻璃 + 室内暖光板 + 窗帘（可选）。
  * f 的局部原点在窗洞底边中心，朝 +z；w × h 为洞口尺寸。
  */
-export function windowPane(k: SceneKit, f: Frame, w: number, h: number, opts: { cols?: number; rows?: number; curtain?: boolean; lit?: boolean; frame?: THREE.Material } = {}): void {
+export function windowPane(k: SceneKit, f: Frame, w: number, h: number, opts: { cols?: number; rows?: number; curtain?: boolean; lit?: boolean; frame?: THREE.Material; recess?: number; sillOverhang?: number; lintelOverhang?: number } = {}): void {
   const { m } = k;
   const cols = opts.cols ?? 2;
   const rows = opts.rows ?? 2;
@@ -572,9 +769,9 @@ export function windowPane(k: SceneKit, f: Frame, w: number, h: number, opts: { 
     };
     windowMatCache.set(k, mats);
   }
-  const t = 0.045;
+  const t = WINDOW_FRAME_WIDTH;
   // 室内背板（暖光，窗内有人家的感觉）
-  if (opts.lit !== false) f.box(mats.glow, w - t, h - t, 0.01, 0, t / 2, -0.02, 0.002);
+  if (opts.lit !== false) f.box(mats.glow, w - t, h - t, 0.01, 0, t / 2, -(opts.recess ?? 0.02), 0.002);
   // 玻璃：略深的反射面
   f.put(new THREE.PlaneGeometry(w - t * 1.4, h - t * 1.4), m.glass, 0, h / 2, 0.02);
   // 外框四边
@@ -586,8 +783,10 @@ export function windowPane(k: SceneKit, f: Frame, w: number, h: number, opts: { 
   for (let i = 1; i < cols; i++) f.box(frame, 0.022, h, 0.05, -w / 2 + (w * i) / cols, 0, 0.03, 0.003);
   for (let j = 1; j < rows; j++) f.box(frame, w, 0.022, 0.05, 0, (h * j) / rows, 0.03, 0.003);
   // 窗台 + 过梁
-  f.box(m.stoneWarm, w + 0.22, 0.05, 0.16, 0, -t - 0.05, 0.05, 0.01);
-  f.box(m.stoneDark, w + 0.2, 0.06, 0.1, 0, h + t, 0.03, 0.01);
+  const sillOverhang = Math.max(0, opts.sillOverhang ?? 0.11);
+  const lintelOverhang = Math.max(0, opts.lintelOverhang ?? 0.1);
+  f.box(m.stoneWarm, w + sillOverhang * 2, 0.05, 0.16, 0, -t - 0.05, 0.05, 0.01);
+  f.box(m.stoneDark, w + lintelOverhang * 2, 0.06, 0.1, 0, h + t, 0.03, 0.01);
   if (opts.curtain) {
     for (const s of [-1, 1]) {
       const g = new THREE.PlaneGeometry(w * 0.3, h * 0.92, 5, 1);
