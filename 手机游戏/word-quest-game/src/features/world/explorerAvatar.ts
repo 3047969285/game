@@ -355,12 +355,12 @@ export function buildHair(style: "short" | "long" = "short", segs = 112): THREE.
   cap.translate(center.x, center.y, center.z);
   geos.push(cap);
   // 刘海：短而自然，向两侧斜扫，止于眉上
-  for (let i = 0; i < 9; i++) {
-    const s = (i / 8 - 0.5) * 2;
+  for (let i = 0; i < 15; i++) {
+    const s = (i / 14 - 0.5) * 2;
     const u = new THREE.Vector3(s * 0.62, 0.84 + (1 - Math.abs(s)) * 0.05, 0.4 + (1 - Math.abs(s)) * 0.1).normalize();
     const root = center.clone().add(new THREE.Vector3(u.x * R.x * 1.05, u.y * R.y * 1.05, u.z * R.z * 1.05));
-    const dir = new THREE.Vector3(s * 0.75 + (s === 0 ? 0.3 : 0), -0.25, 0.42).normalize();
-    geos.push(hairRibbon(root, u, dir, 0.036 + rnd() * 0.016, 0.022 + rnd() * 0.008, rnd, rnd()));
+    const dir = new THREE.Vector3(s * 0.7 + (Math.abs(s) < 0.1 ? 0.3 : 0), -0.42, 0.42).normalize();
+    geos.push(hairRibbon(root, u, dir, 0.066 + rnd() * 0.02, 0.02 + rnd() * 0.008, rnd, rnd()));
   }
   // 鬓角与后颈短发
   for (const side of [-1, 1]) {
@@ -396,7 +396,7 @@ function buildHead(m: Mats, rig: { eyeL?: THREE.Mesh; eyeR?: THREE.Mesh; brow?: 
   const head = group(0, 1.5, 0);
 
 
-  const face = new THREE.Mesh(headGeometry(), m.skin);
+  const face = new THREE.Mesh(headGeometry(), m.skinFace);
   face.castShadow = true;
   head.add(face);
   const eyeL = makeEye(m, 1);

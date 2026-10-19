@@ -6,6 +6,45 @@ import { meshFromSDF, mirrorX, sdBox, sdCone, sdEllipsoid, sdSphere, sdTorus, sm
  * 以及按人体解剖形状包裹的夹克、袖、裤、靴。坐标均为所属骨骼组的局部坐标。
  */
 
+/** 面部顶点色：唇红、脸颊血色、眼窝与眼睑偏暗、鼻孔深色（皮肤材质需 vertexColors） */
+function withFaceColors(geo: THREE.BufferGeometry): THREE.BufferGeometry {
+  const p = geo.attributes.position;
+  const col = new Float32Array(p.count * 3);
+  const bump = (v: number, r: number): number => Math.max(0, 1 - v / r) ** 1.5;
+  for (let i = 0; i < p.count; i++) {
+    const x = Math.abs(p.getX(i));
+    const y = p.getY(i);
+    const z = p.getZ(i);
+    let r = 1;
+    let g = 1;
+    let b = 1;
+    const mix = (w: number, tr: number, tg: number, tb: number): void => {
+      r += (tr - r) * w;
+      g += (tg - g) * w;
+      b += (tb - b) * w;
+    };
+    if (z > 0.06) {
+      // 唇
+      const lip = bump(Math.sqrt(((x) / 0.024) ** 2 + ((y - 0.1205) / 0.0105) ** 2), 1);
+      mix(lip * 0.85, 0.96, 0.66, 0.64);
+      // 脸颊血色
+      mix(bump(Math.hypot(x - 0.047, y - 0.158, z - 0.065), 0.034) * 0.45, 1.0, 0.84, 0.82);
+      // 眼窝 / 眼睑偏暗
+      mix(bump(Math.hypot(x - 0.034, (y - 0.2) * 1.25, z - 0.075), 0.03) * 0.5, 0.82, 0.68, 0.66);
+      // 眼袋
+      mix(bump(Math.hypot(x - 0.034, y - 0.18, z - 0.075), 0.014) * 0.25, 0.9, 0.78, 0.8);
+      // 鼻孔
+      mix(bump(Math.hypot(x - 0.0066, y - 0.149, z - 0.099), 0.009) * 0.9, 0.5, 0.36, 0.34);
+      // 鼻头微红
+      mix(bump(Math.hypot(x, y - 0.158, z - 0.108), 0.012) * 0.3, 1.0, 0.82, 0.8);
+    }
+    col[i * 3] = r;
+    col[i * 3 + 1] = g;
+    col[i * 3 + 2] = b;
+  }
+  geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
+  return geo;
+}
 /** 头部（头组局部坐标：y=0 在颈根，脸朝 +z） */
 export function headGeometry(q = 1): THREE.BufferGeometry {
   const sdf: SDF = (x, y, z) => {
@@ -34,9 +73,11 @@ export function headGeometry(q = 1): THREE.BufferGeometry {
     d = smax(d, -sdSphere(ax, y, z, 0.0066, 0.149, 0.097, 0.0042), 0.003);
     d = smax(d, -sdEllipsoid(ax, y, z, 0, 0.1212, 0.082, 0.021, 0.0013, 0.013), 0.002);
     d = smax(d, -sdCone(ax, y, z, 0, 0.14, 0.098, 0, 0.13, 0.092, 0.0018, 0.0018), 0.002);
-    return d;
+    // 眼睑：上睑皱褶与下睑（在眼窝挖空之后加回，包住眼球上下缘）
+    d = smin(d, sdEllipsoid(ax, y, z, 0.034, 0.2135, 0.0745, 0.0165, 0.0065, 0.0115), 0.006);
+    d = smin(d, sdEllipsoid(ax, y, z, 0.034, 0.1865, 0.0745, 0.0155, 0.004, 0.01), 0.005);    return d;
   };
-  return meshFromSDF(sdf, [0, 0.1, 0.02], 0.16, Math.max(24, Math.round(84 * q)), { boundR: 0.2 });
+  return withFaceColors(meshFromSDF(sdf, [0, 0.1, 0.02], 0.16, Math.max(24, Math.round(84 * q)), { boundR: 0.2 }));
 }
 
 /** 手（手组局部坐标：手腕在原点，向下为 -y；手掌厚度沿 x，宽度沿 z，手指向内（-side）自然微屈，拇指在前侧） */

@@ -119,6 +119,7 @@ export function createPerson(opts: PersonOptions): THREE.Group {
   const shirt = std(opts.shirt, 0.86, { side: THREE.DoubleSide });
   const trousers = std(opts.trousers ?? 0x39465a, 0.88);
   const skin = std(opts.skin ?? 0xe2b898, 0.55, { emissive: 0x3a1608, emissiveIntensity: 0.05 });
+  const skinFace = new THREE.MeshStandardMaterial({ color: skin.color.getHex(), roughness: 0.55, metalness: 0.02, vertexColors: true, emissive: 0x3a1608, emissiveIntensity: 0.05 });
   const hair = new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, roughness: 0.42, metalness: 0.15, side: THREE.DoubleSide });
   const hairTint = opts.hair ?? 0x2b1d16;
   const browMat = std(new THREE.Color(hairTint).multiplyScalar(0.8).getHex(), 0.7);
@@ -141,7 +142,7 @@ export function createPerson(opts: PersonOptions): THREE.Group {
   head.position.y = 1.5;
   head.rotation.x = pose === "phone" || pose === "read" ? 0.38 : pose === "write" ? 0.3 : opts.lean ? -opts.lean * 0.6 : 0;
   frame.add(head);
-  head.add(mesh(g.head, skin));
+  head.add(mesh(g.head, skinFace));
   for (const sx of [-1, 1]) {
     const eye = mesh(new THREE.SphereGeometry(0.0125, 12, 9), s.eyeWhite);
     eye.position.set(sx * 0.034, 0.2, 0.0685);
