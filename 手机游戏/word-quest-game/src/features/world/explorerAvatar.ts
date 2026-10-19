@@ -1,8 +1,10 @@
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
-import { mergeGeometries, mergeVertices } from "three/addons/utils/BufferGeometryUtils.js";
+import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { MergedBuilder, type Placement } from "./detailKit";
-import { seededRand, smoothstep } from "./utils";
+import { bootGeometry, handGeometry, handGeometryFor, headGeometry, jacketGeometry, lowerSleeveGeometry, shinGeometry, thighGeometry, upperSleeveGeometry } from "./avatarBody";
+import { mirrorX } from "./sdf";
+import { seededRand } from "./utils";
 
 /** 单腿骨骼：髋关节 + 膝关节（用于屈膝步态 / IK） */
 export interface LegRig {
@@ -34,7 +36,6 @@ export interface AvatarRig {
   };
 }
 
-const HEAD_CENTER_Y = 0.19;
 
 // ─────────────────────────────────────────────────────────────
 // 表面材质：对象空间微表面（布纹 / 皮革颗粒 / 皮肤毛孔 / 拉丝金属）。
@@ -55,7 +56,7 @@ float avN(vec3 x) {
 `;
 
 const SURFACE_PARAMS: Record<SurfaceKind, { fine: number; mid: number; weave: number; bump: number; tone: number; rough: number }> = {
-  fabric: { fine: 260, mid: 48, weave: 1, bump: 0.0009, tone: 0.06, rough: 0.1 },
+  fabric: { fine: 260, mid: 48, weave: 1, bump: 0.0004, tone: 0.06, rough: 0.1 },
   leather: { fine: 210, mid: 34, weave: 0, bump: 0.0012, tone: 0.1, rough: 0.16 },
   skin: { fine: 330, mid: 70, weave: 0, bump: 0.00022, tone: 0.025, rough: 0.06 },
   metal: { fine: 420, mid: 22, weave: 0, bump: 0.0006, tone: 0.1, rough: 0.12 },
@@ -194,99 +195,9 @@ function group(x: number, y: number, z: number): THREE.Group {
   return g;
 }
 
-/** 布料下垂的皱褶位移：沿角度的多频率起伏 + 竖向噪声，作用在径向 */
-function foldFactor(angle: number, y: number, seed: number, amp: number): number {
-  return 1 + amp * (Math.sin(angle * 6 + y * 14 + seed) * 0.5 + Math.sin(angle * 11 - y * 9 + seed * 2.3) * 0.3 + Math.sin(angle * 3 + y * 5 + seed * 0.6) * 0.2);
-}
-
-/** 旋转体肢段（顶端在 y=0 向下延伸 len），带布料皱褶，沿 z 压扁 */
-function limbLathe(profile: Array<[number, number]>, len: number, seed: number, amp: number, squashZ = 1): THREE.BufferGeometry {
-  const pts = profile.map(([t, r]) => new THREE.Vector2(r, -t * len)).reverse(); // 自下而上，法线朝外
-  const geo = new THREE.LatheGeometry(pts, 22);
-  const p = geo.attributes.position;
-  for (let i = 0; i < p.count; i++) {
-    const x = p.getX(i);
-    const z = p.getZ(i);
-    const k = foldFactor(Math.atan2(z, x), p.getY(i), seed, amp);
-    p.setXYZ(i, x * k, p.getY(i), z * k * squashZ);
-  }
-  geo.deleteAttribute("uv");
-  geo.computeVertexNormals();
-  return geo;
-}
-
 // ─────────────────────────────────────────────────────────────
 // 头部：雕刻面部（高斯隆起 / 凹陷）、眼睛、发丝、发髻、头带
 // ─────────────────────────────────────────────────────────────
-interface Feature {
-  c: [number, number, number];
-  s: number;
-  a: number;
-  tint?: [number, number, number];
-}
-
-const FACE_FEATURES: Feature[] = [
-  { c: [0, 0.72, 0.7], s: 0.32, a: 0.03 }, // 额
-  { c: [0.3, 0.44, 0.86], s: 0.16, a: 0.045 }, // 眉弓
-  { c: [-0.3, 0.44, 0.86], s: 0.16, a: 0.045 },
-  { c: [0.4, 0.12, 0.9], s: 0.13, a: -0.07, tint: [0.88, 0.76, 0.74] }, // 眼窝
-  { c: [-0.4, 0.12, 0.9], s: 0.13, a: -0.07, tint: [0.88, 0.76, 0.74] },
-  { c: [0, 0.02, 0.99], s: 0.1, a: 0.06 }, // 鼻梁
-  { c: [0, -0.3, 1.0], s: 0.1, a: 0.06 }, // 鼻头
-  { c: [0.15, -0.3, 0.98], s: 0.07, a: 0.05 }, // 鼻翼
-  { c: [-0.15, -0.3, 0.98], s: 0.07, a: 0.05 },
-  { c: [0.07, -0.38, 0.99], s: 0.045, a: -0.04, tint: [0.62, 0.45, 0.42] }, // 鼻孔
-  { c: [-0.07, -0.38, 0.99], s: 0.045, a: -0.04, tint: [0.62, 0.45, 0.42] },
-  { c: [0.52, -0.1, 0.84], s: 0.18, a: 0.05, tint: [1.0, 0.9, 0.87] }, // 颧骨（微红）
-  { c: [-0.52, -0.1, 0.84], s: 0.18, a: 0.05, tint: [1.0, 0.9, 0.87] },
-  { c: [0.5, -0.52, 0.78], s: 0.17, a: -0.035 }, // 颊凹
-  { c: [-0.5, -0.52, 0.78], s: 0.17, a: -0.035 },
-  { c: [0, -0.545, 0.95], s: 0.08, a: 0.014, tint: [1.0, 0.86, 0.84] }, // 上唇（三段拼出宽度）
-  { c: [0.12, -0.55, 0.93], s: 0.07, a: 0.01, tint: [1.0, 0.86, 0.84] },
-  { c: [-0.12, -0.55, 0.93], s: 0.07, a: 0.01, tint: [1.0, 0.86, 0.84] },
-  { c: [0, -0.645, 0.93], s: 0.05, a: -0.016, tint: [0.9, 0.7, 0.68] }, // 唇缝
-  { c: [0.12, -0.645, 0.92], s: 0.05, a: -0.014, tint: [0.9, 0.7, 0.68] },
-  { c: [-0.12, -0.645, 0.92], s: 0.05, a: -0.014, tint: [0.9, 0.7, 0.68] },
-  { c: [0, -0.73, 0.9], s: 0.09, a: 0.018, tint: [1.0, 0.84, 0.82] }, // 下唇
-  { c: [0.1, -0.73, 0.89], s: 0.08, a: 0.012, tint: [1.0, 0.84, 0.82] },
-  { c: [-0.1, -0.73, 0.89], s: 0.08, a: 0.012, tint: [1.0, 0.84, 0.82] },
-  { c: [0, -0.9, 0.7], s: 0.13, a: 0.05 }, // 下巴
-];
-function sculptFace(): THREE.BufferGeometry {
-  const geo = mergeVertices(new THREE.IcosahedronGeometry(1, 38), 1e-4);
-  geo.deleteAttribute("uv");
-  const p = geo.attributes.position;
-  const colors = new Float32Array(p.count * 3);
-  const feats = FACE_FEATURES.map((f) => ({ ...f, v: new THREE.Vector3(...f.c).normalize() }));
-  const u = new THREE.Vector3();
-  const R = new THREE.Vector3(0.083, 0.1, 0.093);
-  for (let i = 0; i < p.count; i++) {
-    u.fromBufferAttribute(p, i).normalize();
-    let disp = 0;
-    let tr = 1;
-    let tg = 1;
-    let tb = 1;
-    for (const f of feats) {
-      const w = Math.exp(-u.distanceToSquared(f.v) / (2 * f.s * f.s));
-      disp += f.a * 1.7 * w;
-      if (f.tint) {
-        tr += (f.tint[0] - 1) * w;
-        tg += (f.tint[1] - 1) * w;
-        tb += (f.tint[2] - 1) * w;
-      }
-    }
-    const jaw = smoothstep(-0.15, -0.95, u.y);
-    const r = 1 + disp;
-    p.setXYZ(i, u.x * (1 - 0.2 * jaw) * r * R.x, u.y * r * R.y, u.z * r * R.z);
-    colors[i * 3] = Math.min(1.1, tr);
-    colors[i * 3 + 1] = Math.min(1.1, tg);
-    colors[i * 3 + 2] = Math.min(1.1, tb);
-  }
-  geo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-  geo.computeVertexNormals();
-  return geo;
-}
-
 /** 虹膜贴图：放射纤维 + 角膜缘暗环 + 瞳孔 + 高光点 */
 function irisTexture(): THREE.CanvasTexture {
   const size = 256;
@@ -330,7 +241,7 @@ let irisTex: THREE.CanvasTexture | undefined;
 
 function makeEye(m: Mats, side: 1 | -1): THREE.Mesh {
   const eye = new THREE.Mesh(new THREE.SphereGeometry(0.0128, 22, 16), m.eyeWhite);
-  eye.position.set(side * 0.0365, HEAD_CENTER_Y + 0.011, 0.076);
+  eye.position.set(side * 0.034, 0.2, 0.0685);
   eye.scale.set(1.0, 0.94, 1.0);
   irisTex ??= irisTexture();
   const iris = new THREE.Mesh(new THREE.CircleGeometry(0.0072, 28), new THREE.MeshStandardMaterial({ map: irisTex, roughness: 0.28, metalness: 0 }));
@@ -343,7 +254,7 @@ function makeEye(m: Mats, side: 1 | -1): THREE.Mesh {
   cornea.position.set(0, 0, 0.0098);
   // 眼睑：上下两片略大于眼球的球冠（随眼球整体缩放 = 眨眼时闭合）
   const lidGeo = (from: number, to: number): THREE.BufferGeometry => new THREE.SphereGeometry(0.0139, 22, 10, 0, Math.PI * 2, from, to - from);
-  const upper = new THREE.Mesh(lidGeo(0, Math.PI * 0.38), m.skin);
+  const upper = new THREE.Mesh(lidGeo(0, Math.PI * 0.45), m.skin);
   const lower = new THREE.Mesh(lidGeo(Math.PI * 0.86, Math.PI), m.skin);
   const lashes = new THREE.Mesh(new THREE.TorusGeometry(0.0132, 0.0006, 4, 18, Math.PI * 0.85), m.brow);
   lashes.rotation.set(0, 0, Math.PI * 0.075);
@@ -361,7 +272,7 @@ function hairRibbon(root: THREE.Vector3, normal: THREE.Vector3, dir0: THREE.Vect
   const pts: THREE.Vector3[] = [root.clone()];
   const dir = dir0.clone().normalize();
   let p = root.clone();
-  const center = new THREE.Vector3(0, HEAD_CENTER_Y, 0);
+  const center = new THREE.Vector3(0, 0.207, -0.012);
   for (let k = 1; k <= segs; k++) {
     p = p.clone().addScaledVector(dir, len / segs);
     // 约束：不进入头部椭球内（略大于头皮半径）
@@ -403,20 +314,21 @@ function hairRibbon(root: THREE.Vector3, normal: THREE.Vector3, dir0: THREE.Vect
 function buildHair(): THREE.BufferGeometry {
   const rnd = seededRand(2031);
   const geos: THREE.BufferGeometry[] = [];
-  const center = new THREE.Vector3(0, HEAD_CENTER_Y, 0);
-  const R = new THREE.Vector3(0.09, 0.108, 0.098);
+  const center = new THREE.Vector3(0, 0.207, -0.012);
+  const R = new THREE.Vector3(0.086, 0.099, 0.105);
   const cap = new THREE.SphereGeometry(1, 112, 72);
   const cp = cap.attributes.position;
   const keep: number[] = [];
   const ci = cap.index!;
   const centroid = new THREE.Vector3();
   const vtmp = new THREE.Vector3();
-  const hairline = (x: number): number => 0.55 + 0.3 * Math.abs(x);
+  const hairline = (x: number): number => 0.36 + 0.34 * Math.abs(x);
   for (let i = 0; i < ci.count; i += 3) {
     centroid.set(0, 0, 0);
     for (let k = 0; k < 3; k++) centroid.add(vtmp.fromBufferAttribute(cp, ci.getX(i + k)));
     centroid.multiplyScalar(1 / 3).normalize();
-    const hidden = centroid.y < -0.32 || (centroid.z > 0.6 && centroid.y < hairline(centroid.x));
+    const earZone = Math.abs(centroid.x) > 0.74 && centroid.y > -0.4 && centroid.y < 0.32 && centroid.z > -0.35 && centroid.z < 0.6;
+    const hidden = earZone || centroid.y < -0.5 || (centroid.z > 0.45 && centroid.y < hairline(centroid.x));
     if (!hidden) keep.push(ci.getX(i), ci.getX(i + 1), ci.getX(i + 2));
   }
   cap.setIndex(keep);
@@ -428,7 +340,7 @@ function buildHair(): THREE.BufferGeometry {
     const strand = Math.sin(phi * 58 + Math.sin(theta * 4 + phi * 3) * 2.2) * 0.5 + 0.5;
     const lock = Math.sin(phi * 8 + theta * 2.4) * 0.5 + 0.5;
     const edgeFront = vtmp.z > 0.05 ? THREE.MathUtils.smoothstep(vtmp.y - hairline(vtmp.x), 0.0, 0.1) : 1;
-    const edgeLow = THREE.MathUtils.smoothstep(vtmp.y + 0.32, 0.0, 0.16);
+    const edgeLow = THREE.MathUtils.smoothstep(vtmp.y + 0.5, 0.0, 0.16);
     const clip = Math.min(edgeFront, edgeLow);
     const r = THREE.MathUtils.lerp(0.84, 1.05 + 0.012 * strand + 0.012 * lock, clip);
     cp.setXYZ(i, vtmp.x * r * R.x, vtmp.y * r * R.y, vtmp.z * r * R.z);
@@ -468,18 +380,9 @@ function buildHair(): THREE.BufferGeometry {
 
 function buildHead(m: Mats, rig: { eyeL?: THREE.Mesh; eyeR?: THREE.Mesh; brow?: THREE.Mesh; mouth?: THREE.Mesh }): { head: THREE.Group; browY: number; mouthY: number } {
   const head = group(0, 1.5, 0);
-  const parts = new Parts();
-  parts.cyl(m.skin, 0.047, 0.056, 0.12, { y: 0.03 }, 18);
-  parts.ball(m.skin, 0.03, { x: 0.025, y: 0.045, z: 0.02, sx: 1.2, sy: 2.0 }, 10);
-  parts.ball(m.skin, 0.03, { x: -0.025, y: 0.045, z: 0.02, sx: 1.2, sy: 2.0 }, 10);
-  for (const s of [-1, 1]) {
-    parts.ball(m.skin, 0.022, { x: s * 0.088, y: HEAD_CENTER_Y - 0.004, z: -0.004, sx: 0.36, sy: 1.15, sz: 0.75 }, 12);
-    parts.ball(m.skin, 0.008, { x: s * 0.089, y: HEAD_CENTER_Y - 0.03, z: 0.0, sx: 0.5, sy: 1.1 }, 8);
-  }
-  parts.build(head, "head-base");
 
-  const face = new THREE.Mesh(sculptFace(), m.skinFace);
-  face.position.y = HEAD_CENTER_Y;
+
+  const face = new THREE.Mesh(headGeometry(), m.skin);
   face.castShadow = true;
   head.add(face);
   const eyeL = makeEye(m, 1);
@@ -497,7 +400,7 @@ function buildHead(m: Mats, rig: { eyeL?: THREE.Mesh; eyeR?: THREE.Mesh; brow?: 
     tube.scale(1, 0.8, 0.6);
     browGeos.push(tube);
   }
-  const browY = HEAD_CENTER_Y + 0.047;
+  const browY = 0.2165;
   const brow = new THREE.Mesh(mergeGeometries(browGeos.map((g) => {
     const x = g.toNonIndexed();
     x.deleteAttribute("uv");
@@ -505,11 +408,11 @@ function buildHead(m: Mats, rig: { eyeL?: THREE.Mesh; eyeR?: THREE.Mesh; brow?: 
   }))!, m.brow);
   brow.position.set(0, browY, 0.0925);
   brow.rotation.x = -0.1;
-  const mouthY = HEAD_CENTER_Y - 0.0675;
+  const mouthY = 0.1215;
   const mouth = new THREE.Mesh(new THREE.CapsuleGeometry(0.0026, 0.03, 3, 8), m.lip);
   mouth.rotation.z = Math.PI / 2;
   mouth.scale.set(1, 1, 0.6);
-  mouth.position.set(0, mouthY, 0.0935);
+  mouth.position.set(0, mouthY, 0.0875);
 
   const hair = new THREE.Mesh(buildHair(), m.hair);
   hair.castShadow = true;
@@ -522,127 +425,76 @@ function buildHead(m: Mats, rig: { eyeL?: THREE.Mesh; eyeR?: THREE.Mesh; brow?: 
 }
 
 // ─────────────────────────────────────────────────────────────
-// 四肢（现代户外装束：夹克袖、牛仔工装裤、登山靴）
+// 四肢（SDF 雕刻的解剖形体：三角肌 / 二头肌 / 股四头肌 / 小腿肚 / 手指骨节，外覆夹克袖、工装裤与登山靴）
 // ─────────────────────────────────────────────────────────────
-function makeHandParts(p: Parts, m: Mats, side: 1 | -1): void {
-  p.box(m.skin, 0.062, 0.07, 0.028, { y: -0.038 }, 0.011);
-  const fingerX = [-0.023, -0.0075, 0.0075, 0.023];
-  const lens = [0.034, 0.039, 0.037, 0.03];
-  fingerX.forEach((x, i) => {
-    const curl = 0.28 + i * 0.05;
-    p.add(new THREE.CapsuleGeometry(0.0085, lens[i], 3, 8), m.skin, { x, y: -0.08 - lens[i] / 2 * Math.cos(curl), z: 0.004 + lens[i] / 2 * Math.sin(curl), rx: -curl });
-    p.add(new THREE.CapsuleGeometry(0.0078, lens[i] * 0.8, 3, 8), m.skin, { x, y: -0.08 - lens[i] * Math.cos(curl) - lens[i] * 0.35, z: 0.004 + lens[i] * Math.sin(curl) + lens[i] * 0.45, rx: -curl - 0.5 });
-    p.ball(m.skin, 0.0092, { x, y: -0.075, z: 0.003 }, 8);
-  });
-  p.add(new THREE.CapsuleGeometry(0.0105, 0.032, 3, 8), m.skin, { x: side * 0.036, y: -0.06, z: 0.012, rx: -0.5, rz: -side * 0.55 });
-  p.add(new THREE.CapsuleGeometry(0.0095, 0.026, 3, 8), m.skin, { x: side * 0.048, y: -0.085, z: 0.026, rx: -0.8, rz: -side * 0.45 });
-}
+let cache: { hand?: THREE.BufferGeometry; handR?: THREE.BufferGeometry; upper?: THREE.BufferGeometry; upperR?: THREE.BufferGeometry; lower?: THREE.BufferGeometry; lowerR?: THREE.BufferGeometry; thigh?: THREE.BufferGeometry; shin?: THREE.BufferGeometry; boot?: THREE.BufferGeometry } = {};
 
 function makeArm(m: Mats, side: 1 | -1): THREE.Group {
   const arm = new THREE.Group();
-  const up = new Parts();
-  up.ball(m.jacket, 0.068, {}, 14);
-  up.add(limbLathe([[0, 0.064], [0.4, 0.058], [1, 0.05]], 0.28, side * 1.7, 0.034), m.jacket);
-  up.build(arm, "arm-upper");
+  cache.upper ??= upperSleeveGeometry();
+  cache.lower ??= lowerSleeveGeometry();
+  cache.hand ??= handGeometry();
+  const mir = (g: THREE.BufferGeometry): THREE.BufferGeometry => (side === 1 ? g : mirrorX(g));
+  const upper = new THREE.Mesh(mir(cache.upper), m.jacket);
+  upper.castShadow = true;
+  arm.add(upper);
   const elbow = group(0, -0.28, 0);
   elbow.rotation.x = -0.22;
   arm.add(elbow);
-  const low = new Parts();
-  low.ball(m.jacket, 0.049, {}, 12);
-  low.add(limbLathe([[0, 0.049], [0.5, 0.044], [1, 0.04]], 0.255, side * 2.9, 0.03), m.jacket);
-  low.torus(m.leatherDark, 0.04, 0.0075, { y: -0.252, rx: Math.PI / 2 }, Math.PI * 2, 18);
-  low.torus(m.jacket, 0.043, 0.0085, { y: -0.245, rx: Math.PI / 2 }, Math.PI * 2, 18);
-  low.build(elbow, "arm-lower");
+  const lower = new THREE.Mesh(mir(cache.lower), m.jacket);
+  lower.castShadow = true;
+  elbow.add(lower);
   const hand = group(0, -0.27, 0);
   hand.rotation.z = side * 0.04;
-  const hp = new Parts();
-  makeHandParts(hp, m, side);
+  const handMesh = new THREE.Mesh(handGeometryFor(side, cache.hand), m.skin);
+  handMesh.castShadow = true;
+  hand.add(handMesh);
   if (side === 1) {
     // 左手托着一本皮面笔记本（世界里的"日记"）
-    hp.box(m.leatherDark, 0.115, 0.155, 0.026, { x: -0.012, y: -0.088, z: 0.052, rx: -0.45 }, 0.006);
-    hp.box(m.inner, 0.104, 0.146, 0.016, { x: -0.012, y: -0.088, z: 0.054, rx: -0.45 }, 0.003);
-    hp.box(m.brass, 0.008, 0.15, 0.03, { x: -0.066, y: -0.088, z: 0.052, rx: -0.45 }, 0.003);
+    const hp = new Parts();
+    hp.box(m.leatherDark, 0.026, 0.155, 0.115, { x: -0.044, y: -0.108, z: 0.02, rz: -0.06 }, 0.006);
+    hp.box(m.inner, 0.016, 0.146, 0.104, { x: -0.034, y: -0.108, z: 0.02, rz: -0.06 }, 0.003);
+    hp.box(m.brass, 0.03, 0.15, 0.008, { x: -0.044, y: -0.108, z: -0.036, rz: -0.06 }, 0.003);
+    hp.build(hand, "notebook");
   }
-  hp.build(hand, "hand");
   elbow.add(hand);
   return arm;
 }
 
 function makeLeg(m: Mats, side: 1 | -1): LegRig {
+  void side;
   const hip = new THREE.Group();
-  const thigh = new Parts();
-  thigh.ball(m.trousers, 0.106, {}, 14);
-  thigh.add(limbLathe([[0, 0.106], [0.45, 0.097], [1, 0.071]], 0.42, side * 3.3, 0.04), m.trousers);
-  // 工装裤腿侧袋
-  thigh.box(m.trousers, 0.012, 0.11, 0.095, { x: side * 0.1, y: -0.2, z: 0.0 }, 0.004);
-  thigh.box(m.leatherDark, 0.014, 0.012, 0.1, { x: side * 0.104, y: -0.15 }, 0.003);
-  thigh.build(hip, "thigh");
-
+  cache.thigh ??= thighGeometry();
+  cache.shin ??= shinGeometry();
+  cache.boot ??= bootGeometry();
+  const thigh = new THREE.Mesh(cache.thigh.clone(), m.trousers);
+  thigh.castShadow = true;
+  hip.add(thigh);
   const knee = group(0, -0.42, 0);
   hip.add(knee);
-  const shin = new Parts();
-  shin.ball(m.trousers, 0.075, {}, 12);
-  shin.add(limbLathe([[0, 0.071], [0.5, 0.062], [1, 0.06]], 0.4, side * 4.1, 0.03), m.trousers);
-  // 裤脚堆叠（盖在靴口上）
-  shin.torus(m.trousers, 0.062, 0.012, { y: -0.215, rx: Math.PI / 2 }, Math.PI * 2, 20);
-  // 登山靴：靴筒 + 靴舌 + 系带孔 + 脚背 + 鞋头 + 加厚齿纹底
-  shin.add(new THREE.CylinderGeometry(0.058, 0.056, 0.09, 20, 1), m.boot, { y: -0.275 });
-  shin.torus(m.leatherDark, 0.059, 0.008, { y: -0.23, rx: Math.PI / 2 }, Math.PI * 2, 20);
-  shin.add(new THREE.CapsuleGeometry(0.054, 0.115, 5, 14), m.boot, { y: -0.425, z: 0.058, rx: Math.PI / 2, sx: 1.06, sz: 0.85 });
-  shin.ball(m.boot, 0.052, { y: -0.435, z: 0.138, sx: 1.03, sy: 0.7 }, 14);
-  shin.ball(m.leatherDark, 0.04, { y: -0.445, z: 0.16, sx: 1.15, sy: 0.5 }, 10);
-  shin.box(m.boot, 0.1, 0.075, 0.07, { y: -0.425, z: -0.04 }, 0.02);
-  shin.box(m.sole, 0.124, 0.04, 0.305, { y: -0.462, z: 0.065 }, 0.016);
-  shin.box(m.sole, 0.118, 0.045, 0.078, { y: -0.463, z: -0.045 }, 0.016);
-  for (let i = 0; i < 6; i++) shin.box(m.sole, 0.126, 0.006, 0.014, { y: -0.487, z: -0.06 + i * 0.05 }, 0.002);
+  const shin = new THREE.Mesh(cache.shin.clone(), m.trousers);
+  shin.castShadow = true;
+  const boot = new THREE.Mesh(cache.boot.clone(), m.boot);
+  boot.castShadow = true;
+  knee.add(shin, boot);
+  const laces = new Parts();
   for (let i = 0; i < 5; i++) {
-    shin.box(m.inner, 0.05, 0.005, 0.005, { y: -0.375 - i * 0.002, z: 0.045 + i * 0.014, rx: -0.35 }, 0.002);
-    shin.ball(m.brass, 0.0036, { x: 0.028, y: -0.372 - i * 0.002, z: 0.045 + i * 0.014 }, 6);
-    shin.ball(m.brass, 0.0036, { x: -0.028, y: -0.372 - i * 0.002, z: 0.045 + i * 0.014 }, 6);
+    laces.box(m.inner, 0.056, 0.005, 0.005, { y: -0.398 - i * 0.002, z: 0.052 + i * 0.016, rx: -0.4 }, 0.002);
+    laces.ball(m.brass, 0.0036, { x: 0.03, y: -0.395 - i * 0.002, z: 0.052 + i * 0.016 }, 6);
+    laces.ball(m.brass, 0.0036, { x: -0.03, y: -0.395 - i * 0.002, z: 0.052 + i * 0.016 }, 6);
   }
-  shin.build(knee, "shin");
+  laces.build(knee, "laces");
   return { hip, knee };
 }
 
-// ─────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────// ─────────────────────────────────────────────────────────────
 // 躯干：户外夹克（顶点色：领口露出白衬衫）、腰带、双肩背包、围巾
 // ─────────────────────────────────────────────────────────────
 function buildJacket(m: Mats): THREE.Mesh {
-  const profile: Array<[number, number]> = [
-    [0.168, 0.84], [0.174, 0.9], [0.17, 0.98], [0.15, 1.08], [0.146, 1.14], [0.156, 1.24], [0.168, 1.34], [0.168, 1.42], [0.148, 1.49], [0.098, 1.53], [0.066, 1.545],
-  ];
-  const geo = new THREE.LatheGeometry(profile.map(([r, y]) => new THREE.Vector2(r, y)), 40, 0, Math.PI * 2);
-  const p = geo.attributes.position;
-  const colors = new Float32Array(p.count * 3);
-  const jacket = new THREE.Color(0x3f4a3c);
-  const inner = new THREE.Color(0xeceae2);
-  const tmp = new THREE.Color();
-  for (let i = 0; i < p.count; i++) {
-    const x = p.getX(i);
-    const y = p.getY(i);
-    const z = p.getZ(i);
-    const ang = Math.atan2(z, x);
-    const k = foldFactor(ang, y, 1.3, y < 1.1 ? 0.034 : 0.014);
-    p.setXYZ(i, x * k * 1.12, y, z * k * 0.8);
-    // 领口：夹克拉链半开，仅在 V 形小三角里露出白衬衫
-    const front = z > 0.02 ? 1 : 0;
-    const vHalf = Math.max(0, (y - 1.4) * 0.5);
-    const ax = Math.abs(x * 1.12);
-    const inV = front * (1 - smoothstep(vHalf - 0.01, vHalf + 0.004, ax)) * (y > 1.4 ? 1 : 0);
-    tmp.copy(jacket).lerp(inner, inV);
-    const shade = 0.84 + 0.16 * smoothstep(0.84, 1.35, y);
-    colors[i * 3] = tmp.r * shade;
-    colors[i * 3 + 1] = tmp.g * shade;
-    colors[i * 3 + 2] = tmp.b * shade;
-  }
-  geo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-  geo.deleteAttribute("uv");
-  geo.computeVertexNormals();
-  const mesh = new THREE.Mesh(geo, m.tunicVc);
+  const mesh = new THREE.Mesh(jacketGeometry(), m.jacket);
   mesh.castShadow = true;
   return mesh;
 }
-
 function buildTorsoParts(m: Mats): Parts {
   const t = new Parts();
   // 骨盆（裤腰）
@@ -660,11 +512,7 @@ function buildTorsoParts(m: Mats): Parts {
     t.box(m.jacket, 0.08, 0.07, 0.016, { x: s * 0.085, y: 1.26, z: 0.114, rx: -0.04 }, 0.006);
     t.box(m.leatherDark, 0.07, 0.016, 0.018, { x: s * 0.085, y: 1.285, z: 0.119 }, 0.004);
     t.ball(m.brass, 0.005, { x: s * 0.085, y: 1.273, z: 0.126 }, 6);
-    // 腰部斜插口袋
-    t.box(m.jacket, 0.075, 0.1, 0.014, { x: s * 0.095, y: 0.97, z: 0.128, rz: -s * 0.15 }, 0.005);
   }
-  // 下摆抽绳
-  t.torus(m.leatherDark, 0.17, 0.0045, { y: 0.9, rx: Math.PI / 2, sx: 1.12, sy: 0.8 }, Math.PI * 2, 36);
   // 双肩背包：主仓 + 前袋 + 拉链 + 侧袋水壶 + 肩带 + 胸扣
   t.box(m.leather, 0.29, 0.4, 0.15, { y: 1.27, z: -0.155 }, 0.06);
   t.box(m.jacket, 0.24, 0.17, 0.05, { y: 1.15, z: -0.235 }, 0.025);
@@ -750,9 +598,9 @@ export function createExplorerAvatar(): THREE.Group {
   root.add(leftLeg.hip, rightLeg.hip);
 
   const leftArm = makeArm(m, 1);
-  leftArm.position.set(0.225, 1.46, 0);
+  leftArm.position.set(0.2, 1.46, 0);
   const rightArm = makeArm(m, -1);
-  rightArm.position.set(-0.225, 1.46, 0);
+  rightArm.position.set(-0.2, 1.46, 0);
   root.add(leftArm, rightArm);
 
   const lantern = makeLantern(m);

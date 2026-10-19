@@ -19,6 +19,8 @@ s.add(new THREE.HemisphereLight(0xcfe4ff, 0x4a4a3a, 0.9));
 const sun = new THREE.DirectionalLight(0xfff0d8, 2.4);
 sun.position.set(2.5, 4, 3);
 sun.castShadow = true;
+sun.shadow.bias = -0.0004;
+sun.shadow.normalBias = 0.015;
 sun.shadow.mapSize.set(2048, 2048);
 sun.shadow.camera.left = sun.shadow.camera.bottom = -3;
 sun.shadow.camera.right = sun.shadow.camera.top = 3;
@@ -27,7 +29,9 @@ const ground = new THREE.Mesh(new THREE.CircleGeometry(6, 48), new THREE.MeshSta
 ground.rotation.x = -Math.PI / 2;
 ground.receiveShadow = true;
 s.add(ground);
+const t0 = performance.now();
 const a = createExplorerAvatar();
+window.__buildMs = Math.round(performance.now() - t0);
 a.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
 const yaw = +(q.get("yaw") ?? 0.5);
 a.rotation.y = yaw;
@@ -49,7 +53,7 @@ r.compile(s, cam);
 r.render(s, cam);
 window.__r = r;
 window.__diag = r.info.programs.filter((p) => p.diagnostics && !p.diagnostics.runnable).map((p) => (p.diagnostics.fragmentShader && p.diagnostics.fragmentShader.log || '') + (p.diagnostics.vertexShader && p.diagnostics.vertexShader.log || '') + (p.diagnostics.programLog || ''));
-document.title = 'programs ' + r.info.programs.length + ' bad ' + window.__diag.length;
+document.title = 'build ' + window.__buildMs + 'ms programs ' + r.info.programs.length + ' bad ' + window.__diag.length;
 if (q.get('shot')) { r.render(s, cam); fetch('http://localhost:5190/' + q.get('shot'), { method: 'POST', body: r.domElement.toDataURL('image/png') }).then(() => { document.title += ' shot-sent'; }); }
 r.setAnimationLoop(() => r.render(s, cam));
 </script>
