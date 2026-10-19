@@ -375,15 +375,8 @@ export function house(k: SceneKit, f: Frame, w = 2.4, h = 2.6, d = 2.2, roof = k
   f.box(m.wood, 0.7, 1.55, 0.06, 0, 0.3, d / 2 + 0.04, 0.01);
   f.box(m.stoneWarm, 1.2, 0.16, 0.45, 0, 0, d / 2 + 0.22, 0.02);
   f.box(m.brass, 0.05, 0.05, 0.04, 0.24, 1.05, d / 2 + 0.08, 0.008);
-  // 窗：框 + 玻璃 + 窗台 + 十字窗棂
-  for (const sx of [-1, 1]) {
-    const x = sx * (w / 2 - 0.55);
-    f.box(m.woodDark, 0.66, 0.74, 0.07, x, 1.15, d / 2 + 0.01, 0.01);
-    f.put(new THREE.PlaneGeometry(0.54, 0.62), m.glass, x, 1.52, d / 2 + 0.05);
-    f.box(m.woodDark, 0.03, 0.62, 0.03, x, 1.21, d / 2 + 0.06, 0.004);
-    f.box(m.woodDark, 0.54, 0.03, 0.03, x, 1.51, d / 2 + 0.06, 0.004);
-    f.box(m.stoneWarm, 0.78, 0.05, 0.14, x, 1.1, d / 2 + 0.07, 0.01);
-  }
+  // 窗：带窗棂、窗台、过梁与窗帘的窗
+  for (const sx of [-1, 1]) windowPane(k, f.child(sx * (w / 2 - 0.55), 1.2, d / 2 + 0.01), 0.56, 0.64, { curtain: sx > 0 });
   f.box(m.stoneDark, 0.32, 1.0, 0.32, w / 2 - 0.45, h + 0.15, -d / 4, 0.02);
 }
 /** 水面圆盘（池塘 / 码头水域）：石围 + 水面 */
@@ -522,4 +515,50 @@ function mulberry(seed: number): () => number {
     t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
+}
+
+const windowMatCache = new WeakMap<object, { glow: THREE.MeshStandardMaterial; curtain: THREE.MeshStandardMaterial }>();
+/**
+ * 带窗框的窗：外框 + 窗台 + 过梁 + 窗棂格 + 玻璃 + 室内暖光板 + 窗帘（可选）。
+ * f 的局部原点在窗洞底边中心，朝 +z；w × h 为洞口尺寸。
+ */
+export function windowPane(k: SceneKit, f: Frame, w: number, h: number, opts: { cols?: number; rows?: number; curtain?: boolean; lit?: boolean; frame?: THREE.Material } = {}): void {
+  const { m } = k;
+  const cols = opts.cols ?? 2;
+  const rows = opts.rows ?? 2;
+  const frame = opts.frame ?? m.woodDark;
+  let mats = windowMatCache.get(k);
+  if (!mats) {
+    mats = {
+      glow: new THREE.MeshStandardMaterial({ color: 0xffe2a8, emissive: 0xffb45a, emissiveIntensity: 0.55, roughness: 0.7 }),
+      curtain: new THREE.MeshStandardMaterial({ color: 0xd9c8a8, roughness: 0.95, side: THREE.DoubleSide }),
+    };
+    windowMatCache.set(k, mats);
+  }
+  const t = 0.045;
+  // 室内背板（暖光，窗内有人家的感觉）
+  if (opts.lit !== false) f.box(mats.glow, w - t, h - t, 0.01, 0, t / 2, -0.02, 0.002);
+  // 玻璃：略深的反射面
+  f.put(new THREE.PlaneGeometry(w - t * 1.4, h - t * 1.4), m.glass, 0, h / 2, 0.02);
+  // 外框四边
+  f.box(frame, w + t * 2, t, 0.08, 0, -t, 0.0, 0.006);
+  f.box(frame, w + t * 2, t, 0.08, 0, h, 0.0, 0.006);
+  f.box(frame, t, h + t * 2, 0.08, -w / 2 - t / 2, -t, 0.0, 0.006);
+  f.box(frame, t, h + t * 2, 0.08, w / 2 + t / 2, -t, 0.0, 0.006);
+  // 窗棂
+  for (let i = 1; i < cols; i++) f.box(frame, 0.022, h, 0.05, -w / 2 + (w * i) / cols, 0, 0.03, 0.003);
+  for (let j = 1; j < rows; j++) f.box(frame, w, 0.022, 0.05, 0, (h * j) / rows, 0.03, 0.003);
+  // 窗台 + 过梁
+  f.box(m.stoneWarm, w + 0.22, 0.05, 0.16, 0, -t - 0.05, 0.05, 0.01);
+  f.box(m.stoneDark, w + 0.2, 0.06, 0.1, 0, h + t, 0.03, 0.01);
+  if (opts.curtain) {
+    for (const s of [-1, 1]) {
+      const g = new THREE.PlaneGeometry(w * 0.3, h * 0.92, 5, 1);
+      const p = g.attributes.position;
+      for (let i = 0; i < p.count; i++) p.setZ(i, Math.sin(p.getX(i) * 40) * 0.012);
+      g.computeVertexNormals();
+      f.put(g, mats.curtain, s * w * 0.33, h * 0.5, 0.06);
+    }
+    f.box(m.brass, w + 0.08, 0.015, 0.015, 0, h - 0.03, 0.07, 0.004);
+  }
 }

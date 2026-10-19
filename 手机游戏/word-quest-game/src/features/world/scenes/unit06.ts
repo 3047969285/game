@@ -98,10 +98,9 @@ export const bookshopScene: SceneModule = (ctx) => {
   shop.put(gableGeo(7.6, 0.9, 2.9), m.slate, 0, 4.1, 0);
   // 大橱窗 ×2 + 门：窗框 + 玻璃 + 窗内书架
   for (const sx of [-1, 1]) {
-    shop.box(m.woodDark, 2.5, 2.1, 0.1, sx * 2.3, 0.75, 1.32, 0.02);
-    shop.put(new THREE.PlaneGeometry(2.3, 1.9), m.glass, sx * 2.3, 1.7, 1.38);
-    shop.box(m.woodDark, 0.05, 1.9, 0.06, sx * 2.3, 0.85, 1.38, 0.008);
+    props.windowPane(k, shop.child(sx * 2.3, 0.78, 1.32), 2.3, 1.9, { cols: 3, rows: 2, lit: true, frame: m.woodDark });
     for (let i = 0; i < 3; i++) shop.box(m.wood, 2.2, 0.04, 0.4, sx * 2.3, 1.0 + i * 0.6, 1.12, 0.008);
+    shop.child(sx * 2.3, 1.04, 1.1).box(m.paper, 1.9, 0.3, 0.05, 0, 0, 0, 0.01);
   }
   shop.box(m.woodDark, 1.4, 2.5, 0.1, 0, 0.3, 1.32, 0.02);
   shop.box(m.wood, 1.2, 2.3, 0.07, 0, 0.35, 1.36, 0.015);
