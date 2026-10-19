@@ -1,3 +1,5 @@
+import { buildVegetationField, type VegetationField } from "./vegetationField";
+import { planVegetation, type AvoidCircle, type AvoidEllipse, type AvoidSegment } from "./vegetationPlan";
 import * as THREE from "three";
 import { Timer } from "three/src/core/Timer.js";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
@@ -156,6 +158,7 @@ export class World3D {
   private explorer?: THREE.Group;
   private pathGroup?: THREE.Group;
   private decorGroup?: THREE.Group;
+  private vegetation?: VegetationField;
   private waterGroup?: THREE.Group;
   private terrain?: THREE.Mesh;
   private terrainMaps?: ReturnType<typeof createTerrainMaps>;
@@ -829,6 +832,8 @@ export class World3D {
     window.removeEventListener("resize", this.onResize);
     document.removeEventListener("visibilitychange", this.onVisibilityChange);
     this.resizeObserver?.disconnect();
+    this.vegetation?.dispose();
+    this.vegetation = undefined;
     this.player.dispose();
 
     removeGroup(this.scene, this.pathGroup);
@@ -1968,6 +1973,8 @@ export class World3D {
 
   private rebuildDecor(): void {
     this.disposeReflectors();
+    this.vegetation?.dispose();
+    this.vegetation = undefined;
     removeGroup(this.scene, this.decorGroup);
     removeGroup(this.scene, this.waterGroup);
     this.decorGroup = new THREE.Group();
@@ -2036,11 +2043,9 @@ export class World3D {
         continue;
       }
 
+      // 树木（roll < 0.24）交给 vegetation 植被场
       if (roll < 0.24) {
-        const tree = scatter() > 0.5 ? createPine(scale) : createTree(scale);
-        tree.position.set(wx, wy, wz);
-        tree.rotation.y = scatter() * Math.PI * 2;
-        this.decorGroup!.add(tree);
+        continue;
       } else if (roll < 0.46) {
         const bush = createBush(scale);
         bush.position.set(wx, wy, wz);
@@ -2069,6 +2074,17 @@ export class World3D {
 
     // 单元模式的近景：入口周围一圈乔木 / 灌木 / 岩石 / 花丛 / 倒木 / 石板小径 / 路灯，
     // 避免圣所之外是一片空地。
+    const nearScatterAvoid: AvoidCircle[] = [
+      [anchorX, anchorZ, 16],
+      [anchorX, anchorZ + 9.3, 17],
+      [anchorX - 21, anchorZ - 20, 6.5],
+      [anchorX + 21, anchorZ - 20, 6.5],
+      [anchorX - 21, anchorZ + 20, 6.5],
+      [anchorX + 21, anchorZ + 20, 6.5],
+      [anchorX - 17.4, anchorZ + 23.2, 6],
+      [anchorX, anchorZ + 28.2, 6.5],
+      [anchorX + 17.4, anchorZ + 23.2, 6],
+    ];
     if (unitMode && style !== "space") {
       this.decorGroup!.add(
         buildNearScatter({
@@ -2076,17 +2092,7 @@ export class World3D {
           centerZ: anchorZ,
           groundY: (x, z) => sampleTerrainY(x, z, terrainHeight),
           density: this.quality === "low" ? 0.5 : this.quality === "med" ? 0.75 : 1,
-          avoid: [
-            [anchorX, anchorZ, 16],
-            [anchorX, anchorZ + 9.3, 17],
-            [anchorX - 21, anchorZ - 20, 6.5],
-            [anchorX + 21, anchorZ - 20, 6.5],
-            [anchorX - 21, anchorZ + 20, 6.5],
-            [anchorX + 21, anchorZ + 20, 6.5],
-            [anchorX - 17.4, anchorZ + 23.2, 6],
-            [anchorX, anchorZ + 28.2, 6.5],
-            [anchorX + 17.4, anchorZ + 23.2, 6],
-          ],
+          avoid: nearScatterAvoid,
         })
       );
     }
@@ -2094,6 +2100,7 @@ export class World3D {
     // 河谷湖泊（沿两侧山脚分布）：单元模式改为围绕当前区域的两处水面。
     const lakeCount = unitMode && this.currentBiome.decorStyle === "space" ? 0 : unitMode ? 2 : 6;
     const reflectiveMax = this.qcfg.reflectors;
+    const lakeEllipses: AvoidEllipse[] = [];
     for (let wi = 0; wi < lakeCount; wi++) {
       const side = wi % 2 === 0 ? -1 : 1;
       const wx = anchorX + side * (unitMode ? 52 + rnd() * 18 : 60 + rnd() * 55);
@@ -2110,6 +2117,7 @@ export class World3D {
         sumShore += sh;
       }
       const ly = (minShore + sumShore / shorePts.length) / 2 - 0.1;
+      lakeEllipses.push({ x: wx, z: wz, rx: (lw / 2) * 1.15, rz: (lh / 2) * 1.15 });
       const reflective = wi < reflectiveMax;
       // 不规则湖岸：噪声扰动的椭圆轮廓，而不是矩形水面
       const outline = lakeOutline(lw * 0.5, lh * 0.5, wi * 7 + 3);
@@ -2149,6 +2157,36 @@ export class World3D {
         this.waterGroup.add(lake);
       }
     }
+
+    // 成片植被：湖泊位置已知后规划，避开道路、入口、湖面
+    const roadSegments: AvoidSegment[] = (unitMode
+      ? this.nodes.slice(1).map((node) => [this.nodes[0], node] as const)
+      : this.nodes.slice(0, -1).map((node, index) => [node, this.nodes[index + 1]] as const)
+    ).map(([a, b]) => ({ ax: a.x, az: a.z, bx: b.x, bz: b.z, halfWidth: 7 }));
+    const vegCircles: AvoidCircle[] = unitMode
+      ? [[anchorX, anchorZ, 25], ...nearScatterAvoid]
+      : this.nodes.map((node) => [node.x + 4, node.z - 8, 26] as const);
+    let vegSeed = 2024;
+    if (unitMode && this.activeUnitId) {
+      vegSeed = 7;
+      for (let ci = 0; ci < this.activeUnitId.length; ci++) vegSeed = (Math.imul(vegSeed, 31) + this.activeUnitId.charCodeAt(ci)) >>> 0;
+    }
+    const vegInstances = planVegetation({
+      centerX: anchorX,
+      centerZ: anchorZ,
+      halfW,
+      halfD,
+      quality: this.quality,
+      decorStyle: style,
+      seed: vegSeed,
+      groundY: (x, z) => sampleTerrainY(x, z, terrainHeight),
+      avoidCircles: vegCircles,
+      avoidEllipses: lakeEllipses,
+      avoidSegments: roadSegments,
+      clearCenterStrip: unitMode ? 0 : 14,
+    });
+    this.vegetation = buildVegetationField(vegInstances, { castShadow: this.quality !== "low" });
+    this.decorGroup.add(this.vegetation.group);
 
     const mist = new THREE.Mesh(
       new THREE.PlaneGeometry(unitMode ? halfW * 2.2 : TERRAIN_SIZE.width + 40, unitMode ? halfD * 2.2 : TERRAIN_SIZE.depth + 40),
@@ -2530,6 +2568,7 @@ export class World3D {
   };
 
   private tickScene(t: number, dt: number): void {
+    this.vegetation?.update(this.camera);
     this.updateDynamicLightBudget();
     this.waterFrame++;
     // 日照循环：太阳在 18°–50° 高度间缓慢摆动（始终是白天），低角度时偏暖；
