@@ -29,3 +29,14 @@ Desktop.ini
 *.log
 .cache/
 .vite/
+
+# .NET build outputs: only the win-x64 build used by the launch scripts is kept
+电脑游戏/AimForge.Core/bin/
+电脑游戏/AimForge.Infrastructure/bin/
+电脑游戏/AimForge.Tests/bin/
+电脑游戏/AimForge.App/bin/Debug/
+电脑游戏/AimForge.App/bin/Release/net9.0/*
+!电脑游戏/AimForge.App/bin/Release/net9.0/win-x64/
+
+# IDE module files
+*.iml
