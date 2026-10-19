@@ -79,7 +79,8 @@ import { createSignpost } from "./signpost";
 import type { MinimapBiomePalette, MinimapState } from "./Minimap";
 import { getTheme } from "./theme";
 import { DEFAULT_BIOME, getBiome, getGroundPalette, type UnitBiome } from "./unitBiome";
-import { createGroundDetailMap, createTerrainMaps } from "./textures";
+import { layerWeights, layerWeightsGLSL, LAYER_ROUGHNESS, paletteFromGround, terrainNoises, terrainNoisesGLSL, type LayerPalette } from "./terrainLayers";
+import { buildTerrainTextureSet, type TerrainTextureSet } from "./terrainTextures";
 import {
   applyLockedStyle,
   disposeGroup,
@@ -161,8 +162,15 @@ export class World3D {
   private vegetation?: VegetationField;
   private waterGroup?: THREE.Group;
   private terrain?: THREE.Mesh;
-  private terrainMaps?: ReturnType<typeof createTerrainMaps>;
-  private groundDetailMap?: THREE.Texture;
+  private terrainTex?: TerrainTextureSet;
+  private readonly terrainUniforms = {
+    uTerrAlbedo: { value: null as THREE.DataArrayTexture | null },
+    uTerrNormal: { value: null as THREE.DataArrayTexture | null },
+    uTerrDesat: { value: 1 },
+  };
+  private grassBaseColor = new THREE.Color(0x5d8a3c);
+  private grassDryColor = new THREE.Color(0xa09a58);
+  private readonly grassHsl = { h: 0, s: 0, l: 0 };
   /** PMREM 环境贴图（天空反射，提升材质真实感） */
   private envRT?: THREE.WebGLRenderTarget;
   private mountains?: THREE.Group;
@@ -632,8 +640,18 @@ export class World3D {
 
     // 陡坡上不长草
     const e = 1.2;
-    const dh = Math.abs(sampleTerrainY(x + e, z, terrainHeight) - sampleTerrainY(x - e, z, terrainHeight));
-    if (dh / (2 * e) > 0.85) {
+    const gxs = (sampleTerrainY(x + e, z, terrainHeight) - sampleTerrainY(x - e, z, terrainHeight)) / (2 * e);
+    const gzs = (sampleTerrainY(x, z + e, terrainHeight) - sampleTerrainY(x, z - e, terrainHeight)) / (2 * e);
+    const slopeM = Math.hypot(gxs, gzs);
+    if (slopeM > 0.85) {
+      this.hideGrassSlot(slot);
+      return;
+    }
+    // 跟随地表层权重：泥土 / 碎石 / 岩面处草变稀、变矮、偏枯黄
+    const nzs = terrainNoises(x, z - TERRAIN_ORIGIN_Z);
+    const lw = layerWeights({ normalY: 1 / Math.sqrt(1 + slopeM * slopeM), height: y - TERRAIN_ORIGIN_Y, ...nzs });
+    const bare = lw[2] + lw[3] + lw[4];
+    if (hash2(i * 9.1 + 3, j * 4.7 + 1) < bare * 0.9) {
       this.hideGrassSlot(slot);
       return;
     }
@@ -641,17 +659,23 @@ export class World3D {
     this.grassDummy.position.set(x, y, z);
     this.grassDummy.rotation.set(0, h3 * Math.PI * 2, 0);
     const s = 0.68 + h2 * 0.45;
-    this.grassDummy.scale.set(s, 0.72 + h1 * 0.45, s);
+    this.grassDummy.scale.set(s * (1 - 0.25 * bare), (0.72 + h1 * 0.45) * (1 - 0.55 * bare - 0.15 * lw[1]), s * (1 - 0.25 * bare));
     this.grassDummy.updateMatrix();
     mesh.setMatrixAt(slot, this.grassDummy.matrix);
 
     // 每丛草轻微冷暖色差，避免整片同色
     const warm = h2;
-    this.grassColor.setRGB(
-      0.86 + warm * 0.34,
-      0.96 + h1 * 0.22,
-      0.8 + (1 - warm) * 0.26
+    // 颜色取草地层配色附近：色相 ±0.03、亮度 ±12%，枯 / 裸地处偏枯黄；除以几何均色后作为实例色
+    this.grassColor.copy(this.grassBaseColor).lerp(this.grassDryColor, Math.min(1, lw[1] * 0.9 + bare * 0.8));
+    this.grassColor.getHSL(this.grassHsl);
+    this.grassColor.setHSL(
+      (this.grassHsl.h + (warm - 0.5) * 0.06 + 1) % 1,
+      this.grassHsl.s,
+      this.grassHsl.l * (1 + (h1 - 0.5) * 0.24)
     );
+    this.grassColor.r = (this.grassColor.r * 1.2) / 0.19;
+    this.grassColor.g = (this.grassColor.g * 1.2) / 0.3;
+    this.grassColor.b = (this.grassColor.b * 1.2) / 0.088;
     mesh.setColorAt(slot, this.grassColor);
 
     // 野花：按低频噪声成片分布（花田），一片内有主色调，偶尔混入其它色
@@ -880,10 +904,9 @@ export class World3D {
     if (this.terrain) {
       this.terrain.geometry.dispose();
       const mat = this.terrain.material as THREE.MeshStandardMaterial;
-      for (const map of new Set([mat.map, this.groundDetailMap])) map?.dispose();
-      mat.roughnessMap?.dispose();
-      mat.normalMap?.dispose();
       mat.dispose();
+      this.terrainTex?.dispose();
+      this.terrainTex = undefined;
     }
     this.envRT?.dispose();
     if (this.skyDome) {
@@ -1391,12 +1414,43 @@ export class World3D {
     if (!this.terrain) return;
     const material = this.terrain.material as THREE.MeshStandardMaterial;
     material.color.setRGB(1, 1, 1);
-    material.map = this.groundDetailMap ?? null;
     material.vertexColors = true;
     material.roughness = focusedWorld ? 0.95 : 0.9;
     material.metalness = 0.02;
     material.needsUpdate = true;
+    this.terrainUniforms.uTerrDesat.value = focusedWorld ? 0.72 : 1;
+    this.applyTerrainTextures(paletteFromGround(getGroundPalette(biome)));
     this.paintTerrain(biome, focusedWorld);
+  }
+
+  /** 按配色（重新）生成 5 层地表数组纹理；同配色复用，旧纹理释放。 */
+  private applyTerrainTextures(palette: LayerPalette): void {
+    const size = this.quality === "low" ? 256 : 512;
+    const key = `${palette.grass}-${palette.dirt}-${palette.rock}-${size}`;
+    this.grassBaseColor.setHex(palette.grass);
+    this.grassDryColor.setHex(palette.dryGrass);
+    if (this.terrainTex?.key !== key) {
+      const aniso = Math.min(this.renderer.capabilities.getMaxAnisotropy(), this.quality === "high" ? 8 : 4);
+      const next = buildTerrainTextureSet(palette, size, 20260616, aniso);
+      this.terrainUniforms.uTerrAlbedo.value = next.albedo;
+      this.terrainUniforms.uTerrNormal.value = next.normal;
+      this.terrainTex?.dispose();
+      this.terrainTex = next;
+    }
+    // 已铺设的草丛按新配色重新着色
+    for (const [k, slot] of this.grassCellMap) {
+      const jj = (k % 262147) - 100000;
+      const ii = (k - (jj + 100000)) / 262147 - 100000;
+      this.placeGrass(slot, ii, jj);
+    }
+    if (this.grassMesh) {
+      this.grassMesh.instanceMatrix.needsUpdate = true;
+      if (this.grassMesh.instanceColor) this.grassMesh.instanceColor.needsUpdate = true;
+    }
+    if (this.flowerMesh) {
+      this.flowerMesh.instanceMatrix.needsUpdate = true;
+      if (this.flowerMesh.instanceColor) this.flowerMesh.instanceColor.needsUpdate = true;
+    }
   }
 
   /** 重建词汇光球 */
@@ -1542,47 +1596,141 @@ export class World3D {
     // 顶点色：承载草 / 土 / 岩的自然分布（由 paintTerrain 填充）
     geo.setAttribute("color", new THREE.BufferAttribute(new Float32Array(pos.count * 3).fill(1), 3));
 
-    this.terrainMaps = createTerrainMaps();
-    this.groundDetailMap = createGroundDetailMap();
     const terrainMat = new THREE.MeshStandardMaterial({
       color: 0xffffff,
-      map: this.groundDetailMap,
-      roughnessMap: this.terrainMaps.roughness,
-      normalMap: this.terrainMaps.normal,
-      normalScale: new THREE.Vector2(0.7, 0.7),
       vertexColors: true,
-      roughness: 0.92,
+      roughness: 0.9,
       metalness: 0.02,
       envMapIntensity: 0.32,
     });
-    // 去重复：第二层不同尺度 / 偏移的细节采样 + 世界空间低频明暗斑，消除远处平铺条纹
+    const hiQ = this.quality !== "low";
+    // 逐像素 5 层混合：世界坐标采样数组纹理 + 高度混合；岩面三向投影；保留低频明暗斑 / 云影 / 自定义雾
     terrainMat.onBeforeCompile = (shader) => {
       shader.uniforms.uCloudT = cloudTime;
-      shader.vertexShader = "varying vec3 vTerrWorld;\n" + shader.vertexShader.replace(
+      shader.uniforms.uTerrAlbedo = this.terrainUniforms.uTerrAlbedo;
+      shader.uniforms.uTerrNormal = this.terrainUniforms.uTerrNormal;
+      shader.uniforms.uTerrDesat = this.terrainUniforms.uTerrDesat;
+      shader.vertexShader = "varying vec3 vTerrWorld;\nvarying vec3 vTerrN;\n" + shader.vertexShader.replace(
         "#include <begin_vertex>",
         `#include <begin_vertex>
-         vTerrWorld = (modelMatrix * vec4(transformed, 1.0)).xyz;`
+         vTerrWorld = (modelMatrix * vec4(transformed, 1.0)).xyz;
+         vTerrN = mat3(modelMatrix) * normal;`
       );
+      const rc = [0, 1, 2, 3, 4].map((l) => LAYER_ROUGHNESS[l as 0 | 1 | 2 | 3 | 4].toFixed(3)).join(", ");
       shader.fragmentShader = `
+        ${hiQ ? "#define TERR_HI" : "#define TL_LOW"}
         uniform float uCloudT;
+        uniform float uTerrDesat;
+        uniform highp sampler2DArray uTerrAlbedo;
+        uniform highp sampler2DArray uTerrNormal;
         ${CLOUD_GLSL}
         varying vec3 vTerrWorld;
+        varying vec3 vTerrN;
         float tHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
         float tNoise(vec2 p) {
           vec2 i = floor(p), f = fract(p);
           f = f * f * (3.0 - 2.0 * f);
           return mix(mix(tHash(i), tHash(i + vec2(1.0, 0.0)), f.x), mix(tHash(i + vec2(0.0, 1.0)), tHash(i + vec2(1.0, 1.0)), f.x), f.y);
         }
+        ${terrainNoisesGLSL()}
+        ${layerWeightsGLSL()}
+        vec4 tlA(float l, vec2 uv, vec2 gx, vec2 gy) { return textureGrad(uTerrAlbedo, vec3(uv, l), gx, gy); }
+        vec4 tlN(float l, vec2 uv, vec2 gx, vec2 gy) { return textureGrad(uTerrNormal, vec3(uv, l), gx, gy); }
+        const float TL_ROUGH[5] = float[5](${rc});
       ` + shader.fragmentShader.replace(
         "#include <map_fragment>",
-        `#include <map_fragment>
-         #ifdef USE_MAP
-           vec4 tSecond = texture2D(map, vMapUv * 0.173 + vec2(0.31, 0.17));
-           diffuseColor.rgb *= mix(vec3(1.0), tSecond.rgb / 0.86, 0.5);
+        `
+         vec3 tN = normalize(vTerrN);
+         vec3 wp = vTerrWorld;
+         vec3 dX = dFdx(wp);
+         vec3 dY = dFdy(wp);
+         const float TS = 0.2857143; // 3.5 m 一块
+         vec2 uvA = wp.xz * TS;
+         vec2 gxA = dX.xz * TS;
+         vec2 gyA = dY.xz * TS;
+         vec3 tnz = terrainNoises(vec2(wp.x, wp.z - ${TERRAIN_ORIGIN_Z.toFixed(1)}));
+         float tHgt = wp.y - (${TERRAIN_ORIGIN_Y.toFixed(1)});
+         float lh[5];
+         float w[5];
+         for (int k = 0; k < 5; k++) lh[k] = 0.5;
+         layerWeights(tN.y, tHgt, tnz.x, tnz.y, tnz.z, lh, w);
+         vec4 cc[5];
+         cc[0] = tlA(0.0, uvA, gxA, gyA);
+         cc[1] = tlA(1.0, uvA, gxA, gyA);
+         cc[2] = tlA(2.0, uvA, gxA, gyA);
+         cc[3] = tlA(3.0, uvA, gxA, gyA);
+         cc[4] = vec4(0.5);
+         vec3 tbw = vec3(0.0);
+         bool tRock = false;
+         vec2 tOff = vec2(0.13, 0.41);
+         #ifdef TERR_HI
+           tRock = w[4] > 0.003;
+           if (tRock) {
+             tbw = pow(abs(tN), vec3(4.0));
+             tbw /= (tbw.x + tbw.y + tbw.z);
+             cc[4] = tlA(4.0, uvA + tOff, gxA, gyA) * tbw.y
+                   + tlA(4.0, wp.xy * TS + tOff, dX.xy * TS, dY.xy * TS) * tbw.z
+                   + tlA(4.0, wp.zy * TS + tOff, dX.zy * TS, dY.zy * TS) * tbw.x;
+           }
+         #else
+           cc[4] = tlA(4.0, uvA, gxA, gyA);
          #endif
+         for (int k = 0; k < 5; k++) lh[k] = cc[k].a;
+         layerWeights(tN.y, tHgt, tnz.x, tnz.y, tnz.z, lh, w);
+         vec3 tAlb = cc[0].rgb * w[0] + cc[1].rgb * w[1] + cc[2].rgb * w[2] + cc[3].rgb * w[3] + cc[4].rgb * w[4];
+         // 主导的平地层
+         int td = 0;
+         float twm = w[0];
+         #ifdef TERR_HI
+           for (int k = 1; k < 4; k++) if (w[k] > twm) { twm = w[k]; td = k; }
+         #else
+           for (int k = 1; k < 5; k++) if (w[k] > twm) { twm = w[k]; td = k; }
+         #endif
+         #ifdef TERR_HI
+           // 去重复：主导层再用旋转 37° 的另一尺度采样，按世界噪声遮罩切换
+           mat2 tRot = mat2(0.7986, 0.6018, -0.6018, 0.7986);
+           vec2 uvB = tRot * (uvA * 0.61) + vec2(0.31, 0.17);
+           vec4 sB = tlA(float(td), uvB, tRot * (gxA * 0.61), tRot * (gyA * 0.61));
+           float tMask = smoothstep(0.4, 0.6, tNoise(wp.xz * 0.31));
+           tAlb += w[td] * (mix(cc[td].rgb, sB.rgb, tMask) - cc[td].rgb);
+         #endif
+         vec4 nD = tlN(float(td), uvA, gxA, gyA);
+         vec3 tTs = nD.xyz * 2.0 - 1.0;
+         tTs.xy *= 0.9;
+         vec3 tT = normalize(vec3(1.0, 0.0, 0.0) - tN * tN.x + vec3(0.0, 0.0, 1e-4));
+         vec3 tB = cross(tT, tN);
+         vec3 tWN = normalize(tT * tTs.x + tB * tTs.y + tN * tTs.z);
+         float tRough = 0.0;
+         for (int k = 0; k < 5; k++) tRough += w[k] * TL_ROUGH[k];
+         tRough += w[td] * (nD.a - TL_ROUGH[td]);
+         #ifdef TERR_HI
+           if (tRock) {
+             vec4 nx_ = tlN(4.0, wp.zy * TS + tOff, dX.zy * TS, dY.zy * TS);
+             vec4 ny_ = tlN(4.0, uvA + tOff, gxA, gyA);
+             vec4 nz_ = tlN(4.0, wp.xy * TS + tOff, dX.xy * TS, dY.xy * TS);
+             vec3 rx = nx_.xyz * 2.0 - 1.0;
+             vec3 ry = ny_.xyz * 2.0 - 1.0;
+             vec3 rz = nz_.xyz * 2.0 - 1.0;
+             rx = vec3(rx.xy + tN.zy, abs(rx.z) * tN.x);
+             ry = vec3(ry.xy + tN.xz, abs(ry.z) * tN.y);
+             rz = vec3(rz.xy + tN.xy, abs(rz.z) * tN.z);
+             vec3 nR = normalize(rx.zyx * tbw.x + ry.xzy * tbw.y + rz.xyz * tbw.z);
+             tWN = normalize(mix(tWN, nR, w[4]));
+             tRough += w[4] * ((nx_.a * tbw.x + ny_.a * tbw.y + nz_.a * tbw.z) - TL_ROUGH[4]);
+           }
+         #endif
+         float tLum = dot(tAlb, vec3(0.299, 0.587, 0.114));
+         tAlb = mix(vec3(tLum), tAlb, uTerrDesat);
+         diffuseColor.rgb *= tAlb;
          float tMacro = tNoise(vTerrWorld.xz * 0.035) * 0.6 + tNoise(vTerrWorld.xz * 0.15) * 0.4;
          diffuseColor.rgb *= 0.88 + tMacro * 0.24;
          diffuseColor.rgb *= cloudK(vTerrWorld.xz, uCloudT);`
+      ).replace(
+        "#include <roughnessmap_fragment>",
+        "float roughnessFactor = clamp(tRough, 0.4, 1.0) * (roughness / 0.9);"
+      ).replace(
+        "#include <normal_fragment_maps>",
+        "normal = normalize((viewMatrix * vec4(tWN, 0.0)).xyz);"
       ).replace(
         "#include <fog_fragment>",
         `#ifdef USE_FOG
@@ -1593,11 +1741,13 @@ export class World3D {
          #endif`
       );
     };
-    terrainMat.customProgramCacheKey = () => "terrain-v3";
+    terrainMat.customProgramCacheKey = () => "terrain-v4-" + this.quality;
     this.terrain = new THREE.Mesh(geo, terrainMat);
     this.terrain.receiveShadow = true;
     this.terrain.position.set(0, TERRAIN_ORIGIN_Y, TERRAIN_ORIGIN_Z);
     this.scene.add(this.terrain);
+    // 首次构建就生成地表纹理（否则主世界在第一次切换单元前采样到空纹理，地面发灰）
+    this.applyTerrainTextures(paletteFromGround(getGroundPalette(this.currentBiome)));
     this.paintTerrain(this.currentBiome, false);
   }
 
@@ -1609,68 +1759,23 @@ export class World3D {
     if (!this.terrain) return;
     const geo = this.terrain.geometry;
     const pos = geo.attributes.position;
-    const nor = geo.attributes.normal;
     const colorAttr = geo.attributes.color as THREE.BufferAttribute;
     const arr = colorAttr.array as Float32Array;
 
-    const palette = getGroundPalette(biome);
-    const grass = new THREE.Color(palette.grass);
-    const dirt = new THREE.Color(palette.dirt);
-    const rock = new THREE.Color(palette.rock);
-    const hsl0 = { h: 0, s: 0, l: 0 };
-    grass.getHSL(hsl0);
-    const grassLight = new THREE.Color().setHSL(hsl0.h - 0.02, hsl0.s * 0.9, Math.min(0.62, hsl0.l * 1.28));
-    const grassDry = new THREE.Color().setHSL((hsl0.h - 0.09 + 1) % 1, hsl0.s * 0.7, hsl0.l * 1.12);
-    const gravel = new THREE.Color(palette.rock).lerp(new THREE.Color(palette.dirt), 0.45).multiplyScalar(1.15);
-    const moss = new THREE.Color().setHSL(hsl0.h + 0.02, hsl0.s * 0.9, hsl0.l * 0.7);
-    const rockMixPre = (ny: number): number => smoothstep(0.22, 0.55, 1 - ny);
-    // 聚焦学习场景（阅读 / 神殿）降低整体饱和度，保证 UI 文字可读
-    const desat = focusedWorld ? 0.72 : 1;
-
-    const c = new THREE.Color();
-    const tmp = new THREE.Color();
-
+    // 顶点色只承载整体色调（冷暖）与大尺度明暗；层分布与细节由片元着色器决定，去饱和由 uTerrDesat 处理
+    void biome;
+    void focusedWorld;
     for (let i = 0; i < pos.count; i++) {
       const x = pos.getX(i);
       const z = pos.getZ(i);
       const h = pos.getY(i);
-
-      // 泥土斑块：低频 + 中频噪声叠加
-      const n = fbm(x * 0.009 + 31, z * 0.009 + 17, 4) * 0.68 + fbm(x * 0.045, z * 0.045, 3) * 0.32;
-      const dirtMix = smoothstep(0.54, 0.78, n) * 0.75;
-
-      // 陡坡 → 岩石
-      const slope = 1 - nor.getY(i);
-      const rockMix = smoothstep(0.22, 0.55, slope);
-
-      // 多层地表：草色冷暖渐变、枯草斑、碎石滩、苔藓湿地，再叠加泥土与陡坡岩石
-      const warmN = fbm(x * 0.017 + 91, z * 0.017 + 47, 3);
-      c.copy(grass).lerp(grassLight, smoothstep(0.45, 0.8, warmN) * 0.7).lerp(grassDry, smoothstep(0.62, 0.85, fbm(x * 0.012 + 13, z * 0.012 + 71, 3)) * 0.6);
-      const gravelN = fbm(x * 0.028 + 150, z * 0.028 + 20, 4);
-      c.lerp(gravel, smoothstep(0.64, 0.8, gravelN) * (1 - rockMixPre(nor.getY(i))) * 0.85);
-      c.lerp(moss, smoothstep(0.58, 0.78, fbm(x * 0.035 + 7, z * 0.035 + 123, 3)) * 0.45 * (1 - dirtMix));
-      c.lerp(dirt, dirtMix).lerp(rock, rockMix);
-
-      // 高度与噪声带来的明暗变化，避免整片死板
-      const shade = 0.86 + fbm(x * 0.02 + 5, z * 0.02 + 9, 3) * 0.26 + smoothstep(6, 34, h) * 0.1;
-      c.multiplyScalar(shade);
-
-      // 低处轻微压暗，制造体积感
-      c.multiplyScalar(0.94 + smoothstep(-6, 10, h) * 0.08);
-
-      if (desat < 1) {
-        tmp.copy(c);
-        const l = tmp.r * 0.299 + tmp.g * 0.587 + tmp.b * 0.114;
-        c.setRGB(
-          l + (c.r - l) * desat,
-          l + (c.g - l) * desat,
-          l + (c.b - l) * desat
-        );
-      }
-
-      arr[i * 3] = c.r;
-      arr[i * 3 + 1] = c.g;
-      arr[i * 3 + 2] = c.b;
+      const warm = fbm(x * 0.017 + 91, z * 0.017 + 47, 3) - 0.5;
+      const shade =
+        (0.86 + fbm(x * 0.02 + 5, z * 0.02 + 9, 3) * 0.26 + smoothstep(6, 34, h) * 0.1) *
+        (0.94 + smoothstep(-6, 10, h) * 0.08);
+      arr[i * 3] = shade * (1 + warm * 0.16);
+      arr[i * 3 + 1] = shade;
+      arr[i * 3 + 2] = shade * (1 - warm * 0.16);
     }
     colorAttr.needsUpdate = true;
   }

@@ -111,7 +111,7 @@ export function grassBladeGeometry(bladeCount = 18): THREE.BufferGeometry {
     const colors = new Float32Array(positions.length);
     for (let v = 0; v < positions.length / 3; v++) {
       const t = THREE.MathUtils.clamp(positions[v * 3 + 1] / GRASS_TUFT_HEIGHT, 0, 1);
-      const green = [0.07 + t * 0.2, 0.15 + t * 0.34, 0.045 + t * 0.1];
+      const green = [0.07 + t * 0.27, 0.15 + t * 0.34, 0.045 + t * 0.1];
       const straw = [0.2 + t * 0.34, 0.17 + t * 0.26, 0.07 + t * 0.1];
       for (let ch = 0; ch < 3; ch++) colors[v * 3 + ch] = (green[ch] * (1 - dry) + straw[ch] * dry) * tint;
     }
