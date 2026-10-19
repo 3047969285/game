@@ -298,7 +298,8 @@ export class World3D {
     this.renderer.setSize(w, h);
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = this.quality === "low" ? THREE.PCFShadowMap : THREE.PCFSoftShadowMap;
-    this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    // AgX：高光平滑去饱和、暗部保留色彩，比 ACES 更接近真实摄影的响应
+    this.renderer.toneMapping = THREE.AgXToneMapping;
     this.renderer.toneMappingExposure = 1.28;
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     container.appendChild(this.renderer.domElement);
@@ -364,12 +365,13 @@ export class World3D {
           void main() {
             vec3 c = texture2D(tDiffuse, vUv).rgb;
             float l = dot(c, vec3(0.2126, 0.7152, 0.0722));
-            c = mix(vec3(l), c, 1.32);
-            c = mix(c, c * c * (3.0 - 2.0 * c), 0.55);
-            c += vec3(-0.012, 0.0, 0.016) * (1.0 - l) + vec3(0.02, 0.008, -0.014) * l * 0.6;
+            // 写实调色：轻微饱和与对比（AgX 已经压过高光），弱分离色调，柔和暗角
+            c = mix(vec3(l), c, 1.3);
+            c = mix(c, c * c * (3.0 - 2.0 * c), 0.32);
+            c += vec3(-0.006, 0.0, 0.01) * (1.0 - l) + vec3(0.012, 0.005, -0.008) * l * 0.6;
             vec2 q = vUv - 0.5;
-            float vig = smoothstep(0.92, 0.28, length(q * vec2(1.0, 1.12)));
-            c *= mix(0.78, 1.0, vig);
+            float vig = smoothstep(0.98, 0.3, length(q * vec2(1.0, 1.12)));
+            c *= mix(0.86, 1.0, vig);
             gl_FragColor = vec4(clamp(c, 0.0, 1.0), 1.0);
           }
         `,
@@ -2588,7 +2590,7 @@ export class World3D {
       const focusedWorld = isFocusedLearningWorld(this.activeWorldId);
       this.sun.color.setHex(this.currentBiome.sunColor).lerp(WARM_SUN, (1 - daylight) * 0.6);
       this.sun.intensity = this.currentBiome.sunIntensity * (focusedWorld ? 0.92 : 0.88 + daylight * 0.12);
-      this.renderer.toneMappingExposure = focusedWorld ? 1.06 : 1.0 + daylight * 0.06;
+      this.renderer.toneMappingExposure = focusedWorld ? 1.16 : 1.1 + daylight * 0.08;
       if (this.hemi) this.hemi.intensity = focusedWorld ? 0.66 : 0.58 + daylight * 0.12;
 
       // 太阳圆盘跟随光源方向，锚定在相机前方的固定远处（天空穹顶附近）。
