@@ -5,6 +5,7 @@
 <script type="module">
 import * as THREE from "three";
 import { createExplorerAvatar } from "/src/features/world/explorerAvatar.ts";
+import { createPerson } from "/src/features/world/people.ts";
 const q = new URLSearchParams(location.search);
 const view = q.get("v") || "full";
 const r = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
@@ -35,10 +36,12 @@ window.__buildMs = Math.round(performance.now() - t0);
 a.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
 const yaw = +(q.get("yaw") ?? 0.5);
 a.rotation.y = yaw;
+if (q.get('npcs')) { a.visible = false; const cols = [0xc79a3a, 0x6a8aa8, 0xb04a40, 0x79aaa5, 0x8a6a9a, 0xc18168, 0x496c72, 0xd9c8a8]; cols.forEach((c, i) => { const n = createPerson({ shirt: c, hair: i % 3 === 0 ? 0x555555 : 0x2b1d16, hairStyle: i % 2 ? 'long' : 'short', glasses: i % 4 === 1, scale: 1 }); n.position.set((i - 3.5) * 0.7, 0, 0); n.rotation.y = 0.2; n.traverse((o) => { if (o.isMesh) { o.castShadow = true; } }); s.add(n); }); }
 s.add(a);
 const cam = new THREE.PerspectiveCamera(30, innerWidth / innerHeight, 0.05, 50);
 const views = {
   full: [0, 1.0, 5.2, 0, 0.95, 0],
+  row: [0, 1.3, 6.2, 0, 1.0, 0],
   upper: [0, 1.45, 2.4, 0, 1.3, 0],
   face: [0.0, 1.7, 0.85, 0, 1.69, 0],
   hand: [-0.55, 0.85, 1.1, -0.22, 0.85, 0],

@@ -30,6 +30,10 @@ export interface PersonOptions {
   backpack?: number;
   /** 宇航头盔（白色盔体 + 深色面罩） */
   helmet?: boolean;
+  /** 服装款式；缺省时按颜色确定性地挑选，让人群有变化 */
+  outfit?: "tee" | "hoodie" | "coat" | "dress";
+  /** 帽子颜色（毛线帽 / 鸭舌帽） */
+  hat?: number;
 }
 
 /** 低模共享几何（首次使用时生成，约 0.3 s，之后所有人物复用） */
@@ -234,7 +238,46 @@ export function createPerson(opts: PersonOptions): THREE.Group {
     frame.add(bag);
   }
 
-  // 双臂
+  // ── 服装款式：连帽衫 / 长风衣 / 连衣裙（站姿才加裙摆与风衣下摆，坐姿只加帽兜），缺省按颜色挑选 ──
+  const pick = (Math.imul(opts.shirt ^ ((opts.hair ?? 0) * 31), 2654435761) >>> 16) + (opts.hairStyle === "long" ? 3 : 0);
+  const outfit = opts.outfit ?? (opts.helmet || opts.scarf !== undefined ? "tee" : (["tee", "hoodie", "coat", "dress", "tee", "hoodie"] as const)[pick % 6]);
+  const longHair = (opts.hairStyle ?? "short") === "long";
+  const style2 = outfit === "dress" && !longHair && opts.hairStyle !== "bun" ? "coat" : outfit;
+  if (style2 === "hoodie" && !opts.helmet) {
+    const hood = mesh(new THREE.TorusGeometry(0.083, 0.03, 10, 24), shirt);
+    hood.rotation.x = Math.PI / 2 - 0.35;
+    hood.position.set(0, 1.545, -0.03);
+    hood.scale.set(1.05, 1, 1.15);
+    frame.add(hood);
+    const pocket = rbox(0.2, 0.09, 0.02, 0.01, shirt);
+    pocket.position.set(0, 1.0, 0.128);
+    frame.add(pocket);
+  }
+  if (!seated && (style2 === "coat" || style2 === "dress")) {
+    const len = style2 === "coat" ? 0.62 : 0.46;
+    const skirt = mesh(new THREE.CylinderGeometry(0.165, style2 === "coat" ? 0.205 : 0.25, len, 28, 1, true), shirt);
+    skirt.scale.set(1.12, 1, 0.84);
+    skirt.position.y = 1.0 - len / 2 + 0.02;
+    frame.add(skirt);
+    if (style2 === "coat") {
+      const lapel = rbox(0.016, 0.5, 0.02, 0.006, innerMat);
+      lapel.position.set(0, 1.25, 0.121);
+      frame.add(lapel);
+    }
+  }
+  const hatColor = opts.hat ?? (pick % 7 === 3 && !seated ? 0x7a3b3b : pick % 7 === 5 && !seated ? 0x2f4a5f : undefined);
+  if (hatColor !== undefined && !opts.helmet) {
+    const hatMat = std(hatColor, 0.9);
+    const beanie = mesh(new THREE.SphereGeometry(0.098, 20, 12, 0, Math.PI * 2, 0, Math.PI * 0.52), hatMat);
+    beanie.scale.set(0.9, 1.06, 1.06);
+    beanie.position.set(0, 0.215, -0.014);
+    head.add(beanie);
+    const rim = mesh(new THREE.TorusGeometry(0.09, 0.012, 8, 20), hatMat);
+    rim.rotation.x = Math.PI / 2;
+    rim.scale.set(0.92, 1.08, 1);
+    rim.position.set(0, 0.2, -0.014);
+    head.add(rim);
+  }  // 双臂
   const armPoses = ARM_POSES[pose];
   for (const side of [-1, 1] as const) {
     const p = side === 1 ? armPoses.left : armPoses.right;
