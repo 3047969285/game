@@ -2333,7 +2333,8 @@ export class World3D {
       this.currentBiome,
       unitNode,
       this.activeWorldId,
-      this.activeWorldTitle
+      this.activeWorldTitle,
+      this.quality === "low" ? "low" : "high"
     );
     this.unitLandscape.position.set(
       unitNode.x,

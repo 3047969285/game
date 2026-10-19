@@ -15,7 +15,6 @@ WORDS_PER_LEVEL = 20
 CET4_VOCAB_LEVELS = 30
 CET6_VOCAB_LEVELS = 30
 RW3_WORDS_PER_LEVEL = 5
-RW3_LEVELS_PER_UNIT = 4
 
 RANK_TIERS_CET4 = [
     {"id": "bronze", "name": "青铜", "min_score": 0, "max_score": 350},
@@ -79,7 +78,7 @@ def build_cet_template(course_id: str, name: str, words: list[dict], rank_tiers:
                 "title_en": f"Listening Level {i}",
                 "stamina_cost": 2,
                 "word_ids": [],
-                "content_refs": [f"listening:{course_id}_l{i:02d}"],
+                "content_refs": [f"listening:{course_id}_l_{i:02d}"],
                 "boss": False,
             }
         )
@@ -93,7 +92,7 @@ def build_cet_template(course_id: str, name: str, words: list[dict], rank_tiers:
                 "title_en": f"Reading Level {i}",
                 "stamina_cost": 2,
                 "word_ids": [],
-                "content_refs": [f"reading:{course_id}_r{i:02d}"],
+                "content_refs": [f"reading:{course_id}_r_{i:02d}"],
                 "boss": False,
             }
         )
@@ -107,7 +106,7 @@ def build_cet_template(course_id: str, name: str, words: list[dict], rank_tiers:
                 "title_en": f"Translation Level {i}",
                 "stamina_cost": 2,
                 "word_ids": [],
-                "content_refs": [f"translation:{course_id}_t{i:02d}"],
+                "content_refs": [f"translation:{course_id}_t_{i:02d}"],
                 "boss": False,
             }
         )
@@ -210,7 +209,7 @@ def build_rw3_template() -> dict:
         chunks = chunk_words(unit_words, RW3_WORDS_PER_LEVEL)
 
         levels = []
-        for i, group in enumerate(chunks[:RW3_LEVELS_PER_UNIT], start=1):
+        for i, group in enumerate(chunks, start=1):
             levels.append(
                 {
                     "id": f"rw3_{uid}_lv{i:02d}",
@@ -315,7 +314,7 @@ def main() -> None:
 
     for filename, payload in templates.items():
         path = TEMPLATE_DIR / filename
-        path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         zone_count = len(payload["zones"])
         level_count = sum(len(z["levels"]) for z in payload["zones"])
         print(f"Wrote template {filename}: {zone_count} zones, {level_count} levels")

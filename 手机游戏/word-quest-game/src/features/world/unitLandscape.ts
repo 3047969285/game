@@ -12,6 +12,7 @@ import { upgradeGeometry } from "./geometryUpgrade";
 import { applyFoliageShadow, foliageClumpGeometry, getFoliageMaterial } from "./props";
 import { buildSignalMasts, buildStudyStations } from "./stations";
 import { buildExchangeHub, buildHarborHub, buildIdeaTempleHub, buildLaunchComplex, buildMemoryTreeHub } from "./hubLandmarks";
+import type { PropDetail } from "./sceneProps";
 
 type PassageKind = "section_a" | "section_b" | "section_c";
 type PassageSceneKind =
@@ -66,7 +67,7 @@ const PASSAGE_SCENES: Record<string, Partial<Record<PassageKind, PassageSceneKin
  * 中央学习圣所、远景地标和主题装置。这样在 GLB 资产
  * 加载慢、移动端降画质或资源缺失时，世界仍然有明确的空间结构。
  */
-export function buildUnitLandscape(biome: UnitBiome, _anchor: MapNode, worldId?: string, worldTitle?: string): THREE.Group {
+export function buildUnitLandscape(biome: UnitBiome, _anchor: MapNode, worldId?: string, worldTitle?: string, detail: PropDetail = "high"): THREE.Group {
   const root = new THREE.Group();
   root.name = ["unit-landscape", biome.id, worldId ?? "hub"].join("-");
 
@@ -120,11 +121,11 @@ export function buildUnitLandscape(biome: UnitBiome, _anchor: MapNode, worldId?:
   }
   if (isFocusedLearningWorld(worldId)) {
     const landmark = new THREE.Group();
-    addLearningSceneLandmark(landmark, worldId, worldTitle, ground, dark, glow, edge, accent, biome.id);
+    addLearningSceneLandmark(landmark, worldId, worldTitle, ground, dark, glow, edge, accent, biome.id, detail);
     landmark.scale.setScalar(0.9);
     landmark.position.set(0, 1.8, -15);
     root.add(landmark);
-  } else if (!addLearningSceneLandmark(root, worldId, worldTitle, ground, dark, glow, edge, accent, biome.id)) {
+  } else if (!addLearningSceneLandmark(root, worldId, worldTitle, ground, dark, glow, edge, accent, biome.id, detail)) {
     addWorldFocusLandmark(root, worldId, ground, dark, glow, edge);
   }
   // 学习页已有固定地标铭牌；近景再放大型 3D 文字牌会被阅读层裁切成黑色块。
@@ -297,7 +298,8 @@ function addLearningSceneLandmark(
   glow: THREE.MeshStandardMaterial,
   edge: THREE.MeshStandardMaterial,
   beaconAccent: THREE.Color,
-  biomeId: string
+  biomeId: string,
+  detail: PropDetail
 ): boolean {
   if (!worldId) return false;
   const labScene = LAB_SCENES[worldId];
@@ -318,7 +320,7 @@ function addLearningSceneLandmark(
       root.add(mesh);
       return mesh;
     };
-    labScene({ root, glow, edge, dark, ground, accent: beaconAccent.clone(), beacon: beaconFn, ring: ringFn });
+    labScene({ root, glow, edge, dark, ground, detail, accent: beaconAccent.clone(), beacon: beaconFn, ring: ringFn });
     return true;
   }
   const add = (
@@ -365,14 +367,14 @@ function addLearningSceneLandmark(
 
     if (biomeId === "unit06" && section === "section_a" && index === 1) {
       // 单元 6 的开篇是一家以书换书的社区书店：见 scenes/unit06.ts
-      SCENE_MODULES.bookshop({ root, glow, edge, dark, ground, accent: new THREE.Color(0xffffff), beacon, ring });
+      SCENE_MODULES.bookshop({ root, glow, edge, dark, ground, detail, accent: new THREE.Color(0xffffff), beacon, ring });
       return true;
     }
 
     const passageScene = PASSAGE_SCENES[biomeId]?.[section as PassageKind]?.[index - 1];
     const keepDialogueLandmark = passageScene === "dialogue" && section === "section_a" && index === 1 && isDialogueWorld;
     if (passageScene && passageScene !== "bookshop" && !keepDialogueLandmark) {
-      addPassageSceneLandmark(root, passageScene, add, ground, dark, glow, edge, beacon, ring);
+      addPassageSceneLandmark(root, passageScene, add, ground, dark, glow, edge, beacon, ring, detail);
       return true;
     }
 
@@ -476,11 +478,12 @@ function addPassageSceneLandmark(
   glow: THREE.MeshStandardMaterial,
   edge: THREE.MeshStandardMaterial,
   beacon: (y?: number) => THREE.Mesh,
-  ring: (radius: number, y: number, rotation?: number) => THREE.Mesh
+  ring: (radius: number, y: number, rotation?: number) => THREE.Mesh,
+  detail: PropDetail
 ): void {
   const sceneModule = SCENE_MODULES[kind];
   if (sceneModule) {
-    sceneModule({ root, glow, edge, dark, ground, accent: new THREE.Color(0xffffff), beacon, ring });
+    sceneModule({ root, glow, edge, dark, ground, detail, accent: new THREE.Color(0xffffff), beacon, ring });
     return;
   }
 

@@ -4,13 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "pack": "py -3 scripts/pack_game_data.py",
+    "pack": "node scripts/run_python.mjs scripts/pack_game_data.py",
     "dev": "npm run pack && vite",
     "build": "npm run pack && tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest run",
+    "test": "vitest run && node scripts/run_python.mjs -m unittest discover -s tests -v",
     "gen:models": "node scripts/generate_rw3_landmarks.mjs",
-    "validate:models": "python scripts/validate_glb.py public/models/rw3"
+    "validate:models": "node scripts/run_python.mjs scripts/validate_glb.py public/models/rw3"
   },
   "dependencies": {
     "three": "^0.184.0"
