@@ -124,7 +124,7 @@ export class MergedBuilder {
 
   add(geometry: THREE.BufferGeometry, material: THREE.Material, at: Placement = {}): void {
     const geo = geometry.clone();
-    geo.deleteAttribute("uv");
+    if (!(material as THREE.MeshStandardMaterial).map) geo.deleteAttribute("uv");
     _e.set(at.rx ?? 0, at.ry ?? 0, at.rz ?? 0);
     _q.setFromEuler(_e);
     _p.set(at.x ?? 0, at.y ?? 0, at.z ?? 0);
@@ -139,7 +139,7 @@ export class MergedBuilder {
   /** 用完整矩阵放置（局部坐标系 / 缩放 / 任意旋转组合时使用） */
   addMatrix(geometry: THREE.BufferGeometry, material: THREE.Material, matrix: THREE.Matrix4): void {
     const geo = geometry.clone();
-    geo.deleteAttribute("uv");
+    if (!(material as THREE.MeshStandardMaterial).map) geo.deleteAttribute("uv");
     geo.applyMatrix4(matrix);
     const welded = geo.index ? geo : mergeVertices(geo, 1e-4);
     const list = this.buckets.get(material) ?? [];

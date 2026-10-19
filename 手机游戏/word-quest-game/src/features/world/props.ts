@@ -778,7 +778,7 @@ export function shrubCardGeometries(seed: number, radius: number, count = 26): T
   const out: THREE.BufferGeometry[] = [];
   for (let i = 0; i < count; i++) {
     const dir = new THREE.Vector3(rnd() - 0.5, rnd() * 0.7 - 0.1, rnd() - 0.5).normalize();
-    out.push(leafCard(dir.multiplyScalar(radius * (0.45 + rnd() * 0.6)), radius * (0.5 + rnd() * 0.4), rnd, dir.y, tmp, [0.27, 0.5, 0.34, 2.0]));
+    out.push(leafCard(dir.multiplyScalar(radius * (0.35 + rnd() * 0.65)), radius * (0.7 + rnd() * 0.5), rnd, dir.y, tmp, [0.27, 0.55, 0.4, 2.4]));
   }
   return out;
 }
