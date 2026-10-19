@@ -255,9 +255,10 @@ export function createPerson(opts: PersonOptions): THREE.Group {
   }
   if (!seated && (style2 === "coat" || style2 === "dress")) {
     const len = style2 === "coat" ? 0.62 : 0.46;
-    const skirt = mesh(new THREE.CylinderGeometry(0.165, style2 === "coat" ? 0.205 : 0.25, len, 28, 1, true), shirt);
-    skirt.scale.set(1.12, 1, 0.84);
+    const skirt = mesh(new THREE.CylinderGeometry(0.19, style2 === "coat" ? 0.235 : 0.27, len, 28, 1, true), shirt);
+    skirt.scale.set(1.12, 1, 0.9);
     skirt.position.y = 1.0 - len / 2 + 0.02;
+    skirt.receiveShadow = false;
     frame.add(skirt);
     if (style2 === "coat") {
       const lapel = rbox(0.016, 0.5, 0.02, 0.006, innerMat);
