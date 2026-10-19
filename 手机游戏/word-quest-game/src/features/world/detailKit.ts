@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { mergeGeometries, mergeVertices } from "three/addons/utils/BufferGeometryUtils.js";
 import { applyKitPattern } from "./kitShader";
+import { applyFoliageShadow } from "./foliageMaterials";
 
 /**
  * 建筑细节工具箱：倒角体块、圆台、细杆、拱、八边形台阶，
@@ -159,6 +160,7 @@ export class MergedBuilder {
       mesh.name = `${name}-${i++}`;
       mesh.castShadow = true;
       mesh.receiveShadow = true;
+      applyFoliageShadow(mesh, material);
       Object.assign(mesh.userData, userData);
       parent.add(mesh);
       meshes.push(mesh);

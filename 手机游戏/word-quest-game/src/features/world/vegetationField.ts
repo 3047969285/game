@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { createBush, createPine, createRock, createTree, vcMaterial } from "./props";
+import { applyFoliageShadow, createBush, createPine, createRock, createTree, vcMaterial } from "./props";
 import { VARIANTS_PER_KIND, type VegetationInstance, type VegetationKind } from "./vegetationPlan";
 
 export interface VegetationField {
@@ -31,7 +31,7 @@ function makeModel(kind: VegetationKind, variant: number, lod: Lod): THREE.Objec
   return createRock(s);
 }
 
-/** 统一属性集：position / normal / color / uv，且一律带索引 */
+/** 统一属性集：position / normal / color / uv（植被几何另带 aSway 风摆权重），且一律带索引 */
 function normalize(src: THREE.BufferGeometry): THREE.BufferGeometry {
   const n = src.attributes.position.count;
   const g = new THREE.BufferGeometry();
@@ -43,6 +43,8 @@ function normalize(src: THREE.BufferGeometry): THREE.BufferGeometry {
     g.setAttribute("color", new THREE.BufferAttribute(new Float32Array(n * 3).fill(1), 3));
   }
   g.setAttribute("uv", src.attributes.uv ? src.attributes.uv.clone() : new THREE.BufferAttribute(new Float32Array(n * 2), 2));
+  // 风摆权重：同一材质（同一 BatchedMesh）的几何要么都有要么都没有（树皮 / 叶片由 props 统一生成）
+  if (src.attributes.aSway) g.setAttribute("aSway", src.attributes.aSway.clone());
   if (src.index) {
     g.setIndex(src.index.clone());
   } else {
@@ -185,6 +187,7 @@ export function buildVegetationField(
     batch.castShadow = castShadow;
     batch.receiveShadow = true;
     batch.sortObjects = false;
+    applyFoliageShadow(batch, mat); // 叶片 / 树皮的阴影深度材质带同样的风摆与 alpha 裁切
     for (const g of p.geos) geoIds.set(g, batch.addGeometry(g));
     batches.set(mat, batch);
     group.add(batch);

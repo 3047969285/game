@@ -3,6 +3,10 @@ import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.j
 import { mergeGeometries, mergeVertices } from "three/addons/utils/BufferGeometryUtils.js";
 import { glassCrystal } from "./materials";
 import { seededRand } from "./utils";
+import { FOLIAGE_ATLAS_CELLS, atlasRect } from "./foliageTextures";
+import { applyFoliageShadow, disposeFoliageResources, foliageSun, getBarkMaterial, getFoliageMaterial, setFoliageQuality, windTime } from "./foliageMaterials";
+
+export { applyFoliageShadow, disposeFoliageResources, foliageSun, getBarkMaterial, getFoliageMaterial, setFoliageQuality, windTime };
 
 /** 轻量几何合并（避免引入 addons 依赖） */
 function mergeBufferGeometries(geos: THREE.BufferGeometry[]): THREE.BufferGeometry {
@@ -172,10 +176,11 @@ export function bake(
   source: THREE.BufferGeometry,
   matrix: THREE.Matrix4,
   color: THREE.Color,
-  shade: (y: number, ny: number) => number = () => 1
+  shade: (y: number, ny: number) => number = () => 1,
+  keepUV = false
 ): THREE.BufferGeometry {
   const geo = source.clone();
-  geo.deleteAttribute("uv");
+  if (!keepUV) geo.deleteAttribute("uv");
   if (!geo.attributes.normal) geo.computeVertexNormals();
   const p0 = geo.attributes.position;
   const n0 = geo.attributes.normal;
@@ -211,19 +216,23 @@ export function finish(group: THREE.Group, geos: THREE.BufferGeometry[], materia
   const mesh = new THREE.Mesh(merged, material);
   mesh.castShadow = cast;
   mesh.receiveShadow = true;
+  applyFoliageShadow(mesh, material);
   group.add(mesh);
 }
 
-/** 树干：带板根与树皮纵脊的旋转体（径向噪声位移 + 顶点色深浅沟壑） */
-export function trunkGeometry(height: number, base: number, top: number, color: THREE.Color, lean: number): THREE.BufferGeometry {
-  const rows = 16;
+/**
+ * 树干：带板根与树皮纵脊的旋转体（径向噪声位移 + 顶点色深浅沟壑）。
+ * withUV 时保留 UV：u 绕周一圈、v 沿长度，按真实长度缩放使树皮纹理不被拉伸（供 getBarkMaterial 使用）；
+ * 不带 UV 时与旧行为一致（倒木等顶点色网格要与无 UV 的几何合并）。
+ */
+export function trunkGeometry(height: number, base: number, top: number, color: THREE.Color, lean: number, withUV = false, rows = 16, radial = 18): THREE.BufferGeometry {
   const pts: THREE.Vector2[] = [];
   for (let i = 0; i <= rows; i++) {
     const t = i / rows;
     const flare = base * 0.6 * Math.exp(-t * 13);
     pts.push(new THREE.Vector2(THREE.MathUtils.lerp(base, top, Math.pow(t, 0.85)) + flare, -0.08 * height + t * height * 1.08));
   }
-  const lathe = new THREE.LatheGeometry(pts, 18);
+  const lathe = new THREE.LatheGeometry(pts, radial);
   const p = lathe.attributes.position;
   const colors = new Float32Array(p.count * 3);
   for (let i = 0; i < p.count; i++) {
@@ -231,7 +240,6 @@ export function trunkGeometry(height: number, base: number, top: number, color: 
     const z = p.getZ(i);
     const y = p.getY(i);
     const a = Math.atan2(z, x);
-    const r = Math.hypot(x, z);
     const ridge = Math.sin(a * 7 + y * 0.9 / Math.max(0.2, height * 0.15)) * 0.5 + Math.sin(a * 13 - y * 1.7 / Math.max(0.2, height * 0.15)) * 0.3 + vnoise(x * 3, y * 2.2, z * 3, 3) * 0.6;
     const lobe = Math.max(0, Math.sin(a * 5 + 0.7)) * Math.exp(-Math.max(0, y) / (height * 0.12));
     const k = 1 + ridge * 0.055 + lobe * 0.28;
@@ -243,56 +251,205 @@ export function trunkGeometry(height: number, base: number, top: number, color: 
     colors[i * 3] = color.r * kc;
     colors[i * 3 + 1] = color.g * kc;
     colors[i * 3 + 2] = color.b * kc;
-    void r;
   }
   lathe.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-  lathe.deleteAttribute("uv");
+  if (withUV) {
+    const uv = lathe.attributes.uv;
+    const tile = Math.PI * 2 * ((base + top) / 2 + base * 0.1); // 一圈周长 ≈ 一个纹理块高度
+    for (let i = 0; i < uv.count; i++) uv.setY(i, (uv.getY(i) * height * 1.08) / tile);
+  } else {
+    lathe.deleteAttribute("uv");
+  }
   lathe.computeVertexNormals();
+  // 旋转体接缝处的顶点是重复的，法线各算各的会出现一道明暗线：把接缝两侧的法线取平均
+  const n = lathe.attributes.normal;
+  const rowN = rows + 1;
+  for (let j = 0; j < rowN; j++) {
+    const a = j;
+    const b = radial * rowN + j;
+    const nx = n.getX(a) + n.getX(b);
+    const ny = n.getY(a) + n.getY(b);
+    const nz = n.getZ(a) + n.getZ(b);
+    const l = Math.hypot(nx, ny, nz) || 1;
+    n.setXYZ(a, nx / l, ny / l, nz / l);
+    n.setXYZ(b, nx / l, ny / l, nz / l);
+  }
   return lathe;
 }
 
-const FOLIAGE_SOLID_UV = 0.02;
+// ───────────────────────── 叶簇卡片 ─────────────────────────
 
-/** 给无 UV 的团块几何写入常量 UV（指向叶贴图左上角的实心色块），与叶片卡片共用同一材质 */
-export function withConstUV(geo: THREE.BufferGeometry): THREE.BufferGeometry {
-  const n = geo.attributes.position.count;
-  const uv = new Float32Array(n * 2);
-  for (let i = 0; i < n; i++) {
-    uv[i * 2] = FOLIAGE_SOLID_UV;
-    uv[i * 2 + 1] = 1 - FOLIAGE_SOLID_UV;
+/** 整树低频摆幅系数：顶端物体空间位移 ≈ K × 树高（沿 (高度/树高)^2 增长） */
+const TRUNK_SWAY_K = 0.03;
+/** 叶片高频抖动幅度 ≈ 卡片尺寸 × 此系数 */
+const FLUTTER_K = 0.05;
+
+const V_UP = new THREE.Vector3(0, 1, 0);
+
+/**
+ * 叶簇卡片批量构建：一次累积成单个带 position / normal / uv / color / aSway 的索引几何，
+ * 比逐张 PlaneGeometry 再合并快得多。卡片 UV 指向图集某一格；颜色是明暗乘子（贴图自带色相）。
+ */
+class CardBuilder {
+  private readonly pos: number[] = [];
+  private readonly nor: number[] = [];
+  private readonly uvs: number[] = [];
+  private readonly col: number[] = [];
+  private readonly sw: number[] = [];
+  private readonly idx: number[] = [];
+  private readonly n = new THREE.Vector3();
+
+  get cardCount(): number {
+    return this.pos.length / 12;
   }
-  geo.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
+
+  /**
+   * 加一张卡片。ax / ay 为卡片的 x / y 轴（单位向量，y 为叶簇"枝向"）；
+   * front：正面（逆时针绕向）应朝向的方向；shadeTarget + mix：着色法线向该方向偏移（球形法线让树冠明暗连续）。
+   */
+  add(
+    center: THREE.Vector3,
+    ax: THREE.Vector3,
+    ay: THREE.Vector3,
+    w: number,
+    h: number,
+    cell: number,
+    shade: [number, number, number],
+    flutter: number,
+    front: THREE.Vector3,
+    shadeTarget: THREE.Vector3,
+    mix: number,
+    mirror = false
+  ): void {
+    this.n.crossVectors(ax, ay).normalize();
+    const flip = this.n.dot(front) < 0 ? -1 : 1;
+    if (flip < 0) this.n.negate();
+    const sn = this.n.clone().multiplyScalar(1 - mix).addScaledVector(shadeTarget, mix).normalize();
+    const [u0, v0, u1, v1] = atlasRect(cell);
+    const base = this.pos.length / 3;
+    for (let k = 0; k < 4; k++) {
+      const ix = k === 1 || k === 2 ? 1 : 0;
+      const iy = k >= 2 ? 1 : 0;
+      const lx = (ix - 0.5) * w * flip;
+      const ly = (iy - 0.5) * h;
+      this.pos.push(center.x + ax.x * lx + ay.x * ly, center.y + ax.y * lx + ay.y * ly, center.z + ax.z * lx + ay.z * ly);
+      this.nor.push(sn.x, sn.y, sn.z);
+      const uu = mirror ? 1 - ix : ix;
+      this.uvs.push(u0 + (u1 - u0) * uu, v0 + (v1 - v0) * iy);
+      const g = 0.88 + 0.12 * iy; // 基部略暗：自遮蔽
+      this.col.push(shade[0] * g, shade[1] * g, shade[2] * g);
+      this.sw.push(0, flutter * (0.3 + 0.7 * iy));
+    }
+    // flip<0 时 x 轴取反，绕向仍保持 (0,1,2)(0,2,3) 的逆时针对应于 n
+    this.idx.push(base, base + 1, base + 2, base, base + 2, base + 3);
+  }
+
+  build(): THREE.BufferGeometry {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.Float32BufferAttribute(this.pos, 3));
+    g.setAttribute("normal", new THREE.Float32BufferAttribute(this.nor, 3));
+    g.setAttribute("uv", new THREE.Float32BufferAttribute(this.uvs, 2));
+    g.setAttribute("color", new THREE.Float32BufferAttribute(this.col, 3));
+    g.setAttribute("aSway", new THREE.Float32BufferAttribute(this.sw, 2));
+    g.setIndex(this.pos.length / 3 > 65535 ? new THREE.Uint32BufferAttribute(this.idx, 1) : new THREE.Uint16BufferAttribute(this.idx, 1));
+    return g;
+  }
+}
+
+/** 按顶点高度烘焙整树摆幅（aSway.x = K·H·(y/H)^2），已有 aSway 的保留其 y 分量 */
+function bakeSway(geo: THREE.BufferGeometry, height: number): void {
+  const p = geo.attributes.position;
+  let sw = geo.attributes.aSway as THREE.BufferAttribute | undefined;
+  if (!sw) {
+    sw = new THREE.BufferAttribute(new Float32Array(p.count * 2), 2);
+    geo.setAttribute("aSway", sw);
+  }
+  const amp = TRUNK_SWAY_K * height;
+  for (let i = 0; i < p.count; i++) {
+    const f = THREE.MathUtils.clamp(p.getY(i) / height, 0, 1);
+    sw.setX(i, amp * f * f);
+  }
+  sw.needsUpdate = true;
+}
+
+function maxY(geos: THREE.BufferGeometry[]): number {
+  let m = 0.001;
+  for (const g of geos) {
+    const p = g.attributes.position;
+    for (let i = 0; i < p.count; i++) if (p.getY(i) > m) m = p.getY(i);
+  }
+  return m;
+}
+
+/** 把一棵树的木质（树皮材质）与叶片卡片合并后加入 group，并统一烘焙摆幅 */
+function addTreeMeshes(group: THREE.Group, woodGeos: THREE.BufferGeometry[], leaves: THREE.BufferGeometry | null, bark: THREE.Material): void {
+  const wood = woodGeos.length > 0 ? mergeGeometries(woodGeos, false) : null;
+  const height = maxY([...(wood ? [wood] : []), ...(leaves ? [leaves] : [])]);
+  if (wood) {
+    bakeSway(wood, height);
+    const mesh = new THREE.Mesh(wood, bark);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    applyFoliageShadow(mesh, bark);
+    group.add(mesh);
+  }
+  if (leaves) {
+    bakeSway(leaves, height);
+    const fm = getFoliageMaterial();
+    const mesh = new THREE.Mesh(leaves, fm);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    applyFoliageShadow(mesh, fm);
+    group.add(mesh);
+  }
+}
+
+/** 树枝：略收细的开口圆管（带 UV 沿长度按真实比例展开，顶点色为明暗乘子） */
+function tube(a: THREE.Vector3, b: THREE.Vector3, r0: number, r1: number, radial: number, tone: number, rnd: () => number): THREE.BufferGeometry {
+  const dir = b.clone().sub(a);
+  const len = dir.length();
+  const geo = new THREE.CylinderGeometry(r1, r0, len, radial, 1, true);
+  geo.translate(0, len / 2, 0);
+  const uv = geo.attributes.uv;
+  const uOff = rnd();
+  const vOff = rnd();
+  const vScale = len / (Math.PI * (r0 + r1));
+  for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) + uOff, uv.getY(i) * vScale + vOff);
+  const pos = geo.attributes.position;
+  const colors = new Float32Array(pos.count * 3);
+  for (let i = 0; i < pos.count; i++) {
+    const k = tone * (0.78 + 0.22 * Math.min(1, pos.getY(i) / len));
+    colors[i * 3] = k;
+    colors[i * 3 + 1] = k;
+    colors[i * 3 + 2] = k;
+  }
+  geo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+  geo.applyMatrix4(new THREE.Matrix4().compose(a, new THREE.Quaternion().setFromUnitVectors(V_UP, dir.normalize()), new THREE.Vector3(1, 1, 1)));
   return geo;
 }
 
-let foliageMat: THREE.MeshStandardMaterial | undefined;
-export function getFoliageMaterial(): THREE.MeshStandardMaterial {
-  if (!foliageMat) {
-    foliageMat = new THREE.MeshStandardMaterial({ map: getLeafTexture(), alphaTest: 0.5, vertexColors: true, side: THREE.DoubleSide, roughness: 0.86, metalness: 0.02 });
-  }
-  return foliageMat;
+const BARK_TINT = new THREE.Color(1.0, 0.96, 0.9);
+
+function randUnit(rnd: () => number, out: THREE.Vector3): THREE.Vector3 {
+  // 三个均匀数的和近似高斯，归一化后在球面上分布较均匀
+  out.set(rnd() + rnd() + rnd() - 1.5, rnd() + rnd() + rnd() - 1.5, rnd() + rnd() + rnd() - 1.5);
+  if (out.lengthSq() < 1e-6) out.set(0, 1, 0);
+  return out.normalize();
 }
 
-const UP = new THREE.Vector3(0, 1, 0);
-const LEAF_TONES = [0x4a8a52, 0x3f7d4f, 0x56994f, 0x356b43, 0x62a050, 0x468a4a, 0x6aa656];
-
-/** 叶片卡片：单个带顶点色的四边形，按位置 / 朝向 / 尺寸摆好 */
-export function leafCard(p: THREE.Vector3, size: number, rnd: () => number, up: number, tmp: { m: THREE.Matrix4; q: THREE.Quaternion; e: THREE.Euler; c: THREE.Color }, tint: [number, number, number, number] = [0.26, 0.5, 0.36, 2.1]): THREE.BufferGeometry {
-  tmp.e.set(rnd() * Math.PI, rnd() * Math.PI * 2, rnd() * Math.PI);
-  tmp.q.setFromEuler(tmp.e);
-  tmp.m.compose(p, tmp.q, new THREE.Vector3(size, size, size));
-  const card = new THREE.PlaneGeometry(1, 1);
-  const light = 0.7 + 0.5 * THREE.MathUtils.clamp(0.5 + up * 0.6, 0, 1);
-  tmp.c.setHSL(tint[0] + (rnd() - 0.5) * 0.05, tint[1], tint[2] * light + 0.1).multiplyScalar(tint[3]);
-  const colors = new Float32Array(card.attributes.position.count * 3);
-  for (let i = 0; i < colors.length; i += 3) {
-    colors[i] = tmp.c.r;
-    colors[i + 1] = tmp.c.g;
-    colors[i + 2] = tmp.c.b;
-  }
-  card.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-  card.applyMatrix4(tmp.m);
-  return card;
+/** 叶片卡片：单张、随机朝向，供场景道具（花坛灌木等）复用；使用灌木叶簇格 */
+export function leafCard(p: THREE.Vector3, size: number, rnd: () => number, up: number, _tmp?: unknown, _tint?: unknown): THREE.BufferGeometry {
+  const b = new CardBuilder();
+  const n = randUnit(rnd, new THREE.Vector3());
+  const ax = new THREE.Vector3().crossVectors(n, Math.abs(n.y) > 0.9 ? new THREE.Vector3(1, 0, 0) : V_UP).normalize();
+  const ay = new THREE.Vector3().crossVectors(n, ax).normalize();
+  const roll = rnd() * Math.PI * 2;
+  const ax2 = ax.clone().multiplyScalar(Math.cos(roll)).addScaledVector(ay, Math.sin(roll));
+  const ay2 = ay.clone().multiplyScalar(Math.cos(roll)).addScaledVector(ax, -Math.sin(roll));
+  const light = 0.62 + 0.4 * THREE.MathUtils.clamp(0.5 + up * 0.6, 0, 1);
+  const tint = 0.94 + rnd() * 0.12;
+  b.add(p, ax2, ay2, size, size, FOLIAGE_ATLAS_CELLS.shrub, [light * tint, light, light * (1.1 - (tint - 0.94))], size * FLUTTER_K, n, n, 0.4, rnd() > 0.5);
+  return b.build();
 }
 
 interface BroadleafOpts {
@@ -303,42 +460,46 @@ interface BroadleafOpts {
   /** 从第几段起长出分叉小枝 */
   forkFrom: number;
   roots: number;
-  blobsPerTip: number;
-  blobDetail: number;
-  blobScale: number;
-  cardsPerTip: number;
+  /** 叶簇卡片总预算（按枝梢面积分配） */
+  cards: number;
+  /** 卡片边长范围（单位 u） */
   cardSize: [number, number];
+  /** 每个分叉末端再长几根细小枝（low 为 0） */
+  twigs: number;
+  radial: number;
+  trunkRows: number;
+  trunkRadial: number;
   seed: number;
 }
 
+interface Tip {
+  p: THREE.Vector3;
+  r: number;
+}
+
 /**
- * 阔叶树生成器：板根主干 → 放射状主枝（逐段收细并二次弯曲）→ 分叉小枝 →
- * 枝梢处叶团 + 外层叶片卡片，木质 / 叶两个合并网格。
+ * 阔叶树生成器：板根主干 → 放射状主枝（逐段收细并二次弯曲）→ 分叉小枝 → 细小枝，
+ * 枝梢周围按球壳分布叶簇卡片（外层亮、内层暗，枝干从缝隙里露出）。
+ * 产出 2 个网格：树皮（getBarkMaterial）与叶片（getFoliageMaterial）。
  */
 function buildBroadleaf(o: BroadleafOpts): THREE.Group {
   const g = new THREE.Group();
   const rnd = seededRand(o.seed);
   const u = o.u;
-  const bark = new THREE.Color(0x5b4533);
   const woodGeos: THREE.BufferGeometry[] = [];
   const limb = (a: THREE.Vector3, b: THREE.Vector3, r0: number, r1: number, tone = 1): void => {
-    const dir = b.clone().sub(a);
-    const len = dir.length();
-    const geo = new THREE.CylinderGeometry(r1, r0, len, 7, 1);
-    geo.translate(0, len / 2, 0);
-    const q = new THREE.Quaternion().setFromUnitVectors(UP, dir.normalize());
-    woodGeos.push(bake(geo, new THREE.Matrix4().compose(a, q, new THREE.Vector3(1, 1, 1)), bark.clone().multiplyScalar(tone), (y) => 0.8 + 0.2 * Math.min(1, y / len)));
+    woodGeos.push(tube(a, b, r0, r1, o.radial, tone, rnd));
   };
 
   const trunkH = 13 * u;
-  woodGeos.push(trunkGeometry(trunkH, 1.9 * u, 1.15 * u, bark, (rnd() - 0.5) * 0.02));
+  woodGeos.push(trunkGeometry(trunkH, 1.9 * u, 1.15 * u, BARK_TINT, (rnd() - 0.5) * 0.02, true, o.trunkRows, o.trunkRadial));
   for (let i = 0; i < o.roots; i++) {
     const a = (i / o.roots) * Math.PI * 2 + rnd() * 0.4;
     const out = (3.4 + rnd() * 2.2) * u;
     limb(new THREE.Vector3(Math.cos(a) * u, 2.2 * u, Math.sin(a) * u), new THREE.Vector3(Math.cos(a) * out, -0.25 * u, Math.sin(a) * out), 0.7 * u, 0.18 * u, 0.95);
   }
 
-  const tips: Array<{ p: THREE.Vector3; r: number }> = [];
+  const tips: Tip[] = [];
   for (let i = 0; i < o.limbs; i++) {
     const a = (i / o.limbs) * Math.PI * 2 + rnd() * 0.4;
     const y0 = trunkH * (0.62 + rnd() * 0.3);
@@ -356,157 +517,250 @@ function buildBroadleaf(o: BroadleafOpts): THREE.Group {
           const b = a + side * (0.5 + rnd() * 0.5);
           const end = p.clone().add(new THREE.Vector3(Math.cos(b) * (2.2 + rnd() * 1.6) * u, (1.6 + rnd() * 2.2) * u, Math.sin(b) * (2.2 + rnd() * 1.6) * u));
           limb(p, end, r1 * 0.8, 0.05 * u);
-          tips.push({ p: end, r: (2.1 + rnd() * 1.2) * u });
+          tips.push({ p: end, r: (1.9 + rnd() * 1.0) * u });
+          // 细小枝：从分叉末端再分出几根，叶簇着生在它们的末梢
+          for (let k = 0; k < o.twigs; k++) {
+            const c = b + (k === 0 ? -1 : 1) * (0.6 + rnd() * 0.7) * (rnd() > 0.5 ? 1 : -1);
+            const e2 = end.clone().add(new THREE.Vector3(Math.cos(c) * (1.3 + rnd() * 1.2) * u, (0.5 + rnd() * 1.6) * u, Math.sin(c) * (1.3 + rnd() * 1.2) * u));
+            limb(end, e2, 0.05 * u, 0.025 * u);
+            tips.push({ p: e2, r: (1.4 + rnd() * 0.8) * u });
+          }
         }
       }
-      if (s === 2) tips.push({ p: p.clone().add(new THREE.Vector3(0, 1.2 * u, 0)), r: (2.4 + rnd() * 1.2) * u });
+      if (s === 2) tips.push({ p: p.clone().add(new THREE.Vector3(0, 1.2 * u, 0)), r: (2.2 + rnd() * 1.0) * u });
       prev = p;
     }
-    tips.push({ p: prev.clone().add(new THREE.Vector3(0, 0.8 * u, 0)), r: (2.8 + rnd() * 1.2) * u });
+    tips.push({ p: prev.clone().add(new THREE.Vector3(0, 0.8 * u, 0)), r: (2.5 + rnd() * 1.0) * u });
   }
-  tips.push({ p: new THREE.Vector3(0, trunkH + 4.5 * u, 0), r: 3.8 * u });
-  finish(g, woodGeos, vcMaterial(0.95, "bark"));
+  tips.push({ p: new THREE.Vector3(0, trunkH + 4.5 * u, 0), r: 3.4 * u });
 
-  const leafGeos: THREE.BufferGeometry[] = [];
-  const tmp = { m: new THREE.Matrix4(), q: new THREE.Quaternion(), e: new THREE.Euler(), c: new THREE.Color() };
-  for (const { p, r } of tips) {
-    for (let k = 0; k < o.blobsPerTip; k++) {
-      const col = new THREE.Color(LEAF_TONES[Math.floor(rnd() * LEAF_TONES.length)]).offsetHSL((rnd() - 0.5) * 0.04, 0, (rnd() - 0.5) * 0.07).multiplyScalar(1.35);
-      const spread = k === 0 ? 0 : r * 0.85;
-      const jx = (rnd() - 0.5) * spread;
-      const jy = (rnd() - 0.3) * spread * 0.6;
-      const jz = (rnd() - 0.5) * spread;
-      const rr = r * (k === 0 ? o.blobScale : 0.34 + rnd() * 0.3);
-      leafGeos.push(withConstUV(bake(organicBlob(Math.floor(rnd() * 5) + 1, o.blobDetail, 0.38), mat4(p.x + jx, p.y + jy, p.z + jz, rr * 1.1, rr * 0.8, rr, rnd() * 3, rnd() * 6, rnd() * 3), col, (y, ny) => (0.5 + 0.5 * THREE.MathUtils.clamp(0.5 + 0.5 * ny, 0, 1)) * (0.93 + 0.1 * Math.sin(y * 19.3 + k)))));
-    }
-    for (let k = 0; k < o.cardsPerTip; k++) {
-      const dir = new THREE.Vector3(rnd() - 0.5, rnd() - 0.3, rnd() - 0.5).normalize();
-      const pos = p.clone().addScaledVector(dir, r * 1.05 * (0.65 + rnd() * 0.55));
+  // 树冠中心与半径：卡片明暗按到中心的归一化距离决定（内部更暗，制造体积感）
+  const center = new THREE.Vector3();
+  for (const t of tips) center.add(t.p);
+  center.multiplyScalar(1 / tips.length);
+  let canopyR = 0.001;
+  for (const t of tips) canopyR = Math.max(canopyR, t.p.distanceTo(center) + t.r);
+  let weightSum = 0;
+  for (const t of tips) weightSum += t.r * t.r;
+
+  const cards = new CardBuilder();
+  const dir = new THREE.Vector3();
+  const pos = new THREE.Vector3();
+  const outward = new THREE.Vector3();
+  const tipOut = new THREE.Vector3();
+  const gn = new THREE.Vector3();
+  const ay = new THREE.Vector3();
+  const ax = new THREE.Vector3();
+  const tmp = new THREE.Vector3();
+  for (const tip of tips) {
+    const count = Math.max(2, Math.round((o.cards * tip.r * tip.r) / weightSum));
+    tipOut.copy(tip.p).sub(center).normalize();
+    for (let k = 0; k < count; k++) {
+      randUnit(rnd, dir).multiplyScalar(0.8).addScaledVector(tipOut, 0.55).normalize();
+      pos.copy(tip.p).addScaledVector(dir, tip.r * (0.25 + rnd() * 0.85));
+      outward.copy(pos).sub(center);
+      const depth = THREE.MathUtils.clamp(outward.length() / canopyR, 0, 1);
+      outward.normalize();
+      // 卡片朝向：外 + 上 + 随机；y 轴（枝向）取外向在卡片平面内的投影并加扰动
+      gn.copy(outward).multiplyScalar(0.7).addScaledVector(V_UP, 0.45).add(randUnit(rnd, tmp).multiplyScalar(0.55)).normalize();
+      ay.copy(outward).addScaledVector(gn, -outward.dot(gn));
+      if (ay.lengthSq() < 0.02) randUnit(rnd, ay);
+      ay.normalize();
+      const jitter = (rnd() - 0.5) * 1.8;
+      tmp.crossVectors(gn, ay);
+      ay.multiplyScalar(Math.cos(jitter)).addScaledVector(tmp, Math.sin(jitter)).normalize();
+      ax.crossVectors(ay, gn).normalize();
+      const inner = depth < 0.55 && rnd() < 0.75;
+      const cell = inner ? FOLIAGE_ATLAS_CELLS.broadleafDark : FOLIAGE_ATLAS_CELLS.broadleaf;
+      const lit = THREE.MathUtils.lerp(0.34, 1.02, THREE.MathUtils.smoothstep(depth, 0.15, 1)) * (0.82 + 0.18 * THREE.MathUtils.clamp(0.5 + outward.y * 0.8, 0, 1)) * (0.9 + 0.2 * rnd());
+      const warm = 0.96 + rnd() * 0.1;
       const size = (o.cardSize[0] + rnd() * (o.cardSize[1] - o.cardSize[0])) * u;
-      leafGeos.push(leafCard(pos, size, rnd, dir.y, tmp));
+      cards.add(pos, ax, ay, size, size, cell, [lit * warm, lit, lit * (1.08 - (warm - 0.96))], size * FLUTTER_K, outward, outward, 0.55, rnd() > 0.5);
     }
   }
-  finish(g, leafGeos, getFoliageMaterial());
+  addTreeMeshes(g, woodGeos, cards.build(), getBarkMaterial("broadleaf"));
   return g;
 }
 
-/** 阔叶树：板根主干 + 放射分枝 + 枝梢叶团与叶片卡片 */
+/** 阔叶树：板根主干 + 放射分枝 + 枝梢叶簇卡片（卡片数 high ≈ 1900，low ≈ 440 且更大张） */
 export function createTree(scale = 1, detail: "high" | "low" = "high"): THREE.Group {
   const low = detail === "low";
-  return buildBroadleaf({ u: 0.2 * scale, limbs: 4, segs: 3, forkFrom: 3, roots: 3, blobsPerTip: 1, blobDetail: low ? 1 : 2, blobScale: 0.6, cardsPerTip: low ? 10 : 72, cardSize: [1.5, 2.8], seed: Math.floor(scale * 10000) + 77 });
+  return buildBroadleaf({
+    u: 0.2 * scale,
+    limbs: 4,
+    segs: 3,
+    forkFrom: 3,
+    roots: 3,
+    cards: low ? 440 : 1900,
+    cardSize: low ? [2.2, 3.6] : [1.3, 2.3],
+    twigs: low ? 0 : 2,
+    radial: low ? 4 : 6,
+    trunkRows: low ? 8 : 16,
+    trunkRadial: low ? 8 : 18,
+    seed: Math.floor(scale * 10000) + 77,
+  });
 }
 
 /** 远古巨树（单元 3 记忆树）：尺寸直接按米给出，枝叶更密 */
 export function createAncientTree(): THREE.Group {
-  return buildBroadleaf({ u: 1, limbs: 8, segs: 4, forkFrom: 2, roots: 8, blobsPerTip: 4, blobDetail: 2, blobScale: 0.78, cardsPerTip: 40, cardSize: [1.7, 3.3], seed: 4411 });
+  return buildBroadleaf({ u: 1, limbs: 8, segs: 4, forkFrom: 2, roots: 8, cards: 9000, cardSize: [1.5, 2.9], twigs: 2, radial: 7, trunkRows: 16, trunkRadial: 18, seed: 4411 });
 }
 
-let leafTexture: THREE.CanvasTexture | undefined;
-/** 叶丛贴图：一簇带叶脉的叶片喷射状散开，透明底（alphaTest 裁切） */
-function getLeafTexture(): THREE.CanvasTexture {
-  if (leafTexture) return leafTexture;
-  const size = 256;
-  const c = document.createElement("canvas");
-  c.width = c.height = size;
-  const g = c.getContext("2d")!;
-  const rnd = seededRand(8821);
-  // 左上角实心色块：供团块几何（常量 UV）取样，保持不透明
-  g.fillStyle = "#ffffff";
-  g.fillRect(0, 0, 10, 10);
-  for (let i = 0; i < 16; i++) {
-    g.save();
-    g.translate(size / 2 + (rnd() - 0.5) * 26, size * 0.62 + (rnd() - 0.5) * 30);
-    g.rotate((rnd() - 0.5) * Math.PI * 1.6);
-    const len = 60 + rnd() * 46;
-    const wid = 15 + rnd() * 10;
-    const tone = 0.62 + rnd() * 0.38;
-    const grad = g.createLinearGradient(0, 0, len, 0);
-    grad.addColorStop(0, `rgb(${Math.round(74 * tone)},${Math.round(120 * tone)},${Math.round(52 * tone)})`);
-    grad.addColorStop(1, `rgb(${Math.round(150 * tone)},${Math.round(190 * tone)},${Math.round(84 * tone)})`);
-    g.fillStyle = grad;
-    g.beginPath();
-    g.moveTo(0, 0);
-    g.quadraticCurveTo(len * 0.5, -wid, len, 0);
-    g.quadraticCurveTo(len * 0.5, wid, 0, 0);
-    g.fill();
-    g.strokeStyle = "rgba(40,70,30,0.55)";
-    g.lineWidth = 1.2;
-    g.beginPath();
-    g.moveTo(0, 0);
-    g.lineTo(len * 0.92, 0);
-    g.stroke();
-    g.restore();
-  }
-  leafTexture = new THREE.CanvasTexture(c);
-  leafTexture.colorSpace = THREE.SRGBColorSpace;
-  leafTexture.anisotropy = 4;
-  return leafTexture;
-}
-
-/** 针叶松：七层下垂的锯齿枝裙（边缘起伏、底部更暗），合并为 2 个网格 */
+/**
+ * 针叶松：笔直收细的主干 + 逐轮生长的枝条（先近水平伸出、末端下垂），
+ * 每根枝条上沿长度排两层针叶枝片卡片（面朝上、略下垂），顶端一束向上的枝片；没有实心圆锥。
+ */
 export function createPine(scale = 1, detail: "high" | "low" = "high"): THREE.Group {
   const g = new THREE.Group();
   const rnd = seededRand(Math.floor(scale * 7919) + 13);
   const s = scale;
-  const trunkH = 1.6 * s;
-  finish(g, [trunkGeometry(trunkH, 0.15 * s, 0.07 * s, new THREE.Color(0x4a382a), (rnd() - 0.5) * 0.04)], vcMaterial(0.95, "bark"));
+  const low = detail === "low";
+  const H = 4.3 * s;
+  const woodGeos: THREE.BufferGeometry[] = [];
+  woodGeos.push(trunkGeometry(H * 0.97, 0.15 * s, 0.022 * s, BARK_TINT, (rnd() - 0.5) * 0.03, true, low ? 8 : 16, low ? 6 : 12));
 
-  const layers = detail === "low" ? 4 : 7;
-  const cardsPerLayer = detail === "low" ? 6 : 34;
-  const leafGeos: THREE.BufferGeometry[] = [];
-  const pineTmp = { m: new THREE.Matrix4(), q: new THREE.Quaternion(), e: new THREE.Euler(), c: new THREE.Color() };
-  for (let i = 0; i < layers; i++) {
-    const t = i / (layers - 1);
-    const radius = (1.35 - t * 0.95) * s;
-    const height = (1.05 - t * 0.28) * s;
-    const cone = new THREE.ConeGeometry(1, 1, 16, 2);
-    const p = cone.attributes.position;
-    for (let k = 0; k < p.count; k++) {
-      const x = p.getX(k);
-      const z = p.getZ(k);
-      const y = p.getY(k);
-      const a = Math.atan2(z, x);
-      const rim = y < 0 ? 1 : 0;
-      const wob = 1 + rim * (0.16 * Math.sin(a * 8 + i * 1.7) + 0.08 * Math.sin(a * 13 + i));
-      p.setXYZ(k, x * wob, y - rim * 0.08 * (0.5 + 0.5 * Math.sin(a * 8 + i)), z * wob);
-    }
-    cone.computeVertexNormals();
-    const col = new THREE.Color(0x24543d).offsetHSL((rnd() - 0.5) * 0.02, 0, (rnd() - 0.5) * 0.05);
-    leafGeos.push(withConstUV(bake(cone, mat4(0, (1.05 + t * 2.6) * s, 0, radius * 0.92, height, radius * 0.92, 0, rnd() * Math.PI, 0), col, (y) => 0.55 + 0.45 * (y / 1.0 + 0.5))));
-    // 针叶簇：沿枝裙边缘向外下垂的卡片，打碎锥形轮廓
-    for (let k = 0; k < cardsPerLayer; k++) {
-      const ang = rnd() * Math.PI * 2;
-      const rr = radius * (0.35 + rnd() * 0.7);
-      const ph = (1.05 + t * 2.6) * s - height * 0.5 * (rr / radius) + height * 0.5 + (rnd() - 0.5) * height * 0.2;
-      leafGeos.push(leafCard(new THREE.Vector3(Math.cos(ang) * rr, ph - height * (rr / radius) * 0.55, Math.sin(ang) * rr), (0.5 + rnd() * 0.45) * s, rnd, -0.4, pineTmp, [0.38, 0.45, 0.2, 1.5]));
+  const whorls = low ? 5 : 9;
+  const layers = low ? 2 : 4;
+  const cards = new CardBuilder();
+  const origin = new THREE.Vector3();
+  const prev = new THREE.Vector3();
+  const cur = new THREE.Vector3();
+  const tangent = new THREE.Vector3();
+  const radial = new THREE.Vector3();
+  const ax = new THREE.Vector3();
+  const ay = new THREE.Vector3();
+  const nrm = new THREE.Vector3();
+  const center = new THREE.Vector3();
+  const q = new THREE.Quaternion();
+  const sizeBoost = low ? 1.4 : 1;
+  for (let i = 0; i < whorls; i++) {
+    const t = i / (whorls - 1);
+    const y = (0.9 + t * 3.05) * s;
+    const L = (1.1 - 0.9 * t) * s * (0.92 + rnd() * 0.16);
+    const nb = low ? 4 : Math.round(7 - t * 2.5);
+    const twist = rnd() * Math.PI * 2;
+    const droop = 0.4 - 0.1 * t;
+    for (let j = 0; j < nb; j++) {
+      const a = twist + (j / nb) * Math.PI * 2 + (rnd() - 0.5) * 0.5;
+      const bl = L * (0.85 + rnd() * 0.3);
+      radial.set(Math.cos(a), 0, Math.sin(a));
+      origin.set(0, y + (rnd() - 0.5) * 0.12 * s, 0);
+      const pathAt = (uu: number, out: THREE.Vector3): THREE.Vector3 =>
+        out.set(radial.x * bl * uu, origin.y + bl * (0.12 * uu - droop * uu * uu), radial.z * bl * uu);
+      // 枝条：2–3 段细管
+      const segs = low ? 2 : 3;
+      prev.copy(origin);
+      for (let k = 1; k <= segs; k++) {
+        pathAt(k / segs, cur);
+        const r0 = Math.max(0.006 * s, 0.045 * s * (1 - 0.65 * t) * (1 - ((k - 1) / segs) * 0.8));
+        const r1 = Math.max(0.004 * s, 0.045 * s * (1 - 0.65 * t) * (1 - (k / segs) * 0.8));
+        woodGeos.push(tube(prev, cur, r0, r1, low ? 3 : 4, 0.85, rnd));
+        prev.copy(cur);
+      }
+      // 针叶枝片：沿枝条依次排开，每张的 y 轴顺枝条切线
+      const csize = THREE.MathUtils.clamp(bl * 0.55, 0.38 * s, 0.8 * s) * sizeBoost;
+      const nCard = THREE.MathUtils.clamp(Math.round(bl / (csize * 0.42)), low ? 2 : 3, low ? 3 : 7);
+      for (let k = 0; k < nCard; k++) {
+        const uu = 0.2 + (k / Math.max(1, nCard - 1)) * 0.8;
+        pathAt(uu, center);
+        pathAt(Math.min(1.02, uu + 0.05), tangent).sub(center).normalize();
+        center.addScaledVector(tangent, csize * 0.35);
+        const inner = THREE.MathUtils.lerp(0.5, 1.02, THREE.MathUtils.smoothstep(uu, 0.1, 0.8));
+        for (let ly = 0; ly < layers; ly++) {
+          // 多层绕枝条轴倾斜的枝片（枝条上下左右都有针叶）；两层时只取左右
+          const tilt = layers === 4 ? (ly - 1.5) * 0.5 : (ly - 0.5) * 0.9;
+          ay.copy(tangent);
+          ax.crossVectors(ay, V_UP).normalize();
+          q.setFromAxisAngle(ay, tilt + (rnd() - 0.5) * 0.25);
+          ax.applyQuaternion(q);
+          nrm.crossVectors(ax, ay).normalize();
+          const yaw = (rnd() - 0.5) * 0.35;
+          q.setFromAxisAngle(nrm, yaw);
+          const ay2 = ay.clone().applyQuaternion(q);
+          const ax2 = ax.clone().applyQuaternion(q);
+          const dark = layers === 4 && ly === 0 ? 0.82 : 1;
+          const lit = inner * (0.7 + 0.3 * t) * dark * (0.9 + 0.2 * rnd());
+          const sz = csize * (0.9 + rnd() * 0.2);
+          cards.add(center, ax2, ay2, sz, sz, FOLIAGE_ATLAS_CELLS.conifer, [lit, lit, lit * 1.04], sz * FLUTTER_K, V_UP, radial.clone().multiplyScalar(0.5).addScaledVector(V_UP, 0.5).normalize(), 0.3, rnd() > 0.5);
+        }
+      }
     }
   }
-  finish(g, leafGeos, getFoliageMaterial());
+  // 顶梢：交叉的竖直枝片
+  const topN = low ? 2 : 3;
+  for (let k = 0; k < topN; k++) {
+    const a = (k / topN) * Math.PI + rnd() * 0.3;
+    ax.set(Math.cos(a), 0, Math.sin(a));
+    center.set(0, H * 0.9 + 0.12 * s, 0);
+    const sz = 0.62 * s * sizeBoost;
+    cards.add(center, ax, V_UP, sz, sz, FOLIAGE_ATLAS_CELLS.conifer, [1, 1, 1.04], sz * FLUTTER_K * 0.6, nrm.crossVectors(ax, V_UP), nrm.clone(), 0, rnd() > 0.5);
+  }
+  addTreeMeshes(g, woodGeos, cards.build(), getBarkMaterial("conifer"));
   return g;
 }
 
-/** 灌木：6~8 团细密不规则叶丛，偶有浆果 */
+/** 灌木：从地面伸出的细枝 + 半球形分布的圆叶叶簇卡片（底部稀疏），偶有浆果 */
 export function createBush(scale = 1, detail: "high" | "low" = "high"): THREE.Group {
   const g = new THREE.Group();
   const rnd = seededRand(Math.floor(scale * 31337) + 5);
-  const tones = [0x3f7448, 0x4a8553, 0x35643f, 0x56915a, 0x6b9446];
-  const geos: THREE.BufferGeometry[] = [];
   const low = detail === "low";
-  const count = low ? 4 : 6 + Math.floor(rnd() * 3);
-  const bushTmp = { m: new THREE.Matrix4(), q: new THREE.Quaternion(), e: new THREE.Euler(), c: new THREE.Color() };
-  for (let i = 0; i < count; i++) {
-    const r = (0.3 + rnd() * 0.3) * scale;
-    const a = rnd() * Math.PI * 2;
-    const d = Math.sqrt(rnd()) * 0.55 * scale;
-    const col = new THREE.Color(tones[Math.floor(rnd() * tones.length)]).offsetHSL(0, 0, (rnd() - 0.5) * 0.05);
-    geos.push(withConstUV(bake(organicBlob(Math.floor(rnd() * 3) + 1, 2, 0.24), mat4(Math.cos(a) * d, r * 0.7, Math.sin(a) * d, r * 0.9, r * 0.7, r * 0.84, rnd() * 3, rnd() * 6, 0), col.multiplyScalar(1.25), (_y, ny) => 0.6 + 0.4 * THREE.MathUtils.clamp(0.5 + 0.5 * ny, 0, 1))));
-    for (let k = 0; k < (low ? 4 : 16); k++) {
-      const dir = new THREE.Vector3(rnd() - 0.5, rnd() - 0.25, rnd() - 0.5).normalize();
-      geos.push(leafCard(new THREE.Vector3(Math.cos(a) * d, r * 0.7, Math.sin(a) * d).addScaledVector(dir, r * (0.8 + rnd() * 0.4)), (0.28 + rnd() * 0.22) * scale, rnd, dir.y, bushTmp, [0.27, 0.5, 0.34, 2.0]));
+  const s = scale;
+  const woodGeos: THREE.BufferGeometry[] = [];
+  const stems = low ? 4 : 5 + Math.floor(rnd() * 5);
+  for (let i = 0; i < stems; i++) {
+    const a = (i / stems) * Math.PI * 2 + rnd() * 0.8;
+    const reach = (0.35 + rnd() * 0.4) * s;
+    const h = (0.4 + rnd() * 0.4) * s;
+    const mid = new THREE.Vector3(Math.cos(a) * reach * 0.35, h * 0.5, Math.sin(a) * reach * 0.35);
+    const end = new THREE.Vector3(Math.cos(a) * reach, h, Math.sin(a) * reach);
+    const base = new THREE.Vector3(Math.cos(a) * 0.03 * s, 0, Math.sin(a) * 0.03 * s);
+    if (low) {
+      woodGeos.push(tube(base, end, 0.02 * s, 0.008 * s, 3, 0.8, rnd));
+    } else {
+      woodGeos.push(tube(base, mid, 0.022 * s, 0.014 * s, 3, 0.8, rnd));
+      woodGeos.push(tube(mid, end, 0.014 * s, 0.006 * s, 3, 0.8, rnd));
     }
   }
-  finish(g, geos, getFoliageMaterial());
-  if (rnd() > 0.6) {
+
+  const cards = new CardBuilder();
+  const target = low ? 150 : 520;
+  const size = low ? [0.36, 0.56] : [0.26, 0.44];
+  const c = new THREE.Vector3(0, 0.38 * s, 0);
+  const dir = new THREE.Vector3();
+  const pos = new THREE.Vector3();
+  const outward = new THREE.Vector3();
+  const gn = new THREE.Vector3();
+  const ay = new THREE.Vector3();
+  const ax = new THREE.Vector3();
+  const tmp = new THREE.Vector3();
+  let made = 0;
+  let guard = 0;
+  while (made < target && guard++ < target * 6) {
+    randUnit(rnd, dir);
+    const radius = (0.4 + 0.6 * Math.sqrt(rnd())) * 0.72 * s;
+    pos.set(dir.x * radius, c.y + dir.y * radius * 0.85, dir.z * radius);
+    if (pos.y < 0.06 * s) continue;
+    // 底部稀疏
+    const low01 = THREE.MathUtils.clamp((pos.y - 0.06 * s) / (0.3 * s), 0, 1);
+    if (rnd() > 0.25 + 0.75 * low01) continue;
+    outward.copy(pos).sub(c).normalize();
+    gn.copy(outward).multiplyScalar(0.75).addScaledVector(V_UP, 0.35).add(randUnit(rnd, tmp).multiplyScalar(0.5)).normalize();
+    ay.copy(outward).addScaledVector(gn, -outward.dot(gn));
+    if (ay.lengthSq() < 0.02) randUnit(rnd, ay);
+    ay.normalize();
+    const jitter = (rnd() - 0.5) * 1.6;
+    tmp.crossVectors(gn, ay);
+    ay.multiplyScalar(Math.cos(jitter)).addScaledVector(tmp, Math.sin(jitter)).normalize();
+    ax.crossVectors(ay, gn).normalize();
+    const depth = THREE.MathUtils.clamp(pos.distanceTo(c) / (0.72 * s), 0, 1);
+    const lit = THREE.MathUtils.lerp(0.45, 1.02, THREE.MathUtils.smoothstep(depth, 0.2, 1)) * (0.62 + 0.38 * low01) * (0.9 + 0.2 * rnd());
+    const warm = 0.95 + rnd() * 0.1;
+    const sz = (size[0] + rnd() * (size[1] - size[0])) * s;
+    cards.add(pos, ax, ay, sz, sz, FOLIAGE_ATLAS_CELLS.shrub, [lit * warm, lit, lit * (1.07 - (warm - 0.95))], sz * FLUTTER_K, outward, outward, 0.5, rnd() > 0.5);
+    made++;
+  }
+  addTreeMeshes(g, woodGeos, cards.build(), getBarkMaterial("broadleaf"));
+  if (!low && rnd() > 0.6) {
     const berryGeos: THREE.BufferGeometry[] = [];
     const berry = new THREE.SphereGeometry(0.035 * scale, 6, 5);
     const tone = new THREE.Color([0xd94b58, 0x6a4bd9, 0xf2c14e][Math.floor(rnd() * 3)]);
@@ -774,14 +1028,13 @@ export function wildflowerGeometry(): THREE.BufferGeometry {
   geos.push(bake(leaf, placeYX(0, 0.1, 0, 3.5, 0.4), new THREE.Color(0.22, 0.4, 0.14)));
   return mergeGeometries(geos, false)!;
 }
-/** 供场景道具复用：一丛灌木 / 花坛植物的叶片卡片几何（单位球半径 1，中心在原点）*/
+/** 供场景道具复用：一丛灌木 / 花坛植物的叶片卡片几何（单位球半径 1，中心在原点，使用 getFoliageMaterial()）*/
 export function shrubCardGeometries(seed: number, radius: number, count = 26): THREE.BufferGeometry[] {
   const rnd = seededRand(seed);
-  const tmp = { m: new THREE.Matrix4(), q: new THREE.Quaternion(), e: new THREE.Euler(), c: new THREE.Color() };
   const out: THREE.BufferGeometry[] = [];
   for (let i = 0; i < count; i++) {
     const dir = new THREE.Vector3(rnd() - 0.5, rnd() * 0.7 - 0.1, rnd() - 0.5).normalize();
-    out.push(leafCard(dir.multiplyScalar(radius * (0.35 + rnd() * 0.65)), radius * (0.7 + rnd() * 0.5), rnd, dir.y, tmp, [0.27, 0.55, 0.4, 2.4]));
+    out.push(leafCard(dir.multiplyScalar(radius * (0.35 + rnd() * 0.65)), radius * (0.7 + rnd() * 0.5), rnd, dir.y));
   }
   return out;
 }

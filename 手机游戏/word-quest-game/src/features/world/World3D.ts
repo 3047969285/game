@@ -71,6 +71,10 @@ import {
   createReed,
   createRock,
   createTree,
+  disposeFoliageResources,
+  foliageSun,
+  setFoliageQuality,
+  windTime,
   grassBladeGeometry,
   wildflowerGeometry,
   GRASS_TUFT_HEIGHT,
@@ -287,6 +291,7 @@ export class World3D {
     this.onExploreUpdate = options.onExploreUpdate;
     this.onPickupNear = options.onPickupNear;
     this.onPickupCollect = options.onPickupCollect;
+    setFoliageQuality(this.quality === "low" ? "low" : "high"); // 植被纹理档位：必须先于任何树 / 灌木的创建
 
     const w = container.clientWidth || 360;
     const h = container.clientHeight || 420;
@@ -913,6 +918,7 @@ export class World3D {
       this.skyDome.geometry.dispose();
       (this.skyDome.material as THREE.Material).dispose();
     }
+    disposeFoliageResources();
     this.renderer.dispose();
     this.renderer.domElement.remove();
   }
@@ -2695,6 +2701,9 @@ export class World3D {
       const focusedWorld = isFocusedLearningWorld(this.activeWorldId);
       this.sun.color.setHex(this.currentBiome.sunColor).lerp(WARM_SUN, (1 - daylight) * 0.6);
       this.sun.intensity = this.currentBiome.sunIntensity * (focusedWorld ? 0.92 : 0.88 + daylight * 0.12);
+      // 植被：叶片逆光透射用的太阳方向 / 颜色（颜色含强度）
+      foliageSun.dir.value.copy(this.sunDirV);
+      foliageSun.color.value.copy(this.sun.color).multiplyScalar(this.sun.intensity / 1.45);
       this.renderer.toneMappingExposure = focusedWorld ? 1.16 : 1.1 + daylight * 0.08;
       if (this.hemi) this.hemi.intensity = focusedWorld ? 0.66 : 0.58 + daylight * 0.12;
 
@@ -2709,6 +2718,7 @@ export class World3D {
         (this.sunDisc.material as THREE.SpriteMaterial).opacity = THREE.MathUtils.clamp(daylight * 1.2 * sunDiscOpacity, 0, 1);
       }
     }
+    windTime.value = t; // 树 / 灌木的风摆共用时间
     // 草地风吹 + 角色踩踏
     if (this.grassUniforms) {
       this.grassUniforms.uTime.value = t;

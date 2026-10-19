@@ -65,3 +65,11 @@ export function atlasRect(cell: number): [number, number, number, number];
 - 树皮：u 方向无缝（第 0 列和最后一列的平均差 < 内部相邻列平均差 × 2），v 方向同样。
 - `atlasRect` 返回的 4 个格子互不重叠、都在 [0,1] 内。
 - 另外为几何生成写测试（可以 import three，vitest 跑 node 环境没问题）：`createPine(1, "high")` 的叶片几何里没有 ConeGeometry 的特征（可以检查顶点数 ≤ 预算、叶片网格每个顶点都有 uv 和 color）；高 / 低细节顶点数都在预算内。
+
+## 实现备注（阶段 3 落地）
+
+- 新增 `foliageTextures.ts`（纯像素生成）、`foliageMaterials.ts`（共享材质 / 风 / 透光 / 阴影深度材质），`props.ts` 再导出 `getFoliageMaterial`、`getBarkMaterial`、`windTime`、`foliageSun`、`setFoliageQuality`、`disposeFoliageResources`。
+- 风摆数据存在几何属性 `aSway`（vec2）：x = 整树低频摆幅（几何生成时按 (高度/树高)² 烘焙，物体空间单位），y = 叶片高频抖动幅度。着色器在 `begin_vertex` 之后位移 `transformed`（物体空间，之后才乘 `batchingMatrix` / `modelMatrix`）；世界相位取 `modelMatrix * batchingMatrix` 的平移列（普通 Mesh 为 `modelMatrix`）。
+- 阴影：叶片 / 树皮材质各登记一对 `MeshDepthMaterial` / `MeshDistanceMaterial`（同样的风位移、同图集 alphaTest），由 `applyFoliageShadow(mesh, material)` 挂到 `customDepthMaterial` / `customDistanceMaterial`（`finish`、树 / 灌木的网格、`MergedBuilder.build`、`vegetationField` 的 BatchedMesh）。
+- `World3D.tickScene` 每帧更新 `windTime`、`foliageSun`；`World3D` 构造时按画质调用 `setFoliageQuality`，销毁时 `disposeFoliageResources`。
+- `vegetationField.normalize()` 额外复制 `aSway`（若有）。灌木 low 档不带浆果。
