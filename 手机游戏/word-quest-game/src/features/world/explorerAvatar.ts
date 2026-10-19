@@ -311,12 +311,12 @@ function hairRibbon(root: THREE.Vector3, normal: THREE.Vector3, dir0: THREE.Vect
 }
 
 /** 现代短发：发壳（沿经线刻出发束沟槽，发际线前高后低）+ 两鬓短发 + 额前短刘海 */
-function buildHair(): THREE.BufferGeometry {
+export function buildHair(style: "short" | "long" = "short", segs = 112): THREE.BufferGeometry {
   const rnd = seededRand(2031);
   const geos: THREE.BufferGeometry[] = [];
   const center = new THREE.Vector3(0, 0.207, -0.012);
   const R = new THREE.Vector3(0.086, 0.099, 0.105);
-  const cap = new THREE.SphereGeometry(1, 112, 72);
+  const cap = new THREE.SphereGeometry(1, segs, Math.round(segs * 0.64));
   const cp = cap.attributes.position;
   const keep: number[] = [];
   const ci = cap.index!;
@@ -374,6 +374,20 @@ function buildHair(): THREE.BufferGeometry {
     const u = new THREE.Vector3(Math.sin(theta) * Math.sin(phi), Math.cos(theta), Math.sin(theta) * Math.cos(phi));
     const root = center.clone().add(new THREE.Vector3(u.x * R.x * 1.03, u.y * R.y * 1.03, u.z * R.z * 1.03));
     geos.push(hairRibbon(root, u, new THREE.Vector3(u.x * 0.1, -1, -0.1).normalize(), 0.05 + rnd() * 0.02, 0.028, rnd, rnd()));
+  }
+  if (style === "long") {
+    // 长发：脑后与两侧垂到肩背的宽发束
+    let made = 0;
+    let guard = 0;
+    while (made < 46 && guard++ < 2000) {
+      const phi = rnd() * Math.PI * 2;
+      const theta = Math.PI * (0.5 + rnd() * 0.2);
+      const u = new THREE.Vector3(Math.sin(theta) * Math.sin(phi), Math.cos(theta), Math.sin(theta) * Math.cos(phi));
+      if (u.z > 0.0 || (u.z > -0.3 && Math.abs(u.x) < 0.7)) continue;
+      const root = center.clone().add(new THREE.Vector3(u.x * R.x * 1.03, u.y * R.y * 1.03, u.z * R.z * 1.03));
+      geos.push(hairRibbon(root, u, new THREE.Vector3(u.x * 0.2, -1, u.z * 0.2 - 0.12).normalize(), 0.2 + rnd() * 0.12, 0.034 + rnd() * 0.016, rnd, rnd()));
+      made++;
+    }
   }
   return mergeGeometries(geos, false)!;
 }

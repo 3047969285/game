@@ -7,7 +7,7 @@ import { meshFromSDF, mirrorX, sdBox, sdCone, sdEllipsoid, sdSphere, sdTorus, sm
  */
 
 /** 头部（头组局部坐标：y=0 在颈根，脸朝 +z） */
-export function headGeometry(): THREE.BufferGeometry {
+export function headGeometry(q = 1): THREE.BufferGeometry {
   const sdf: SDF = (x, y, z) => {
     const ax = Math.abs(x);
     let d = sdEllipsoid(ax, y, z, 0, 0.215, -0.012, 0.077, 0.088, 0.093); // 颅
@@ -36,11 +36,11 @@ export function headGeometry(): THREE.BufferGeometry {
     d = smax(d, -sdCone(ax, y, z, 0, 0.14, 0.098, 0, 0.13, 0.092, 0.0018, 0.0018), 0.002);
     return d;
   };
-  return meshFromSDF(sdf, [0, 0.1, 0.02], 0.16, 84, { boundR: 0.2 });
+  return meshFromSDF(sdf, [0, 0.1, 0.02], 0.16, Math.max(24, Math.round(84 * q)), { boundR: 0.2 });
 }
 
 /** 手（手组局部坐标：手腕在原点，向下为 -y；手掌厚度沿 x，宽度沿 z，手指向内（-side）自然微屈，拇指在前侧） */
-export function handGeometry(): THREE.BufferGeometry {
+export function handGeometry(q = 1): THREE.BufferGeometry {
   // 以"左手"为基准（side = +1 时手指向 -x 内屈）；右手镜像
   const finger = (x: number, y: number, z: number, bz: number, len: number, rad: number, curl: number): number => {
     let d = 1e9;
@@ -74,7 +74,7 @@ export function handGeometry(): THREE.BufferGeometry {
     d = smin(d, sdCone(x, y, z, -0.012, -0.066, 0.046, -0.02, -0.086, 0.05, 0.0092, 0.0078), 0.008);
     return d;
   };
-  return meshFromSDF(sdf, [-0.02, -0.07, 0.005], 0.1, 64, { boundR: 0.13 });
+  return meshFromSDF(sdf, [-0.02, -0.07, 0.005], 0.1, Math.max(24, Math.round(64 * q)), { boundR: 0.13 });
 }
 
 export function handGeometryFor(side: 1 | -1, base: THREE.BufferGeometry): THREE.BufferGeometry {
@@ -85,7 +85,7 @@ export function handGeometryFor(side: 1 | -1, base: THREE.BufferGeometry): THREE
 // 服装壳体
 // ─────────────────────────────────────────────────────────────
 /** 户外夹克躯干：胸廓 / 腹 / 臀的连续曲面 + 肩线 + 立领，下摆圆角，领口开孔 */
-export function jacketGeometry(): THREE.BufferGeometry {
+export function jacketGeometry(q = 1): THREE.BufferGeometry {
   const sdf: SDF = (x, y, z) => {
     const ax = Math.abs(x);
     let d = sdEllipsoid(ax, y, z, 0, 1.34, 0.0, 0.158, 0.172, 0.1); // 胸
@@ -106,11 +106,11 @@ export function jacketGeometry(): THREE.BufferGeometry {
     d += fold;
     return d;
   };
-  return meshFromSDF(sdf, [0, 1.22, -0.005], 0.5, 92, { boundR: 0.55, maxTris: 160000 });
+  return meshFromSDF(sdf, [0, 1.22, -0.005], 0.5, Math.max(24, Math.round(92 * q)), { boundR: 0.55, maxTris: 160000 });
 }
 
 /** 上臂袖（臂组局部：肩在原点向下） */
-export function upperSleeveGeometry(): THREE.BufferGeometry {
+export function upperSleeveGeometry(q = 1): THREE.BufferGeometry {
   const sdf: SDF = (x, y, z) => {
     let d = sdCone(x, y, z, 0, 0.0, 0, 0, -0.28, 0, 0.056, 0.046);
     d = smin(d, sdEllipsoid(x, y, z, 0.004, -0.045, 0, 0.058, 0.08, 0.06), 0.04); // 三角肌
@@ -119,11 +119,11 @@ export function upperSleeveGeometry(): THREE.BufferGeometry {
     d += (Math.sin(ang * 6 + y * 17) * 0.5 + Math.sin(ang * 3 - y * 9) * 0.3) * 0.0028;
     return d;
   };
-  return meshFromSDF(sdf, [0, -0.14, 0], 0.2, 60, { boundR: 0.26 });
+  return meshFromSDF(sdf, [0, -0.14, 0], 0.2, Math.max(24, Math.round(60 * q)), { boundR: 0.26 });
 }
 
 /** 前臂袖（肘组局部：肘在原点向下），袖口收紧 */
-export function lowerSleeveGeometry(): THREE.BufferGeometry {
+export function lowerSleeveGeometry(q = 1): THREE.BufferGeometry {
   const sdf: SDF = (x, y, z) => {
     let d = sdCone(x, y, z, 0, 0, 0, 0, -0.255, 0, 0.046, 0.039);
     d = smin(d, sdEllipsoid(x, y, z, 0, -0.07, 0.004, 0.05, 0.095, 0.046), 0.03); // 前臂肌
@@ -132,11 +132,11 @@ export function lowerSleeveGeometry(): THREE.BufferGeometry {
     d += (Math.sin(ang * 5 + y * 21) * 0.5 + Math.sin(ang * 9 - y * 11) * 0.3) * 0.0026 * (y > -0.2 ? 1 : 0.4);
     return d;
   };
-  return meshFromSDF(sdf, [0, -0.13, 0], 0.19, 56, { boundR: 0.24 });
+  return meshFromSDF(sdf, [0, -0.13, 0], 0.19, Math.max(24, Math.round(56 * q)), { boundR: 0.24 });
 }
 
 /** 大腿裤管（髋组局部：髋在原点向下） */
-export function thighGeometry(): THREE.BufferGeometry {
+export function thighGeometry(q = 1): THREE.BufferGeometry {
   const sdf: SDF = (x, y, z) => {
     let d = sdCone(x, y, z, 0, 0.0, 0, 0, -0.42, 0, 0.108, 0.074);
     d = smin(d, sdEllipsoid(x, y, z, 0, -0.16, 0.02, 0.1, 0.17, 0.095), 0.05); // 股四头肌
@@ -147,11 +147,11 @@ export function thighGeometry(): THREE.BufferGeometry {
     d += Math.max(0, Math.sin(y * 70 + 1.1)) * 0.0018 * (y < -0.3 ? 1 : 0);
     return d;
   };
-  return meshFromSDF(sdf, [0, -0.2, 0], 0.28, 60, { boundR: 0.34 });
+  return meshFromSDF(sdf, [0, -0.2, 0], 0.28, Math.max(24, Math.round(60 * q)), { boundR: 0.34 });
 }
 
 /** 小腿裤管（膝组局部：膝在原点向下），裤脚堆叠 */
-export function shinGeometry(): THREE.BufferGeometry {
+export function shinGeometry(q = 1): THREE.BufferGeometry {
   const sdf: SDF = (x, y, z) => {
     let d = sdCone(x, y, z, 0, 0, 0, 0, -0.26, 0, 0.074, 0.058);
     d = smin(d, sdEllipsoid(x, y, z, 0, -0.1, -0.03, 0.06, 0.12, 0.06), 0.04); // 小腿肚
@@ -161,11 +161,11 @@ export function shinGeometry(): THREE.BufferGeometry {
     d += (Math.sin(ang * 5 + y * 19) * 0.5 + Math.sin(ang * 8 - y * 9) * 0.3) * 0.0028;
     return d;
   };
-  return meshFromSDF(sdf, [0, -0.13, 0], 0.2, 56, { boundR: 0.26 });
+  return meshFromSDF(sdf, [0, -0.13, 0], 0.2, Math.max(24, Math.round(56 * q)), { boundR: 0.26 });
 }
 
 /** 登山靴（膝组局部）：靴筒 + 脚后跟 / 足弓 / 鞋头的连续曲面 + 加厚鞋底 */
-export function bootGeometry(): THREE.BufferGeometry {
+export function bootGeometry(q = 1): THREE.BufferGeometry {
   const sdf: SDF = (x, y, z) => {
     const ax = Math.abs(x);
     let d = sdCone(ax, y, z, 0, -0.235, 0, 0, -0.39, 0.012, 0.062, 0.058); // 靴筒
@@ -180,5 +180,5 @@ export function bootGeometry(): THREE.BufferGeometry {
     d += Math.max(0, Math.sin(z * 120)) * 0.0012 * (y < -0.482 ? 1 : 0);
     return d;
   };
-  return meshFromSDF(sdf, [0, -0.36, 0.04], 0.21, 80, { boundR: 0.28 });
+  return meshFromSDF(sdf, [0, -0.36, 0.04], 0.21, Math.max(24, Math.round(80 * q)), { boundR: 0.28 });
 }
