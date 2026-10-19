@@ -105,12 +105,20 @@ const MOTE_BOX = 70;
 const MOTE_HEIGHT = 12;
 /** 云影：低频正弦叠加的移动明暗（地形与草共用），返回 0.82–1.04 的亮度系数 */
 const cloudTime = { value: 0 };
-const CLOUD_GLSL = `float cloudK(vec2 p, float t) {
-  float k = sin(p.x * 0.017 + t * 0.35) + sin(p.y * 0.021 - t * 0.28 + 1.3) + sin((p.x + p.y) * 0.011 + t * 0.2);
-  return 0.82 + 0.22 * smoothstep(-1.2, 1.6, k);
+const CLOUD_GLSL = `float cHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float cNoise(vec2 p) {
+  vec2 i = floor(p), f = fract(p);
+  f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(cHash(i), cHash(i + vec2(1.0, 0.0)), f.x), mix(cHash(i + vec2(0.0, 1.0)), cHash(i + vec2(1.0, 1.0)), f.x), f.y);
 }
-`;
-const WARM_SUN = new THREE.Color(0xffb36b);
+float cloudK(vec2 p, float t) {
+  // 与天空积云同一类 fbm：世界坐标 / 120 m 为一个云团，随时间漂移（与天空云同向）
+  vec2 q = p * 0.0085 + vec2(t * 0.010, t * 0.004);
+  float base = cNoise(q) * 0.5 + cNoise(q * 2.07 + 13.1) * 0.25 + cNoise(q * 4.3 + 7.0) * 0.125;
+  float cover = smoothstep(0.38, 0.62, base);
+  return 1.04 - 0.24 * cover;
+}
+`;const WARM_SUN = new THREE.Color(0xffb36b);
 
 /** 朝向计算常量 */
 const WORLD_UP = new THREE.Vector3(0, 1, 0);

@@ -58,7 +58,7 @@ export function createMountainRing(opts: {
       p.setXYZ(k, v.x * nr, y, v.z * nr);
 
       // 颜色：低处林带 → 岩层 → 雪线
-      const strata = 0.82 + 0.18 * Math.sin(t * 38 + ridge * 6);
+      const strata = 0.92 + 0.08 * Math.sin(t * 38 + ridge * 6);
       c.copy(rock).lerp(rockWarm, fbm(ang * 2 + seed, t * 7, 2));
       c.multiplyScalar(strata);
       const forestMix = 1 - smoothstep(0.08, 0.34, t + (fbm(ang * 3, t * 9, 2) - 0.5) * 0.12);
@@ -89,8 +89,8 @@ export function createMountainRing(opts: {
       shader.fragmentShader = shader.fragmentShader.replace(
         "#include <fog_fragment>",
         `#ifdef USE_FOG
-          float mFog = 1.0 - exp(-fogDensity * fogDensity * vFogDepth * vFogDepth * 3.0);
-          gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor, clamp(mFog, 0.0, 0.86));
+          float mFog = 1.0 - exp(-fogDensity * fogDensity * vFogDepth * vFogDepth * 6.5);
+          gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor, clamp(mFog, 0.0, 0.9));
         #endif`
       );
     };
