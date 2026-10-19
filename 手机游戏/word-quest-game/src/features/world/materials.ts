@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { applyKitPattern, classifySurface, isKitMaterial, tagKitGeometry } from "./kitShader";
 
 const grainPatched = new WeakSet<THREE.Material>();
 
@@ -28,21 +29,47 @@ float gBump(vec3 p) {
 }
 `;
 
+/** 网格是否属于人物（createPerson 的根名为 scene-person）或带有 userData.noSurface 的子树 */
+function isOrganicSubtree(mesh: THREE.Object3D, root: THREE.Object3D): boolean {
+  for (let o: THREE.Object3D | null = mesh; o; o = o.parent) {
+    if (o.name === "scene-person" || o.userData.noSurface) return true;
+    if (o === root) break;
+  }
+  return false;
+}
+
 /**
- * 给场景中所有"纯色"标准材质注入世界空间微表面：颗粒凹凸、明暗斑驳与粗糙度起伏。
- * 不依赖 UV，盒子 / 圆柱 / 球体上的纹理尺度一致，石头、木头、金属不再是一块平滑塑料。
- * 带贴图、顶点色、自发光或透明的材质（地形、草、水晶、光效）保持原样。
+ * 给场景中所有"纯色"标准材质注入世界空间微表面。
+ * - 能归类为真实材料（石 / 砖 / 灰泥 / 木 / 瓦 / 金属 / 混凝土，见 classifySurface）的材质，
+ *   套用程序化 PBR 表面（kitShader.applyKitPattern：法线 / 粗糙度 / AO / 墙根污渍 / 棱角磨损）；
+ * - 其余纯色材质（风格化的绿 / 蓝 / 紫等）只加世界空间颗粒凹凸与明暗斑驳；
+ * - 带贴图、顶点色、自发光或透明的材质（地形、草、水晶、光效）保持原样。
+ * 不依赖 UV，盒子 / 圆柱 / 球体上的尺度一致。strength 同时缩放颗粒与表面污渍 / 磨损强度。
  */
 export function applySurfaceGrain(root: THREE.Object3D, strength = 1): void {
   root.traverse((object) => {
     const mesh = object as THREE.Mesh;
     if (!mesh.isMesh) return;
+    const organic = isOrganicSubtree(mesh, root);
     const list = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
     for (const mat of list) {
-      if (grainPatched.has(mat) || mat.type !== "MeshStandardMaterial") continue;
+      if (mat.type !== "MeshStandardMaterial") continue;
       const std = mat as THREE.MeshStandardMaterial;
+      // 已经是程序化表面（createKitMaterials 产出，或本函数刚归类过）：只补几何的墙根基准，不再叠加颗粒
+      if (isKitMaterial(std)) {
+        tagKitGeometry(mesh.geometry);
+        continue;
+      }
+      if (grainPatched.has(mat)) continue;
       if (std.map || std.normalMap || std.bumpMap || std.vertexColors || std.transparent) continue;
       if (std.emissiveIntensity > 0.25 && std.emissive.getHex() !== 0) continue;
+      // 人物（皮肤 / 头发 / 衣服）与显式标注 noSurface 的物体不套建筑材料，仍只加颗粒
+      const kind = organic ? null : classifySurface(std, (mesh.userData.surfaceKind as string | undefined) ?? undefined);
+      if (kind) {
+        applyKitPattern(std, kind, { grime: strength, wear: strength });
+        tagKitGeometry(mesh.geometry);
+        continue;
+      }
       grainPatched.add(mat);
       const prev = std.onBeforeCompile;
       std.onBeforeCompile = (shader, renderer) => {

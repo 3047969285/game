@@ -55,6 +55,7 @@ import { buildNearScatter, type NearScatter } from "./nearScatter";
 import { createMountainRing } from "./mountains";
 import { buildRoadRibbon } from "./roadRibbon";
 import { applySurfaceGrain, lanternGlass, lanternMetal, makeLanternGlowTexture } from "./materials";
+import { disposeSurfaceArrays, getSurfaceArrays, setSurfaceQuality } from "./kitShader";
 import { createWaterBody, waterUniforms, type WaterBody } from "./waterSurface";
 import { addCornerBlend, buildFlagstonePaths } from "./flagstonePath";
 import { PlayerController } from "./PlayerController";
@@ -330,6 +331,9 @@ export class World3D {
     this.renderer.toneMappingExposure = 1.28;
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     container.appendChild(this.renderer.domElement);
+    // 建筑 / 地标程序化表面的 8 层数组纹理：必须先于任何建筑材质第一次编译，启动时一次生成
+    setSurfaceQuality(this.quality === "low" ? "low" : "high");
+    getSurfaceArrays(this.quality === "low" ? "low" : "high", Math.min(this.renderer.capabilities.getMaxAnisotropy(), this.quality === "high" ? 8 : 4));
 
     this.explorerCam.bindDrag(this.renderer.domElement);
 
@@ -931,6 +935,7 @@ export class World3D {
       (this.skyDome.material as THREE.Material).dispose();
     }
     disposeFoliageResources();
+    disposeSurfaceArrays();
     this.renderer.dispose();
     this.renderer.domElement.remove();
   }

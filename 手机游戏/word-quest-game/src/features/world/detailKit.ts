@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { mergeGeometries, mergeVertices } from "three/addons/utils/BufferGeometryUtils.js";
-import { applyKitPattern } from "./kitShader";
+import { KIT_BASE_ATTRIBUTE, applyKitPattern, isKitMaterial, tagKitGeometry } from "./kitShader";
 import { applyFoliageShadow } from "./foliageMaterials";
 
 /**
@@ -126,6 +126,7 @@ export class MergedBuilder {
   add(geometry: THREE.BufferGeometry, material: THREE.Material, at: Placement = {}): void {
     const geo = geometry.clone();
     if (!(material as THREE.MeshStandardMaterial).map) geo.deleteAttribute("uv");
+    geo.deleteAttribute(KIT_BASE_ATTRIBUTE);
     _e.set(at.rx ?? 0, at.ry ?? 0, at.rz ?? 0);
     _q.setFromEuler(_e);
     _p.set(at.x ?? 0, at.y ?? 0, at.z ?? 0);
@@ -141,6 +142,7 @@ export class MergedBuilder {
   addMatrix(geometry: THREE.BufferGeometry, material: THREE.Material, matrix: THREE.Matrix4): void {
     const geo = geometry.clone();
     if (!(material as THREE.MeshStandardMaterial).map) geo.deleteAttribute("uv");
+    geo.deleteAttribute(KIT_BASE_ATTRIBUTE);
     geo.applyMatrix4(matrix);
     const welded = geo.index ? geo : mergeVertices(geo, 1e-4);
     const list = this.buckets.get(material) ?? [];
@@ -156,6 +158,8 @@ export class MergedBuilder {
       const merged = mergeGeometries(geos, false);
       if (!merged) continue;
       merged.computeBoundingSphere();
+      // 程序化表面的墙根污渍需要“物体最低点”
+      if (isKitMaterial(material)) tagKitGeometry(merged);
       const mesh = new THREE.Mesh(merged, material);
       mesh.name = `${name}-${i++}`;
       mesh.castShadow = true;
@@ -185,6 +189,7 @@ export function bakeGroupByMaterial(group: THREE.Group): void {
   for (const mesh of meshes) {
     const geo = mesh.geometry.clone();
     geo.deleteAttribute("uv");
+    geo.deleteAttribute(KIT_BASE_ATTRIBUTE);
     geo.applyMatrix4(new THREE.Matrix4().multiplyMatrices(inv, mesh.matrixWorld));
     const welded = geo.index ? geo : mergeVertices(geo, 1e-4);
     const list = buckets.get(mesh.material as THREE.Material) ?? [];
@@ -272,14 +277,20 @@ export function createKitMaterials(): KitMaterials {
       return g;
     })(),
   };
+  // 材质 → 表面类型（程序化 PBR：法线 / 粗糙度 / AO / 墙根污渍 / 棱角磨损）
   applyKitPattern(mats.stone, "masonry");
   applyKitPattern(mats.stoneDark, "masonry");
   applyKitPattern(mats.stoneWarm, "masonry");
+  applyKitPattern(mats.rock, "masonry");
   applyKitPattern(mats.paveA, "paving");
   applyKitPattern(mats.paveB, "paving");
   applyKitPattern(mats.wood, "wood");
   applyKitPattern(mats.woodDark, "wood");
   applyKitPattern(mats.terracottaRoof, "tiles");
   applyKitPattern(mats.slate, "tiles");
+  applyKitPattern(mats.brass, "metal");
+  applyKitPattern(mats.steel, "metal");
+  applyKitPattern(mats.copper, "metal");
+  applyKitPattern(mats.darkSteel, "metal");
   return mats;
 }
