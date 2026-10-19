@@ -153,7 +153,7 @@ function createMats(): Mats {
     hair: new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, roughness: 0.42, metalness: 0.15, side: THREE.DoubleSide }),
     brow: std(0x241812, 0.7),
     trim: std(0xc9a24a, 0.4, 0.75, { emissive: 0x5a3a08, emissiveIntensity: 0.18 }),
-    scarf: applySurface(std(0x8a2f2a, 0.88, 0, { side: THREE.DoubleSide }), "fabric"),
+    scarf: applySurface(std(0x6a2a26, 0.88, 0, { side: THREE.DoubleSide }), "fabric"),
     brass: applySurface(std(0xb68a3c, 0.34, 0.85), "metal"),
     armor: Object.assign(new THREE.MeshPhysicalMaterial({ color: 0x1c2733, roughness: 0.38, metalness: 0.6, clearcoat: 0.7, clearcoatRoughness: 0.25 }), {}),
     eyeWhite: new THREE.MeshPhysicalMaterial({ color: 0xf3eeea, roughness: 0.22, clearcoat: 0.9, clearcoatRoughness: 0.08 }),
@@ -675,13 +675,13 @@ function buildTunic(m: Mats): THREE.Mesh {
     const ang = Math.atan2(z, x);
     const k = foldFactor(ang, y, 1.3, y < 1.1 ? 0.03 : 0.012);
     // 胸腔横宽纵窄：x 放大 z 压扁
-    p.setXYZ(i, x * k * 1.24, y, z * k * 0.8);
+    p.setXYZ(i, x * k * 1.12, y, z * k * 0.8);
     // V 领：前襟（z>0）区域内衬色，边缘镶金
     const front = z > 0.02 ? 1 : 0;
-    const vHalf = Math.max(0, (y - 1.2) * 0.62);
-    const ax = Math.abs(x * 1.24);
-    const inV = front * (1 - smoothstep(vHalf - 0.012, vHalf + 0.004, ax)) * (y > 1.2 ? 1 : 0);
-    const edge = front * (smoothstep(vHalf - 0.026, vHalf - 0.008, ax) - smoothstep(vHalf - 0.008, vHalf + 0.01, ax)) * (y > 1.2 ? 1 : 0);
+    const vHalf = Math.max(0, (y - 1.32) * 0.5);
+    const ax = Math.abs(x * 1.12);
+    const inV = front * (1 - smoothstep(vHalf - 0.012, vHalf + 0.004, ax)) * (y > 1.32 ? 1 : 0);
+    const edge = front * (smoothstep(vHalf - 0.026, vHalf - 0.008, ax) - smoothstep(vHalf - 0.008, vHalf + 0.01, ax)) * (y > 1.32 ? 1 : 0);
     tmp.copy(jacket).lerp(inner, inV).lerp(trim, Math.max(0, edge) * 0.9);
     // 下摆暗化，增加体积
     const shade = 0.82 + 0.18 * smoothstep(0.8, 1.35, y);
@@ -714,14 +714,14 @@ function buildTorsoParts(m: Mats): Parts {
     t.ball(m.brass, 0.0085, { x: dx + rot * -len * 0.5, y: 0.68 + (0.3 - len), z: 0.147 }, 8);
   }
   // 胸甲：皮甲 + 金边 + 圆形护心镜
-  t.box(m.leatherDark, 0.2, 0.17, 0.03, { y: 1.31, z: 0.12 }, 0.035);
+  t.box(m.leatherDark, 0.16, 0.14, 0.03, { y: 1.27, z: 0.118 }, 0.035);
   t.cyl(m.brass, 0.045, 0.045, 0.012, { y: 1.31, z: 0.138, rx: Math.PI / 2 }, 28);
   t.torus(m.trim, 0.05, 0.0035, { y: 1.31, z: 0.14 }, Math.PI * 2, 28);
   t.cyl(m.armor, 0.032, 0.032, 0.014, { y: 1.31, z: 0.142, rx: Math.PI / 2 }, 22);
   for (const sx of [-1, 1]) for (const sy of [-1, 1]) t.ball(m.brass, 0.0048, { x: sx * 0.085, y: 1.31 + sy * 0.065, z: 0.137 }, 6);
   // 斜挎束带（左肩→右腰）与金扣
-  t.box(m.leather, 0.034, 0.42, 0.012, { x: -0.012, y: 1.28, z: 0.126, rz: -0.65 }, 0.004);
-  t.box(m.brass, 0.04, 0.026, 0.016, { x: -0.07, y: 1.37, z: 0.133, rz: -0.65 }, 0.004);
+  
+  
   // 衣领：立领环 + 内衬领 + 肩背斜方肌
   t.torus(m.jacket, 0.085, 0.026, { y: 1.52, rx: Math.PI / 2, sx: 1.06 }, Math.PI * 2, 26);
   t.torus(m.inner, 0.08, 0.016, { y: 1.538, rx: Math.PI / 2 }, Math.PI * 2, 26);
@@ -745,7 +745,7 @@ function buildTorsoParts(m: Mats): Parts {
   t.cyl(m.brass, 0.055, 0.055, 0.012, { x: 0.152, y: 1.04, z: -0.23, rz: Math.PI / 2 }, 16);
   t.cyl(m.brass, 0.055, 0.055, 0.012, { x: -0.152, y: 1.04, z: -0.23, rz: Math.PI / 2 }, 16);
   for (const s of [-1, 1]) {
-    t.box(m.leather, 0.04, 0.34, 0.014, { x: s * 0.1, y: 1.3, z: 0.123 }, 0.004);
+    t.box(m.leather, 0.028, 0.2, 0.012, { x: s * 0.1, y: 1.36, z: 0.122 }, 0.004);
     t.box(m.leather, 0.04, 0.012, 0.28, { x: s * 0.1, y: 1.46, z: -0.04 }, 0.004);
   }
   // 腰间葫芦与小袋
