@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { createSimpleWaterMaterial } from "./waterSurface";
 import { MergedBuilder, boxGeo, cylGeo, gableGeo, strutGeo, prismGeo, type KitMaterials } from "./detailKit";
 import { bushParts, createPine, createTree } from "./props";
 
@@ -202,8 +203,7 @@ export function addTempleDetail(k: MergedBuilder, m: KitMaterials, rand: () => n
   cyl(k, m.stoneWarm, 0.3, 0.5, 2.0, 0, 2.3, cz - 18, 12);
   cyl(k, m.stone, 1.3, 1.1, 0.25, 0, 3.0, cz - 18, 20);
   cyl(k, m.stoneWarm, 0.14, 0.3, 1.2, 0, 3.7, cz - 18, 10);
-  const waterMat = new THREE.MeshStandardMaterial({ color: 0x5aa6b8, roughness: 0.08, metalness: 0.1, transparent: true, opacity: 0.82 });
-  waterMat.fog = false;
+  const waterMat = createSimpleWaterMaterial({ depth: 0.45 });
   const basin = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 2.4, 0.06, 28), waterMat);
   basin.position.set(0, 1.46, cz - 18);
   basin.userData.isLandscapeStage = true;
@@ -361,8 +361,7 @@ export function addExchangeDetail(k: MergedBuilder, m: KitMaterials, opts: { sta
     k.add(new THREE.SphereGeometry(0.28, 12, 8), m.brass, { x: Math.cos(a) * 0.75, y: 6.0, z: cz + 3 + Math.sin(a) * 0.75 });
     rod(k, m.brass, [0, 5.6, cz + 3], [Math.cos(a) * 0.75, 6.0, cz + 3 + Math.sin(a) * 0.75], 0.035);
   }
-  const pool = new THREE.MeshStandardMaterial({ color: 0x59a4b5, roughness: 0.08, metalness: 0.1, transparent: true, opacity: 0.84 });
-  pool.fog = false;
+  const pool = createSimpleWaterMaterial({ depth: 0.6 });
   const water = new THREE.Mesh(new THREE.CylinderGeometry(3.15, 3.15, 0.05, 30), pool);
   water.position.set(0, 2.38, cz + 3);
   water.userData.isLandscapeStage = true;

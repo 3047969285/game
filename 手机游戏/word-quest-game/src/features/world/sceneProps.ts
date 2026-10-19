@@ -1,5 +1,6 @@
 import { getFoliageMaterial, shrubCardGeometries } from "./props";
 import * as THREE from "three";
+import { createSimpleWaterMaterial } from "./waterSurface";
 import { MergedBuilder, boxGeo, createKitMaterials, cylGeo, gableGeo, strutGeo, type KitMaterials } from "./detailKit";
 
 /**
@@ -22,7 +23,7 @@ export interface PropMaterials {
   ceramic: THREE.MeshStandardMaterial;
   leather: THREE.MeshStandardMaterial;
   plasticDark: THREE.MeshStandardMaterial;
-  water: THREE.MeshStandardMaterial;
+  water: THREE.MeshPhysicalMaterial;
   canvasOlive: THREE.MeshStandardMaterial;
 }
 
@@ -56,7 +57,7 @@ export function createSceneKit(): SceneKit {
       ceramic: std(0xf1ece2, 0.35),
       leather: std(0x5a3a28, 0.7, 0.05),
       plasticDark: std(0x20262b, 0.45, 0.2),
-      water: std(0x2f6e7c, 0.45, 0.05, { transparent: true, opacity: 0.94, envMapIntensity: 0.3 }),
+      water: createSimpleWaterMaterial({ depth: 0.55 }),
       canvasOlive: std(0x7f8f6a, 0.95, 0, { side: THREE.DoubleSide }),
     },
   };

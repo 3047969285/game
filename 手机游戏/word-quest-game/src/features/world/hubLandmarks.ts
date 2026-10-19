@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { createSimpleWaterMaterial } from "./waterSurface";
 import { MergedBuilder, boxGeo, createKitMaterials, cylGeo, gableGeo, prismGeo, strutGeo, rng, type KitMaterials } from "./detailKit";
 import { createAncientTree, createRock } from "./props";
 import { getRockMaterial } from "./rockMaterial";
@@ -49,28 +50,17 @@ export function buildHarborHub(
   const hullWood = mat(0x6b4a33, 0.8);
   const hullTrim = mat(0xb83b32, 0.7);
 
-  // 海水：位移起伏的平面（静态波纹）+ 渐变色（岸边偏青、深处偏蓝）
+  // 海水：位移起伏的平面（静态大涌）+ 写实水面着色；水深沿世界 z 由近岸浅水渐变到远处深水
   const waterGeo = new THREE.PlaneGeometry(78, 42, 78, 42);
   waterGeo.rotateX(-Math.PI / 2);
   const wp = waterGeo.attributes.position;
-  const wc = new Float32Array(wp.count * 3);
-  const deep = new THREE.Color(0x1d4458);
-  const shallow = new THREE.Color(0x3b7f86);
-  const tmp = new THREE.Color();
   for (let i = 0; i < wp.count; i++) {
     const x = wp.getX(i);
     const z = wp.getZ(i);
     wp.setY(i, Math.sin(x * 0.45 + z * 0.3) * 0.07 + Math.cos(x * 0.21 - z * 0.52) * 0.06);
-    const t = THREE.MathUtils.clamp((z + 21) / 42, 0, 1); // 0 近岸 → 1 远处
-    tmp.copy(shallow).lerp(deep, t * 0.9);
-    wc[i * 3] = tmp.r;
-    wc[i * 3 + 1] = tmp.g;
-    wc[i * 3 + 2] = tmp.b;
   }
-  waterGeo.setAttribute("color", new THREE.BufferAttribute(wc, 3));
   waterGeo.computeVertexNormals();
-  const waterMat = new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, roughness: 0.4, metalness: 0.05, transparent: true, opacity: 0.94, envMapIntensity: 0.35 });
-  waterMat.fog = false;
+  const waterMat = createSimpleWaterMaterial({ ramp: { z0: -21, z1: 21, near: 0.35, far: 7 }, deepColor: 0x0d3f4b });
   const waveMat = mat(0x8fd0d4, 0.4, 0.05, { transparent: true, opacity: 0.55 });
   const water = new THREE.Mesh(waterGeo, waterMat);
   water.position.set(0, 0.52, 39);

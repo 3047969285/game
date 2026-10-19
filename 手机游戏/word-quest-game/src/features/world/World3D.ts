@@ -9,7 +9,6 @@ import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js"
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
-import { Reflector } from "three/addons/objects/Reflector.js";
 import type { MapNode, WordPickup } from "../../core/types";
 import { loadAvatarGlb, loadModelsManifest, enhanceAvatarMaterials, createContactShadow } from "./ModelLoader";
 
@@ -22,12 +21,6 @@ interface QualityConfig {
   grassRadius: number;
   /** 草丛格子尺寸（米），越小越密 */
   grassCell: number;
-  /** 镜面反射湖泊数量（0 表示关闭反射，使用普通水面） */
-  reflectors: number;
-  /** 反射渲染目标分辨率 */
-  reflectRes: number;
-  /** 反射启用的玩家距离阈值 */
-  reflectDist: number;
   /** 阴影贴图尺寸 */
   shadowMap: number;
   /** 是否启用泛光后期 */
@@ -37,9 +30,9 @@ interface QualityConfig {
 }
 
 const QUALITY_PRESETS: Record<QualityTier, QualityConfig> = {
-  high: { pixelRatio: 2, grassRadius: 40, grassCell: 1.1, reflectors: 3, reflectRes: 512, reflectDist: 300, shadowMap: 2048, bloom: true, bloomScale: 1 },
-  med: { pixelRatio: 1.5, grassRadius: 34, grassCell: 1.5, reflectors: 2, reflectRes: 384, reflectDist: 220, shadowMap: 1536, bloom: true, bloomScale: 0.66 },
-  low: { pixelRatio: 1, grassRadius: 26, grassCell: 1.9, reflectors: 0, reflectRes: 256, reflectDist: 160, shadowMap: 1024, bloom: false, bloomScale: 0.5 },
+  high: { pixelRatio: 2, grassRadius: 40, grassCell: 1.1, shadowMap: 2048, bloom: true, bloomScale: 1 },
+  med: { pixelRatio: 1.5, grassRadius: 34, grassCell: 1.5, shadowMap: 1536, bloom: true, bloomScale: 0.66 },
+  low: { pixelRatio: 1, grassRadius: 26, grassCell: 1.9, shadowMap: 1024, bloom: false, bloomScale: 0.5 },
 };
 
 /** 依据设备能力推断画质档位 */
@@ -61,7 +54,8 @@ import { ExplorerCamera } from "./ExplorerCamera";
 import { buildNearScatter, type NearScatter } from "./nearScatter";
 import { createMountainRing } from "./mountains";
 import { buildRoadRibbon } from "./roadRibbon";
-import { applySurfaceGrain, lanternGlass, lanternMetal, makeLanternGlowTexture, water, waterTime } from "./materials";
+import { applySurfaceGrain, lanternGlass, lanternMetal, makeLanternGlowTexture } from "./materials";
+import { createWaterBody, waterUniforms, type WaterBody } from "./waterSurface";
 import { addCornerBlend, buildFlagstonePaths } from "./flagstonePath";
 import { PlayerController } from "./PlayerController";
 import {
@@ -141,6 +135,18 @@ export interface World3DOptions {
   onPickupCollect?: (pickupId: string) => void;
 }
 
+/** 地形湿润带最多支持的湖泊数（着色器 uniform 数组长度） */
+const MAX_WET_LAKES = 8;
+interface WetLake {
+  x: number;
+  z: number;
+  /** 湖面椭圆半轴（米） */
+  rx: number;
+  rz: number;
+  /** 水位（世界 y） */
+  level: number;
+}
+
 /** 三维探险世界：走动探索 + 走近互动（原神风格单元地图） */
 /** 不规则湖岸轮廓：椭圆 + 多频率径向噪声，逆时针，闭合 */
 function lakeOutline(rx: number, ry: number, seed: number, n = 56): THREE.Vector2[] {
@@ -170,6 +176,12 @@ export class World3D {
   private waterGroup?: THREE.Group;
   private terrain?: THREE.Mesh;
   private terrainTex?: TerrainTextureSet;
+  /** 地形湿润带：湖泊 (x, z, rx, rz) 与水位，rebuildDecor 随湖泊更新数值（材质不重编译） */
+  private readonly lakeUniforms = {
+    uLakeA: { value: Array.from({ length: MAX_WET_LAKES }, () => new THREE.Vector4(0, 0, 1, 1)) },
+    uLakeL: { value: new Array<number>(MAX_WET_LAKES).fill(0) },
+    uLakeN: { value: 0 },
+  };
   private readonly terrainUniforms = {
     uTerrAlbedo: { value: null as THREE.DataArrayTexture | null },
     uTerrNormal: { value: null as THREE.DataArrayTexture | null },
@@ -253,8 +265,7 @@ export class World3D {
   private onExploreUpdate?: (state: MinimapState) => void;
   private onPickupNear?: (pickup: WordPickup | null) => void;
   private onPickupCollect?: (pickupId: string) => void;
-  private waterMeshes: THREE.Mesh[] = [];
-  private reflectors: Reflector[] = [];
+  private waterBodies: WaterBody[] = [];
   /** 画质分级（按设备能力自适应，兼顾精细与流畅） */
   private readonly quality: QualityTier = detectQuality();
   private readonly qcfg: QualityConfig = QUALITY_PRESETS[this.quality];
@@ -777,14 +788,10 @@ export class World3D {
     }
   }
 
-  /** 释放镜面反射的渲染目标 */
-  private disposeReflectors(): void {
-    for (const r of this.reflectors) {
-      r.getRenderTarget().dispose();
-      r.geometry.dispose();
-      (r.material as THREE.Material).dispose();
-    }
-    this.reflectors = [];
+  /** 释放湖面的几何、材质与水深纹理 */
+  private disposeWaterBodies(): void {
+    for (const b of this.waterBodies) b.dispose();
+    this.waterBodies = [];
   }
 
   /** 表情 + 眨眼动画 */
@@ -905,7 +912,7 @@ export class World3D {
       mm.dispose();
       this.motes = undefined;
     }
-    this.disposeReflectors();
+    this.disposeWaterBodies();
     this.mixer?.stopAllAction();
     this.composer?.dispose();
     for (const g of this.nodeGroups.values()) disposeGroup(g);
@@ -1621,6 +1628,9 @@ export class World3D {
       shader.uniforms.uTerrAlbedo = this.terrainUniforms.uTerrAlbedo;
       shader.uniforms.uTerrNormal = this.terrainUniforms.uTerrNormal;
       shader.uniforms.uTerrDesat = this.terrainUniforms.uTerrDesat;
+      shader.uniforms.uLakeA = this.lakeUniforms.uLakeA;
+      shader.uniforms.uLakeL = this.lakeUniforms.uLakeL;
+      shader.uniforms.uLakeN = this.lakeUniforms.uLakeN;
       shader.vertexShader = "varying vec3 vTerrWorld;\nvarying vec3 vTerrN;\n" + shader.vertexShader.replace(
         "#include <begin_vertex>",
         `#include <begin_vertex>
@@ -1632,6 +1642,9 @@ export class World3D {
         ${hiQ ? "#define TERR_HI" : "#define TL_LOW"}
         uniform float uCloudT;
         uniform float uTerrDesat;
+        uniform vec4 uLakeA[${MAX_WET_LAKES}];
+        uniform float uLakeL[${MAX_WET_LAKES}];
+        uniform int uLakeN;
         uniform highp sampler2DArray uTerrAlbedo;
         uniform highp sampler2DArray uTerrNormal;
         ${CLOUD_GLSL}
@@ -1735,10 +1748,24 @@ export class World3D {
          diffuseColor.rgb *= tAlb;
          float tMacro = tNoise(vTerrWorld.xz * 0.035) * 0.6 + tNoise(vTerrWorld.xz * 0.15) * 0.4;
          diffuseColor.rgb *= 0.88 + tMacro * 0.24;
-         diffuseColor.rgb *= cloudK(vTerrWorld.xz, uCloudT);`
+         diffuseColor.rgb *= cloudK(vTerrWorld.xz, uCloudT);
+         // 湖岸湿润带：水位 -0.1 ~ +0.5 米之间的土壤变暗、变光滑
+         float tWet = 0.0;
+         for (int li = 0; li < ${MAX_WET_LAKES}; li++) {
+           if (li >= uLakeN) break;
+           vec4 lk = uLakeA[li];
+           vec2 lq = (wp.xz - lk.xy) / lk.zw;
+           if (dot(lq, lq) < 2.1) {
+             float lvl = uLakeL[li];
+             float lUp = 0.22 + 0.28 * tNoise(wp.xz * 0.9 + float(li) * 13.0);
+             float lw = smoothstep(lvl - 0.12, lvl - 0.02, wp.y) * (1.0 - smoothstep(lvl + 0.12, lvl + lUp, wp.y));
+             tWet = max(tWet, lw);
+           }
+         }
+         diffuseColor.rgb *= 1.0 - tWet * (0.15 + 0.1 * tNoise(wp.xz * 2.3));`
       ).replace(
         "#include <roughnessmap_fragment>",
-        "float roughnessFactor = clamp(tRough, 0.4, 1.0) * (roughness / 0.9);"
+        "float roughnessFactor = clamp(tRough, 0.4, 1.0) * (roughness / 0.9) * (1.0 - 0.45 * tWet);"
       ).replace(
         "#include <normal_fragment_maps>",
         "normal = normalize((viewMatrix * vec4(tWN, 0.0)).xyz);"
@@ -1752,7 +1779,7 @@ export class World3D {
          #endif`
       );
     };
-    terrainMat.customProgramCacheKey = () => "terrain-v4-" + this.quality;
+    terrainMat.customProgramCacheKey = () => "terrain-v5-" + this.quality;
     this.terrain = new THREE.Mesh(geo, terrainMat);
     this.terrain.receiveShadow = true;
     this.terrain.position.set(0, TERRAIN_ORIGIN_Y, TERRAIN_ORIGIN_Z);
@@ -2049,6 +2076,17 @@ export class World3D {
     this.scene.add(this.pathGroup);
   }
 
+  /** 把当前湖泊写入地形着色器的湿润带 uniform（超出上限的湖泊忽略） */
+  private applyWetLakes(lakes: WetLake[]): void {
+    const n = Math.min(lakes.length, MAX_WET_LAKES);
+    for (let i = 0; i < n; i++) {
+      const l = lakes[i];
+      this.lakeUniforms.uLakeA.value[i].set(l.x, l.z, l.rx, l.rz);
+      this.lakeUniforms.uLakeL.value[i] = l.level;
+    }
+    this.lakeUniforms.uLakeN.value = n;
+  }
+
   /** 湖岸：沿岸的芦苇与卵石（平面的泡沫 / 泥岸带会在坡地上悬空成平板，故不使用） */
   private addLakeShore(outline: THREE.Vector2[], wx: number, ly: number, wz: number, rnd: () => number): void {
     if (!this.decorGroup) return;
@@ -2073,7 +2111,7 @@ export class World3D {
   }
 
   private rebuildDecor(): void {
-    this.disposeReflectors();
+    this.disposeWaterBodies();
     this.vegetation?.dispose();
     this.vegetation = undefined;
     this.nearScatter?.dispose();
@@ -2082,7 +2120,6 @@ export class World3D {
     removeGroup(this.scene, this.waterGroup);
     this.decorGroup = new THREE.Group();
     this.waterGroup = new THREE.Group();
-    this.waterMeshes = [];
 
     const rnd = seededRand(2024);
     const placed = new Set<string>();
@@ -2201,8 +2238,8 @@ export class World3D {
 
     // 河谷湖泊（沿两侧山脚分布）：单元模式改为围绕当前区域的两处水面。
     const lakeCount = unitMode && this.currentBiome.decorStyle === "space" ? 0 : unitMode ? 2 : 6;
-    const reflectiveMax = this.qcfg.reflectors;
     const lakeEllipses: AvoidEllipse[] = [];
+    const wetLakes: WetLake[] = [];
     for (let wi = 0; wi < lakeCount; wi++) {
       const side = wi % 2 === 0 ? -1 : 1;
       const wx = anchorX + side * (unitMode ? 52 + rnd() * 18 : 60 + rnd() * 55);
@@ -2220,45 +2257,22 @@ export class World3D {
       }
       const ly = (minShore + sumShore / shorePts.length) / 2 - 0.1;
       lakeEllipses.push({ x: wx, z: wz, rx: (lw / 2) * 1.15, rz: (lh / 2) * 1.15 });
-      const reflective = wi < reflectiveMax;
       // 不规则湖岸：噪声扰动的椭圆轮廓，而不是矩形水面
       const outline = lakeOutline(lw * 0.5, lh * 0.5, wi * 7 + 3);
-      const lakeGeo = new THREE.ShapeGeometry(new THREE.Shape(outline), 1);
       this.addLakeShore(outline, wx, ly, wz, rnd);
-
-      if (reflective) {
-        // 镜面反射层（仅近处少量湖泊，按画质分辨率）
-        const reflector = new Reflector(lakeGeo.clone(), {
-          textureWidth: this.qcfg.reflectRes,
-          textureHeight: this.qcfg.reflectRes,
-          color: 0x1d4456,
-        });
-        reflector.rotation.x = -Math.PI / 2;
-        reflector.position.set(wx, ly, wz);
-        this.reflectors.push(reflector);
-        this.waterGroup.add(reflector);
-
-        // 涟漪 / 高光叠层（半透明，让反射透出）
-        const ripple = new THREE.Mesh(lakeGeo.clone(), water());
-        (ripple.material as THREE.MeshPhysicalMaterial).opacity = 0.26;
-        ripple.rotation.x = -Math.PI / 2;
-        ripple.position.set(wx, ly + 0.05, wz);
-        ripple.userData.isWater = true;
-        ripple.userData.baseOpacity = 0.26;
-        this.waterMeshes.push(ripple);
-        this.waterGroup.add(ripple);
-      } else {
-        // 无反射湖泊：单层半透明程序化水面（开销低）
-        const lake = new THREE.Mesh(lakeGeo.clone(), water());
-        (lake.material as THREE.MeshPhysicalMaterial).opacity = 0.82;
-        lake.rotation.x = -Math.PI / 2;
-        lake.position.set(wx, ly + 0.02, wz);
-        lake.userData.isWater = true;
-        lake.userData.baseOpacity = 0.82;
-        this.waterMeshes.push(lake);
-        this.waterGroup.add(lake);
-      }
+      const body = createWaterBody({
+        outline,
+        x: wx,
+        y: ly,
+        z: wz,
+        groundY: (x, z) => sampleTerrainY(x, z, terrainHeight),
+        quality: this.quality,
+      });
+      this.waterBodies.push(body);
+      this.waterGroup.add(body.mesh);
+      if (wetLakes.length < MAX_WET_LAKES) wetLakes.push({ x: wx, z: wz, rx: lw * 0.5, rz: lh * 0.5, level: ly });
     }
+    this.applyWetLakes(wetLakes);
 
     // 成片植被：湖泊位置已知后规划，避开道路、入口、湖面
     const roadSegments: AvoidSegment[] = (unitMode
@@ -2692,6 +2706,8 @@ export class World3D {
       this.sun.color.setHex(this.currentBiome.sunColor).lerp(WARM_SUN, (1 - daylight) * 0.6);
       this.sun.intensity = this.currentBiome.sunIntensity * (focusedWorld ? 0.92 : 0.88 + daylight * 0.12);
       // 植被：叶片逆光透射用的太阳方向 / 颜色（颜色含强度）
+      waterUniforms.sunDir.value.copy(this.sunDirV);
+      waterUniforms.sunColor.value.copy(this.sun.color).multiplyScalar(Math.min(this.sun.intensity, 3));
       foliageSun.dir.value.copy(this.sunDirV);
       foliageSun.color.value.copy(this.sun.color).multiplyScalar(this.sun.intensity / 1.45);
       this.renderer.toneMappingExposure = focusedWorld ? 1.16 : 1.1 + daylight * 0.08;
@@ -2818,36 +2834,7 @@ export class World3D {
       });
     }
 
-    const px = this.player.position.x;
-    const pz = this.player.position.z;
-    const RIPPLE_DIST = 90;   // 只对 90 m 以内的水面做顶点涟漪
-    const RIPPLE_DIST_SQ = RIPPLE_DIST * RIPPLE_DIST;
-
-    for (const w of this.waterMeshes) {
-      if (w.userData.baseY === undefined) w.userData.baseY = w.position.y;
-      const baseOp: number = w.userData.baseOpacity ?? 0.68;
-      const dx = w.position.x - px;
-      const dz = w.position.z - pz;
-      const distSq = dx * dx + dz * dz;
-      const near = distSq < RIPPLE_DIST_SQ;
-
-      // 轻微整体起伏（所有湖）
-      w.position.y = w.userData.baseY + Math.sin(t * 0.9 + w.position.x * 0.03) * 0.04;
-      // 透明度淡动（保留 baseOpacity 区间）
-      (w.material as THREE.MeshPhysicalMaterial).opacity =
-        baseOp + Math.sin(t * 0.7) * Math.min(0.08, baseOp * 0.12);
-
-      // 涟漪由水面着色器按世界坐标计算（waterTime），无需再逐帧改写顶点
-      void near;
-    }
-    waterTime.value = t;
-
-    // 距离超限时暂停 Reflector 渲染（节省 GPU）
-    const reflectDistSq = this.qcfg.reflectDist * this.qcfg.reflectDist;
-    for (const r of this.reflectors) {
-      const rdx = r.position.x - px;
-      const rdz = r.position.z - pz;
-      r.visible = rdx * rdx + rdz * rdz < reflectDistSq;
-    }
+    // 水面：时间与太阳方向 / 颜色由共享 uniform 驱动（太阳部分在上面的日照块里更新）
+    waterUniforms.time.value = t;
   }
 }
