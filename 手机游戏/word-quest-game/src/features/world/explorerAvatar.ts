@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { MergedBuilder, type Placement } from "./detailKit";
-import { hairGeometry, bootGeometry, gearGeometry, zipperGeometry, handGeometry, handGeometryFor, headGeometry, jacketGeometry, lowerSleeveGeometry, shinGeometry, thighGeometry, upperSleeveGeometry } from "./avatarBody";
+import { packGeometry, hairGeometry, bootGeometry, gearGeometry, zipperGeometry, handGeometry, handGeometryFor, headGeometry, jacketGeometry, lowerSleeveGeometry, shinGeometry, thighGeometry, upperSleeveGeometry } from "./avatarBody";
 import { mirrorX } from "./sdf";
 import { seededRand } from "./utils";
 
@@ -403,14 +403,7 @@ function buildTorsoParts(m: Mats): Parts {
     // 胸前翻盖口袋 + 纽扣
     t.ball(m.brass, 0.0048, { x: s * 0.085, y: 1.262, z: 0.112 }, 6);
   }
-  // 双肩背包：主仓 + 前袋 + 拉链 + 侧袋水壶 + 肩带 + 胸扣
-  t.box(m.leather, 0.29, 0.4, 0.15, { y: 1.27, z: -0.155 }, 0.06);
-  t.box(m.jacket, 0.24, 0.17, 0.05, { y: 1.15, z: -0.235 }, 0.025);
-  t.box(m.brass, 0.012, 0.17, 0.012, { y: 1.15, z: -0.262 }, 0.003);
-  t.box(m.leatherDark, 0.26, 0.05, 0.13, { y: 1.43, z: -0.18 }, 0.02);
-  t.cyl(m.scarf, 0.032, 0.032, 0.17, { x: 0.165, y: 1.12, z: -0.16 }, 14);
-  t.cyl(m.leatherDark, 0.034, 0.034, 0.02, { x: 0.165, y: 1.205, z: -0.16 }, 14);
-// 围巾：绕颈两圈
+  // 围巾：绕颈两圈
   t.torus(m.scarf, 0.074, 0.032, { y: 1.54, rx: Math.PI / 2 }, Math.PI * 2, 26);
   t.torus(m.scarf, 0.082, 0.026, { y: 1.51, rx: Math.PI / 2 - 0.12 }, Math.PI * 2, 26);
   t.ball(m.scarf, 0.044, { x: -0.056, y: 1.5, z: 0.075, sy: 1.1, sz: 0.9 }, 12);
@@ -470,7 +463,9 @@ export function createExplorerAvatar(): THREE.Group {
   const gear = new THREE.Mesh(gearGeometry(), m.leatherDark);
   gear.castShadow = true;
   const zip = new THREE.Mesh(zipperGeometry(), m.brass);
-  root.add(gear, zip);
+  const pack = new THREE.Mesh(packGeometry(), m.leather);
+  pack.castShadow = true;
+  root.add(gear, zip, pack);
   buildTorsoParts(m).build(root, "torso");
 
   const faceRig: { eyeL?: THREE.Mesh; eyeR?: THREE.Mesh; brow?: THREE.Mesh; mouth?: THREE.Mesh } = {};

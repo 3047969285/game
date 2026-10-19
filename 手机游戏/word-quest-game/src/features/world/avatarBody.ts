@@ -66,13 +66,15 @@ export function headGeometry(q = 1): THREE.BufferGeometry {
     // 耳
     d = smin(d, sdEllipsoid(ax, y, z, 0.0775, 0.191, -0.012, 0.0085, 0.034, 0.022), 0.012);
     // 唇：上唇（人中弓形）+ 下唇
-    d = smin(d, sdCone(ax, y, z, 0, 0.1285, 0.0835, 0.019, 0.1255, 0.077, 0.0065, 0.0058), 0.006);
-    d = smin(d, sdCone(ax, y, z, 0, 0.1135, 0.0795, 0.015, 0.1155, 0.074, 0.0078, 0.0066), 0.006);
+    d = smin(d, sdCone(ax, y, z, 0, 0.1292, 0.0792, 0.019, 0.1258, 0.0725, 0.0062, 0.0055), 0.007);
+    d = smin(d, sdSphere(ax, y, z, 0.0042, 0.1296, 0.0805, 0.0046), 0.004); // 唇弓双峰
+    d = smin(d, sdCone(ax, y, z, 0, 0.1132, 0.0765, 0.016, 0.1152, 0.0705, 0.0076, 0.0064), 0.007);
     // 减法：眼窝、鼻孔、唇缝、人中沟
     d = smax(d, -sdEllipsoid(ax, y, z, 0.034, 0.2, 0.083, 0.021, 0.016, 0.02), 0.012);
     d = smax(d, -sdSphere(ax, y, z, 0.0066, 0.149, 0.097, 0.0042), 0.003);
     d = smax(d, -sdEllipsoid(ax, y, z, 0, 0.1212, 0.082, 0.021, 0.0013, 0.013), 0.002);
-    d = smax(d, -sdCone(ax, y, z, 0, 0.14, 0.098, 0, 0.13, 0.092, 0.0018, 0.0018), 0.002);
+    d = smax(d, -sdCone(ax, y, z, 0.003, 0.14, 0.098, 0.003, 0.132, 0.091, 0.0016, 0.0016), 0.002);
+    d = smax(d, -sdCone(ax, y, z, 0.022, 0.15, 0.078, 0.028, 0.122, 0.07, 0.0022, 0.0018), 0.004); // 鼻唇沟
     d = smin(d, sdSphere(ax, y, z, 0.05, 0.14, -0.012, 0.017), 0.03); // 下颌角（咬肌）
     d = smin(d, sdCone(ax, y, z, 0.044, 0.125, -0.032, 0.02, 0.0, 0.016, 0.017, 0.016), 0.03); // 胸锁乳突肌
     d = smax(d, -sdEllipsoid(ax, y, z, 0.085, 0.19, -0.008, 0.008, 0.02, 0.011), 0.006); // 耳甲腔    // 眼睑：上睑皱褶与下睑（在眼窝挖空之后加回，包住眼球上下缘）
@@ -231,11 +233,11 @@ export function shinGeometry(q = 1): THREE.BufferGeometry {
 export function bootGeometry(q = 1): THREE.BufferGeometry {
   const sdf: SDF = (x, y, z) => {
     const ax = Math.abs(x);
-    let d = sdCone(ax, y, z, 0, -0.235, 0, 0, -0.39, 0.012, 0.062, 0.058); // 靴筒
+    let d = sdCone(ax, y, z, 0, -0.17, 0, 0, -0.39, 0.012, 0.06, 0.058); // 靴筒（上沿藏在裤脚内）
     d = smin(d, sdEllipsoid(ax, y, z, 0, -0.432, -0.04, 0.046, 0.042, 0.048), 0.03); // 脚跟
     d = smin(d, sdEllipsoid(ax, y, z, 0, -0.436, 0.03, 0.05, 0.04, 0.085), 0.03); // 足中
     d = smin(d, sdEllipsoid(ax, y, z, 0, -0.446, 0.12, 0.051, 0.034, 0.062), 0.03); // 鞋头
-    d = smin(d, sdTorus(ax, y, z, 0, -0.238, 0, 0.061, 0.012), 0.01); // 靴口翻边
+    d = smin(d, sdTorus(ax, y, z, 0, -0.285, 0, 0.059, 0.011), 0.01); // 脚踝护垫
     // 鞋底：圆角厚板 + 前掌上翘
     const sole = sdBox(ax, y - Math.max(0, z - 0.11) * 0.18, z, 0, -0.468, 0.062, 0.06, 0.02, 0.148, 0.014);
     d = smin(d, sole, 0.008);
@@ -296,4 +298,21 @@ export function hairGeometry(q = 1, style: "short" | "long" = "short"): THREE.Bu
   }
   geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
   return geo;
+}
+/** 双肩背包（躯干局部坐标）：圆角主仓 + 顶盖（前沿下压）+ 前袋 + 侧袋水壶 + 底部睡袋卷 + 压缩带缝线 */
+export function packGeometry(q = 1): THREE.BufferGeometry {
+  const sdf: SDF = (x, y, z) => {
+    const ax = Math.abs(x);
+    let d = sdBox(ax, y, z, 0, 1.3, -0.165, 0.122, 0.182, 0.072, 0.05); // 主仓
+    d = smin(d, sdBox(ax, y, z, 0, 1.46, -0.168, 0.116, 0.036, 0.08, 0.03), 0.012); // 顶盖
+    d = smin(d, sdBox(ax, y, z, 0, 1.425, -0.092, 0.118, 0.012, 0.012, 0.006), 0.008); // 盖沿向前下压
+    d = smin(d, sdBox(ax, y, z, 0, 1.19, -0.235, 0.095, 0.07, 0.024, 0.02), 0.012); // 前袋
+    d = smin(d, sdCone(ax, y, z, 0.14, 1.14, -0.165, 0.14, 1.27, -0.165, 0.03, 0.028), 0.01); // 侧袋水壶
+    d = smin(d, sdCone(ax, y, z, -0.11, 1.1, -0.18, 0.11, 1.1, -0.18, 0.034, 0.034), 0.01); // 睡袋卷
+    // 压缩带缝线与前袋拉链槽
+    d += 0.0016 * Math.exp(-(((ax - 0.07) / 0.003) ** 2)) * (y > 1.1 ? 1 : 0);
+    d = smax(d, -sdBox(ax, y, z, 0, 1.2, -0.285, 0.003, 0.07, 0.01, 0.001), 0.001);
+    return d;
+  };
+  return meshFromSDF(sdf, [0, 1.25, -0.17], 0.3, Math.max(24, Math.round(88 * q)), { boundR: 0.4, maxTris: 90000 });
 }
