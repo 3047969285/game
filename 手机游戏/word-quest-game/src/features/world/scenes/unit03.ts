@@ -250,8 +250,7 @@ export const hostelScene: SceneModule = (ctx) => {
   props.house(k, hf, 6.6, 3.4, 2.8, m.terracottaRoof, p.fabricCream);
   // 二层窗与阳台
   for (const sx of [-2.2, 0, 2.2]) {
-    hf.box(m.woodDark, 0.9, 0.95, 0.08, sx, 2.1, 1.42, 0.01);
-    hf.put(new THREE.PlaneGeometry(0.76, 0.8), m.glass, sx, 2.58, 1.47);
+    props.windowPane(k, hf.child(sx, 2.16, 1.42), 0.8, 0.86, { cols: 2, rows: 2, curtain: sx !== 0 });
     hf.box(m.wood, 1.05, 0.06, 0.34, sx, 1.98, 1.58, 0.01);
   }
   const tex = makeSignTexture([{ text: "HOSTEL", y: 110, font: "bold 96px Arial, sans-serif" }, { text: "BEDS · TEA · MAPS", y: 220, font: "bold 36px Arial, sans-serif", color: "#d8c598" }], { width: 720, height: 300, background: "#3a2d20" });

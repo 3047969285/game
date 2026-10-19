@@ -116,7 +116,14 @@ export function createPerson(opts: PersonOptions): THREE.Group {
 
   const std = (color: number, roughness: number, extra: THREE.MeshStandardMaterialParameters = {}) =>
     new THREE.MeshStandardMaterial({ color, roughness, metalness: 0.02, ...extra });
-  const shirt = std(opts.shirt, 0.86, { side: THREE.DoubleSide });
+  // 衣服颜色若与肤色太接近，看上去像光着上身：自动拉向偏冷的布料色
+  const skinC = new THREE.Color(opts.skin ?? 0xe2b898);
+  const shirtC = new THREE.Color(opts.shirt);
+  const sA = shirtC.getHex();
+  const kA = skinC.getHex();
+  const dist = Math.hypot(((sA >> 16) & 255) - ((kA >> 16) & 255), ((sA >> 8) & 255) - ((kA >> 8) & 255), (sA & 255) - (kA & 255)) / 255;
+  if (dist < 0.5) shirtC.set(0x4f6f86).offsetHSL(0, 0, (dist - 0.25) * 0.1);
+  const shirt = std(shirtC.getHex(), 0.86, { side: THREE.DoubleSide });
   const trousers = std(opts.trousers ?? 0x39465a, 0.88);
   const skin = std(opts.skin ?? 0xe2b898, 0.55, { emissive: 0x3a1608, emissiveIntensity: 0.05 });
   const skinFace = new THREE.MeshStandardMaterial({ color: skin.color.getHex(), roughness: 0.55, metalness: 0.02, vertexColors: true, emissive: 0x3a1608, emissiveIntensity: 0.05 });
