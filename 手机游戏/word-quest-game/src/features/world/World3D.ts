@@ -70,6 +70,7 @@ import {
   createRock,
   createTree,
   grassBladeGeometry,
+  wildflowerGeometry,
   GRASS_TUFT_HEIGHT,
 } from "./props";
 import { createSignpost } from "./signpost";
@@ -149,6 +150,7 @@ export class World3D {
   private mountains?: THREE.Group;
   private skyDome?: THREE.Mesh;
   private grassMesh?: THREE.InstancedMesh;
+  private flowerMesh?: THREE.InstancedMesh;
   private grassUniforms?: { uTime: { value: number }; uPlayer: { value: THREE.Vector3 } };
   /** 草丛动态铺设状态（跟随玩家，只在附近铺设密草） */
   private grassCellSize = 1.1;
@@ -592,6 +594,7 @@ export class World3D {
     this.grassDummy.scale.setScalar(0);
     this.grassDummy.updateMatrix();
     mesh.setMatrixAt(slot, this.grassDummy.matrix);
+    this.flowerMesh?.setMatrixAt(slot, this.grassDummy.matrix);
   }
 
   /** 在指定格子里种下一丛草 */
@@ -630,6 +633,31 @@ export class World3D {
       0.8 + (1 - warm) * 0.26
     );
     mesh.setColorAt(slot, this.grassColor);
+
+    // 野花：按低频噪声成片分布（花田），一片内有主色调，偶尔混入其它色
+    const fm = this.flowerMesh;
+    if (fm) {
+      const patch = fbm(x * 0.035 + 210, z * 0.035 + 55, 2);
+      const fh = hash2(i * 5.3 + 9, j * 7.1 + 2);
+      if (patch > 0.54 && fh > 0.25) {
+        this.grassDummy.position.set(x + (h3 - 0.5) * cs * 0.8, y, z + (h1 - 0.5) * cs * 0.8);
+        this.grassDummy.rotation.set(0, h2 * 6.28, 0);
+        const fs = 1.1 + fh * 1.1;
+        this.grassDummy.scale.set(fs, fs * (0.8 + h3 * 0.5), fs);
+        this.grassDummy.updateMatrix();
+        fm.setMatrixAt(slot, this.grassDummy.matrix);
+        const palette = [0xf6f2e8, 0xf4d34a, 0xe8738f, 0xa985e8, 0xf29a4a];
+        const main = Math.floor(patch * 17) % palette.length;
+        const pick = fh > 0.85 ? Math.floor(h1 * palette.length) : main;
+        this.grassColor.setHex(palette[pick]);
+        fm.setColorAt(slot, this.grassColor);
+      } else {
+        this.grassDummy.position.set(0, -9999, 0);
+        this.grassDummy.scale.setScalar(0);
+        this.grassDummy.updateMatrix();
+        fm.setMatrixAt(slot, this.grassDummy.matrix);
+      }
+    }
   }
 
   /**
@@ -691,6 +719,10 @@ export class World3D {
 
     mesh.instanceMatrix.needsUpdate = true;
     if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+    if (this.flowerMesh) {
+      this.flowerMesh.instanceMatrix.needsUpdate = true;
+      if (this.flowerMesh.instanceColor) this.flowerMesh.instanceColor.needsUpdate = true;
+    }
   }
 
   /** 释放镜面反射的渲染目标 */
@@ -1659,6 +1691,15 @@ export class World3D {
       this.hideGrassSlotInit(mesh, i);
     }
     mesh.instanceMatrix.needsUpdate = true;
+
+    // 野花：与草共用实例槽位（子网格，随草一起显隐）
+    const flowers = new THREE.InstancedMesh(wildflowerGeometry(), new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.75, metalness: 0, side: THREE.DoubleSide }), capacity);
+    flowers.frustumCulled = false;
+    flowers.castShadow = false;
+    for (let i = 0; i < capacity; i++) this.hideGrassSlotInit(flowers, i);
+    flowers.instanceMatrix.needsUpdate = true;
+    mesh.add(flowers);
+    this.flowerMesh = flowers;
 
     this.grassMesh = mesh;
     mesh.visible = this.currentBiome.decorStyle !== "space";

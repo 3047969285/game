@@ -749,3 +749,25 @@ export function createLantern(color: number): THREE.Group {
   g.add(body, lamp, light);
   return g;
 }
+
+/** 野花丛单元几何（实例化用）：细茎 + 六瓣花冠 + 花蕊，顶点色：花瓣白（由实例色着色）、花蕊黄、茎绿 */
+export function wildflowerGeometry(): THREE.BufferGeometry {
+  const geos: THREE.BufferGeometry[] = [];
+  const stem = new THREE.CylinderGeometry(0.004, 0.006, 0.26, 4, 1);
+  stem.translate(0, 0.13, 0);
+  geos.push(bake(stem, mat4(0, 0, 0), new THREE.Color(0.2, 0.34, 0.12)));
+  for (let k = 0; k < 6; k++) {
+    const pg = new THREE.CircleGeometry(1, 7);
+    pg.scale(0.022, 0.044, 1);
+    pg.translate(0, 0.046, 0);
+    pg.rotateX(-Math.PI / 2);
+    geos.push(bake(pg, placeYX(0, 0.27, 0, (k / 6) * Math.PI * 2, -0.45), new THREE.Color(1, 1, 1)));
+  }
+  geos.push(bake(new THREE.SphereGeometry(0.014, 6, 5), mat4(0, 0.275, 0), new THREE.Color(1.0, 0.82, 0.25)));
+  const leaf = new THREE.PlaneGeometry(0.07, 0.022, 2, 1);
+  leaf.translate(0.035, 0, 0);
+  leaf.rotateX(-Math.PI / 2);
+  geos.push(bake(leaf, placeYX(0, 0.07, 0, 0.6, 0.4), new THREE.Color(0.22, 0.4, 0.14)));
+  geos.push(bake(leaf, placeYX(0, 0.1, 0, 3.5, 0.4), new THREE.Color(0.22, 0.4, 0.14)));
+  return mergeGeometries(geos, false)!;
+}
