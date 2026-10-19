@@ -1,0 +1,207 @@
+import * as THREE from "three";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
+import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
+
+/**
+ * 主世界与回忆舞台共用的渲染基础设施：画质分档、后期管线（AO → 泛光 → 输出 → 调色）、
+ * 渐变天空的 PMREM 环境贴图。World3D 与 MemoryStage 都从这里取，保证两处画面质感一致。
+ */
+
+export type QualityTier = "high" | "med" | "low";
+
+export interface QualityConfig {
+  /** 渲染像素比上限 */
+  pixelRatio: number;
+  /** 草丛铺设半径（米），草丛跟随玩家动态重排 */
+  grassRadius: number;
+  /** 草丛格子尺寸（米），越小越密 */
+  grassCell: number;
+  /** 阴影贴图尺寸 */
+  shadowMap: number;
+  /** 是否启用泛光后期 */
+  bloom: boolean;
+  /** 泛光内部分辨率系数 */
+  bloomScale: number;
+}
+
+export const QUALITY_PRESETS: Record<QualityTier, QualityConfig> = {
+  high: { pixelRatio: 2, grassRadius: 40, grassCell: 1.1, shadowMap: 2048, bloom: true, bloomScale: 1 },
+  med: { pixelRatio: 1.5, grassRadius: 34, grassCell: 1.5, shadowMap: 1536, bloom: true, bloomScale: 0.66 },
+  low: { pixelRatio: 1, grassRadius: 26, grassCell: 1.9, shadowMap: 1024, bloom: false, bloomScale: 0.5 },
+};
+
+/** 依据设备能力推断画质档位 */
+export function detectQuality(): QualityTier {
+  if (typeof window === "undefined") return "med";
+  const coarse = window.matchMedia?.("(pointer: coarse)").matches ?? false;
+  const small = Math.min(window.innerWidth, window.innerHeight) < 540;
+  const cores = (navigator as Navigator & { hardwareConcurrency?: number }).hardwareConcurrency ?? 4;
+  const mem = (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 4;
+  const mobile = coarse || small;
+  if (mobile && (cores <= 4 || mem <= 3)) return "low";
+  if (mobile) return "med";
+  if (cores <= 4 || mem <= 4) return "med";
+  return "high";
+}
+
+export interface PostPipelineOptions {
+  /**
+   * 是否启用 GTAO（仅 high 档生效，默认 true）。回忆舞台关闭它：溶解显形的物件在
+   * 法线 / 深度预通道里是“实心”的，会在未显形处留下幽灵般的环境光遮蔽。
+   */
+  ao?: boolean;
+  /** 低画质（无泛光）时也建立 composer，供回忆舞台追加定格 / 虚化通道 */
+  forceComposer?: boolean;
+}
+
+export interface PostPipeline {
+  composer: EffectComposer;
+  bloomPass?: UnrealBloomPass;
+  /** 调色通道（最后一个内置通道）；追加的通道应在它之后 addPass */
+  gradePass: ShaderPass;
+}
+
+/**
+ * 后期处理管线：泛光（Bloom）让水晶 / 光球 / 太阳产生电影级辉光，
+ * 随后 OutputPass 做色调映射，最后一道调色。失败或低画质（且未强制）时返回 undefined，调用方直接 renderer.render。
+ */
+export function createPostPipeline(
+  renderer: THREE.WebGLRenderer,
+  scene: THREE.Scene,
+  camera: THREE.Camera,
+  quality: QualityTier,
+  options: PostPipelineOptions = {}
+): PostPipeline | undefined {
+  const qcfg = QUALITY_PRESETS[quality];
+  if (!qcfg.bloom && !options.forceComposer) return undefined;
+  try {
+    const size = renderer.getSize(new THREE.Vector2());
+    const w = size.x;
+    const h = size.y;
+    // 多重采样渲染目标：否则走后期管线时 renderer 的 antialias 不生效，边缘会有明显锯齿
+    const pr = Math.min(window.devicePixelRatio, qcfg.pixelRatio);
+    const target = new THREE.WebGLRenderTarget(Math.max(1, Math.floor(w * pr)), Math.max(1, Math.floor(h * pr)), {
+      type: THREE.HalfFloatType,
+      samples: quality === "high" ? 4 : 2,
+    });
+    const composer = new EffectComposer(renderer, target);
+    composer.addPass(new RenderPass(scene, camera));
+
+    // 环境光遮蔽：让建筑根部、石阶缝隙、树下出现接触阴影，物体不再"漂"在地上
+    if (quality === "high" && options.ao !== false) {
+      const ao = new GTAOPass(scene, camera, w, h);
+      ao.output = GTAOPass.OUTPUT.Default;
+      ao.blendIntensity = 0.85;
+      ao.updateGtaoMaterial({ radius: 1.1, distanceExponent: 1.4, thickness: 2, scale: 1.1, samples: 12, distanceFallOff: 1, screenSpaceRadius: false });
+      ao.updatePdMaterial({ lumaPhi: 10, depthPhi: 2, normalPhi: 3, radius: 5, rings: 2, samples: 8 });
+      composer.addPass(ao);
+    }
+
+    let bloom: UnrealBloomPass | undefined;
+    if (qcfg.bloom) {
+      const bs = qcfg.bloomScale;
+      bloom = new UnrealBloomPass(new THREE.Vector2(w * bs, h * bs), 0.62, 0.5, 0.78);
+      composer.addPass(bloom);
+    }
+    composer.addPass(new OutputPass());
+    // 调色：在输出空间做 S 曲线对比、分离色调（暗部偏冷 / 亮部偏暖）、饱和度与暗角，统一画面质感
+    const gradePass = new ShaderPass({
+      uniforms: { tDiffuse: { value: null } },
+      vertexShader: `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+      fragmentShader: `
+          uniform sampler2D tDiffuse;
+          varying vec2 vUv;
+          void main() {
+            vec3 c = texture2D(tDiffuse, vUv).rgb;
+            float l = dot(c, vec3(0.2126, 0.7152, 0.0722));
+            // 写实调色：轻微饱和与对比（AgX 已经压过高光），弱分离色调，柔和暗角
+            c = mix(vec3(l), c, 1.3);
+            c = mix(c, c * c * (3.0 - 2.0 * c), 0.32);
+            c += vec3(-0.006, 0.0, 0.01) * (1.0 - l) + vec3(0.012, 0.005, -0.008) * l * 0.6;
+            vec2 q = vUv - 0.5;
+            float vig = smoothstep(0.98, 0.3, length(q * vec2(1.0, 1.12)));
+            c *= mix(0.86, 1.0, vig);
+            gl_FragColor = vec4(clamp(c, 0.0, 1.0), 1.0);
+          }
+        `,
+    });
+    composer.addPass(gradePass);
+
+    composer.setPixelRatio(Math.min(window.devicePixelRatio, qcfg.pixelRatio));
+    composer.setSize(w, h);
+
+    return { composer, bloomPass: bloom, gradePass };
+  } catch {
+    // 后期处理初始化失败时回退到直接渲染
+    return undefined;
+  }
+}
+
+export interface EnvironmentPalette {
+  skyTop: THREE.ColorRepresentation;
+  skyMid: THREE.ColorRepresentation;
+  skyBot: THREE.ColorRepresentation;
+  sunColor: THREE.ColorRepresentation;
+  sunDir?: THREE.Vector3;
+}
+
+/**
+ * 用渐变天穹 + 太阳高光生成 PMREM 环境贴图（金属 / 玻璃 / 清漆的反射来源）。
+ * 调用方负责 dispose 返回的渲染目标；失败时返回 undefined（退回无反射渲染）。
+ */
+export function buildSkyEnvironment(renderer: THREE.WebGLRenderer, palette: EnvironmentPalette): THREE.WebGLRenderTarget | undefined {
+  try {
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    const envScene = new THREE.Scene();
+    const mat = new THREE.ShaderMaterial({
+      side: THREE.BackSide,
+      depthWrite: false,
+      uniforms: {
+        topColor: { value: new THREE.Color(palette.skyTop) },
+        midColor: { value: new THREE.Color(palette.skyMid) },
+        bottomColor: { value: new THREE.Color(palette.skyBot) },
+        sunColor: { value: new THREE.Color(palette.sunColor) },
+        sunDir: { value: (palette.sunDir ?? new THREE.Vector3(0.5, 0.72, 0.36)).clone().normalize() },
+      },
+      vertexShader: `
+          varying vec3 vDir;
+          void main() {
+            vDir = normalize(position);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+      fragmentShader: `
+          uniform vec3 topColor, midColor, bottomColor, sunColor, sunDir;
+          varying vec3 vDir;
+          void main() {
+            vec3 d = normalize(vDir);
+            vec3 col = mix(bottomColor, midColor, smoothstep(-0.2, 0.35, d.y));
+            col = mix(col, topColor, smoothstep(0.2, 0.95, d.y));
+            float sd = max(dot(d, normalize(sunDir)), 0.0);
+            col += sunColor * pow(sd, 26.0) * 2.6;
+            col += sunColor * pow(sd, 3.0) * 0.26;
+            gl_FragColor = vec4(col, 1.0);
+          }
+        `,
+    });
+    envScene.add(new THREE.Mesh(new THREE.SphereGeometry(10, 32, 24), mat));
+
+    const rt = pmrem.fromScene(envScene, 0.02);
+
+    envScene.traverse((o) => {
+      const m = o as THREE.Mesh;
+      if (m.isMesh) {
+        m.geometry.dispose();
+        (m.material as THREE.Material).dispose();
+      }
+    });
+    pmrem.dispose();
+    return rt;
+  } catch {
+    return undefined;
+  }
+}

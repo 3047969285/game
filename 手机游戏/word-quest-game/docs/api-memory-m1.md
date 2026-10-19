@@ -174,3 +174,14 @@ export interface MemoryScript {
 - `Narrator` 计时降级：无 `speechSynthesis` 时 `speak` 在 (词数 × 0.33 ± 0.2) 秒内 resolve（用 fake timers）。
 - `memoryObjects`：单元 1 的 30 个词都有条目；每个 archetype 都能 build 出非空 Group（three 在 node 下可用）。
 - `paper2d` 的判定逻辑抽成纯函数 `checkPaperFill(page, fills)` 测试。
+
+## 8. M1a 实现说明（与上文的差异与补充）
+
+- **共享渲染基础设施**：`src/features/world/postPipeline.ts` 导出 `detectQuality` / `QUALITY_PRESETS` / `createPostPipeline(renderer, scene, camera, quality, { ao, forceComposer })` / `buildSkyEnvironment`。World3D 与 MemoryStage 共用；回忆关闭 GTAO（溶解中的物件在法线预通道里是实心的），低画质也强制建立 composer 以便追加底片通道。
+- **Materializer**：每个 Piece 对其每种材质克隆一份并打溶解补丁（uniform 为 Piece 私有，克隆保留原材质的 onBeforeCompile / 程序缓存键，故同类材质仍共用 GPU 程序）；castShadow 的网格配带丢弃的深度材质。粒子与字母整个舞台共用一个 `THREE.Points`。未显形且无幽灵态的 Piece `visible=false`，不产生 draw call。扩展 API：`setGhost`（漂浮发光态）、`setPulse`（边缘光脉冲）、`hide`（反向溶解）、`prewarm`（预编译着色器）、`completeAll`、`progress`。
+- **脚本补充**：`MemoryScript.pieces?: BuildPiece[]`（`narrate.build` 先按 piece id 查，查不到当作舞台部件名）；`gap.build?`；`gap.zh?`；`WordObjectPlacement` 的 y > 0.9 视为悬空（轻微上下浮动与自转）。
+- **舞台注册**：`stages/index.ts` 的 `registerStage(def)`；`StageDef` 含部件表（部件名 → 默认显形风格）、可走范围、出生点、摆放位、机位、环境参数。M1b 的 clubRoom / apartment2090 只需实现 `StageDef` 并注册。M1a 提供 `emptyRoom` 与开场占位用的 `void`。
+- **脚本注册**：`scripts/index.ts` 的 `registerMemoryScript(script)` 登记手写脚本（id 约定 `u{单元}{a|b|c}`，如 `u01a`）；没有登记的段落由 `buildAutoScript` 生成，`resolveMemoryScript` 负责二选一。
+- **进度存储**：`infra/storage.ts` 新增 `loadMemoryProgress / writeMemoryProgress`（独立 key `word_quest_memory_v1`，含 `prologueSeen` / `done` / `wordsSeen`），不放进 GameSave，避免内存里的 GameSave 副本把它覆盖掉。
+- **App 路由**：新增 screen `"memory"`；`App.runMemory(script, gate)` 暂停 World3D → 动态 import 回忆引擎 → 创建 / 运行 / 销毁 MemoryStage → 恢复地图。单元入口卡改为 A/B/C 三个记忆点，原学习面板（故事、子世界入口、词汇统计）收进卡内的“🗃️ 记忆匣 · 学习面板”折叠区；地图上的子世界水晶仍直接进入原学习场景。
+- **开场占位**：`scripts/prologue.ts`（舞台 `void`，一句系统字幕）。首次进入先出现“轻触 · 开始回溯”（用这次点击拿到朗读所需的用户手势）。

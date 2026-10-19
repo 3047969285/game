@@ -87,3 +87,42 @@ export function loadSave(): GameSave {
 export function writeSave(save: GameSave): void {
   localStorage.setItem(KEY_V2, JSON.stringify(save));
 }
+
+// ───────────────────────── 回忆进度（记忆回溯） ─────────────────────────
+
+const KEY_MEMORY = "word_quest_memory_v1";
+
+/** 回忆游戏的进度：与学习存档分开存放，避免两处各持有一份内存副本而互相覆盖 */
+export interface MemoryProgressSave {
+  prologueSeen: boolean;
+  /** 已完成的回忆 id（如 "u01a"） */
+  done: string[];
+  /** 在回忆里触碰 / 答对过的词 */
+  wordsSeen: string[];
+}
+
+let memoryFallback: MemoryProgressSave | null = null;
+
+function normalizeMemory(raw: unknown): MemoryProgressSave {
+  const o = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
+  const strings = (v: unknown): string[] => (Array.isArray(v) ? [...new Set(v.filter((x): x is string => typeof x === "string"))] : []);
+  return { prologueSeen: o.prologueSeen === true, done: strings(o.done), wordsSeen: strings(o.wordsSeen) };
+}
+
+export function loadMemoryProgress(): MemoryProgressSave {
+  try {
+    const raw = localStorage.getItem(KEY_MEMORY);
+    return normalizeMemory(raw ? JSON.parse(raw) : null);
+  } catch {
+    return memoryFallback ? { ...memoryFallback } : normalizeMemory(null);
+  }
+}
+
+export function writeMemoryProgress(progress: MemoryProgressSave): void {
+  memoryFallback = { ...progress };
+  try {
+    localStorage.setItem(KEY_MEMORY, JSON.stringify(progress));
+  } catch {
+    // 存储不可用（隐私模式 / 配额）时仍保留本次会话内的进度
+  }
+}

@@ -21,6 +21,9 @@ export interface Rw3QuizRaw {
 /** 读写3 单元内容（教材全模块） */
 export interface Rw3UnitContent {
   unit_id: string;
+  unit_number?: number;
+  /** 本单元词表 id（按教材顺序） */
+  word_ids?: string[];
   title: string;
   title_zh: string;
   theme: string;

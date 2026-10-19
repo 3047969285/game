@@ -3,51 +3,12 @@ import { planVegetation, type AvoidCircle, type AvoidEllipse, type AvoidSegment 
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { Timer } from "three/src/core/Timer.js";
-import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
-import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
-import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
-import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
-import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
-import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
+import type { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import type { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+import { buildSkyEnvironment, createPostPipeline, detectQuality, QUALITY_PRESETS, type QualityConfig, type QualityTier } from "./postPipeline";
 import type { MapNode, WordPickup } from "../../core/types";
 import { loadAvatarGlb, loadModelsManifest, enhanceAvatarMaterials, createContactShadow } from "./ModelLoader";
 
-type QualityTier = "high" | "med" | "low";
-
-interface QualityConfig {
-  /** 渲染像素比上限 */
-  pixelRatio: number;
-  /** 草丛铺设半径（米），草丛跟随玩家动态重排 */
-  grassRadius: number;
-  /** 草丛格子尺寸（米），越小越密 */
-  grassCell: number;
-  /** 阴影贴图尺寸 */
-  shadowMap: number;
-  /** 是否启用泛光后期 */
-  bloom: boolean;
-  /** 泛光内部分辨率系数 */
-  bloomScale: number;
-}
-
-const QUALITY_PRESETS: Record<QualityTier, QualityConfig> = {
-  high: { pixelRatio: 2, grassRadius: 40, grassCell: 1.1, shadowMap: 2048, bloom: true, bloomScale: 1 },
-  med: { pixelRatio: 1.5, grassRadius: 34, grassCell: 1.5, shadowMap: 1536, bloom: true, bloomScale: 0.66 },
-  low: { pixelRatio: 1, grassRadius: 26, grassCell: 1.9, shadowMap: 1024, bloom: false, bloomScale: 0.5 },
-};
-
-/** 依据设备能力推断画质档位 */
-function detectQuality(): QualityTier {
-  if (typeof window === "undefined") return "med";
-  const coarse = window.matchMedia?.("(pointer: coarse)").matches ?? false;
-  const small = Math.min(window.innerWidth, window.innerHeight) < 540;
-  const cores = (navigator as Navigator & { hardwareConcurrency?: number }).hardwareConcurrency ?? 4;
-  const mem = (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 4;
-  const mobile = coarse || small;
-  if (mobile && (cores <= 4 || mem <= 3)) return "low";
-  if (mobile) return "med";
-  if (cores <= 4 || mem <= 4) return "med";
-  return "high";
-}
 import { createLandmarkWithCad } from "./cadLandmark";
 import { createExplorerAvatar, type AvatarRig } from "./explorerAvatar";
 import { ExplorerCamera } from "./ExplorerCamera";
@@ -351,72 +312,16 @@ export class World3D {
     this.buildDust();
     this.buildMotes();
     this.spawnExplorer();
-    this.setupPostFX(w, h);
+    this.setupPostFX();
     this.bindEvents();
     if (import.meta.env.DEV) (window as unknown as { __world?: World3D }).__world = this;
   }
 
-  /** 后期处理管线：泛光（Bloom）让水晶 / 光球 / 太阳产生电影级辉光 */
-  private setupPostFX(w: number, h: number): void {
-    if (!this.qcfg.bloom) {
-      this.composer = undefined;
-      return;
-    }
-    try {
-      // 多重采样渲染目标：否则走后期管线时 renderer 的 antialias 不生效，边缘会有明显锯齿
-      const pr = Math.min(window.devicePixelRatio, this.qcfg.pixelRatio);
-      const target = new THREE.WebGLRenderTarget(Math.max(1, Math.floor(w * pr)), Math.max(1, Math.floor(h * pr)), {
-        type: THREE.HalfFloatType,
-        samples: this.quality === "high" ? 4 : 2,
-      });
-      const composer = new EffectComposer(this.renderer, target);
-      composer.addPass(new RenderPass(this.scene, this.camera));
-
-      // 环境光遮蔽：让建筑根部、石阶缝隙、树下出现接触阴影，物体不再"漂"在地上
-      if (this.quality === "high") {
-        const ao = new GTAOPass(this.scene, this.camera, w, h);
-        ao.output = GTAOPass.OUTPUT.Default;
-        ao.blendIntensity = 0.85;
-        ao.updateGtaoMaterial({ radius: 1.1, distanceExponent: 1.4, thickness: 2, scale: 1.1, samples: 12, distanceFallOff: 1, screenSpaceRadius: false });
-        ao.updatePdMaterial({ lumaPhi: 10, depthPhi: 2, normalPhi: 3, radius: 5, rings: 2, samples: 8 });
-        composer.addPass(ao);
-      }
-
-      const bs = this.qcfg.bloomScale;
-      const bloom = new UnrealBloomPass(new THREE.Vector2(w * bs, h * bs), 0.62, 0.5, 0.78);
-      composer.addPass(bloom);
-      composer.addPass(new OutputPass());
-      // 调色：在输出空间做 S 曲线对比、分离色调（暗部偏冷 / 亮部偏暖）、饱和度与暗角，统一画面质感
-      composer.addPass(new ShaderPass({
-        uniforms: { tDiffuse: { value: null } },
-        vertexShader: `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
-        fragmentShader: `
-          uniform sampler2D tDiffuse;
-          varying vec2 vUv;
-          void main() {
-            vec3 c = texture2D(tDiffuse, vUv).rgb;
-            float l = dot(c, vec3(0.2126, 0.7152, 0.0722));
-            // 写实调色：轻微饱和与对比（AgX 已经压过高光），弱分离色调，柔和暗角
-            c = mix(vec3(l), c, 1.3);
-            c = mix(c, c * c * (3.0 - 2.0 * c), 0.32);
-            c += vec3(-0.006, 0.0, 0.01) * (1.0 - l) + vec3(0.012, 0.005, -0.008) * l * 0.6;
-            vec2 q = vUv - 0.5;
-            float vig = smoothstep(0.98, 0.3, length(q * vec2(1.0, 1.12)));
-            c *= mix(0.86, 1.0, vig);
-            gl_FragColor = vec4(clamp(c, 0.0, 1.0), 1.0);
-          }
-        `,
-      }));
-
-      composer.setPixelRatio(Math.min(window.devicePixelRatio, this.qcfg.pixelRatio));
-      composer.setSize(w, h);
-
-      this.composer = composer;
-      this.bloomPass = bloom;
-    } catch {
-      // 后期处理初始化失败时回退到直接渲染
-      this.composer = undefined;
-    }
+  /** 后期处理管线：泛光（Bloom）让水晶 / 光球 / 太阳产生电影级辉光（共享实现见 postPipeline.ts） */
+  private setupPostFX(): void {
+    const post = createPostPipeline(this.renderer, this.scene, this.camera, this.quality);
+    this.composer = post?.composer;
+    this.bloomPass = post?.bloomPass;
   }
 
   setNodes(nodes: MapNode[], currentId: string, showNodeLandmarks = true): void {
@@ -1137,58 +1042,11 @@ export class World3D {
    * 都会呈现"死黑"的塑料感；生成后所有 PBR 材质都能反射天空与太阳。
    */
   private buildEnvironment(biome: UnitBiome): void {
-    try {
-      const pmrem = new THREE.PMREMGenerator(this.renderer);
-      const envScene = new THREE.Scene();
-      const mat = new THREE.ShaderMaterial({
-        side: THREE.BackSide,
-        depthWrite: false,
-        uniforms: {
-          topColor: { value: new THREE.Color(biome.skyTop) },
-          midColor: { value: new THREE.Color(biome.skyMid) },
-          bottomColor: { value: new THREE.Color(biome.skyBot) },
-          sunColor: { value: new THREE.Color(biome.sunColor) },
-          sunDir: { value: new THREE.Vector3(0.5, 0.72, 0.36).normalize() },
-        },
-        vertexShader: `
-          varying vec3 vDir;
-          void main() {
-            vDir = normalize(position);
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-          }
-        `,
-        fragmentShader: `
-          uniform vec3 topColor, midColor, bottomColor, sunColor, sunDir;
-          varying vec3 vDir;
-          void main() {
-            vec3 d = normalize(vDir);
-            vec3 col = mix(bottomColor, midColor, smoothstep(-0.2, 0.35, d.y));
-            col = mix(col, topColor, smoothstep(0.2, 0.95, d.y));
-            float sd = max(dot(d, normalize(sunDir)), 0.0);
-            col += sunColor * pow(sd, 26.0) * 2.6;
-            col += sunColor * pow(sd, 3.0) * 0.26;
-            gl_FragColor = vec4(col, 1.0);
-          }
-        `,
-      });
-      envScene.add(new THREE.Mesh(new THREE.SphereGeometry(10, 32, 24), mat));
-
-      const rt = pmrem.fromScene(envScene, 0.02);
-      this.envRT?.dispose();
-      this.envRT = rt;
-      this.scene.environment = rt.texture;
-
-      envScene.traverse((o) => {
-        const m = o as THREE.Mesh;
-        if (m.isMesh) {
-          m.geometry.dispose();
-          (m.material as THREE.Material).dispose();
-        }
-      });
-      pmrem.dispose();
-    } catch {
-      // 环境贴图生成失败时退回无反射渲染
-    }
+    const rt = buildSkyEnvironment(this.renderer, biome);
+    if (!rt) return; // 环境贴图生成失败时退回无反射渲染
+    this.envRT?.dispose();
+    this.envRT = rt;
+    this.scene.environment = rt.texture;
   }
 
   /** 径向辉光贴图（太阳 / 光晕用） */

@@ -36,8 +36,12 @@ import { buildReviewScene, buildWeakScene } from "../features/learn/review";
 import type { Minimap } from "../features/world/Minimap";
 import type { World3D } from "../features/world";
 import { el, showToast } from "../shared/components";
+import { SECTION_KEYS, memoryScriptId, type SectionKey } from "../features/memory/ids";
+import { Narrator } from "../features/memory/Narrator";
+import { isMemoryDone, isPrologueSeen, markMemoryDone, markPrologueSeen } from "../features/memory/progress";
+import type { MemoryResult, MemoryScript } from "../features/memory/types";
 
-type Screen = "map" | "scene";
+type Screen = "map" | "scene" | "memory";
 
 const GUIDE_KEY = "word_quest_guide_seen";
 const CLOZE_BATCH = 5;
@@ -122,6 +126,7 @@ export class App {
   private wordCardScrollPosition: { x: number; y: number } | null = null;
   private wordCardFocusReturn: HTMLElement | null = null;
   private readonly music = new MusicPlayer();
+  private memoryRunning = false;
   private spectatorMode = false;
 
   constructor(root: HTMLElement) {
@@ -132,6 +137,11 @@ export class App {
   async start(): Promise<void> {
     await this.loadCourse(this.state.save.courseId);
     this.mountShell();
+    // 首次进入游戏：先播放 2090 开场（M1a 为占位：黑屏 + 一句系统字幕），再进入地图
+    if (!isPrologueSeen()) {
+      await this.playPrologue();
+      this.show("map"); // 世界画布需要在可见容器里创建，否则尺寸为 0
+    }
     await this.renderMap();
     this.show("map");
   }
@@ -194,7 +204,7 @@ export class App {
   }
 
   private mountShell(): void {
-    this.root.innerHTML = `<div id="screen-map" class="screen active"></div><div id="screen-scene" class="screen"></div>`;
+    this.root.innerHTML = `<div id="screen-map" class="screen active"></div><div id="screen-scene" class="screen"></div><div id="screen-memory" class="screen"></div>`;
   }
 
   private show(screen: Screen): void {
@@ -219,7 +229,8 @@ export class App {
     map?.classList.remove("rw3-world-backdrop");
     this.root.querySelector("#screen-scene")?.classList.remove("rw3-world-overlay");
     if (screen === "map" || keepLearningWorld) map?.classList.add("active");
-    scene?.classList.add("active", "screen-enter");
+    scene?.classList.add("active");
+    if (screen !== "memory") scene?.classList.add("screen-enter");
     if (keepLearningWorld) map?.classList.add("rw3-world-backdrop");
     if (keepLearningWorld) scene?.classList.add("rw3-world-overlay");
     setTimeout(() => scene?.classList.remove("screen-enter"), 450);
@@ -442,6 +453,8 @@ export class App {
     const zone = !isUnitHub && node.zoneName ? `<span class="proximity-zone">${node.zoneName}</span>` : "";
     const name = isUnitHub ? "本单元学习中枢" : `${node.icon} ${node.name}`;
     label.innerHTML = `${zone}<span class="proximity-name">${name}</span>`;
+    const interact = this.root.querySelector("#btn-world-interact");
+    if (interact) interact.textContent = isUnitHub ? "进入回忆 · E" : "进入学习 · E";
     const card = this.root.querySelector("#word-pickup-card");
     panel.classList.toggle("hidden", Boolean(card && !card.classList.contains("hidden")));
   }
@@ -876,26 +889,39 @@ export class App {
 
     if (this.wordCardTimer) clearTimeout(this.wordCardTimer);
 
+    const unitId = zone.id.replace("rw3_", "");
+    const memoryPoints = SECTION_KEYS.filter((key) => rw3Unit?.sections[key]?.passage)
+      .map((key, i) => {
+        const done = isMemoryDone(memoryScriptId(unitId, key));
+        const sectionTitle = rw3Unit?.sections[key]?.title ?? "";
+        return `<button type="button" class="memory-point${done ? " done" : ""}" data-memory-section="${key}"><span class="memory-point-badge">${"ABC"[i]}</span><span class="memory-point-body"><strong>${sectionTitle}</strong><small>记忆点 ${"ABC"[i]} · ${done ? "已重温" : "潜入这段回忆"}</small></span>${done ? '<span class="memory-point-done">✓ 已点亮</span>' : ""}</button>`;
+      })
+      .join("");
+
     card.innerHTML = `
       <div class="wc-inner unit-entry-card">
         <div class="wc-collected-badge">📍 ${zone.name}</div>
         <div class="unit-entry-title">${world?.worldName ?? title}</div>
-        ${world ? `<div class="unit-world-tagline">${world.worldTagline}</div><div class="unit-world-mentor">导师：${world.mentor}</div>` : ""}
+        ${world ? `<div class="unit-world-tagline">${world.worldTagline}</div>` : ""}
         <div class="unit-entry-theme">${theme}</div>
-        ${world ? `<div class="unit-world-story">${world.opening}</div><div class="unit-world-mission"><strong>本幕任务</strong> ${world.mission}</div><div class="unit-world-landmarks">${world.landmarks.map((landmark) => `<span>${landmark}</span>`).join("")}</div>` : ""}
-        <div class="unit-entry-sections">${sections.map((s) => `<div class="unit-sec-item">${s}</div>`).join("")}</div>
-        <div class="unit-world-portals">
-          ${(this.unitExplore?.subWorlds ?? []).map((subWorld, index) => {
-            const progressId = `${zone.id}::${subWorld.id}`;
-            const previous = index === 0 ? null : `${zone.id}::${this.unitExplore?.subWorlds[index - 1].id}`;
-            const unlocked = index === 0 || Boolean(previous && this.state.save.levelProgress[previous]?.cleared);
-            return `<button class="unit-world-portal${unlocked ? "" : " locked"}" data-world-id="${subWorld.id}" type="button" ${unlocked ? "" : "disabled"}><span>${index + 1}</span><strong>${subWorld.icon} ${subWorld.title}</strong><small>${unlocked ? subWorld.subtitle : "完成前一个世界后解锁"}</small><em>${this.state.save.levelProgress[progressId]?.cleared ? "已完成" : unlocked ? "进入世界 →" : "未解锁"}</em></button>`;
-          }).join("")}
+        <div class="memory-points">${memoryPoints}</div>
+        <button type="button" class="memory-box-toggle" id="btn-memory-box" aria-expanded="false">🗃️ 记忆匣 · 学习面板</button>
+        <div class="memory-box" id="memory-box">
+          ${world ? `<div class="unit-world-mentor">导师：${world.mentor}</div><div class="unit-world-story">${world.opening}</div><div class="unit-world-mission"><strong>本幕任务</strong> ${world.mission}</div><div class="unit-world-landmarks">${world.landmarks.map((landmark) => `<span>${landmark}</span>`).join("")}</div>` : ""}
+          <div class="unit-entry-sections">${sections.map((s) => `<div class="unit-sec-item">${s}</div>`).join("")}</div>
+          <div class="unit-world-portals">
+            ${(this.unitExplore?.subWorlds ?? []).map((subWorld, index) => {
+              const progressId = `${zone.id}::${subWorld.id}`;
+              const previous = index === 0 ? null : `${zone.id}::${this.unitExplore?.subWorlds[index - 1].id}`;
+              const unlocked = index === 0 || Boolean(previous && this.state.save.levelProgress[previous]?.cleared);
+              return `<button class="unit-world-portal${unlocked ? "" : " locked"}" data-world-id="${subWorld.id}" type="button" ${unlocked ? "" : "disabled"}><span>${index + 1}</span><strong>${subWorld.icon} ${subWorld.title}</strong><small>${unlocked ? subWorld.subtitle : "完成前一个世界后解锁"}</small><em>${this.state.save.levelProgress[progressId]?.cleared ? "已完成" : unlocked ? "进入世界 →" : "未解锁"}</em></button>`;
+            }).join("")}
+          </div>
         </div>
         <div class="unit-entry-stats">
           <span>词汇 ${totalWords} 词</span>
           <span>已收集 ${collected}/${totalWords}</span>
-          <span>阅读 · 听力 · 语法 · 翻译 · 写作 · 记忆</span>
+          <span>三段回忆 · 记忆匣里有阅读 · 听力 · 语法 · 翻译 · 写作</span>
         </div>
         <button class="wc-dismiss" id="btn-unit-entry-ok">开始探索 →</button>
       </div>
@@ -919,6 +945,21 @@ export class App {
     this.updateProximityHud(this.proximityNode);
 
     card.querySelector("#btn-unit-entry-ok")?.addEventListener("click", () => this.dismissWordCard());
+    const boxToggle = card.querySelector<HTMLButtonElement>("#btn-memory-box");
+    boxToggle?.addEventListener("click", () => {
+      const open = card.querySelector("#memory-box")?.classList.toggle("open") ?? false;
+      boxToggle.setAttribute("aria-expanded", String(open));
+    });
+    card.querySelectorAll<HTMLButtonElement>(".memory-point").forEach((button) => {
+      button.addEventListener("click", () => {
+        const section = button.dataset.memorySection as SectionKey | undefined;
+        if (!section) return;
+        audio.play("start");
+        void this.startMemory(zone, section);
+      });
+    });
+    // 预取回忆引擎，点击记忆点时无需再等下载
+    void import("../features/memory");
     card.querySelectorAll<HTMLButtonElement>(".unit-world-portal:not(:disabled)").forEach((button) => {
       button.addEventListener("click", () => {
         const worldId = button.dataset.worldId;
@@ -930,6 +971,95 @@ export class App {
         this.openScene(`${zone.id}::${worldId}`);
       });
     });
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // 回忆（记忆回溯）：独立全屏层 MemoryStage，进入时暂停 World3D，结束后回到单元探索
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** 首次进入游戏的开场（M1a 占位） */
+  private async playPrologue(): Promise<void> {
+    this.memoryRunning = true;
+    try {
+      const { PROLOGUE_SCRIPT } = await import("../features/memory");
+      const result = await this.runMemory(PROLOGUE_SCRIPT, true);
+      if (result) markPrologueSeen(); // 启动失败（例如没有 WebGL）时不标记，但也不阻塞进入地图
+    } catch (err) {
+      console.error(err);
+    } finally {
+      this.memoryRunning = false;
+    }
+  }
+
+  /** 选中记忆点 A/B/C：优先手写脚本，没有就由数据自动生成 */
+  private async startMemory(zone: ZoneDef, section: SectionKey): Promise<void> {
+    if (this.memoryRunning) return;
+    this.memoryRunning = true;
+    // 在用户点击的调用栈里同步解锁浏览器朗读（iOS Safari 要求），之后的朗读才允许异步触发
+    new Narrator().unlock();
+    try {
+      await this.startMemoryInner(zone, section);
+    } finally {
+      this.memoryRunning = false;
+    }
+  }
+
+  private async startMemoryInner(zone: ZoneDef, section: SectionKey): Promise<void> {
+    const unitId = zone.id.replace("rw3_", "");
+    const unit = this.rw3Units.get(unitId);
+    const ref = this.levelMap.get(zone.id);
+    if (!unit || !ref) {
+      showToast("回忆加载失败");
+      return;
+    }
+    this.dismissWordCard();
+    const words = (unit.word_ids ?? ref.level.word_ids)
+      .map((id) => this.wordMap.get(id))
+      .filter((w): w is WordEntry => Boolean(w));
+    let script: MemoryScript;
+    try {
+      const { resolveMemoryScript } = await import("../features/memory");
+      script = resolveMemoryScript(unit, words, section);
+    } catch (err) {
+      console.error(err);
+      showToast("回忆加载失败");
+      return;
+    }
+    const result = await this.runMemory(script, false);
+    if (result?.completed) {
+      markMemoryDone(script.id, result.wordsSeen);
+      showToast("这段记忆被点亮了 ✦");
+    }
+    // 回到地图，单元探索上下文保留；重新展开单元入口，让玩家看到点亮的记忆点
+    this.show("map");
+    if (this.unitExplore) {
+      this.showUnitEntryCard(zone, this.unitExplore.pickups.length, this.unitExplore.collectedIds.size);
+    }
+  }
+
+  /**
+   * 暂停地图、创建 MemoryStage、跑完脚本、销毁。无论成功与否都会销毁舞台并恢复地图画面。
+   * 返回 null 表示舞台没能启动（例如 WebGL 不可用）。
+   */
+  private async runMemory(script: MemoryScript, gate: boolean): Promise<MemoryResult | null> {
+    const host = this.root.querySelector<HTMLElement>("#screen-memory");
+    if (!host) return null;
+    this.stopRw3Listening();
+    this.show("memory");
+    let stage: { play(s: MemoryScript): Promise<MemoryResult>; dispose(): void } | null = null;
+    try {
+      const { MemoryStage } = await import("../features/memory");
+      stage = new MemoryStage(host, { words: this.wordMap, gate });
+      return await stage.play(script);
+    } catch (err) {
+      console.error(err);
+      showToast("回忆启动失败，已返回地图");
+      return null;
+    } finally {
+      stage?.dispose();
+      host.innerHTML = "";
+      host.classList.remove("active");
+    }
   }
 
   private exitUnitExplore(): void {
