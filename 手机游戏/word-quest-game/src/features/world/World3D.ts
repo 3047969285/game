@@ -2342,6 +2342,11 @@ export class World3D {
           rig.rightLeg.knee.rotation.x = 0.12 + Math.max(0, -swR) * kneeAmp;
           rig.leftArm.rotation.x = -swL * 0.8;
           rig.rightArm.rotation.x = -swR * 0.8;
+          // 肘部随摆臂屈伸；脚踝抵消髋 + 膝的俯仰，使脚掌基本保持水平（蹬地时脚尖略下压）
+          (rig.leftArm.userData.elbow as THREE.Group).rotation.x = -0.25 - Math.max(0, swL) * 0.55;
+          (rig.rightArm.userData.elbow as THREE.Group).rotation.x = -0.25 - Math.max(0, swR) * 0.55;
+          rig.leftLeg.ankle.rotation.x = -(rig.leftLeg.hip.rotation.x + rig.leftLeg.knee.rotation.x) * 0.9 - Math.max(0, swL) * 0.12;
+          rig.rightLeg.ankle.rotation.x = -(rig.rightLeg.hip.rotation.x + rig.rightLeg.knee.rotation.x) * 0.9 - Math.max(0, swR) * 0.12;
           rig.head.rotation.z = 0;
           // 围巾尾端随步伐向身后飘起
           rig.cape.rotation.x = 0.16 + (0.3 + Math.abs(Math.sin(this.walkPhase)) * 0.2) * (sprint ? 1.4 : 1);
@@ -2355,6 +2360,12 @@ export class World3D {
           rig.rightLeg.knee.rotation.x += (0.06 - rig.rightLeg.knee.rotation.x) * k;
           rig.leftArm.rotation.x *= 1 - k;
           rig.rightArm.rotation.x *= 1 - k;
+          const elL = rig.leftArm.userData.elbow as THREE.Group;
+          const elR = rig.rightArm.userData.elbow as THREE.Group;
+          elL.rotation.x += (-0.22 - elL.rotation.x) * k;
+          elR.rotation.x += (-0.22 - elR.rotation.x) * k;
+          rig.leftLeg.ankle.rotation.x *= 1 - k;
+          rig.rightLeg.ankle.rotation.x *= 1 - k;
           rig.head.rotation.z = Math.sin(t * 1.4) * 0.05;
           // 披风静止微摆
           rig.cape.rotation.x += (0.16 - rig.cape.rotation.x) * k;

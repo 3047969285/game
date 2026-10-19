@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { MergedBuilder, type Placement } from "./detailKit";
-import { bootGeometry, handGeometry, handGeometryFor, headGeometry, jacketGeometry, lowerSleeveGeometry, shinGeometry, thighGeometry, upperSleeveGeometry } from "./avatarBody";
+import { bootGeometry, gearGeometry, zipperGeometry, handGeometry, handGeometryFor, headGeometry, jacketGeometry, lowerSleeveGeometry, shinGeometry, thighGeometry, upperSleeveGeometry } from "./avatarBody";
 import { mirrorX } from "./sdf";
 import { seededRand } from "./utils";
 
@@ -10,6 +10,7 @@ import { seededRand } from "./utils";
 export interface LegRig {
   hip: THREE.Group;
   knee: THREE.Group;
+  ankle: THREE.Group;
 }
 
 /** 角色骨骼引用（供走路动画驱动） */
@@ -455,6 +456,7 @@ function makeArm(m: Mats, side: 1 | -1): THREE.Group {
   const elbow = group(0, -0.28, 0);
   elbow.rotation.x = -0.22;
   arm.add(elbow);
+  arm.userData.elbow = elbow;
   const lower = new THREE.Mesh(mir(cache.lower), m.jacket);
   lower.castShadow = true;
   elbow.add(lower);
@@ -488,19 +490,24 @@ function makeLeg(m: Mats, side: 1 | -1): LegRig {
   hip.add(knee);
   const shin = new THREE.Mesh(cache.shin.clone(), m.trousers);
   shin.castShadow = true;
-  const boot = new THREE.Mesh(cache.boot.clone(), m.boot);
+  knee.add(shin);
+  // 踝关节：靴子绕脚踝（膝下 0.43 m）转动，行走时脚掌随之保持水平
+  const ankle = group(0, -0.43, 0);
+  knee.add(ankle);
+  const bootGeo = cache.boot.clone();
+  bootGeo.translate(0, 0.43, 0);
+  const boot = new THREE.Mesh(bootGeo, m.boot);
   boot.castShadow = true;
-  knee.add(shin, boot);
+  ankle.add(boot);
   const laces = new Parts();
   for (let i = 0; i < 5; i++) {
-    laces.box(m.inner, 0.056, 0.005, 0.005, { y: -0.398 - i * 0.002, z: 0.052 + i * 0.016, rx: -0.4 }, 0.002);
-    laces.ball(m.brass, 0.0036, { x: 0.03, y: -0.395 - i * 0.002, z: 0.052 + i * 0.016 }, 6);
-    laces.ball(m.brass, 0.0036, { x: -0.03, y: -0.395 - i * 0.002, z: 0.052 + i * 0.016 }, 6);
+    laces.box(m.inner, 0.056, 0.005, 0.005, { y: 0.032 - i * 0.002, z: 0.052 + i * 0.016, rx: -0.4 }, 0.002);
+    laces.ball(m.brass, 0.0036, { x: 0.03, y: 0.035 - i * 0.002, z: 0.052 + i * 0.016 }, 6);
+    laces.ball(m.brass, 0.0036, { x: -0.03, y: 0.035 - i * 0.002, z: 0.052 + i * 0.016 }, 6);
   }
-  laces.build(knee, "laces");
-  return { hip, knee };
+  laces.build(ankle, "laces");
+  return { hip, knee, ankle };
 }
-
 // ─────────────────────────────────────────────────────────────// ─────────────────────────────────────────────────────────────
 // 躯干：户外夹克（顶点色：领口露出白衬衫）、腰带、双肩背包、围巾
 // ─────────────────────────────────────────────────────────────
@@ -514,18 +521,13 @@ function buildTorsoParts(m: Mats): Parts {
   // 骨盆（裤腰）
   t.box(m.trousers, 0.35, 0.2, 0.21, { y: 0.97 }, 0.06);
   // 腰带：皮带 + 金属扣
-  t.add(new THREE.CylinderGeometry(0.168, 0.17, 0.034, 36, 1), m.leatherDark, { y: 1.04, sx: 1.12, sz: 0.8 });
   t.box(m.brass, 0.034, 0.028, 0.012, { y: 1.04, z: 0.14 }, 0.004);
   // 夹克拉链 + 立领 + 内衬领 + 肩线
-  t.box(m.brass, 0.007, 0.42, 0.006, { y: 1.2, z: 0.126 }, 0.002);
   t.torus(m.jacket, 0.085, 0.024, { y: 1.51, rx: Math.PI / 2, sx: 1.06 }, Math.PI * 2, 26);
   t.torus(m.inner, 0.078, 0.014, { y: 1.532, rx: Math.PI / 2 }, Math.PI * 2, 26);
   for (const s of [-1, 1]) {
-    t.ball(m.jacket, 0.088, { x: s * 0.14, y: 1.49, sy: 0.7 }, 14);
     // 胸前翻盖口袋 + 纽扣
-    t.box(m.jacket, 0.08, 0.07, 0.016, { x: s * 0.085, y: 1.26, z: 0.114, rx: -0.04 }, 0.006);
-    t.box(m.leatherDark, 0.07, 0.016, 0.018, { x: s * 0.085, y: 1.285, z: 0.119 }, 0.004);
-    t.ball(m.brass, 0.005, { x: s * 0.085, y: 1.273, z: 0.126 }, 6);
+    t.ball(m.brass, 0.0048, { x: s * 0.085, y: 1.262, z: 0.112 }, 6);
   }
   // 双肩背包：主仓 + 前袋 + 拉链 + 侧袋水壶 + 肩带 + 胸扣
   t.box(m.leather, 0.29, 0.4, 0.15, { y: 1.27, z: -0.155 }, 0.06);
@@ -534,13 +536,7 @@ function buildTorsoParts(m: Mats): Parts {
   t.box(m.leatherDark, 0.26, 0.05, 0.13, { y: 1.43, z: -0.18 }, 0.02);
   t.cyl(m.scarf, 0.032, 0.032, 0.17, { x: 0.165, y: 1.12, z: -0.16 }, 14);
   t.cyl(m.leatherDark, 0.034, 0.034, 0.02, { x: 0.165, y: 1.205, z: -0.16 }, 14);
-  for (const s of [-1, 1]) {
-    t.box(m.leatherDark, 0.045, 0.34, 0.016, { x: s * 0.1, y: 1.3, z: 0.12 }, 0.005);
-    t.box(m.leatherDark, 0.045, 0.014, 0.27, { x: s * 0.1, y: 1.46, z: -0.035 }, 0.005);
-  }
-  t.box(m.leatherDark, 0.2, 0.016, 0.01, { y: 1.34, z: 0.131 }, 0.003);
-  t.ball(m.brass, 0.006, { y: 1.34, z: 0.138 }, 6);
-  // 围巾：绕颈两圈
+// 围巾：绕颈两圈
   t.torus(m.scarf, 0.074, 0.032, { y: 1.54, rx: Math.PI / 2 }, Math.PI * 2, 26);
   t.torus(m.scarf, 0.082, 0.026, { y: 1.51, rx: Math.PI / 2 - 0.12 }, Math.PI * 2, 26);
   t.ball(m.scarf, 0.044, { x: -0.056, y: 1.5, z: 0.075, sy: 1.1, sz: 0.9 }, 12);
@@ -597,6 +593,10 @@ export function createExplorerAvatar(): THREE.Group {
   const m = createMats();
 
   root.add(buildJacket(m));
+  const gear = new THREE.Mesh(gearGeometry(), m.leatherDark);
+  gear.castShadow = true;
+  const zip = new THREE.Mesh(zipperGeometry(), m.brass);
+  root.add(gear, zip);
   buildTorsoParts(m).build(root, "torso");
 
   const faceRig: { eyeL?: THREE.Mesh; eyeR?: THREE.Mesh; brow?: THREE.Mesh; mouth?: THREE.Mesh } = {};

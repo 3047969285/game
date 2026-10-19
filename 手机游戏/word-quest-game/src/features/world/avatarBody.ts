@@ -125,31 +125,49 @@ export function handGeometryFor(side: 1 | -1, base: THREE.BufferGeometry): THREE
 // ─────────────────────────────────────────────────────────────
 // 服装壳体
 // ─────────────────────────────────────────────────────────────
-/** 户外夹克躯干：胸廓 / 腹 / 臀的连续曲面 + 肩线 + 立领，下摆圆角，领口开孔 */
-export function jacketGeometry(q = 1): THREE.BufferGeometry {
-  const sdf: SDF = (x, y, z) => {
-    const ax = Math.abs(x);
-    let d = sdEllipsoid(ax, y, z, 0, 1.34, 0.0, 0.158, 0.172, 0.1); // 胸
-    d = smin(d, sdEllipsoid(ax, y, z, 0.065, 1.31, 0.026, 0.08, 0.065, 0.075), 0.05); // 胸肌隆起
-    d = smin(d, sdEllipsoid(ax, y, z, 0, 1.14, 0.0, 0.14, 0.17, 0.092), 0.06); // 腰腹
-    d = smin(d, sdEllipsoid(ax, y, z, 0, 0.97, -0.004, 0.155, 0.13, 0.108), 0.06); // 髋臀
-    d = smin(d, sdCone(ax, y, z, 0, 1.47, 0, 0.182, 1.466, -0.004, 0.056, 0.06), 0.05); // 肩线与三角肌上沿
-    d = smin(d, sdCone(ax, y, z, 0, 1.47, -0.02, 0, 1.54, -0.02, 0.1, 0.06), 0.06); // 斜方肌到颈根
-    // 立领
-    d = smin(d, sdTorus(ax, y, z, 0, 1.525, 0.0, 0.074, 0.026), 0.02);
-    // 下摆：在 y=0.88 平面收口并倒圆
-    d = smax(d, 0.88 - y, 0.03);
-    // 领口：沿颈部挖开
-    d = smax(d, -sdCone(ax, y, z, 0, 1.43, -0.006, 0, 1.62, -0.006, 0.058, 0.058), 0.014);
-    // 布料褶皱：低频起伏 + 下摆处更明显
-    const ang = Math.atan2(z, x);
-    const fold = (Math.sin(ang * 7 + y * 13) * 0.5 + Math.sin(ang * 12 - y * 8 + 1.7) * 0.3) * (y < 1.15 ? 0.0055 : 0.0028);
-    d += fold;
-    return d;
-  };
-  return meshFromSDF(sdf, [0, 1.22, -0.005], 0.5, Math.max(24, Math.round(92 * q)), { boundR: 0.55, maxTris: 160000 });
+/** 夹克躯干的连续曲面场：胸廓 / 腹 / 臀 + 肩线 + 立领 + 胸前口袋盖，下摆圆角，领口开孔，布料褶皱 */
+function jacketField(x: number, y: number, z: number): number {
+  const ax = Math.abs(x);
+  let d = sdEllipsoid(ax, y, z, 0, 1.34, 0.0, 0.156, 0.172, 0.1); // 胸
+  d = smin(d, sdEllipsoid(ax, y, z, 0.065, 1.31, 0.026, 0.08, 0.065, 0.075), 0.05); // 胸肌隆起
+  d = smin(d, sdEllipsoid(ax, y, z, 0, 1.14, 0.0, 0.14, 0.17, 0.092), 0.06); // 腰腹
+  d = smin(d, sdEllipsoid(ax, y, z, 0, 0.97, -0.004, 0.155, 0.13, 0.108), 0.06); // 髋臀
+  d = smin(d, sdCone(ax, y, z, 0, 1.475, 0, 0.17, 1.462, -0.004, 0.05, 0.054), 0.075); // 肩线（更圆润的斜肩）
+  d = smin(d, sdCone(ax, y, z, 0, 1.47, -0.02, 0, 1.54, -0.02, 0.095, 0.058), 0.07); // 斜方肌到颈根
+  d = smin(d, sdTorus(ax, y, z, 0, 1.525, 0.0, 0.074, 0.026), 0.02); // 立领
+  // 胸前口袋盖
+  d = smin(d, sdBox(ax, y, z, 0.085, 1.27, 0.094, 0.04, 0.03, 0.014, 0.006), 0.006);
+  d = smax(d, 0.88 - y, 0.03); // 下摆
+  d = smax(d, -sdCone(ax, y, z, 0, 1.43, -0.006, 0, 1.62, -0.006, 0.058, 0.058), 0.014); // 领口
+  const ang = Math.atan2(z, x);
+  d += (Math.sin(ang * 7 + y * 13) * 0.5 + Math.sin(ang * 12 - y * 8 + 1.7) * 0.3) * (y < 1.15 ? 0.0055 : 0.0028);
+  return d;
 }
 
+export function jacketGeometry(q = 1): THREE.BufferGeometry {
+  return meshFromSDF(jacketField, [0, 1.22, -0.005], 0.5, Math.max(24, Math.round(92 * q)), { boundR: 0.55, maxTris: 160000 });
+}
+
+/** 贴合夹克表面的皮革装备：双肩背包肩带（越过肩头垂到背后）、胸扣带、腰带 */
+export function gearGeometry(): THREE.BufferGeometry {
+  const shell = (x: number, y: number, z: number): number => Math.abs(jacketField(x, y, z) - 0.0075) - 0.0075;
+  const sdf: SDF = (x, y, z) => {
+    const ax = Math.abs(x);
+    const strap = sdBox(ax, y, z, 0.093, 1.34, -0.01, 0.022, 0.2, 0.24, 0.004); // 肩带
+    const sternum = sdBox(ax, y, z, 0.05, 1.335, 0.05, 0.05, 0.009, 0.14, 0.003); // 胸扣带
+    const belt = Math.abs(y - 1.045) - 0.017; // 腰带环
+    const region = Math.min(strap, sternum, belt);
+    return Math.max(shell(x, y, z), region);
+  };
+  return meshFromSDF(sdf, [0, 1.25, -0.005], 0.4, 100, { boundR: 0.46, maxTris: 120000 });
+}
+
+/** 夹克前襟拉链（贴合表面的细条） */
+export function zipperGeometry(): THREE.BufferGeometry {
+  const shell = (x: number, y: number, z: number): number => Math.abs(jacketField(x, y, z) - 0.006) - 0.006;
+  const sdf: SDF = (x, y, z) => Math.max(shell(x, y, z), sdBox(x, y, z, 0, 1.2, 0.12, 0.0055, 0.265, 0.1, 0.002));
+  return meshFromSDF(sdf, [0, 1.2, 0.08], 0.3, 80, { boundR: 0.34, maxTris: 40000 });
+}
 /** 上臂袖（臂组局部：肩在原点向下） */
 export function upperSleeveGeometry(q = 1): THREE.BufferGeometry {
   const sdf: SDF = (x, y, z) => {

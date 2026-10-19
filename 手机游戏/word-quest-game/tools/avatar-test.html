@@ -47,7 +47,7 @@ const views = {
 const v = views[view] || views.full;
 cam.position.set(v[0], v[1], v[2]);
 cam.lookAt(v[3], v[4], v[5]);
-if (q.get("pose") === "walk") { const rig = a.userData.rig; rig.leftLeg.hip.rotation.x = 0.5; rig.rightLeg.hip.rotation.x = -0.5; rig.leftLeg.knee.rotation.x = 0.1; rig.rightLeg.knee.rotation.x = 0.6; rig.leftArm.rotation.x = -0.6; rig.rightArm.rotation.x = 0.6; }
+if (q.get("pose") === "walk") { const rig = a.userData.rig; rig.leftLeg.hip.rotation.x = 0.5; rig.rightLeg.hip.rotation.x = -0.5; rig.leftLeg.knee.rotation.x = 0.1; rig.rightLeg.knee.rotation.x = 0.6; rig.leftArm.rotation.x = -0.6; rig.rightArm.rotation.x = 0.6; rig.leftLeg.ankle.rotation.x = -(0.5 + 0.1) * 0.9; rig.rightLeg.ankle.rotation.x = -(-0.5 + 0.6) * 0.9; rig.leftArm.userData.elbow.rotation.x = -0.25 - 0.33; rig.rightArm.userData.elbow.rotation.x = -0.25; }
 r.render(s, cam);
 r.compile(s, cam);
 r.render(s, cam);
