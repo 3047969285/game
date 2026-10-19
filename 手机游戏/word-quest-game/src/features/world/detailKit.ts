@@ -265,7 +265,7 @@ export function createKitMaterials(): KitMaterials {
     rock: std(0x7b7d80, 0.95),
     terracottaRoof: std(0xb5654a, 0.82),
     glass: (() => {
-      const g = new THREE.MeshPhysicalMaterial({ color: 0x1f4a5c, roughness: 0.06, metalness: 0.1, transparent: true, opacity: 0.78, clearcoat: 1 });
+      const g = new THREE.MeshPhysicalMaterial({ color: 0x6f9fb0, roughness: 0.04, metalness: 0.0, transparent: true, opacity: 0.34, clearcoat: 1, envMapIntensity: 1.6, depthWrite: false });
       g.fog = false;
       return g;
     })(),

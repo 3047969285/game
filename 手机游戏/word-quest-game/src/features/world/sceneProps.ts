@@ -399,26 +399,63 @@ export function ship(k: SceneKit, f: Frame, L = 3.2, masts = 1, sail: THREE.Mate
   const geo = new THREE.ExtrudeGeometry(s, { depth: W, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.03, bevelSegments: 1 });
   geo.translate(0, 0, -W / 2);
   f.put(geo, hull, 0, 0.05, 0);
+  // 舷墙、栏杆、甲板、船尾楼
   f.box(k.p.fabricRed, L * 0.98, 0.05, 0.04, 0, H * 0.95, W / 2 + 0.02, 0.01);
   f.box(k.p.fabricRed, L * 0.98, 0.05, 0.04, 0, H * 0.95, -W / 2 - 0.02, 0.01);
   f.box(m.wood, L * 0.9, 0.04, W * 0.92, 0, H * 0.9, 0, 0.01);
+  for (let i = 0; i < 9; i++) for (const sz of [-1, 1]) f.box(m.woodDark, 0.02, H * 0.22, 0.02, -L * 0.42 + i * L * 0.1, H * 0.95, sz * (W / 2 - 0.02), 0.004);
   f.box(m.woodDark, L * 0.22, H * 0.55, W * 0.7, -L * 0.3, H * 0.92, 0, 0.02);
   f.box(m.slate, L * 0.1, 0.1, 0.02, -L * 0.3, H * 1.25, W * 0.36, 0.005);
+  // 舵：舵柄 + 舵叶
+  f.box(m.woodDark, 0.02, H * 0.6, W * 0.12, -L / 2 - 0.02, H * 0.2, 0, 0.004);
+  f.strut(m.woodDark, [-L / 2 - 0.02, H * 0.75, 0], [-L / 2 + 0.2, H * 1.0, 0], 0.012, 5);
+  // 船头斜桅与前帆
+  f.strut(m.woodDark, [L / 2 - 0.1, H * 0.95, 0], [L / 2 + 0.28, H * 1.35, 0], 0.02, 6);
+  // 锚 + 缆绳盘
+  f.put(new THREE.TorusGeometry(0.05, 0.01, 6, 14, Math.PI), m.darkSteel, L * 0.36, H * 0.9, W / 2 + 0.05, 0, 0, Math.PI);
+  f.strut(m.darkSteel, [L * 0.36, H * 0.9, W / 2 + 0.05], [L * 0.36, H * 0.9 + 0.14, W / 2 + 0.05], 0.008, 4);
+  f.cyl(m.wood, 0.07, 0.07, 0.04, L * 0.2, H * 0.93, W * 0.25, 12);
   const step = L * 0.5 / Math.max(1, masts);
   for (let i = 0; i < masts; i++) {
     const x = L * 0.12 - i * step * 0.9;
     const mh = L * (0.95 - i * 0.12);
-    f.cyl(m.woodDark, 0.025, 0.04, mh, x, H * 0.92, 0, 10);
-    f.box(m.woodDark, 0.03, 0.03, L * 0.3, x, H * 0.92 + mh * 0.32, -L * 0.04, 0.005);
-    const sg = new THREE.PlaneGeometry(L * 0.3, mh * 0.62, 8, 10);
+    const base = H * 0.92;
+    f.cyl(m.woodDark, 0.022, 0.04, mh, x, base, 0, 10);
+    // 帆桁：上桁（帆顶）与下桁（帆脚），帆挂在两桁之间
+    const top = base + mh * 0.92;
+    const bot = base + mh * 0.3;
+    const sw = L * 0.34;
+    f.strut(m.woodDark, [x, top, -sw / 2], [x, top, sw / 2], 0.014, 6);
+    f.strut(m.woodDark, [x, bot, -sw / 2 * 1.1], [x, bot, sw / 2 * 1.1], 0.016, 6);
+    // 帆：横帆（宽沿船宽 z，鼓向船首 +x），上窄下宽的梯形，带横向补丁缝线
+    const sg = new THREE.PlaneGeometry(1, 1, 12, 10);
     const pos = sg.attributes.position;
-    for (let v = 0; v < pos.count; v++) pos.setZ(v, Math.cos((pos.getX(v) / (L * 0.3)) * Math.PI) * 0.12 * L * 0.3 + 0.02);
+    const sh = top - bot;
+    for (let v = 0; v < pos.count; v++) {
+      const u = pos.getX(v) + 0.5;
+      const w = pos.getY(v) + 0.5;
+      const half = (sw / 2) * (0.78 + 0.22 * (1 - w));
+      const px = (u - 0.5) * 2 * half;
+      const py = bot + w * sh;
+      const bulge = Math.sin(u * Math.PI) * Math.sin(w * Math.PI * 0.9 + 0.2) * 0.1 * L * 0.3;
+      pos.setXYZ(v, bulge, py, px);
+    }
     sg.computeVertexNormals();
-    f.put(sg, sail, x, H * 0.92 + mh * 0.66, 0, 0, Math.PI / 2 - Math.PI / 2, 0);
-    f.strut(m.steel, [x, H * 0.92 + mh, 0], [L / 2 + 0.05, H * 0.9, 0], 0.008, 4);
-    f.strut(m.steel, [x, H * 0.92 + mh, 0], [-L / 2, H * 1.0, 0], 0.008, 4);
+    f.put(sg, sail, x, 0, 0);
+    for (let q = 1; q < 5; q++) f.strut(m.woodDark, [x + 0.012, bot + (sh * q) / 5, -sw / 2 * 0.86], [x + 0.012, bot + (sh * q) / 5, sw / 2 * 0.86], 0.004, 4);
+    // 桅顶：望斗 + 旗；横桅索梯
+    f.cyl(m.woodDark, 0.07, 0.06, 0.04, x, top + 0.02, 0, 10);
+    f.strut(m.steel, [x, base + mh, 0], [L / 2 + 0.05, H * 0.9, 0], 0.008, 4);
+    f.strut(m.steel, [x, base + mh, 0], [-L / 2, H * 1.0, 0], 0.008, 4);
+    for (const sz of [-1, 1]) {
+      f.strut(m.steel, [x, top, 0], [x, H * 0.95, sz * (W / 2 + 0.03)], 0.006, 4);
+      for (let r = 1; r < 6; r++) {
+        const t = r / 6;
+        f.strut(m.steel, [x, top - (top - H * 0.95) * t, sz * (W / 2 + 0.03) * t], [x + 0.001, top - (top - H * 0.95) * t, sz * (W / 2 + 0.03) * t + 0.0], 0.004, 3);
+      }
+    }
+    if (i === 0) f.box(k.p.fabricRed, 0.22, 0.14, 0.01, x + 0.11, base + mh + 0.06, 0.0, 0.003);
   }
-  f.box(k.p.fabricRed, 0.22, 0.14, 0.01, L * 0.12, H * 0.92 + L * 0.93, 0.0, 0.003);
 }
 
 /** 帐篷（救援站）：四根柱 + 倾斜帆布顶 + 前檐 */
