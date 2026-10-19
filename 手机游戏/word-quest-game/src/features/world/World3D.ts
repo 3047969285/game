@@ -956,8 +956,7 @@ export class World3D {
         topColor: { value: new THREE.Color(0x3a5a8a) },
         midColor: { value: new THREE.Color(0x5a7aaa) },
         bottomColor: { value: new THREE.Color(0x0a1020) },
-        offset: { value: 22 },
-        exponent: { value: 0.52 },
+        horizonColor: { value: new THREE.Color(0xbdd0dc) },
         sunDir: { value: new THREE.Vector3(0.5, 0.72, 0.36).normalize() },
         sunColor: { value: new THREE.Color(0xfff0c8) },
         uTime: { value: 0 },
@@ -971,8 +970,8 @@ export class World3D {
         }
       `,
       fragmentShader: `
-        uniform vec3 topColor, midColor, bottomColor, sunColor, sunDir;
-        uniform float offset, exponent, uTime;
+        uniform vec3 topColor, midColor, bottomColor, horizonColor, sunColor, sunDir;
+        uniform float uTime;
         varying vec3 vWorldPosition;
         float sHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
         float sNoise(vec2 p) {
@@ -982,37 +981,61 @@ export class World3D {
         }
         float sFbm(vec2 p) {
           float v = 0.0, a = 0.5;
-          for (int i = 0; i < 5; i++) { v += a * sNoise(p); p = p * 2.03 + 11.7; a *= 0.5; }
+          for (int i = 0; i < 6; i++) { v += a * sNoise(p); p = p * 2.07 + 13.1; a *= 0.5; }
           return v;
         }
+        // 积云密度：基础覆盖 + 边缘侵蚀
+        float cumulus(vec2 p, float t) {
+          vec2 q = p + vec2(t * 0.010, t * 0.004);
+          float base = sFbm(q * 0.9);
+          float detail = sFbm(q * 3.2 + 7.0);
+          return smoothstep(0.55, 0.8, base * 0.82 + detail * 0.26);
+        }
         void main() {
-          float h = normalize(vWorldPosition + offset).y;
-          vec3 col = mix(bottomColor, midColor, smoothstep(-0.15, 0.35, h));
-          col = mix(col, topColor, smoothstep(0.25, 0.95, h));
-
           vec3 dir = normalize(vWorldPosition - cameraPosition);
-          float sd = max(dot(dir, normalize(sunDir)), 0.0);
-          // 地平线暖色雾带 + 太阳方向的大气散射
-          float horizon = exp(-abs(dir.y) * 7.0);
-          col += sunColor * horizon * (0.05 + pow(sd, 4.0) * 0.28);
-          col += sunColor * pow(sd, 18.0) * 0.22;
+          float h = dir.y;
+          vec3 sd3 = normalize(sunDir);
+          float sd = max(dot(dir, sd3), 0.0);
 
-          // 程序化云层：投影到高处平面，随时间缓慢漂移，向阳面被染亮
-          if (dir.y > 0.02) {
-            vec2 cp = dir.xz / (dir.y + 0.22) * 1.35 + vec2(uTime * 0.012, uTime * 0.005);
-            float cover = sFbm(cp);
-            float c = smoothstep(0.52, 0.8, cover);
-            float edge = smoothstep(0.52, 0.66, cover) - smoothstep(0.66, 0.84, cover) * 0.5;
-            vec3 cloudCol = mix(vec3(0.82, 0.86, 0.92), vec3(1.0), c) * (0.78 + 0.3 * pow(sd, 3.0));
-            cloudCol += sunColor * pow(sd, 6.0) * 0.22 * edge;
-            float fadeHorizon = smoothstep(0.02, 0.28, dir.y);
-            col = mix(col, cloudCol, c * 0.72 * fadeHorizon);
+          // 天色：地平线雾色 → 中层 → 天顶，指数过渡让地平线带更宽更柔
+          float up = clamp(h, 0.0, 1.0);
+          vec3 col = mix(horizonColor, midColor, pow(smoothstep(0.0, 0.75, up), 0.9));
+          col = mix(col, topColor, pow(smoothstep(0.25, 1.0, up), 0.9));
+          col = mix(col, bottomColor, smoothstep(0.0, -0.35, h) * 0.55);
+          // 地平线下方直接用雾色（和远处地形 / 山体融为一体）
+          col = mix(col, horizonColor, smoothstep(0.02, -0.06, h));
+
+          // 太阳：核心 + 光晕 + 米氏前向散射（靠近地平线更暖）
+          float warm = 1.0 - clamp(sd3.y * 1.6, 0.0, 1.0);
+          vec3 sunTint = mix(sunColor, vec3(1.0, 0.62, 0.34), warm * 0.7);
+          col += sunTint * pow(sd, 6.0) * 0.18;
+          col += sunTint * pow(sd, 64.0) * 0.55;
+          col += sunTint * smoothstep(0.9993, 0.9998, sd) * 2.4;
+          col += sunTint * exp(-abs(h) * 6.0) * (0.04 + pow(sd, 3.0) * 0.32);
+
+          // 云：积云层（有明暗体积）+ 高空卷云
+          if (h > 0.015) {
+            vec2 cp = dir.xz / (h + 0.28) * 1.15;
+            float d = cumulus(cp, uTime);
+            // 向太阳方向偏移采样一次：密度差决定受光面 / 背光面
+            float dS = cumulus(cp + sd3.xz * 0.075, uTime);
+            float lit = clamp(0.62 + (d - dS) * 3.2, 0.0, 1.0);
+            vec3 shade = mix(vec3(0.54, 0.6, 0.7), vec3(1.02, 0.99, 0.96), lit);
+            shade = mix(shade, shade * vec3(1.0, 0.86, 0.72), warm * 0.5);
+            shade += sunTint * pow(sd, 5.0) * 0.28 * (1.0 - d * 0.5);
+            // 云底更暗，云顶边缘透光
+            shade *= 0.88 + 0.12 * smoothstep(0.0, 0.5, d);
+            float fadeH = smoothstep(0.015, 0.2, h);
+            col = mix(col, shade, d * 0.94 * fadeH);
+
+            vec2 ci = dir.xz / (h + 0.1) * vec2(0.5, 1.9) + vec2(uTime * 0.006, 0.0);
+            float cir = smoothstep(0.52, 0.88, sFbm(ci * 1.4)) * smoothstep(0.18, 0.6, h);
+            col = mix(col, vec3(1.0), cir * 0.2);
           }
           gl_FragColor = vec4(col, 1.0);
         }
       `,
-    });
-    this.skyDome = new THREE.Mesh(new THREE.SphereGeometry(560, 48, 32), mat);
+    });    this.skyDome = new THREE.Mesh(new THREE.SphereGeometry(560, 48, 32), mat);
     this.scene.add(this.skyDome);
 
     const positions = new Float32Array(2000 * 3);
@@ -1030,7 +1053,7 @@ export class World3D {
     this.scene.add(
       new THREE.Points(
         starsGeo,
-        new THREE.PointsMaterial({ color: 0xe8eef8, size: 0.42, transparent: true, opacity: 0.1, sizeAttenuation: true })
+        new THREE.PointsMaterial({ color: 0xe8eef8, size: 0.42, transparent: true, opacity: 0.0, sizeAttenuation: true, visible: false })
       )
     );
 
@@ -1202,7 +1225,7 @@ export class World3D {
     geo.needsUpdate = true;
     const mat = this.motes.material as THREE.PointsMaterial;
     mat.color.setHex(this.currentBiome.sunColor);
-    mat.opacity = 0.42 + Math.sin(t * 0.8) * 0.1;
+    mat.opacity = 0.26 + Math.sin(t * 0.8) * 0.07;
   }
 
   /** 在指定位置喷出几缕扬尘 */
@@ -1315,6 +1338,7 @@ export class World3D {
     mat.uniforms.topColor.value.setHex(biome.skyTop);
     mat.uniforms.midColor.value.setHex(biome.skyMid);
     mat.uniforms.bottomColor.value.setHex(biome.skyBot);
+    mat.uniforms.horizonColor.value.setHex(biome.fogColor);
     mat.needsUpdate = true;
   }
 
@@ -1754,6 +1778,7 @@ export class World3D {
       group.add(sprite);
     }
     this.clouds = group;
+    group.visible = false; // 体积云由天空着色器负责，精灵云块太糊
     this.scene.add(group);
   }
 
@@ -2541,6 +2566,7 @@ export class World3D {
     // 云层缓慢漂移；天空着色器同步太阳方向与时间
     if (this.clouds) this.clouds.rotation.y = t * 0.006;
     if (this.skyDome) {
+      this.skyDome.position.copy(this.camera.position);
       const u = (this.skyDome.material as THREE.ShaderMaterial).uniforms;
       u.uTime.value = t;
       u.sunDir.value.copy(this.sunDirV);
