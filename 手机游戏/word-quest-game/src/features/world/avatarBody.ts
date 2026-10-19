@@ -49,11 +49,11 @@ function withFaceColors(geo: THREE.BufferGeometry): THREE.BufferGeometry {
 export function headGeometry(q = 1): THREE.BufferGeometry {
   const sdf: SDF = (x, y, z) => {
     const ax = Math.abs(x);
-    let d = sdEllipsoid(ax, y, z, 0, 0.217, -0.018, 0.078, 0.09, 0.098); // 颅（后脑更饱满）
-    d = smin(d, sdEllipsoid(ax, y, z, 0, 0.183, 0.02, 0.066, 0.08, 0.068), 0.045); // 面部
-    d = smin(d, sdCone(ax, y, z, 0.046, 0.144, -0.014, 0, 0.098, 0.058, 0.025, 0.021), 0.03); // 下颌到下巴
+    let d = sdEllipsoid(ax, y, z, 0, 0.217, -0.018, 0.074, 0.09, 0.098); // 颅（后脑更饱满）
+    d = smin(d, sdEllipsoid(ax, y, z, 0, 0.183, 0.02, 0.06, 0.082, 0.068), 0.045); // 面部
+    d = smin(d, sdCone(ax, y, z, 0.042, 0.146, -0.014, 0, 0.098, 0.059, 0.023, 0.02), 0.03); // 下颌到下巴
     d = smin(d, sdSphere(ax, y, z, 0, 0.094, 0.06, 0.0215), 0.02); // 下巴
-    d = smin(d, sdSphere(ax, y, z, 0.052, 0.176, 0.046, 0.024), 0.03); // 颧骨
+    d = smin(d, sdSphere(ax, y, z, 0.048, 0.176, 0.046, 0.0225), 0.03); // 颧骨
     d = smin(d, sdEllipsoid(ax, y, z, 0.04, 0.155, 0.048, 0.017, 0.02, 0.014), 0.03); // 脸颊
     d = smin(d, sdCone(ax, y, z, 0, 0.212, 0.078, 0.046, 0.207, 0.069, 0.0115, 0.0105), 0.02); // 眉弓
     // 鼻：鼻梁 + 鼻头 + 鼻翼
