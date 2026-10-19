@@ -103,6 +103,13 @@ const PICKUP_RADIUS = 5;
 /** 环境微粒的环绕盒尺寸（水平）与浮动高度 */
 const MOTE_BOX = 70;
 const MOTE_HEIGHT = 12;
+/** 云影：低频正弦叠加的移动明暗（地形与草共用），返回 0.82–1.04 的亮度系数 */
+const cloudTime = { value: 0 };
+const CLOUD_GLSL = `float cloudK(vec2 p, float t) {
+  float k = sin(p.x * 0.017 + t * 0.35) + sin(p.y * 0.021 - t * 0.28 + 1.3) + sin((p.x + p.y) * 0.011 + t * 0.2);
+  return 0.82 + 0.22 * smoothstep(-1.2, 1.6, k);
+}
+`;
 const WARM_SUN = new THREE.Color(0xffb36b);
 
 /** 朝向计算常量 */
@@ -1511,12 +1518,15 @@ export class World3D {
     });
     // 去重复：第二层不同尺度 / 偏移的细节采样 + 世界空间低频明暗斑，消除远处平铺条纹
     terrainMat.onBeforeCompile = (shader) => {
+      shader.uniforms.uCloudT = cloudTime;
       shader.vertexShader = "varying vec3 vTerrWorld;\n" + shader.vertexShader.replace(
         "#include <begin_vertex>",
         `#include <begin_vertex>
          vTerrWorld = (modelMatrix * vec4(transformed, 1.0)).xyz;`
       );
       shader.fragmentShader = `
+        uniform float uCloudT;
+        ${CLOUD_GLSL}
         varying vec3 vTerrWorld;
         float tHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
         float tNoise(vec2 p) {
@@ -1532,7 +1542,8 @@ export class World3D {
            diffuseColor.rgb *= mix(vec3(1.0), tSecond.rgb / 0.86, 0.5);
          #endif
          float tMacro = tNoise(vTerrWorld.xz * 0.035) * 0.6 + tNoise(vTerrWorld.xz * 0.15) * 0.4;
-         diffuseColor.rgb *= 0.88 + tMacro * 0.24;`
+         diffuseColor.rgb *= 0.88 + tMacro * 0.24;
+         diffuseColor.rgb *= cloudK(vTerrWorld.xz, uCloudT);`
       ).replace(
         "#include <fog_fragment>",
         `#ifdef USE_FOG
@@ -1543,7 +1554,7 @@ export class World3D {
          #endif`
       );
     };
-    terrainMat.customProgramCacheKey = () => "terrain-v2";
+    terrainMat.customProgramCacheKey = () => "terrain-v3";
     this.terrain = new THREE.Mesh(geo, terrainMat);
     this.terrain.receiveShadow = true;
     this.terrain.position.set(0, TERRAIN_ORIGIN_Y, TERRAIN_ORIGIN_Z);
@@ -1650,14 +1661,17 @@ export class World3D {
     mat.onBeforeCompile = (shader) => {
       shader.uniforms.uTime = { value: 0 };
       shader.uniforms.uPlayer = { value: new THREE.Vector3(0, 0, 0) };
+      shader.uniforms.uCloudT = cloudTime;
       shader.uniforms.uFade = { value: new THREE.Vector2(this.grassRadius * 0.55, this.grassRadius * 0.96) };
       this.grassUniforms = shader.uniforms as { uTime: { value: number }; uPlayer: { value: THREE.Vector3 } };
-      shader.vertexShader = "uniform float uTime;\nuniform vec3 uPlayer;\nuniform vec2 uFade;\n" + shader.vertexShader;
+      shader.vertexShader = "uniform float uTime;\nuniform vec3 uPlayer;\nuniform vec2 uFade;\nuniform float uCloudT;\nvarying float vCloud;\n" + CLOUD_GLSL + shader.vertexShader;
+      shader.fragmentShader = "varying float vCloud;\n" + shader.fragmentShader.replace("#include <color_fragment>", "#include <color_fragment>\n diffuseColor.rgb *= vCloud;");
       shader.vertexShader = shader.vertexShader.replace(
         "#include <begin_vertex>",
         `#include <begin_vertex>
          float gH = position.y / ${GRASS_TUFT_HEIGHT.toFixed(3)};
          vec4 gWp = instanceMatrix * vec4(0.0, 0.0, 0.0, 1.0);
+         vCloud = cloudK(gWp.xz, uCloudT);
          float gPh = gWp.x * 0.12 + gWp.z * 0.12;
          float gSway = sin(uTime * 1.5 + gPh) * 0.16 + sin(uTime * 2.7 + gPh * 1.6) * 0.06;
          transformed.x += gSway * gH;
@@ -2519,6 +2533,7 @@ export class World3D {
     // 草地风吹 + 角色踩踏
     if (this.grassUniforms) {
       this.grassUniforms.uTime.value = t;
+      cloudTime.value = t;
       this.grassUniforms.uPlayer.value.copy(this.player.position);
     }
     this.updateGrassPlacement();
