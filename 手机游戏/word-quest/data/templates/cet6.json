@@ -1566,7 +1566,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "listening:cet6_l01"
+            "listening:cet6_l_01"
           ],
           "boss": false
         },
@@ -1577,7 +1577,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "listening:cet6_l02"
+            "listening:cet6_l_02"
           ],
           "boss": false
         },
@@ -1588,7 +1588,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "listening:cet6_l03"
+            "listening:cet6_l_03"
           ],
           "boss": false
         },
@@ -1599,7 +1599,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "listening:cet6_l04"
+            "listening:cet6_l_04"
           ],
           "boss": false
         },
@@ -1610,7 +1610,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "listening:cet6_l05"
+            "listening:cet6_l_05"
           ],
           "boss": false
         },
@@ -1621,7 +1621,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "listening:cet6_l06"
+            "listening:cet6_l_06"
           ],
           "boss": false
         },
@@ -1632,7 +1632,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "listening:cet6_l07"
+            "listening:cet6_l_07"
           ],
           "boss": false
         },
@@ -1643,7 +1643,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "listening:cet6_l08"
+            "listening:cet6_l_08"
           ],
           "boss": false
         },
@@ -1654,7 +1654,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "listening:cet6_l09"
+            "listening:cet6_l_09"
           ],
           "boss": false
         },
@@ -1665,7 +1665,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "listening:cet6_l10"
+            "listening:cet6_l_10"
           ],
           "boss": false
         },
@@ -1676,7 +1676,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "listening:cet6_l11"
+            "listening:cet6_l_11"
           ],
           "boss": false
         },
@@ -1687,7 +1687,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "listening:cet6_l12"
+            "listening:cet6_l_12"
           ],
           "boss": false
         },
@@ -1698,7 +1698,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "listening:cet6_l13"
+            "listening:cet6_l_13"
           ],
           "boss": false
         },
@@ -1709,7 +1709,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "listening:cet6_l14"
+            "listening:cet6_l_14"
           ],
           "boss": false
         },
@@ -1720,7 +1720,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "listening:cet6_l15"
+            "listening:cet6_l_15"
           ],
           "boss": false
         }
@@ -1741,7 +1741,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "reading:cet6_r01"
+            "reading:cet6_r_01"
           ],
           "boss": false
         },
@@ -1752,7 +1752,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "reading:cet6_r02"
+            "reading:cet6_r_02"
           ],
           "boss": false
         },
@@ -1763,7 +1763,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "reading:cet6_r03"
+            "reading:cet6_r_03"
           ],
           "boss": false
         },
@@ -1774,7 +1774,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "reading:cet6_r04"
+            "reading:cet6_r_04"
           ],
           "boss": false
         },
@@ -1785,7 +1785,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "reading:cet6_r05"
+            "reading:cet6_r_05"
           ],
           "boss": false
         },
@@ -1796,7 +1796,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "reading:cet6_r06"
+            "reading:cet6_r_06"
           ],
           "boss": false
         },
@@ -1807,7 +1807,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "reading:cet6_r07"
+            "reading:cet6_r_07"
           ],
           "boss": false
         },
@@ -1818,7 +1818,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "reading:cet6_r08"
+            "reading:cet6_r_08"
           ],
           "boss": false
         },
@@ -1829,7 +1829,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "reading:cet6_r09"
+            "reading:cet6_r_09"
           ],
           "boss": false
         },
@@ -1840,7 +1840,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "reading:cet6_r10"
+            "reading:cet6_r_10"
           ],
           "boss": false
         },
@@ -1851,7 +1851,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "reading:cet6_r11"
+            "reading:cet6_r_11"
           ],
           "boss": false
         },
@@ -1862,7 +1862,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "reading:cet6_r12"
+            "reading:cet6_r_12"
           ],
           "boss": false
         },
@@ -1873,7 +1873,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "reading:cet6_r13"
+            "reading:cet6_r_13"
           ],
           "boss": false
         },
@@ -1884,7 +1884,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "reading:cet6_r14"
+            "reading:cet6_r_14"
           ],
           "boss": false
         },
@@ -1895,7 +1895,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "reading:cet6_r15"
+            "reading:cet6_r_15"
           ],
           "boss": false
         }
@@ -1916,7 +1916,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "translation:cet6_t01"
+            "translation:cet6_t_01"
           ],
           "boss": false
         },
@@ -1927,7 +1927,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "translation:cet6_t02"
+            "translation:cet6_t_02"
           ],
           "boss": false
         },
@@ -1938,7 +1938,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "translation:cet6_t03"
+            "translation:cet6_t_03"
           ],
           "boss": false
         },
@@ -1949,7 +1949,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "translation:cet6_t04"
+            "translation:cet6_t_04"
           ],
           "boss": false
         },
@@ -1960,7 +1960,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "translation:cet6_t05"
+            "translation:cet6_t_05"
           ],
           "boss": false
         },
@@ -1971,7 +1971,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "translation:cet6_t06"
+            "translation:cet6_t_06"
           ],
           "boss": false
         },
@@ -1982,7 +1982,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "translation:cet6_t07"
+            "translation:cet6_t_07"
           ],
           "boss": false
         },
@@ -1993,7 +1993,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "translation:cet6_t08"
+            "translation:cet6_t_08"
           ],
           "boss": false
         },
@@ -2004,7 +2004,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "translation:cet6_t09"
+            "translation:cet6_t_09"
           ],
           "boss": false
         },
@@ -2015,7 +2015,7 @@
           "stamina_cost": 2,
           "word_ids": [],
           "content_refs": [
-            "translation:cet6_t10"
+            "translation:cet6_t_10"
           ],
           "boss": false
         }

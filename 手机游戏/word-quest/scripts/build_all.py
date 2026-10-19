@@ -11,6 +11,7 @@ SCRIPTS = [
     "enrich_rw3_vocab.py",   # 覆盖词汇，添加音标/例句译文/搭配
     "build_exam_content.py",
     "build_templates.py",
+    "validate_data.py",    # 引用、计数、ID 与答案校验
 ]
 
 
