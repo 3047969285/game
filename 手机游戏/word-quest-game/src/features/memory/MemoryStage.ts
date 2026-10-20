@@ -38,6 +38,7 @@ export interface MemoryStageOptions {
   quality?: QualityTier;
   /** 开场用：先等一次轻触（拿到浏览器朗读所需的用户手势） */
   gate?: boolean;
+  onMusicScene?: (scene: "memory" | "study") => void;
 }
 
 interface WordObj {
@@ -676,6 +677,7 @@ export class MemoryStage {
   }
 
   private setPov(pov: Pov): void {
+    this.opts.onMusicScene?.(pov === "paper" ? "study" : "memory");
     if (pov !== "me" && this.meViewer) {
       this.meViewer.root.visible = true;
       this.meViewer = null;
@@ -1338,6 +1340,7 @@ export class MemoryStage {
     const organizer = this.organizerActor();
     this.enterFirstPerson(this.studentId(), organizer?.actor.name ?? "", organizer ? undefined : { x: 0, y: 1.3, z: -1.5 });
     this.hud.setPov(pov === "paper" ? "paper" : "me");
+    this.opts.onMusicScene?.(pov === "paper" ? "study" : "memory");
   }
 
   private async ensureBuilt(act: MemoryAct): Promise<void> {

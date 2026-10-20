@@ -1,0 +1,106 @@
+{
+  "tracks": [
+    {
+      "id": "explore",
+      "title": "光下的远行",
+      "bpm": 80,
+      "key": "D major",
+      "bars": 32,
+      "duration": 96.0,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 0.76,
+      "rms": 0.09904,
+      "loopJoinDelta": 0.0,
+      "sha256": "b5d362b5da1d8003df8616ab8f1855a166b44f2bb44538dc5e69a0864a4f0bc0",
+      "bytes": 1828408
+    },
+    {
+      "id": "memory",
+      "title": "把昨天轻轻拾起",
+      "bpm": 64,
+      "key": "A major / F sharp minor",
+      "bars": 24,
+      "duration": 90.0,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 0.76,
+      "rms": 0.07931,
+      "loopJoinDelta": 0.0,
+      "sha256": "f666e60c0ca87a2c70b55d73af2092c061351795d668d647bbc0630c53d0cd59",
+      "bytes": 1634883
+    },
+    {
+      "id": "study",
+      "title": "窗边的专注",
+      "bpm": 60,
+      "key": "C major / A minor",
+      "bars": 24,
+      "duration": 96.0,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 0.76,
+      "rms": 0.07544,
+      "loopJoinDelta": 0.0,
+      "sha256": "68cb7e7a6c38456fef760c745a6010b84d9e83eb423f9f75893e8fd67b8ca9a2",
+      "bytes": 1666726
+    }
+  ],
+  "samples": {
+    "repository": "https://github.com/sgossner/VCSL",
+    "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+    "license": "CC0-1.0",
+    "credit": "Versilian Studios / Sam Gossner; Kawai grand piano and concert harp",
+    "samples": [
+      {
+        "file": "piano-c2.wav",
+        "instrument": "piano",
+        "midi": 48,
+        "path": "Chordophones/Zithers/Grand Piano, Kawai/Sustains/GPiano_sus_C2_v2_rr1_Player.wav",
+        "sha256": "00838dbdbcb0dffd02529c38fa84bc514931634b485fc2ad6ecc62fe98d27a62"
+      },
+      {
+        "file": "piano-c3.wav",
+        "instrument": "piano",
+        "midi": 60,
+        "path": "Chordophones/Zithers/Grand Piano, Kawai/Sustains/GPiano_sus_C3_v2_rr1_Player.wav",
+        "sha256": "fce33012fe900309abafd1a4d6d254d142b0cbf33834c7a72c2fd1ada4e746e1"
+      },
+      {
+        "file": "piano-c4.wav",
+        "instrument": "piano",
+        "midi": 72,
+        "path": "Chordophones/Zithers/Grand Piano, Kawai/Sustains/GPiano_sus_C4_v2_rr1_Player.wav",
+        "sha256": "69845de40a38ed6501746520f9f385ae56200a4372faed48178e64a32a75e58c"
+      },
+      {
+        "file": "piano-c5.wav",
+        "instrument": "piano",
+        "midi": 84,
+        "path": "Chordophones/Zithers/Grand Piano, Kawai/Sustains/GPiano_sus_C5_v2_rr1_Player.wav",
+        "sha256": "f56e64651eed9bdc88abb53eff3beb9a6e89d787f29fef7758f04b6da09397c9"
+      },
+      {
+        "file": "piano-c6.wav",
+        "instrument": "piano",
+        "midi": 96,
+        "path": "Chordophones/Zithers/Grand Piano, Kawai/Sustains/GPiano_sus_C6_v2_rr1_Player.wav",
+        "sha256": "25464db09fe4a25cac979c507fef3efd507cc43369761f9e27488330e6e2a264"
+      },
+      {
+        "file": "harp-c3.wav",
+        "instrument": "harp",
+        "midi": 48,
+        "path": "Chordophones/Composite Chordophones/Concert Harp/KSHarp_C3_mf3.wav",
+        "sha256": "18e6222e8fc11a8106e8d7a875d208835eb5b45598f010b21c786b1482e09869"
+      },
+      {
+        "file": "harp-c5.wav",
+        "instrument": "harp",
+        "midi": 72,
+        "path": "Chordophones/Composite Chordophones/Concert Harp/KSHarp_C5_mf1.wav",
+        "sha256": "7c8b862f6fd3f1442ed87537af976d84bda8c05a5b4900e8907d570b5202a517"
+      }
+    ]
+  }
+}

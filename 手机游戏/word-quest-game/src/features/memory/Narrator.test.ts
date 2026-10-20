@@ -1,6 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { Narrator, SECONDS_PER_WORD, setNarratorFast, setNarratorRate, splitWords } from "./Narrator";
 
+import { onSpeechActivity } from "../../infra/speechActivity";
+
 const g = globalThis as Record<string, unknown>;
 
 describe("Narrator 计时降级（没有 speechSynthesis）", () => {
@@ -99,6 +101,27 @@ describe("Narrator：引擎被拦截时 1.5 秒后降级为计时", () => {
     await vi.advanceTimersByTimeAsync(1500 - 1400 + n * SECONDS_PER_WORD * 1000 + 300);
     await p;
     expect(done).toBe(true);
+  });
+
+  it("真正发声才占用配乐焦点，结束或取消释放；迟到的开始事件不能再次压低音乐", async () => {
+    const synth = g.speechSynthesis as { speak: ReturnType<typeof vi.fn> };
+    const activity: boolean[] = [];
+    const unsubscribe = onSpeechActivity((speaking) => activity.push(speaking));
+    const narrator = new Narrator();
+    const first = narrator.speak("Hello there.");
+    const utterance = synth.speak.mock.calls[0][0] as { onstart: () => void; onend: () => void };
+    expect(activity.at(-1)).toBe(false);
+    utterance.onstart();
+    expect(activity.at(-1)).toBe(true);
+    narrator.cancel(); await first;
+    expect(activity.at(-1)).toBe(false);
+    utterance.onstart();
+    expect(activity.at(-1)).toBe(false);
+    const second = narrator.speak("A new phrase.");
+    const next = synth.speak.mock.calls[1][0] as { onstart: () => void; onend: () => void };
+    next.onstart(); next.onend(); await second;
+    expect(activity.at(-1)).toBe(false);
+    unsubscribe();
   });
 
   it("正常发声：onstart 之后由 onend 结束", async () => {

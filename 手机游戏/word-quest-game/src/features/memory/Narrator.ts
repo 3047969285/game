@@ -1,3 +1,4 @@
+import { beginSpeech } from "../../infra/speechActivity";
 import type { Voice } from "./types";
 
 /**
@@ -134,6 +135,7 @@ export class Narrator {
 
     return new Promise<void>((resolve) => {
       let done = false;
+      let releaseMusic: (() => void) | undefined;
       let lastIndex = -1;
       let boundarySeen = false;
       let started = false;
@@ -161,6 +163,7 @@ export class Narrator {
       const finish = (): void => {
         if (done) return;
         done = true;
+        releaseMusic?.();
         timers.forEach(clearTimeout);
         intervals.forEach(clearInterval);
         timers.clear();
@@ -232,8 +235,9 @@ export class Narrator {
       };
 
       const beginWatchers = (): void => {
-        if (started) return;
+        if (started || done) return;
         started = true;
+        if (!done) releaseMusic = beginSpeech();
         startedAt = performance.now();
         const perWord = (SECONDS_PER_WORD / (profile.rate * rateScale)) * 1000;
         // 没有 boundary 事件的声音：按时间推进词

@@ -21,6 +21,8 @@ import { ALL_COURSES, COURSE_LABELS } from "../core/constants";
 import { loadRw3Units, loadTemplate, loadVocabulary, loadCetContent, type Rw3UnitContent } from "../infra/data";
 import { buildRw3UnitLevel, migrateRw3Progress } from "../infra/rw3";
 import { audio } from "../infra/audio";
+import { mountMusicControls } from "../shared/musicControls";
+import { beginSpeech } from "../infra/speechActivity";
 import { MusicPlayer } from "../infra/music";
 import { authUrl, type AuthProvider } from "../infra/auth";
 import { GameState } from "../services/gameState";
@@ -47,14 +49,8 @@ const GUIDE_KEY = "word_quest_guide_seen";
 const CLOZE_BATCH = 5;
 
 /** TTS 朗读英文单词 */
-function speakWord(word: string): void {
-  if (!("speechSynthesis" in window)) return;
-  const utt = new SpeechSynthesisUtterance(word);
-  utt.lang = "en-US";
-  utt.rate = 0.9;
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(utt);
-}
+const wordNarrator = new Narrator();
+function speakWord(word: string): void { void wordNarrator.speak(word, "system"); }
 
 function modeLabel(mode: SceneMode): string {
   if (mode === "review") return "间隔复习";
@@ -126,6 +122,7 @@ export class App {
   private wordCardScrollPosition: { x: number; y: number } | null = null;
   private wordCardFocusReturn: HTMLElement | null = null;
   private readonly music = new MusicPlayer();
+  private releaseListeningMusic: (() => void) | null = null;
   private memoryRunning = false;
   private spectatorMode = false;
 
@@ -205,9 +202,11 @@ export class App {
 
   private mountShell(): void {
     this.root.innerHTML = `<div id="screen-map" class="screen active"></div><div id="screen-scene" class="screen"></div><div id="screen-memory" class="screen"></div>`;
+    mountMusicControls(this.root, this.music);
   }
 
   private show(screen: Screen): void {
+    this.music.setScene(screen === "map" ? "explore" : screen === "memory" ? "memory" : "study");
     const map = this.root.querySelector("#screen-map");
     const scene = this.root.querySelector(`#screen-${screen}`);
     const keepLearningWorld =
@@ -323,20 +322,6 @@ export class App {
             </div>
             <canvas id="explore-minimap" class="explore-minimap" width="120" height="120" aria-label="探险小地图"></canvas>
             <button type="button" id="btn-spectator-toggle" class="btn-spectator-toggle" title="切换观赏模式">👁️ 观赏世界</button>
-            <button type="button" id="btn-music-toggle" class="btn-music-toggle" aria-expanded="false" aria-controls="music-panel">♫ 音乐</button>
-            <div id="music-panel" class="music-panel hidden">
-              <div class="music-panel-title">🎵 自定义音乐</div>
-              <div class="music-panel-row">
-                <label class="music-file-label" for="music-file">选择音频</label>
-                <input id="music-file" type="file" accept="audio/*" />
-                <button type="button" class="music-play-btn" id="btn-music-play" disabled>播放</button>
-              </div>
-              <div class="music-panel-row music-settings">
-                <span id="music-name">未选择音乐</span>
-                <label>音量 <input id="music-volume" type="range" min="0" max="1" step="0.05" value="0.55" /></label>
-                <label><input id="music-loop" type="checkbox" /> 循环</label>
-              </div>
-            </div>
             <button type="button" id="btn-avatar-toggle" class="btn-avatar-toggle" title="换装 / 表情" aria-label="换装与表情">🧑‍🎤</button>
             <div id="avatar-toolbox" class="avatar-toolbox hidden">
               <div class="avatar-tool-title">表情</div>
@@ -490,42 +475,6 @@ export class App {
       }
       audio.play("click");
     });
-
-    const musicPanel = viewport.querySelector("#music-panel") as HTMLElement | null;
-    const musicToggle = viewport.querySelector<HTMLButtonElement>("#btn-music-toggle");
-    musicToggle?.addEventListener("click", () => {
-      const expanded = musicPanel?.classList.toggle("hidden") === false;
-      musicToggle.setAttribute("aria-expanded", String(expanded));
-      audio.play("click");
-    });
-
-    const musicFile = viewport.querySelector("#music-file") as HTMLInputElement | null;
-    const musicPlay = viewport.querySelector("#btn-music-play") as HTMLButtonElement | null;
-    const musicName = viewport.querySelector("#music-name");
-    const musicVolume = viewport.querySelector("#music-volume") as HTMLInputElement | null;
-    const musicLoop = viewport.querySelector("#music-loop") as HTMLInputElement | null;
-    musicFile?.addEventListener("change", async () => {
-      const file = musicFile.files?.[0];
-      if (!file) return;
-      try {
-        await this.music.load(file);
-        if (musicPlay) musicPlay.disabled = false;
-        if (musicName) musicName.textContent = file.name;
-        showToast("音乐已载入，仅在本地播放");
-      } catch (error) {
-        showToast(error instanceof Error ? error.message : "音乐载入失败");
-      }
-    });
-    musicPlay?.addEventListener("click", async () => {
-      try {
-        const playing = await this.music.toggle();
-        musicPlay.textContent = playing ? "暂停" : "播放";
-      } catch {
-        showToast("浏览器阻止了播放，请再次点击播放");
-      }
-    });
-    musicVolume?.addEventListener("input", () => this.music.setVolume(Number(musicVolume.value)));
-    musicLoop?.addEventListener("change", () => this.music.setLoop(musicLoop.checked));
 
     // 换装 / 表情面板
     const toolbox = viewport.querySelector("#avatar-toolbox") as HTMLElement | null;
@@ -1081,7 +1030,7 @@ export class App {
       const { MemoryStage } = await import("../features/memory");
       const { loadHumanModels } = await import("../features/world/humanVisual");
       await loadHumanModels();
-      stage = new MemoryStage(host, { words: this.wordMap, gate });
+      stage = new MemoryStage(host, { words: this.wordMap, gate, onMusicScene: (scene) => this.music.setScene(scene) });
       return await stage.play(script);
     } catch (err) {
       console.error(err);
@@ -2206,6 +2155,7 @@ export class App {
           if (englishVoice) utterance.voice = englishVoice;
           utterance.onstart = () => {
             if (generation !== this.rw3SpeechGeneration) return;
+            this.releaseListeningMusic = beginSpeech();
             playButton.textContent = "↻ 重新播放";
             stopButton.disabled = false;
             status.textContent = "正在播放 · 可完整听完或停止后重新播放。";
@@ -2213,12 +2163,14 @@ export class App {
           utterance.onend = () => {
             if (generation !== this.rw3SpeechGeneration) return;
             this.activeRw3Utterance = null;
+            this.releaseListeningMusic?.(); this.releaseListeningMusic = null;
             stopButton.disabled = true;
             status.textContent = "播放结束 · 可重播；需要辅助时再展开原文。";
           };
           utterance.onerror = () => {
             if (generation !== this.rw3SpeechGeneration) return;
             this.activeRw3Utterance = null;
+            this.releaseListeningMusic?.(); this.releaseListeningMusic = null;
             stopButton.disabled = true;
             status.textContent = "语音播放失败 · 请展开原文，使用字幕阅读模式。";
           };
@@ -2711,6 +2663,8 @@ export class App {
   }
 
   private stopRw3Listening(): void {
+    this.releaseListeningMusic?.(); this.releaseListeningMusic = null;
+    wordNarrator.cancel();
     this.rw3SpeechGeneration += 1;
     const hadActiveSpeech = Boolean(this.activeRw3Utterance);
     this.activeRw3Utterance = null;

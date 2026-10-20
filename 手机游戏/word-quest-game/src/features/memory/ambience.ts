@@ -102,7 +102,7 @@ export class RainAmbience {
       this.sources.push(hiss, lfo, rumble);
 
       master.gain.setValueAtTime(0, ctx.currentTime);
-      master.gain.linearRampToValueAtTime(0.5, ctx.currentTime + fadeSeconds);
+      master.gain.linearRampToValueAtTime(0.16, ctx.currentTime + fadeSeconds);
 
       if (ctx.state === "suspended") {
         void ctx.resume().catch(() => undefined);

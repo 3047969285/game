@@ -1,0 +1,50 @@
+{
+  "repository": "https://github.com/sgossner/VCSL",
+  "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+  "license": "CC0-1.0",
+  "credit": "Versilian Studios / Sam Gossner; Kawai grand piano and concert harp",
+  "samples": [
+    {
+      "file": "piano-c2.wav",
+      "instrument": "piano",
+      "midi": 48,
+      "path": "Chordophones/Zithers/Grand Piano, Kawai/Sustains/GPiano_sus_C2_v2_rr1_Player.wav"
+    },
+    {
+      "file": "piano-c3.wav",
+      "instrument": "piano",
+      "midi": 60,
+      "path": "Chordophones/Zithers/Grand Piano, Kawai/Sustains/GPiano_sus_C3_v2_rr1_Player.wav"
+    },
+    {
+      "file": "piano-c4.wav",
+      "instrument": "piano",
+      "midi": 72,
+      "path": "Chordophones/Zithers/Grand Piano, Kawai/Sustains/GPiano_sus_C4_v2_rr1_Player.wav"
+    },
+    {
+      "file": "piano-c5.wav",
+      "instrument": "piano",
+      "midi": 84,
+      "path": "Chordophones/Zithers/Grand Piano, Kawai/Sustains/GPiano_sus_C5_v2_rr1_Player.wav"
+    },
+    {
+      "file": "piano-c6.wav",
+      "instrument": "piano",
+      "midi": 96,
+      "path": "Chordophones/Zithers/Grand Piano, Kawai/Sustains/GPiano_sus_C6_v2_rr1_Player.wav"
+    },
+    {
+      "file": "harp-c3.wav",
+      "instrument": "harp",
+      "midi": 48,
+      "path": "Chordophones/Composite Chordophones/Concert Harp/KSHarp_C3_mf3.wav"
+    },
+    {
+      "file": "harp-c5.wav",
+      "instrument": "harp",
+      "midi": 72,
+      "path": "Chordophones/Composite Chordophones/Concert Harp/KSHarp_C5_mf1.wav"
+    }
+  ]
+}
