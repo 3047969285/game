@@ -436,7 +436,7 @@ export function hairTexturePixels(): Uint8ClampedArray {
       const fine = hash1(lx * 7 + 3) * 0.55 + hash1(lx * 3 + 11) * 0.3 + hash1(Math.floor(lx / 5) * 17 + 5) * 0.15;
       const wave = Math.sin(v * 7 + lx * 0.31) * 0.05;
       let shade = 0.66 + 0.34 * fine + wave;
-      shade *= 1 + 0.3 * Math.exp(-(((v - 0.3) / 0.09) ** 2)); // 高光带（横向，垂直于发丝）
+      shade *= 1 + 0.13 * Math.exp(-(((v - 0.3) / 0.1) ** 2)); // 高光带（横向，垂直于发丝）：只是同色系的略亮，不是色条
       let alpha = 1;
       const tipNoise = hash1(lx * 13 + (card ? 91 : 5));
       if (card) {
@@ -471,7 +471,7 @@ export function hairTexture(): THREE.DataTexture {
 }
 
 export function hairMaterial(color: number): THREE.MeshStandardMaterial {
-  const m = new THREE.MeshStandardMaterial({ color, map: hairTexture(), vertexColors: true, alphaTest: 0.35, side: THREE.DoubleSide, roughness: 0.42, metalness: 0.0 });
+  const m = new THREE.MeshStandardMaterial({ color, map: hairTexture(), vertexColors: true, alphaTest: 0.35, side: THREE.DoubleSide, roughness: 0.85, metalness: 0.0, envMapIntensity: 0.15 });
   m.name = "human-hair";
   return m;
 }

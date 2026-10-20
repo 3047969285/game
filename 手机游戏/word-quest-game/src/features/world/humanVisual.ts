@@ -4,6 +4,7 @@ import { clone } from "three/addons/utils/SkeletonUtils.js";
 import { createAccessories, type AccessorySet } from "./humanAccessories";
 import { cullOpacityHair, createHair, hairMaterial, headLandmarks, shrinkBaseHair, type HairObject } from "./humanHair";
 import { agedFace, applyFaceShape } from "./humanIdentity";
+import { sculptHead } from "./humanSculpt";
 import { addSkinDetails, extractGlbImages, pickAppearance, recolorBody, recolorHead, rememberSkin, sampleSkin, skinMultiplier, type AppearanceBase, type HumanAppearance } from "./humanAppearance";
 
 /** Rocketbox MIT assets are local: the game never calls an avatar service. */
@@ -192,8 +193,17 @@ export function attachHumanVisual(root: THREE.Group, controls: HumanControls, ki
   const headMesh = skinned.find((mesh) => (mesh.material as THREE.Material).name.endsWith("_head"));
   const opacityMesh = skinned.find((mesh) => (mesh.material as THREE.Material).name.endsWith("_opacity"));
   const bodyMesh = skinned.find((mesh) => (mesh.material as THREE.Material).name.endsWith("_body"));
-  const landmarks = headMesh ? headLandmarks(headMesh.geometry, headMesh.skeleton.bones.map((bone) => bone.name)) : null;
-  if (look) applyFaceShape(visual, look.aged ? agedFace(look.face) : look.face);
+  const boneNames = headMesh ? headMesh.skeleton.bones.map((bone) => bone.name) : [];
+  let landmarks = headMesh ? headLandmarks(headMesh.geometry, boneNames) : null;
+  if (look) {
+    const shape = look.aged ? agedFace(look.face) : look.face;
+    applyFaceShape(visual, shape);
+    // 头部网格雕刻（顶点级）：下颌 / 下巴 / 颧骨 / 鼻 / 眼 / 嘴 / 额头 / 脸长宽；睫毛层同一个场
+    if (headMesh && landmarks) {
+      sculptHead(headMesh.geometry, boneNames, landmarks, shape, opacityMesh ? [opacityMesh.geometry] : []);
+      landmarks = headLandmarks(headMesh.geometry, boneNames) ?? landmarks;
+    }
+  }
   if (look && headMesh && landmarks) {
     shrinkBaseHair(headMesh.geometry, headMesh.skeleton.bones.map((bone) => bone.name), landmarks);
     if (opacityMesh) {

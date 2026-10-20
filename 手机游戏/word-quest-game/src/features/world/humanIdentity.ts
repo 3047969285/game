@@ -56,6 +56,12 @@ export interface HumanLook {
   moles?: Array<[number, number]>;
   browColor?: number;
   browThickness?: number;
+  /** 眉形：弧形 / 平直 / 柔和 */
+  browShape?: "arched" | "straight" | "soft";
+  /** 腮红 / 唇色 0..1（头部贴图上的淡妆）与唇色 hex */
+  blush?: number;
+  lip?: number;
+  lipColor?: number;
   facialHair?: "none" | "stubble";
   accessories?: AccessoryId[];
   accessoryColor?: number;

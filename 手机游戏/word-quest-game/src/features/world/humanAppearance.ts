@@ -32,6 +32,10 @@ export interface HumanAppearance {
   browColor?: number;
   /** 眉粗 / 浓 0..1 */
   browThickness: number;
+  browShape?: "arched" | "straight" | "soft";
+  blush: number;
+  lip: number;
+  lipColor: number;
   /** 雀斑 0..1 与痣（头部贴图像素坐标） */
   freckles: number;
   moles: Array<[number, number]>;
@@ -153,6 +157,10 @@ export function pickAppearance(kind: "male" | "female", base: AppearanceBase = {
     aged,
     browColor: look?.browColor,
     browThickness: look?.browThickness ?? 0.5,
+    browShape: look?.browShape,
+    blush: look?.blush ?? 0,
+    lip: look?.lip ?? 0,
+    lipColor: look?.lipColor ?? 0xc0605f,
     freckles: look?.freckles ?? 0,
     moles: look?.moles ?? [],
     heightScale: look?.heightScale ?? (aged ? 0.975 : 0.96 + r() * 0.08),
@@ -376,6 +384,30 @@ export function addSkinDetails(data: Uint8ClampedArray, width: number, app: Huma
     dot(x, y, 1.1 + r() * 1.5, 0.28 + r() * 0.2, [120, 74, 48]);
   }
   for (const [mx, my] of app.moles) dot(mx, my, 2.6, 0.75, [70, 42, 30]);
+  // 眉形 / 粗细：沿曲线画（左眉在贴图 x 200–248，右眉镜像）
+  if (app.browShape) {
+    const brow = rgb(app.browColor ?? app.hair);
+    const arch = app.browShape === "arched" ? 7 : app.browShape === "soft" ? 3.5 : 0.8;
+    const th = 1.6 + 3.4 * app.browThickness;
+    for (const mirror of [false, true]) for (let k = 0; k <= 40; k++) {
+      const t = k / 40; // 0 外端 → 1 内端
+      const x = 198 + 52 * t;
+      const y = 131 - arch * Math.sin(Math.PI * Math.min(1, t * 1.25)) + 3 * t;
+      const radius = th * (0.45 + 0.55 * Math.sin(Math.PI * Math.min(1, 0.25 + t * 0.9)));
+      dot(mirror ? 511 - x : x, y, radius, 0.7, [brow[0] * 0.8, brow[1] * 0.8, brow[2] * 0.8]);
+    }
+  }
+  // 淡妆：腮红 + 唇色
+  if (app.blush > 0) for (const cx of [212, 300]) dot(cx, 186, 26, 0.2 * app.blush, [226, 120, 118]);
+  if (app.lip > 0) {
+    const lc = rgb(app.lipColor);
+    for (let y = 200; y <= 216; y++) for (let x = 232; x <= 280; x++) {
+      const d = ((x - 256) / 21) ** 2 + ((y - 208) / 6) ** 2;
+      if (d > 1) continue;
+      const i = (y * width + x) * 4, k = 0.5 * app.lip * (1 - d);
+      for (let c = 0; c < 3; c++) data[i + c] = data[i + c] * (1 - k) + lc[c] * k;
+    }
+  }
 }
 
 const skinSampleCache = new WeakMap<Uint8ClampedArray, [number, number, number]>();
