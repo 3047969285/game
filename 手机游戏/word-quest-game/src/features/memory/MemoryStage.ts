@@ -1,10 +1,13 @@
 import * as THREE from "three";
 import type { WordEntry } from "../../core/types";
-import { windTime } from "../world/foliageMaterials";
+import { foliageSun, setFoliageQuality, windTime } from "../world/foliageMaterials";
 import { getSurfaceArrays, setSurfaceQuality } from "../world/kitShader";
 import { buildSkyEnvironment, createPostPipeline, detectQuality, QUALITY_PRESETS, type PostPipeline, type QualityTier } from "../world/postPipeline";
 import { createSceneKit, type SceneKit } from "../world/sceneProps";
 import { spawnActor, type ActorHandle } from "./actors";
+import { RainAmbience } from "./ambience";
+import { CandidateMarks, TargetBeacons } from "./CandidateMarks";
+import { AUTO_DELAY_MS, memoryDevFlags, type MemoryDevFlags } from "./devFlags";
 import { CinemaDirector } from "./CinemaDirector";
 import { createFilmPass } from "./filmPass";
 import { MemoryHud } from "./hud";
@@ -12,11 +15,11 @@ import { Interaction } from "./Interaction";
 import { Materializer } from "./Materializer";
 import { MemoryFlow } from "./MemoryFlow";
 import { buildWordObject, memoryObjectFor, verbPose, type Verb } from "./memoryObjects";
-import { Narrator, splitWords } from "./Narrator";
+import { Narrator, setNarratorFast, splitWords } from "./Narrator";
 import { PaperLayer } from "./paper2d";
 import { PovRig } from "./PovRig";
 import { buildStage, getStage, stageTargets, type StageDef } from "./stages";
-import { findWordToken, validateScript, type Beat, type MemoryResult, type MemoryScript, type Pov } from "./types";
+import { findWordToken, validateScript, type Beat, type CameraShot, type MemoryResult, type MemoryScript, type Pov, type Vec3 } from "./types";
 import "./memory.css";
 
 /**
@@ -48,6 +51,8 @@ interface VerbAnim {
 }
 
 const VERB_SECONDS = 1.3;
+/** 世界尚未建起时的背景（深色雾） */
+const VOID_COLOR = new THREE.Color(0x0b1018);
 const baseFovFor = (aspect: number): number => (aspect >= 1 ? 46 : Math.min(70, 46 + (1 - aspect) * 34));
 
 export class MemoryStage {
@@ -68,6 +73,20 @@ export class MemoryStage {
   private readonly pov: PovRig;
   private readonly interaction: Interaction;
   private paper?: PaperLayer;
+  private readonly marks: CandidateMarks;
+  private readonly beacons: TargetBeacons;
+  /** 开发期测试开关（?memauto=1 / ?memfast=1） */
+  private readonly flags: MemoryDevFlags = memoryDevFlags();
+  private readonly floorRay = new THREE.Raycaster();
+  private readonly floorPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+  private readonly ambience = new RainAmbience();
+  private stageGroup?: THREE.Group;
+  /** 词卡跟随的物件（屏幕投影定位） */
+  private cardAnchor: THREE.Object3D | null = null;
+  /** 第一人称时被隐藏的那位 “借眼睛” 的人物 */
+  private meViewer: ActorHandle | null = null;
+  private diving = false;
+  private readonly touchedNow = new Set<string>();
   private envRT?: THREE.WebGLRenderTarget;
   private resizeObserver?: ResizeObserver;
 
@@ -92,6 +111,12 @@ export class MemoryStage {
   private readonly wordsSeen = new Set<string>();
   private mistakes = 0;
   private unitWordForms: string[] = [];
+  private readonly boxTmp = new THREE.Box3();
+  private readonly vTmp = new THREE.Vector3();
+  private readonly vTmp2 = new THREE.Vector3();
+  private readonly bgColor = new THREE.Color();
+  private readonly fogTarget = new THREE.Color();
+  private readonly sunColor = new THREE.Color();
   private lightLevel = 0.3;
   private fogBase = 0.05;
   private envBase = 0.9;
@@ -161,7 +186,10 @@ export class MemoryStage {
       spawn,
       baseFov: this.camera.fov,
     });
-    this.scene.add(this.pov.root);
+    this.scene.add(this.pov.root, this.pov.trail);
+    this.marks = new CandidateMarks(this.scene);
+    this.beacons = new TargetBeacons(this.scene);
+    if (this.flags.fast) setNarratorFast(4);
     this.interaction = new Interaction({
       camera: this.camera,
       canvas: this.renderer.domElement,
@@ -170,6 +198,8 @@ export class MemoryStage {
       getPlayer: () => (this.pov.pov === "you" ? this.pov.player : null),
     });
 
+    this.interaction.onMiss = (x, y) => this.onFloorTap(x, y);
+    this.pov.setTargetsProvider(() => (this.interaction.active ? this.interaction.activePositions() : []));
     this.hud.onExit = () => this.requestExit();
     this.hud.onSkip = () => this.skip();
     this.hud.onStick = (x, z) => this.pov.setStick(x, z);
@@ -194,7 +224,16 @@ export class MemoryStage {
       await this.prepare(script);
       this.startLoop();
       await this.hud.fade(false, 1400);
-      if (this.opts.gate) await this.until(this.hud.gate("轻触 · 开始回溯", "Tap to begin", () => this.narrator.unlock()));
+      if (this.opts.gate) {
+        const gate = this.hud.gate("轻触 · 开始回溯", "Tap to begin", () => {
+          this.narrator.unlock();
+          if (this.stageDef?.ambience === "rain") this.ambience.start();
+        });
+        if (this.flags.auto) setTimeout(() => this.hud.tapGate(), AUTO_DELAY_MS);
+        await this.until(gate);
+      } else if (this.stageDef?.ambience === "rain") {
+        this.ambience.start();
+      }
       if (!this.exited) {
         // 空场景：只有雾与光尘。稍等片刻，再让 2090 年的他浮现
         await this.sleep(1800);
@@ -209,7 +248,8 @@ export class MemoryStage {
       }
       completed = !this.exited && !this.disposed;
       // 以定格收尾的回忆已经淡白上浮，直接交还；其它（开场）渐黑
-      if (completed && script.beats[script.beats.length - 1]?.kind !== "freeze") await this.hud.fade(true, 900);
+      const lastKind = script.beats[script.beats.length - 1]?.kind;
+      if (completed && lastKind !== "freeze" && lastKind !== "dive") await this.hud.fade(true, 900);
       // 玩家退出时 requestExit 已开始淡出黑场，等它走完再交还控制权
       else if (this.exited && !this.disposed) await new Promise<void>((resolve) => setTimeout(resolve, 520));
     } catch (err) {
@@ -249,6 +289,10 @@ export class MemoryStage {
     for (const hook of [...this.skipHooks]) hook();
     this.skipHooks.clear();
 
+    this.ambience.stop(0.2);
+    if (this.flags.fast) setNarratorFast(1);
+    this.marks.dispose();
+    this.beacons.dispose();
     this.paper?.dispose();
     this.interaction.dispose();
     this.pov.dispose();
@@ -269,6 +313,13 @@ export class MemoryStage {
     });
     this.sourceMaterials.forEach((m) => m.dispose());
     this.sourceMaterials.clear();
+    for (const fn of (this.stageGroup?.userData.disposers ?? []) as Array<() => void>) {
+      try {
+        fn();
+      } catch {
+        // 释放失败不影响退出
+      }
+    }
 
     this.envRT?.dispose();
     if (this.post) {
@@ -297,6 +348,7 @@ export class MemoryStage {
       if (errs.length) console.warn("[memory] 脚本校验问题\n" + errs.join("\n"));
     }
 
+    setFoliageQuality(this.quality === "low" ? "low" : "high"); // 树 / 灌木的纹理档位：必须先于任何植被材质创建（主世界已建过时无效果）
     this.applyEnvironment(stage);
     // 程序化表面的数组纹理必须先于任何套件材质第一次编译
     setSurfaceQuality(this.quality === "low" ? "low" : "high");
@@ -313,6 +365,7 @@ export class MemoryStage {
     // 舞台部件
     const overrides = new Map((script.pieces ?? []).map((p) => [p.target, p]));
     const group = buildStage(script.stage, kit);
+    this.stageGroup = group;
     this.scene.add(group);
     for (const child of [...group.children]) {
       if (!child.name) continue;
@@ -353,7 +406,7 @@ export class MemoryStage {
     }
 
     // 2090 年的他
-    this.pov.setBounds(stage.bounds);
+    this.pov.setBounds(stage.bounds, stage.cameraBounds);
     this.pov.place(stage.spawn.x, stage.spawn.y, stage.spawn.z, stage.spawn.yaw);
     this.materializer.register(this.pov.avatar, "fade");
 
@@ -367,9 +420,9 @@ export class MemoryStage {
 
   private applyEnvironment(stage: StageDef): void {
     const e = stage.environment;
-    (this.scene.fog as THREE.FogExp2).color.setHex(e.fogColor);
+    this.fogTarget.setHex(e.fogColor);
+    this.sunColor.setHex(e.sunColor);
     this.fogBase = e.fogDensity;
-    (this.scene.background as THREE.Color).setHex(e.fogColor);
     this.sunBase = e.sunIntensity;
     this.hemiBase = e.hemiIntensity;
     this.envBase = e.envIntensity;
@@ -377,6 +430,7 @@ export class MemoryStage {
     const d = new THREE.Vector3(e.sunDir.x, e.sunDir.y, e.sunDir.z).normalize();
     this.sun.position.copy(d).multiplyScalar(26);
     this.sun.target.position.set(0, 0, 0);
+    foliageSun.dir.value.copy(d);
     const r = e.shadowRadius;
     const cam = this.sun.shadow.camera;
     cam.left = -r;
@@ -421,6 +475,7 @@ export class MemoryStage {
       this.materializer.update(dt);
       this.flow.update(dt);
       for (const a of this.actors.values()) a.update(dt, this.time);
+      if (this.stageGroup) this.stageDef?.animate?.(this.stageGroup, dt, this.time);
       this.updateWordObjects(dt);
       this.updateLighting(dt);
       this.updateAttractor();
@@ -428,6 +483,10 @@ export class MemoryStage {
     this.pov.update(dt);
     this.cinema.update(dt);
     this.interaction.update();
+    this.marks.update(dt);
+    this.beacons.update(dt);
+    this.interaction.setSuppressed(this.hud.cardOn);
+    this.updateCardAnchor();
 
     this.flow.setCenter(this.tmpFocus());
     const h = this.renderer.domElement.height;
@@ -448,10 +507,16 @@ export class MemoryStage {
     this.lightLevel = snap ? target : this.lightLevel + (target - this.lightLevel) * (1 - Math.exp(-dt * 2.5));
     const l = this.lightLevel;
     this.sun.intensity = this.sunBase * l * l;
+    // 世界还没建起来时背景是深色的雾（光尘才看得见）；建得越完整越接近舞台自己的雾色
+    const fog = this.scene.fog as THREE.FogExp2;
+    this.bgColor.copy(VOID_COLOR).lerp(this.fogTarget, THREE.MathUtils.clamp(progress * 1.15, 0, 1));
+    fog.color.copy(this.bgColor);
+    (this.scene.background as THREE.Color).copy(this.bgColor);
+    foliageSun.color.value.copy(this.sunColor).multiplyScalar(this.sun.intensity / 1.45);
     this.hemi.intensity = this.hemiBase * l;
     this.scene.environmentIntensity = this.envBase * l;
     (this.scene.fog as THREE.FogExp2).density = this.fogBase * (1.5 - 0.5 * progress);
-    this.flow.setVisibility(1 - 0.45 * progress);
+    if (!this.diving) this.flow.setVisibility(1 - 0.45 * progress);
   }
 
   /** 洪流偏向正在显形的东西 */
@@ -534,12 +599,20 @@ export class MemoryStage {
         return this.doPaper(beat);
       case "wait":
         return this.sleep(beat.seconds * 1000);
+      case "build":
+        return this.doBuild(beat);
+      case "dive":
+        return this.doDive(beat);
       case "freeze":
         return this.doFreeze(beat);
     }
   }
 
   private setPov(pov: Pov): void {
+    if (pov !== "me" && this.meViewer) {
+      this.meViewer.root.visible = true;
+      this.meViewer = null;
+    }
     this.pov.setPov(pov);
     this.hud.setPov(pov);
     this.cinema.letterbox(pov === "watch");
@@ -608,36 +681,102 @@ export class MemoryStage {
 
   private async doTouch(b: Extract<Beat, { kind: "touch" }>): Promise<void> {
     this.setPov("you");
-    this.hud.setPrompt(b.prompt, b.zh);
+    // 上一句旁白的字幕不留在画面上：触碰阶段底部只有一行提示（带进度）
+    this.hud.clearSubtitle();
+    this.hud.hideWordCard();
     const targets = b.wordIds.filter((id) => this.materializer.has(this.nameOf(id)));
-    for (const id of targets) this.materializer.setGhost(this.nameOf(id), 0.55);
+    const total = targets.length;
+    let touched = 0;
+    const progressPrompt = (): string => `${b.prompt} ${touched} / ${total}`;
+    this.hud.setPrompt(progressPrompt(), b.zh);
+    for (const id of targets) {
+      this.materializer.setGhost(this.nameOf(id), 0.55);
+      this.beacons.add(id, this.wordObjs.get(id)!.obj);
+    }
+    this.frameTouchTargets(targets);
     await new Promise<void>((resolve) => {
-      let remaining = targets.length;
-      if (remaining === 0) return resolve();
-      const done = (): void => {
-        if (--remaining === 0) resolve();
+      if (total === 0) return resolve();
+      const hit = (id: string): void => {
+        if (!targets.includes(id) || this.touchedNow.has(id)) return;
+        this.touchedNow.add(id);
+        this.interaction.remove(id);
+        this.beacons.remove(id);
+        this.touchWord(id);
+        touched++;
+        this.hud.setPrompt(progressPrompt(), b.zh);
+        if (touched === total) resolve();
       };
-      const exitHook = (): void => resolve();
-      this.exitPromise.then(exitHook);
+      this.touchedNow.clear();
+      this.exitPromise.then(() => resolve());
       this.interaction.enable(
         targets.map((id) => {
           const w = this.opts.words.get(id);
           return { id, object: this.wordObjs.get(id)!.obj, label: w ? { word: w.word, phonetic: w.phonetic } : undefined };
         }),
-        (id) => {
-          this.interaction.remove(id);
-          this.touchWord(id);
-          done();
-        }
+        hit
       );
+      // 测试开关：按顺序逐个触碰
+      if (this.flags.auto) {
+        void (async () => {
+          for (const id of targets) {
+            await this.sleep(AUTO_DELAY_MS);
+            if (this.exited) return;
+            hit(id);
+          }
+        })();
+      }
     });
     this.interaction.disable();
+    this.beacons.clear();
+    this.pov.releaseFraming();
     await this.until(this.speechChain);
     this.hud.setPrompt();
+    this.hud.hideWordCard();
+    this.cardAnchor = null;
     await this.sleep(500);
   }
 
-  /** 触碰一个词：物件完整显形落位 + verb 动画 + 词卡 + 朗读词与旁白 */
+  /**
+   * 触碰阶段开始时的 “到位” 动作：2090 年的他自己走到桌边一个能看清目标的位置（偏在画面一侧），
+   * 同时跟随镜头平滑拉近 / 抬高、视线移向目标群的中心，让目标占满画面中部。到位之后仍然是你的视角，可以走动、拖动。
+   */
+  private frameTouchTargets(ids: string[]): void {
+    const union = new THREE.Box3();
+    for (const id of ids) {
+      const obj = this.wordObjs.get(id)?.obj;
+      if (obj) union.union(new THREE.Box3().setFromObject(obj));
+    }
+    if (union.isEmpty()) return;
+    const center = union.getCenter(new THREE.Vector3());
+    const size = union.getSize(new THREE.Vector3());
+    const span = Math.max(size.x, size.z, 1);
+    const vHalf = THREE.MathUtils.degToRad(this.cinema.baseFov) / 2;
+    const hHalf = Math.atan(Math.tan(vHalf) * (this.camera.aspect || 1.6));
+    const fit = THREE.MathUtils.clamp((span / 2 + 0.6) / Math.tan(Math.min(hHalf, vHalf * 1.4)), 3.4, 9);
+    // 站在目标群靠近玩家的一侧、偏左一点（他不挡在目标正前方）
+    const here = this.pov.player;
+    const toward = new THREE.Vector3(here.x - center.x, 0, here.z - center.z);
+    if (toward.lengthSq() < 0.5) toward.set(0, 0, 1);
+    toward.normalize();
+    const lateral = THREE.MathUtils.clamp(span * 0.28, 0.8, 2.2);
+    const stand = new THREE.Vector3(center.x + toward.x * 1.5 - toward.z * lateral, 0, center.z + toward.z * 1.5 + toward.x * lateral);
+    this.pov.moveTo(stand.x, stand.z, 3.6);
+    const dist = THREE.MathUtils.clamp(fit - 1.5, 2.2, 6.5);
+    this.pov.frameFocus(new THREE.Vector3(center.x, Math.max(0.6, union.min.y + (union.max.y - union.min.y) * 0.45), center.z), dist, THREE.MathUtils.clamp(1.1 + dist * 0.4, 1.8, 3.4));
+  }
+
+  /** 点地面：2090 年的他走过去（click-to-move）。点到物件走的是 Interaction，不会到这里 */
+  private onFloorTap(clientX: number, clientY: number): void {
+    if (this.exited || this.pov.pov !== "you" || this.cinema.frozen) return;
+    const rect = this.renderer.domElement.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
+    const ndc = new THREE.Vector2(((clientX - rect.left) / rect.width) * 2 - 1, -((clientY - rect.top) / rect.height) * 2 + 1);
+    this.floorRay.setFromCamera(ndc, this.camera);
+    const hit = this.floorRay.ray.intersectPlane(this.floorPlane, new THREE.Vector3());
+    if (hit && hit.distanceTo(this.camera.position) < 60) this.pov.moveTo(hit.x, hit.z);
+  }
+
+  /** 触碰一个词：物件完整显形落位 + verb 动画 + 贴在物件旁的词卡 + 朗读词与旁白 */
   private touchWord(id: string): void {
     const w = this.opts.words.get(id);
     const def = memoryObjectFor(id, w?.word);
@@ -646,7 +785,7 @@ export class MemoryStage {
     void this.materializer.reveal(name, 1.5, { letters: w?.word });
     this.playVerb(id);
     this.wordsSeen.add(id);
-    this.hud.showWordCard({ word: w?.word ?? id, phonetic: w?.phonetic, meaning: w?.meaning, line: def.line }, 3200);
+    this.showCardAt(id, { word: w?.word ?? id, phonetic: w?.phonetic, meaning: w?.meaning, line: def.line }, 3200);
     const word = w?.word ?? id;
     this.speechChain = this.speechChain.then(async () => {
       if (this.exited) return;
@@ -656,9 +795,64 @@ export class MemoryStage {
     });
   }
 
+  /** 词卡跟随某个物件（屏幕投影，夹在视口内） */
+  private showCardAt(wordId: string, info: Parameters<MemoryHud["showWordCard"]>[0], ms: number): void {
+    this.cardAnchor = this.wordObjs.get(wordId)?.obj ?? null;
+    this.hud.showWordCard(info, ms);
+    this.updateCardAnchor();
+  }
+
+  private updateCardAnchor(): void {
+    if (!this.cardAnchor || !this.hud.cardOn) return;
+    const w = this.host.clientWidth || window.innerWidth;
+    const h = this.host.clientHeight || window.innerHeight;
+    const box = this.boxTmp.setFromObject(this.cardAnchor);
+    if (box.isEmpty()) return;
+    const cx = (box.min.x + box.max.x) / 2;
+    const cz = (box.min.z + box.max.z) / 2;
+    const top = this.vTmp.set(cx, box.max.y, cz).project(this.camera);
+    const bottom = this.vTmp2.set(cx, box.min.y, cz).project(this.camera);
+    if (top.z > 1) return;
+    this.hud.placeCard((top.x * 0.5 + 0.5) * w, (-top.y * 0.5 + 0.5) * h, w, h, (-bottom.y * 0.5 + 0.5) * h);
+  }
+
+  /**
+   * 断片的机位：把候选物件的包围盒并起来，按相机视野算出能框住它们（连同头顶的问号）的距离，
+   * 从略高的位置俯看，这样桌边坐着的人不会挡住桌面上的物件。方向参考脚本里给的机位（缺省为当前机位方向）。
+   */
+  private frameCandidates(ids: string[], hint?: CameraShot): CameraShot | null {
+    const union = new THREE.Box3();
+    for (const id of ids) {
+      const obj = this.wordObjs.get(id)?.obj;
+      if (obj) union.union(new THREE.Box3().setFromObject(obj));
+    }
+    if (union.isEmpty()) return null;
+    union.max.y += 0.35; // 问号与光晕
+    const center = union.getCenter(new THREE.Vector3());
+    const size = union.getSize(new THREE.Vector3());
+    const radius = Math.max(0.5, size.length() / 2 + 0.12);
+    const vHalf = THREE.MathUtils.degToRad(this.cinema.baseFov) / 2;
+    const hHalf = Math.atan(Math.tan(vHalf) * (this.camera.aspect || 1.6));
+    const dist = THREE.MathUtils.clamp((radius / Math.sin(Math.min(vHalf, hHalf))) * 1.08, 2.4, 7.5);
+
+    const from = hint ? new THREE.Vector3(hint.to.x, 0, hint.to.z) : new THREE.Vector3(this.camera.position.x, 0, this.camera.position.z);
+    const dir = from.sub(new THREE.Vector3(center.x, 0, center.z));
+    if (dir.lengthSq() < 0.05) dir.set(0, 0, 1);
+    dir.normalize();
+    const lift = THREE.MathUtils.clamp(dist * 0.5, 0.9, 2.5);
+    const pos = new THREE.Vector3(center.x + dir.x * dist, center.y + lift, center.z + dir.z * dist);
+    const cb = this.stageDef?.cameraBounds ?? this.stageDef?.bounds;
+    if (cb) {
+      pos.x = THREE.MathUtils.clamp(pos.x, cb.minX, cb.maxX);
+      pos.z = THREE.MathUtils.clamp(pos.z, cb.minZ, cb.maxZ);
+    }
+    pos.y = Math.min(pos.y, 3.1);
+    return { to: { x: pos.x, y: pos.y, z: pos.z }, look: { x: center.x, y: center.y - 0.1, z: center.z }, duration: 1.8, move: "dolly" };
+  }
+
   private async doGap(b: Extract<Beat, { kind: "gap" }>): Promise<void> {
     this.setPov("watch");
-    if (b.camera) void this.cinema.shot(b.camera);
+    this.hud.hideWordCard();
     const answer = this.opts.words.get(b.answerWordId);
     const token = answer ? findWordToken(b.sentence, answer.word) : null;
     this.hud.setSubtitle(b.sentence, b.zh, { vocab: [], blank: token ?? undefined });
@@ -668,71 +862,177 @@ export class MemoryStage {
       void this.materializer.reveal(target, this.pieceDuration(ref, target), { letters: b.sentence });
     }
 
-    const ids = [b.answerWordId, ...b.decoyWordIds].filter((id) => this.materializer.has(this.nameOf(id)));
+    // 候选 = 答案 + 干扰（答案一定在内）。机位由候选的包围盒算出，保证它们全部入画
+    const ids = [b.answerWordId, ...b.decoyWordIds].filter((id) => this.materializer.has(this.nameOf(id)) && this.wordObjs.has(id));
+    if (!ids.includes(b.answerWordId)) console.warn(`[memory] 断片的答案物件不存在: ${b.answerWordId}`);
+    const shot = this.frameCandidates(ids, b.camera) ?? b.camera;
+    if (shot) void this.cinema.shot(shot);
+
+    // 候选：完整显形（让玩家看清是什么），光晕 + 问号脉动；其余已显形的物件稍微退暗
+    const wasRevealed = new Set(ids.filter((id) => this.materializer.isRevealed(this.nameOf(id))));
     for (const id of ids) {
-      if (!this.materializer.isRevealed(this.nameOf(id))) this.materializer.setGhost(this.nameOf(id), 0.6);
+      this.materializer.setGhost(this.nameOf(id), 0);
+      if (!wasRevealed.has(id)) void this.materializer.reveal(this.nameOf(id), 1.1, { letters: b.sentence });
+      this.marks.add(id, this.wordObjs.get(id)!.obj);
+    }
+    for (const [id, w] of this.wordObjs) {
+      if (!ids.includes(id) && this.materializer.isRevealed(this.nameOf(id))) this.materializer.setDim(w.obj, 0.7);
     }
     await new Promise<void>((resolve) => {
       this.exitPromise.then(() => resolve());
+      const onPick = (id: string): void => {
+        if (id === b.answerWordId) {
+          this.interaction.disable();
+          resolve();
+          return;
+        }
+        // 答错：物件暗下去、胶片轻微抖动，可再选
+        this.mistakes++;
+        this.interaction.remove(id);
+        this.marks.dismiss(id);
+        this.materializer.setDim(this.wordObjs.get(id)!.obj, 0.75);
+        this.hud.shakeSubtitle();
+        this.cinema.glitch(0.6);
+      };
       this.interaction.enable(
-        ids.map((id) => ({ id, object: this.wordObjs.get(id)!.obj })),
-        (id) => {
-          if (id === b.answerWordId) {
-            this.interaction.disable();
-            resolve();
-            return;
-          }
-          // 答错：物件暗下去、胶片轻微抖动，可再选
-          this.mistakes++;
-          this.interaction.remove(id);
-          if (!this.materializer.isRevealed(this.nameOf(id))) this.materializer.setGhost(this.nameOf(id), 0);
-          this.hud.shakeSubtitle();
-          this.cinema.glitch(0.6);
-        },
-        { labels: false, baseGlow: 0.9 }
+        ids.map((id) => {
+          const w = this.opts.words.get(id);
+          return { id, object: this.wordObjs.get(id)!.obj, label: w ? { word: w.word, phonetic: w.phonetic } : undefined };
+        }),
+        onPick,
+        { labels: true, alwaysLabels: true, baseGlow: 1.0 }
       );
+      // 测试开关：直接选对答案
+      if (this.flags.auto) {
+        void this.sleep(AUTO_DELAY_MS).then(() => {
+          if (!this.exited) onPick(b.answerWordId);
+        });
+      }
     });
     this.interaction.disable();
+    this.marks.clear();
+    for (const w of this.wordObjs.values()) this.materializer.setDim(w.obj, 0);
     if (this.exited) return;
 
-    // 答对：空位填上，答案物件落位，继续朗读整句
+    // 答对：空位填上，答案物件落位，没出现过的干扰物件散去，继续朗读整句
     this.hud.fillBlank(token?.text ?? answer?.word ?? "");
-    for (const id of ids) if (id !== b.answerWordId && !this.materializer.isRevealed(this.nameOf(id))) this.materializer.setGhost(this.nameOf(id), 0);
-    this.materializer.setGhost(this.nameOf(b.answerWordId), 0);
-    void this.materializer.reveal(this.nameOf(b.answerWordId), 1.4, { letters: answer?.word });
+    for (const id of ids) {
+      if (id !== b.answerWordId && !wasRevealed.has(id)) void this.materializer.hide(this.nameOf(id), 1.0);
+    }
     this.playVerb(b.answerWordId);
     this.wordsSeen.add(b.answerWordId);
-    this.hud.showWordCard({ word: answer?.word ?? "", phonetic: answer?.phonetic, meaning: answer?.meaning }, 2600);
+    this.showCardAt(b.answerWordId, { word: answer?.word ?? "", phonetic: answer?.phonetic, meaning: answer?.meaning }, 2600);
     await this.readAloud(b.sentence, "system", []);
+    this.hud.hideWordCard();
+    this.cardAnchor = null;
     await this.sleep(500);
   }
 
-  private async doChoice(b: Extract<Beat, { kind: "choice" }>): Promise<void> {
+  private actorByName(name: string): ActorHandle | undefined {
+    const key = name.trim().toLowerCase();
+    for (const a of this.actors.values()) if (a.id.toLowerCase() === key || a.actor.name.toLowerCase() === key) return a;
+    return undefined;
+  }
+
+  /** 第一人称：借 viewer 的眼睛看，朝向说话的人（或 lookAt / viewer 自己的朝向）；viewer 的身体隐藏 */
+  private enterFirstPerson(viewerId: string, speaker: string, lookAt?: Vec3): void {
+    const viewer = this.actors.get(viewerId);
+    if (viewer && viewer !== this.meViewer) {
+      this.meViewer = viewer;
+      viewer.root.visible = false;
+    }
+    if (viewer) {
+      const eye = viewer.eyePosition(new THREE.Vector3());
+      const speakerActor = this.actorByName(speaker);
+      let target: THREE.Vector3 | null = null;
+      if (speakerActor && speakerActor !== viewer) target = speakerActor.eyePosition(new THREE.Vector3());
+      else if (lookAt) target = new THREE.Vector3(lookAt.x, lookAt.y, lookAt.z);
+      if (target) {
+        const d = target.sub(eye);
+        this.pov.setEyeAnchor(eye, Math.atan2(d.x, d.z), Math.atan2(d.y, Math.hypot(d.x, d.z)));
+      } else {
+        this.pov.setEyeAnchor(eye, viewer.actor.rotationY ?? 0, 0);
+      }
+    }
     this.setPov("me");
-    if (b.camera) void this.cinema.shot(b.camera);
-    this.hud.setSubtitle(`${b.speaker}: ${b.line}`, b.zh, { vocab: this.vocabIn(b.line) });
-    await this.readAloud(b.line, "young", []);
-    const items = b.options.map((o) => ({ label: this.opts.words.get(o.wordId)?.word ?? o.wordId, sub: o.reply }));
+  }
+
+  private async doChoice(b: Extract<Beat, { kind: "choice" }>): Promise<void> {
+    this.hud.hideWordCard();
+    this.enterFirstPerson(b.viewer ?? "me2026", b.speaker, b.lookAt);
+    const askVoice = b.voice ?? "young";
+    const ask = async (): Promise<void> => {
+      this.hud.setSubtitle(`${b.speaker}: ${b.line}`, b.zh, { vocab: this.vocabIn(b.line) });
+      await this.readAloud(b.line, askVoice, []);
+    };
+    await ask();
+    const items = b.options.map((o) => ({ label: o.label ?? (o.wordId ? this.opts.words.get(o.wordId)?.word : undefined) ?? o.wordId ?? "", sub: o.wordId ? o.reply : undefined }));
     await new Promise<void>((resolve) => {
       this.exitPromise.then(() => resolve());
-      this.hud.showChoices(items, (i) => {
+      let busy = false;
+      const pickOption = (i: number): void => {
         const opt = b.options[i];
-        if (!opt) return;
+        if (!opt || busy) return;
+        if (opt.soft) {
+          // “还没准备好”：不算答错。回一句话，停两秒，再问一次
+          busy = true;
+          this.hud.setSubtitle(opt.reply, undefined, { vocab: [] });
+          void (async () => {
+            await this.readAloud(opt.reply, askVoice, []);
+            await this.sleep(2000);
+            if (!this.exited) await ask();
+            busy = false;
+          })();
+          return;
+        }
         if (!opt.correct) {
           this.mistakes++;
           this.hud.markChoice(i, "wrong");
           this.hud.setSubtitle(`(${b.speaker} looks confused.)`, "（对方露出困惑的神情。）");
           return;
         }
+        busy = true;
         this.hud.markChoice(i, "right");
-        this.wordsSeen.add(opt.wordId);
+        if (opt.wordId) this.wordsSeen.add(opt.wordId);
         this.hud.hideChoices();
         this.hud.setSubtitle(opt.reply, undefined, { vocab: this.vocabIn(opt.reply) });
-        void this.readAloud(opt.reply, "young", []).then(() => resolve());
-      });
+        void this.readAloud(opt.reply, opt.wordId ? "young" : askVoice === "system" ? "old" : "young", []).then(() => resolve());
+      };
+      this.hud.showChoices(items, pickOption);
+      // 测试开关：直接选第一个正确的选项
+      if (this.flags.auto) {
+        void this.sleep(AUTO_DELAY_MS).then(() => {
+          const i = b.options.findIndex((o) => o.correct && !o.soft);
+          if (!this.exited && i >= 0) pickOption(i);
+        });
+      }
     });
     this.hud.hideChoices();
     await this.sleep(400);
+  }
+
+  /** 让一批部件 / 人物 / 物件显形（不朗读） */
+  private async doBuild(b: Extract<Beat, { kind: "build" }>): Promise<void> {
+    if (b.pov) this.setPov(b.pov);
+    if (b.camera) void this.cinema.shot(b.camera);
+    const dur = b.duration ?? 2.4;
+    b.targets.forEach((ref, i) => {
+      const name = this.actors.has(ref) ? `actor:${ref}` : this.wordObjs.has(ref) ? this.nameOf(ref) : this.resolveTarget(ref);
+      void this.materializer.reveal(name, dur, { delay: i * 0.18 });
+    });
+    await this.sleep((b.wait ?? dur) * 1000);
+  }
+
+  /** 下潜：光粒洪流越来越急，吞没画面，淡白 */
+  private async doDive(b: Extract<Beat, { kind: "dive" }>): Promise<void> {
+    const sec = b.seconds ?? 3.4;
+    this.diving = true;
+    this.hud.clearSubtitle();
+    this.hud.setPrompt();
+    this.flow.setSpeed(9);
+    this.flow.setVisibility(2.6);
+    this.flow.setAttractor(this.camera.position, 1);
+    await this.until(this.hud.fade(true, sec * 1000, "#f6f3ec"));
   }
 
   private async doActor(b: Extract<Beat, { kind: "actor" }>): Promise<void> {
@@ -774,7 +1074,9 @@ export class MemoryStage {
     this.hud.clearSubtitle();
     this.cinema.setDim(this.quality === "low" ? 0.55 : 0.4);
     const paper = this.getPaper();
-    const ok = await this.until(paper.show(b.page));
+    const shown = paper.show(b.page);
+    if (this.flags.auto) void this.sleep(AUTO_DELAY_MS).then(() => paper.autoSolve());
+    const ok = await this.until(shown);
     if (!ok) paper.hide(); // 退出时立即收起；填完时由纸页自己淡出
     this.cinema.setDim(0);
     for (const id of b.page.lines.flatMap((l) => [...l.matchAll(/\{\{([^{}]+)\}\}/g)].map((m) => m[1]))) this.wordsSeen.add(id);
@@ -794,6 +1096,18 @@ export class MemoryStage {
     await this.sleep(2400);
     this.narrator.cancel();
     await this.until(this.cinema.freezeFrame(b.caption, b.zh));
+    if (b.epilogue && !this.exited) await this.playEpilogue(b.epilogue);
+  }
+
+  /** 淡白之后回到 2090 年：深蓝的夜、雨声，老年的他轻声说一句话 */
+  private async playEpilogue(e: NonNullable<Extract<Beat, { kind: "freeze" }>["epilogue"]>): Promise<void> {
+    this.hud.setCaption();
+    this.hud.showEpilogue(e.text, e.zh);
+    this.ambience.start(2.5);
+    await this.sleep(2200);
+    await this.until(this.narrator.speak(e.text, e.voice ?? "old"));
+    await this.sleep(2800);
+    await this.until(this.hud.fade(true, 1400));
   }
 
   // ───────────────────────── 并发小工具 ─────────────────────────

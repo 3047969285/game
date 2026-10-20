@@ -185,3 +185,55 @@ export interface MemoryScript {
 - **进度存储**：`infra/storage.ts` 新增 `loadMemoryProgress / writeMemoryProgress`（独立 key `word_quest_memory_v1`，含 `prologueSeen` / `done` / `wordsSeen`），不放进 GameSave，避免内存里的 GameSave 副本把它覆盖掉。
 - **App 路由**：新增 screen `"memory"`；`App.runMemory(script, gate)` 暂停 World3D → 动态 import 回忆引擎 → 创建 / 运行 / 销毁 MemoryStage → 恢复地图。单元入口卡改为 A/B/C 三个记忆点，原学习面板（故事、子世界入口、词汇统计）收进卡内的“🗃️ 记忆匣 · 学习面板”折叠区；地图上的子世界水晶仍直接进入原学习场景。
 - **开场占位**：`scripts/prologue.ts`（舞台 `void`，一句系统字幕）。首次进入先出现“轻触 · 开始回溯”（用这次点击拿到朗读所需的用户手势）。
+
+## 9. M1b 实现说明（内容 + M1a 试玩问题的修复）
+
+### 9.1 新增文件
+
+| 文件 | 说明 |
+|------|------|
+| `stages/apartment2090.ts` | 2090 年雨夜公寓：落地窗外的未来城市（≈40 栋带窗户贴图的楼体、三层纵深、地平线光晕）、44 道悬浮交通光迹（一个 `InstancedMesh`，随城市显形）、窗上的雨层（着色器：三层滚动雨痕 + 静止水珠）、椅子 / 小桌 / 2026 年的旧笔记本 / 悬浮的 “MEMORY RECALL” 面板（画布贴图，叠加混合）/ 落地灯 / 绿植。`showPlayer:false`，`ambience:"rain"`，`animate` 推进雨、交通、面板浮动。导出 `APARTMENT`（关键位置）|
+| `stages/clubRoom.ts` | 《周四的沉默》的教室：长桌 + 五把椅子（导出 `CLUB_SEATS`）、大窗（斜阳光束）、庭院（草坪、石板路、长椅、4 棵写实树、图书馆立面）、黑板、四周计划表、挂钟、书架、植物、软木板、吊灯、角落的手机篮。前墙 `BackSide`（从外面看透明），`cameraBounds` 允许跟随相机退到墙外 |
+| `scripts/prologue.ts` | 真正的 2090 开场（替换占位）|
+| `scripts/u01a.ts` | 单元 1 记忆点 A；`scripts/index.ts` 里登记，B / C 仍由 autoScript 生成 |
+| `ambience.ts` | `RainAmbience`：WebAudio 滤波噪声（沙沙 + 低频底噪 + 偶尔的水滴），`start()` 在用户手势之后调用，`stop()` 淡出并关闭 |
+| `CandidateMarks.ts` | 断片候选的光晕 + 浮动的 “?” |
+| `PovRig.test.ts` / `scripts/scripts.test.ts` | 见 9.5 |
+
+### 9.2 数据格式的扩展（`types.ts`）
+
+- `Beat.choice`：`options[].wordId` 可省略，改用 `label`；`soft:true` 的选项不算答错（回复一句话、停 2 秒再问一次）；新增 `voice`（提问音色，开场用 `system`）、`viewer`（第一人称借谁的眼睛，缺省 `me2026`）、`lookAt`（视线朝向）。
+- 新节拍 `build`（让一批部件 / 人物 / 物件显形，可带机位，不朗读）、`dive`（光粒洪流吞没画面，淡白）。
+- `freeze.epilogue`：定格淡白之后回到 2090 年——深蓝夜色 + 雨丝 + 雨声，老年的他轻声说一句话。
+- `StageDef`：`cameraBounds`、`ambience`、`animate(root, dt, time)`；`addDisposer(root, fn)` 登记舞台自己的资源（画布纹理），`MemoryStage.dispose` 统一调用。
+
+### 9.3 对 M1a 试玩问题的修复
+
+1. **第二人称视角**：2090 年的他改为低不透明度（0.3）的冷色微光 + 菲涅尔边缘光 + 身后光尘；跟随相机后退到 5.6 m、偏到肩后（他出现在画面一侧）；有可点物件被他挡在后面时他淡到 0.06；他不参与射线。根因之一是旧相机被房间范围夹住，实际只有 1.5 m——现在前墙是 `BackSide`，相机范围由 `cameraBounds` 单独给出。
+2. **触碰**：触碰阶段开始时清掉上一句字幕；词卡（词 + 音标 + 中文 + 旁白）贴在被触碰的物件旁（屏幕投影、夹在视口内），底部只剩一行提示。
+3. **断片**：机位由候选物件（答案 + 干扰）的包围盒并集算出（距离按视野、从略高处俯看）；候选完整显形并带标签、光晕、浮动的 “?”，边缘光脉冲；其余物件退暗；答错的候选暗下去，没出现过的干扰物件在答对后散去。
+4. **通用 emptyRoom**：素净暖灰泥墙（程序化灰泥，污渍压轻）、木地板、白漆踢脚线、灰褐地毯、更柔的窗光。
+5. **第一人称**：`me` 视角的眼睛锚点现在真正接到 viewer 人物（M1a 里一直用玩家位置）：朝向说话的人，viewer 的身体隐藏。
+
+### 9.4 其它引擎改动
+
+- `Materializer.setDim`（让无关物件退暗）；`MemoryFlow.setSpeed`（下潜时加速）。
+- `actors.ts`：`look.seated` 的人物在 phone / listen / talk 等姿势下也坐在座面上（M1a 只有 `sit` 姿势才抬高）；走路 / 站立变体不坐；**人物压缩**：按 “布料 / 皮肤 / 头发” 把颜色烘进顶点色合并，每个人 4 个网格（原来 12–15），五个人 ≈ 20 次绘制。
+- 背景色随世界建好的程度从深色雾渐变到舞台自己的雾色（暖色舞台才不会一开始就把光尘淹没）；树叶的透光太阳方向随舞台。
+- 绘制预算：clubRoom 舞台 ≈ 77 个网格 + 人物 20 + 脚本里的 9 个物件 ≈ 28 个网格 < 150（`stages.test.ts` 里有断言）。
+
+### 9.5 测试
+
+- `scripts/scripts.test.ts`：prologue、u01a 通过 `validateScript`；节拍顺序、旁白取自文章原句且顺序一致、断片候选靠得够近、答案词在句子里、笔记本三行、定格 + epilogue、所有字幕有中文、舞台部件都会显形。
+- `memoryObjects.test.ts`：单元 1 的 30 个词都 build 出非空物件、旁白是第二人称、原型最多两个词共用。
+- `stages.test.ts`：两个新舞台的部件 / 网格预算 / 光路 / 前墙 / 与 Materializer 的配合（着色器材质、实例化网格）。
+- `PovRig.test.ts`：微光身影的不透明度与边缘光补丁、肩后机位、被挡时淡出、拖尾、第一人称锚点。
+
+### 9.6 试玩第 2 轮（触碰阶段可玩性）
+
+- **到位动作**：触碰节拍开始时 `PovRig.moveTo` 带 2090 年的他走到目标群靠近玩家的一侧（偏左），同时 `PovRig.frameFocus` 让跟随镜头平滑拉近 / 抬高、视线移向目标群中心；到位后仍是你的视角（`releaseFraming` 在触碰结束时恢复肩后机位）。
+- **找得到**：未触碰的目标头顶有 `TargetBeacons` 灯柱 + 光点（屏幕大小恒定、不被遮挡）；目标在画面外时屏幕边缘有指向它的箭头（`Interaction` 的 `.mem-edge`）。
+- **点得中**：`Interaction` 改为屏幕空间拾取（`pickNearest`，半径 max(36 px, 投影半径)）；点空了触发 `onMiss`，MemoryStage 用它做 click-to-move（点地面走过去；WASD / 摇杆立即取消）。
+- **词签**：只有悬停 / 离鼠标（触屏为屏幕中心）最近的目标显示完整词签，其余是小圆点；词卡打开时词签全部隐藏。提示条带进度：`Reach out. Touch what you remember. 3 / 6`。
+- **老年的他的姿势**：新增 `lap`（双手放膝）与 `reach`（右手屈肘慢慢抬向前方，约 1.5 秒内逐步切换 reach1..reach4 变体，左手仍在膝上）。
+- **测试开关（仅 dev 构建）**：`?memauto=1` 约 1.2 秒后自动作答每个交互节拍（逐个触碰、选对断片 / 选项、补全笔记本、点开场的“轻触”）；`?memfast=1` 旁白不用 TTS，计时降级 ×4。见 `devFlags.ts`。

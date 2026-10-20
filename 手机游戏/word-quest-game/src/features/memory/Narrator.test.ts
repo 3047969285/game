@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { Narrator, SECONDS_PER_WORD, splitWords } from "./Narrator";
+import { Narrator, SECONDS_PER_WORD, setNarratorFast, splitWords } from "./Narrator";
 
 const g = globalThis as Record<string, unknown>;
 
@@ -95,5 +95,32 @@ describe("Narrator：引擎被拦截时 1.5 秒后降级为计时", () => {
     utt.onend();
     await p;
     expect(done).toBe(true);
+  });
+});
+
+describe("?memfast=1：旁白不用 TTS，计时降级 ×4", () => {
+  afterEach(() => {
+    setNarratorFast(1);
+    vi.useRealTimers();
+    delete g.speechSynthesis;
+    delete g.SpeechSynthesisUtterance;
+  });
+
+  it("即使有 speechSynthesis 也不调用它，且在 词数 × 0.33 / 4 秒内 resolve", async () => {
+    vi.useFakeTimers();
+    const speak = vi.fn();
+    g.speechSynthesis = { speak, cancel: vi.fn(), getVoices: () => [], speaking: false };
+    g.SpeechSynthesisUtterance = class {};
+    setNarratorFast(4);
+    const text = "You remember a courtyard by the library today.";
+    const n = splitWords(text).length;
+    const narrator = new Narrator();
+    let done = false;
+    const p = narrator.speak(text).then(() => (done = true));
+    await vi.advanceTimersByTimeAsync((n * SECONDS_PER_WORD * 1000) / 4 + 50);
+    await p;
+    expect(done).toBe(true);
+    expect(speak).not.toHaveBeenCalled();
+    expect(Narrator.estimate(text)).toBeCloseTo((n * SECONDS_PER_WORD) / 4, 5);
   });
 });

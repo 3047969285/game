@@ -173,6 +173,11 @@ export class MemoryFlow {
     this.speedTarget = on ? 2.4 : 1;
   }
 
+  /** 直接指定流速倍率（下潜时越来越急） */
+  setSpeed(mult: number): void {
+    this.speedTarget = mult;
+  }
+
   /** 往正在显形的物件方向偏转；null 取消 */
   setAttractor(pos: THREE.Vector3 | null, strength = 1): void {
     if (pos) (this.material.uniforms.uAtt.value as THREE.Vector3).copy(pos);

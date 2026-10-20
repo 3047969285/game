@@ -13,6 +13,12 @@ import type { Voice } from "./types";
  */
 
 export const SECONDS_PER_WORD = 0.33;
+
+/** 测试开关 ?memfast=1：不用 TTS，直接按计时降级并加速（倍率） */
+let fastMultiplier = 1;
+export function setNarratorFast(multiplier: number): void {
+  fastMultiplier = Math.max(1, multiplier);
+}
 const START_TIMEOUT_MS = 1500;
 
 export interface WordEvent {
@@ -103,7 +109,7 @@ export class Narrator {
 
   /** 预计朗读时长（秒），用于不朗读时的节奏 */
   static estimate(text: string): number {
-    return Math.max(0.6, splitWords(text).length * SECONDS_PER_WORD);
+    return Math.max(0.6 / fastMultiplier, (splitWords(text).length * SECONDS_PER_WORD) / fastMultiplier);
   }
 
   cancel(): void {
@@ -174,16 +180,17 @@ export class Narrator {
         return;
       }
 
-      /** 纯计时：每词 0.33 秒 */
+      /** 纯计时：每词 0.33 秒（?memfast=1 时更快） */
       const runTimerMode = (): void => {
-        for (let i = 0; i < total; i++) later(() => emit(i), i * SECONDS_PER_WORD * 1000);
+        const per = (SECONDS_PER_WORD * 1000) / fastMultiplier;
+        for (let i = 0; i < total; i++) later(() => emit(i), i * per);
         later(() => {
           emit(total - 1);
           finish();
-        }, total * SECONDS_PER_WORD * 1000);
+        }, total * per);
       };
 
-      if (!synth) {
+      if (!synth || fastMultiplier > 1) {
         runTimerMode();
         return;
       }

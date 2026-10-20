@@ -33,25 +33,36 @@ const TARGETS = {
 
 export const EMPTY_ROOM_TARGETS = Object.keys(TARGETS);
 
+/** 素净的暖灰泥墙：程序化灰泥表面，污渍与磨损压得很轻，不出现壁纸似的花纹 */
+export function makePlaster(side: THREE.Side = THREE.FrontSide): THREE.MeshStandardMaterial {
+  const mat = new THREE.MeshStandardMaterial({ color: 0xe3d8c4, roughness: 0.95, metalness: 0, side });
+  applyKitPattern(mat, "plaster", { grime: 0.22, wear: 0.15 });
+  return mat;
+}
+
 function buildFloor(kit: SceneKit): THREE.Group {
   return pieceGroup(kit, "floor", (k) => {
     const f = new Frame(k.kit);
-    f.box(k.m.wood, W + 0.4, 0.12, D + 0.4, 0, -0.12, 0, 0.01);
-    // 踢脚线
-    f.box(k.m.woodDark, W, 0.14, 0.04, 0, 0, -HZ + 0.02, 0.006);
-    f.box(k.m.woodDark, W, 0.14, 0.04, 0, 0, HZ - 0.02, 0.006);
-    f.box(k.m.woodDark, 0.04, 0.14, D, -HX + 0.02, 0, 0, 0.006);
-    f.box(k.m.woodDark, 0.04, 0.14, D, HX - 0.02, 0, 0, 0.006);
-    // 窗下的一块地毯
-    f.box(k.p.fabricRed, 4.6, 0.015, 3.2, 0, 0, -0.8, 0.006);
+    // 木地板（程序化木纹）、涂白的踢脚线、一块低饱和的灰褐色地毯
+    const boards = new THREE.MeshStandardMaterial({ color: 0xa38159, roughness: 0.74, metalness: 0 });
+    applyKitPattern(boards, "wood", { grime: 0.3, wear: 0.3 });
+    const skirting = new THREE.MeshStandardMaterial({ color: 0xd9cfbc, roughness: 0.8, metalness: 0 });
+    const rug = new THREE.MeshStandardMaterial({ color: 0x8b8173, roughness: 1, metalness: 0, side: THREE.DoubleSide });
+    const rugEdge = new THREE.MeshStandardMaterial({ color: 0x766d61, roughness: 1, metalness: 0, side: THREE.DoubleSide });
+    f.box(boards, W + 0.4, 0.12, D + 0.4, 0, -0.12, 0, 0.01);
+    f.box(skirting, W, 0.12, 0.03, 0, 0, -HZ + 0.015, 0.004);
+    f.box(skirting, W, 0.12, 0.03, 0, 0, HZ - 0.015, 0.004);
+    f.box(skirting, 0.03, 0.12, D, -HX + 0.015, 0, 0, 0.004);
+    f.box(skirting, 0.03, 0.12, D, HX - 0.015, 0, 0, 0.004);
+    f.box(rugEdge, 4.8, 0.012, 3.4, 0, 0, -0.8, 0.004);
+    f.box(rug, 4.5, 0.016, 3.1, 0, 0, -0.8, 0.004);
   });
 }
 
 export function buildEmptyRoom(kit: SceneKit): THREE.Group {
   const root = new THREE.Group();
   root.name = "stage-emptyRoom";
-  const plaster = new THREE.MeshStandardMaterial({ color: 0xd6cfbf, roughness: 0.93, metalness: 0 });
-  applyKitPattern(plaster, "plaster", { grime: 0.6 });
+  const plaster = makePlaster();
 
   root.add(buildFloor(kit));
 
@@ -73,7 +84,12 @@ export function buildEmptyRoom(kit: SceneKit): THREE.Group {
   );
   root.add(pieceGroup(kit, "wall_left", (k) => new Frame(k.kit).box(plaster, T, H, D + 2 * T, -HX - T / 2, 0, 0, 0.006)));
   root.add(pieceGroup(kit, "wall_right", (k) => new Frame(k.kit).box(plaster, T, H, D + 2 * T, HX + T / 2, 0, 0, 0.006)));
-  root.add(pieceGroup(kit, "wall_front", (k) => new Frame(k.kit).box(plaster, W, H, T, 0, 0, HZ + T / 2, 0.006)));
+  // 前墙是一张朝向室内的单面平面（不是 BackSide 盒子：盒子的背面从外面看仍会挡住视线），相机可以退到墙外
+  const front = pieceGroup(kit, "wall_front", (k) => new Frame(k.kit).put(new THREE.PlaneGeometry(W, H), makePlaster(), 0, H / 2, HZ, 0, Math.PI, 0));
+  front.traverse((o) => {
+    if ((o as THREE.Mesh).isMesh) (o as THREE.Mesh).castShadow = false;
+  });
+  root.add(front);
 
   root.add(
     pieceGroup(kit, "table", (k) => {
@@ -128,6 +144,7 @@ export const EMPTY_ROOM: StageDef = {
   name: "emptyRoom",
   targets: TARGETS,
   bounds: { minX: -HX + 0.55, maxX: HX - 0.55, minZ: -HZ + 0.7, maxZ: HZ - 0.55 },
+  cameraBounds: { minX: -HX + 0.4, maxX: HX - 0.4, minZ: -HZ + 0.5, maxZ: HZ + 4.5 },
   spawn: { x: 0, y: 0, z: 2.3, yaw: Math.PI },
   slots: {
     table: [
@@ -160,18 +177,18 @@ export const EMPTY_ROOM: StageDef = {
     { from: { x: 0, y: 3.0, z: 4.0 }, to: { x: 0, y: 2.7, z: 3.4 }, look: { x: 0, y: 0.8, z: -1.0 }, duration: 9, move: "dolly" },
   ],
   environment: {
-    fogColor: 0x0f1626,
-    fogDensity: 0.05,
-    skyTop: 0x2a3a5a,
-    skyMid: 0x56688a,
-    skyBot: 0x1a2030,
-    sunColor: 0xffe2b8,
-    sunDir: { x: 0.25, y: 0.5, z: -0.85 },
-    sunIntensity: 2.6,
-    hemiSky: 0x9db4d8,
-    hemiGround: 0x3a3228,
-    hemiIntensity: 0.9,
-    envIntensity: 0.9,
+    fogColor: 0x131b2a,
+    fogDensity: 0.045,
+    skyTop: 0x3a4a68,
+    skyMid: 0x7d8aa0,
+    skyBot: 0x2a2c34,
+    sunColor: 0xffe9cc,
+    sunDir: { x: 0.35, y: 0.62, z: -0.7 },
+    sunIntensity: 1.9,
+    hemiSky: 0xb6c6de,
+    hemiGround: 0x5a4c3e,
+    hemiIntensity: 1.1,
+    envIntensity: 1.0,
     shadowRadius: 9,
   },
   build: buildEmptyRoom,

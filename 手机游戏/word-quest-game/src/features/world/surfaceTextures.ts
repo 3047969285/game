@@ -422,18 +422,18 @@ function fillPlaster(p: Plane, rnd: () => number): void {
       if (depth < 2 && rnd() < 0.0035) drawCrack(x, y, ang + (rnd() < 0.5 ? -1 : 1) * (0.5 + rnd() * 0.6), len * 0.45, depth + 1);
     }
   };
-  const nCrack = 4;
+  const nCrack = 1;
   for (let c = 0; c < nCrack; c++) drawCrack(rnd() * S, rnd() * S, rnd() * Math.PI * 2, (110 + rnd() * 150) * s, 0);
   for (let i = 0; i < S * S; i++) {
-    const flake = sm(0.69, 0.74, nFlake[i] + (nFlakeDetail[i] - 0.5) * 0.3);
+    const flake = sm(0.8, 0.84, nFlake[i] + (nFlakeDetail[i] - 0.5) * 0.3);
     const flakeEdge = flake * (1 - sm(0.8, 1, flake));
     const grain = (nGrain[i] - 0.5) * 2 + (rnd() - 0.5) * 0.9;
     const c = crack[i];
     const h = 0.62 + (nTrowel[i] - 0.5) * 0.18 + grain * 0.03 - flake * 0.2 - c * 0.3 + flakeEdge * 0.04;
     p.H[i] = h;
-    let L = (0.9 + 0.2 * nBlot[i]) * (0.94 + 0.12 * nMid[i]) * (1 + grain * 0.035);
-    L = lerp(L, L * 0.88, flake);
-    L *= 1 - c * 0.34;
+    let L = (0.95 + 0.1 * nBlot[i]) * (0.96 + 0.08 * nMid[i]) * (1 + grain * 0.035);
+    L = lerp(L, L * 0.94, flake);
+    L *= 1 - c * 0.18;
     p.R[i] = L * (1 + flake * 0.01);
     p.G[i] = L * (1 - flake * 0.04);
     p.B[i] = L * (1 - flake * 0.12);

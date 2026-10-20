@@ -37,6 +37,7 @@ varying vec3 vRvPos;
 uniform float uRvAmt;
 uniform float uRvGhost;
 uniform float uRvPulse;
+uniform float uRvDim;
 uniform float uRvMode;
 uniform vec3 uRvDir;
 uniform vec3 uRvCenter;
@@ -103,6 +104,7 @@ if (rvGhostPx) {
   float rvTw = 0.75 + 0.25 * sin(uRvTime * 2.4 + vRvPos.x * 3.0 + vRvPos.y * 2.0);
   gl_FragColor = vec4(uRvEdge * rvTw * 1.5, 1.0);
 } else {
+  gl_FragColor.rgb *= 1.0 - uRvDim * 0.5;
   gl_FragColor.rgb += uRvEdge * (rvGlow * rvGlow * 2.6);
   #ifdef RV_PULSE
   float rvFr = pow(1.0 - clamp(dot(normalize(vViewPosition), normal), 0.0, 1.0), 2.0);
@@ -115,6 +117,7 @@ export interface RevealUniforms {
   uRvAmt: { value: number };
   uRvGhost: { value: number };
   uRvPulse: { value: number };
+  uRvDim: { value: number };
   uRvMode: { value: number };
   uRvDir: { value: THREE.Vector3 };
   uRvCenter: { value: THREE.Vector3 };
@@ -154,6 +157,7 @@ function createUniforms(timeU: { value: number }, seed: number): RevealUniforms 
     uRvAmt: { value: 0 },
     uRvGhost: { value: 0 },
     uRvPulse: { value: 0 },
+    uRvDim: { value: 0 },
     uRvMode: { value: 0 },
     uRvDir: { value: new THREE.Vector3(0, 1, 0) },
     uRvCenter: { value: new THREE.Vector3() },
@@ -468,6 +472,12 @@ export class Materializer {
   setPulse(target: string | THREE.Object3D, amount: number): void {
     const p = this.lookup(target);
     if (p) p.pulseBase = amount;
+  }
+
+  /** 变暗（0..1）：断片时与问题无关的物件退后一点，让候选物件更突出 */
+  setDim(target: string | THREE.Object3D, amount: number): void {
+    const p = this.lookup(target);
+    if (p) p.u.uRvDim.value = amount;
   }
 
   /**

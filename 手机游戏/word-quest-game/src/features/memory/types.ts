@@ -33,7 +33,8 @@ export interface WordObjectPlacement {
   scale?: number;
 }
 
-export type ActorPose = "stand" | "phone" | "listen" | "talk" | "write" | "read" | "walk" | "point" | "sit";
+/** lap：坐着双手放在膝上；reach：右手在约 1.5 秒里慢慢屈肘抬起伸向前方（左手仍放在膝上） */
+export type ActorPose = "stand" | "phone" | "listen" | "talk" | "write" | "read" | "walk" | "point" | "sit" | "lap" | "reach";
 
 export interface Actor {
   id: string; // "me2026" 表示年轻的“我”
@@ -77,14 +78,40 @@ export type Beat =
       speaker: string;
       line: string;
       zh?: string;
-      options: Array<{ wordId: string; reply: string; correct: boolean }>;
+      /**
+       * 选项。wordId 缺省时用 label 作为按钮文字（开场的 “Ready.” / “Not yet.”）；
+       * soft=true 的选项不算答错：回复一句话，停顿后再问一次（“Not yet.”）
+       */
+      options: Array<{ wordId?: string; label?: string; reply: string; correct: boolean; soft?: boolean }>;
       camera?: CameraShot;
+      /** 提问的音色，默认 young（同学）；开场用 system */
+      voice?: Voice;
+      /** 第一人称借谁的眼睛，默认 "me2026"（年轻的我）；开场借 2090 年的他 */
+      viewer?: string;
+      /** 视线朝向的世界坐标（speaker 不是场景里的人物时用；缺省朝向说话的人，再缺省朝向 viewer 自己的方向） */
+      lookAt?: Vec3;
     } // 附身对话
   | { kind: "actor"; actorId: string; action: "enter" | "walk" | "pose" | "exit"; to?: Vec3; pose?: ActorPose; duration?: number }
   | { kind: "pov"; to: Pov; camera?: CameraShot }
   | { kind: "paper"; page: PaperPage } // 二维旧笔记本
   | { kind: "wait"; seconds: number }
-  | { kind: "freeze"; caption: string; zh?: string }; // 定格成底片，上浮
+  | {
+      /** 让一批舞台部件 / 人物 / 物件显形（不朗读）。camera 不阻塞；等待 wait 秒（缺省等于 duration） */
+      kind: "build";
+      targets: string[];
+      duration?: number;
+      pov?: Pov;
+      camera?: CameraShot;
+      wait?: number;
+    }
+  | { kind: "dive"; seconds?: number } // 下潜：光粒洪流吞没画面，淡白
+  | {
+      kind: "freeze";
+      caption: string;
+      zh?: string;
+      /** 定格淡白之后回到 2090 年：老年的他说的一句话（雨声 + 字幕） */
+      epilogue?: { text: string; zh?: string; voice?: Voice };
+    }; // 定格成底片，上浮
 
 export interface MemoryScript {
   id: string; // "u01a"
@@ -210,7 +237,11 @@ export function validateScript(script: MemoryScript, ctx: ValidateContext = {}):
       case "choice":
         if (beat.options.length < 2) err(`${where}: 选项少于 2 个`);
         if (!beat.options.some((o) => o.correct)) err(`${where}: 没有正确选项`);
-        for (const o of beat.options) needWord(o.wordId, where);
+        for (const o of beat.options) {
+          if (o.wordId) needWord(o.wordId, where);
+          else if (!o.label) err(`${where}: 选项既没有 wordId 也没有 label`);
+        }
+        if (beat.viewer && !actorIds.has(beat.viewer)) err(`${where}: 不存在的 viewer ${beat.viewer}`);
         break;
       case "actor":
         if (!actorIds.has(beat.actorId)) err(`${where}: 不存在的 actor ${beat.actorId}`);
@@ -226,7 +257,19 @@ export function validateScript(script: MemoryScript, ctx: ValidateContext = {}):
       case "wait":
         if (!(beat.seconds >= 0)) err(`${where}: 非法时长`);
         break;
+      case "build":
+        if (beat.targets.length === 0) err(`${where}: 没有要显形的目标`);
+        for (const ref of beat.targets) {
+          if (pieceIds.has(ref) || actorIds.has(ref) || objectIds.has(ref)) continue;
+          if (ref.startsWith("actor:") && actorIds.has(ref.slice(6))) continue;
+          if (ref.startsWith("word:") && objectIds.has(ref.slice(5))) continue;
+          if (targets && targets.has(ref)) continue;
+          if (!targets && !script.pieces) continue;
+          err(`${where}: build 目标 ${ref} 不存在`);
+        }
+        break;
       case "pov":
+      case "dive":
       case "freeze":
         break;
     }

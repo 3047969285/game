@@ -68,4 +68,49 @@ describe("memoryObjects", () => {
       expect(moved, v).toBeGreaterThan(0.01);
     }
   });
+
+  it("单元 1 的 30 个词都 build 出非空的物件：有网格、有三角面、大小合理、名字带词 id", () => {
+    const kit = createSceneKit("low");
+    for (const id of unit1.word_ids) {
+      const g = buildWordObject(id, kit, undefined, vocab.get(id));
+      expect(g.name).toBe(`word:${id}`);
+      expect(g.userData.wordId).toBe(id);
+      expect(g.userData.archetype, id).toBe(MEMORY_OBJECTS[id].archetype);
+      expect(g.children.length, id).toBeGreaterThan(0);
+      expect(triangles(g), id).toBeGreaterThan(12);
+      const size = new THREE.Box3().setFromObject(g).getSize(new THREE.Vector3());
+      expect(Math.max(size.x, size.y, size.z), id).toBeGreaterThan(0.2);
+      expect(Math.max(size.x, size.y, size.z), id).toBeLessThan(1.2);
+    }
+  });
+
+  it("旁白是第二人称、一句完整的英语，自然地用到这个词", () => {
+    for (const id of unit1.word_ids) {
+      const line = MEMORY_OBJECTS[id].line;
+      expect(line, id).toMatch(/\b[Yy]ou(r)?\b/);
+      expect(line, id).toMatch(/^[A-Z].*\.$/);
+      expect(line.split(/\s+/).length, id).toBeLessThanOrEqual(16);
+    }
+  });
+
+  it("三十个词的物件各不相同：同一个原型最多被两个词共用，触碰阶段的六个词外形互不相同", () => {
+    const count = new Map<string, number>();
+    for (const id of unit1.word_ids) count.set(MEMORY_OBJECTS[id].archetype, (count.get(MEMORY_OBJECTS[id].archetype) ?? 0) + 1);
+    for (const [name, n] of count) expect(n, name).toBeLessThanOrEqual(2);
+    const six = ["rw3_unit01_13", "rw3_unit01_04", "rw3_unit01_21", "rw3_unit01_03", "rw3_unit01_22", "rw3_unit01_02"];
+    expect(new Set(six.map((id) => MEMORY_OBJECTS[id].archetype)).size).toBe(6);
+  });
+
+  it("设计稿指定的物件：device 是桌上一排手机，notification 是亮着的手机，message 是屏幕上的消息气泡，connection 是两部手机之间的线，lonely 是空椅子", () => {
+    expect(MEMORY_OBJECTS.rw3_unit01_13.archetype).toBe("phoneRow");
+    expect(MEMORY_OBJECTS.rw3_unit01_04.archetype).toBe("phone");
+    expect(MEMORY_OBJECTS.rw3_unit01_21.archetype).toBe("chatScreen");
+    expect(MEMORY_OBJECTS.rw3_unit01_02.archetype).toBe("cable");
+    expect(MEMORY_OBJECTS.rw3_unit01_22.archetype).toBe("emptyChair");
+  });
+
+  it("每个词都有触碰动画（verb），六种动画都被用到", () => {
+    const verbs = new Set(unit1.word_ids.map((id) => MEMORY_OBJECTS[id].verb));
+    expect([...verbs].sort()).toEqual(["bloom", "flip", "glow", "open", "ring", "spin"]);
+  });
 });

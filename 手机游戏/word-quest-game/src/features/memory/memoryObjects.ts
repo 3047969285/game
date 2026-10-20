@@ -43,19 +43,69 @@ export const ARCHETYPES: Record<string, Archetype> = {
   },
   cable: {
     build: (k, f) => {
-      f.box(k.p.plasticDark, 0.05, 0.03, 0.03, -0.24, 0, 0, 0.006);
-      f.box(k.p.plasticDark, 0.05, 0.03, 0.03, 0.24, 0, 0, 0.006);
-      f.box(k.m.brass, 0.02, 0.012, 0.014, -0.28, 0.009, 0, 0.002);
-      f.box(k.m.brass, 0.02, 0.012, 0.014, 0.28, 0.009, 0, 0.002);
-      let prev: [number, number, number] = [-0.22, 0.02, 0];
-      for (let i = 1; i <= 10; i++) {
-        const t = i / 10;
-        const next: [number, number, number] = [-0.22 + t * 0.44, 0.02 + Math.sin(t * Math.PI) * 0.1, Math.sin(t * Math.PI * 2) * 0.05];
-        f.strut(k.p.fabricBlue, prev, next, 0.009, 6);
+      // 两部手机之间一根细线：connection
+      for (const x of [-0.26, 0.26]) {
+        f.box(k.p.plasticDark, 0.1, 0.011, 0.17, x, 0, 0, 0.006, 0, x < 0 ? 0.25 : -0.25, 0);
+        put(f, new THREE.PlaneGeometry(0.085, 0.145), k.p.screenOn, x, 0.0118, 0, -Math.PI / 2, 0, x < 0 ? 0.25 : -0.25);
+        f.box(k.m.brass, 0.02, 0.012, 0.014, x * 0.78, 0.004, 0, 0.002);
+      }
+      let prev: [number, number, number] = [-0.2, 0.012, 0];
+      for (let i = 1; i <= 12; i++) {
+        const t = i / 12;
+        const next: [number, number, number] = [-0.2 + t * 0.4, 0.012 + Math.sin(t * Math.PI) * 0.07, Math.sin(t * Math.PI * 2) * 0.06];
+        f.strut(k.p.fabricBlue, prev, next, 0.007, 6);
         prev = next;
       }
     },
+    scale: 1.5,
+  },
+  phoneRow: {
+    build: (k, f) => {
+      // 桌上一排手机：一部亮着屏，两部扣着
+      for (let i = -1; i <= 1; i++) {
+        const p = f.child(i * 0.105, 0, i === 0 ? 0.01 : 0, i * 0.1);
+        p.box(k.p.plasticDark, 0.085, 0.011, 0.17, 0, 0, 0, 0.006);
+        if (i === 0) put(p, new THREE.PlaneGeometry(0.072, 0.15), k.p.screenOn, 0, 0.0118, 0, -Math.PI / 2);
+        else put(p, new THREE.PlaneGeometry(0.072, 0.15), k.p.screenOff, 0, 0.0118, 0, -Math.PI / 2);
+      }
+    },
     scale: 1.7,
+  },
+  chatScreen: {
+    build: (k, f) => {
+      // 立着的小平板，屏幕上是几个对话气泡：message
+      f.box(k.p.plasticDark, 0.27, 0.19, 0.012, 0, 0.03, 0, 0.008);
+      put(f, new THREE.PlaneGeometry(0.245, 0.165), k.p.screenOff, 0, 0.1225, 0.0066);
+      f.strut(k.p.plasticDark, [0, 0.05, -0.006], [0, 0.0, -0.09], 0.01, 5);
+      f.box(k.p.plasticDark, 0.12, 0.008, 0.05, 0, 0, -0.1, 0.003);
+      f.box(k.p.fabricCream, 0.1, 0.03, 0.003, -0.055, 0.168, 0.0075, 0.01);
+      f.box(k.p.screenOn, 0.115, 0.03, 0.003, 0.05, 0.128, 0.0075, 0.01);
+      f.box(k.p.fabricCream, 0.07, 0.03, 0.003, -0.075, 0.088, 0.0075, 0.01);
+      f.box(k.p.screenOn, 0.08, 0.03, 0.003, 0.07, 0.048, 0.0075, 0.01);
+    },
+    scale: 1.45,
+  },
+  topicCard: {
+    build: (k, f) => {
+      // 小木座上立着一张话题卡，卡面上两个对话气泡：conversation
+      f.box(k.m.woodDark, 0.16, 0.03, 0.06, 0, 0, 0, 0.008);
+      f.box(k.p.fabricCream, 0.2, 0.15, 0.006, 0, 0.03, 0.0, 0.004);
+      put(f, new THREE.SphereGeometry(0.04, 14, 8), k.p.fabricBlue, -0.045, 0.125, 0.005, 0, 0, 0, 1.5, 0.95, 0.12);
+      put(f, new THREE.SphereGeometry(0.035, 14, 8), k.p.fabricRed, 0.05, 0.085, 0.005, 0, 0, 0, 1.4, 0.95, 0.12);
+      f.box(k.p.printInk, 0.14, 0.008, 0.002, 0, 0.055, 0.004, 0);
+      f.box(k.p.printInk, 0.1, 0.008, 0.002, -0.02, 0.04, 0.004, 0);
+    },
+    scale: 1.7,
+  },
+  teaPair: {
+    build: (k, f) => {
+      // 托盘上两只相对的茶杯：converse
+      f.box(k.m.woodDark, 0.3, 0.012, 0.18, 0, 0, 0, 0.005);
+      cup(k, f.child(-0.08, 0.012, 0, 0.5));
+      cup(k, f.child(0.08, 0.012, 0, Math.PI - 0.5));
+      f.cyl(k.p.ceramic, 0.026, 0.034, 0.07, 0, 0.012, -0.05, 14);
+    },
+    scale: 2.0,
   },
   plug: {
     build: (k, f) => {
@@ -285,38 +335,41 @@ export const ARCHETYPES: Record<string, Archetype> = {
 
 const E = (archetype: string, verb: Verb, line: string): MemoryObjectDef => ({ archetype, verb, line });
 
-/** 单元 1《数字时代》30 词 → 物件 */
+/**
+ * 单元 1《数字时代》30 词 → 物件。每条旁白是第二人称的一句话，自然地用到这个词（词形可以变化）。
+ * 物件都是桌上 / 手边能拿起的东西，不贴字。
+ */
 export const MEMORY_OBJECTS: Record<string, MemoryObjectDef> = {
-  rw3_unit01_01: E("screen", "glow", "The whole room is digital now, soft and always on."),
-  rw3_unit01_02: E("cable", "glow", "A thin cable: the last connection you trusted."),
-  rw3_unit01_03: E("bubble", "bloom", "A conversation, waiting for someone to begin."),
-  rw3_unit01_04: E("phone", "ring", "Another notification lights up the dark."),
-  rw3_unit01_05: E("scroll", "open", "You scroll and scroll, and the evening unrolls."),
-  rw3_unit01_06: E("gear", "spin", "An algorithm turns quietly, choosing for you."),
-  rw3_unit01_07: E("lock", "flip", "Your privacy, locked tight behind small settings."),
-  rw3_unit01_08: E("globe", "spin", "A virtual world, spinning just out of reach."),
-  rw3_unit01_09: E("eye", "bloom", "Attention: where the eye goes, the day follows."),
-  rw3_unit01_10: E("plug", "flip", "Offline. The plug is out, and the room breathes."),
-  rw3_unit01_11: E("cards", "flip", "To multitask is to hold three cards at once."),
-  rw3_unit01_12: E("antenna", "ring", "The cyber world hums on its tall antenna."),
-  rw3_unit01_13: E("laptop", "open", "A device, open on the table, still warm."),
-  rw3_unit01_14: E("bottle", "flip", "Addiction fits in a small brown bottle."),
-  rw3_unit01_15: E("scales", "ring", "Balance: a little here, a little there."),
-  rw3_unit01_16: E("blocks", "flip", "Two blocks fit together: that is interaction."),
-  rw3_unit01_17: E("podium", "bloom", "A platform, raised so everyone can be seen."),
-  rw3_unit01_18: E("funnel", "spin", "A filter lets only a little of the world through."),
-  rw3_unit01_19: E("calendar", "flip", "A habit is a square you colour in every day."),
-  rw3_unit01_20: E("sprout", "bloom", "Be mindful, and something small begins to grow."),
-  rw3_unit01_21: E("letter", "open", "A short message, folded in the dark."),
-  rw3_unit01_22: E("emptyChair", "glow", "An empty chair, and the word lonely."),
-  rw3_unit01_23: E("megaphone", "ring", "Communication needs a voice and an ear."),
-  rw3_unit01_24: E("clock", "ring", "You feel anxious as the clock keeps ringing."),
-  rw3_unit01_25: E("cup", "glow", "Hold the cup carefully, and the tea stays warm."),
-  rw3_unit01_26: E("hourglass", "flip", "One session, one slow hourglass of sand."),
-  rw3_unit01_27: E("bubble", "bloom", "To converse is to let words go and wait."),
-  rw3_unit01_28: E("suitcase", "open", "Readiness is a bag packed the night before."),
-  rw3_unit01_29: E("flask", "glow", "An experiment, bubbling green and uncertain."),
-  rw3_unit01_30: E("compass", "spin", "Purpose is the needle that keeps pointing."),
+  rw3_unit01_01: E("screen", "glow", "You watch the digital screen glow, soft and always on."),
+  rw3_unit01_02: E("cable", "glow", "You follow the thin cable between two phones, the one connection you can see."),
+  rw3_unit01_03: E("topicCard", "bloom", "You read the topic on the card and wait for the conversation to begin."),
+  rw3_unit01_04: E("phone", "ring", "Another notification lights up your phone."),
+  rw3_unit01_05: E("scroll", "open", "You scroll and scroll until the whole evening unrolls."),
+  rw3_unit01_06: E("gear", "spin", "You feel an algorithm quietly choosing for you."),
+  rw3_unit01_07: E("lock", "flip", "You lock your privacy behind a dozen tiny settings."),
+  rw3_unit01_08: E("globe", "spin", "You turn the little globe, and a virtual world spins with it."),
+  rw3_unit01_09: E("eye", "bloom", "Wherever your attention goes, the day follows."),
+  rw3_unit01_10: E("plug", "flip", "You pull the plug and go offline, and the room breathes."),
+  rw3_unit01_11: E("cards", "flip", "You try to multitask, with three cards held in one hand."),
+  rw3_unit01_12: E("antenna", "ring", "You hear the cyber world hum on its tall antenna."),
+  rw3_unit01_13: E("phoneRow", "glow", "You line up every device on the table, and one is still glowing."),
+  rw3_unit01_14: E("bottle", "flip", "You turn the little brown bottle and think about addiction."),
+  rw3_unit01_15: E("scales", "ring", "You look for balance, a little here and a little there."),
+  rw3_unit01_16: E("blocks", "flip", "You fit two blocks together, and that is what interaction feels like."),
+  rw3_unit01_17: E("podium", "bloom", "You step onto the platform, and suddenly everyone can see you."),
+  rw3_unit01_18: E("funnel", "spin", "You filter the noise, and only a little of the world gets through."),
+  rw3_unit01_19: E("calendar", "flip", "You colour in one more square, because a habit is built day by day."),
+  rw3_unit01_20: E("sprout", "bloom", "You stay mindful, and something small begins to grow."),
+  rw3_unit01_21: E("chatScreen", "open", "You open a short message and read it twice."),
+  rw3_unit01_22: E("emptyChair", "glow", "You look at the empty chair and feel a little lonely."),
+  rw3_unit01_23: E("megaphone", "ring", "You lift the megaphone, because good communication needs a voice and an ear."),
+  rw3_unit01_24: E("clock", "ring", "You feel anxious as the clock keeps ticking."),
+  rw3_unit01_25: E("cup", "glow", "You carry the cup carefully, so the tea stays warm."),
+  rw3_unit01_26: E("hourglass", "flip", "You turn the hourglass to begin another session."),
+  rw3_unit01_27: E("teaPair", "bloom", "You sit down to converse, and the tea slowly cools."),
+  rw3_unit01_28: E("suitcase", "open", "You pack the bag the night before, and readiness feels like a closed zip."),
+  rw3_unit01_29: E("flask", "glow", "You watch the experiment bubble away, green and uncertain."),
+  rw3_unit01_30: E("compass", "spin", "You follow the needle, because purpose always points somewhere."),
 };
 
 /** 其它单元（M3 之前）用的通用原型池 */

@@ -14,10 +14,16 @@ import type { Pov, Vec3 } from "./types";
  */
 
 const PLAYER_SPEED = 2.5;
-const FOLLOW_DIST = 3.5;
-const FOLLOW_HEIGHT = 1.9;
+/** 跟随镜头：在 2090 年的他身后很远、偏到肩后，让他只占画面一角，不挡住他身后的物件 */
+const FOLLOW_DIST = 5.6;
+const FOLLOW_HEIGHT = 2.2;
+const FOLLOW_LOOK_HEIGHT = 1.2;
 const EYE_HEIGHT = 1.6;
 const BLEND_SECONDS = 1.3;
+/** 2090 年的他的基础不透明度：只是一层冷色的微光 */
+const OLD_SELF_OPACITY = 0.3;
+const OLD_SELF_OPACITY_BEHIND = 0.06;
+const TRAIL_COUNT = 56;
 
 const _q = new THREE.Quaternion();
 const _m = new THREE.Matrix4();
@@ -35,14 +41,36 @@ function angleDiff(a: number, b: number): number {
   return d;
 }
 
-/** 2090 年的他：探险者形体换成冷色半透明材质，并去掉自带的点光源（动态光源数量不能变，否则全场景重编译） */
+/**
+ * 菲涅尔边缘光：中心几乎透明，轮廓一圈冷蓝光。注入在标准材质的 emissivemap_fragment 之后 / opaque_fragment 之前。
+ * 先于 Materializer 的溶解补丁执行（applyRevealPatch 会先调用这里的 onBeforeCompile）。
+ */
+function patchShimmer(mat: THREE.MeshStandardMaterial): void {
+  mat.onBeforeCompile = (shader) => {
+    shader.fragmentShader = shader.fragmentShader
+      .replace(
+        "#include <emissivemap_fragment>",
+        `#include <emissivemap_fragment>
+        float avRim = pow(1.0 - clamp(dot(normalize(vViewPosition), normal), 0.0, 1.0), 2.2);
+        totalEmissiveRadiance += vec3(0.32, 0.62, 1.0) * (0.22 + avRim * 2.2);`
+      )
+      .replace("#include <opaque_fragment>", `diffuseColor.a = clamp(diffuseColor.a * (0.5 + avRim * 1.9), 0.0, 1.0);\n#include <opaque_fragment>`);
+  };
+  mat.customProgramCacheKey = () => "old-self-shimmer-v2";
+}
+
+/**
+ * 2090 年的他：探险者形体换成冷色、低不透明度的微光身影（不再是一个实心的蓝色人偶），
+ * 去掉自带的点光源（动态光源数量不能变，否则全场景重编译），也不参与射线拾取。
+ */
 function createOldSelf(): THREE.Group {
   const avatar = createExplorerAvatar();
   avatar.name = "old-self";
-  const cool = new THREE.Color(0x9fc4ff);
+  const cool = new THREE.Color(0xb5d2ff);
   const swapped = new Map<THREE.Material, THREE.Material>();
   const lights: THREE.Light[] = [];
   avatar.traverse((o) => {
+    o.raycast = () => undefined; // 射线（以及基于场景图的任何拾取）一律穿过他
     if ((o as THREE.Light).isLight) lights.push(o as THREE.Light);
     const mesh = o as THREE.Mesh;
     if (!mesh.isMesh) return;
@@ -54,26 +82,49 @@ function createOldSelf(): THREE.Group {
         dst = src;
       } else {
         const base = s.color ? s.color.clone() : new THREE.Color(0xaaaaaa);
-        dst = new THREE.MeshStandardMaterial({
-          color: base.lerp(cool, 0.42),
-          roughness: 0.62,
-          metalness: 0.02,
+        const mat = new THREE.MeshStandardMaterial({
+          color: base.lerp(cool, 0.6),
+          roughness: 0.5,
+          metalness: 0,
           vertexColors: s.vertexColors,
           map: s.map ?? null,
-          emissive: 0x4f86d8,
-          emissiveIntensity: 0.32,
+          emissive: 0x3f78d0,
+          emissiveIntensity: 0.18,
           transparent: true,
-          opacity: 0.74,
+          opacity: OLD_SELF_OPACITY,
+          depthWrite: false,
           side: s.side,
         });
+        patchShimmer(mat);
+        mat.userData.shimmer = true;
+        dst = mat;
       }
       swapped.set(src, dst);
     }
     mesh.material = dst;
     mesh.castShadow = false;
+    mesh.receiveShadow = false;
   });
   for (const l of lights) l.removeFromParent();
   return avatar;
+}
+
+let dotTexture: THREE.Texture | null = null;
+function softDot(): THREE.Texture {
+  if (dotTexture) return dotTexture;
+  const c = document.createElement("canvas");
+  c.width = c.height = 32;
+  const g = c.getContext("2d");
+  if (g) {
+    const grad = g.createRadialGradient(16, 16, 0, 16, 16, 16);
+    grad.addColorStop(0, "rgba(255,255,255,1)");
+    grad.addColorStop(0.4, "rgba(255,255,255,0.35)");
+    grad.addColorStop(1, "rgba(255,255,255,0)");
+    g.fillStyle = grad;
+    g.fillRect(0, 0, 32, 32);
+  }
+  dotTexture = new THREE.CanvasTexture(c);
+  return dotTexture;
 }
 
 export interface PovRigOptions {
@@ -89,6 +140,8 @@ export class PovRig {
   /** 外层包装：PovRig 控制它的可见性（第一人称隐藏）；内层 avatar 由 Materializer 控制溶解 */
   readonly root = new THREE.Group();
   readonly avatar: THREE.Group;
+  /** 他身后飘散的光尘（世界坐标，需要加进场景，不放在 root 里） */
+  readonly trail: THREE.Points;
   readonly player = new THREE.Vector3();
   pov: Pov = "you";
 
@@ -96,6 +149,7 @@ export class PovRig {
   private readonly canvas: HTMLElement;
   private readonly cinema: CinemaDirector;
   private bounds: StageBounds;
+  private cameraBounds: StageBounds | null = null;
   private baseFov: number;
   private readonly keys = new Set<string>();
   private stick = { x: 0, z: 0 };
@@ -110,6 +164,7 @@ export class PovRig {
   private followInit = false;
   private eyeAnchor: THREE.Vector3 | null = null;
   private eyeYaw = 0;
+  private eyePitch = 0;
   private lookYaw = 0;
   private lookPitch = 0;
   private time = 0;
@@ -127,6 +182,30 @@ export class PovRig {
   private lastY = 0;
   private enabled = true;
   private avatarHidden = false;
+  /** 点地面 / 自动走位的目的地（世界坐标，y 忽略）；有手动输入就取消 */
+  private dest: THREE.Vector3 | null = null;
+  private destSpeed = PLAYER_SPEED;
+  /** 跟随镜头的当前值与目标值（框住触碰目标时临时拉近 / 抬高，之后恢复） */
+  private followDist = FOLLOW_DIST;
+  private followHeight = FOLLOW_HEIGHT;
+  private followDistGoal = FOLLOW_DIST;
+  private followHeightGoal = FOLLOW_HEIGHT;
+  private focus: THREE.Vector3 | null = null;
+  private focusAmt = 0;
+  /** 当前可点的物件位置（用来判断他有没有挡住它们） */
+  private targetsProvider: (() => THREE.Vector3[]) | null = null;
+  private avatarMeshes: THREE.Mesh[] = [];
+  private avatarOpacity = OLD_SELF_OPACITY;
+  private readonly trailPos: Float32Array;
+  private readonly trailVel: Float32Array;
+  private readonly trailLife: Float32Array;
+  private readonly trailMax: Float32Array;
+  private readonly trailCol: Float32Array;
+  private trailCursor = 0;
+  private trailAcc = 0;
+  private readonly tmpA = new THREE.Vector3();
+  private readonly tmpB = new THREE.Vector3();
+  private readonly tmpC = new THREE.Vector3();
 
   constructor(opts: PovRigOptions) {
     this.camera = opts.camera;
@@ -138,6 +217,25 @@ export class PovRig {
     this.player.set(opts.spawn.x, opts.spawn.y, opts.spawn.z);
     this.playerYaw = this.avatarYaw = this.camYaw = opts.spawn.yaw;
     this.avatar = createOldSelf();
+    this.avatar.traverse((o) => {
+      if ((o as THREE.Mesh).isMesh) this.avatarMeshes.push(o as THREE.Mesh);
+    });
+    this.trailPos = new Float32Array(TRAIL_COUNT * 3);
+    this.trailVel = new Float32Array(TRAIL_COUNT * 3);
+    this.trailLife = new Float32Array(TRAIL_COUNT);
+    this.trailMax = new Float32Array(TRAIL_COUNT).fill(1);
+    this.trailCol = new Float32Array(TRAIL_COUNT * 3);
+    const trailGeo = new THREE.BufferGeometry();
+    trailGeo.setAttribute("position", new THREE.BufferAttribute(this.trailPos, 3).setUsage(THREE.DynamicDrawUsage));
+    trailGeo.setAttribute("color", new THREE.BufferAttribute(this.trailCol, 3).setUsage(THREE.DynamicDrawUsage));
+    this.trail = new THREE.Points(
+      trailGeo,
+      new THREE.PointsMaterial({ size: 0.075, map: softDot(), vertexColors: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true })
+    );
+    this.trail.frustumCulled = false;
+    this.trail.name = "old-self-trail";
+    this.trail.raycast = () => undefined;
+    this.trail.visible = false;
     this.root.name = "pov-rig";
     this.root.add(this.avatar);
     this.root.position.copy(this.player);
@@ -164,6 +262,7 @@ export class PovRig {
   setEnabled(on: boolean): void {
     this.enabled = on;
     if (!on) {
+      this.dest = null;
       this.keys.clear();
       this.stick.x = this.stick.z = 0;
     }
@@ -175,9 +274,48 @@ export class PovRig {
     this.root.visible = !hidden && this.pov !== "me";
   }
 
-  /** 换舞台时更新可走范围 */
-  setBounds(bounds: StageBounds): void {
+  /** 换舞台时更新可走范围；cameraBounds 是跟随镜头允许到达的范围（缺省为可走范围外扩 0.3 m） */
+  setBounds(bounds: StageBounds, cameraBounds?: StageBounds): void {
     this.bounds = bounds;
+    this.cameraBounds = cameraBounds ?? null;
+  }
+
+  /**
+   * 走到 (x, z)（会夹进可走范围）。点地面 = click-to-move；也用于触碰阶段把 2090 年的他带到一个好位置。
+   * 按 WASD / 摇杆会立刻取消。speed 缺省为正常步速
+   */
+  moveTo(x: number, z: number, speed = PLAYER_SPEED): void {
+    this.dest = new THREE.Vector3(THREE.MathUtils.clamp(x, this.bounds.minX, this.bounds.maxX), 0, THREE.MathUtils.clamp(z, this.bounds.minZ, this.bounds.maxZ));
+    this.destSpeed = speed;
+  }
+
+  cancelMove(): void {
+    this.dest = null;
+  }
+
+  get walkingToDest(): boolean {
+    return this.dest !== null;
+  }
+
+  /**
+   * 框住一组目标：跟随镜头平滑地拉近 / 抬高，并把视线移向 focus（目标群的中心）。
+   * 镜头到位后仍是 “你” 的视角，玩家照常可以走动、拖动（releaseFraming 之后恢复默认的肩后机位）。
+   */
+  frameFocus(focus: THREE.Vector3, dist: number, height: number): void {
+    this.focus = focus.clone();
+    this.followDistGoal = dist;
+    this.followHeightGoal = height;
+  }
+
+  releaseFraming(): void {
+    this.focus = null;
+    this.followDistGoal = FOLLOW_DIST;
+    this.followHeightGoal = FOLLOW_HEIGHT;
+  }
+
+  /** 提供当前可点物件的位置：它们被他挡在后面时，他会进一步淡出 */
+  setTargetsProvider(fn: (() => THREE.Vector3[]) | null): void {
+    this.targetsProvider = fn;
   }
 
   /** 窗口比例变化时更新基准 fov */
@@ -203,9 +341,10 @@ export class PovRig {
   }
 
   /** 第一人称的眼睛位置与朝向（年轻的“我”的头部）；缺省用玩家出生点 */
-  setEyeAnchor(pos: THREE.Vector3 | null, yaw = 0): void {
+  setEyeAnchor(pos: THREE.Vector3 | null, yaw = 0, pitch = 0): void {
     this.eyeAnchor = pos ? pos.clone() : null;
     this.eyeYaw = yaw;
+    this.eyePitch = pitch;
     this.lookYaw = 0;
     this.lookPitch = 0;
   }
@@ -229,6 +368,7 @@ export class PovRig {
     this.pov = pov;
     this.root.visible = pov !== "me" && !this.avatarHidden;
     this.keys.clear();
+    if (pov !== "you") this.dest = null;
   }
 
   // ───────── 每帧 ─────────
@@ -238,6 +378,15 @@ export class PovRig {
     if (this.pov === "you") this.updatePlayer(dt);
     else this.moving = false;
     this.animateAvatar(dt);
+    // 跟随镜头的距离 / 高度 / 视线焦点平滑过渡
+    const fk = 1 - Math.exp(-dt * 2.2);
+    this.followDist += (this.followDistGoal - this.followDist) * fk;
+    this.followHeight += (this.followHeightGoal - this.followHeight) * fk;
+    this.focusAmt += ((this.focus ? 1 : 0) - this.focusAmt) * fk;
+    if (this.focus && this.pov === "you" && this.dragPointer === null) {
+      const want = Math.atan2(this.focus.x - this.player.x, this.focus.z - this.player.z);
+      this.camYaw += angleDiff(want, this.camYaw) * Math.min(1, dt * 2.4);
+    }
 
     if (this.pov !== "paper") this.computeTarget(dt);
     else {
@@ -263,6 +412,9 @@ export class PovRig {
       this.camera.fov = this.targetFov;
     }
     this.camera.updateProjectionMatrix();
+    // 相机姿态定下来之后再算 “他有没有挡住物件”（用本帧的相机矩阵投影）
+    this.camera.updateMatrixWorld(true);
+    this.updateShimmer(dt);
   }
 
   /** 按当前 POV 算出相机目标姿态 */
@@ -271,12 +423,19 @@ export class PovRig {
       case "you": {
         const sin = Math.sin(this.camYaw);
         const cos = Math.cos(this.camYaw);
-        const pitchLift = Math.sin(this.camPitch) * 2.2;
-        const desired = this.pose.set(this.player.x - sin * FOLLOW_DIST, this.player.y + FOLLOW_HEIGHT + pitchLift, this.player.z - cos * FOLLOW_DIST);
-        // 相机不能穿墙：限制在可走范围略外一圈
+        const pitchLift = Math.sin(this.camPitch) * 2.4;
+        // 偏到肩后：相机与注视点一起沿右手方向平移，他就出现在画面一侧（竖屏更靠边一点点）
+        const aspect = this.camera.aspect || 1.6;
+        const half = Math.tan(THREE.MathUtils.degToRad(this.baseFov) / 2) * aspect * this.followDist;
+        const side = THREE.MathUtils.clamp(half * (aspect < 1 ? 0.42 : 0.58), 0.5, 3.0) * (1 - this.focusAmt * 0.85);
+        const rx = -cos;
+        const rz = sin;
+        const desired = this.pose.set(this.player.x - sin * this.followDist + rx * side, this.player.y + this.followHeight + pitchLift, this.player.z - cos * this.followDist + rz * side);
+        // 相机不能穿墙：限制在舞台给的相机范围内（缺省为可走范围略外一圈）
+        const cb = this.cameraBounds;
         const m = 0.3;
-        desired.x = THREE.MathUtils.clamp(desired.x, this.bounds.minX - m, this.bounds.maxX + m);
-        desired.z = THREE.MathUtils.clamp(desired.z, this.bounds.minZ - m, this.bounds.maxZ + m);
+        desired.x = THREE.MathUtils.clamp(desired.x, cb ? cb.minX : this.bounds.minX - m, cb ? cb.maxX : this.bounds.maxX + m);
+        desired.z = THREE.MathUtils.clamp(desired.z, cb ? cb.minZ : this.bounds.minZ - m, cb ? cb.maxZ : this.bounds.maxZ + m);
         if (!this.followInit) {
           this.followPos.copy(desired);
           this.followInit = true;
@@ -284,7 +443,8 @@ export class PovRig {
           this.followPos.lerp(desired, 1 - Math.exp(-6 * dt));
         }
         this.targetPos.copy(this.followPos);
-        this.poseLook.set(this.player.x, this.player.y + 1.45, this.player.z);
+        this.poseLook.set(this.player.x + rx * side, this.player.y + FOLLOW_LOOK_HEIGHT, this.player.z + rz * side);
+        if (this.focus && this.focusAmt > 0.001) this.poseLook.lerp(this.focus, this.focusAmt);
         lookQuat(this.targetPos, this.poseLook, this.targetQuat);
         this.targetFov = this.baseFov;
         break;
@@ -301,7 +461,7 @@ export class PovRig {
         const breathe = Math.sin(this.time * 1.7) * 0.012;
         this.targetPos.set(eye.x + Math.sin(this.time * 0.6) * 0.006, eye.y + breathe, eye.z);
         const yaw = this.eyeYaw + this.lookYaw;
-        const pitch = this.lookPitch + Math.sin(this.time * 1.7 + 0.8) * 0.004;
+        const pitch = this.eyePitch + this.lookPitch + Math.sin(this.time * 1.7 + 0.8) * 0.004;
         _q.setFromEuler(new THREE.Euler(pitch, yaw + Math.PI, 0, "YXZ"));
         this.targetQuat.copy(_q);
         this.targetFov = this.baseFov + 2;
@@ -310,6 +470,80 @@ export class PovRig {
       default:
         break;
     }
+  }
+
+  /**
+   * 微光身影：不透明度随 “有没有挡住可点物件” 平滑变化；身后飘散光尘。
+   * 材质在 Materializer 注册时已被克隆，所以每次都从网格上取当前材质。
+   */
+  private updateShimmer(dt: number): void {
+    let behind = false;
+    if (this.pov === "you" && this.targetsProvider && !this.avatarHidden) {
+      const cam = this.camera;
+      const feet = this.tmpA.set(this.root.position.x, this.root.position.y, this.root.position.z);
+      const dAvatar = feet.distanceTo(cam.position);
+      const bottom = this.tmpB.copy(feet).project(cam);
+      const top = this.tmpC.set(feet.x, feet.y + 1.9, feet.z).project(cam);
+      const halfW = (0.55 / Math.max(0.5, dAvatar)) / (Math.tan(THREE.MathUtils.degToRad(cam.fov) / 2) * (cam.aspect || 1));
+      const cx = (bottom.x + top.x) / 2;
+      for (const p of this.targetsProvider()) {
+        const d = p.distanceTo(cam.position);
+        if (d < dAvatar - 0.15) continue; // 物件在他前面，没被挡
+        const q = this.tmpA.copy(p).project(cam);
+        if (Math.abs(q.x - cx) < halfW + 0.07 && q.y > Math.min(bottom.y, top.y) - 0.12 && q.y < Math.max(bottom.y, top.y) + 0.12) {
+          behind = true;
+          break;
+        }
+      }
+    }
+    const goal = behind ? OLD_SELF_OPACITY_BEHIND : OLD_SELF_OPACITY;
+    this.avatarOpacity += (goal - this.avatarOpacity) * (1 - Math.exp(-dt * 7));
+    for (const mesh of this.avatarMeshes) {
+      const m = mesh.material as THREE.Material;
+      // Materializer 注册时克隆了材质，userData 随克隆保留
+      if (m.userData.shimmer) m.opacity = this.avatarOpacity;
+    }
+
+    // 光尘：静止时缓缓从身上升起，走动时在身后拖出一小段
+    const showTrail = this.root.visible && this.avatar.visible && this.pov !== "paper";
+    this.trail.visible = showTrail;
+    const fadeK = this.avatarOpacity / OLD_SELF_OPACITY;
+    if (showTrail) {
+      this.trailAcc += dt * (this.moving ? 30 : 7);
+      while (this.trailAcc >= 1) {
+        this.trailAcc -= 1;
+        const i = this.trailCursor;
+        this.trailCursor = (this.trailCursor + 1) % TRAIL_COUNT;
+        const a = Math.random() * Math.PI * 2;
+        const r = Math.random() * 0.2;
+        this.trailPos[i * 3] = this.root.position.x + Math.cos(a) * r;
+        this.trailPos[i * 3 + 1] = this.root.position.y + 0.15 + Math.random() * 1.5;
+        this.trailPos[i * 3 + 2] = this.root.position.z + Math.sin(a) * r;
+        const back = this.moving ? -0.5 : 0;
+        this.trailVel[i * 3] = Math.sin(this.avatarYaw) * back + (Math.random() - 0.5) * 0.12;
+        this.trailVel[i * 3 + 1] = 0.12 + Math.random() * 0.22;
+        this.trailVel[i * 3 + 2] = Math.cos(this.avatarYaw) * back + (Math.random() - 0.5) * 0.12;
+        this.trailMax[i] = 1.3 + Math.random() * 1.3;
+        this.trailLife[i] = this.trailMax[i];
+      }
+    }
+    for (let i = 0; i < TRAIL_COUNT; i++) {
+      if (this.trailLife[i] <= 0) {
+        this.trailCol[i * 3] = this.trailCol[i * 3 + 1] = this.trailCol[i * 3 + 2] = 0;
+        continue;
+      }
+      this.trailLife[i] -= dt;
+      this.trailPos[i * 3] += this.trailVel[i * 3] * dt;
+      this.trailPos[i * 3 + 1] += this.trailVel[i * 3 + 1] * dt;
+      this.trailPos[i * 3 + 2] += this.trailVel[i * 3 + 2] * dt;
+      const k = Math.max(0, this.trailLife[i] / this.trailMax[i]);
+      const a = Math.sin(k * Math.PI) * 0.8 * fadeK;
+      this.trailCol[i * 3] = 0.42 * a;
+      this.trailCol[i * 3 + 1] = 0.7 * a;
+      this.trailCol[i * 3 + 2] = 1.0 * a;
+    }
+    (this.trail.geometry.getAttribute("position") as THREE.BufferAttribute).needsUpdate = true;
+    (this.trail.geometry.getAttribute("color") as THREE.BufferAttribute).needsUpdate = true;
   }
 
   private updatePlayer(dt: number): void {
@@ -323,21 +557,38 @@ export class PovRig {
       forward = this.stick.z;
       strafe = this.stick.x;
     }
-    this.moving = forward !== 0 || strafe !== 0;
-    if (this.moving) {
+    const manual = forward !== 0 || strafe !== 0;
+    if (manual) this.dest = null; // 手动输入优先
+    let dx = 0;
+    let dz = 0;
+    let stepSpeed = PLAYER_SPEED * (this.sprint ? 1.8 : 1);
+    if (manual) {
       const sin = Math.sin(this.camYaw);
       const cos = Math.cos(this.camYaw);
-      let dx = -strafe * cos + forward * sin;
-      let dz = strafe * sin + forward * cos;
+      dx = -strafe * cos + forward * sin;
+      dz = strafe * sin + forward * cos;
+    } else if (this.dest) {
+      const ddx = this.dest.x - this.player.x;
+      const ddz = this.dest.z - this.player.z;
+      const dd = Math.hypot(ddx, ddz);
+      if (dd < 0.12) this.dest = null;
+      else {
+        dx = ddx;
+        dz = ddz;
+        stepSpeed = Math.min(this.destSpeed, dd * 4 + 0.4); // 临近目的地减速
+      }
+    }
+    this.moving = dx !== 0 || dz !== 0;
+    if (this.moving) {
       const len = Math.hypot(dx, dz) || 1;
       dx /= len;
       dz /= len;
-      const speed = PLAYER_SPEED * (this.sprint ? 1.8 : 1) * dt;
+      const speed = stepSpeed * dt;
       this.player.x = THREE.MathUtils.clamp(this.player.x + dx * speed, this.bounds.minX, this.bounds.maxX);
       this.player.z = THREE.MathUtils.clamp(this.player.z + dz * speed, this.bounds.minZ, this.bounds.maxZ);
       this.playerYaw = Math.atan2(dx, dz);
       // 走路时相机缓慢转到背后；拖动时不抢控制
-      if (this.dragPointer === null) this.camYaw += angleDiff(this.playerYaw, this.camYaw) * Math.min(1, dt * 1.6);
+      if (this.dragPointer === null && this.focusAmt < 0.5) this.camYaw += angleDiff(this.playerYaw, this.camYaw) * Math.min(1, dt * 1.6);
     }
   }
 
@@ -436,6 +687,9 @@ export class PovRig {
     this.canvas.removeEventListener("pointerup", this.onPointerEnd);
     this.canvas.removeEventListener("pointercancel", this.onPointerEnd);
     this.root.removeFromParent();
+    this.trail.removeFromParent();
+    this.trail.geometry.dispose();
+    (this.trail.material as THREE.Material).dispose();
     const geos = new Set<THREE.BufferGeometry>();
     const mats = new Set<THREE.Material>();
     this.avatar.traverse((o) => {

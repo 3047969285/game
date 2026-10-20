@@ -220,21 +220,28 @@
 
 .mem-card {
   display: none;
-  max-width: min(92vw, 440px);
-  padding: 10px 16px;
-  border-radius: 14px;
-  background: rgba(8, 14, 28, 0.74);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: max-content;
+  max-width: min(78vw, 300px);
+  padding: 8px 13px 9px;
+  border-radius: 13px;
+  background: rgba(8, 14, 28, 0.78);
   border: 1px solid rgba(160, 210, 255, 0.34);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   text-align: center;
+  visibility: hidden;
+  will-change: transform;
 }
-.mem-card.on { display: block; animation: memFadeUp 0.45s ease both; }
+.mem-card.on { display: block; animation: memCardIn 0.35s ease both; }
 .mem-card-head { display: flex; align-items: baseline; justify-content: center; gap: 10px; }
-.mem-card-word { font-size: 21px; font-weight: 700; letter-spacing: 0.02em; }
+.mem-card-word { font-size: 19px; font-weight: 700; letter-spacing: 0.02em; }
 .mem-card-ph { font-size: 13px; color: rgba(190, 220, 255, 0.78); }
 .mem-card-mean { margin-top: 2px; font: 500 14px / 1.4 var(--font-cn, sans-serif); color: #e8f2ff; }
-.mem-card-line { margin-top: 4px; font-size: 12.5px; font-style: italic; color: rgba(255, 255, 255, 0.66); }
+.mem-card-line { margin-top: 3px; font-size: 12px; line-height: 1.35; font-style: italic; color: rgba(255, 255, 255, 0.66); }
 
 /* ───────── 词签 ───────── */
 .mem-labels { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
@@ -257,6 +264,36 @@
   will-change: transform;
 }
 .mem-tag.on { opacity: 1; }
+/* 不是焦点的目标只留一个小圆点（完整词签同一时刻只显示一个，免得叠在一起） */
+.mem-tag.dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  gap: 0;
+  border-radius: 50%;
+  background: rgba(190, 228, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 10px rgba(150, 210, 255, 0.8);
+  overflow: hidden;
+  font-size: 0;
+}
+.mem-tag.dot > * { display: none; }
+/* 屏幕外目标的边缘箭头 */
+.mem-edge {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 14px solid rgba(190, 228, 255, 0.9);
+  filter: drop-shadow(0 0 6px rgba(150, 210, 255, 0.9));
+  opacity: 0;
+  transition: opacity 0.25s;
+  will-change: transform;
+}
+.mem-edge.on { opacity: 0.9; animation: memPulse 1.8s ease-in-out infinite; }
 .mem-tag strong { font-weight: 700; }
 .mem-tag small { color: rgba(190, 220, 255, 0.7); font-size: 11px; }
 
@@ -464,6 +501,8 @@
 /* ───────── 动画 ───────── */
 @keyframes memBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
 @keyframes memPulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+@keyframes memCardIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes memRain { from { transform: translateY(-14vh); } to { transform: translateY(112vh); } }
 @keyframes memFadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @keyframes memShake {
   0%, 100% { translate: 0 0; }
@@ -478,3 +517,41 @@
   .mem-bar, .mem-sub, .mem-exit, .mem-stack { transition-duration: 0.01ms; }
   .mem-gate-en { animation: none; }
 }
+
+/* ───────── 2090 年尾声 ───────── */
+.mem-epilogue {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at 22% 74%, rgba(255, 190, 120, 0.16), transparent 34%),
+    radial-gradient(ellipse at 70% 62%, rgba(110, 170, 255, 0.18), transparent 38%),
+    radial-gradient(ellipse at 52% 90%, rgba(120, 220, 230, 0.12), transparent 30%),
+    linear-gradient(to bottom, #05070f, #0a1222 60%, #0d1830);
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+.mem-epilogue.on { opacity: 1; }
+.mem-rain {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 14vh;
+  background: linear-gradient(to bottom, transparent, rgba(190, 215, 255, 0.55));
+  animation: memRain 1.8s linear infinite;
+}
+.mem-epilogue-line {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: min(86vw, 620px);
+  text-align: center;
+  color: #e9f0ff;
+}
+.mem-epilogue-en { font: italic 500 clamp(20px, 5.4vw, 30px) / 1.4 Georgia, "Times New Roman", serif; letter-spacing: 0.01em; text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6); }
+.mem-epilogue-zh { font: 500 clamp(12px, 3.2vw, 15px) / 1.5 var(--font-cn, sans-serif); color: rgba(233, 240, 255, 0.62); }
+@media (prefers-reduced-motion: reduce) { .mem-rain { animation: none; } }

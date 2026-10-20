@@ -1,16 +1,22 @@
 import type { SceneKit } from "../../world/sceneProps";
 import type * as THREE from "three";
+import { APARTMENT_2090 } from "./apartment2090";
+import { CLUB_ROOM } from "./clubRoom";
 import { EMPTY_ROOM } from "./emptyRoom";
 import type { StageDef } from "./types";
 import { VOID_STAGE } from "./void";
 
 export type { StageDef, StageEnvironment, StageBounds } from "./types";
-export { pieceGroup } from "./types";
+export { pieceGroup, addDisposer } from "./types";
+export { CLUB_SEATS } from "./clubRoom";
+export { APARTMENT } from "./apartment2090";
 
-/** 舞台注册表：M1b 往这里加 clubRoom / apartment2090 */
+/** 舞台注册表：通用 emptyRoom、空舞台 void，以及两个手写舞台 clubRoom（《周四的沉默》）与 apartment2090（开场） */
 const STAGES: Record<string, StageDef> = {
   [EMPTY_ROOM.name]: EMPTY_ROOM,
   [VOID_STAGE.name]: VOID_STAGE,
+  [CLUB_ROOM.name]: CLUB_ROOM,
+  [APARTMENT_2090.name]: APARTMENT_2090,
 };
 
 export function registerStage(def: StageDef): void {

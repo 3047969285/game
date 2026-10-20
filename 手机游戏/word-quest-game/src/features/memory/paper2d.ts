@@ -87,6 +87,7 @@ export class PaperLayer {
   private readonly root: HTMLElement;
   private current: { resolve: (ok: boolean) => void } | null = null;
   private finishFn: ((ok: boolean) => void) | null = null;
+  private autoFn: (() => void) | null = null;
   private cleanup: Array<() => void> = [];
 
   constructor(
@@ -278,7 +279,19 @@ export class PaperLayer {
         cur.resolve(ok);
       };
       this.finishFn = finish;
+      // 测试开关用：按顺序把每个空位填上正确的词
+      this.autoFn = () => {
+        slots.forEach((slot, i) => {
+          const t = window.setTimeout(() => tryFill(i, slot.wordId), 600 * i);
+          this.cleanup.push(() => window.clearTimeout(t));
+        });
+      };
     });
+  }
+
+  /** 测试开关 ?memauto=1：自动把当前页补全（逐个空位填入正确的词） */
+  autoSolve(): void {
+    this.autoFn?.();
   }
 
   /** 关闭当前页（未完成则 resolve(false)） */

@@ -68,6 +68,8 @@ export class MemoryHud {
   private readonly fadeEl: HTMLElement;
   private readonly gateEl: HTMLElement;
   private readonly captionEl: HTMLElement;
+  private epilogueEl: HTMLElement | null = null;
+  private readonly barTop: HTMLElement;
   private readonly stick: HTMLElement;
   private readonly knob: HTMLElement;
   private readonly cleanups: Array<() => void> = [];
@@ -86,7 +88,7 @@ export class MemoryHud {
     this.root = el("div", "mem-hud");
     container.appendChild(this.root);
     this.labels = el("div", "mem-labels", this.root);
-    el("div", "mem-bar mem-bar-top", this.root);
+    this.barTop = el("div", "mem-bar mem-bar-top", this.root);
     el("div", "mem-bar mem-bar-bottom", this.root);
 
     this.exitBtn = el("button", "mem-exit", this.root, "×");
@@ -96,9 +98,10 @@ export class MemoryHud {
 
     this.povTag = el("div", "mem-pov", this.root);
 
-    // 底部堆叠区：词卡 / 提示 / 选项 / 字幕自上而下排列，互不遮挡，合计不超过屏幕高度的 ~30%
+    // 词卡是浮在物件旁边的小卡片（不进底部堆叠区，见 placeCard）
+    this.card = el("div", "mem-card", this.labels);
+    // 底部堆叠区：提示 / 选项 / 字幕自上而下排列，互不遮挡，合计不超过屏幕高度的 ~30%
     const stack = el("div", "mem-stack", this.root);
-    this.card = el("div", "mem-card", stack);
     this.prompt = el("div", "mem-prompt", stack);
     this.choices = el("div", "mem-choices", stack);
 
@@ -292,9 +295,15 @@ export class MemoryHud {
 
   // ───────── 词卡 ─────────
 
+  /** 词卡是否正在显示 */
+  get cardOn(): boolean {
+    return this.card.classList.contains("on");
+  }
+
   showWordCard(info: WordCardInfo, ms = 2500): void {
     window.clearTimeout(this.cardTimer);
     this.card.textContent = "";
+    this.card.style.visibility = "hidden"; // 第一次定位之前不显示，避免从左上角闪过来
     const head = el("div", "mem-card-head", this.card);
     el("strong", "mem-card-word", head, info.word);
     if (info.phonetic) el("span", "mem-card-ph", head, info.phonetic);
@@ -304,16 +313,39 @@ export class MemoryHud {
     this.cardTimer = window.setTimeout(() => this.hideWordCard(), ms);
   }
 
+  /**
+   * 把词卡放在屏幕坐标 (x, y)（物件的投影点，y 是物件顶部）附近：优先在物件上方，放不下就放到下方，
+   * 并夹在屏幕内（避开底部的提示条与顶部角标）。
+   */
+  placeCard(x: number, y: number, viewW: number, viewH: number, below?: number): void {
+    const w = this.card.offsetWidth || 220;
+    const h = this.card.offsetHeight || 90;
+    const margin = 10;
+    // 宽银幕黑边（watch 视角）也要让开
+    const bar = this.barTop.offsetHeight || 0;
+    const topSafe = Math.max(44, bar + 12);
+    const bottomSafe = Math.max(92, viewH * 0.16) + bar;
+    let cx = Math.min(Math.max(x, w / 2 + margin), viewW - w / 2 - margin);
+    let top = y - h - 14;
+    if (top < topSafe) top = (below ?? y) + 18;
+    top = Math.min(Math.max(top, topSafe), viewH - bottomSafe - h);
+    cx = Math.round(cx);
+    this.card.style.transform = `translate(${cx - w / 2}px, ${Math.round(top)}px)`;
+    this.card.style.visibility = "visible";
+  }
+
   hideWordCard(): void {
     window.clearTimeout(this.cardTimer);
     this.card.classList.remove("on");
+    this.card.style.visibility = "hidden";
   }
 
   // ───────── 转场 ─────────
 
   /** 黑场：toBlack=true 渐黑，false 渐亮 */
-  fade(toBlack: boolean, ms = 900): Promise<void> {
+  fade(toBlack: boolean, ms = 900, color = "#000"): Promise<void> {
     this.fadeEl.style.transitionDuration = `${ms}ms`;
+    if (toBlack) this.fadeEl.style.background = color;
     // 下一帧再改 class，保证过渡生效
     requestAnimationFrame(() => this.fadeEl.classList.toggle("on", toBlack));
     return new Promise((resolve) => {
@@ -352,6 +384,35 @@ export class MemoryHud {
         resolve();
       });
     });
+  }
+
+  /** 2090 年的尾声：深蓝夜色 + 雨丝，中间一句老年的他的话（定格淡白之后） */
+  showEpilogue(text: string, zh?: string): void {
+    this.hideEpilogue();
+    const root = el("div", "mem-epilogue");
+    for (let i = 0; i < 26; i++) {
+      const drop = el("i", "mem-rain", root);
+      drop.style.left = `${(i * 37.7) % 100}%`;
+      drop.style.animationDelay = `${-((i * 0.37) % 2.4)}s`;
+      drop.style.animationDuration = `${1.5 + ((i * 7) % 10) / 10}s`;
+      drop.style.opacity = String(0.25 + ((i * 13) % 10) / 22);
+    }
+    const line = el("div", "mem-epilogue-line", root);
+    el("span", "mem-epilogue-en", line, text);
+    if (zh) el("span", "mem-epilogue-zh", line, zh);
+    this.root.insertBefore(root, this.fadeEl);
+    this.epilogueEl = root;
+    requestAnimationFrame(() => root.classList.add("on"));
+  }
+
+  hideEpilogue(): void {
+    this.epilogueEl?.remove();
+    this.epilogueEl = null;
+  }
+
+  /** 测试开关 ?memauto=1：替玩家点一下 “轻触开始” */
+  tapGate(): void {
+    if (!this.gateEl.hidden) this.gateEl.dispatchEvent(new Event("pointerdown"));
   }
 
   /** 定格后的题注 */

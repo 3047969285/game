@@ -41,8 +41,12 @@ export interface StageDef {
   showPlayer?: boolean;
   /** 部件名 → 默认显形风格 */
   targets: Readonly<Record<string, BuildStyle>>;
-  /** 2090 年的他（玩家）可以走动的范围；相机也被限制在这个范围内 */
+  /** 2090 年的他（玩家）可以走动的范围；缺省时跟随相机也被限制在这个范围略外一圈 */
   bounds: StageBounds;
+  /** 跟随相机允许到达的范围。房间的前墙是一张朝向室内的单面平面（从外面看是透明的），相机可以退到墙外去 */
+  cameraBounds?: StageBounds;
+  /** 环境声：进入这个舞台后（用户手势之后）开始播放，销毁时停止 */
+  ambience?: "rain";
   /** 玩家出生点与朝向（弧度，绕 Y） */
   spawn: Vec3 & { yaw: number };
   /** 物件摆放位：桌面 / 悬空 / 地面 */
@@ -52,6 +56,17 @@ export interface StageDef {
   environment: StageEnvironment;
   /** 搭出所有部件；kit 提供共享材质 */
   build(kit: SceneKit): THREE.Group;
+  /**
+   * 逐帧动画（雨、悬浮交通、界面面板……）。root 是 build 返回的 Group；
+   * 注意注册到 Materializer 的部件材质是克隆的，要改 uniform 请从网格上取当前材质，不要持有 build 时的引用。
+   */
+  animate?(root: THREE.Group, dt: number, time: number): void;
+}
+
+/** 舞台自己持有的需要释放的资源（画布纹理等）：放进 root.userData.disposers，MemoryStage.dispose 时统一调用 */
+export function addDisposer(root: THREE.Object3D, fn: () => void): void {
+  const list = (root.userData.disposers ??= []) as Array<() => void>;
+  list.push(fn);
 }
 
 /** 每个部件用独立的合并构建器，这样一个部件 = 少量网格，Materializer 可以单独溶解它 */

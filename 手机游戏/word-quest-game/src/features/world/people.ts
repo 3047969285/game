@@ -10,7 +10,7 @@ import { mirrorX } from "./sdf";
  * 同样的比例（约 8 头身）。原点：站姿在脚底；坐姿在臀部正下方的座面上（面朝 +Z）。
  */
 
-export type PersonPose = "stand" | "phone" | "listen" | "talk" | "write" | "read" | "walk" | "point";
+export type PersonPose = "stand" | "phone" | "listen" | "talk" | "write" | "read" | "walk" | "point" | "lap" | "reach1" | "reach2" | "reach3" | "reach4";
 
 export interface PersonOptions {
   shirt: number;
@@ -107,6 +107,12 @@ const ARM_POSES: Record<PersonPose, { left: ArmPose; right: ArmPose }> = {
   read: { left: { shoulder: -0.95, elbow: -1.45, side: -0.1 }, right: { shoulder: -0.95, elbow: -1.45, side: 0.1 } },
   walk: { left: { shoulder: 0.45, elbow: -0.25 }, right: { shoulder: -0.45, elbow: -0.5 } },
   point: { left: { shoulder: 0.04, elbow: -0.15 }, right: { shoulder: -1.45, elbow: -0.1, side: 0.12 } },
+  // 坐着，双手放在膝上（lap），以及右手慢慢抬起、屈肘伸向前方的四个中间姿势（reach1 → reach4，供回忆里的人物逐帧过渡）
+  lap: { left: { shoulder: -0.42, elbow: -0.55, side: -0.08 }, right: { shoulder: -0.42, elbow: -0.55, side: -0.08 } },
+  reach1: { left: { shoulder: -0.42, elbow: -0.55, side: -0.08 }, right: { shoulder: -0.55, elbow: -0.62, side: -0.08 } },
+  reach2: { left: { shoulder: -0.42, elbow: -0.55, side: -0.08 }, right: { shoulder: -0.78, elbow: -0.72, side: -0.1 } },
+  reach3: { left: { shoulder: -0.42, elbow: -0.55, side: -0.08 }, right: { shoulder: -0.98, elbow: -0.8, side: -0.12 } },
+  reach4: { left: { shoulder: -0.42, elbow: -0.55, side: -0.08 }, right: { shoulder: -1.12, elbow: -0.86, side: -0.12 } },
 };
 
 /** 创建一个写实比例的人物 */

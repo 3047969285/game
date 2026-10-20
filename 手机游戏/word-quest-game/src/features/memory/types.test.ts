@@ -93,3 +93,36 @@ describe("文本工具", () => {
     expect(paperSlotIds({ style: "diary", title: "", lines: ["a {{x}} b {{y}}", "{{z}}"], decoyWordIds: [] })).toEqual(["x", "y", "z"]);
   });
 });
+
+describe("validateScript：开场用到的节拍", () => {
+  const base = (): MemoryScript => ({
+    id: "p",
+    unitId: "",
+    section: "section_a",
+    title: "P",
+    titleZh: "开场",
+    stage: "emptyRoom",
+    actors: [{ id: "old", name: "Old", look: {}, position: { x: 0, y: 0, z: 0 } }],
+    objects: [],
+    beats: [
+      { kind: "build", targets: ["floor", "old"] },
+      { kind: "choice", speaker: "System", line: "Ready?", viewer: "old", options: [{ label: "Ready.", reply: "Yes.", correct: true }, { label: "Not yet.", reply: "Take your time.", correct: false, soft: true }] },
+      { kind: "dive", seconds: 3 },
+    ],
+  });
+  const ctx = { stageTargets: ["floor", "wall_back"], words: new Map<string, { word: string }>() };
+
+  it("build / dive / 用 label 的选项（没有 wordId）都合法", () => {
+    expect(validateScript(base(), ctx)).toEqual([]);
+  });
+
+  it("build 的目标不存在、选项既没有 wordId 也没有 label、viewer 不存在都会报错", () => {
+    const s = base();
+    s.beats[0] = { kind: "build", targets: ["nothing"] };
+    s.beats[1] = { kind: "choice", speaker: "S", line: "?", viewer: "ghost", options: [{ reply: "a", correct: true }, { label: "B", reply: "b", correct: false }] };
+    const text = validateScript(s, ctx).join("\n");
+    expect(text).toContain("nothing");
+    expect(text).toContain("既没有 wordId 也没有 label");
+    expect(text).toContain("ghost");
+  });
+});
