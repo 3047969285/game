@@ -7,6 +7,8 @@
  * 贴图是 512×512，坐标按贴图像素（左上为原点）。
  */
 
+import type { HumanLook } from "./humanIdentity";
+
 export type Outfit = "hoodie" | "tee" | "cardigan" | "knit" | "shirtJacket";
 export type BeardMode = "none" | "stubble" | "full";
 
@@ -26,6 +28,13 @@ export interface HumanAppearance {
   skin: number;
   beard: BeardMode;
   aged: boolean;
+  /** 眉毛颜色（hex，缺省 = 发色） */
+  browColor?: number;
+  /** 眉粗 / 浓 0..1 */
+  browThickness: number;
+  /** 雀斑 0..1 与痣（头部贴图像素坐标） */
+  freckles: number;
+  moles: Array<[number, number]>;
   /** 整体缩放：身高 ±4%，宽度 ±3% */
   heightScale: number;
   widthScale: number;
@@ -41,6 +50,8 @@ export interface AppearanceBase {
   glasses?: boolean;
   /** 显式指定同一底模的第几个人（让一屋子人不撞衫） */
   seed?: number;
+  /** 固定身份（发色 / 肤色 / 眉 / 胡茬 / 雀斑 / 痣）：覆盖随机挑选 */
+  look?: HumanLook;
 }
 
 function rng(seed: number): () => number {
@@ -68,6 +79,10 @@ function hslToHex(h: number, s: number, l: number): number {
     return l - s * Math.min(l, 1 - l) * Math.max(-1, Math.min(k - 3, 9 - k, 1));
   };
   return toHex(f(0) * 255, f(8) * 255, f(4) * 255);
+}
+function shadeHex(hex: number, dl: number): number {
+  const [h, s, l] = hexToHsl(hex);
+  return hslToHex(h, s, Math.min(0.92, Math.max(0.12, l + dl)));
 }
 function hexToHsl(hex: number): [number, number, number] {
   const [r, g, b] = rgb(hex).map((v) => v / 255) as [number, number, number];
@@ -119,7 +134,10 @@ export function pickAppearance(kind: "male" | "female", base: AppearanceBase = {
   const outer = base.shirt !== undefined ? jitter(lift(base.shirt), 0.08) : pick(OUTER_PALETTE[outfit]);
   let inner = pick(INNER_PALETTE);
   if (Math.abs(hexLuminance(inner) - hexLuminance(outer)) < 0.12) inner = hexLuminance(outer) > 0.55 ? 0x2f3a4a : 0xf0eee8;
-  const hair = aged ? 0xcfcfd2 : base.hair !== undefined ? jitter(base.hair, 0.04) : pick(HAIR_PALETTE);
+  const look = base.look;
+  const hair = look ? look.hairColor : aged ? 0xcfcfd2 : base.hair !== undefined ? jitter(base.hair, 0.04) : pick(HAIR_PALETTE);
+  const skinBase = base.skin ?? 0xe0b894;
+  const skin = look && look.skinTone !== 0 ? shadeHex(skinBase, look.skinTone * 0.17) : skinBase;
   return {
     kind,
     seed,
@@ -130,10 +148,14 @@ export function pickAppearance(kind: "male" | "female", base: AppearanceBase = {
     shoes: pick(SHOE_PALETTE),
     shoesAccent: pick(SHOE_ACCENT),
     hair,
-    skin: base.skin ?? 0xe0b894,
-    beard: kind === "female" ? "none" : aged ? "full" : r() < 0.25 ? "stubble" : "none",
+    skin,
+    beard: kind === "female" ? "none" : look ? (look.facialHair ?? "none") : aged ? "full" : r() < 0.25 ? "stubble" : "none",
     aged,
-    heightScale: aged ? 0.975 : 0.96 + r() * 0.08,
+    browColor: look?.browColor,
+    browThickness: look?.browThickness ?? 0.5,
+    freckles: look?.freckles ?? 0,
+    moles: look?.moles ?? [],
+    heightScale: look?.heightScale ?? (aged ? 0.975 : 0.96 + r() * 0.08),
     widthScale: aged ? 0.985 : 0.97 + r() * 0.06,
   };
 }
@@ -283,6 +305,7 @@ function valueNoise(x: number, y: number, cell: number, seed: number): number {
 export function recolorHead(data: Uint8ClampedArray, width: number, height: number, app: HumanAppearance, skinMul: readonly [number, number, number]): void {
   const layout = HEAD_LAYOUT[app.kind];
   const hair = rgb(app.hair);
+  const brow = rgb(app.browColor ?? app.hair);
   const refHair = app.kind === "male" ? 0.17 : 0.24;
   const aged = app.aged;
   for (let y = 0; y < height; y++) {
@@ -296,7 +319,7 @@ export function recolorHead(data: Uint8ClampedArray, width: number, height: numb
       const isBeard = app.kind === "male" && inRect(x, y, layout.beard) && !isBrow;
       // 下方 / 左下的嘴腔、眼球贴图不是头发（红色为主）
       const reddish = r > g * 1.55 && r > b * 1.7 && l < 0.4;
-      const limit = isBeard && app.beard !== "full" ? layout.hairMax + 0.1 : layout.hairMax;
+      const limit = isBeard && app.beard !== "full" ? layout.hairMax + 0.1 : isBrow ? layout.hairMax + 0.24 * app.browThickness : layout.hairMax;
       const hairness = inFaceBand || reddish || (y > 300 && x < 190 && app.kind === "male") ? 0 : 1 - smoothstep(limit - 0.14, limit, l);
       if (hairness > 0.01) {
         if (isBeard && app.beard !== "full") {
@@ -309,7 +332,7 @@ export function recolorHead(data: Uint8ClampedArray, width: number, height: numb
           data[i + 1] += (skin[1] - g) * hairness * k;
           data[i + 2] += (skin[2] - b) * hairness * k;
         } else {
-          dye(data, i, hair, refHair, 0.55, aged ? 1.25 : 1.6, hairness);
+          dye(data, i, isBrow ? brow : hair, refHair, 0.55, aged ? 1.25 : 1.6, hairness);
         }
         continue;
       }
@@ -332,6 +355,29 @@ export function recolorHead(data: Uint8ClampedArray, width: number, height: numb
     }
   }
 }
+/** 雀斑 / 痣：确定性随机（同 seed 同位置），叠在脸颊与鼻梁上（头部贴图 512×512 的脸区）。 */
+export function addSkinDetails(data: Uint8ClampedArray, width: number, app: HumanAppearance): void {
+  const r = rng(app.seed * 31 + 7);
+  const dot = (cx: number, cy: number, radius: number, strength: number, tint: readonly [number, number, number]): void => {
+    for (let y = Math.floor(cy - radius - 1); y <= cy + radius + 1; y++) for (let x = Math.floor(cx - radius - 1); x <= cx + radius + 1; x++) {
+      const d = Math.hypot(x - cx, y - cy) / radius;
+      if (d > 1 || x < 0 || y < 0 || x >= width || y >= width) continue;
+      const k = strength * (1 - d * d);
+      const i = (y * width + x) * 4;
+      for (let c = 0; c < 3; c++) data[i + c] = data[i + c] * (1 - k) + tint[c] * k;
+    }
+  };
+  const count = Math.round(app.freckles * 140);
+  for (let i = 0; i < count; i++) {
+    // 两颊 + 鼻梁：左右对称分布的随机点，鼻梁居中
+    const nose = r() < 0.3;
+    const x = nose ? 256 + (r() - 0.5) * 30 : (r() < 0.5 ? 200 + r() * 46 : 266 + r() * 46);
+    const y = nose ? 160 + r() * 28 : 168 + r() * 40;
+    dot(x, y, 1.1 + r() * 1.5, 0.28 + r() * 0.2, [120, 74, 48]);
+  }
+  for (const [mx, my] of app.moles) dot(mx, my, 2.6, 0.75, [70, 42, 30]);
+}
+
 const skinSampleCache = new WeakMap<Uint8ClampedArray, [number, number, number]>();
 /** recolorHead 之前调用：记录原始脸颊肤色，供“去胡子”使用 */
 export function rememberSkin(data: Uint8ClampedArray, width: number, kind: "male" | "female"): [number, number, number] | null {

@@ -315,23 +315,6 @@ describe("humanMotion：过渡", () => {
   });
 });
 
-describe("humanMotion：眼镜", () => {
-  it("戴眼镜的人：眼镜架在两眼前方，随头转动", () => {
-    const props = new THREE.Group();
-    const m = make(16, { glasses: true, propParent: props });
-    m.anim.setLookTarget(v(0.7, 1.2, 0.6), true);
-    for (let i = 0; i < 120; i++) m.anim.update(1 / 60);
-    const glasses = props.getObjectByName("human-prop-glasses");
-    expect(glasses).toBeTruthy();
-    const head = m.rig.position("Head", v(0, 0, 0));
-    expect(glasses.position.distanceTo(head)).toBeGreaterThan(0.08);
-    expect(glasses.position.distanceTo(head)).toBeLessThan(0.16);
-    // 头向左转后，镜框朝向（+Z 轴）也向左偏
-    const forward = v(0, 0, 1).applyQuaternion(glasses.quaternion);
-    expect(forward.x).toBeGreaterThan(0.15);
-  });
-});
-
 describe("humanMotion：站姿 / 走路 / 笑", () => {
   it("走路：双脚交替摆动，骨盆上下起伏，停下后回到站姿", () => {
     const m = make(14, { initial: "standRelaxed", hasSeat: false });

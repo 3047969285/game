@@ -1,7 +1,10 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { clone } from "three/addons/utils/SkeletonUtils.js";
-import { extractGlbImages, pickAppearance, recolorBody, recolorHead, rememberSkin, sampleSkin, skinMultiplier, type AppearanceBase, type HumanAppearance } from "./humanAppearance";
+import { createAccessories, type AccessorySet } from "./humanAccessories";
+import { cullOpacityHair, createHair, hairMaterial, headLandmarks, shrinkBaseHair, type HairObject } from "./humanHair";
+import { agedFace, applyFaceShape } from "./humanIdentity";
+import { addSkinDetails, extractGlbImages, pickAppearance, recolorBody, recolorHead, rememberSkin, sampleSkin, skinMultiplier, type AppearanceBase, type HumanAppearance } from "./humanAppearance";
 
 /** Rocketbox MIT assets are local: the game never calls an avatar service. */
 const templates: Partial<Record<"male" | "female", THREE.Group>> = {};
@@ -108,6 +111,9 @@ export interface HumanVisualInfo {
   recolored: boolean;
   /** 脚底落在 frame 的 y = 0 时 visual 的 position.y（旧控制器的 update() 会改它；动画器接管时要还原） */
   baseY: number;
+  /** 程序头发（绑 Head；有尾端的发型带弹簧）与配饰（眼镜 / 耳机 / 发卡 / 背包） */
+  hair?: HairObject;
+  accessories?: AccessorySet;
   /** 把所有骨骼还原到 GLB 的休息姿势（旧控制器的初始 update() 已经摆过一次姿势；动画器接管前调用） */
   restoreRest(): void;
 }
@@ -162,7 +168,7 @@ export function attachHumanVisual(root: THREE.Group, controls: HumanControls, ki
           if (texture) { standard.map = texture; ownedTextures.push(texture); }
         } else if (source.name.endsWith("_head") && pixels?.head) {
           const mul = headSkinMul(pixels, appearance);
-          const texture = makeTexture(standard.map, pixels.head, (data) => { rememberSkin(data, pixels.head!.width, kind); recolorHead(data, pixels.head!.width, pixels.head!.height, appearance, mul); });
+          const texture = makeTexture(standard.map, pixels.head, (data) => { rememberSkin(data, pixels.head!.width, kind); recolorHead(data, pixels.head!.width, pixels.head!.height, appearance, mul); addSkinDetails(data, pixels.head!.width, appearance); });
           if (texture) { standard.map = texture; ownedTextures.push(texture); }
         } else if (source.name.endsWith("_opacity")) {
           // 睫毛 / 眉毛 / 发丝：白色贴图乘发色
@@ -179,6 +185,21 @@ export function attachHumanVisual(root: THREE.Group, controls: HumanControls, ki
     mesh.frustumCulled = false;
     if (mesh.morphTargetDictionary) faces.push(mesh);
   });
+  // ── 身份：脸型（脸部骨骼）、底模头发收缩、opacity 层只留睫毛 / 眉 ──
+  const look = base.look;
+  const skinned: THREE.SkinnedMesh[] = [];
+  visual.traverse((object) => { if ((object as THREE.SkinnedMesh).isSkinnedMesh) skinned.push(object as THREE.SkinnedMesh); });
+  const headMesh = skinned.find((mesh) => (mesh.material as THREE.Material).name.endsWith("_head"));
+  const opacityMesh = skinned.find((mesh) => (mesh.material as THREE.Material).name.endsWith("_opacity"));
+  const bodyMesh = skinned.find((mesh) => (mesh.material as THREE.Material).name.endsWith("_body"));
+  const landmarks = headMesh ? headLandmarks(headMesh.geometry, headMesh.skeleton.bones.map((bone) => bone.name)) : null;
+  if (look) applyFaceShape(visual, look.aged ? agedFace(look.face) : look.face);
+  if (look && headMesh && landmarks) {
+    shrinkBaseHair(headMesh.geometry, headMesh.skeleton.bones.map((bone) => bone.name), landmarks);
+    if (opacityMesh) {
+      if (cullOpacityHair(opacityMesh.geometry, landmarks) === 0) opacityMesh.visible = false;
+    }
+  }
   visual.updateMatrixWorld(true);
   const box = new THREE.Box3().setFromObject(visual);
   const height = box.max.y - box.min.y;
@@ -194,6 +215,19 @@ export function attachHumanVisual(root: THREE.Group, controls: HumanControls, ki
     visual.position.y = baseY;
     visual.updateMatrixWorld(true);
   };
+  // 程序头发与配饰（在高度归一化与休息姿势快照之后加入，所以不影响身高）
+  let hair: HairObject | undefined;
+  let accessories: AccessorySet | undefined;
+  if (look && headMesh && bodyMesh && landmarks) {
+    const material = hairMaterial(look.hairColor);
+    owned?.add(material);
+    hair = createHair(look.hairStyle, landmarks, headMesh, material, base.seed ?? 1) ?? undefined;
+    if (hair) { visual.add(hair.mesh); }
+    accessories = createAccessories({ ids: look.accessories ?? [], lm: landmarks, headMesh, bodyMesh, color: look.accessoryColor });
+    for (const mesh of accessories.meshes) visual.add(mesh);
+    for (const m of accessories.materials) owned?.add(m);
+    visual.updateMatrixWorld(true);
+  }
   const names = ["Spine", "Head", "LeftArm", "RightArm", "LeftForeArm", "RightForeArm", "LeftUpLeg", "RightUpLeg", "LeftLeg", "RightLeg", "LeftFoot", "RightFoot"];
   const sources = [controls.body, controls.head, controls.leftArm, controls.rightArm, controls.leftElbow, controls.rightElbow, controls.leftHip, controls.rightHip, controls.leftKnee, controls.rightKnee, controls.leftAnkle, controls.rightAnkle];
   const bindings = names.map((name, index) => {
@@ -263,7 +297,7 @@ export function attachHumanVisual(root: THREE.Group, controls: HumanControls, ki
   };
   root.userData.updateHumanVisual = update;
   root.userData.humanModel = kind;
-  root.userData.humanVisual = { visual, faces, kind, appearance, ownedTextures, recolored: ownedTextures.length > 0, baseY, restoreRest } satisfies HumanVisualInfo;
+  root.userData.humanVisual = { visual, faces, kind, appearance, ownedTextures, recolored: ownedTextures.length > 0, baseY, restoreRest, hair, accessories } satisfies HumanVisualInfo;
   update();
   return update;
 }

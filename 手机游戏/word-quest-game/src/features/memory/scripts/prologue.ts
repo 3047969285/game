@@ -1,3 +1,4 @@
+import { characterLook } from "../characters";
 import { APARTMENT, OLD_MAN_SEAT } from "../stages/apartment2090";
 import type { MemoryScript } from "../types";
 
@@ -22,20 +23,7 @@ export const PROLOGUE_SCRIPT: MemoryScript = {
     {
       id: "old2090",
       name: "Me (2090)",
-      look: {
-        shirt: 0x7b6a50, // 开衫：暖褐
-        trousers: 0x3a3b44,
-        hair: 0xd2d2d6, // 灰白头发
-        hairStyle: "short",
-        skin: 0xd8b69c,
-        glasses: true,
-        outfit: "tee",
-        seated: true,
-        // 真人模型：灰白头发和胡子、皮肤暗淡带皱纹、含胸、所有动作 ×0.8
-        aged: true,
-        humanOutfit: "cardigan",
-        seed: 2090,
-      },
+      look: characterLook("old2090"), // 与当年的我同一张脸；稀疏灰白后梳 + 细金属圆框眼镜 + 开衫；动作慢、含胸
       position: { x: OLD.x, y: OLD.y, z: OLD.z },
       rotationY: OLD.yaw,
       seat: OLD_MAN_SEAT, // 坐在软垫椅上；reach 时右手 IK 伸向悬浮界面

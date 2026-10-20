@@ -2,6 +2,7 @@ import type { WordEntry } from "../../../core/types";
 import type { Rw3UnitContent } from "../../../infra/data";
 import { buildActs } from "../acts";
 import { UNIT1_DISTRACTION } from "../autoScript";
+import { characterLook } from "../characters";
 import { CLUB_SEATS, clubSeatSpec } from "../stages/clubRoom";
 import type { Actor, ActDialog, Beat, BuildPiece, CameraShot, MemoryAct, MemoryScript, SentenceCue, Vec3, WordObjectPlacement } from "../types";
 
@@ -55,13 +56,12 @@ const objects: WordObjectPlacement[] = [
   { wordId: COMMUNICATION, archetype: "megaphone", position: { x: -1.0, y: 1.3, z: -0.8 }, rotationY: 0.4, scale: 0.7 },
 ];
 
-const look = (o: Record<string, unknown>): Record<string, unknown> => ({ seated: true, ...o });
 
 const actors: Actor[] = [
   {
     id: "me2026",
     name: "Me (2026)",
-    look: look({ shirt: 0x33384a, hair: 0x14100e, hairStyle: "short", skin: 0xe0b894, trousers: 0x2c3140, outfit: "hoodie", backpack: 0x2e5a73 }),
+    look: characterLook("me2026"),
     position: { x: 4.5, y: 0, z: CLUB_SEATS.me.z },
     rotationY: CLUB_SEATS.me.yaw,
     seat: clubSeatSpec("me"),
@@ -70,7 +70,7 @@ const actors: Actor[] = [
   {
     id: "lin",
     name: "Lin",
-    look: look({ shirt: 0xa05a6a, hair: 0x1c1411, hairStyle: "long", skin: 0xe6bf9f, trousers: 0x3a4254, outfit: "tee" }),
+    look: characterLook("lin"),
     position: { x: CLUB_SEATS.lin.x, y: 0, z: -2.9 },
     rotationY: CLUB_SEATS.lin.yaw,
     seat: clubSeatSpec("lin"),
@@ -79,7 +79,7 @@ const actors: Actor[] = [
   {
     id: "mei",
     name: "Mei",
-    look: look({ shirt: 0x5f8a7a, hair: 0x2a1c14, hairStyle: "bun", glasses: true, skin: 0xdfb594, trousers: 0x40424a, outfit: "tee" }),
+    look: characterLook("mei"),
     position: { x: CLUB_SEATS.mei.x, y: 0, z: -2.9 },
     rotationY: CLUB_SEATS.mei.yaw,
     seat: clubSeatSpec("mei"),
@@ -88,7 +88,7 @@ const actors: Actor[] = [
   {
     id: "an",
     name: "An",
-    look: look({ shirt: 0xb0894f, hair: 0x201812, hairStyle: "short", skin: 0xd9ad8a, trousers: 0x33363f, outfit: "hoodie" }),
+    look: characterLook("an"),
     position: { x: -4.5, y: 0, z: CLUB_SEATS.an.z },
     rotationY: CLUB_SEATS.an.yaw,
     seat: clubSeatSpec("an"),
@@ -97,7 +97,7 @@ const actors: Actor[] = [
   {
     id: "rui",
     name: "Rui",
-    look: look({ shirt: 0x6b7f8c, hair: 0x3a2a1e, hairStyle: "short", glasses: true, skin: 0xe2b898, trousers: 0x3b3a36, outfit: "tee" }),
+    look: characterLook("rui"),
     position: { x: CLUB_SEATS.rui.x, y: 0, z: 2.6 },
     rotationY: CLUB_SEATS.rui.yaw,
     seat: clubSeatSpec("rui"),

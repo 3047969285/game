@@ -6,6 +6,7 @@ import { getSurfaceArrays, setSurfaceQuality } from "../world/kitShader";
 import { buildSkyEnvironment, createPostPipeline, detectQuality, QUALITY_PRESETS, type PostPipeline, type QualityTier } from "../world/postPipeline";
 import { createSceneKit, type SceneKit } from "../world/sceneProps";
 import { spawnActor, updateCrowd, type ActorHandle } from "./actors";
+import { CaptionTracker, NameCaption } from "./NameCaption";
 import { CandidateMarks, TargetBeacons } from "./CandidateMarks";
 import { actSeen, averageFocus, buildGlossIndex, flowReduce, focusScore, initFlow, initLearnState, nextLearnStep, notesEmpty, planDistractions, relatedSentences, type FlowState, type GlossIndex, type LearnEvent, type LearnState } from "./actFlow";
 import { comicify } from "./comicFilter";
@@ -364,6 +365,7 @@ export class MemoryStage {
     this.air?.dispose();
     for (const a of this.actors.values()) a.dispose();
     this.cinema.dispose();
+    this.nameCaption?.dispose();
     this.hud.dispose();
 
     // 舞台几何与（从未被渲染过的）原始材质；克隆材质已由 Materializer 释放
@@ -551,6 +553,7 @@ export class MemoryStage {
       this.materializer.update(dt);
       this.flow.update(dt);
       this.updateAttention();
+      this.updateCaptions(dt);
       for (const a of this.actors.values()) {
         a.setDistance(this.camera.position.distanceTo(a.root.position));
         a.update(dt, this.time);
@@ -775,6 +778,28 @@ export class MemoryStage {
   }
 
   private readonly viewerEye = new THREE.Vector3();
+  private readonly captionTracker = new CaptionTracker();
+  private nameCaption: NameCaption | null = null;
+  private readonly frustum = new THREE.Frustum();
+  private readonly frustumMatrix = new THREE.Matrix4();
+  private readonly captionPoint = new THREE.Vector3();
+
+  /** 名字小字：当年的我第一次出现 / 同学第一次说话时头顶浮出 1.5 s */
+  private updateCaptions(dt: number): void {
+    this.nameCaption ??= new NameCaption(this.host);
+    this.frustumMatrix.multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
+    this.frustum.setFromProjectionMatrix(this.frustumMatrix);
+    const thirdPerson = this.pov.pov === "watch";
+    for (const a of this.actors.values()) {
+      if (this.captionTracker.has(a.id)) continue;
+      const isViewer = this.meViewer === a;
+      a.eyePosition(this.captionPoint);
+      const inView = a.root.visible && this.camera.position.distanceTo(this.captionPoint) < 12 && this.frustum.containsPoint(this.captionPoint);
+      const text = this.captionTracker.consider(a.id, a.actor.name, { inView, speaking: a.speaking, thirdPerson, isViewer });
+      if (text) this.nameCaption.show(text, () => (a.root.visible ? a.eyePosition(new THREE.Vector3()).add(new THREE.Vector3(0, 0.3, 0)) : null));
+    }
+    this.nameCaption.update(dt, this.camera);
+  }
 
   /** 群体注意力：谁在说话，其余人看谁、点头；第一人称里同学偶尔瞟一眼玩家 */
   private updateAttention(): void {

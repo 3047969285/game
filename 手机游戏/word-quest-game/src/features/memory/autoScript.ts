@@ -1,6 +1,7 @@
 import type { WordEntry } from "../../core/types";
 import type { Rw3UnitContent } from "../../infra/data";
 import { buildActs } from "./acts";
+import { characterLook } from "./characters";
 import { memoryScriptId, type SectionKey } from "./ids";
 import { memoryObjectFor, ARCHETYPES } from "./memoryObjects";
 import { getStage } from "./stages";
@@ -147,7 +148,7 @@ export function buildAutoScript(unit: Rw3UnitContent, words: WordEntry[], sectio
         {
           id: "me2026",
           name: "Me (2026)",
-          look: { seated: true, shirt: 0x33384a, hair: 0x14100e, hairStyle: "short", skin: 0xe0b894, trousers: 0x2c3140, outfit: "hoodie", backpack: 0x2e5a73 },
+          look: characterLook("me2026"),
           position: { x: EMPTY_ROOM_SEATS.me.x, y: 0, z: EMPTY_ROOM_SEATS.me.z },
           rotationY: EMPTY_ROOM_SEATS.me.yaw,
           seat: { height: 0.48, tableHeight: 0.75, tableEdge: 0.425 },
@@ -156,7 +157,7 @@ export function buildAutoScript(unit: Rw3UnitContent, words: WordEntry[], sectio
         {
           id: "teacher",
           name: "Ms. Chen",
-          look: { seated: true, shirt: 0x7a5a6a, hair: 0x2a1c14, hairStyle: "bun", glasses: true, skin: 0xe2b898, trousers: 0x3b3a36, outfit: "tee" },
+          look: characterLook("organizer"),
           position: { x: EMPTY_ROOM_SEATS.teacher.x, y: 0, z: EMPTY_ROOM_SEATS.teacher.z },
           rotationY: EMPTY_ROOM_SEATS.teacher.yaw,
           seat: { height: 0.48, tableHeight: 0.75, tableEdge: 0.425 },

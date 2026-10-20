@@ -227,6 +227,10 @@ export function spawnActor(actor: Actor, poses: readonly ActorPose[] = [], garme
           animator.trackLookTarget(person.worldToLocal(targetFrame.copy(world)));
         }
         animator.update(dt);
+        // 头发尾端弹簧（马尾 / 长发 / 波波头）与背包（坐下时放到一边）
+        info?.hair?.sway?.update(dt);
+        const bag = info?.accessories?.backpack;
+        if (bag) bag.visible = !animator.seated;
         return;
       }
       rig.update(dt, updateTime, walk !== null, walkPhase, actor.position.x * 2.7 + actor.position.z * 1.3);

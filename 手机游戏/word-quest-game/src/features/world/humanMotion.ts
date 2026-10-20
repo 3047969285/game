@@ -230,7 +230,7 @@ export class HumanAnimator {
   private shiftRotTarget = 0;
 
   private readonly morphs: { mesh: THREE.Mesh; map: Map<string, number> }[] = [];
-  private readonly propMeshes: { phone?: THREE.Group; pen?: THREE.Mesh; book?: THREE.Group; glasses?: THREE.Group } = {};
+  private readonly propMeshes: { phone?: THREE.Group; pen?: THREE.Mesh; book?: THREE.Group } = {};
   private readonly out = { hips: new THREE.Vector3(), tmp: new THREE.Vector3() };
   private readonly _v = new THREE.Vector3();
   private readonly _v2 = new THREE.Vector3();
@@ -668,7 +668,6 @@ export class HumanAnimator {
     }
     this.applyThumbScroll();
     this.updateProps(st, targets);
-    this.updateGlasses();
     this.applyFace(dt, st);
   }
 
@@ -984,41 +983,6 @@ export class HumanAnimator {
       parent.add(o);
     }
     this.propMeshes.phone = phone; this.propMeshes.pen = pen; this.propMeshes.book = book;
-    if (this.glasses) this.createGlasses(parent, mat);
-  }
-
-  /** 细框眼镜：两个镜圈 + 鼻梁 + 镜腿，跟着头骨骼（每帧在 updateGlasses 里对齐） */
-  private createGlasses(parent: THREE.Object3D, mat: (color: number, rough?: number, extra?: THREE.MeshStandardMaterialParameters) => THREE.MeshStandardMaterial): void {
-    const dims = this.rig.dims;
-    const glasses = new THREE.Group();
-    glasses.name = "human-prop-glasses";
-    const frame = mat(0x1d2128, 0.35);
-    const lens = mat(0xcfe3ff, 0.1, { transparent: true, opacity: 0.12, depthWrite: false });
-    const r = 0.027, half = dims.eyeHalf;
-    for (const side of [1, -1]) {
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(r, 0.0021, 6, 20), frame);
-      ring.position.set(side * half, 0, 0);
-      const glass = new THREE.Mesh(new THREE.CircleGeometry(r, 16), lens);
-      glass.position.copy(ring.position);
-      const temple = new THREE.Mesh(new THREE.BoxGeometry(0.0035, 0.0035, 0.115), frame);
-      temple.position.set(side * (half + r + 0.004), 0.002, -0.058);
-      glasses.add(ring, glass, temple);
-    }
-    const bridge = new THREE.Mesh(new THREE.BoxGeometry(2 * (half - r) + 0.006, 0.0035, 0.0035), frame);
-    bridge.position.set(0, 0.008, 0);
-    glasses.add(bridge);
-    parent.add(glasses);
-    this.propMeshes.glasses = glasses;
-  }
-
-  private updateGlasses(): void {
-    const glasses = this.propMeshes.glasses;
-    if (!glasses) return;
-    const dims = this.rig.dims;
-    const q = this.rig.characterRotation("Head", this._qa);
-    this.rig.position("Head", glasses.position);
-    glasses.position.add(this._v.set(0, dims.headToEyeY, dims.headToEyeZ + 0.012).applyQuaternion(q));
-    glasses.quaternion.copy(q);
   }
 
   private placeProp(obj: THREE.Object3D, s: PropState): void {
