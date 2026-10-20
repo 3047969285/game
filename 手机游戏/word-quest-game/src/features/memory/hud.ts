@@ -1,5 +1,5 @@
 import { normalizeToken } from "./text";
-import type { Pov } from "./types";
+import type { ActPov, Pov } from "./types";
 
 /**
  * 回忆的极简 HUD：底部字幕条（英文大、中文小，可开关）、右上角视角标记、左上角小 ×（二次确认）、
@@ -21,6 +21,13 @@ export interface ChoiceItem {
   label: string;
   sub?: string;
 }
+
+/** 视角切换器上三个按钮：他（第三人称）/ 我（第一人称）/ 纸（二维笔记本） */
+const ACT_POVS: Array<{ pov: ActPov; zh: string; label: string }> = [
+  { pov: "watch", zh: "他", label: "第三人称 · 看当年的我" },
+  { pov: "me", zh: "我", label: "第一人称 · 坐在当年我的位子上上课" },
+  { pov: "paper", zh: "纸", label: "二维 · 当年的笔记本" },
+];
 
 export interface WordCardInfo {
   word: string;
@@ -52,13 +59,19 @@ export class MemoryHud {
 
   onExit?: () => void;
   onSkip?: () => void;
+  /** 视角切换器：玩家点了某个视角 */
+  onPickPov?: (pov: ActPov) => void;
   /** 虚拟摇杆：x 右为正，z 前为正，范围 -1..1 */
   onStick?: (x: number, z: number) => void;
 
   private readonly exitBtn: HTMLButtonElement;
   private readonly povTag: HTMLElement;
+  private readonly switcher: HTMLElement;
+  private readonly switchBtns = new Map<ActPov, HTMLButtonElement>();
+  private readonly dots: HTMLElement;
   private readonly prompt: HTMLElement;
   private readonly choices: HTMLElement;
+  private readonly quiz: HTMLElement;
   private readonly subtitle: HTMLElement;
   private readonly subEn: HTMLElement;
   private readonly subZh: HTMLElement;
@@ -98,12 +111,28 @@ export class MemoryHud {
 
     this.povTag = el("div", "mem-pov", this.root);
 
+    // 视角切换器（只在 “幕” 里出现）：右上角三个小按钮 + 下面一排幕的小点
+    this.switcher = el("div", "mem-switch", this.root);
+    this.switcher.hidden = true;
+    const group = el("div", "mem-switch-group", this.switcher);
+    for (const def of ACT_POVS) {
+      const b = el("button", "mem-switch-btn", group, def.zh);
+      b.type = "button";
+      b.setAttribute("aria-label", def.label);
+      b.title = def.label;
+      b.dataset.pov = def.pov;
+      b.addEventListener("click", () => this.onPickPov?.(def.pov));
+      this.switchBtns.set(def.pov, b);
+    }
+    this.dots = el("div", "mem-act-dots", this.switcher);
+
     // 词卡是浮在物件旁边的小卡片（不进底部堆叠区，见 placeCard）
     this.card = el("div", "mem-card", this.labels);
     // 底部堆叠区：提示 / 选项 / 字幕自上而下排列，互不遮挡，合计不超过屏幕高度的 ~30%
     const stack = el("div", "mem-stack", this.root);
     this.prompt = el("div", "mem-prompt", stack);
     this.choices = el("div", "mem-choices", stack);
+    this.quiz = el("div", "mem-choices mem-quiz", stack);
 
     this.subtitle = el("div", "mem-sub", stack);
     this.subEn = el("div", "mem-sub-en", this.subtitle);
@@ -146,6 +175,32 @@ export class MemoryHud {
     this.povTag.dataset.pov = pov;
     this.stickWanted = pov === "you";
     this.stick.classList.toggle("on", this.stickWanted && this.coarse);
+  }
+
+  /** 视角切换器：显示 / 隐藏。显示时右上角的 YOU / WATCHING 标记让位 */
+  setActSwitcher(on: boolean): void {
+    this.switcher.hidden = !on;
+    this.root.classList.toggle("mem-acts-on", on);
+  }
+
+  /** 当前视角高亮 */
+  setActPov(pov: ActPov): void {
+    for (const [key, b] of this.switchBtns) {
+      b.classList.toggle("on", key === pov);
+      b.setAttribute("aria-pressed", key === pov ? "true" : "false");
+    }
+  }
+
+  /** 幕的小点：当前幕高亮，看过的实心，笔记还空着的带小圈 */
+  setActDots(total: number, current: number, seen: readonly boolean[], notesOpen: readonly boolean[]): void {
+    this.dots.textContent = "";
+    for (let i = 0; i < total; i++) {
+      const d = el("i", "mem-act-dot", this.dots);
+      if (i === current) d.classList.add("cur");
+      if (seen[i]) d.classList.add("seen");
+      if (notesOpen[i]) d.classList.add("open");
+      d.title = `第 ${i + 1} 幕${notesOpen[i] ? " · 笔记还空着" : ""}`;
+    }
   }
 
   setLetterbox(on: boolean): void {
@@ -291,6 +346,43 @@ export class MemoryHud {
   hideChoices(): void {
     this.choices.classList.remove("on");
     this.choices.textContent = "";
+  }
+
+  // ───────── 课堂提问的选项（第一人称，最多 4 行，长选项可展开） ─────────
+
+  showQuiz(items: readonly string[], onPick: (index: number) => void): void {
+    this.quiz.textContent = "";
+    items.slice(0, 4).forEach((text, i) => {
+      const b = el("button", "mem-choice mem-quiz-opt", this.quiz);
+      b.type = "button";
+      el("b", "mem-quiz-key", b, "ABCD"[i]);
+      el("span", "mem-quiz-text", b, text);
+      if (text.length > 62) {
+        const more = el("i", "mem-quiz-more", b, "⌄");
+        more.setAttribute("role", "button");
+        more.setAttribute("aria-label", "展开全文");
+        more.addEventListener("click", (e) => {
+          e.stopPropagation();
+          b.classList.toggle("open");
+        });
+      }
+      b.addEventListener("click", () => onPick(i));
+    });
+    this.quiz.classList.add("on");
+  }
+
+  markQuiz(index: number, verdict: "right" | "wrong"): void {
+    const b = this.quiz.children[index] as HTMLButtonElement | undefined;
+    if (!b) return;
+    b.classList.remove("wrong", "right");
+    void b.offsetWidth;
+    b.classList.add(verdict);
+    if (verdict === "wrong") b.disabled = true;
+  }
+
+  hideQuiz(): void {
+    this.quiz.classList.remove("on");
+    this.quiz.textContent = "";
   }
 
   // ───────── 词卡 ─────────

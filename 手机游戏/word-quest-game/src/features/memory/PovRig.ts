@@ -167,6 +167,9 @@ export class PovRig {
   private eyePitch = 0;
   private lookYaw = 0;
   private lookPitch = 0;
+  /** 第一人称 “低头看桌面”：目标值与当前值（弧度，向下为正） */
+  private lookDownGoal = 0;
+  private lookDownAmt = 0;
   private time = 0;
 
   private blend: { t: number; fromPos: THREE.Vector3; fromQuat: THREE.Quaternion; fromFov: number } | null = null;
@@ -349,6 +352,11 @@ export class PovRig {
     this.lookPitch = 0;
   }
 
+  /** 第一人称低头（看讲义 / 笔记本）或抬头（看老师）：amount 是向下的俯角（弧度），平滑过渡 */
+  setLookDown(amount: number): void {
+    this.lookDownGoal = THREE.MathUtils.clamp(amount, 0, 1.2);
+  }
+
   isMoving(): boolean {
     return this.moving;
   }
@@ -380,6 +388,7 @@ export class PovRig {
     this.animateAvatar(dt);
     // 跟随镜头的距离 / 高度 / 视线焦点平滑过渡
     const fk = 1 - Math.exp(-dt * 2.2);
+    this.lookDownAmt += (this.lookDownGoal - this.lookDownAmt) * (1 - Math.exp(-dt * 3.2));
     this.followDist += (this.followDistGoal - this.followDist) * fk;
     this.followHeight += (this.followHeightGoal - this.followHeight) * fk;
     this.focusAmt += ((this.focus ? 1 : 0) - this.focusAmt) * fk;
@@ -461,7 +470,7 @@ export class PovRig {
         const breathe = Math.sin(this.time * 1.7) * 0.012;
         this.targetPos.set(eye.x + Math.sin(this.time * 0.6) * 0.006, eye.y + breathe, eye.z);
         const yaw = this.eyeYaw + this.lookYaw;
-        const pitch = this.eyePitch + this.lookPitch + Math.sin(this.time * 1.7 + 0.8) * 0.004;
+        const pitch = this.eyePitch + this.lookPitch - this.lookDownAmt + Math.sin(this.time * 1.7 + 0.8) * 0.004;
         _q.setFromEuler(new THREE.Euler(pitch, yaw + Math.PI, 0, "YXZ"));
         this.targetQuat.copy(_q);
         this.targetFov = this.baseFov + 2;

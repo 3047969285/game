@@ -7,7 +7,9 @@ import { createSceneKit, type SceneKit } from "../world/sceneProps";
 import { spawnActor, type ActorHandle } from "./actors";
 import { RainAmbience } from "./ambience";
 import { CandidateMarks, TargetBeacons } from "./CandidateMarks";
-import { AUTO_DELAY_MS, memoryDevFlags, type MemoryDevFlags } from "./devFlags";
+import { actSeen, averageFocus, buildGlossIndex, flowReduce, focusScore, initFlow, initLearnState, nextLearnStep, notesEmpty, planDistractions, relatedSentences, type FlowState, type GlossIndex, type LearnEvent, type LearnState } from "./actFlow";
+import { comicify } from "./comicFilter";
+import { AUTO_DELAY_MS, AUTO_STUDY_MS, memoryDevFlags, type MemoryDevFlags } from "./devFlags";
 import { CinemaDirector } from "./CinemaDirector";
 import { createFilmPass } from "./filmPass";
 import { MemoryHud } from "./hud";
@@ -15,11 +17,12 @@ import { Interaction } from "./Interaction";
 import { Materializer } from "./Materializer";
 import { MemoryFlow } from "./MemoryFlow";
 import { buildWordObject, memoryObjectFor, verbPose, type Verb } from "./memoryObjects";
-import { Narrator, setNarratorFast, splitWords } from "./Narrator";
+import { Narrator, setNarratorFast, setNarratorRate, splitWords } from "./Narrator";
 import { PaperLayer } from "./paper2d";
 import { PovRig } from "./PovRig";
 import { buildStage, getStage, stageTargets, type StageDef } from "./stages";
-import { findWordToken, validateScript, type Beat, type CameraShot, type MemoryResult, type MemoryScript, type Pov, type Vec3 } from "./types";
+import { createStudyLayer, Handout, Notebook, PhoneNag, type StudyDeps } from "./study";
+import { findWordToken, validateScript, type ActDialog, type ActPov, type Beat, type CameraShot, type MemoryAct, type MemoryResult, type MemoryScript, type NoteTask, type Pov, type Vec3 } from "./types";
 import "./memory.css";
 
 /**
@@ -49,6 +52,33 @@ interface VerbAnim {
   verb: Verb;
   t: number;
 }
+
+/**
+ * 一次 “会话” = 一幕在某个视角下的一次播放。玩家切换视角时 abort()：这一轮里所有等待（朗读、断片、对话、
+ * 笔记……）立刻返回，残余代码很快跑完，再开始新视角的一轮。
+ */
+interface Session {
+  aborted: boolean;
+  promise: Promise<void>;
+  abort(): void;
+}
+
+function newSession(): Session {
+  let resolve!: () => void;
+  const promise = new Promise<void>((r) => (resolve = r));
+  const session: Session = {
+    aborted: false,
+    promise,
+    abort() {
+      session.aborted = true;
+      resolve();
+    },
+  };
+  return session;
+}
+
+const COMIC_W = 640;
+const COMIC_H = 380;
 
 const VERB_SECONDS = 1.3;
 /** 世界尚未建起时的背景（深色雾） */
@@ -123,6 +153,19 @@ export class MemoryStage {
   private sunBase = 2.4;
   private hemiBase = 0.9;
   private unitPrefix = "";
+
+  // ── 幕：时间线与三种视角 ──
+  private session: Session = newSession();
+  private actState: FlowState | null = null;
+  private study?: { layer: HTMLElement; handout: Handout; notebook: Notebook; phone: PhoneNag | null };
+  private gloss: GlossIndex | null = null;
+  private unitWords: WordEntry[] = [];
+  private readonly learnStates = new Map<number, LearnState>();
+  private readonly notesDone = new Map<number, number>();
+  private readonly dialogDone = new Set<number>();
+  private readonly comics = new Map<number, HTMLCanvasElement>();
+  private readonly focusScores = new Map<number, number>();
+  private readonly mastered = new Set<string>();
 
   constructor(
     container: HTMLElement,
@@ -256,7 +299,14 @@ export class MemoryStage {
       console.error("[memory] 回忆执行出错", err);
     }
     this.narrator.cancel();
-    return { completed, exited: this.exited, wordsSeen: [...this.wordsSeen], mistakes: this.mistakes };
+    return {
+      completed,
+      exited: this.exited,
+      wordsSeen: [...this.wordsSeen],
+      mistakes: this.mistakes,
+      wordsMastered: [...this.mastered],
+      focus: averageFocus([...this.focusScores.values()]),
+    };
   }
 
   /** 玩家退出：淡出并让 play() 尽快返回 */
@@ -266,6 +316,9 @@ export class MemoryStage {
     this.narrator.cancel();
     this.interaction.disable();
     this.paper?.hide();
+    this.study?.handout.hide();
+    this.study?.notebook.hide();
+    this.study?.phone?.stop();
     this.exitResolve();
     void this.hud.fade(true, 500);
   }
@@ -291,9 +344,14 @@ export class MemoryStage {
 
     this.ambience.stop(0.2);
     if (this.flags.fast) setNarratorFast(1);
+    setNarratorRate(1);
     this.marks.dispose();
     this.beacons.dispose();
     this.paper?.dispose();
+    this.study?.handout.dispose();
+    this.study?.notebook.dispose();
+    this.study?.phone?.dispose();
+    this.study?.layer.remove();
     this.interaction.dispose();
     this.pov.dispose();
     this.materializer.dispose();
@@ -340,7 +398,8 @@ export class MemoryStage {
     this.stageDef = stage;
     this.pov.setAvatarHidden(stage.showPlayer === false);
     this.unitPrefix = script.unitId ? `rw3_${script.unitId}_` : "";
-    this.unitWordForms = [...this.opts.words.values()].filter((w) => (this.unitPrefix ? w.id.startsWith(this.unitPrefix) : false)).map((w) => w.word);
+    this.unitWords = [...this.opts.words.values()].filter((w) => (this.unitPrefix ? w.id.startsWith(this.unitPrefix) : false));
+    this.unitWordForms = this.unitWords.map((w) => w.word);
 
     // 开发期校验：只提示，不阻塞
     if (import.meta.env?.DEV) {
@@ -398,6 +457,12 @@ export class MemoryStage {
     // 人物
     for (const actor of script.actors) {
       const poses = script.beats.flatMap((b) => (b.kind === "actor" && b.actorId === actor.id && b.pose ? [b.pose] : []));
+      // 幕里的人物动作、提问的人（说话 / 倾听）、附身对话里的两方也要预建姿势
+      for (const act of script.acts ?? []) {
+        for (const cue of act.actorCues ?? []) if (cue.kind === "actor" && cue.actorId === actor.id && cue.pose) poses.push(cue.pose);
+        if (act.dialog && (actor.name === act.dialog.speaker || actor.id === act.dialog.speaker || actor.id === (script.student ?? "me2026"))) poses.push("talk", "listen");
+      }
+      if (actor.id === script.organizer) poses.push("talk", "listen");
       const handle = spawnActor(actor, poses);
       this.scene.add(handle.root);
       collect(handle.root);
@@ -603,6 +668,8 @@ export class MemoryStage {
         return this.doBuild(beat);
       case "dive":
         return this.doDive(beat);
+      case "acts":
+        return this.runActs(beat);
       case "freeze":
         return this.doFreeze(beat);
     }
@@ -635,7 +702,7 @@ export class MemoryStage {
    * 朗读一句话：字幕逐词点亮；朗读过程中把 build 里的部件均匀分布在句子里逐个显形。
    * 玩家点“跳过”会立刻结束朗读并把剩余部件显形。
    */
-  private async readAloud(text: string, voice: "system" | "young" | "old", build: string[], speak = true): Promise<void> {
+  private async readAloud(text: string, voice: "system" | "young" | "old", build: string[], speak = true, opts: { quiet?: boolean; onWord?: (index: number) => void } = {}): Promise<void> {
     this.flow.setSentence(text);
     this.flow.setSpeaking(true);
     const count = Math.max(1, splitWords(text).length);
@@ -650,20 +717,26 @@ export class MemoryStage {
       }
     };
     revealUpTo(0);
-    this.hud.beginReading();
-    this.hud.setSkipVisible(true);
+    // quiet：第一人称的讲义自己高亮，不动字幕条
+    if (!opts.quiet) {
+      this.hud.beginReading();
+      this.hud.setSkipVisible(true);
+    }
     const unsub = this.narrator.onWord((e) => {
-      this.hud.setReadProgress(e.index);
+      if (!opts.quiet) this.hud.setReadProgress(e.index);
+      opts.onWord?.(e.index);
       revealUpTo(e.index);
     });
     const timing = speak ? this.narrator.speak(text, voice) : this.skippableSleep(Narrator.estimate(text) * 1000);
     await this.until(timing);
     unsub();
-    this.hud.setSkipVisible(false);
     // 没来得及触发的部件（跳过 / 词数太少）立即开始显形
     revealUpTo(Number.MAX_SAFE_INTEGER);
-    this.hud.endReading();
-    this.hud.setReadProgress(Number.MAX_SAFE_INTEGER);
+    if (!opts.quiet) {
+      this.hud.setSkipVisible(false);
+      this.hud.endReading();
+      this.hud.setReadProgress(Number.MAX_SAFE_INTEGER);
+    }
     this.flow.setSpeaking(false);
   }
 
@@ -707,7 +780,7 @@ export class MemoryStage {
         if (touched === total) resolve();
       };
       this.touchedNow.clear();
-      this.exitPromise.then(() => resolve());
+      void this.abortSignal().then(() => resolve());
       this.interaction.enable(
         targets.map((id) => {
           const w = this.opts.words.get(id);
@@ -879,7 +952,7 @@ export class MemoryStage {
       if (!ids.includes(id) && this.materializer.isRevealed(this.nameOf(id))) this.materializer.setDim(w.obj, 0.7);
     }
     await new Promise<void>((resolve) => {
-      this.exitPromise.then(() => resolve());
+      void this.abortSignal().then(() => resolve());
       const onPick = (id: string): void => {
         if (id === b.answerWordId) {
           this.interaction.disable();
@@ -912,7 +985,7 @@ export class MemoryStage {
     this.interaction.disable();
     this.marks.clear();
     for (const w of this.wordObjs.values()) this.materializer.setDim(w.obj, 0);
-    if (this.exited) return;
+    if (this.dead) return;
 
     // 答对：空位填上，答案物件落位，没出现过的干扰物件散去，继续朗读整句
     this.hud.fillBlank(token?.text ?? answer?.word ?? "");
@@ -968,7 +1041,7 @@ export class MemoryStage {
     await ask();
     const items = b.options.map((o) => ({ label: o.label ?? (o.wordId ? this.opts.words.get(o.wordId)?.word : undefined) ?? o.wordId ?? "", sub: o.wordId ? o.reply : undefined }));
     await new Promise<void>((resolve) => {
-      this.exitPromise.then(() => resolve());
+      void this.abortSignal().then(() => resolve());
       let busy = false;
       const pickOption = (i: number): void => {
         const opt = b.options[i];
@@ -1096,7 +1169,9 @@ export class MemoryStage {
     await this.sleep(2400);
     this.narrator.cancel();
     await this.until(this.cinema.freezeFrame(b.caption, b.zh));
-    if (b.epilogue && !this.exited) await this.playEpilogue(b.epilogue);
+    const distracted = b.epilogueDistracted && this.focusScores.size > 0 && averageFocus([...this.focusScores.values()]) < 0.7;
+    const epilogue = distracted ? b.epilogueDistracted : b.epilogue;
+    if (epilogue && !this.exited) await this.playEpilogue(epilogue);
   }
 
   /** 淡白之后回到 2090 年：深蓝的夜、雨声，老年的他轻声说一句话 */
@@ -1110,11 +1185,670 @@ export class MemoryStage {
     await this.until(this.hud.fade(true, 1400));
   }
 
+  // ───────────────────────── 幕：时间线与三种视角 ─────────────────────────
+  //
+  // 一段回忆 = 课文按段落切成的若干幕。三种视角（他 / 我 / 纸）看的是同一幕的不同内容，进度共享：
+  //  - 他（默认）：电影，本幕句子逐句朗读，世界继续生长，每幕一次断片；
+  //  - 我：坐在当年我的位子上上课（预习生词 → 跟读 → 课堂提问 → 记笔记）；
+  //  - 纸：当年的笔记本（漫画格 + 生词卡 + 笔记任务）。
+  // 玩家随时可以点右上角的 他 / 我 / 纸：本轮立刻中断（abortSession），同一幕换一种内容重新开始。
+
+  private ensureStudy(): NonNullable<MemoryStage["study"]> {
+    if (this.study) return this.study;
+    this.gloss ??= buildGlossIndex(this.unitWords, this.opts.words.values());
+    const layer = createStudyLayer(this.host, this.hud.root, this.quality === "low");
+    const deps: StudyDeps = {
+      words: this.opts.words,
+      gloss: this.gloss,
+      speak: (text, voice) => this.narrator.speak(text, voice ?? "system"),
+      lowQuality: this.quality === "low",
+    };
+    const handout = new Handout(layer, deps);
+    handout.onSpeed = (scale) => setNarratorRate(scale);
+    handout.onSkip = () => this.skip();
+    const notebook = new Notebook(layer, deps);
+    notebook.onMistake = () => {
+      this.mistakes++;
+    };
+    notebook.onCard = (id) => {
+      this.mastered.add(id);
+      this.wordsSeen.add(id);
+    };
+    if (this.flags.auto) notebook.setAuto(AUTO_STUDY_MS);
+    const spec = this.script?.distraction;
+    const phone = spec ? new PhoneNag(layer, spec.messages) : null;
+    this.study = { layer, handout, notebook, phone };
+    return this.study;
+  }
+
+  private async runActs(beat: Extract<Beat, { kind: "acts" }>): Promise<void> {
+    const acts = this.script?.acts ?? [];
+    if (acts.length === 0) return;
+    this.ensureStudy();
+    this.actState = initFlow(acts.length, this.flags.pov ?? beat.startPov ?? "watch");
+    this.hud.setActSwitcher(true);
+    this.hud.onPickPov = (pov) => this.requestPov(pov);
+    try {
+      while (!this.exited && this.actState && !this.actState.finished) {
+        const act = acts[this.actState.act];
+        const pov = this.actState.pov;
+        this.session = newSession();
+        this.refreshActHud();
+        const finished = await this.playAct(act, pov);
+        if (this.exited || !this.actState) break;
+        // 玩家切换了视角：同一幕换一种内容。playAct 里每个等待都会在中断时立刻返回，所以残余已经收拾干净
+        if (!finished) continue;
+        this.actState = flowReduce(this.actState, pov === "watch" ? { type: "complete", pov } : { type: "next" });
+      }
+    } finally {
+      this.leaveActs();
+    }
+  }
+
+  private leaveActs(): void {
+    this.hud.setActSwitcher(false);
+    this.hud.onPickPov = undefined;
+    this.hideStudyOverlays();
+    setNarratorRate(1);
+    this.session = newSession();
+  }
+
+  private hideStudyOverlays(): void {
+    const study = this.study;
+    if (study) {
+      study.handout.hide();
+      study.notebook.hide();
+      study.phone?.stop();
+    }
+    this.hud.hideQuiz();
+    this.pov.setLookDown(0);
+    this.cinema.setDim(0);
+  }
+
+  /** 玩家点了右上角的某个视角 */
+  private requestPov(pov: ActPov): void {
+    const state = this.actState;
+    if (!state || state.finished || this.exited || pov === state.pov) return;
+    this.actState = flowReduce(state, { type: "switch", pov });
+    this.hud.setActPov(pov);
+    this.abortSession();
+  }
+
+  private abortSession(): void {
+    this.narrator.cancel();
+    this.session.abort();
+    for (const hook of [...this.skipHooks]) hook();
+  }
+
+  private refreshActHud(): void {
+    const state = this.actState;
+    if (!state) return;
+    const acts = this.script?.acts ?? [];
+    this.hud.setActPov(state.pov);
+    this.hud.setActDots(
+      state.total,
+      state.act,
+      state.progress.map(actSeen),
+      state.progress.map((p, i) => acts[i] !== undefined && notesEmpty(p, acts[i]))
+    );
+  }
+
+  /** 播放一幕的一种视角。返回 true = 这一幕在这个视角完成了；false = 被切换视角（或退出）打断 */
+  private async playAct(act: MemoryAct, pov: ActPov): Promise<boolean> {
+    try {
+      for (const cue of act.actorCues ?? []) {
+        if (this.dead) return false;
+        await this.doActor(cue as Extract<Beat, { kind: "actor" }>);
+      }
+      if (this.dead) return false;
+      if (pov === "watch") return await this.watchAct(act);
+      if (pov === "me") return await this.meAct(act);
+      return await this.paperAct(act);
+    } catch (err) {
+      console.error("[memory] 幕执行出错", err);
+      return !this.dead; // 一幕出错不拖垮整段回忆：当作完成，进入下一幕
+    }
+  }
+
+  private studentId(): string {
+    return this.script?.student ?? "me2026";
+  }
+
+  private organizerActor(): ActorHandle | undefined {
+    const id = this.script?.organizer;
+    if (id) return this.actors.get(id);
+    return [...this.actors.values()].find((a) => a.id !== this.studentId());
+  }
+
+  /** 进入某个视角：他 = 电影机位；我 / 纸 = 当年我的眼睛（纸多低一点头） */
+  private enterActPov(pov: ActPov): void {
+    this.hud.setActPov(pov);
+    this.hud.hideWordCard();
+    this.interaction.disable();
+    this.marks.clear();
+    this.hud.clearSubtitle();
+    this.hud.hideChoices();
+    this.hud.hideQuiz();
+    this.hud.setPrompt();
+    if (pov === "watch") {
+      this.setPov("watch");
+      this.pov.setLookDown(0);
+      return;
+    }
+    const organizer = this.organizerActor();
+    this.enterFirstPerson(this.studentId(), organizer?.actor.name ?? "", organizer ? undefined : { x: 0, y: 1.3, z: -1.5 });
+    this.hud.setPov(pov === "paper" ? "paper" : "me");
+  }
+
+  private async ensureBuilt(act: MemoryAct): Promise<void> {
+    const refs = [...(act.build ?? []), ...(act.cues ?? []).flatMap((c) => c.build ?? [])];
+    const jobs = refs.map((ref) => {
+      const target = this.resolveTarget(ref);
+      return this.materializer.has(target) ? this.materializer.reveal(target, 1.0) : Promise.resolve();
+    });
+    await this.until(Promise.all(jobs));
+  }
+
+  // ───────── 他：第三人称 ─────────
+
+  private async watchAct(act: MemoryAct): Promise<boolean> {
+    this.hideStudyOverlays();
+    this.enterActPov("watch");
+    const stage = this.stageDef;
+    for (const ref of act.build ?? []) {
+      const target = this.resolveTarget(ref);
+      if (this.materializer.has(target)) void this.materializer.reveal(target, this.pieceDuration(ref, target));
+    }
+    for (let i = 0; i < act.sentences.length; i++) {
+      if (this.dead) return false;
+      const cue = act.cues?.[i];
+      const sentence = act.sentences[i];
+      let camera = cue?.camera;
+      if (!camera && i === 0 && stage && stage.shots.length > 0) camera = stage.shots[act.index % stage.shots.length];
+      if (act.gap && act.gap.sentence === i) {
+        await this.doGap({ kind: "gap", sentence, zh: cue?.zh, answerWordId: act.gap.answerWordId, decoyWordIds: act.gap.decoyWordIds, camera, build: cue?.build });
+      } else {
+        await this.doNarrate({ kind: "narrate", pov: "watch", text: sentence, zh: cue?.zh, build: cue?.build, camera, voice: "system" });
+      }
+    }
+    if (this.dead) return false;
+    if (act.dialog) await this.watchDialog(act.dialog);
+    if (this.dead) return false;
+    this.captureComic(act, false);
+    return true;
+  }
+
+  /** 附身对话在第三人称里是旁观：对方说话，当年的我用正确的那个词回答 */
+  private async watchDialog(d: ActDialog): Promise<void> {
+    const speaker = this.actorByName(d.speaker);
+    const me = this.actors.get(this.studentId());
+    speaker?.setPose("talk");
+    this.hud.setSubtitle(`${d.speaker}: ${d.line}`, d.zh, { vocab: this.vocabIn(d.line) });
+    await this.readAloud(d.line, "young", []);
+    if (this.dead) return;
+    const reply = d.options.find((o) => o.correct)?.reply;
+    if (reply) {
+      speaker?.setPose("listen");
+      me?.setPose("talk");
+      this.hud.setSubtitle(`Me: ${reply}`, undefined, { vocab: this.vocabIn(reply) });
+      await this.readAloud(reply, "young", []);
+    }
+    speaker?.setPose("listen");
+    me?.setPose("listen");
+    await this.sleep(450);
+  }
+
+  // ───────── 我：第一人称，真实上课 ─────────
+
+  private learnStateFor(act: MemoryAct): LearnState {
+    let st = this.learnStates.get(act.index);
+    if (!st) {
+      st = initLearnState(act, this.notesDone.get(act.index) ?? 0);
+      this.learnStates.set(act.index, st);
+    }
+    return st;
+  }
+
+  private learnEvent(act: MemoryAct, event: LearnEvent): LearnState {
+    const next = nextLearnStep(this.learnStateFor(act), event);
+    this.learnStates.set(act.index, next);
+    return next;
+  }
+
+  private handoutHeader(act: MemoryAct): { unit: string; act: string } {
+    const s = this.script!;
+    return { unit: `${s.title}`, act: `Act ${act.index + 1} / ${s.acts?.length ?? 1}` };
+  }
+
+  private showHandout(act: MemoryAct): void {
+    const { handout } = this.study!;
+    if (handout.visible) return;
+    handout.show(act, this.handoutHeader(act));
+  }
+
+  private async meAct(act: MemoryAct): Promise<boolean> {
+    const { handout, notebook, phone } = this.ensureStudy();
+    this.hideStudyOverlays();
+    this.enterActPov("me");
+    notebook.hide();
+    if (phone && !this.flags.auto && this.learnStateFor(act).step !== "done") phone.begin(planDistractions(this.script!.id, act.index));
+    try {
+      for (;;) {
+        if (this.dead) return false;
+        const st = this.learnStateFor(act);
+        if (st.step === "preview") await this.stepPreview(act);
+        else if (st.step === "read") await this.stepRead(act);
+        else if (st.step === "ask") await this.stepAsk(act);
+        else {
+          if (act.dialog && !this.dialogDone.has(act.index)) {
+            this.dialogDone.add(act.index);
+            handout.hide();
+            await this.meDialog(act.dialog);
+            continue;
+          }
+          return await this.runNotebook(act, "tasks");
+        }
+      }
+    } finally {
+      if (phone) {
+        const score = focusScore(phone.taps);
+        this.focusScores.set(act.index, Math.min(score, this.focusScores.get(act.index) ?? 1));
+        phone.stop();
+      }
+      setNarratorRate(1);
+      handout.onWordTap = undefined;
+      handout.onSentenceTap = undefined;
+      handout.onNext = undefined;
+    }
+  }
+
+  private cleanToken(token: string): string {
+    return token.replace(/^[^A-Za-z]+|[^A-Za-z]+$/g, "");
+  }
+
+  /** ① 预习生词：讲义上本幕的单元词淡淡标出，点一个词 → 笔划线 + 页边批注 + 朗读 */
+  private async stepPreview(act: MemoryAct): Promise<void> {
+    const { handout } = this.study!;
+    this.pov.setLookDown(0.5);
+    this.cinema.setDim(0.28);
+    this.showHandout(act);
+    // 只有真的能在讲义上点到的词才算（极少数屈折形式查不到）
+    const tappable = new Set(handout.vocabPositions().map((p) => p.entry.id));
+    let st = this.learnStateFor(act);
+    if (st.words.some((id) => !tappable.has(id))) {
+      st = { ...st, words: st.words.filter((id) => tappable.has(id)) };
+      this.learnStates.set(act.index, st);
+    }
+    if (st.words.length === 0) {
+      this.learnStates.set(act.index, { ...st, step: "read" });
+      return;
+    }
+    const refresh = (): void => {
+      handout.setStep("1  New words: tap each marked word", `${st.tapped.length} / ${st.words.length}`);
+      handout.setNext("Next ▸", st.tapped.length >= st.words.length);
+    };
+    handout.setTools({ speed: false, skip: false });
+    refresh();
+    await this.until(
+      new Promise<void>((resolve) => {
+        handout.onWordTap = (token, entry) => {
+          void this.narrator.speak(this.cleanToken(token), "system");
+          if (!entry || !st.words.includes(entry.id)) return;
+          const next = this.learnEvent(act, { type: "tapWord", wordId: entry.id });
+          if (next === st) return;
+          st = next;
+          this.mastered.add(entry.id);
+          this.wordsSeen.add(entry.id);
+          refresh();
+        };
+        handout.onSentenceTap = (i) => void this.narrator.speak(act.sentences[i], "system");
+        handout.onNext = () => {
+          const next = this.learnEvent(act, { type: "advance" });
+          if (next.step !== st.step) resolve();
+        };
+        if (this.flags.auto) void this.autoPreview(handout);
+      })
+    );
+  }
+
+  private async autoPreview(handout: Handout): Promise<void> {
+    for (const pos of handout.vocabPositions()) {
+      await this.sleep(AUTO_STUDY_MS);
+      if (this.dead) return;
+      handout.tapToken(pos.si, pos.ti);
+    }
+    await this.sleep(AUTO_STUDY_MS);
+    if (!this.dead) handout.clickNext();
+  }
+
+  private async readSentence(act: MemoryAct, i: number): Promise<void> {
+    const { handout } = this.study!;
+    handout.highlightSentence(i);
+    await this.readAloud(act.sentences[i], "system", act.cues?.[i]?.build ?? [], true, { quiet: true, onWord: (index) => handout.highlightWord(index) });
+  }
+
+  /** ② 跟读课文：朗读本幕句子，当前句高亮、笔尖跟着走；随时可以点句子重听、点词查义，语速可调 */
+  private async stepRead(act: MemoryAct): Promise<void> {
+    const { handout } = this.study!;
+    this.pov.setLookDown(0.5);
+    this.cinema.setDim(0.28);
+    this.showHandout(act);
+    const st0 = this.learnStateFor(act);
+    let passDone = st0.readDone;
+    const ctl: { interrupt: Promise<void> | null; jumpTo: number | null } = { interrupt: null, jumpTo: null };
+    handout.setTools({ speed: true, skip: true });
+    handout.setStep("2  Read along", "tap a word or ▸ to hear it again");
+    handout.setNext("Next ▸", passDone);
+
+    const next = new Promise<void>((resolve) => {
+      handout.onNext = () => {
+        const s = this.learnEvent(act, { type: "advance" });
+        if (s.step !== "read") resolve();
+      };
+    });
+    handout.onWordTap = (token) => {
+      ctl.interrupt = this.narrator.speak(this.cleanToken(token), "system");
+    };
+    handout.onSentenceTap = (i) => {
+      this.narrator.cancel();
+      if (passDone) void this.readSentence(act, i);
+      else ctl.jumpTo = i;
+    };
+
+    const pass = (async (): Promise<void> => {
+      if (passDone) return;
+      let i = 0;
+      while (i < act.sentences.length && !this.dead) {
+        ctl.interrupt = null;
+        ctl.jumpTo = null;
+        await this.readSentence(act, i);
+        if (this.dead) return;
+        if (ctl.jumpTo !== null) {
+          i = ctl.jumpTo;
+          continue;
+        }
+        if (ctl.interrupt) {
+          // 点词听了发音：把这一句从头再读
+          await this.until(ctl.interrupt);
+          continue;
+        }
+        await this.sleep(220);
+        i++;
+      }
+      if (this.dead) return;
+      this.learnEvent(act, { type: "readFinished" });
+      passDone = true;
+      handout.highlightSentence(null);
+      handout.setNext("Next ▸", true);
+    })();
+    if (this.flags.auto) {
+      void pass.then(async () => {
+        await this.sleep(AUTO_STUDY_MS);
+        if (!this.dead) handout.clickNext();
+      });
+    }
+    await this.until(next);
+    await this.until(pass);
+    handout.onWordTap = undefined;
+    handout.onSentenceTap = undefined;
+    handout.onNext = undefined;
+  }
+
+  private chooseOption(options: readonly string[], wrong: ReadonlySet<number>, autoIndex: number): Promise<number | null> {
+    return new Promise<number | null>((resolve) => {
+      this.hud.showQuiz(options, (i) => {
+        if (!wrong.has(i)) resolve(i);
+      });
+      wrong.forEach((i) => this.hud.markQuiz(i, "wrong"));
+      void this.abortSignal().then(() => resolve(null));
+      if (this.flags.auto) void this.sleep(AUTO_STUDY_MS).then(() => resolve(this.dead ? null : autoIndex));
+    });
+  }
+
+  /** ③ 课堂提问：抬头，老师 / 组织者看着你问本幕的理解题；选对点头并讲解，选错说 “Look at the text again.” */
+  private async stepAsk(act: MemoryAct): Promise<void> {
+    const { handout } = this.study!;
+    handout.hide();
+    this.cinema.setDim(0);
+    this.pov.setLookDown(0);
+    this.enterActPov("me");
+    const organizer = this.organizerActor();
+    const name = organizer?.actor.name ?? "Teacher";
+    for (;;) {
+      const st = this.learnStateFor(act);
+      if (st.step !== "ask" || this.dead) return;
+      const q = act.questions[st.questionIndex];
+      const wrong = new Set<number>();
+      organizer?.setPose("talk");
+      this.hud.setSubtitle(`${name}: ${q.question}`, undefined, { vocab: this.vocabIn(q.question) });
+      await this.readAloud(q.question, "young", []);
+      if (this.dead) return;
+      organizer?.setPose("listen");
+      for (;;) {
+        const idx = await this.chooseOption(q.options, wrong, q.answer);
+        if (idx === null || this.dead) {
+          this.hud.hideQuiz();
+          return;
+        }
+        if (idx === q.answer) {
+          this.hud.markQuiz(idx, "right");
+          this.learnEvent(act, { type: "answer", correct: true });
+          this.hud.hideQuiz();
+          organizer?.setPose("talk");
+          const line = q.explanation || "Yes, that is right.";
+          this.hud.setSubtitle(`${name}: ${line}`, undefined, { vocab: this.vocabIn(line) });
+          await this.readAloud(line, "young", []);
+          organizer?.setPose("listen");
+          await this.sleep(300);
+          break;
+        }
+        // 选错：老师让你再看一遍课文，相关的那一句在讲义上闪一下
+        this.mistakes++;
+        wrong.add(idx);
+        this.learnEvent(act, { type: "answer", correct: false });
+        this.hud.markQuiz(idx, "wrong");
+        this.hud.hideQuiz();
+        organizer?.setPose("talk");
+        this.hud.setSubtitle(`${name}: Look at the text again.`, undefined, { vocab: [] });
+        await this.readAloud("Look at the text again.", "young", []);
+        if (this.dead) return;
+        this.pov.setLookDown(0.5);
+        this.cinema.setDim(0.28);
+        this.hud.clearSubtitle();
+        this.showHandout(act);
+        handout.setTools({ speed: false, skip: false });
+        handout.setStep("Look at the text again", "");
+        handout.setNext(null);
+        const flash = relatedSentences(act, q)[0];
+        if (flash !== undefined) handout.flashSentence(flash, 2200);
+        await this.sleep(2300);
+        handout.hide();
+        this.cinema.setDim(0);
+        this.pov.setLookDown(0);
+        if (this.dead) return;
+        organizer?.setPose("listen");
+        this.hud.setSubtitle(`${name}: ${q.question}`, undefined, { vocab: this.vocabIn(q.question) });
+      }
+    }
+  }
+
+  /** 附身对话（第一人称）：同学问了一句话，你用一个词回答 */
+  private async meDialog(d: ActDialog): Promise<void> {
+    this.pov.setLookDown(0);
+    this.cinema.setDim(0);
+    await this.doChoice({ kind: "choice", speaker: d.speaker, line: d.line, zh: d.zh, options: d.options, voice: "young", viewer: this.studentId() });
+    const speaker = this.actorByName(d.speaker);
+    speaker?.setPose("listen");
+  }
+
+  // ───────── 笔记本（第一人称低头记笔记 / 纸）─────────
+
+  private keywordWordIds(task: Extract<NoteTask, { kind: "translate" }>): string[] {
+    const ids: string[] = [];
+    for (const kw of task.keywords) {
+      const w = this.unitWords.find((u) => u.word.toLowerCase() === kw.toLowerCase());
+      if (w) ids.push(w.id);
+    }
+    return ids;
+  }
+
+  /** 笔记本：tasks = 第一人称的笔记步骤；full = 纸（漫画格 + 生词卡 + 笔记）。玩家点 “下一幕” 才返回 true */
+  private async runNotebook(act: MemoryAct, mode: "full" | "tasks"): Promise<boolean> {
+    const { handout, notebook, phone } = this.study!;
+    const acts = this.script!.acts ?? [];
+    handout.hide();
+    this.hud.clearSubtitle();
+    this.hud.hideQuiz();
+    let comic: HTMLCanvasElement | null = null;
+    if (mode === "full") {
+      comic = this.comics.get(act.index) ?? this.captureComic(act, true);
+      if (this.dead) return false;
+    }
+    this.pov.setLookDown(mode === "full" ? 0.9 : 0.8);
+    this.cinema.setDim(0.28);
+    // 在第一人称里先把还没记的笔记同步给状态机
+    if (mode === "tasks") {
+      const done = this.notesDone.get(act.index) ?? 0;
+      let st = this.learnStateFor(act);
+      if (st.noteIndex < done) {
+        st = { ...st, noteIndex: Math.min(done, st.notesTotal) };
+        if (st.step === "notes" && st.noteIndex >= st.notesTotal) st = { ...st, step: "done" };
+        this.learnStates.set(act.index, st);
+      }
+    }
+    const total = acts.length;
+    const finishLabel = act.index === total - 1 ? "Finish ▸" : "Next act ▸";
+    const completePov: ActPov = mode === "full" ? "paper" : "me";
+    const markComplete = (): void => {
+      if (this.actState && !this.actState.finished && this.actState.act === act.index) this.actState = flowReduce(this.actState, { type: "complete", pov: completePov });
+      this.refreshActHud();
+    };
+
+    let finished = false;
+    notebook.onTaskDone = (index, task, ids) => {
+      this.notesDone.set(act.index, Math.max(this.notesDone.get(act.index) ?? 0, index + 1));
+      const all = [...ids, ...(task.kind === "translate" ? this.keywordWordIds(task) : [])];
+      for (const id of all) {
+        this.mastered.add(id);
+        this.wordsSeen.add(id);
+      }
+      const st = this.learnStateFor(act);
+      if (st.step === "notes" && st.noteIndex === index) this.learnEvent(act, { type: "noteDone" });
+      if ((this.notesDone.get(act.index) ?? 0) >= act.notes.length) markComplete();
+    };
+    const result = new Promise<void>((resolve) => {
+      notebook.onFinished = () => {
+        finished = true;
+        resolve();
+      };
+    });
+    const startIndex = this.notesDone.get(act.index) ?? 0;
+    notebook.show({
+      act,
+      total,
+      mode,
+      startIndex,
+      comic,
+      vocab: act.wordIds.map((id) => this.opts.words.get(id)).filter((w): w is WordEntry => w !== undefined),
+      pool: this.unitWordForms,
+      finishLabel,
+      summary: phone && mode === "tasks" ? () => `Focus ${Math.round(focusScore(phone.taps) * 100)}%${phone.taps > 0 ? " · a message pulled you away" : ""}` : undefined,
+    });
+    // 没有笔记（或都已经做完）：看到页面就算完成
+    if (startIndex >= act.notes.length) markComplete();
+    await this.until(result);
+    if (!finished) return false;
+    notebook.hide();
+    return true;
+  }
+
+  // ───────── 纸：二维笔记本 ─────────
+
+  private async paperAct(act: MemoryAct): Promise<boolean> {
+    this.hideStudyOverlays();
+    this.enterActPov("paper");
+    await this.ensureBuilt(act);
+    if (this.dead) return false;
+    return this.runNotebook(act, "full");
+  }
+
+  /**
+   * 漫画格：把当前画面读到一张小画布上，套手绘风格滤镜（降饱和 + 色阶 + 墨线 + 纸纹）。
+   * 第三人称看完一幕时抓最后一帧；没看过的幕用舞台的默认机位抓一帧。
+   */
+  private captureComic(act: MemoryAct, useDefaultShot: boolean): HTMLCanvasElement {
+    const canvas = this.comics.get(act.index) ?? document.createElement("canvas");
+    canvas.width = COMIC_W;
+    canvas.height = COMIC_H;
+    this.comics.set(act.index, canvas);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return canvas;
+    const cam = this.camera;
+    const saved = { pos: cam.position.clone(), quat: cam.quaternion.clone(), fov: cam.fov };
+    const avatarVisible = this.pov.root.visible;
+    const trailVisible = this.pov.trail.visible;
+    try {
+      if (useDefaultShot) {
+        const shots = this.stageDef?.shots ?? [];
+        const shot = act.cues?.[0]?.camera ?? shots[act.index % Math.max(1, shots.length)];
+        if (shot) {
+          cam.position.set(shot.to.x, shot.to.y, shot.to.z);
+          cam.lookAt(shot.look.x, shot.look.y, shot.look.z);
+          cam.fov = this.cinema.baseFov;
+          cam.updateProjectionMatrix();
+          cam.updateMatrixWorld(true);
+        }
+      }
+      this.pov.root.visible = false;
+      this.pov.trail.visible = false;
+      this.cinema.captureClean(() => {
+        if (this.post) this.post.composer.render();
+        else this.renderer.render(this.scene, this.camera);
+      });
+      const src = this.renderer.domElement;
+      // 取中间 COMIC_W:COMIC_H 比例的一块
+      const want = COMIC_W / COMIC_H;
+      let sw = src.width;
+      let sh = src.width / want;
+      if (sh > src.height) {
+        sh = src.height;
+        sw = src.height * want;
+      }
+      ctx.drawImage(src, (src.width - sw) / 2, (src.height - sh) / 2, sw, sh, 0, 0, COMIC_W, COMIC_H);
+      const img = ctx.getImageData(0, 0, COMIC_W, COMIC_H);
+      comicify(img.data, COMIC_W, COMIC_H, { seed: act.index + 3 });
+      ctx.putImageData(img, 0, 0);
+    } catch (err) {
+      // 读取画面失败（例如被浏览器拦截）：留一张纸色空白，不影响笔记
+      console.warn("[memory] 漫画格抓取失败", err);
+      ctx.fillStyle = "#efe4c3";
+      ctx.fillRect(0, 0, COMIC_W, COMIC_H);
+    } finally {
+      cam.position.copy(saved.pos);
+      cam.quaternion.copy(saved.quat);
+      cam.fov = saved.fov;
+      cam.updateProjectionMatrix();
+      this.pov.root.visible = avatarVisible;
+      this.pov.trail.visible = trailVisible;
+    }
+    return canvas;
+  }
+
   // ───────────────────────── 并发小工具 ─────────────────────────
 
-  /** 与“玩家退出”赛跑：退出后立刻返回 */
+  /** 与“玩家退出”和 “切换视角” 赛跑：退出 / 中断后立刻返回 */
   private until<T>(p: Promise<T>): Promise<T | undefined> {
-    return Promise.race([p, this.exitPromise.then(() => undefined)]);
+    return Promise.race([p, this.exitPromise.then(() => undefined), this.session.promise.then(() => undefined)]);
+  }
+
+  /** 退出或本轮被中断时 resolve（等待玩家作答的 Promise 用它收尾） */
+  private abortSignal(): Promise<void> {
+    return Promise.race([this.exitPromise, this.session.promise]);
+  }
+
+  /** 玩家已退出，或本轮（幕 × 视角）被切换视角打断 */
+  private get dead(): boolean {
+    return this.exited || this.session.aborted;
   }
 
   private sleep(ms: number): Promise<void> {

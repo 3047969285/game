@@ -138,6 +138,22 @@ describe("PovRig：2090 年的他是一层微光，不再挡住画面", () => {
     expect(camera.position.z).toBeGreaterThan(5); // 退到 maxZ=3 的前墙之外
   });
 
+  it("第一人称低头看讲义 / 笔记本、抬头看老师：setLookDown 平滑改变俯角，位置不动", () => {
+    const { rig, camera } = makeRig();
+    rig.setEyeAnchor(new THREE.Vector3(2.8, 1.35, -0.25), -Math.PI / 2, 0);
+    rig.setPov("me");
+    run(rig, 3);
+    const level = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion).y;
+    rig.setLookDown(0.9);
+    run(rig, 3);
+    const down = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
+    expect(down.y).toBeLessThan(level - 0.6);
+    expect(camera.position.x).toBeCloseTo(2.8, 1);
+    rig.setLookDown(0);
+    run(rig, 3);
+    expect(new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion).y).toBeCloseTo(level, 1);
+  });
+
   it("点地面 / 自动走位：moveTo 走到目的地并停下；按键立刻取消；目的地被夹进可走范围", () => {
     const { rig } = makeRig();
     rig.moveTo(2, -1.5);

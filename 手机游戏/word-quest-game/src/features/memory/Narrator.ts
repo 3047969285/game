@@ -19,6 +19,14 @@ let fastMultiplier = 1;
 export function setNarratorFast(multiplier: number): void {
   fastMultiplier = Math.max(1, multiplier);
 }
+/** 第一人称跟读的语速（0.8 / 1.0）：乘在每个音色的基础语速上 */
+let rateScale = 1;
+export function setNarratorRate(scale: number): void {
+  rateScale = Math.min(1.5, Math.max(0.5, scale));
+}
+export function getNarratorRate(): number {
+  return rateScale;
+}
 const START_TIMEOUT_MS = 1500;
 
 export interface WordEvent {
@@ -182,7 +190,7 @@ export class Narrator {
 
       /** 纯计时：每词 0.33 秒（?memfast=1 时更快） */
       const runTimerMode = (): void => {
-        const per = (SECONDS_PER_WORD * 1000) / fastMultiplier;
+        const per = (SECONDS_PER_WORD * 1000) / fastMultiplier / rateScale;
         for (let i = 0; i < total; i++) later(() => emit(i), i * per);
         later(() => {
           emit(total - 1);
@@ -199,7 +207,7 @@ export class Narrator {
       try {
         utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = "en-US";
-        utterance.rate = profile.rate;
+        utterance.rate = profile.rate * rateScale;
         utterance.pitch = profile.pitch;
         const v = pickVoice(synth, voice);
         if (v) {
@@ -227,7 +235,7 @@ export class Narrator {
         if (started) return;
         started = true;
         startedAt = performance.now();
-        const perWord = (SECONDS_PER_WORD / profile.rate) * 1000;
+        const perWord = (SECONDS_PER_WORD / (profile.rate * rateScale)) * 1000;
         // 没有 boundary 事件的声音：按时间推进词
         const iv = setInterval(() => {
           if (done || boundarySeen) return;

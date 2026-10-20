@@ -112,3 +112,49 @@ export const textbookStore: { save(t): Promise<void>; load(): Promise<ImportedTe
 - 第一人称步骤状态机（纯函数 `nextLearnStep(state, event)`）：步骤顺序、未完成不能跳、选错可重试。
 - 视角切换状态机：任一视角完成一幕即标记；第三人称自动进下一幕；切换不丢进度。
 - translate 词块：keywords 都在词块里；正确顺序拼出 en_reference（忽略大小写和标点）。
+
+## 7. 实现说明（第 1–4 节已实现；第 5 节导入教材尚未做，只预留了 `passageOverride`）
+
+### 7.1 模块（`src/features/memory/`）
+
+| 文件 | 内容 |
+|------|------|
+| `acts.ts` | `buildActs(unit, words, section, passageOverride?)`：`planActStarts` 按段落切幕（没有段落标记时约 4 句一幕，每幕 3–6 句，避开以代词 / 承接词开头的句子前切开）；`assignQuestions`（单调动态规划：题目按它考的课文段落挑幕，同幕题目越多扣分越重，每幕最多约 3 题）；翻译按关键词相关度分配（每幕至多 ⌈n/幕数⌉ 句）；每幕一个填词笔记（`buildFillTask`，优先挖单元词，本幕没有单元词时挖较长的实词）；写作提纲放最后一幕（`buildOutlineChoices`：每个要点的可接受词 = 要点里出现的单元词，其次题干里的，再其次课文里最常出现的） |
+| `noteTasks.ts` / `tileBoard.ts` | 词块：`chunkSentence`（关键词成块、虚词并入后面的实词）、`buildTranslateTiles`（+2–3 个干扰词）、`checkTranslate`（忽略大小写与标点）、填词 / 提纲的词块与判定、词块板模型 |
+| `actFlow.ts` | 纯状态机：`nextLearnStep`（预习 → 跟读 → 提问 → 笔记 → 完成，未完成不能跳，选错可重试）、`flowReduce`（视角切换与进度）、`focusScore` / `planDistractions`（手机干扰）、`buildGlossIndex`（点词查义：先单元词含屈折形式，再整本词表，查不到只朗读）、`relatedSentences`（答错后讲义上闪哪一句） |
+| `comicFilter.ts` | 漫画格滤镜（降饱和 + 色阶 + Sobel 墨线 + 纸纹 + 暗角），纯函数，不用 canvas filter |
+| `study.ts` | 课桌：`Handout`（讲义）、`Notebook`（笔记本）、`PhoneNag`（手机干扰），DOM + CSS |
+| `MemoryStage.ts` | 幕的运行器：`runActs` / `playAct` / `watchAct` / `meAct`（`stepPreview` / `stepRead` / `stepAsk` / `runNotebook`）/ `paperAct` / `captureComic` |
+| `scripts/u01a.ts`、`autoScript.ts` | 都基于 `buildActs`；u01a 导出 `buildU01aScript(unit, words, passageOverride?)`，注册表现在登记生成函数 |
+
+### 7.2 数据格式
+
+- `Beat` 新增 `{ kind: "acts"; startPov? }`：脚本里的 `acts` 在此处运行，之前是下潜 / 触碰 / 入场，之后是定格。`freeze.epilogueDistracted`：专注度低于 0.7 时换成这一句。
+- `MemoryScript` 新增 `acts`、`organizer`（提问的人）、`student`（借谁的眼睛，缺省 me2026）、`distraction`。
+- `MemoryAct` 在文档基础上多了 `start`、`cues`（逐句的字幕 / 机位 / 部件）、`gap`（断片）、`dialog`（附身对话：第三人称里旁观，第一人称里自己回答）。`NoteTask.fill` 带 `wordIds` / `decoys`，`outline` 带 `choices`。
+- `MemoryResult` 新增 `wordsMastered`（只在第一人称 / 纸的主动任务里增加）与 `focus`。
+
+### 7.3 视角切换
+
+- 运行器把 “一幕 × 一个视角” 当作一次会话（`Session`）。点右上角「他 / 我 / 纸」→ `requestPov` 改状态 → `abortSession`：朗读取消，这一轮里所有等待（朗读、断片、对话、提问、笔记）立刻返回，残余代码跑完后才开始新视角那一轮。切换不丢进度：第一人称的步骤状态按幕保存（回到「我」从原来的步骤继续），笔记完成数在「我」和「纸」之间共享。
+- 镜头：他→我，`PovRig` 1.3 秒混合到当年我的眼睛；低头 / 抬头由 `PovRig.setLookDown` 平滑改变俯角（讲义 / 笔记本 0.5–0.9 弧度，提问 0）；我→纸，笔记本像躺在桌上的纸翻起来铺满屏幕（CSS `rotateX`）。
+- 第三人称看完自动进下一幕；第一人称 / 纸做完后点 “Next act ▸”（最后一幕是 “Finish ▸”）。
+
+### 7.4 第一人称的流程
+
+预习生词（讲义上单元词淡淡标出，点词 → 钢笔下划线 + 页边手写批注 + 朗读，全部点完才能继续）→ 跟读（朗读本幕句子，当前句高亮、笔尖跟着当前词；点 ▸ 重听整句、点词听发音后从头重读这一句；语速 1× / 0.8×；▸▸ 跳过一句）→ 课堂提问（抬头看老师，题目朗读，4 个选项，长选项可展开；选错 “Look at the text again.” 并让讲义上相关的句子闪一下）→（有对话的幕：同学问话，自己回答）→ 低头记笔记（填词 / 翻译 / 提纲）。单元 1 学习时手机偶尔亮起通知，点开扣专注度。
+
+### 7.5 偏离文档之处
+
+- 讲义和笔记本用 DOM 排版（衬线印刷体 + Caveat 手写体 + CSS 纸张 / 荧光笔 / 钢笔），不是贴在 3D 桌面上的 Canvas 贴图：文字天然按设备像素渲染、手机上可以铺满屏幕、点词也不需要射线拾取。仍然是纸、墨、笔的质感，不是应用面板。
+- 「记忆匣里标出这一幕的笔记还空着」暂时只体现在右上角幕的小点上（带圈 = 笔记还空着）；记忆匣里的持久化没有做。
+- 翻译题干 “请将下列句子译为英文：” 前缀在笔记本里去掉。
+- 翻译与写作是单元级数据：每一篇课文都会拿到该单元全部翻译句（按相关度分到各幕）和完整的写作提纲，所以同一单元的 A / B / C 三段里会重复出现。
+
+### 7.6 开发期开关
+
+`?memauto=1` 现在也驱动第一人称（逐个点单元词 → 下一步 → 跟读 → 选对答案 → 填完笔记 → 下一幕）和纸上的笔记；`?memfast=1` 不变；新增 `?mempov=me|paper|watch` 强制幕的起始视角（缺省 watch）。三者都只在 dev 构建里读。
+
+### 7.7 测试
+
+`acts.test.ts`（切幕 / 题目 / 翻译 / 写作 / 填词 / 提纲，18 篇全覆盖，passageOverride）、`noteTasks.test.ts`、`tileBoard.test.ts`、`actFlow.test.ts`（学习步骤状态机、视角切换与进度、手机干扰、点词查义）、`comicFilter.test.ts`、`autoScript.test.ts` / `scripts/scripts.test.ts`（重写）、`PovRig.test.ts`（低头）、`Narrator.test.ts`（语速）、`devFlags.test.ts`（mempov）。

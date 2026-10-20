@@ -68,6 +68,85 @@ export interface PaperPage {
 
 export type Voice = "system" | "young" | "old";
 
+/** 一幕里的视角：他（第三人称，默认）/ 我（第一人称，真实上课）/ 纸（二维笔记本）。第二人称的 “你” 只在下潜与上浮，不在切换器里 */
+export type ActPov = "watch" | "me" | "paper";
+
+/** 一道理解题（来自 micro_world_checks 与 reading.questions） */
+export interface ActQuestion {
+  question: string;
+  options: string[];
+  answer: number;
+  explanation: string;
+}
+
+/** 一个提纲要点的填词选择：答案词（本单元词的任一屈折形式）与干扰词 */
+export interface OutlineChoice {
+  /** 正确的词形（讲义 / 提纲里出现的词形） */
+  answers: string[];
+  wordIds: string[];
+  decoys: string[];
+}
+
+/** 笔记本任务 */
+export type NoteTask =
+  | { kind: "translate"; zh: string; en: string; keywords: string[] } // sections.translation.sentences
+  | { kind: "fill"; line: string; answers: string[]; wordIds: string[]; decoys: string[] } // 课文原句挖词；line 里的空位是 ____
+  | { kind: "outline"; prompt: string; points: string[]; choices: OutlineChoice[] }; // sections.writing
+
+/** 本幕的断片：第三人称里答对画面中的物件，记忆才接得上 */
+export interface ActGap {
+  /** 断片的句子在本幕里的序号 */
+  sentence: number;
+  answerWordId: string;
+  decoyWordIds: string[];
+}
+
+/** 一句话的舞台提示 */
+export interface SentenceCue {
+  build?: string[];
+  camera?: CameraShot;
+  /** 中文字幕 */
+  zh?: string;
+}
+
+/** 附身对话（在第三人称里是旁观，在第一人称里要自己开口） */
+export interface ActDialog {
+  speaker: string;
+  line: string;
+  zh?: string;
+  options: Array<{ wordId?: string; label?: string; reply: string; correct: boolean }>;
+}
+
+/** 回忆的一幕：课文按段落切出来的一段。三种视角看的是同一幕的不同内容 */
+export interface MemoryAct {
+  index: number;
+  /** 本幕的课文句子（原文，按句切分） */
+  sentences: string[];
+  /** 本幕第一句在整篇课文里的序号 */
+  start: number;
+  /** 本幕出现的单元词 */
+  wordIds: string[];
+  /** 本幕的理解题 */
+  questions: ActQuestion[];
+  /** 本幕的笔记任务（填词 → 翻译 → 最后一幕的写作） */
+  notes: NoteTask[];
+  /** 本幕开始时显形的舞台部件 */
+  build?: string[];
+  /** 本幕开始时的人物动作（只用 actor 节拍） */
+  actorCues?: Beat[];
+  /** 逐句的舞台提示，序号与 sentences 对应 */
+  cues?: SentenceCue[];
+  gap?: ActGap;
+  dialog?: ActDialog;
+}
+
+/** 手机干扰（主题机制，单元 1：学习时手机偶尔亮起通知） */
+export interface DistractionSpec {
+  kind: "phone";
+  /** 无关消息：[发件人, 内容] */
+  messages: Array<[string, string]>;
+}
+
 /** 节拍：回忆按顺序执行的一步 */
 export type Beat =
   | { kind: "narrate"; pov: Pov; text: string; zh?: string; build?: string[]; camera?: CameraShot; speak?: boolean; voice?: Voice }
@@ -106,11 +185,18 @@ export type Beat =
     }
   | { kind: "dive"; seconds?: number } // 下潜：光粒洪流吞没画面，淡白
   | {
+      /** 进入 “幕” 的时间线：跑完 script.acts 里的全部幕（自由切换视角，默认第三人称），再继续后面的节拍 */
+      kind: "acts";
+      startPov?: ActPov;
+    }
+  | {
       kind: "freeze";
       caption: string;
       zh?: string;
       /** 定格淡白之后回到 2090 年：老年的他说的一句话（雨声 + 字幕） */
       epilogue?: { text: string; zh?: string; voice?: Voice };
+      /** 专注度偏低（被手机分心）时换成这一句 */
+      epilogueDistracted?: { text: string; zh?: string; voice?: Voice };
     }; // 定格成底片，上浮
 
 export interface MemoryScript {
@@ -126,6 +212,14 @@ export interface MemoryScript {
   actors: Actor[];
   objects: WordObjectPlacement[];
   beats: Beat[];
+  /** “幕” 时间线：由 beats 里的 { kind: "acts" } 驱动 */
+  acts?: MemoryAct[];
+  /** 第一人称里提问的人（老师 / 组织者）的 actor id */
+  organizer?: string;
+  /** 第一人称借谁的眼睛上课，缺省 me2026 */
+  student?: string;
+  /** 学习时的手机干扰 */
+  distraction?: DistractionSpec;
   /** 回忆完成后 2026 校园地图上点亮的东西（交给 App） */
   reward?: { lightNode?: string };
 }
@@ -139,6 +233,10 @@ export interface MemoryResult {
   wordsSeen: string[];
   /** 断片 / 选择 / 笔记本里的答错次数 */
   mistakes: number;
+  /** 在第一人称 / 笔记本的主动任务里用到的词（掌握度只在这里增加） */
+  wordsMastered?: string[];
+  /** 第一人称的平均专注度 0–1（没有干扰机制时为 1） */
+  focus?: number;
 }
 
 /** 纸页占位符：{{rw3_unit01_13}} */
@@ -268,12 +366,55 @@ export function validateScript(script: MemoryScript, ctx: ValidateContext = {}):
           err(`${where}: build 目标 ${ref} 不存在`);
         }
         break;
+      case "acts":
+        if (!script.acts || script.acts.length === 0) err(`${where}: 脚本没有 acts`);
+        break;
       case "pov":
       case "dive":
       case "freeze":
         break;
     }
   });
+
+  for (const key of [script.organizer, script.student]) {
+    if (key && !actorIds.has(key)) err(`不存在的 actor ${key}（organizer / student）`);
+  }
+  for (const act of script.acts ?? []) {
+    const where = `act#${act.index}`;
+    if (act.sentences.length === 0) err(`${where}: 没有句子`);
+    act.cues?.forEach((cue, i) => {
+      checkBuild(cue.build, `${where}.cue#${i}`);
+      if (i >= act.sentences.length) err(`${where}: cue#${i} 超出句子数`);
+    });
+    checkBuild(act.build, where);
+    for (const cue of act.actorCues ?? []) {
+      if (cue.kind !== "actor") err(`${where}: actorCues 只能是 actor 节拍`);
+      else if (!actorIds.has(cue.actorId)) err(`${where}: 不存在的 actor ${cue.actorId}`);
+    }
+    if (act.gap) {
+      const g = act.gap;
+      const sentence = act.sentences[g.sentence];
+      if (sentence === undefined) err(`${where}: 断片的句序 ${g.sentence} 越界`);
+      needObject(g.answerWordId, `${where}.gap`);
+      for (const id of g.decoyWordIds) {
+        needObject(id, `${where}.gap`);
+        if (id === g.answerWordId) err(`${where}.gap: 干扰词与答案相同`);
+        const d = ctx.words?.get(id);
+        if (sentence !== undefined && d && findWordToken(sentence, d.word)) err(`${where}.gap: 干扰词 ${d.word} 也出现在句子里`);
+      }
+      const answer = ctx.words?.get(g.answerWordId);
+      if (sentence !== undefined && answer && !findWordToken(sentence, answer.word)) err(`${where}.gap: 句子里没有答案词 ${answer.word}`);
+    }
+    if (act.dialog) {
+      if (act.dialog.options.length < 2) err(`${where}.dialog: 选项少于 2 个`);
+      if (!act.dialog.options.some((o) => o.correct)) err(`${where}.dialog: 没有正确选项`);
+      for (const o of act.dialog.options) {
+        if (o.wordId) needWord(o.wordId, `${where}.dialog`);
+        else if (!o.label) err(`${where}.dialog: 选项既没有 wordId 也没有 label`);
+      }
+      if (!script.actors.some((a) => a.name === act.dialog!.speaker || a.id === act.dialog!.speaker)) err(`${where}.dialog: 说话的人 ${act.dialog.speaker} 不在 actors 里`);
+    }
+  }
 
   if (script.beats.length === 0) err("脚本没有任何节拍");
   return errors;

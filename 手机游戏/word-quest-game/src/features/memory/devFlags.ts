@@ -1,11 +1,17 @@
+import type { ActPov } from "./types";
+
 /**
  * 开发期测试开关（只在 dev 构建里读，生产构建里恒为关）：
- *  - ?memauto=1：回忆里每个需要玩家操作的节拍，约 1.2 秒后自动作答（按顺序触碰每个目标、选对断片 / 选项、填对笔记本、点开场的 “轻触”）
+ *  - ?memauto=1：回忆里每个需要玩家操作的节拍，约 1.2 秒后自动作答（逐个触碰每个目标、选对断片 / 选项、
+ *    第一人称的预习 / 跟读 / 提问 / 笔记、纸上的笔记、点 “下一幕”、点开场的 “轻触”）
  *  - ?memfast=1：旁白不用 TTS，直接用计时降级，速度 ×4
+ *  - ?mempov=me|paper|watch：幕的起始视角（缺省第三人称 watch）
  */
 export interface MemoryDevFlags {
   auto: boolean;
   fast: boolean;
+  /** 强制的起始视角；没有指定时为 undefined */
+  pov?: ActPov;
 }
 
 /** 纯函数：从 query string 解析（便于测试）。dev=false 时恒为关 */
@@ -13,7 +19,10 @@ export function parseMemoryDevFlags(search: string, dev: boolean): MemoryDevFlag
   if (!dev) return { auto: false, fast: false };
   const q = new URLSearchParams(search);
   const on = (k: string): boolean => q.get(k) === "1" || q.get(k) === "true";
-  return { auto: on("memauto"), fast: on("memfast") };
+  const pov = q.get("mempov");
+  const flags: MemoryDevFlags = { auto: on("memauto"), fast: on("memfast") };
+  if (pov === "me" || pov === "paper" || pov === "watch") flags.pov = pov;
+  return flags;
 }
 
 export function memoryDevFlags(): MemoryDevFlags {
@@ -24,3 +33,5 @@ export function memoryDevFlags(): MemoryDevFlags {
 
 /** 自动作答的间隔（毫秒） */
 export const AUTO_DELAY_MS = 1200;
+/** 第一人称 / 笔记本里自动作答的间隔（毫秒）：步骤多，节奏快一些 */
+export const AUTO_STUDY_MS = 650;

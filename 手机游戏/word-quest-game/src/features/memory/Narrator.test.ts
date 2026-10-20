@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { Narrator, SECONDS_PER_WORD, setNarratorFast, splitWords } from "./Narrator";
+import { Narrator, SECONDS_PER_WORD, setNarratorFast, setNarratorRate, splitWords } from "./Narrator";
 
 const g = globalThis as Record<string, unknown>;
 
@@ -23,6 +23,23 @@ describe("Narrator 计时降级（没有 speechSynthesis）", () => {
     await vi.advanceTimersByTimeAsync(401);
     await p;
     expect(done).toBe(true);
+  });
+
+  it("第一人称跟读的语速：0.8× 时计时降级也相应变慢", async () => {
+    setNarratorRate(0.8);
+    try {
+      const text = "one two three four five six seven eight";
+      const expected = (8 * SECONDS_PER_WORD * 1000) / 0.8;
+      let done = false;
+      const p = new Narrator().speak(text).then(() => (done = true));
+      await vi.advanceTimersByTimeAsync(expected - 300);
+      expect(done).toBe(false);
+      await vi.advanceTimersByTimeAsync(600);
+      await p;
+      expect(done).toBe(true);
+    } finally {
+      setNarratorRate(1);
+    }
   });
 
   it("逐词事件按顺序、各发一次", async () => {

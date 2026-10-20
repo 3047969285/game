@@ -147,6 +147,22 @@ export class CinemaDirector {
     this.dimTarget = amount;
   }
 
+  /** 抓一帧干净的画面（漫画格用）：临时关掉压暗 / 卡顿 / 底片效果再执行 fn，之后恢复 */
+  captureClean<T>(fn: () => T): T {
+    const saved = { ...this.film };
+    this.film.dim = 0;
+    this.film.jitter = 0;
+    this.film.film = 0;
+    this.film.fade = 0;
+    applyFilm(this.filmPass, this.film, this.time);
+    try {
+      return fn();
+    } finally {
+      Object.assign(this.film, saved);
+      applyFilm(this.filmPass, this.film, this.time);
+    }
+  }
+
   /** 断片答错：胶片卡顿抖动 */
   glitch(seconds = 0.6): void {
     this.jitterLeft = seconds;

@@ -74,7 +74,7 @@ export interface PaperWordInfo {
 }
 
 let fontInjected = false;
-function ensureHandwritingFont(): void {
+export function ensureHandwritingFont(): void {
   if (fontInjected || typeof document === "undefined") return;
   fontInjected = true;
   const link = document.createElement("link");

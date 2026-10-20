@@ -1,35 +1,44 @@
 import type { WordEntry } from "../../core/types";
 import type { Rw3UnitContent } from "../../infra/data";
+import { buildActs } from "./acts";
 import { memoryScriptId, type SectionKey } from "./ids";
 import { memoryObjectFor, ARCHETYPES } from "./memoryObjects";
 import { getStage } from "./stages";
-import { findExactWord, hashSeed, sentenceHasWord, seededRandom, splitSentences } from "./text";
-import type { Beat, BuildPiece, CameraShot, MemoryScript, PaperPage, Vec3, WordObjectPlacement } from "./types";
+import { hashSeed, sentenceHasWord, seededRandom } from "./text";
+import type { Actor, Beat, BuildPiece, CameraShot, DistractionSpec, MemoryAct, MemoryScript, SentenceCue, Vec3, WordObjectPlacement } from "./types";
 
 /**
  * 通用回忆：没有手写脚本的段落由数据自动生成（emptyRoom 舞台）。
- *  - 文章前 6 句作为 narrate：前 2 句在“下潜”（you），触碰物件之后的句子在“我在看我”（watch）；
- *  - 每句话建立舞台的一块部件；
- *  - 含本单元词的句子里选 2 句改成 gap（断片）；
- *  - 最后一页 paper 用含词句子 3 行；
+ *  - 下潜（you）：两句系统旁白建起房间，触碰 5 个物件；
+ *  - 课文全文由 buildActs 按段落切成若干幕：每幕的句子逐句朗读（他）、断片一次、理解题 / 翻译 / 写作都在幕里（我、纸）；
  *  - 以 freeze 收尾。
  * 同一个 (单元, 段落) 永远生成同一份脚本（种子来自 id）。
  */
 
-const NARRATE_COUNT = 6;
-const YOU_SENTENCES = 2; // 这些句子发生在下潜阶段，之后才有 touch
-const MAX_PAPER_WORDS = 22;
+const TOUCH_COUNT = 5;
 
-/** 每个句子位建立的舞台部件（emptyRoom） */
-const BUILD_PLAN: string[][] = [["floor", "wall_back"], ["window", "wall_left", "wall_right", "wall_front"], ["table", "chairs"], ["board", "shelf"], ["lamp", "plant"], []];
+/** 房间的主体在下潜阶段（两句系统旁白）建起；剩下的部件分到各幕 */
+const PRELUDE_BUILD: string[][] = [["floor", "wall_back", "wall_left", "wall_right", "wall_front"], ["window", "table", "chairs"]];
 
-interface Candidate {
-  index: number;
-  sentence: string;
-  words: WordEntry[];
-}
+/** 单元 1 的主题机制：学习时手机偶尔亮起（其它单元暂时没有） */
+export const UNIT1_DISTRACTION: DistractionSpec = {
+  kind: "phone",
+  messages: [
+    ["Mei", "did you see this? the cafeteria cat is back"],
+    ["Class group (23)", "who has the notes from Tuesday?"],
+    ["An", "noodles after this? the usual place"],
+    ["Campus Store", "Your package has arrived at the pickup point"],
+    ["Lin", "look at this photo from the weekend"],
+  ],
+};
 
-function shuffle<T>(list: T[], rand: () => number): T[] {
+/** emptyRoom 里的两个座位：年轻的我（近侧，面朝桌子对面）与对面的老师 */
+const EMPTY_ROOM_SEATS = {
+  me: { x: -0.95, y: 0, z: 0.1, yaw: Math.PI },
+  teacher: { x: 0, y: 0, z: -1.7, yaw: 0 },
+} as const;
+
+function shuffle<T>(list: readonly T[], rand: () => number): T[] {
   const out = [...list];
   for (let i = out.length - 1; i > 0; i--) {
     const j = Math.floor(rand() * (i + 1));
@@ -38,78 +47,80 @@ function shuffle<T>(list: T[], rand: () => number): T[] {
   return out;
 }
 
-export function buildAutoScript(unit: Rw3UnitContent, words: WordEntry[], section: SectionKey, stageName = "emptyRoom"): MemoryScript {
+export interface GapPlan {
+  act: number;
+  /** 断片的句子在本幕里的序号 */
+  sentence: number;
+  answer: WordEntry;
+}
+
+/** 每幕挑一句含单元词的句子做断片；一个词只做一次答案。本幕没有可用的单元词时这一幕没有断片 */
+export function planGaps(acts: readonly MemoryAct[], words: readonly WordEntry[], rand: () => number): GapPlan[] {
+  const used = new Set<string>();
+  const plans: GapPlan[] = [];
+  for (const act of acts) {
+    const options: Array<{ sentence: number; word: WordEntry }> = [];
+    act.sentences.forEach((s, i) => {
+      for (const w of words) if (!used.has(w.id) && sentenceHasWord(s, w.word)) options.push({ sentence: i, word: w });
+    });
+    if (options.length === 0) continue;
+    const pick = shuffle(options, rand)[0];
+    used.add(pick.word.id);
+    plans.push({ act: act.index, sentence: pick.sentence, answer: pick.word });
+  }
+  return plans;
+}
+
+export function buildAutoScript(unit: Rw3UnitContent, words: WordEntry[], section: SectionKey, stageName = "emptyRoom", passageOverride?: string): MemoryScript {
   const sec = unit.sections[section];
-  const passage = sec?.passage ?? "";
-  const sentences = splitSentences(passage);
   const id = memoryScriptId(unit.unit_id, section);
   const rand = seededRandom(hashSeed(id));
   const stage = getStage(stageName);
+  const acts = buildActs(unit, words, section, passageOverride);
 
-  const candidates: Candidate[] = sentences.map((sentence, index) => ({
-    index,
-    sentence,
-    words: words.filter((w) => sentenceHasWord(sentence, w.word)),
-  }));
-
-  // ── gap：先在 touch 之后的句子位（2..5）里挑，不够 2 句时向后补充句子 ──
-  const gapPool = shuffle(candidates.filter((c) => c.index >= YOU_SENTENCES && c.index < NARRATE_COUNT && c.words.length > 0), rand);
-  const gaps: Array<{ cand: Candidate; answer: WordEntry }> = [];
-  const usedAnswers = new Set<string>();
-  const pickAnswer = (c: Candidate): WordEntry | undefined => c.words.find((w) => !usedAnswers.has(w.id)) ?? undefined;
-  for (const c of gapPool) {
-    if (gaps.length >= 2) break;
-    const a = pickAnswer(c);
-    if (a) {
-      usedAnswers.add(a.id);
-      gaps.push({ cand: c, answer: a });
-    }
-  }
-  const extraGaps: Array<{ cand: Candidate; answer: WordEntry }> = [];
-  if (gaps.length < 2) {
-    for (const c of candidates.filter((c) => c.index >= NARRATE_COUNT && c.words.length > 0)) {
-      if (gaps.length + extraGaps.length >= 2) break;
-      const a = pickAnswer(c);
-      if (a) {
-        usedAnswers.add(a.id);
-        extraGaps.push({ cand: c, answer: a });
-      }
-    }
-  }
-  const gapByIndex = new Map(gaps.map((g) => [g.cand.index, g]));
-
-  // ── 干扰词：同单元、不在该句里出现、不等于答案；优先同词性 ──
-  const decoysFor = (g: { cand: Candidate; answer: WordEntry }): WordEntry[] => {
-    const others = words.filter((w) => w.id !== g.answer.id && !sentenceHasWord(g.cand.sentence, w.word));
-    const samePos = shuffle(others.filter((w) => w.pos === g.answer.pos), rand);
-    const rest = shuffle(others.filter((w) => w.pos !== g.answer.pos), rand);
-    return [...samePos, ...rest].slice(0, 2);
-  };
-  const gapPlans = [...gaps, ...extraGaps].map((g) => ({ ...g, decoys: decoysFor(g) }));
-
-  // ── touch 的词：优先前 6 句里出现的词（排除 gap 答案），不足用本单元其它词补到 5–6 个 ──
+  // ── 断片的答案 → 触碰的词（不含答案）→ 干扰词 ──
+  const gapPlans = planGaps(acts, words, rand);
+  const answerIds = new Set(gapPlans.map((g) => g.answer.id));
   const touchWords: WordEntry[] = [];
   const takeTouch = (w: WordEntry): void => {
-    if (touchWords.length < 6 && !touchWords.some((t) => t.id === w.id) && !usedAnswers.has(w.id)) touchWords.push(w);
+    if (touchWords.length < TOUCH_COUNT && !touchWords.some((t) => t.id === w.id) && !answerIds.has(w.id)) touchWords.push(w);
   };
-  for (const c of candidates.slice(0, NARRATE_COUNT)) for (const w of c.words) takeTouch(w);
+  for (const act of acts.slice(0, 2)) for (const wid of act.wordIds) takeTouch(words.find((w) => w.id === wid)!);
   for (const w of shuffle(words, rand)) {
-    if (touchWords.length >= 5) break;
+    if (touchWords.length >= TOUCH_COUNT) break;
     takeTouch(w);
   }
 
-  // ── 物件与摆放位 ──
-  const objectWords: WordEntry[] = [];
-  const addObject = (w: WordEntry): void => {
-    if (!objectWords.some((o) => o.id === w.id)) objectWords.push(w);
-  };
-  touchWords.forEach(addObject);
-  for (const g of gapPlans) {
-    addObject(g.answer);
-    g.decoys.forEach(addObject);
-  }
   const slotPool: Vec3[] = [...stage.slots.table, ...stage.slots.hover, ...stage.slots.floor];
-  const placements: WordObjectPlacement[] = objectWords.slice(0, slotPool.length).map((w, i) => {
+  const objectWords: WordEntry[] = [];
+  const addObject = (w: WordEntry): boolean => {
+    if (objectWords.some((o) => o.id === w.id)) return true;
+    if (objectWords.length >= slotPool.length) return false;
+    objectWords.push(w);
+    return true;
+  };
+  // 断片的答案物件先摆（占住桌面的位置），再摆触碰的物件
+  gapPlans.forEach((g) => addObject(g.answer));
+  touchWords.forEach(addObject);
+
+  // 干扰词：已摆放的词里，不在该句里出现、不等于答案的，优先同词性；不够再补别的单元词
+  const decoysFor = (g: GapPlan): WordEntry[] => {
+    const sentence = acts[g.act].sentences[g.sentence];
+    const fits = (w: WordEntry): boolean => w.id !== g.answer.id && !sentenceHasWord(sentence, w.word);
+    const placed = objectWords.filter(fits);
+    const ranked = [...shuffle(placed.filter((w) => w.pos === g.answer.pos), rand), ...shuffle(placed.filter((w) => w.pos !== g.answer.pos), rand)];
+    const picked = ranked.slice(0, 2);
+    if (picked.length < 2) {
+      for (const w of shuffle(words.filter(fits), rand)) {
+        if (picked.length >= 2) break;
+        if (!picked.some((p) => p.id === w.id) && addObject(w)) picked.push(w);
+      }
+    }
+    return picked;
+  };
+  const gapDecoys = new Map(gapPlans.map((g) => [g.act, decoysFor(g)]));
+
+  const placements: WordObjectPlacement[] = objectWords.map((w, i) => {
     const def = memoryObjectFor(w.id, w.word);
     const pos = slotPool[i];
     return {
@@ -123,84 +134,63 @@ export function buildAutoScript(unit: Rw3UnitContent, words: WordEntry[], sectio
   });
   const placedIds = new Set(placements.map((p) => p.wordId));
 
-  // ── 舞台部件（piece 表就是 stage.targets 的默认风格）──
+  // ── 舞台部件：下潜阶段建房间，剩下的分到各幕 ──
   const pieces: BuildPiece[] = Object.entries(stage.targets).map(([target, style]) => ({ id: target, target, style }));
+  const inPrelude = new Set(PRELUDE_BUILD.flat());
+  const remaining = Object.keys(stage.targets).filter((t) => !inPrelude.has(t));
+  const preludeBuild = (i: number): string[] => (PRELUDE_BUILD[i] ?? []).filter((t) => t in stage.targets);
+
+  // ── 人物：年轻的我与对面的老师（第一人称里老师提问）──
+  const hasSeats = stageName === "emptyRoom";
+  const actors: Actor[] = hasSeats
+    ? [
+        {
+          id: "me2026",
+          name: "Me (2026)",
+          look: { seated: true, shirt: 0x33384a, hair: 0x14100e, hairStyle: "short", skin: 0xe0b894, trousers: 0x2c3140, outfit: "hoodie", backpack: 0x2e5a73 },
+          position: { x: EMPTY_ROOM_SEATS.me.x, y: 0, z: EMPTY_ROOM_SEATS.me.z },
+          rotationY: EMPTY_ROOM_SEATS.me.yaw,
+          pose: "listen",
+        },
+        {
+          id: "teacher",
+          name: "Ms. Chen",
+          look: { seated: true, shirt: 0x7a5a6a, hair: 0x2a1c14, hairStyle: "bun", glasses: true, skin: 0xe2b898, trousers: 0x3b3a36, outfit: "tee" },
+          position: { x: EMPTY_ROOM_SEATS.teacher.x, y: 0, z: EMPTY_ROOM_SEATS.teacher.z },
+          rotationY: EMPTY_ROOM_SEATS.teacher.yaw,
+          pose: "listen",
+        },
+      ]
+    : [];
+
+  // ── 幕：逐句机位与部件，断片 ──
+  const shotAt = (i: number): CameraShot => stage.shots[i % stage.shots.length];
+  acts.forEach((act, ai) => {
+    const cues: SentenceCue[] = act.sentences.map((_, i) => ({ camera: shotAt(ai * 3 + i) }));
+    const extra = remaining[ai];
+    if (extra) cues[0].build = [extra];
+    act.cues = cues;
+    const plan = gapPlans.find((g) => g.act === ai);
+    const decoys = (gapDecoys.get(ai) ?? []).filter((d) => placedIds.has(d.id));
+    if (plan && placedIds.has(plan.answer.id) && decoys.length >= 1) {
+      act.gap = { sentence: plan.sentence, answerWordId: plan.answer.id, decoyWordIds: decoys.map((d) => d.id) };
+    }
+  });
 
   // ── 节拍 ──
-  const beats: Beat[] = [];
-  const shot = (i: number): CameraShot => stage.shots[i % stage.shots.length];
-  const buildFor = (index: number): string[] => (BUILD_PLAN[index] ?? []).filter((t) => t in stage.targets);
-  const gapBeat = (g: (typeof gapPlans)[number], index: number): Beat => ({
-    kind: "gap",
-    sentence: g.cand.sentence,
-    answerWordId: g.answer.id,
-    decoyWordIds: g.decoys.filter((d) => placedIds.has(d.id)).map((d) => d.id),
-    camera: shot(index),
-    build: buildFor(index),
-  });
-
-  const narrateSentences = sentences.slice(0, NARRATE_COUNT);
-  narrateSentences.forEach((text, i) => {
-    if (i === YOU_SENTENCES) {
-      beats.push({
-        kind: "touch",
-        prompt: "Reach out. Touch what you remember.",
-        zh: "伸手，触碰你记得的东西。",
-        wordIds: touchWords.filter((w) => placedIds.has(w.id)).map((w) => w.id),
-      });
-    }
-    const plan = gapByIndex.has(i) ? gapPlans.find((p) => p.cand.index === i) : undefined;
-    if (plan) {
-      beats.push(gapBeat(plan, i));
-      return;
-    }
-    beats.push({
-      kind: "narrate",
-      pov: i < YOU_SENTENCES ? "you" : "watch",
-      text,
-      build: buildFor(i),
-      camera: i < YOU_SENTENCES ? undefined : shot(i),
-      voice: "system",
-    });
-  });
-  // 句子不足 6 句的极端情况：仍要保证有 touch
-  if (narrateSentences.length <= YOU_SENTENCES) {
-    beats.push({ kind: "touch", prompt: "Reach out. Touch what you remember.", zh: "伸手，触碰你记得的东西。", wordIds: touchWords.filter((w) => placedIds.has(w.id)).map((w) => w.id) });
-  }
-  // 补充的 gap（后面的句子）：紧接着 watch 阶段
-  for (const plan of gapPlans.filter((p) => p.cand.index >= NARRATE_COUNT)) beats.push(gapBeat(plan, plan.cand.index));
-
-  // ── paper：3 行含词句子，占位词取该句里与原形一致的本单元词 ──
-  const used = new Set(gapPlans.map((g) => g.cand.index));
-  const paperCandidates = candidates
-    .filter((c) => c.sentence.split(/\s+/).length <= MAX_PAPER_WORDS)
-    .map((c) => ({ c, word: c.words.find((w) => findExactWord(c.sentence, w.word)) }))
-    .filter((x): x is { c: Candidate; word: WordEntry } => x.word !== undefined);
-  const fresh = paperCandidates.filter((x) => !used.has(x.c.index));
-  const paperPicks: typeof paperCandidates = [];
-  const paperWordIds = new Set<string>();
-  for (const x of [...shuffle(fresh, rand), ...shuffle(paperCandidates.filter((x) => used.has(x.c.index)), rand)]) {
-    if (paperPicks.length >= 3) break;
-    if (paperWordIds.has(x.word.id)) continue;
-    paperWordIds.add(x.word.id);
-    paperPicks.push(x);
-  }
-  paperPicks.sort((a, b) => a.c.index - b.c.index);
-  const lines = paperPicks.map(({ c, word }) => {
-    const hit = findExactWord(c.sentence, word.word)!;
-    return `${c.sentence.slice(0, hit.index)}{{${word.id}}}${c.sentence.slice(hit.index + hit.length)}`;
-  });
-  if (lines.length > 0) {
-    const decoyPool = shuffle(words.filter((w) => !paperWordIds.has(w.id)), rand);
-    const page: PaperPage = {
-      style: section === "section_b" ? "diary" : section === "section_c" ? "ticket" : "notebook",
-      title: sec?.title ?? unit.title,
-      lines,
-      decoyWordIds: decoyPool.slice(0, 3).map((w) => w.id),
-    };
-    beats.push({ kind: "paper", page });
-  }
-
+  const beats: Beat[] = [
+    { kind: "narrate", pov: "you", text: "You remember a room, and a day.", zh: "你想起一个房间，和那一天。", voice: "system", build: preludeBuild(0) },
+    { kind: "narrate", pov: "you", text: "Piece by piece, it comes back.", zh: "一点一点，它回来了。", voice: "system", build: preludeBuild(1) },
+    {
+      kind: "touch",
+      prompt: "Reach out. Touch what you remember.",
+      zh: "伸手，触碰你记得的东西。",
+      wordIds: touchWords.filter((w) => placedIds.has(w.id)).map((w) => w.id),
+    },
+    { kind: "narrate", pov: "watch", text: "Now watch. This is how you were.", zh: "现在，看着吧。当年的你就是这个样子。", voice: "system", camera: shotAt(0) },
+  ];
+  for (const a of actors) beats.push({ kind: "actor", actorId: a.id, action: "enter", to: a.position, pose: a.pose, duration: 1.6 });
+  if (acts.length > 0) beats.push({ kind: "acts" });
   beats.push({ kind: "freeze", caption: sec?.title ?? unit.title, zh: unit.title_zh });
 
   return {
@@ -211,9 +201,13 @@ export function buildAutoScript(unit: Rw3UnitContent, words: WordEntry[], sectio
     titleZh: unit.title_zh,
     stage: stageName,
     pieces,
-    actors: [],
+    actors,
     objects: placements,
     beats,
+    acts,
+    organizer: hasSeats ? "teacher" : undefined,
+    student: hasSeats ? "me2026" : undefined,
+    distraction: unit.unit_id === "unit01" ? UNIT1_DISTRACTION : undefined,
     reward: { lightNode: `${unit.unit_id}:${section}` },
   };
 }

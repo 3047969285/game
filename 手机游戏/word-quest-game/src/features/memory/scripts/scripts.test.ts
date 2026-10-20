@@ -3,8 +3,8 @@ import type { WordEntry } from "../../../core/types";
 import { stageTargets } from "../stages";
 import { splitSentences } from "../text";
 import { loadUnits, loadVocab } from "../testData";
-import { findWordToken, paperSlotIds, validateScript, type Beat, type MemoryScript } from "../types";
-import { PROLOGUE_SCRIPT, U01A_SCRIPT, resolveMemoryScript } from "./index";
+import { findWordToken, validateScript, type Beat, type MemoryScript } from "../types";
+import { PROLOGUE_SCRIPT, buildU01aScript, resolveMemoryScript } from "./index";
 
 const units = loadUnits();
 const unit1 = units[0];
@@ -57,7 +57,9 @@ describe("手写脚本：开场 prologue", () => {
 });
 
 describe("手写脚本：u01a《周四的沉默》", () => {
+  const U01A_SCRIPT = buildU01aScript(unit1, unitWords);
   const ctx = { stageTargets: stageTargets(U01A_SCRIPT.stage), words: wordMap };
+  const acts = U01A_SCRIPT.acts!;
 
   it("通过引用校验", () => {
     expect(validateScript(U01A_SCRIPT, ctx)).toEqual([]);
@@ -65,30 +67,28 @@ describe("手写脚本：u01a《周四的沉默》", () => {
     expect(U01A_SCRIPT.unitId).toBe("unit01");
     expect(U01A_SCRIPT.section).toBe("section_a");
     expect(U01A_SCRIPT.stage).toBe("clubRoom");
+    expect(U01A_SCRIPT.organizer).toBe("rui");
+    expect(U01A_SCRIPT.student).toBe("me2026");
   });
 
   it("是单元 1 的记忆点 A；B、C 仍然由 autoScript 生成", () => {
-    expect(resolveMemoryScript(unit1, unitWords, "section_a")).toBe(U01A_SCRIPT);
+    expect(resolveMemoryScript(unit1, unitWords, "section_a").acts).toHaveLength(acts.length);
+    expect(resolveMemoryScript(unit1, unitWords, "section_a").beats.filter((b) => b.kind === "acts")).toHaveLength(1);
     expect(resolveMemoryScript(unit1, unitWords, "section_b").id).toBe("u01b");
     expect(resolveMemoryScript(unit1, unitWords, "section_c").id).toBe("u01c");
     expect(resolveMemoryScript(unit1, unitWords, "section_b").stage).toBe("emptyRoom");
   });
 
-  it("节拍顺序：下潜(you) → 触碰 6 个 → 我在看我(watch，3 次断片) → 附身(2 次) → 旧笔记本 → 定格", () => {
+  it("节拍顺序：下潜(you) → 触碰 6 个 → 同学入场 → 幕时间线 → 定格；触碰之前全是第二人称", () => {
     const k = kinds(U01A_SCRIPT);
     const iTouch = k.indexOf("touch");
-    const iFirstGap = k.indexOf("gap");
-    const iFirstChoice = k.indexOf("choice");
-    const iPaper = k.indexOf("paper");
+    const iActs = k.indexOf("acts");
     expect(iTouch).toBeGreaterThan(0);
-    expect(iFirstGap).toBeGreaterThan(iTouch);
-    expect(iFirstChoice).toBeGreaterThan(k.lastIndexOf("gap"));
-    expect(iPaper).toBeGreaterThan(k.lastIndexOf("choice"));
+    expect(iActs).toBeGreaterThan(iTouch);
+    expect(k.filter((x) => x === "acts")).toHaveLength(1);
     expect(k[k.length - 1]).toBe("freeze");
-    expect(of(U01A_SCRIPT, "gap")).toHaveLength(3);
-    expect(of(U01A_SCRIPT, "choice")).toHaveLength(2);
-    expect(of(U01A_SCRIPT, "touch")).toHaveLength(1);
-    // 触碰之前全是第二人称
+    // 幕里自己播课文，节拍里不再有断片 / 附身 / 旧笔记本
+    for (const bad of ["gap", "choice", "paper"]) expect(k).not.toContain(bad);
     for (const b of U01A_SCRIPT.beats.slice(0, iTouch)) if (b.kind === "narrate") expect(b.pov).toBe("you");
   });
 
@@ -105,106 +105,130 @@ describe("手写脚本：u01a《周四的沉默》", () => {
     expect(touchWords).toEqual(["connection", "conversation", "device", "lonely", "message", "notification"]);
   });
 
-  it("“我在看我”的旁白逐句取自文章原文，且顺序与原文一致", () => {
-    const told: string[] = [];
-    for (const b of U01A_SCRIPT.beats) {
-      if (b.kind === "narrate" && b.pov === "watch" && b.voice === "system" && sentences.includes(b.text)) told.push(b.text);
-      if (b.kind === "gap") told.push(b.sentence);
-    }
-    expect(told.length).toBeGreaterThanOrEqual(8);
-    expect(told.length).toBeLessThanOrEqual(10);
-    const idx = told.map((t) => sentences.indexOf(t));
-    expect(idx.every((i) => i >= 0)).toBe(true);
-    expect([...idx].sort((a, b) => a - b)).toEqual(idx);
+  it("课文 20 句全文都在幕里，顺序不变：5 幕 × 4 句", () => {
+    expect(sentences).toHaveLength(20);
+    expect(acts.map((a) => a.sentences.length)).toEqual([4, 4, 4, 4, 4]);
+    expect(acts.flatMap((a) => a.sentences)).toEqual(sentences);
   });
 
-  it("断片：答案在句子里，候选（答案 + 干扰）都有物件，彼此靠得近，镜头才框得住", () => {
+  it("每一句都有中文字幕和机位；每幕有 1 次断片：答案在句子里、干扰词不在句子里、候选物件都摆好了且靠得近", () => {
     const placed = new Map(U01A_SCRIPT.objects.map((o) => [o.wordId, o]));
-    const touched = new Set(of(U01A_SCRIPT, "touch")[0].wordIds);
-    for (const gap of of(U01A_SCRIPT, "gap")) {
+    for (const act of acts) {
+      expect(act.cues).toHaveLength(act.sentences.length);
+      act.cues!.forEach((c, i) => {
+        expect(c.zh, act.sentences[i]).toBeTruthy();
+        expect(c.camera).toBeDefined();
+      });
+      const gap = act.gap!;
+      expect(gap, `act#${act.index} 没有断片`).toBeDefined();
+      const sentence = act.sentences[gap.sentence];
       const answer = wordMap.get(gap.answerWordId)!;
-      expect(findWordToken(gap.sentence, answer.word), answer.word).not.toBeNull();
-      expect(passage).toContain(gap.sentence);
+      expect(findWordToken(sentence, answer.word), answer.word).not.toBeNull();
       expect(gap.decoyWordIds.length).toBeGreaterThanOrEqual(2);
-      expect(touched.has(gap.answerWordId), `${answer.word} 不该已经在触碰阶段出现`).toBe(false);
       const ids = [gap.answerWordId, ...gap.decoyWordIds];
       expect(new Set(ids).size).toBe(ids.length);
       for (const id of ids) expect(placed.has(id), id).toBe(true);
+      for (const id of gap.decoyWordIds) expect(findWordToken(sentence, wordMap.get(id)!.word), id).toBeNull();
       const xs = ids.map((id) => placed.get(id)!.position.x);
-      expect(Math.max(...xs) - Math.min(...xs)).toBeLessThan(1.8);
-      for (const id of gap.decoyWordIds) {
-        // 干扰词不能出现在句子里，否则也能填进去
-        expect(findWordToken(gap.sentence, wordMap.get(id)!.word), id).toBeNull();
-      }
+      expect(Math.max(...xs) - Math.min(...xs)).toBeLessThan(2.4);
     }
-    expect(of(U01A_SCRIPT, "gap").map((g) => wordMap.get(g.answerWordId)!.word)).toEqual(["experiment", "anxious", "carefully"]);
+    expect(acts.map((a) => wordMap.get(a.gap!.answerWordId)!.word)).toEqual(["connection", "experiment", "carefully", "purpose", "communication"]);
   });
 
-  it("附身：Lin 的提问 conversation / purpose 都对，algorithm 不对；组织者的请求选 offline", () => {
-    const [lin, rui] = of(U01A_SCRIPT, "choice");
+  it("理解题（section_a 的 4 道校准题 + 3 道阅读题）、4 句翻译、写作提纲都分配进了幕里", () => {
+    expect(acts.flatMap((a) => a.questions)).toHaveLength(7);
+    const notes = acts.flatMap((a) => a.notes);
+    expect(notes.filter((n) => n.kind === "translate")).toHaveLength(4);
+    expect(notes.filter((n) => n.kind === "outline")).toHaveLength(1);
+    expect(acts[acts.length - 1].notes.some((n) => n.kind === "outline")).toBe(true);
+    for (const a of acts) expect(a.notes.some((n) => n.kind === "fill")).toBe(true);
+  });
+
+  it("附身对话：Lin 的提问 conversation / purpose 都对，algorithm 不对；Rui 的请求选 offline", () => {
+    const lin = acts[0].dialog!;
+    const rui = acts[1].dialog!;
     expect(lin.speaker).toBe("Lin");
     expect(lin.line).toBe("So… what do we actually talk about?");
-    const right = lin.options.filter((o) => o.correct).map((o) => wordMap.get(o.wordId!)!.word);
-    expect(right.sort()).toEqual(["conversation", "purpose"]);
+    expect(lin.options.filter((o) => o.correct).map((o) => wordMap.get(o.wordId!)!.word).sort()).toEqual(["conversation", "purpose"]);
     expect(wordMap.get(lin.options.find((o) => !o.correct)!.wordId!)!.word).toBe("algorithm");
     expect(new Set(lin.options.filter((o) => o.correct).map((o) => o.reply)).size).toBe(2);
+    expect(rui.speaker).toBe("Rui");
     expect(rui.options.filter((o) => o.correct).map((o) => wordMap.get(o.wordId!)!.word)).toEqual(["offline"]);
     expect(rui.options.map((o) => wordMap.get(o.wordId!)!.word).sort()).toEqual(["cyber", "offline", "virtual"]);
-    for (const c of [lin, rui]) {
-      expect(c.zh).toBeTruthy();
-      expect(U01A_SCRIPT.actors.some((a) => a.name === c.speaker)).toBe(true);
+    for (const d of [lin, rui]) {
+      expect(d.zh).toBeTruthy();
+      expect(U01A_SCRIPT.actors.some((a) => a.name === d.speaker)).toBe(true);
     }
   });
 
-  it("旧笔记本：三行，空位是 device / conversation / connection / attention，干扰词至少 3 个", () => {
-    const page = of(U01A_SCRIPT, "paper")[0].page;
-    expect(page.lines).toHaveLength(3);
-    expect(paperSlotIds(page).map((id) => wordMap.get(id)!.word)).toEqual(["device", "conversation", "connection", "attention"]);
-    const plain = page.lines.map((l) => l.replace(/\{\{([^{}]+)\}\}/g, (_m, id: string) => wordMap.get(id)!.word));
-    expect(plain).toEqual(["Week 1: we put every device in a basket.", "It felt strange to start a conversation without a screen.", "Real connection needs attention."]);
-    expect(page.decoyWordIds.map((id) => wordMap.get(id)!.word).sort()).toEqual(["algorithm", "platform", "scroll"]);
-  });
-
-  it("定格：第一次笑起来的一刻，然后回到 2090 年老年的他的一句话", () => {
+  it("定格：第一次笑起来的一刻，然后回到 2090 年老年的他的一句话；分心时换一句", () => {
     const k = U01A_SCRIPT.beats;
     const laugh = k[k.length - 2];
     expect(laugh.kind === "narrate" && laugh.text).toBe("And then, for the first time, we all laughed together.");
     const freeze = of(U01A_SCRIPT, "freeze")[0];
     expect(freeze.epilogue?.text).toBe("We were so young. And we were learning to listen.");
     expect(freeze.epilogue?.voice).toBe("old");
+    expect(freeze.epilogueDistracted?.text).toBeTruthy();
     expect(U01A_SCRIPT.reward?.lightNode).toBe("unit01:section_a");
   });
 
-  it("人物：年轻的我 + Lin、Mei、两位同学，都坐着，座位互不重叠；桌上的物件都在桌面范围内", () => {
+  it("单元 1 的主题机制：学习时手机偶尔亮起，有一组无关的消息", () => {
+    expect(U01A_SCRIPT.distraction?.kind).toBe("phone");
+    expect(U01A_SCRIPT.distraction!.messages.length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("人物：年轻的我 + Lin、Mei、两位同学，都坐着，每个人都有 phone（低头）与 listen（抬头）两个姿势；桌上的物件在桌面范围内", () => {
     expect(U01A_SCRIPT.actors.map((a) => a.id).sort()).toEqual(["an", "lin", "me2026", "mei", "rui"]);
     const me = U01A_SCRIPT.actors.find((a) => a.id === "me2026")!;
     expect(me.look.outfit).toBe("hoodie");
     expect(me.look.backpack).toBeDefined();
     for (const a of U01A_SCRIPT.actors) expect(a.look.seated).toBe(true);
-    // 每个人都有 phone（低头）与 listen（抬头）两个姿势
+    const poseBeats = [...U01A_SCRIPT.beats, ...acts.flatMap((a) => a.actorCues ?? [])];
     for (const a of U01A_SCRIPT.actors) {
-      const poses = new Set(U01A_SCRIPT.beats.flatMap((b) => (b.kind === "actor" && b.actorId === a.id && b.pose ? [b.pose] : [])));
+      const poses = new Set(poseBeats.flatMap((b) => (b.kind === "actor" && b.actorId === a.id && b.pose ? [b.pose] : [])));
       expect(poses.has("phone"), a.id).toBe(true);
       expect(poses.has("listen"), a.id).toBe(true);
     }
     for (const o of U01A_SCRIPT.objects) {
-      if (o.position.y > 0.5) {
+      if (o.position.y > 0.5 && o.position.y < 0.9) {
         expect(Math.abs(o.position.x)).toBeLessThan(2.3);
         expect(o.position.z).toBeGreaterThan(-0.7);
+        expect(o.position.z).toBeLessThan(0.2);
+      }
+      if (o.position.y >= 0.9) {
+        // 悬空的词在桌子后沿上空
+        expect(Math.abs(o.position.x)).toBeLessThan(2.3);
+        expect(o.position.z).toBeGreaterThan(-1.2);
         expect(o.position.z).toBeLessThan(0.2);
       }
     }
   });
 
-  it("舞台里的每一块都会在回忆里依次显形，没有被落下的部件", () => {
+  it("舞台里的每一块都会在回忆里依次显形（下潜 / 入场 / 各幕的逐句提示），没有被落下的部件", () => {
     const built = new Set(of(U01A_SCRIPT, "narrate").flatMap((n) => n.build ?? []));
-    for (const g of of(U01A_SCRIPT, "gap")) for (const b of g.build ?? []) built.add(b);
+    for (const act of acts) {
+      for (const b of act.build ?? []) built.add(b);
+      for (const c of act.cues ?? []) for (const b of c.build ?? []) built.add(b);
+    }
     for (const target of stageTargets("clubRoom")) expect(built.has(target), target).toBe(true);
   });
 
   it("所有字幕和选项都有中文", () => {
     for (const n of of(U01A_SCRIPT, "narrate")) expect(n.zh, n.text).toBeTruthy();
-    for (const g of of(U01A_SCRIPT, "gap")) expect(g.zh, g.sentence).toBeTruthy();
-    for (const c of of(U01A_SCRIPT, "choice")) expect(c.zh, c.line).toBeTruthy();
+    for (const a of acts) {
+      for (const c of a.cues ?? []) expect(c.zh).toBeTruthy();
+      if (a.dialog) expect(a.dialog.zh).toBeTruthy();
+    }
+  });
+
+  it("导入教材原文（passageOverride）：舞台不变，句子换成原文，中文字幕不再适用，断片只在确有答案词时保留", () => {
+    const own = Array.from({ length: 12 }, (_, i) => `Sentence ${i} of my own book mentions a connection and nothing else here.`).join(" ");
+    const script = buildU01aScript(unit1, unitWords, own);
+    expect(script.stage).toBe("clubRoom");
+    expect(script.acts!.flatMap((a) => a.sentences)).toEqual(splitSentences(own));
+    for (const a of script.acts!) for (const c of a.cues ?? []) expect(c.zh).toBeUndefined();
+    const gapActs = script.acts!.filter((a) => a.gap);
+    for (const a of gapActs) expect(findWordToken(a.sentences[a.gap!.sentence], wordMap.get(a.gap!.answerWordId)!.word)).not.toBeNull();
+    expect(validateScript(script, ctx)).toEqual([]);
   });
 });

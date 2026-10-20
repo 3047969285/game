@@ -9,6 +9,14 @@ describe("开发期测试开关", () => {
     expect(parseMemoryDevFlags("?memauto=0", true)).toEqual({ auto: false, fast: false });
   });
 
+  it("?mempov=me|paper|watch 指定幕的起始视角，非法值被忽略", () => {
+    expect(parseMemoryDevFlags("?mempov=me", true).pov).toBe("me");
+    expect(parseMemoryDevFlags("?memauto=1&mempov=paper", true)).toEqual({ auto: true, fast: false, pov: "paper" });
+    expect(parseMemoryDevFlags("?mempov=watch", true).pov).toBe("watch");
+    expect(parseMemoryDevFlags("?mempov=you", true).pov).toBeUndefined();
+    expect(parseMemoryDevFlags("?mempov=me", false).pov).toBeUndefined();
+  });
+
   it("生产构建里恒为关（参数被忽略）", () => {
     expect(parseMemoryDevFlags("?memauto=1&memfast=1", false)).toEqual({ auto: false, fast: false });
   });

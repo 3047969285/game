@@ -5,7 +5,7 @@ import { spawnActor } from "./actors";
 import { Materializer } from "./Materializer";
 import { buildWordObject } from "./memoryObjects";
 import { PROLOGUE_SCRIPT } from "./scripts/prologue";
-import { U01A_SCRIPT } from "./scripts/u01a";
+import { U01A_BASE as U01A_SCRIPT } from "./scripts/u01a";
 import { buildStage, getStage, stageTargets } from "./stages";
 import { CLUB_SEATS } from "./stages/clubRoom";
 
