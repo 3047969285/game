@@ -126,7 +126,8 @@ export class Narrator {
     this.active = null;
   }
 
-  speak(text: string, voice: Voice = "system"): Promise<void> {
+  /** speakerId：说话的人物 actor id（登记到 speechActivity，音乐闪避之外也让对应人物开口） */
+  speak(text: string, voice: Voice = "system", speakerId?: string): Promise<void> {
     this.cancel();
     const words = splitWords(text);
     const total = words.length;
@@ -237,7 +238,7 @@ export class Narrator {
       const beginWatchers = (): void => {
         if (started || done) return;
         started = true;
-        if (!done) releaseMusic = beginSpeech();
+        if (!done) releaseMusic = beginSpeech(speakerId);
         startedAt = performance.now();
         const perWord = (SECONDS_PER_WORD / (profile.rate * rateScale)) * 1000;
         // 没有 boundary 事件的声音：按时间推进词

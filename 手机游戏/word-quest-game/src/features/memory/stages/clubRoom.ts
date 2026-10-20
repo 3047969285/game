@@ -5,6 +5,7 @@ import { applyKitPattern } from "../../world/kitShader";
 import { createBush, createTree } from "../../world/props";
 import { buildFlagstonePath } from "../../world/flagstonePath";
 import { bench, board, chair, cup, lampPost, table, type SceneKit, Frame } from "../../world/sceneProps";
+import type { ActorSeat } from "../types";
 import { makePlaster } from "./emptyRoom";
 import { pieceGroup, type StageDef } from "./types";
 
@@ -63,6 +64,10 @@ const TARGETS = {
 
 export const CLUB_ROOM_TARGETS = Object.keys(TARGETS);
 
+/** 椅面高度（与 sceneProps.chair 的座面一致）/ 长桌（中心 z = -0.25，4.9 × 1.0，桌面高 0.75）*/
+export const CHAIR_SEAT_HEIGHT = 0.48;
+export const CLUB_TABLE = { x: 0, z: -0.25, width: 4.9, depth: 1.0, height: 0.75 } as const;
+
 /** 椅子位置与朝向（人物就坐的位置，yaw 与 CLUB_SEATS 一致） */
 export const CLUB_SEATS = {
   /** 年轻的“我”：桌子右端，面朝 -x */
@@ -72,6 +77,33 @@ export const CLUB_SEATS = {
   an: { x: -2.8, z: -0.25, yaw: Math.PI / 2 },
   rui: { x: -1.3, z: 0.6, yaw: Math.PI },
 } as const;
+
+/** 笔记本 / 笔在桌面的位置（世界坐标，与 buildTable 一致）*/
+const NOTEBOOKS: Record<keyof typeof CLUB_SEATS, [number, number]> = {
+  lin: [CLUB_SEATS.lin.x - 0.35, -0.64],
+  mei: [CLUB_SEATS.mei.x + 0.1, -0.64],
+  rui: [CLUB_SEATS.rui.x + 0.2, 0.12],
+  an: [CLUB_SEATS.an.x + 0.38, -0.3],
+  me: [CLUB_SEATS.me.x - 0.38, -0.25],
+};
+
+/**
+ * 某个座位的标定数据（人物 actor.seat 用）：椅面高度、桌面高度、椅面中心到桌边的前向距离，
+ * 以及桌上笔记本在座位局部坐标里的位置。座位局部：x = 角色左侧、z = 前方（yaw 与 CLUB_SEATS 一致）。
+ */
+export function clubSeatSpec(id: keyof typeof CLUB_SEATS): ActorSeat {
+  const seat = CLUB_SEATS[id];
+  const fx = Math.sin(seat.yaw), fz = Math.cos(seat.yaw); // 前方
+  const lx = Math.cos(seat.yaw), lz = -Math.sin(seat.yaw); // 角色左侧
+  const toLocal = (wx: number, wz: number): { x: number; z: number } => ({ x: (wx - seat.x) * lx + (wz - seat.z) * lz, z: (wx - seat.x) * fx + (wz - seat.z) * fz });
+  // 桌面是轴对齐矩形，座位都面朝桌子的一条边：前向距离 = 座位中心到那条边
+  const hx = CLUB_TABLE.width / 2, hz = CLUB_TABLE.depth / 2;
+  const edge = Math.abs(fz) > 0.5
+    ? (fz > 0 ? CLUB_TABLE.z - hz - seat.z : seat.z - (CLUB_TABLE.z + hz))
+    : (fx > 0 ? CLUB_TABLE.x - hx - seat.x : seat.x - (CLUB_TABLE.x + hx));
+  const [nx, nz] = NOTEBOOKS[id];
+  return { height: CHAIR_SEAT_HEIGHT, tableHeight: CLUB_TABLE.height, tableEdge: edge, paper: toLocal(nx, nz) };
+}
 
 const EMPTY_CHAIRS: Array<[number, number, number]> = [
   [-2.0, -1.1, 0],
@@ -304,11 +336,11 @@ function buildTable(kit: SceneKit): THREE.Group {
     const y = 0.75;
     // 每个座位前一本笔记本、一支笔；桌上几只杯子
     const spots: Array<[number, number, number]> = [
-      [CLUB_SEATS.lin.x - 0.35, -0.64, 0.1],
-      [CLUB_SEATS.mei.x + 0.1, -0.64, -0.15],
-      [CLUB_SEATS.rui.x + 0.2, 0.12, 0.2],
-      [CLUB_SEATS.an.x + 0.38, -0.3, Math.PI / 2 + 0.1],
-      [CLUB_SEATS.me.x - 0.38, -0.25, Math.PI / 2 - 0.15],
+      [...NOTEBOOKS.lin, 0.1],
+      [...NOTEBOOKS.mei, -0.15],
+      [...NOTEBOOKS.rui, 0.2],
+      [...NOTEBOOKS.an, Math.PI / 2 + 0.1],
+      [...NOTEBOOKS.me, Math.PI / 2 - 0.15],
     ];
     for (const [x, z, r] of spots) {
       const nb = f.child(x, y, z, r);

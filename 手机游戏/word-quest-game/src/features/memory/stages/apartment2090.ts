@@ -3,6 +3,7 @@ import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { applyKitPattern } from "../../world/kitShader";
 import { createBush } from "../../world/props";
 import { Frame, chair, table, type SceneKit } from "../../world/sceneProps";
+import type { ActorSeat } from "../types";
 import { addDisposer, pieceGroup, type StageDef } from "./types";
 
 /**
@@ -30,6 +31,22 @@ export const APARTMENT = {
   /** 旧笔记本在桌上的位置 */
   notebook: { x: 1.55, y: 0.75, z: -0.62 },
 } as const;
+
+/**
+ * 老人的座位标定：椅面高度（硬座面 0.48，软垫只高出 1 cm，坐下去被压平）、书桌近侧边缘（x = 1.31，距座位 0.86）、
+ * 伸手目标 = 悬浮界面的中心（换到座位局部：x = 角色左侧，y = 离地高度，z = 前方）。
+ */
+const dx = APARTMENT.panel.x - APARTMENT.oldMan.x, dz = APARTMENT.panel.z - APARTMENT.oldMan.z;
+export const OLD_MAN_SEAT: ActorSeat = {
+  height: 0.48,
+  tableHeight: 0.75,
+  tableEdge: 1.31 - APARTMENT.oldMan.x,
+  reach: {
+    x: dx * Math.cos(APARTMENT.oldMan.yaw) - dz * Math.sin(APARTMENT.oldMan.yaw),
+    y: APARTMENT.panel.y,
+    z: dx * Math.sin(APARTMENT.oldMan.yaw) + dz * Math.cos(APARTMENT.oldMan.yaw),
+  },
+};
 
 const TARGETS = {
   floor: "rise",
@@ -367,7 +384,7 @@ function buildChair(kit: SceneKit): THREE.Group {
     const f = new Frame(k.kit, APARTMENT.oldMan.x, 0, APARTMENT.oldMan.z, APARTMENT.oldMan.yaw);
     chair(k, f, new THREE.MeshStandardMaterial({ color: 0x4d4e55, roughness: 0.75 }));
     // 软垫
-    f.box(new THREE.MeshStandardMaterial({ color: 0x6a5f54, roughness: 1 }), 0.4, 0.05, 0.4, 0, 0.47, 0, 0.02);
+    f.box(new THREE.MeshStandardMaterial({ color: 0x6a5f54, roughness: 1 }), 0.4, 0.025, 0.4, 0, 0.465, 0, 0.012);
   });
 }
 

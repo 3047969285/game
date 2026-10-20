@@ -2,7 +2,7 @@ import type { WordEntry } from "../../../core/types";
 import type { Rw3UnitContent } from "../../../infra/data";
 import { buildActs } from "../acts";
 import { UNIT1_DISTRACTION } from "../autoScript";
-import { CLUB_SEATS } from "../stages/clubRoom";
+import { CLUB_SEATS, clubSeatSpec } from "../stages/clubRoom";
 import type { Actor, ActDialog, Beat, BuildPiece, CameraShot, MemoryAct, MemoryScript, SentenceCue, Vec3, WordObjectPlacement } from "../types";
 
 /**
@@ -64,6 +64,7 @@ const actors: Actor[] = [
     look: look({ shirt: 0x33384a, hair: 0x14100e, hairStyle: "short", skin: 0xe0b894, trousers: 0x2c3140, outfit: "hoodie", backpack: 0x2e5a73 }),
     position: { x: 4.5, y: 0, z: CLUB_SEATS.me.z },
     rotationY: CLUB_SEATS.me.yaw,
+    seat: clubSeatSpec("me"),
     pose: "stand",
   },
   {
@@ -72,6 +73,7 @@ const actors: Actor[] = [
     look: look({ shirt: 0xa05a6a, hair: 0x1c1411, hairStyle: "long", skin: 0xe6bf9f, trousers: 0x3a4254, outfit: "tee" }),
     position: { x: CLUB_SEATS.lin.x, y: 0, z: -2.9 },
     rotationY: CLUB_SEATS.lin.yaw,
+    seat: clubSeatSpec("lin"),
     pose: "stand",
   },
   {
@@ -80,14 +82,16 @@ const actors: Actor[] = [
     look: look({ shirt: 0x5f8a7a, hair: 0x2a1c14, hairStyle: "bun", glasses: true, skin: 0xdfb594, trousers: 0x40424a, outfit: "tee" }),
     position: { x: CLUB_SEATS.mei.x, y: 0, z: -2.9 },
     rotationY: CLUB_SEATS.mei.yaw,
+    seat: clubSeatSpec("mei"),
     pose: "stand",
   },
   {
     id: "an",
     name: "An",
-    look: look({ shirt: 0x6a6f9a, hair: 0x201812, hairStyle: "short", skin: 0xd9ad8a, trousers: 0x33363f, outfit: "hoodie" }),
+    look: look({ shirt: 0xb0894f, hair: 0x201812, hairStyle: "short", skin: 0xd9ad8a, trousers: 0x33363f, outfit: "hoodie" }),
     position: { x: -4.5, y: 0, z: CLUB_SEATS.an.z },
     rotationY: CLUB_SEATS.an.yaw,
+    seat: clubSeatSpec("an"),
     pose: "stand",
   },
   {
@@ -96,6 +100,7 @@ const actors: Actor[] = [
     look: look({ shirt: 0x6b7f8c, hair: 0x3a2a1e, hairStyle: "short", glasses: true, skin: 0xe2b898, trousers: 0x3b3a36, outfit: "tee" }),
     position: { x: CLUB_SEATS.rui.x, y: 0, z: 2.6 },
     rotationY: CLUB_SEATS.rui.yaw,
+    seat: clubSeatSpec("rui"),
     pose: "stand",
   },
 ];
@@ -267,8 +272,13 @@ const prelude: Beat[] = [
 
 /** 后半段：定格 · 上浮 */
 const finale: Beat[] = [
-  { kind: "actor", actorId: "mei", action: "pose", pose: "talk" },
-  { kind: "actor", actorId: "lin", action: "pose", pose: "talk" },
+  // 第一次一起笑：先是 Mei 和 Lin 憋不住（sitLaugh：后仰、肩膀抖动），接着其他人也跟着笑起来
+  { kind: "actor", actorId: "mei", action: "pose", pose: "laugh" },
+  { kind: "actor", actorId: "lin", action: "pose", pose: "laugh" },
+  { kind: "wait", seconds: 0.35 },
+  { kind: "actor", actorId: "an", action: "pose", pose: "laugh" },
+  { kind: "actor", actorId: "me2026", action: "pose", pose: "laugh" },
+  { kind: "actor", actorId: "rui", action: "pose", pose: "laugh" },
   {
     kind: "narrate",
     pov: "watch",

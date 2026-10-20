@@ -5,7 +5,7 @@ import { foliageSun, setFoliageQuality, windTime } from "../world/foliageMateria
 import { getSurfaceArrays, setSurfaceQuality } from "../world/kitShader";
 import { buildSkyEnvironment, createPostPipeline, detectQuality, QUALITY_PRESETS, type PostPipeline, type QualityTier } from "../world/postPipeline";
 import { createSceneKit, type SceneKit } from "../world/sceneProps";
-import { spawnActor, type ActorHandle } from "./actors";
+import { spawnActor, updateCrowd, type ActorHandle } from "./actors";
 import { CandidateMarks, TargetBeacons } from "./CandidateMarks";
 import { actSeen, averageFocus, buildGlossIndex, flowReduce, focusScore, initFlow, initLearnState, nextLearnStep, notesEmpty, planDistractions, relatedSentences, type FlowState, type GlossIndex, type LearnEvent, type LearnState } from "./actFlow";
 import { comicify } from "./comicFilter";
@@ -550,7 +550,11 @@ export class MemoryStage {
       windTime.value += dt;
       this.materializer.update(dt);
       this.flow.update(dt);
-      for (const a of this.actors.values()) a.update(dt, this.time);
+      this.updateAttention();
+      for (const a of this.actors.values()) {
+        a.setDistance(this.camera.position.distanceTo(a.root.position));
+        a.update(dt, this.time);
+      }
       if (this.stageGroup) this.stageDef?.animate?.(this.stageGroup, dt, this.time);
       this.updateWordObjects(dt);
       this.updateLighting(dt);
@@ -736,11 +740,13 @@ export class MemoryStage {
       this.hud.setSkipVisible(true);
     }
     const unsub = this.narrator.onWord((e) => {
+      for (const a of this.actors.values()) if (a.speaking) a.pulse(0.7);
       if (!opts.quiet) this.hud.setReadProgress(e.index);
       opts.onWord?.(e.index);
       revealUpTo(e.index);
     });
-    const timing = speak ? this.narrator.speak(text, voice) : this.skippableSleep(Narrator.estimate(text) * 1000);
+    const speakerId = [...this.actors.values()].find((a) => a.speaking)?.id;
+    const timing = speak ? this.narrator.speak(text, voice, speakerId) : this.skippableSleep(Narrator.estimate(text) * 1000);
     await this.until(timing);
     unsub();
     // 没来得及触发的部件（跳过 / 词数太少）立即开始显形
@@ -757,8 +763,24 @@ export class MemoryStage {
     this.setPov(b.pov);
     if (b.camera) void this.cinema.shot(b.camera);
     this.hud.setSubtitle(b.text, b.zh, { vocab: this.vocabIn(b.text) });
-    await this.readAloud(b.text, b.voice ?? "system", b.build ?? [], b.speak !== false);
+    // 说这句话的人物：嘴 / 手势 / 其他人的视线与点头跟着他
+    const speaker = b.speaker ? this.actors.get(b.speaker) : undefined;
+    speaker?.setSpeaking(true);
+    try {
+      await this.readAloud(b.text, b.voice ?? "system", b.build ?? [], b.speak !== false);
+    } finally {
+      speaker?.setSpeaking(false);
+    }
     await this.sleep(600);
+  }
+
+  private readonly viewerEye = new THREE.Vector3();
+
+  /** 群体注意力：谁在说话，其余人看谁、点头；第一人称里同学偶尔瞟一眼玩家 */
+  private updateAttention(): void {
+    const viewer = this.pov.pov === "me" ? this.meViewer : null;
+    if (viewer) viewer.eyePosition(this.viewerEye);
+    updateCrowd(this.actors.values(), viewer ? { handle: viewer, eye: this.viewerEye } : undefined);
   }
 
   private nameOf(wordId: string): string {

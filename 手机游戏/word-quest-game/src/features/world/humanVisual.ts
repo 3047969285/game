@@ -1,13 +1,38 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { clone } from "three/addons/utils/SkeletonUtils.js";
+import { extractGlbImages, pickAppearance, recolorBody, recolorHead, rememberSkin, sampleSkin, skinMultiplier, type AppearanceBase, type HumanAppearance } from "./humanAppearance";
 
 /** Rocketbox MIT assets are local: the game never calls an avatar service. */
 const templates: Partial<Record<"male" | "female", THREE.Group>> = {};
+/** 原始方向的身体 / 头部贴图像素（每个实例据此重新染色；GLTFLoader 的 ImageBitmap 可能已被翻转，所以自己从 GLB 取图） */
+const basePixels: Partial<Record<"male" | "female", { body?: ImageData; head?: ImageData; skin?: [number, number, number] }>> = {};
 let loading: Promise<void> | undefined;
+
+async function decodePixels(bytes: Uint8Array, mime: string): Promise<ImageData | undefined> {
+  if (typeof createImageBitmap !== "function" || typeof document === "undefined") return undefined;
+  const bitmap = await createImageBitmap(new Blob([bytes as BlobPart], { type: mime }), { premultiplyAlpha: "none", colorSpaceConversion: "none" });
+  const canvas = document.createElement("canvas");
+  canvas.width = bitmap.width;
+  canvas.height = bitmap.height;
+  const ctx = canvas.getContext("2d", { willReadFrequently: true });
+  if (!ctx) return undefined;
+  ctx.drawImage(bitmap, 0, 0);
+  bitmap.close?.();
+  return ctx.getImageData(0, 0, canvas.width, canvas.height);
+}
+
+/** 登记一个已解析的底模（loadHumanModels 内部使用；测试可直接登记从 GLB 解析出的场景）。 */
+export function registerHumanModel(kind: "male" | "female", scene: THREE.Group, pixels?: { body?: ImageData; head?: ImageData; skin?: [number, number, number] }): void {
+  templates[kind] = scene;
+  if (pixels) basePixels[kind] = pixels;
+}
+
 export function loadHumanModels(): Promise<void> {
   return loading ??= Promise.all((["male", "female"] as const).map(async (kind) => {
-    const gltf = await new GLTFLoader().loadAsync(`${import.meta.env.BASE_URL}models/humans/${kind}.glb`);
+    const url = `${import.meta.env.BASE_URL}models/humans/${kind}.glb`;
+    const buffer = await (await fetch(url)).arrayBuffer();
+    const gltf = await new GLTFLoader().parseAsync(buffer, url.slice(0, url.lastIndexOf("/") + 1));
     gltf.scene.traverse((object) => {
       const mesh = object as THREE.Mesh;
       if (!mesh.isMesh) return;
@@ -15,7 +40,20 @@ export function loadHumanModels(): Promise<void> {
         for (const value of Object.values(material)) if (value instanceof THREE.Texture) value.userData.shared = true;
       }
     });
-    templates[kind] = gltf.scene;
+    registerHumanModel(kind, gltf.scene);
+    try {
+      const images = extractGlbImages(buffer);
+      const find = (suffix: string): { bytes: Uint8Array; mime: string } | undefined => images.find((image) => image.name.endsWith(suffix));
+      const body = find("body_color"), head = find("head_color");
+      const headPixels = head ? await decodePixels(head.bytes, head.mime) : undefined;
+      registerHumanModel(kind, gltf.scene, {
+        body: body ? await decodePixels(body.bytes, body.mime) : undefined,
+        head: headPixels,
+        skin: headPixels ? sampleSkin(headPixels.data, headPixels.width, kind) ?? undefined : undefined,
+      });
+    } catch (error) {
+      console.warn("[characters] Appearance textures unavailable; using the base outfit", error);
+    }
   })).then(() => undefined).catch((error) => {
     loading = undefined;
     console.warn("[characters] Local human model unavailable; keeping fallback", error);
@@ -59,9 +97,50 @@ export function retargetRotation(restLocal: THREE.Quaternion, restWorld: THREE.Q
 }
 
 /** Per-instance skeleton/materials/geometries; source textures remain shared and immutable. */
-export function attachHumanVisual(root: THREE.Group, controls: HumanControls, kind: "male" | "female" = "male"): (() => void) | undefined {
+export interface HumanVisualInfo {
+  visual: THREE.Group;
+  faces: THREE.Mesh[];
+  kind: "male" | "female";
+  appearance: HumanAppearance;
+  /** 每实例创建的贴图（dispose 时释放；源贴图共享，不在其中） */
+  ownedTextures: THREE.Texture[];
+  /** 贴图重染使用的原始像素是否可用 */
+  recolored: boolean;
+  /** 脚底落在 frame 的 y = 0 时 visual 的 position.y（旧控制器的 update() 会改它；动画器接管时要还原） */
+  baseY: number;
+  /** 把所有骨骼还原到 GLB 的休息姿势（旧控制器的初始 update() 已经摆过一次姿势；动画器接管前调用） */
+  restoreRest(): void;
+}
+
+/** 构造每个实例的染色贴图（node / 无 DOM 时返回 undefined）。 */
+function makeTexture(source: THREE.Texture | null, pixels: ImageData, mutate: (data: Uint8ClampedArray) => void): THREE.CanvasTexture | undefined {
+  if (typeof document === "undefined") return undefined;
+  const canvas = document.createElement("canvas");
+  canvas.width = pixels.width;
+  canvas.height = pixels.height;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return undefined;
+  const copy = new ImageData(new Uint8ClampedArray(pixels.data), pixels.width, pixels.height);
+  mutate(copy.data);
+  ctx.putImageData(copy, 0, 0);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.flipY = false; // glTF 贴图约定
+  if (source) {
+    texture.wrapS = source.wrapS;
+    texture.wrapT = source.wrapT;
+    texture.anisotropy = source.anisotropy;
+    texture.channel = source.channel;
+  }
+  return texture;
+}
+
+export function attachHumanVisual(root: THREE.Group, controls: HumanControls, kind: "male" | "female" = "male", base: AppearanceBase = {}): (() => void) | undefined {
   const template = templates[kind];
   if (!template) return;
+  const appearance = pickAppearance(kind, base, base.seed);
+  const ownedTextures: THREE.Texture[] = [];
+  const pixels = basePixels[kind];
   const visual = clone(template) as THREE.Group;
   visual.name = "human-visual";
   const materials = new Map<THREE.Material, THREE.Material>();
@@ -78,6 +157,17 @@ export function attachHumanVisual(root: THREE.Group, controls: HumanControls, ki
         const standard = material as THREE.MeshStandardMaterial;
         standard.roughness = 0.8;
         standard.metalness = 0;
+        if (source.name.endsWith("_body") && pixels?.body) {
+          const texture = makeTexture(standard.map, pixels.body, (data) => recolorBody(data, pixels.body!.width, pixels.body!.height, appearance, headSkinMul(pixels, appearance)));
+          if (texture) { standard.map = texture; ownedTextures.push(texture); }
+        } else if (source.name.endsWith("_head") && pixels?.head) {
+          const mul = headSkinMul(pixels, appearance);
+          const texture = makeTexture(standard.map, pixels.head, (data) => { rememberSkin(data, pixels.head!.width, kind); recolorHead(data, pixels.head!.width, pixels.head!.height, appearance, mul); });
+          if (texture) { standard.map = texture; ownedTextures.push(texture); }
+        } else if (source.name.endsWith("_opacity")) {
+          // 睫毛 / 眉毛 / 发丝：白色贴图乘发色
+          standard.color = new THREE.Color(appearance.hair);
+        }
         materials.set(source, material);
         owned?.add(material);
       }
@@ -93,10 +183,17 @@ export function attachHumanVisual(root: THREE.Group, controls: HumanControls, ki
   const box = new THREE.Box3().setFromObject(visual);
   const height = box.max.y - box.min.y;
   const scale = 1.8 / height;
-  visual.scale.multiplyScalar(scale);
-  visual.position.y -= box.min.y * scale;
+  visual.scale.set(scale * appearance.widthScale, scale * appearance.heightScale, scale * appearance.widthScale);
+  visual.position.y -= box.min.y * scale * appearance.heightScale;
   const baseY = visual.position.y;
   visual.updateMatrixWorld(true);
+  const restPose: Array<{ node: THREE.Object3D; q: THREE.Quaternion; p: THREE.Vector3 }> = [];
+  visual.traverse((node) => { if (node !== visual) restPose.push({ node, q: node.quaternion.clone(), p: node.position.clone() }); });
+  const restoreRest = (): void => {
+    for (const entry of restPose) { entry.node.quaternion.copy(entry.q); entry.node.position.copy(entry.p); }
+    visual.position.y = baseY;
+    visual.updateMatrixWorld(true);
+  };
   const names = ["Spine", "Head", "LeftArm", "RightArm", "LeftForeArm", "RightForeArm", "LeftUpLeg", "RightUpLeg", "LeftLeg", "RightLeg", "LeftFoot", "RightFoot"];
   const sources = [controls.body, controls.head, controls.leftArm, controls.rightArm, controls.leftElbow, controls.rightElbow, controls.leftHip, controls.rightHip, controls.leftKnee, controls.rightKnee, controls.leftAnkle, controls.rightAnkle];
   const bindings = names.map((name, index) => {
@@ -166,6 +263,11 @@ export function attachHumanVisual(root: THREE.Group, controls: HumanControls, ki
   };
   root.userData.updateHumanVisual = update;
   root.userData.humanModel = kind;
+  root.userData.humanVisual = { visual, faces, kind, appearance, ownedTextures, recolored: ownedTextures.length > 0, baseY, restoreRest } satisfies HumanVisualInfo;
   update();
   return update;
+}
+
+function headSkinMul(pixels: { skin?: [number, number, number] }, app: HumanAppearance): [number, number, number] {
+  return skinMultiplier(app.skin, pixels.skin ?? null);
 }

@@ -150,6 +150,7 @@ export function buildAutoScript(unit: Rw3UnitContent, words: WordEntry[], sectio
           look: { seated: true, shirt: 0x33384a, hair: 0x14100e, hairStyle: "short", skin: 0xe0b894, trousers: 0x2c3140, outfit: "hoodie", backpack: 0x2e5a73 },
           position: { x: EMPTY_ROOM_SEATS.me.x, y: 0, z: EMPTY_ROOM_SEATS.me.z },
           rotationY: EMPTY_ROOM_SEATS.me.yaw,
+          seat: { height: 0.48, tableHeight: 0.75, tableEdge: 0.425 },
           pose: "listen",
         },
         {
@@ -158,6 +159,7 @@ export function buildAutoScript(unit: Rw3UnitContent, words: WordEntry[], sectio
           look: { seated: true, shirt: 0x7a5a6a, hair: 0x2a1c14, hairStyle: "bun", glasses: true, skin: 0xe2b898, trousers: 0x3b3a36, outfit: "tee" },
           position: { x: EMPTY_ROOM_SEATS.teacher.x, y: 0, z: EMPTY_ROOM_SEATS.teacher.z },
           rotationY: EMPTY_ROOM_SEATS.teacher.yaw,
+          seat: { height: 0.48, tableHeight: 0.75, tableEdge: 0.425 },
           pose: "listen",
         },
       ]

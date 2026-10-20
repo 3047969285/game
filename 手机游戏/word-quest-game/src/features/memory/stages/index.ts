@@ -8,8 +8,8 @@ import { VOID_STAGE } from "./void";
 
 export type { StageDef, StageEnvironment, StageBounds } from "./types";
 export { pieceGroup, addDisposer } from "./types";
-export { CLUB_SEATS } from "./clubRoom";
-export { APARTMENT } from "./apartment2090";
+export { CLUB_SEATS, CLUB_TABLE, CHAIR_SEAT_HEIGHT, clubSeatSpec } from "./clubRoom";
+export { APARTMENT, OLD_MAN_SEAT } from "./apartment2090";
 
 /** 舞台注册表：通用 emptyRoom、空舞台 void，以及两个手写舞台 clubRoom（《周四的沉默》）与 apartment2090（开场） */
 const STAGES: Record<string, StageDef> = {

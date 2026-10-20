@@ -33,8 +33,25 @@ export interface WordObjectPlacement {
   scale?: number;
 }
 
-/** lap：坐着双手放在膝上；reach：右手在约 1.5 秒里慢慢屈肘抬起伸向前方（左手仍放在膝上） */
-export type ActorPose = "stand" | "phone" | "listen" | "talk" | "write" | "read" | "walk" | "point" | "sit" | "lap" | "reach";
+/**
+ * lap：坐着双手放在膝上（含胸靠背）；reach：右手在约 1.5 秒里慢慢抬起，用手 IK 伸向 seat.reach（左手仍放在膝上）；
+ * laugh：坐着大笑后仰（定格用）。有 seat 的人除 stand / walk 外一律坐在椅子上。
+ */
+export type ActorPose = "stand" | "phone" | "listen" | "talk" | "write" | "read" | "walk" | "point" | "sit" | "lap" | "reach" | "laugh";
+
+/** 座位 / 桌子标定：actor 的 position / rotationY 就是椅面中心与朝向，其余量相对它（单位米） */
+export interface ActorSeat {
+  /** 椅面高度 */
+  height: number;
+  /** 桌面高度 */
+  tableHeight?: number;
+  /** 椅面中心到桌子近侧边缘的前向距离 */
+  tableEdge?: number;
+  /** 本座位前纸 / 笔记本中心（座位局部：x = 角色左侧，z = 前方） */
+  paper?: { x: number; z: number };
+  /** 伸手目标（座位局部坐标：x = 角色左侧，y = 离地高度，z = 前方），pose "reach" 时右手伸向这里 */
+  reach?: Vec3;
+}
 
 export interface Actor {
   id: string; // "me2026" 表示年轻的“我”
@@ -44,6 +61,8 @@ export interface Actor {
   position: Vec3;
   rotationY?: number;
   pose?: ActorPose;
+  /** 有座位：坐下时校准到椅面 / 桌面（骨盆落在椅面上、脚平放地面、手落在桌上），站起 / 入座有过渡动作 */
+  seat?: ActorSeat;
 }
 
 export interface CameraShot {
@@ -149,7 +168,7 @@ export interface DistractionSpec {
 
 /** 节拍：回忆按顺序执行的一步 */
 export type Beat =
-  | { kind: "narrate"; pov: Pov; text: string; zh?: string; build?: string[]; camera?: CameraShot; speak?: boolean; voice?: Voice }
+  | { kind: "narrate"; pov: Pov; text: string; zh?: string; build?: string[]; camera?: CameraShot; speak?: boolean; voice?: Voice; /** 说这句话的人物 actor id（嘴 / 手势 / 其他人的视线跟着他） */ speaker?: string }
   | { kind: "touch"; prompt: string; zh?: string; wordIds: string[] } // 第二人称：触碰这些物件
   | { kind: "gap"; sentence: string; answerWordId: string; decoyWordIds: string[]; camera?: CameraShot; zh?: string; build?: string[] } // 断片：选对物件
   | {

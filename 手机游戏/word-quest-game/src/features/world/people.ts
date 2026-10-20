@@ -39,6 +39,10 @@ export interface PersonOptions {
   hat?: number;
   /** 衣物表面细节质量；移动设备默认低档 */
   garmentDetail?: "low" | "high";
+  /** 真人模型的外观（仅 animated + 已加载真人模型时有效）：同一 seed 总是同一个人；aged = 2090 年的老人 */
+  seed?: number;
+  aged?: boolean;
+  humanOutfit?: "hoodie" | "tee" | "cardigan" | "knit" | "shirtJacket";
   /** 用于电影回忆角色：保留可驱动的关节骨架并按材质合成蒙皮网格；普通场景人物仍走静态低开销路径。 */
   animated?: boolean;
 }
@@ -541,7 +545,9 @@ export function createPerson(opts: PersonOptions): THREE.Group {
       smile: () => Math.max(0, rig.mouth.scale.x - 1) * 10,
       browLift: () => Math.max(0, rig.brows[0].position.y - 0.2165) * 100,
       gazeX: () => rig.gazes[0].position.x * 80, gazeY: () => rig.gazes[0].position.y * 80,
-    }, opts.hairStyle === "long" || opts.hairStyle === "bun" ? "female" : "male");
+    }, opts.hairStyle === "long" || opts.hairStyle === "bun" ? "female" : "male", {
+      shirt: opts.shirt, trousers: opts.trousers, hair: opts.hair, skin: opts.skin, outfit: opts.humanOutfit, aged: opts.aged, glasses: opts.glasses, seed: opts.seed,
+    });
     if (updateHuman) {
       const proceduralUpdate = rig.update;
       rig.update = (...args) => { proceduralUpdate(...args); updateHuman(); };

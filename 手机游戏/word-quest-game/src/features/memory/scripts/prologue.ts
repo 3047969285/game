@@ -1,4 +1,4 @@
-import { APARTMENT } from "../stages/apartment2090";
+import { APARTMENT, OLD_MAN_SEAT } from "../stages/apartment2090";
 import type { MemoryScript } from "../types";
 
 /**
@@ -31,9 +31,14 @@ export const PROLOGUE_SCRIPT: MemoryScript = {
         glasses: true,
         outfit: "tee",
         seated: true,
+        // 真人模型：灰白头发和胡子、皮肤暗淡带皱纹、含胸、所有动作 ×0.8
+        aged: true,
+        humanOutfit: "cardigan",
+        seed: 2090,
       },
       position: { x: OLD.x, y: OLD.y, z: OLD.z },
       rotationY: OLD.yaw,
+      seat: OLD_MAN_SEAT, // 坐在软垫椅上；reach 时右手 IK 伸向悬浮界面
       pose: "lap", // 坐着，双手放在膝上
     },
   ],
@@ -57,10 +62,11 @@ export const PROLOGUE_SCRIPT: MemoryScript = {
       text: "It has been sixty-four years.",
       zh: "六十四年了。",
       voice: "old",
+      speaker: "old2090",
       camera: { from: { x: -1.0, y: 1.4, z: 2.7 }, to: { x: 0.1, y: 1.3, z: 1.95 }, look: { x: 0.7, y: 1.2, z: -0.45 }, duration: 14, move: "dolly" },
     },
-    { kind: "narrate", pov: "watch", text: "I still remember the sound of English in that classroom.", zh: "我还记得那间教室里英语的声音。", voice: "old" },
-    { kind: "narrate", pov: "watch", text: "Tonight, I would like to hear it once more.", zh: "今晚，我想再听一次。", voice: "old" },
+    { kind: "narrate", pov: "watch", text: "I still remember the sound of English in that classroom.", zh: "我还记得那间教室里英语的声音。", voice: "old", speaker: "old2090" },
+    { kind: "narrate", pov: "watch", text: "Tonight, I would like to hear it once more.", zh: "今晚，我想再听一次。", voice: "old", speaker: "old2090" },
     // 他抬起右手，屈着肘慢慢伸向界面（约 1.5 秒），左手仍放在膝上
     { kind: "actor", actorId: "old2090", action: "pose", pose: "reach" },
     { kind: "wait", seconds: 1.8 },
