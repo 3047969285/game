@@ -5,7 +5,6 @@ import { getSurfaceArrays, setSurfaceQuality } from "../world/kitShader";
 import { buildSkyEnvironment, createPostPipeline, detectQuality, QUALITY_PRESETS, type PostPipeline, type QualityTier } from "../world/postPipeline";
 import { createSceneKit, type SceneKit } from "../world/sceneProps";
 import { spawnActor, type ActorHandle } from "./actors";
-import { RainAmbience } from "./ambience";
 import { CandidateMarks, TargetBeacons } from "./CandidateMarks";
 import { actSeen, averageFocus, buildGlossIndex, flowReduce, focusScore, initFlow, initLearnState, nextLearnStep, notesEmpty, planDistractions, relatedSentences, type FlowState, type GlossIndex, type LearnEvent, type LearnState } from "./actFlow";
 import { comicify } from "./comicFilter";
@@ -112,7 +111,6 @@ export class MemoryStage {
   private readonly flags: MemoryDevFlags = memoryDevFlags();
   private readonly floorRay = new THREE.Raycaster();
   private readonly floorPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
-  private readonly ambience = new RainAmbience();
   private stageGroup?: THREE.Group;
   /** 词卡跟随的物件（屏幕投影定位） */
   private cardAnchor: THREE.Object3D | null = null;
@@ -279,12 +277,9 @@ export class MemoryStage {
       if (this.opts.gate) {
         const gate = this.hud.gate("轻触 · 开始回溯", "Tap to begin", () => {
           this.narrator.unlock();
-          if (this.stageDef?.ambience === "rain") this.ambience.start();
         });
         if (this.flags.auto) setTimeout(() => this.hud.tapGate(), AUTO_DELAY_MS);
         await this.until(gate);
-      } else if (this.stageDef?.ambience === "rain") {
-        this.ambience.start();
       }
       if (!this.exited) {
         // 空场景：只有雾与光尘。稍等片刻，再让 2090 年的他浮现
@@ -351,7 +346,6 @@ export class MemoryStage {
     for (const hook of [...this.skipHooks]) hook();
     this.skipHooks.clear();
 
-    this.ambience.stop(0.2);
     if (this.flags.fast) setNarratorFast(1);
     setNarratorRate(1);
     this.marks.dispose();
@@ -1184,11 +1178,10 @@ export class MemoryStage {
     if (epilogue && !this.exited) await this.playEpilogue(epilogue);
   }
 
-  /** 淡白之后回到 2090 年：深蓝的夜、雨声，老年的他轻声说一句话 */
+  /** 淡白之后回到 2090 年：深蓝的夜，老年的他轻声说一句话 */
   private async playEpilogue(e: NonNullable<Extract<Beat, { kind: "freeze" }>["epilogue"]>): Promise<void> {
     this.hud.setCaption();
     this.hud.showEpilogue(e.text, e.zh);
-    this.ambience.start(2.5);
     await this.sleep(2200);
     await this.until(this.narrator.speak(e.text, e.voice ?? "old"));
     await this.sleep(2800);

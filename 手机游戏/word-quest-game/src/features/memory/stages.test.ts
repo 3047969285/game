@@ -181,14 +181,13 @@ describe("clubRoom（《周四的沉默》的舞台）", () => {
 describe("apartment2090（开场的舞台）", () => {
   const kit = createSceneKit("high");
 
-  it("顶层子 Group 与 targets 一一对应；不显示 2090 年的玩家；有雨声；有逐帧动画", () => {
+  it("顶层子 Group 与 targets 一一对应；不显示 2090 年的玩家；有逐帧动画", () => {
     const group = buildStage("apartment2090", kit);
     const names = group.children.map((c) => c.name);
     expect([...names].sort()).toEqual([...stageTargets("apartment2090")].sort());
     for (const child of group.children) expect(countMeshes(child), child.name).toBeGreaterThan(0);
     const def = getStage("apartment2090");
     expect(def.showPlayer).toBe(false);
-    expect(def.ambience).toBe("rain");
     expect(typeof def.animate).toBe("function");
   });
 

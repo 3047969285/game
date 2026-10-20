@@ -10,7 +10,7 @@ import { addDisposer, pieceGroup, type StageDef } from "./types";
  * 一面落地窗（窗外是安静的未来城市：发光的楼体轮廓、缓缓滑过的悬浮交通的光迹，玻璃上有滚动的雨痕），
  * 极简的房间——一把椅子、一张小桌、桌上 2026 年的纸质旧笔记本、桌边悬浮着柔光的 “MEMORY RECALL” 界面面板。
  * 老年的他（灰发、开衫）坐在椅子上，面朝桌子（+x）。单位：米。窗墙在 z = -3，房间 x ∈ [-4.2, 4.2]，z ∈ [-3, 3.2]，高 2.9。
- * 雨声由 MemoryStage 的 RainAmbience 负责（StageDef.ambience = "rain"）。
+ * 雨痕仅为视觉效果，声音统一由配乐与旁白控制。
  */
 
 const W = 8.4;
@@ -606,7 +606,6 @@ function animateApartment(root: THREE.Group, dt: number, time: number): void {
 export const APARTMENT_2090: StageDef = {
   name: "apartment2090",
   showPlayer: false,
-  ambience: "rain",
   targets: TARGETS,
   bounds: { minX: -HX + 0.6, maxX: HX - 0.6, minZ: Z0 + 0.8, maxZ: Z1 - 0.6 },
   cameraBounds: { minX: -HX + 0.3, maxX: HX - 0.3, minZ: Z0 + 0.3, maxZ: Z1 + 3 },

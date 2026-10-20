@@ -69,3 +69,44 @@ describe("MemoryStage 入场准备握手", () => {
     } finally { vi.unstubAllGlobals(); }
   });
 });
+
+describe("回忆音频不叠加合成噪声", () => {
+  it("开场 gate 仅解锁旁白，不创建独立噪声音频上下文", async () => {
+    const context = vi.fn(() => { throw new Error("unexpected ambience audio"); });
+    vi.stubGlobal("AudioContext", context);
+    const unlock = vi.fn();
+    const stage = Object.create(MemoryStage.prototype) as MemoryStage;
+    Object.assign(stage, {
+      opts: { gate: true }, exited: false, disposed: false,
+      prepare: async () => undefined, startLoop: vi.fn(),
+      until: async (promise: Promise<unknown>) => promise,
+      hud: { fade: async () => undefined, gate: async (_en: string, _zh: string, start: () => void) => {
+        start(); Object.assign(stage, { disposed: true });
+      } },
+      narrator: { unlock, cancel: vi.fn() },
+      sleep: async () => undefined, stageDef: { showPlayer: false },
+      wordsSeen: new Set(), mastered: new Set(), focusScores: new Map(), mistakes: 0,
+    });
+    try {
+      expect(await stage.play({ beats: [] } as unknown as Parameters<MemoryStage["play"]>[0])).toMatchObject({ completed: false });
+      expect(unlock).toHaveBeenCalledOnce();
+      expect(context).not.toHaveBeenCalled();
+    } finally { vi.unstubAllGlobals(); }
+  });
+
+  it("尾声保留旁白与淡出，不重新启动沙沙声和低频底噪", async () => {
+    const context = vi.fn(() => { throw new Error("unexpected ambience audio"); });
+    vi.stubGlobal("AudioContext", context);
+    const speak = vi.fn(async () => undefined);
+    const stage = Object.create(MemoryStage.prototype) as unknown as { playEpilogue(e: { text: string; zh: string }): Promise<void> };
+    Object.assign(stage, {
+      hud: { setCaption: vi.fn(), showEpilogue: vi.fn(), fade: vi.fn(async () => undefined) },
+      sleep: async () => undefined, until: async (p: Promise<unknown>) => p, narrator: { speak },
+    });
+    try {
+      await stage.playEpilogue({ text: "Remember.", zh: "记住。" });
+      expect(speak).toHaveBeenCalledWith("Remember.", "old");
+      expect(context).not.toHaveBeenCalled();
+    } finally { vi.unstubAllGlobals(); }
+  });
+});

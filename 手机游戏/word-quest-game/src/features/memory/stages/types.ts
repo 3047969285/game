@@ -45,8 +45,6 @@ export interface StageDef {
   bounds: StageBounds;
   /** 跟随相机允许到达的范围。房间的前墙是一张朝向室内的单面平面（从外面看是透明的），相机可以退到墙外去 */
   cameraBounds?: StageBounds;
-  /** 环境声：进入这个舞台后（用户手势之后）开始播放，销毁时停止 */
-  ambience?: "rain";
   /** 玩家出生点与朝向（弧度，绕 Y） */
   spawn: Vec3 & { yaw: number };
   /** 物件摆放位：桌面 / 悬空 / 地面 */
