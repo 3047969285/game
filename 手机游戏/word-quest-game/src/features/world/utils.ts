@@ -102,6 +102,7 @@ export function disposeGroup(group: THREE.Group): void {
 
   group.traverse((obj) => {
     if (obj instanceof THREE.InstancedMesh || obj instanceof THREE.BatchedMesh) obj.dispose();
+    if ((obj as THREE.SkinnedMesh).isSkinnedMesh) (obj as THREE.SkinnedMesh).skeleton.dispose();
 
     const mesh = obj as THREE.Mesh;
     if (mesh.geometry && !geometries.has(mesh.geometry)) {
@@ -117,7 +118,7 @@ export function disposeGroup(group: THREE.Group): void {
       for (const key of textureKeys) {
         const texture = (material as unknown as Record<string, unknown>)[key];
         if (texture && typeof texture === "object" && (texture as { isTexture?: boolean }).isTexture) {
-          textures.add(texture as THREE.Texture);
+          if (!(texture as THREE.Texture).userData.shared) textures.add(texture as THREE.Texture);
         }
       }
       material.dispose();

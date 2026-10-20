@@ -19,13 +19,13 @@ import type { BuildStyle } from "./types";
  * 开销：Piece 未显形且无幽灵时 obj.visible=false，不产生任何绘制；显形完成后与普通网格相同，仅多一个已跳过的分支。
  */
 
-const EDGE_WIDTH = 0.075;
+const EDGE_WIDTH = 0.09;
 
 const STYLE_PARAMS: Record<BuildStyle, { radial: boolean; noise: number; scale: number; growY: boolean }> = {
-  rise: { radial: false, noise: 0.28, scale: 1.7, growY: false },
-  grow: { radial: false, noise: 0.22, scale: 2.2, growY: true },
-  condense: { radial: true, noise: 0.74, scale: 3.4, growY: false },
-  fade: { radial: true, noise: 0.95, scale: 1.2, growY: false },
+  rise: { radial: false, noise: 0.2, scale: 1.35, growY: false },
+  grow: { radial: false, noise: 0.16, scale: 1.7, growY: true },
+  condense: { radial: true, noise: 0.48, scale: 2.6, growY: false },
+  fade: { radial: true, noise: 0.62, scale: 1.05, growY: false },
 };
 
 const RV_COMMON = /* glsl */ `
@@ -82,11 +82,11 @@ if (uRvAmt < 0.9999) {
   float rvR = mix(-${EDGE_WIDTH.toFixed(3)}, 1.0 + ${EDGE_WIDTH.toFixed(3)}, uRvAmt);
   if (rvF > rvR) {
     if (uRvGhost < 0.004) discard;
-    float cover = uRvGhost * (0.2 + 0.8 * rvN(vRvPos * uRvScale * 5.0 + uRvTime * 0.5));
-    if (rvH(vec3(gl_FragCoord.xy, floor(uRvTime * 8.0))) > cover) discard;
+    float cover = uRvGhost * (0.06 + 0.34 * rvN(vRvPos * uRvScale * 2.4 + uRvSeed));
+    if (rvH(floor(vRvPos * 28.0 + uRvSeed)) > cover) discard;
     rvGhostPx = true;
   } else {
-    rvGlow = 1.0 - smoothstep(0.0, ${(EDGE_WIDTH * 1.7).toFixed(3)}, rvR - rvF);
+    rvGlow = 1.0 - smoothstep(0.0, ${(EDGE_WIDTH * 2.5).toFixed(3)}, rvR - rvF);
   }
 }
 `;
@@ -101,14 +101,13 @@ if (uRvAmt < 0.9999) {
 
 const RV_FRAG_OUT = /* glsl */ `
 if (rvGhostPx) {
-  float rvTw = 0.75 + 0.25 * sin(uRvTime * 2.4 + vRvPos.x * 3.0 + vRvPos.y * 2.0);
-  gl_FragColor = vec4(uRvEdge * rvTw * 1.5, 1.0);
+  gl_FragColor = vec4(uRvEdge * 0.52, 1.0);
 } else {
   gl_FragColor.rgb *= 1.0 - uRvDim * 0.5;
-  gl_FragColor.rgb += uRvEdge * (rvGlow * rvGlow * 2.6);
+  gl_FragColor.rgb += uRvEdge * (rvGlow * rvGlow * 0.82);
   #ifdef RV_PULSE
   float rvFr = pow(1.0 - clamp(dot(normalize(vViewPosition), normal), 0.0, 1.0), 2.0);
-  gl_FragColor.rgb += uRvEdge * uRvPulse * (0.18 + rvFr * 1.4);
+  gl_FragColor.rgb += uRvEdge * uRvPulse * (0.04 + rvFr * 0.32);
   #endif
 }
 `;
@@ -167,7 +166,7 @@ function createUniforms(timeU: { value: number }, seed: number): RevealUniforms 
     uRvScale: { value: 2 },
     uRvSeed: { value: seed },
     uRvTime: timeU,
-    uRvEdge: { value: new THREE.Color(0.62, 0.86, 1.0) },
+    uRvEdge: { value: new THREE.Color(0.55, 0.76, 0.78) },
   };
 }
 
@@ -204,6 +203,8 @@ export interface MaterializerOptions {
   perPiece?: number;
   /** 不创建 Points（node 测试用） */
   headless?: boolean;
+  /** 关闭装饰性粒子与显形运动；默认读取系统偏好 */
+  reducedMotion?: boolean;
 }
 
 export interface RevealOptions {
@@ -234,18 +235,18 @@ void main() {
     return;
   }
   float m = clamp(k, 0.0, 1.0);
-  float e = 1.0 - pow(1.0 - m, 2.6);
+  float e = m * m * (3.0 - 2.0 * m);
   vec3 pos = mix(aStart, aTarget, e);
   vec3 d = aTarget - aStart;
   vec3 side = normalize(cross(d, vec3(0.0, 1.0, 0.0)) + vec3(1e-4));
-  pos += side * sin(m * 3.14159) * (aInfo.z - 0.5) * 0.5 * length(d) * 0.5;
-  pos.y += sin(m * 3.14159) * 0.18 * aInfo.z;
-  vA = smoothstep(0.0, 0.18, k) * (1.0 - smoothstep(0.82, 1.3, k));
+  pos += side * sin(m * 3.14159) * (aInfo.z - 0.5) * 0.24 * length(d);
+  pos.y += sin(m * 3.14159) * 0.1 * aInfo.z;
+  vA = smoothstep(0.0, 0.2, k) * (1.0 - smoothstep(0.9, 1.3, k));
   vGlyph = aInfo.w;
-  vCol = mix(vec3(0.55, 0.85, 1.15), vec3(1.25, 1.1, 0.9), aLook.y);
+  vCol = mix(vec3(0.52, 0.72, 0.78), vec3(0.9, 0.84, 0.7), aLook.y);
   vec4 mv = modelViewMatrix * vec4(pos, 1.0);
   gl_Position = projectionMatrix * mv;
-  gl_PointSize = clamp(aLook.x * uScale / max(-mv.z, 0.1), 1.0, 110.0);
+  gl_PointSize = clamp(aLook.x * uScale / max(-mv.z, 0.1), 1.0, 64.0);
 }
 `;
 
@@ -258,7 +259,7 @@ ${GLYPH_FRAGMENT_GLSL}
 void main() {
   float a = glyphAlpha(uAtlas, vGlyph, gl_PointCoord) * vA;
   if (a < 0.01) discard;
-  gl_FragColor = vec4(vCol * (vGlyph < -0.5 ? 1.6 : 1.2), a * (vGlyph < -0.5 ? 0.9 : 0.75));
+  gl_FragColor = vec4(vCol * (vGlyph < -0.5 ? 0.9 : 0.84), a * (vGlyph < -0.5 ? 0.48 : 0.4));
 }
 `;
 
@@ -278,10 +279,12 @@ export class Materializer {
   private aInfo!: THREE.BufferAttribute;
   private aLook!: THREE.BufferAttribute;
   private seed = 1;
+  private readonly reducedMotion: boolean;
 
   constructor(opts: MaterializerOptions = {}) {
     this.group.name = "materializer";
     this.perPiece = opts.perPiece ?? 160;
+    this.reducedMotion = opts.reducedMotion ?? prefersReducedMotion();
     if (!opts.headless) this.buildPoints(opts.capacity ?? 3200);
   }
 
@@ -567,7 +570,7 @@ export class Materializer {
   }
 
   private emitParticles(p: Piece, delay: number): void {
-    if (!this.points) return;
+    if (!this.points || this.reducedMotion) return;
     const dur = p.duration;
     const sizeLen = p.size.length();
     const surface = 2 * (p.size.x * p.size.y + p.size.y * p.size.z + p.size.x * p.size.z);
@@ -652,10 +655,12 @@ export class Materializer {
         p.t += dt;
         const k = Math.min(1, Math.max(0, p.t / p.duration));
         p.amt = ease(k);
-        p.u.uRvAmt.value = p.amt;
-        p.u.uRvGhost.value = Math.max(p.ghostBase * (1 - p.amt), 0.16 * (1 - k));
+        // Reduced motion shows the finished surface immediately while retaining the
+        // reveal state and its original duration for callers waiting on the Promise.
+        p.u.uRvAmt.value = this.reducedMotion ? 1 : p.amt;
+        p.u.uRvGhost.value = this.reducedMotion ? 0 : Math.max(p.ghostBase * (1 - p.amt), 0.08 * (1 - k));
         if (STYLE_PARAMS[p.style].growY) {
-          const s = 0.72 + 0.28 * p.amt;
+          const s = this.reducedMotion ? 1 : 0.72 + 0.28 * p.amt;
           p.obj.scale.set(p.baseScale.x, p.baseScale.y * s, p.baseScale.z);
         }
         if (k >= 1) this.settle(p, true);
@@ -663,13 +668,13 @@ export class Materializer {
         p.t += dt;
         const k = Math.min(1, p.t / p.duration);
         p.amt = 1 - ease(k);
-        p.u.uRvAmt.value = p.amt;
+        p.u.uRvAmt.value = this.reducedMotion ? 0 : p.amt;
         p.u.uRvGhost.value = 0;
         if (k >= 1) this.settle(p, false);
       } else if (p.state === "hidden") {
         p.u.uRvGhost.value = p.ghostBase;
       }
-      p.u.uRvPulse.value = p.pulseBase > 0 ? p.pulseBase * (0.7 + 0.3 * Math.sin(this.time * 5)) : 0;
+      p.u.uRvPulse.value = !this.reducedMotion && p.pulseBase > 0 ? p.pulseBase * (0.72 + 0.28 * Math.sin(this.time * 2.4)) : 0;
     }
   }
 
@@ -687,4 +692,8 @@ export class Materializer {
     if (this.atlas) releaseGlyphAtlas();
     this.group.removeFromParent();
   }
+}
+
+function prefersReducedMotion(): boolean {
+  return typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches === true;
 }

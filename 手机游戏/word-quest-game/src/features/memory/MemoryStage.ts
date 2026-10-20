@@ -463,7 +463,7 @@ export class MemoryStage {
         if (act.dialog && (actor.name === act.dialog.speaker || actor.id === act.dialog.speaker || actor.id === (script.student ?? "me2026"))) poses.push("talk", "listen");
       }
       if (actor.id === script.organizer) poses.push("talk", "listen");
-      const handle = spawnActor(actor, poses);
+      const handle = spawnActor(actor, poses, this.quality === "low" ? "low" : "high");
       this.scene.add(handle.root);
       collect(handle.root);
       this.materializer.register(handle.root, "fade");
@@ -1441,9 +1441,10 @@ export class MemoryStage {
         else if (st.step === "ask") await this.stepAsk(act);
         else {
           if (act.dialog && !this.dialogDone.has(act.index)) {
-            this.dialogDone.add(act.index);
             handout.hide();
             await this.meDialog(act.dialog);
+            if (this.dead) return false;
+            this.dialogDone.add(act.index);
             continue;
           }
           return await this.runNotebook(act, "tasks");

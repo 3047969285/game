@@ -64,7 +64,7 @@ export function createSceneKit(detail: PropDetail = "high"): SceneKit {
       leather: std(0x5a3a28, 0.7, 0.05),
       plasticDark: std(0x20262b, 0.45, 0.2),
       printInk: std(0x41494d, 0.98, 0),
-      water: createSimpleWaterMaterial({ depth: 0.55 }),
+      water: createSimpleWaterMaterial({ depth: 0.55, quality: detail === "low" ? "low" : "high" }),
       canvasOlive: std(0x7f8f6a, 0.95, 0, { side: THREE.DoubleSide }),
     },
   };

@@ -24,10 +24,10 @@ function haloTexture(): THREE.CanvasTexture {
   const g = c.getContext("2d");
   if (g) {
     const grad = g.createRadialGradient(64, 64, 0, 64, 64, 64);
-    grad.addColorStop(0, "rgba(190,230,255,0.85)");
-    grad.addColorStop(0.35, "rgba(140,200,255,0.4)");
-    grad.addColorStop(0.7, "rgba(110,170,255,0.12)");
-    grad.addColorStop(1, "rgba(110,170,255,0)");
+    grad.addColorStop(0, "rgba(201,232,224,0.62)");
+    grad.addColorStop(0.35, "rgba(164,212,205,0.3)");
+    grad.addColorStop(0.7, "rgba(142,190,192,0.08)");
+    grad.addColorStop(1, "rgba(142,190,192,0)");
     g.fillStyle = grad;
     g.fillRect(0, 0, 128, 128);
   }
@@ -42,16 +42,16 @@ function questionTexture(): THREE.CanvasTexture {
   const g = c.getContext("2d");
   if (g) {
     const glow = g.createRadialGradient(64, 64, 6, 64, 64, 60);
-    glow.addColorStop(0, "rgba(200,235,255,0.5)");
-    glow.addColorStop(1, "rgba(120,180,255,0)");
+    glow.addColorStop(0, "rgba(203,231,220,0.28)");
+    glow.addColorStop(1, "rgba(135,184,176,0)");
     g.fillStyle = glow;
     g.fillRect(0, 0, 128, 128);
     g.font = '700 84px Georgia, "Times New Roman", serif';
     g.textAlign = "center";
     g.textBaseline = "middle";
-    g.shadowColor = "rgba(140,200,255,0.95)";
-    g.shadowBlur = 14;
-    g.fillStyle = "#f2f9ff";
+    g.shadowColor = "rgba(151,201,190,0.58)";
+    g.shadowBlur = 9;
+    g.fillStyle = "#edf6ef";
     g.fillText("?", 64, 70);
   }
   const t = new THREE.CanvasTexture(c);
@@ -65,8 +65,10 @@ export class CandidateMarks {
   private haloTex: THREE.CanvasTexture | null = null;
   private questionTex: THREE.CanvasTexture | null = null;
   private time = 0;
+  private readonly reducedMotion: boolean;
 
-  constructor(scene: THREE.Scene) {
+  constructor(scene: THREE.Scene, reducedMotion = prefersReducedMotion()) {
+    this.reducedMotion = reducedMotion;
     this.group.name = "candidate-marks";
     scene.add(this.group);
   }
@@ -120,16 +122,16 @@ export class CandidateMarks {
         continue;
       }
       const o = m.object.position;
-      const pulse = 0.5 + 0.5 * Math.sin(this.time * 3.1 + m.phase);
-      const size = m.radius * (3.4 + pulse * 0.7);
+      const pulse = this.reducedMotion ? 0.5 : 0.5 + 0.5 * Math.sin(this.time * 2.0 + m.phase);
+      const size = m.radius * (3.0 + pulse * 0.25);
       m.halo.position.set(o.x + m.center.x, o.y + m.center.y, o.z + m.center.z);
       m.halo.scale.set(size, size, 1);
-      (m.halo.material as THREE.SpriteMaterial).opacity = m.alive * (0.42 + pulse * 0.3);
-      const bob = Math.sin(this.time * 2.0 + m.phase) * 0.05;
+      (m.halo.material as THREE.SpriteMaterial).opacity = m.alive * (0.24 + pulse * 0.14);
+      const bob = this.reducedMotion ? 0 : Math.sin(this.time * 1.4 + m.phase) * 0.035;
       m.mark.position.set(o.x + m.center.x, o.y + m.top + 0.2 + m.radius * 0.25 + bob, o.z + m.center.z);
       const qs = 0.34 + m.radius * 0.28;
       m.mark.scale.set(qs, qs, 1);
-      (m.mark.material as THREE.SpriteMaterial).opacity = m.alive * (0.75 + pulse * 0.25);
+      (m.mark.material as THREE.SpriteMaterial).opacity = m.alive * (0.58 + pulse * 0.08);
     }
   }
 
@@ -165,24 +167,26 @@ interface Beacon {
 
 function columnTexture(): THREE.CanvasTexture {
   const c = document.createElement("canvas");
-  c.width = 32;
+  c.width = 48;
   c.height = 128;
   const g = c.getContext("2d");
   if (g) {
     const v = g.createLinearGradient(0, 128, 0, 0);
-    v.addColorStop(0, "rgba(190,232,255,0.95)");
-    v.addColorStop(0.5, "rgba(150,210,255,0.35)");
-    v.addColorStop(1, "rgba(120,190,255,0)");
+    v.addColorStop(0, "rgba(190,225,217,0.72)");
+    v.addColorStop(0.5, "rgba(155,204,197,0.27)");
+    v.addColorStop(1, "rgba(132,184,181,0)");
     g.fillStyle = v;
-    g.fillRect(0, 0, 32, 128);
-    // 左右边缘淡出，成为一道细细的柔光
-    const h = g.createLinearGradient(0, 0, 32, 0);
-    h.addColorStop(0, "rgba(0,0,0,1)");
-    h.addColorStop(0.5, "rgba(0,0,0,0)");
-    h.addColorStop(1, "rgba(0,0,0,1)");
-    g.globalCompositeOperation = "destination-out";
+    g.fillRect(0, 0, 48, 128);
+    // 羽化横向边缘，避免屏幕上出现一条锐利的蓝色直线
+    const h = g.createLinearGradient(0, 0, 48, 0);
+    h.addColorStop(0, "rgba(255,255,255,0)");
+    h.addColorStop(0.18, "rgba(255,255,255,0.45)");
+    h.addColorStop(0.5, "rgba(255,255,255,0.82)");
+    h.addColorStop(0.82, "rgba(255,255,255,0.45)");
+    h.addColorStop(1, "rgba(255,255,255,0)");
+    g.globalCompositeOperation = "destination-in";
     g.fillStyle = h;
-    g.fillRect(0, 0, 32, 128);
+    g.fillRect(0, 0, 48, 128);
   }
   const t = new THREE.CanvasTexture(c);
   t.colorSpace = THREE.SRGBColorSpace;
@@ -200,8 +204,10 @@ export class TargetBeacons {
   private columnTex: THREE.CanvasTexture | null = null;
   private moteTex: THREE.CanvasTexture | null = null;
   private time = 0;
+  private readonly reducedMotion: boolean;
 
-  constructor(scene: THREE.Scene) {
+  constructor(scene: THREE.Scene, reducedMotion = prefersReducedMotion()) {
+    this.reducedMotion = reducedMotion;
     this.group.name = "target-beacons";
     scene.add(this.group);
   }
@@ -213,7 +219,7 @@ export class TargetBeacons {
     const box = new THREE.Box3().setFromObject(object);
     const column = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.columnTex, transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, opacity: 0, fog: false, sizeAttenuation: false }));
     column.center.set(0.5, 0);
-    column.scale.set(0.016, 0.2, 1);
+    column.scale.set(0.028, 0.19, 1);
     column.renderOrder = 11;
     const mote = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.moteTex, transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, opacity: 0, fog: false, sizeAttenuation: false }));
     mote.scale.set(0.045, 0.045, 1);
@@ -250,12 +256,12 @@ export class TargetBeacons {
         continue;
       }
       const o = b.object.position;
-      const pulse = 0.5 + 0.5 * Math.sin(this.time * 2.4 + b.phase);
+      const pulse = this.reducedMotion ? 0.5 : 0.5 + 0.5 * Math.sin(this.time * 1.5 + b.phase);
       b.column.position.set(o.x, o.y + b.top + 0.08, o.z);
-      (b.column.material as THREE.SpriteMaterial).opacity = b.alive * (0.55 + pulse * 0.35);
-      const bob = 0.12 + 0.05 * Math.sin(this.time * 1.7 + b.phase);
+      (b.column.material as THREE.SpriteMaterial).opacity = b.alive * (0.24 + pulse * 0.13);
+      const bob = 0.12 + (this.reducedMotion ? 0 : 0.035 * Math.sin(this.time * 1.1 + b.phase));
       b.mote.position.set(o.x, o.y + b.top + 0.08 + bob, o.z);
-      (b.mote.material as THREE.SpriteMaterial).opacity = b.alive * (0.6 + pulse * 0.4);
+      (b.mote.material as THREE.SpriteMaterial).opacity = b.alive * (0.38 + pulse * 0.12);
     }
   }
 
@@ -271,4 +277,8 @@ export class TargetBeacons {
     this.moteTex?.dispose();
     this.group.removeFromParent();
   }
+}
+
+function prefersReducedMotion(): boolean {
+  return typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches === true;
 }

@@ -57,6 +57,27 @@ describe("Materializer（headless）", () => {
     mz.dispose();
   });
 
+  it("reduced motion 立即显示表面，但保留原显形时长与完成回调", async () => {
+    const mz = new Materializer({ headless: true, reducedMotion: true });
+    const g = piece("quiet-wall", new THREE.MeshStandardMaterial());
+    const p = mz.register(g, "rise");
+    let resolved = false;
+    void mz.reveal("quiet-wall", 1).then(() => (resolved = true));
+
+    mz.update(0.25);
+    expect(mz.isRevealing("quiet-wall")).toBe(true);
+    expect(p.amt).toBeLessThan(1);
+    expect(p.u.uRvAmt.value).toBe(1);
+    expect(p.u.uRvPulse.value).toBe(0);
+    expect(resolved).toBe(false);
+
+    mz.update(0.8);
+    await Promise.resolve();
+    expect(mz.isRevealed("quiet-wall")).toBe(true);
+    expect(resolved).toBe(true);
+    mz.dispose();
+  });
+
   it("幽灵态：未显形也可见；hide 反向溶解后重新不可见", () => {
     const mz = new Materializer({ headless: true });
     const g = piece("orb", new THREE.MeshStandardMaterial());
@@ -107,6 +128,8 @@ describe("Materializer（headless）", () => {
     expect(shader.fragmentShader).toContain("#include <clipping_planes_fragment>");
     expect(shader.fragmentShader).toContain("RV_PULSE");
     expect(shader.vertexShader).toContain("vRvPos");
+    expect(shader.fragmentShader).toContain("floor(vRvPos * 28.0");
+    expect(shader.fragmentShader).not.toContain("floor(uRvTime * 8.0)");
     expect(clone.customProgramCacheKey()).toContain("rv1|c");
     expect(clone.customProgramCacheKey()).not.toBe(src.customProgramCacheKey());
   });

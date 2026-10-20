@@ -35,4 +35,22 @@ describe("TargetBeacons：触碰目标的灯柱", () => {
     expect(left).toHaveLength(0);
     beacons.dispose();
   });
+
+  it("reduced motion 下提示位置与呼吸亮度保持稳定", () => {
+    const scene = new THREE.Scene();
+    const beacons = new TargetBeacons(scene, true);
+    const obj = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.3, 0.3));
+    obj.position.set(1, 0.8, -0.5);
+    scene.add(obj);
+    beacons.add("quiet", obj);
+    beacons.update(1);
+
+    const sprites: THREE.Sprite[] = [];
+    scene.traverse((o) => ((o as THREE.Sprite).isSprite ? sprites.push(o as THREE.Sprite) : 0));
+    const before = sprites.map((s) => ({ y: s.position.y, opacity: (s.material as THREE.SpriteMaterial).opacity }));
+    beacons.update(1);
+    expect(sprites.map((s) => s.position.y)).toEqual(before.map((x) => x.y));
+    expect(sprites.map((s) => (s.material as THREE.SpriteMaterial).opacity)).toEqual(before.map((x) => x.opacity));
+    beacons.dispose();
+  });
 });

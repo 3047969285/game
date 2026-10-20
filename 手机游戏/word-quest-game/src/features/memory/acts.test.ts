@@ -155,12 +155,15 @@ describe("buildActs：passageOverride（导入的教材原文）", () => {
   const words = unitWords(unit);
   const own = Array.from({ length: 9 }, (_, i) => `My own sentence number ${i} talks about a device.`).join(" ");
 
-  it("用导入的原文替换练习原文；题目、翻译、写作仍然分配", () => {
+  it("用导入原文切幕，只保留直接来自该文的挖词笔记，不混用配套练习", () => {
     const acts = buildActs(unit, words, "section_a", own);
     expect(acts.flatMap((a) => a.sentences)).toEqual(splitSentences(own));
     expect(acts.length).toBeGreaterThanOrEqual(2);
-    expect(acts.flatMap((a) => a.questions).length).toBeGreaterThanOrEqual(4);
-    expect(acts.flatMap((a) => a.notes).some((n) => n.kind === "outline")).toBe(true);
+    expect(acts.flatMap((a) => a.questions)).toEqual([]);
+    expect(acts.flatMap((a) => a.notes).every((note) => note.kind === "fill")).toBe(true);
+    for (const note of acts.flatMap((a) => a.notes)) {
+      if (note.kind === "fill") expect(own).toContain(note.line.replace("____", note.answers[0]));
+    }
   });
 
   it("空字符串等于没有导入", () => {

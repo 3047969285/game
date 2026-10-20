@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { CinemaDirector } from "./CinemaDirector";
+import * as explorerModule from "../world/explorerAvatar";
 import { PovRig } from "./PovRig";
 import { installDomStubs } from "./testDom";
 
@@ -44,9 +45,9 @@ function avatarOpacity(rig: PovRig): number {
 
 describe("PovRig：2090 年的他是一层微光，不再挡住画面", () => {
   beforeEach(installDomStubs);
-  afterEach(() => vi.unstubAllGlobals());
+  afterEach(() => { vi.unstubAllGlobals(); vi.restoreAllMocks(); });
 
-  it("身体材质半透明（0.25–0.35）、不写深度、带菲涅尔边缘光补丁；不参与射线拾取", () => {
+  it("冷色身影保留人形表面、遮住内部叠层，去掉底圈与灯笼且不参与射线拾取", () => {
     const { rig } = makeRig();
     const mats = new Set<THREE.MeshStandardMaterial>();
     let meshes = 0;
@@ -60,12 +61,22 @@ describe("PovRig：2090 年的他是一层微光，不再挡住画面", () => {
     });
     expect(meshes).toBeGreaterThan(5);
     expect(rayHits).toBeGreaterThanOrEqual(meshes); // 所有网格的 raycast 都被替换成了空操作
+    expect(rig.avatar.getObjectByName("ExplorerLantern")).toBeUndefined();
+    let footRing = false;
+    let lightCount = 0;
+    rig.avatar.traverse((object) => {
+      if (object.userData.isFootRing) footRing = true;
+      if ((object as THREE.Light).isLight) lightCount++;
+    });
+    expect(footRing).toBe(false);
+    expect(lightCount).toBe(0);
     for (const m of mats) {
       if (!m.userData.shimmer) continue;
       expect(m.transparent).toBe(true);
-      expect(m.opacity).toBeGreaterThanOrEqual(0.25);
-      expect(m.opacity).toBeLessThanOrEqual(0.35);
-      expect(m.depthWrite).toBe(false);
+      expect(m.opacity).toBeGreaterThanOrEqual(0.6);
+      expect(m.opacity).toBeLessThanOrEqual(0.65);
+      expect(m.depthWrite).toBe(true);
+      expect(m.side).toBe(THREE.FrontSide);
       expect(m.customProgramCacheKey()).toContain("shimmer");
       const shader = { fragmentShader: "#include <emissivemap_fragment>\n#include <opaque_fragment>", vertexShader: "", uniforms: {} } as unknown as THREE.WebGLProgramParametersWithUniforms;
       m.onBeforeCompile(shader, {} as THREE.WebGLRenderer);
@@ -73,6 +84,22 @@ describe("PovRig：2090 年的他是一层微光，不再挡住画面", () => {
     }
     const hit = new THREE.Raycaster(new THREE.Vector3(0, 1, 5), new THREE.Vector3(0, 0, -1)).intersectObject(rig.avatar, true);
     expect(hit).toHaveLength(0);
+  });
+
+  it("脚圈后方有新增真人模型时，移除附件不会破坏遍历或漏掉后续网格", () => {
+    const original = explorerModule.createExplorerAvatar;
+    vi.spyOn(explorerModule, "createExplorerAvatar").mockImplementationOnce(() => {
+      const avatar = original();
+      const laterMesh = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.1, 0.1), new THREE.MeshStandardMaterial());
+      laterMesh.name = "appended-human-mesh";
+      avatar.add(laterMesh);
+      return avatar;
+    });
+    const { rig } = makeRig();
+    const laterMesh = rig.avatar.getObjectByName("appended-human-mesh") as THREE.Mesh;
+    expect(laterMesh).toBeDefined();
+    expect((laterMesh.material as THREE.Material).userData.shimmer).toBe(true);
+    rig.dispose();
   });
 
   it("相机退到他身后很远、偏到肩后：他在画面里偏向一侧而不是正中，且尺寸变小", () => {
@@ -93,13 +120,13 @@ describe("PovRig：2090 年的他是一层微光，不再挡住画面", () => {
     const { rig } = makeRig();
     run(rig, 1.5);
     const base = avatarOpacity(rig);
-    expect(base).toBeCloseTo(0.3, 1);
+    expect(base).toBeCloseTo(0.62, 1);
     // 物件正好在他身后（离相机比他更远，屏幕位置与他重合）
     const cam = (rig as unknown as { camera: THREE.PerspectiveCamera }).camera;
     const behind = new THREE.Vector3(0, 1, 0).sub(cam.position).normalize().multiplyScalar(2.5).add(new THREE.Vector3(0, 1, 0));
     rig.setTargetsProvider(() => [behind]);
     run(rig, 1.0);
-    expect(avatarOpacity(rig)).toBeLessThan(0.12);
+    expect(avatarOpacity(rig)).toBeLessThan(0.24);
     rig.setTargetsProvider(() => [new THREE.Vector3(3.5, 1, -1)]);
     run(rig, 1.2);
     expect(avatarOpacity(rig)).toBeGreaterThan(0.25);

@@ -11,6 +11,11 @@ import type { QualityTier } from "../world/postPipeline";
  * 因此没有逐帧 CPU 更新；流速变化靠 CPU 累积“流时间”，不会产生跳变。
  */
 
+const LETTER_PHASE_RATE = 0.35;
+const LETTER_SWAP_PHASE_SQUARED = 0.01;
+const LETTER_FADE_END_PHASE_SQUARED = 0.04;
+const LETTER_PULSE_MAX = 0.4;
+
 const VERT = /* glsl */ `
 attribute vec3 aBase;
 attribute vec3 aVel;
@@ -34,19 +39,20 @@ void main() {
   p += vec3(sin(uT * 0.31 + sd), sin(uT * 0.23 + sd * 1.7) * 0.6, cos(uT * 0.27 + sd * 0.7)) * 0.38;
   vec3 d = uAtt - p;
   float w = uAttAmt * smoothstep(10.0, 0.6, length(d));
-  p += d * w * 0.5;
+  p += d * w * 0.35;
   float tw;
   if (aInfo.z < -0.5) {
-    tw = 0.3 + 0.7 * pow(0.5 + 0.5 * sin(uT * 0.9 * aInfo.y + aInfo.x * 6.283), 2.0);
+    tw = 0.42 + 0.26 * pow(0.5 + 0.5 * sin(uT * 0.55 * aInfo.y + aInfo.x * 6.283), 2.0);
   } else {
-    tw = pow(0.5 + 0.5 * sin(uT * 0.35 * aInfo.y + aInfo.x * 6.283), 2.0) * 0.75;
+    float letterPhase = 0.5 + 0.5 * sin(uT * ${LETTER_PHASE_RATE.toFixed(2)} * aInfo.y + aInfo.x * 6.283);
+    tw = smoothstep(${LETTER_SWAP_PHASE_SQUARED.toFixed(2)}, ${LETTER_FADE_END_PHASE_SQUARED.toFixed(2)}, letterPhase * letterPhase) * ${LETTER_PULSE_MAX.toFixed(2)};
   }
-  vA = tw * edge * uVis * (0.65 + w * 0.7);
+  vA = tw * edge * uVis * (0.62 + w * 0.28);
   vGlyph = aInfo.z;
-  vCol = mix(vec3(0.5, 0.78, 1.1), vec3(1.15, 1.0, 0.85), step(0.82, fract(aInfo.x * 7.31)));
+  vCol = mix(vec3(0.52, 0.72, 0.78), vec3(0.9, 0.84, 0.7), step(0.88, fract(aInfo.x * 7.31)));
   vec4 mv = modelViewMatrix * vec4(p, 1.0);
   gl_Position = projectionMatrix * mv;
-  gl_PointSize = clamp(aInfo.w * uScale / max(-mv.z, 0.1), 1.0, 90.0);
+  gl_PointSize = clamp(aInfo.w * uScale / max(-mv.z, 0.1), 1.0, 56.0);
 }
 `;
 
@@ -59,7 +65,7 @@ ${GLYPH_FRAGMENT_GLSL}
 void main() {
   float a = glyphAlpha(uAtlas, vGlyph, gl_PointCoord) * vA;
   if (a < 0.01) discard;
-  gl_FragColor = vec4(vCol * (vGlyph < -0.5 ? 1.5 : 1.15), a * (vGlyph < -0.5 ? 0.85 : 0.7));
+  gl_FragColor = vec4(vCol * (vGlyph < -0.5 ? 0.82 : 0.78), a * (vGlyph < -0.5 ? 0.42 : 0.38));
 }
 `;
 
@@ -84,11 +90,13 @@ export class MemoryFlow {
   private readonly centerTarget = new THREE.Vector3();
   private pending: number[] = [];
   private nextLetter = 0;
+  private readonly reducedMotion: boolean;
 
-  constructor(quality: QualityTier) {
-    // 低画质：粒子数减半
-    const dust = quality === "high" ? 560 : quality === "med" ? 400 : 200;
-    const letters = quality === "high" ? 40 : quality === "med" ? 30 : 16;
+  constructor(quality: QualityTier, options: { reducedMotion?: boolean } = {}) {
+    this.reducedMotion = options.reducedMotion ?? prefersReducedMotion();
+    // 安静的环境密度：仍保持一个 Points draw call，低画质继续减半左右。
+    const dust = quality === "high" ? 360 : quality === "med" ? 260 : 130;
+    const letters = quality === "high" ? 24 : quality === "med" ? 18 : 10;
     this.dustCount = dust;
     this.letterCount = letters;
     const n = dust + letters;
@@ -119,7 +127,7 @@ export class MemoryFlow {
       info[i * 4] = r();
       info[i * 4 + 1] = 0.6 + r() * 0.9;
       info[i * 4 + 2] = isLetter ? DEFAULT_LETTERS[Math.floor(r() * DEFAULT_LETTERS.length)] : -1;
-      info[i * 4 + 3] = isLetter ? 0.26 + r() * 0.16 : 0.035 + r() * 0.06;
+      info[i * 4 + 3] = isLetter ? 0.22 + r() * 0.12 : 0.032 + r() * 0.045;
     }
     this.geometry = new THREE.BufferGeometry();
     this.geometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array(n * 3), 3));
@@ -181,7 +189,7 @@ export class MemoryFlow {
   /** 往正在显形的物件方向偏转；null 取消 */
   setAttractor(pos: THREE.Vector3 | null, strength = 1): void {
     if (pos) (this.material.uniforms.uAtt.value as THREE.Vector3).copy(pos);
-    this.attTarget = pos ? strength : 0;
+    this.attTarget = this.reducedMotion ? 0 : pos ? strength : 0;
   }
 
   /** 环境粒子的整体可见度（世界建得越完整越淡） */
@@ -194,23 +202,24 @@ export class MemoryFlow {
     this.speed += (this.speedTarget - this.speed) * k;
     this.attAmt += (this.attTarget - this.attAmt) * k;
     this.visibility += (this.visTarget - this.visibility) * k;
-    this.flowT += dt * this.speed;
+    if (!this.reducedMotion) this.flowT += dt * this.speed;
     this.center.lerp(this.centerTarget, 1 - Math.exp(-dt * 1.5));
+    if (this.reducedMotion) this.attAmt = 0;
     const u = this.material.uniforms;
     u.uT.value = this.flowT;
     u.uAttAmt.value = this.attAmt;
     u.uVis.value = this.visibility;
 
     // 字母换字：只在某个字母粒子透明度趋近 0 时才换，肉眼看不到跳变
-    if (this.pending.length) {
+    if (!this.reducedMotion && this.pending.length) {
       let changed = false;
       for (let tries = 0; tries < 3; tries++) {
         const slot = this.dustCount + (this.nextLetter % this.letterCount);
         this.nextLetter++;
         const seed = this.info.getX(slot);
         const mul = this.info.getY(slot);
-        const phase = 0.5 + 0.5 * Math.sin(this.flowT * 0.35 * mul + seed * 6.283);
-        if (phase * phase < 0.01) {
+        const phase = 0.5 + 0.5 * Math.sin(this.flowT * LETTER_PHASE_RATE * mul + seed * 6.283);
+        if (phase * phase < LETTER_SWAP_PHASE_SQUARED) {
           this.info.setZ(slot, this.pending[Math.floor(Math.random() * this.pending.length)]);
           changed = true;
         }
@@ -225,4 +234,8 @@ export class MemoryFlow {
     if (this.atlas) releaseGlyphAtlas();
     this.object.removeFromParent();
   }
+}
+
+function prefersReducedMotion(): boolean {
+  return typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches === true;
 }

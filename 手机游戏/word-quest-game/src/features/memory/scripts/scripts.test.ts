@@ -79,6 +79,14 @@ describe("手写脚本：u01a《周四的沉默》", () => {
     expect(resolveMemoryScript(unit1, unitWords, "section_b").stage).toBe("emptyRoom");
   });
 
+  it("resolveMemoryScript 将导入原文传给手写 / 自动脚本，且不混用原配套理解题", () => {
+    const own = Array.from({ length: 9 }, (_, i) => `A private sentence ${i} about a different subject.`).join(" ");
+    const script = resolveMemoryScript(unit1, unitWords, "section_a", own);
+    expect(script.acts!.flatMap((act) => act.sentences)).toEqual(splitSentences(own));
+    expect(script.acts!.flatMap((act) => act.questions)).toEqual([]);
+    expect(script.acts!.flatMap((act) => act.notes).every((note) => note.kind === "fill")).toBe(true);
+  });
+
   it("节拍顺序：下潜(you) → 触碰 6 个 → 同学入场 → 幕时间线 → 定格；触碰之前全是第二人称", () => {
     const k = kinds(U01A_SCRIPT);
     const iTouch = k.indexOf("touch");

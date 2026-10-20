@@ -10,6 +10,7 @@ import type { MapNode, WordPickup } from "../../core/types";
 import { loadAvatarGlb, loadModelsManifest, enhanceAvatarMaterials, createContactShadow } from "./ModelLoader";
 
 import { createLandmarkWithCad } from "./cadLandmark";
+import { loadHumanModels, hasHumanModel } from "./humanVisual";
 import { createExplorerAvatar, type AvatarRig } from "./explorerAvatar";
 import { ExplorerCamera } from "./ExplorerCamera";
 import { buildNearScatter, type NearScatter } from "./nearScatter";
@@ -212,6 +213,7 @@ export class World3D {
   private ambientLight?: THREE.AmbientLight;
   private animId = 0;
   private paused = true;
+  private disposed = false;
   /** 页面进入后台时记住原状态，回到前台后只恢复原本正在运行的世界。 */
   private pausedBeforeVisibility = true;
   private spectatorMode = false;
@@ -774,6 +776,7 @@ export class World3D {
   }
 
   dispose(): void {
+    this.disposed = true;
     cancelAnimationFrame(this.animId);
     this.animId = 0;
     this.renderer.domElement.removeEventListener("pointerdown", this.onPointerDown);
@@ -859,6 +862,20 @@ export class World3D {
   /** 尝试加载真实 GLB 角色模型，存在则替换程序化人形 */
   private async tryLoadGlbAvatar(): Promise<void> {
     try {
+      await loadHumanModels();
+      if (this.disposed) return;
+      if (hasHumanModel() && this.explorer?.parent) {
+        const previous = this.explorer;
+        this.explorer = createExplorerAvatar();
+        this.explorer.position.copy(previous.position);
+        this.explorer.quaternion.copy(previous.quaternion);
+        this.explorer.visible = previous.visible;
+        removeGroup(this.scene, previous);
+        this.contactShadow = createContactShadow(1.9);
+        this.explorer.add(this.contactShadow);
+        this.scene.add(this.explorer);
+        return;
+      }
       const manifest = await loadModelsManifest();
       const cfg = manifest?.world?.avatar;
       if (!manifest || !cfg) return;
@@ -2479,6 +2496,7 @@ export class World3D {
         }
 
         this.updateFace(rig, dt);
+        this.explorer.userData.updateHumanVisual?.();
       }
 
       // GLB 角色：在 idle / walk 间平滑过渡（情绪动作播放时暂停）

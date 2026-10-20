@@ -20,9 +20,9 @@ const FOLLOW_HEIGHT = 2.2;
 const FOLLOW_LOOK_HEIGHT = 1.2;
 const EYE_HEIGHT = 1.6;
 const BLEND_SECONDS = 1.3;
-/** 2090 年的他的基础不透明度：只是一层冷色的微光 */
-const OLD_SELF_OPACITY = 0.3;
-const OLD_SELF_OPACITY_BEHIND = 0.06;
+/** 2090 年的他保留清晰人形轮廓，再叠一层克制的冷色边缘光。 */
+const OLD_SELF_OPACITY = 0.62;
+const OLD_SELF_OPACITY_BEHIND = 0.2;
 const TRAIL_COUNT = 56;
 
 const _q = new THREE.Quaternion();
@@ -52,11 +52,11 @@ function patchShimmer(mat: THREE.MeshStandardMaterial): void {
         "#include <emissivemap_fragment>",
         `#include <emissivemap_fragment>
         float avRim = pow(1.0 - clamp(dot(normalize(vViewPosition), normal), 0.0, 1.0), 2.2);
-        totalEmissiveRadiance += vec3(0.32, 0.62, 1.0) * (0.22 + avRim * 2.2);`
+        totalEmissiveRadiance += vec3(0.22, 0.46, 0.82) * (0.035 + avRim * 0.72);`
       )
-      .replace("#include <opaque_fragment>", `diffuseColor.a = clamp(diffuseColor.a * (0.5 + avRim * 1.9), 0.0, 1.0);\n#include <opaque_fragment>`);
+      .replace("#include <opaque_fragment>", `diffuseColor.a *= 0.98 + avRim * 0.04;\n#include <opaque_fragment>`);
   };
-  mat.customProgramCacheKey = () => "old-self-shimmer-v2";
+  mat.customProgramCacheKey = () => "old-self-shimmer-v3";
 }
 
 /**
@@ -68,9 +68,13 @@ function createOldSelf(): THREE.Group {
   avatar.name = "old-self";
   const cool = new THREE.Color(0xb5d2ff);
   const swapped = new Map<THREE.Material, THREE.Material>();
-  const lights: THREE.Light[] = [];
+  const lights: THREE.Object3D[] = [];
   avatar.traverse((o) => {
     o.raycast = () => undefined; // 射线（以及基于场景图的任何拾取）一律穿过他
+    if (o.userData.isFootRing || o.name === "ExplorerLantern") {
+      lights.push(o);
+      return;
+    }
     if ((o as THREE.Light).isLight) lights.push(o as THREE.Light);
     const mesh = o as THREE.Mesh;
     if (!mesh.isMesh) return;
@@ -92,8 +96,11 @@ function createOldSelf(): THREE.Group {
           emissiveIntensity: 0.18,
           transparent: true,
           opacity: OLD_SELF_OPACITY,
-          depthWrite: false,
-          side: s.side,
+          // Front faces write depth so the translucent outer volume hides
+          // inner eye, shell and back-facing garment layers instead of reading
+          // like stacked wire-frame pieces.
+          depthWrite: true,
+          side: THREE.FrontSide,
         });
         patchShimmer(mat);
         mat.userData.shimmer = true;
@@ -607,35 +614,57 @@ export class PovRig {
     this.root.position.x += (this.player.x - this.root.position.x) * Math.min(1, dt * 16);
     this.root.position.z += (this.player.z - this.root.position.z) * Math.min(1, dt * 16);
     const walking = this.moving;
-    if (walking) this.walkPhase += dt * (this.sprint ? 14 : 9);
+    if (walking) this.walkPhase += dt * (this.sprint ? 11.5 : 8.2);
     const rig = this.avatar.userData.rig as AvatarRig | undefined;
-    this.root.position.y = this.player.y + (walking ? Math.abs(Math.sin(this.walkPhase)) * 0.05 : Math.sin(this.time * 1.4) * 0.01);
+    this.root.position.y = this.player.y;
     if (!rig) return;
-    const k = Math.min(1, dt * 9);
+    const breath = Math.sin(this.time * 1.65) * 0.008;
+    rig.spine.position.y = 0.98 + (walking ? Math.abs(Math.sin(this.walkPhase * 2)) * 0.012 : breath);
+    rig.spine.rotation.x = walking ? 0.045 + Math.sin(this.walkPhase) * 0.016 : breath * 0.7;
+    rig.spine.rotation.y = Math.sin(this.time * 0.48) * (walking ? 0.014 : 0.009);
+    rig.spine.rotation.z = walking ? Math.sin(this.walkPhase) * 0.022 : Math.sin(this.time * 0.72) * 0.009;
+    const k = Math.min(1, dt * 8);
     if (walking) {
-      const hip = this.sprint ? 0.9 : 0.58;
-      const knee = this.sprint ? 1.3 : 0.9;
+      const hip = this.sprint ? 0.72 : 0.46;
+      const knee = this.sprint ? 1.0 : 0.7;
       const swL = Math.sin(this.walkPhase);
       const swR = Math.sin(this.walkPhase + Math.PI);
       rig.leftLeg.hip.rotation.x = swL * hip;
       rig.rightLeg.hip.rotation.x = swR * hip;
       rig.leftLeg.knee.rotation.x = 0.12 + Math.max(0, -swL) * knee;
       rig.rightLeg.knee.rotation.x = 0.12 + Math.max(0, -swR) * knee;
-      rig.leftArm.rotation.x = -swL * 0.7;
-      rig.rightArm.rotation.x = -swR * 0.7;
+      rig.leftArm.rotation.x = -swL * 0.56;
+      rig.rightArm.rotation.x = -swR * 0.56;
+      (rig.leftArm.userData.elbow as THREE.Group).rotation.x = -0.22 - Math.max(0, swL) * 0.36;
+      (rig.rightArm.userData.elbow as THREE.Group).rotation.x = -0.22 - Math.max(0, swR) * 0.36;
       rig.leftLeg.ankle.rotation.x = -(rig.leftLeg.hip.rotation.x + rig.leftLeg.knee.rotation.x) * 0.9;
       rig.rightLeg.ankle.rotation.x = -(rig.rightLeg.hip.rotation.x + rig.rightLeg.knee.rotation.x) * 0.9;
+      rig.head.rotation.x = -0.015 + Math.sin(this.walkPhase * 2) * 0.012;
     } else {
       rig.leftLeg.hip.rotation.x *= 1 - k;
       rig.rightLeg.hip.rotation.x *= 1 - k;
       rig.leftLeg.knee.rotation.x += (0.06 - rig.leftLeg.knee.rotation.x) * k;
       rig.rightLeg.knee.rotation.x += (0.06 - rig.rightLeg.knee.rotation.x) * k;
-      rig.leftArm.rotation.x *= 1 - k;
-      rig.rightArm.rotation.x *= 1 - k;
+      rig.leftArm.rotation.x += (Math.sin(this.time * 0.7) * 0.02 - rig.leftArm.rotation.x) * k;
+      rig.rightArm.rotation.x += (Math.sin(this.time * 0.7 + Math.PI) * 0.02 - rig.rightArm.rotation.x) * k;
+      (rig.leftArm.userData.elbow as THREE.Group).rotation.x += (-0.22 - (rig.leftArm.userData.elbow as THREE.Group).rotation.x) * k;
+      (rig.rightArm.userData.elbow as THREE.Group).rotation.x += (-0.22 - (rig.rightArm.userData.elbow as THREE.Group).rotation.x) * k;
       rig.leftLeg.ankle.rotation.x *= 1 - k;
       rig.rightLeg.ankle.rotation.x *= 1 - k;
-      rig.head.rotation.z = Math.sin(this.time * 1.4) * 0.05;
+      rig.head.rotation.x = -0.015 + Math.sin(this.time * 0.9) * 0.012;
     }
+    rig.head.rotation.y = Math.sin(this.time * 0.36) * 0.026;
+    rig.head.rotation.z = Math.sin(this.time * 0.66) * 0.018;
+    rig.gazeL.position.x = Math.sin(this.time * 0.29) * 0.002;
+    rig.gazeR.position.x = rig.gazeL.position.x;
+    rig.gazeL.position.y = rig.gazeR.position.y = Math.sin(this.time * 0.21) * 0.001;
+    const blinkPhase = THREE.MathUtils.euclideanModulo(this.time + 0.83, 4.5);
+    const blink = blinkPhase < 0.14 ? Math.sin((blinkPhase / 0.14) * Math.PI) : 0;
+    rig.eyeL.scale.y = 0.94 * (1 - blink * 0.9);
+    rig.eyeR.scale.y = 0.94 * (1 - blink * 0.9);
+    rig.cape.rotation.x += ((walking ? 0.27 + Math.abs(Math.sin(this.walkPhase)) * 0.18 : 0.16) - rig.cape.rotation.x) * k;
+    rig.cape.rotation.z += ((walking ? Math.sin(this.walkPhase * 0.5) * 0.06 : Math.sin(this.time * 0.72) * 0.025) - rig.cape.rotation.z) * k;
+    this.avatar.userData.updateHumanVisual?.();
   }
 
   // ───────── 输入 ─────────
@@ -700,14 +729,17 @@ export class PovRig {
     this.trail.geometry.dispose();
     (this.trail.material as THREE.Material).dispose();
     const geos = new Set<THREE.BufferGeometry>();
+    const skeletons = new Set<THREE.Skeleton>();
     const mats = new Set<THREE.Material>();
     this.avatar.traverse((o) => {
       const mesh = o as THREE.Mesh;
       if (!mesh.isMesh) return;
       geos.add(mesh.geometry);
+      if ((mesh as THREE.SkinnedMesh).isSkinnedMesh) skeletons.add((mesh as THREE.SkinnedMesh).skeleton);
       mats.add(mesh.material as THREE.Material);
     });
     geos.forEach((g) => g.dispose());
+    skeletons.forEach((skeleton) => skeleton.dispose());
     mats.forEach((m) => m.dispose());
   }
 }

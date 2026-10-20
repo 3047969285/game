@@ -102,6 +102,15 @@ export interface MemoryProgressSave {
 }
 
 let memoryFallback: MemoryProgressSave | null = null;
+let memoryFallbackIsLatest = false;
+
+function copyMemoryProgress(progress: MemoryProgressSave): MemoryProgressSave {
+  return {
+    prologueSeen: progress.prologueSeen,
+    done: [...progress.done],
+    wordsSeen: [...progress.wordsSeen],
+  };
+}
 
 function normalizeMemory(raw: unknown): MemoryProgressSave {
   const o = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
@@ -110,19 +119,22 @@ function normalizeMemory(raw: unknown): MemoryProgressSave {
 }
 
 export function loadMemoryProgress(): MemoryProgressSave {
+  if (memoryFallback && memoryFallbackIsLatest) return copyMemoryProgress(memoryFallback);
   try {
     const raw = localStorage.getItem(KEY_MEMORY);
     return normalizeMemory(raw ? JSON.parse(raw) : null);
   } catch {
-    return memoryFallback ? { ...memoryFallback } : normalizeMemory(null);
+    return memoryFallback ? copyMemoryProgress(memoryFallback) : normalizeMemory(null);
   }
 }
 
 export function writeMemoryProgress(progress: MemoryProgressSave): void {
-  memoryFallback = { ...progress };
+  memoryFallback = copyMemoryProgress(progress);
   try {
-    localStorage.setItem(KEY_MEMORY, JSON.stringify(progress));
+    localStorage.setItem(KEY_MEMORY, JSON.stringify(memoryFallback));
+    memoryFallbackIsLatest = false;
   } catch {
+    memoryFallbackIsLatest = true;
     // 存储不可用（隐私模式 / 配额）时仍保留本次会话内的进度
   }
 }

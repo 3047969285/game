@@ -1,0 +1,62 @@
+{
+  "checkedAt": "2026-10-20",
+  "searchTerms": [
+    "新视野大学英语",
+    "New Horizon College English",
+    "新视野 第四版",
+    "新视野 思政智慧",
+    "9787521343106"
+  ],
+  "targetEdition": {
+    "title": "新视野大学英语（第四版）读写教程 3（思政智慧版）",
+    "isbn": "9787521343106",
+    "published": "2023-03-01",
+    "publisherPage": "https://heep.fltrp.com/book/support/bookinfo?id=3809"
+  },
+  "repositories": [
+    {
+      "name": "dreamcafe/new_horizon_college_english",
+      "repoUrl": "https://github.com/dreamcafe/new_horizon_college_english",
+      "apiUrl": "https://api.github.com/repos/dreamcafe/new_horizon_college_english",
+      "pushedAt": "2016-05-16",
+      "license": null,
+      "finding": "更新早于目标版本；没有核实为第四版第 3 册的完整教材来源或可再分发授权。"
+    },
+    {
+      "name": "ackuikui/english-study",
+      "repoUrl": "https://github.com/ackuikui/english-study",
+      "apiUrl": "https://api.github.com/repos/ackuikui/english-study",
+      "pushedAt": "2020-05-01",
+      "license": null,
+      "finding": "更新早于目标版本；没有核实为第四版第 3 册的完整教材来源或可再分发授权。"
+    },
+    {
+      "name": "zjlgdx/xlnCollegeEnglishVocabulary",
+      "repoUrl": "https://github.com/zjlgdx/xlnCollegeEnglishVocabulary",
+      "apiUrl": "https://api.github.com/repos/zjlgdx/xlnCollegeEnglishVocabulary",
+      "pushedAt": "2014-12-27",
+      "license": null,
+      "finding": "更新早于目标版本；没有核实为第四版第 3 册的完整教材来源或可再分发授权。"
+    },
+    {
+      "name": "Gsy730112/b1u1-words",
+      "repoUrl": "https://github.com/Gsy730112/b1u1-words",
+      "apiUrl": "https://api.github.com/repos/Gsy730112/b1u1-words",
+      "license": null,
+      "finding": "仓库描述明确为第 1 册 Unit 1，不是目标教材；未发现可再分发授权。"
+    },
+    {
+      "name": "gitfox-enter/nhor4-exam-prep",
+      "repoUrl": "https://github.com/gitfox-enter/nhor4-exam-prep",
+      "apiUrl": "https://api.github.com/repos/gitfox-enter/nhor4-exam-prep",
+      "license": null,
+      "finding": "描述为第四版备考系统，但没有核实包含第 3 册完整内容或可再分发授权。"
+    }
+  ],
+  "conclusion": "本次检索未找到可核实为目标版本且允许再分发的完整教材来源。",
+  "limitations": [
+    "仓库没有 license 字段只是未满足本项目的授权核实标准，不构成教材是否可使用的法律结论。",
+    "这是截至 2026-10-20 对上述搜索词与候选仓库的有限核查，不代表 GitHub 上不存在其他来源。",
+    "项目不下载或打包教材全文；用户可导入自己合法拥有的 UTF-8 .txt / .md 文本，内容只写入本机浏览器 IndexedDB。"
+  ]
+}

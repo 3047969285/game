@@ -4,6 +4,7 @@ import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { MergedBuilder, type Placement } from "./detailKit";
 import { packGeometry, hairGeometry, bootGeometry, gearGeometry, zipperGeometry, handGeometry, handGeometryFor, headGeometry, jacketGeometry, lowerSleeveGeometry, shinGeometry, thighGeometry, upperSleeveGeometry } from "./avatarBody";
 import { mirrorX } from "./sdf";
+import { attachHumanVisual } from "./humanVisual";
 import { seededRand } from "./utils";
 
 /** 单腿骨骼：髋关节 + 膝关节（用于屈膝步态 / IK） */
@@ -15,6 +16,8 @@ export interface LegRig {
 
 /** 角色骨骼引用（供走路动画驱动） */
 export interface AvatarRig {
+  /** 以髋部为轴的上身组，用于轻微呼吸、重心交换与转头传导。 */
+  spine: THREE.Group;
   leftLeg: LegRig;
   rightLeg: LegRig;
   leftArm: THREE.Group;
@@ -25,6 +28,8 @@ export interface AvatarRig {
   /** 面部（表情控制）：眼球整体缩放 Y 即为眨眼 */
   eyeL: THREE.Mesh;
   eyeR: THREE.Mesh;
+  gazeL: THREE.Group;
+  gazeR: THREE.Group;
   brow: THREE.Mesh;
   mouth: THREE.Mesh;
   /** 面部静止位置，表情在其基础上做偏移 */
@@ -240,19 +245,21 @@ function irisTexture(): THREE.CanvasTexture {
 
 let irisTex: THREE.CanvasTexture | undefined;
 
-function makeEye(m: Mats, side: 1 | -1): THREE.Mesh {
-  const eye = new THREE.Mesh(new THREE.SphereGeometry(0.0128, 22, 16), m.eyeWhite);
-  eye.position.set(side * 0.034, 0.2, 0.0685);
+function makeEye(m: Mats, side: 1 | -1): { eye: THREE.Mesh; gaze: THREE.Group } {
+  const eye = new THREE.Mesh(new THREE.SphereGeometry(0.0115, 20, 14), m.eyeWhite);
+  eye.position.set(side * 0.034, 0.2, 0.062);
   eye.scale.set(1.0, 0.94, 1.0);
   irisTex ??= irisTexture();
+  const gaze = new THREE.Group();
+  gaze.position.z = 0.0112;
   const iris = new THREE.Mesh(new THREE.CircleGeometry(0.0072, 28), new THREE.MeshStandardMaterial({ map: irisTex, roughness: 0.28, metalness: 0 }));
-  iris.position.set(0, 0, 0.0124);
+  iris.position.set(0, 0, 0.002);
   const cornea = new THREE.Mesh(
     new THREE.SphereGeometry(0.0072, 18, 12, 0, Math.PI * 2, 0, Math.PI * 0.5),
     new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.02, metalness: 0, transparent: true, opacity: 0.16, clearcoat: 1, clearcoatRoughness: 0.02 })
   );
   cornea.rotation.x = Math.PI / 2;
-  cornea.position.set(0, 0, 0.0098);
+  cornea.position.set(0, 0, 0.0005);
   // 眼睑：上下两片略大于眼球的球冠（随眼球整体缩放 = 眨眼时闭合）
   const lidGeo = (from: number, to: number): THREE.BufferGeometry => new THREE.SphereGeometry(0.0139, 22, 10, 0, Math.PI * 2, from, to - from);
   const upper = new THREE.Mesh(lidGeo(0, Math.PI * 0.45), m.skin);
@@ -263,19 +270,20 @@ function makeEye(m: Mats, side: 1 | -1): THREE.Mesh {
   lashes.scale.set(1, 1, 0.5);
   lashes.rotation.x = -0.38;
   lashes.position.set(0, 0.004, 0.0058);
-  eye.add(iris, cornea, upper, lower, lashes);
-  return eye;
+  gaze.add(iris, cornea);
+  eye.add(gaze, upper, lower, lashes);
+  return { eye, gaze };
 }
 
-function buildHead(m: Mats, rig: { eyeL?: THREE.Mesh; eyeR?: THREE.Mesh; brow?: THREE.Mesh; mouth?: THREE.Mesh }): { head: THREE.Group; browY: number; mouthY: number } {
+function buildHead(m: Mats, rig: { eyeL?: THREE.Mesh; eyeR?: THREE.Mesh; gazeL?: THREE.Group; gazeR?: THREE.Group; brow?: THREE.Mesh; mouth?: THREE.Mesh }): { head: THREE.Group; browY: number; mouthY: number } {
   const head = group(0, 1.5, 0);
 
 
   const face = new THREE.Mesh(headGeometry(), m.skinFace);
   face.castShadow = true;
   head.add(face);
-  const eyeL = makeEye(m, 1);
-  const eyeR = makeEye(m, -1);
+  const leftEye = makeEye(m, 1);
+  const rightEye = makeEye(m, -1);
 
   const browGeos: THREE.BufferGeometry[] = [];
   for (const s of [-1, 1]) {
@@ -297,7 +305,7 @@ function buildHead(m: Mats, rig: { eyeL?: THREE.Mesh; eyeR?: THREE.Mesh; brow?: 
   }))!, m.brow);
   brow.position.set(0, browY, 0.0925);
   brow.rotation.x = -0.1;
-  const mouthY = 0.1215;
+  const mouthY = 0.132;
   const mouth = new THREE.Mesh(new THREE.CapsuleGeometry(0.0026, 0.03, 3, 8), m.lip);
   mouth.rotation.z = Math.PI / 2;
   mouth.scale.set(1, 1, 0.6);
@@ -305,9 +313,11 @@ function buildHead(m: Mats, rig: { eyeL?: THREE.Mesh; eyeR?: THREE.Mesh; brow?: 
 
   const hair = new THREE.Mesh(hairGeometry(), m.hair);
   hair.castShadow = true;
-  head.add(eyeL, eyeR, brow, mouth, hair);
-  rig.eyeL = eyeL;
-  rig.eyeR = eyeR;
+  head.add(leftEye.eye, rightEye.eye, brow, mouth, hair);
+  rig.eyeL = leftEye.eye;
+  rig.eyeR = rightEye.eye;
+  rig.gazeL = leftEye.gaze;
+  rig.gazeR = rightEye.gaze;
   rig.brow = brow;
   rig.mouth = mouth;
   return { head, browY, mouthY };
@@ -458,21 +468,30 @@ export function createExplorerAvatar(): THREE.Group {
   const root = new THREE.Group();
   root.name = "Explorer";
   const m = createMats();
+  // 上身在髋部转动，静止时能带出呼吸和轻微重心交换，走路时头、肩和手臂不再像一整块硬壳。
+  const spine = new THREE.Group();
+  spine.position.y = 0.98;
+  const torso = new THREE.Group();
+  torso.position.y = -0.98;
+  spine.add(torso);
+  root.add(spine);
 
-  root.add(buildJacket(m));
+  torso.add(buildJacket(m));
   const gear = new THREE.Mesh(gearGeometry(), m.leatherDark);
   gear.castShadow = true;
   const zip = new THREE.Mesh(zipperGeometry(), m.brass);
   const pack = new THREE.Mesh(packGeometry(), m.leather);
   pack.castShadow = true;
-  root.add(gear, zip, pack);
-  buildTorsoParts(m).build(root, "torso");
+  torso.add(gear, zip, pack);
+  buildTorsoParts(m).build(torso, "torso");
 
-  const faceRig: { eyeL?: THREE.Mesh; eyeR?: THREE.Mesh; brow?: THREE.Mesh; mouth?: THREE.Mesh } = {};
+  const faceRig: { eyeL?: THREE.Mesh; eyeR?: THREE.Mesh; gazeL?: THREE.Group; gazeR?: THREE.Group; brow?: THREE.Mesh; mouth?: THREE.Mesh } = {};
   const { head, browY, mouthY } = buildHead(m, faceRig);
-  root.add(head);
+  head.position.y -= 0.98;
+  spine.add(head);
   const cape = buildCape(m);
-  root.add(cape);
+  cape.position.y -= 0.98;
+  spine.add(cape);
 
   const leftLeg = makeLeg(m, 1);
   leftLeg.hip.position.set(0.09, 0.91, 0);
@@ -481,12 +500,15 @@ export function createExplorerAvatar(): THREE.Group {
   root.add(leftLeg.hip, rightLeg.hip);
 
   const leftArm = makeArm(m, 1);
-  leftArm.position.set(0.2, 1.46, 0);
+  leftArm.position.set(0.166, 1.405 - 0.98, 0);
   const rightArm = makeArm(m, -1);
-  rightArm.position.set(-0.2, 1.46, 0);
-  root.add(leftArm, rightArm);
+  rightArm.position.set(-0.166, 1.405 - 0.98, 0);
+  leftArm.rotation.z = 0.035;
+  rightArm.rotation.z = -0.035;
+  spine.add(leftArm, rightArm);
 
   const lantern = makeLantern(m);
+  lantern.name = "ExplorerLantern";
   lantern.position.set(0, -0.69, 0.1);
   rightArm.add(lantern);
 
@@ -502,17 +524,32 @@ export function createExplorerAvatar(): THREE.Group {
   const rig: AvatarRig = {
     leftLeg,
     rightLeg,
+    spine,
     leftArm,
     rightArm,
     head,
     cape,
     eyeL: faceRig.eyeL!,
     eyeR: faceRig.eyeR!,
+    gazeL: faceRig.gazeL!,
+    gazeR: faceRig.gazeR!,
     brow: faceRig.brow!,
     mouth: faceRig.mouth!,
     faceRest: { browY, mouthY },
     mats: { jacket: m.jacket, trim: m.trim, cape: m.scarf },
   };
   root.userData.rig = rig;
+  attachHumanVisual(root, {
+    body: rig.spine, bodyRestY: 0.98, head: rig.head,
+    leftArm: rig.leftArm, rightArm: rig.rightArm,
+    leftElbow: rig.leftArm.userData.elbow, rightElbow: rig.rightArm.userData.elbow,
+    leftHip: rig.leftLeg.hip, rightHip: rig.rightLeg.hip,
+    leftKnee: rig.leftLeg.knee, rightKnee: rig.rightLeg.knee,
+    leftAnkle: rig.leftLeg.ankle, rightAnkle: rig.rightLeg.ankle,
+    blinkLeft: () => 1 - rig.eyeL.scale.y, blinkRight: () => 1 - rig.eyeR.scale.y,
+    mouthOpen: () => Math.max(0, rig.mouth.scale.y - 1) * 0.15,
+    smile: () => Math.max(0, rig.mouth.scale.x - 1) * 0.6,
+    gazeX: () => rig.gazeL.position.x * 80, gazeY: () => rig.gazeL.position.y * 80,
+  });
   return root;
 }

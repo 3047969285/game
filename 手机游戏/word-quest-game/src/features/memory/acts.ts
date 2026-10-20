@@ -9,7 +9,7 @@ import { findWordToken, type ActQuestion, type MemoryAct, type NoteTask, type Ou
  *  - 三种视角（他 / 我 / 纸）看的是同一幕的不同内容，进度共享；
  *  - 课文的每一句都落在某一幕里，顺序不变；
  *  - 本段的理解题、翻译、写作全部分配进幕里（题目按它考的那一段课文，翻译按关键词，写作放最后一幕）；
- *  - passageOverride：导入的教材原文替换练习原文（题目仍用游戏自带的）。
+ *  - passageOverride：导入的教材原文替换练习原文；配套理解题 / 翻译 / 写作不用于导入文本，避免内容错配。
  */
 
 export const ACT_MIN = 3;
@@ -313,7 +313,8 @@ function wordsInOrder(sentences: readonly string[], words: readonly WordEntry[])
 }
 
 export function buildActs(unit: Rw3UnitContent, words: readonly WordEntry[], section: SectionKey, passageOverride?: string): MemoryAct[] {
-  const passage = passageOverride?.trim() ? passageOverride : (unit.sections[section]?.passage ?? "");
+  const importedPassage = Boolean(passageOverride?.trim());
+  const passage = importedPassage ? passageOverride!.trim() : (unit.sections[section]?.passage ?? "");
   const { sentences, paragraphStarts } = parsePassage(passage);
   const starts = planActStarts(sentences, paragraphStarts);
   const acts: MemoryAct[] = starts.map((start, i) => {
@@ -323,16 +324,15 @@ export function buildActs(unit: Rw3UnitContent, words: readonly WordEntry[], sec
   if (acts.length === 0) return acts;
   const rand = seededRandom(hashSeed(`${unit.unit_id}:${section}:acts`));
 
-  // 理解题：本段的 micro_world_checks，section_a 再加 reading.questions
-  const lists: ActQuestion[][] = [(unit.micro_world_checks?.[section] ?? []).map(toQuestion)];
-  if (section === "section_a") lists.push((unit.sections.reading?.questions ?? []).map(toQuestion));
-  assignQuestions(
-    acts,
-    lists.filter((l) => l.length > 0)
-  );
+  if (!importedPassage) {
+    // 本地练习文本的理解题：micro_world_checks，section_a 再加 reading.questions。
+    const lists: ActQuestion[][] = [(unit.micro_world_checks?.[section] ?? []).map(toQuestion)];
+    if (section === "section_a") lists.push((unit.sections.reading?.questions ?? []).map(toQuestion));
+    assignQuestions(acts, lists.filter((l) => l.length > 0));
+  }
 
-  // 翻译：按关键词与课文的相关度，每幕最多 ceil(n / 幕数) 句
-  const translations = unit.sections.translation?.sentences ?? [];
+  // 游戏自带的翻译与写作练习不一定对应用户导入原文，因此只用于本地练习文本。
+  const translations = importedPassage ? [] : (unit.sections.translation?.sentences ?? []);
   if (translations.length > 0) {
     const index = actIndex(acts);
     const scores = translations.map((t) => relevance(index, [{ text: (t.keywords ?? []).join(" "), w: 2 }, { text: t.en_reference, w: 1 }]));
@@ -347,7 +347,7 @@ export function buildActs(unit: Rw3UnitContent, words: readonly WordEntry[], sec
     const fill = buildFillTask(act, words, sentences, rand);
     if (fill) act.notes.unshift(fill);
   }
-  const writing = unit.sections.writing;
+  const writing = importedPassage ? undefined : unit.sections.writing;
   if (writing?.outline?.length) {
     const prompt = writing.prompt ?? "";
     acts[acts.length - 1].notes.push({ kind: "outline", prompt, points: [...writing.outline], choices: buildOutlineChoices(writing.outline, prompt, words, passage, rand) });

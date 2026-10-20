@@ -118,7 +118,7 @@ describe("clubRoom（《周四的沉默》的舞台）", () => {
     expect(getStage("clubRoom").targets.tree_a).toBe("grow");
   });
 
-  it("绘制调用预算：舞台 + 五个人物（各一个姿势） + 脚本里的全部物件 ≤ 150 个网格", () => {
+  it("回退绘制预算：舞台 + 五个可表情人物 + 全部物件 ≤ 165 个网格", () => {
     const stage = countMeshes(buildStage("clubRoom", kit));
     let actors = 0;
     for (const a of U01A_SCRIPT.actors) {
@@ -129,8 +129,9 @@ describe("clubRoom（《周四的沉默》的舞台）", () => {
     let objects = 0;
     for (const o of U01A_SCRIPT.objects) objects += countMeshes(buildWordObject(o.wordId, kit, o.archetype));
     expect(stage).toBeLessThanOrEqual(85);
-    expect(actors).toBeLessThanOrEqual(25);
-    expect(stage + actors + objects).toBeLessThanOrEqual(150);
+    // 回退身体保留独立眼白/虹膜/皮肤材质；本地真人资产为每人 3 个批次。
+    expect(actors).toBeLessThanOrEqual(40);
+    expect(stage + actors + objects).toBeLessThanOrEqual(165);
   });
 
   it("座位：五个人互不重叠，都靠着长桌；窗外的树不在太阳射入窗口的光路上（否则屋里全是树影）", () => {

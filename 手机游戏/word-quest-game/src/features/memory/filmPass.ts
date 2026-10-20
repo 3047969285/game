@@ -15,6 +15,9 @@ export interface FilmControls {
   jitter: number;
 }
 
+let reducedMotionQuery: MediaQueryList | null = null;
+let reducedMotionQueryRead = false;
+
 export function createFilmPass(): ShaderPass {
   const pass = new ShaderPass({
     uniforms: {
@@ -34,18 +37,18 @@ export function createFilmPass(): ShaderPass {
       void main() {
         vec2 uv = vUv;
         if (uJitter > 0.001) {
-          float k = floor(uTime * 24.0);
-          uv += (vec2(h21(vec2(k, 1.3)), h21(vec2(k, 7.1))) - 0.5) * 0.012 * uJitter;
-          uv.y += step(0.92, h21(vec2(k, 3.7))) * 0.02 * uJitter;
+          float k = floor(uTime * 16.0);
+          uv += (vec2(h21(vec2(k, 1.3)), h21(vec2(k, 7.1))) - 0.5) * 0.006 * uJitter;
+          uv.y += step(0.96, h21(vec2(k, 3.7))) * 0.009 * uJitter;
         }
         vec3 c = texture2D(tDiffuse, uv).rgb;
         float l = dot(c, vec3(0.2126, 0.7152, 0.0722));
         vec3 sepia = vec3(l) * vec3(1.14, 0.96, 0.72);
-        c = mix(c, sepia, uFilm * 0.82);
-        c *= mix(vec3(1.0), vec3(1.06, 0.98, 0.86), uFilm);
-        c += (h21(vUv * vec2(1731.0, 911.0) + floor(uTime * 18.0)) - 0.5) * 0.085 * uFilm;
+        c = mix(c, sepia, uFilm * 0.64);
+        c *= mix(vec3(1.0), vec3(1.04, 0.99, 0.93), uFilm);
+        c += (h21(vUv * vec2(1731.0, 911.0) + floor(uTime * 4.0)) - 0.5) * 0.026 * uFilm;
         float vig = smoothstep(0.32, 0.95, length((vUv - 0.5) * vec2(1.0, 1.1)) * 1.25);
-        c *= 1.0 - vig * 0.62 * uFilm;
+        c *= 1.0 - vig * 0.34 * uFilm;
         c *= 1.0 - uDim;
         c = mix(c, vec3(1.0, 0.985, 0.94), uFade);
         gl_FragColor = vec4(clamp(c, 0.0, 1.0), 1.0);
@@ -59,10 +62,21 @@ export function createFilmPass(): ShaderPass {
 /** 把控制量写进通道；全 0 时关闭通道 */
 export function applyFilm(pass: ShaderPass, c: FilmControls, time: number): void {
   const u = pass.uniforms;
+  const reducedMotion = prefersReducedMotion();
+  const jitter = reducedMotion ? 0 : c.jitter;
   u.uFilm.value = c.film;
   u.uFade.value = c.fade;
   u.uDim.value = c.dim;
-  u.uJitter.value = c.jitter;
-  u.uTime.value = time;
-  pass.enabled = c.film > 0.001 || c.fade > 0.001 || c.dim > 0.001 || c.jitter > 0.001;
+  u.uJitter.value = jitter;
+  u.uTime.value = reducedMotion ? 0 : time;
+  pass.enabled = c.film > 0.001 || c.fade > 0.001 || c.dim > 0.001 || jitter > 0.001;
+}
+
+function prefersReducedMotion(): boolean {
+  if (typeof window === "undefined") return false;
+  if (!reducedMotionQueryRead) {
+    reducedMotionQuery = window.matchMedia?.("(prefers-reduced-motion: reduce)") ?? null;
+    reducedMotionQueryRead = true;
+  }
+  return reducedMotionQuery?.matches === true;
 }

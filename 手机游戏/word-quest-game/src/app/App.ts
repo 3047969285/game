@@ -907,6 +907,7 @@ export class App {
         <div class="memory-points">${memoryPoints}</div>
         <button type="button" class="memory-box-toggle" id="btn-memory-box" aria-expanded="false">🗃️ 记忆匣 · 学习面板</button>
         <div class="memory-box" id="memory-box">
+          ${rw3Unit ? '<button type="button" class="memory-box-toggle textbook-manager-open" id="btn-import-textbook">📚 导入我的教材 · 仅保存在本机</button>' : ""}
           ${world ? `<div class="unit-world-mentor">导师：${world.mentor}</div><div class="unit-world-story">${world.opening}</div><div class="unit-world-mission"><strong>本幕任务</strong> ${world.mission}</div><div class="unit-world-landmarks">${world.landmarks.map((landmark) => `<span>${landmark}</span>`).join("")}</div>` : ""}
           <div class="unit-entry-sections">${sections.map((s) => `<div class="unit-sec-item">${s}</div>`).join("")}</div>
           <div class="unit-world-portals">
@@ -949,6 +950,16 @@ export class App {
     boxToggle?.addEventListener("click", () => {
       const open = card.querySelector("#memory-box")?.classList.toggle("open") ?? false;
       boxToggle.setAttribute("aria-expanded", String(open));
+    });
+    const importTextbookButton = card.querySelector<HTMLButtonElement>("#btn-import-textbook");
+    importTextbookButton?.addEventListener("click", () => {
+      const unitNumber = rw3Unit?.unit_number ?? Number(unitId.match(/\d+/)?.[0] ?? 1);
+      void import("../features/memory/textbook/ui")
+        .then(({ openTextbookManager }) => openTextbookManager(unitNumber, importTextbookButton))
+        .catch((error) => {
+          console.error(error);
+          showToast("教材导入界面加载失败");
+        });
     });
     card.querySelectorAll<HTMLButtonElement>(".memory-point").forEach((button) => {
       button.addEventListener("click", () => {
@@ -1019,7 +1030,26 @@ export class App {
     let script: MemoryScript;
     try {
       const { resolveMemoryScript } = await import("../features/memory");
-      script = resolveMemoryScript(unit, words, section);
+      let passageOverride: string | undefined;
+      let importedTitle = "";
+      if (typeof indexedDB !== "undefined") {
+        try {
+          const { textbookStore } = await import("../features/memory/textbook/store");
+          const imported = await textbookStore.get(unit.unit_number ?? Number(unitId.match(/\d+/)?.[0] ?? 1), section);
+          passageOverride = imported?.passage;
+          importedTitle = imported?.title ?? "";
+        } catch (storageError) {
+          console.warn("[memory] 本机教材读取失败", storageError);
+          showToast("本机教材暂时无法读取，正在使用游戏练习原文");
+        }
+      }
+      script = resolveMemoryScript(unit, words, section, passageOverride);
+      if (passageOverride) {
+        script.title = `${script.title} · 我的教材${importedTitle ? `：${importedTitle}` : "原文"}`;
+        // Handwritten classroom dialogues are tied to the game's practice passage too.
+        // Keep the authored stage, but don't present unrelated prompts with a user's text.
+        for (const act of script.acts ?? []) act.dialog = undefined;
+      }
     } catch (err) {
       console.error(err);
       showToast("回忆加载失败");
@@ -1049,6 +1079,8 @@ export class App {
     let stage: { play(s: MemoryScript): Promise<MemoryResult>; dispose(): void } | null = null;
     try {
       const { MemoryStage } = await import("../features/memory");
+      const { loadHumanModels } = await import("../features/world/humanVisual");
+      await loadHumanModels();
       stage = new MemoryStage(host, { words: this.wordMap, gate });
       return await stage.play(script);
     } catch (err) {
