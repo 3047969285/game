@@ -130,7 +130,7 @@ describe("Materializer（headless）", () => {
     expect(shader.vertexShader).toContain("vRvPos");
     expect(shader.fragmentShader).toContain("floor(vRvPos * 28.0");
     expect(shader.fragmentShader).not.toContain("floor(uRvTime * 8.0)");
-    expect(clone.customProgramCacheKey()).toContain("rv1|c");
+    expect(clone.customProgramCacheKey()).toContain("rv2|c");
     expect(clone.customProgramCacheKey()).not.toBe(src.customProgramCacheKey());
   });
 });

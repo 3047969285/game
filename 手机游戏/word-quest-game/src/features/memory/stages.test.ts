@@ -266,3 +266,31 @@ describe("手写舞台与 Materializer 的配合", () => {
     m.dispose();
   });
 });
+
+describe("室内材质隔离", () => {
+  it("构建两间教室不改写调用者的木材套件，材质仍可挂接显形补丁", () => {
+    const kit = createSceneKit("high");
+    const originalWood = kit.m.wood;
+    const originalKey = originalWood.customProgramCacheKey();
+    for (const name of ["emptyRoom", "clubRoom"]) {
+      const room = buildStage(name,kit);
+      expect(kit.m.wood).toBe(originalWood);
+      expect(originalWood.customProgramCacheKey()).toBe(originalKey);
+      const mz = new Materializer({headless:true});
+      const p = mz.register(room.getObjectByName("table")!,"rise");
+      const wood = p.clones.find(m=>m.name==="memory-interior-wood")!;
+      expect(wood).toBeDefined();
+      const shader = {
+        uniforms: {},
+        vertexShader: "#include <common>\n#include <begin_vertex>\n#include <project_vertex>",
+        fragmentShader: "#include <common>\n#include <color_fragment>\n#include <clipping_planes_fragment>\n#include <dithering_fragment>",
+      };
+      wood.onBeforeCompile(shader as unknown as Parameters<THREE.Material["onBeforeCompile"]>[0], {} as THREE.WebGLRenderer);
+      expect(shader.vertexShader).toContain("vInteriorP = transformed");
+      expect(shader.fragmentShader).toContain("float iwGrain");
+      expect(shader.fragmentShader).toContain("rvField(vRvPos)");
+      expect(shader.uniforms).toHaveProperty("uRvAmt",p.u.uRvAmt);
+      mz.dispose();
+    }
+  });
+});

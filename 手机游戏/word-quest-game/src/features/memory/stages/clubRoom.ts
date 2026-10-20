@@ -1,3 +1,5 @@
+import { interiorKit, interiorWood } from "./interiorMaterials";
+import { floorJoints, studyNotebook } from "./studyDetails";
 import * as THREE from "three";
 import { applyKitPattern } from "../../world/kitShader";
 import { createBush, createTree } from "../../world/props";
@@ -95,12 +97,12 @@ const std = (color: number, roughness = 0.85, metalness = 0, side: THREE.Side = 
 function buildFloor(kit: SceneKit): THREE.Group {
   return pieceGroup(kit, "floor", (k) => {
     const f = new Frame(k.kit);
-    const boards = std(0xa27d56, 0.72);
-    applyKitPattern(boards, "wood", { grime: 0.3, wear: 0.3 });
+    const boards = interiorWood(0xa27d56,.72);
     const skirting = std(0xd9cfbc, 0.8);
     const rug = std(0x8a7f70, 1, 0, THREE.DoubleSide);
     const rugEdge = std(0x756b5f, 1, 0, THREE.DoubleSide);
     f.box(boards, W + 0.4, 0.12, D + 0.4, 0, -0.12, 0, 0.01);
+    floorJoints(k, W, D);
     f.box(skirting, W, 0.12, 0.03, 0, 0, -HZ + 0.015, 0.004);
     f.box(skirting, W, 0.12, 0.03, 0, 0, HZ - 0.015, 0.004);
     f.box(skirting, 0.03, 0.12, D, -HX + 0.015, 0, 0, 0.004);
@@ -237,15 +239,17 @@ function buildSunlight(): THREE.Group {
   const dir = CLUB_SUN_DIR.clone().negate(); // 光的传播方向
   const pos: number[] = [];
   const col: number[] = [];
+  const uv: number[] = [];
   const quad = (a: THREE.Vector3, b: THREE.Vector3, c: THREE.Vector3, d: THREE.Vector3, a0: number, a1: number): void => {
-    for (const [p, al] of [
+    for (const [i, [p, al]] of ([
       [a, a0],
       [b, a0],
       [c, a1],
       [a, a0],
       [c, a1],
       [d, a1],
-    ] as Array<[THREE.Vector3, number]>) {
+    ] as Array<[THREE.Vector3, number]>).entries()) {
+      uv.push(...[[0,0],[1,0],[1,1],[0,0],[1,1],[0,1]][i]);
       pos.push(p.x, p.y, p.z);
       col.push(1, 0.82, 0.55, al);
     }
@@ -271,7 +275,15 @@ function buildSunlight(): THREE.Group {
   const geo = new THREE.BufferGeometry();
   geo.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
   geo.setAttribute("color", new THREE.Float32BufferAttribute(col, 4));
+  geo.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2));
   const mat = new THREE.MeshBasicMaterial({ vertexColors: true, transparent: true, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending });
+  mat.onBeforeCompile = (shader) => {
+    shader.vertexShader = shader.vertexShader.replace("#include <common>", "#include <common>\nvarying vec2 vShaftUv;")
+      .replace("#include <begin_vertex>", "#include <begin_vertex>\nvShaftUv = uv;");
+    shader.fragmentShader = shader.fragmentShader.replace("#include <common>", "#include <common>\nvarying vec2 vShaftUv;")
+      .replace("#include <color_fragment>", "#include <color_fragment>\ndiffuseColor.a *= smoothstep(0.0,0.22,vShaftUv.x)*(1.0-smoothstep(0.78,1.0,vShaftUv.x))*smoothstep(0.0,0.1,vShaftUv.y);");
+  };
+  mat.customProgramCacheKey = () => "soft-window-shaft-v1";
   const mesh = new THREE.Mesh(geo, mat);
   mesh.frustumCulled = false;
   mesh.castShadow = false;
@@ -300,9 +312,7 @@ function buildTable(kit: SceneKit): THREE.Group {
     ];
     for (const [x, z, r] of spots) {
       const nb = f.child(x, y, z, r);
-      nb.box(k.p.fabricBlue, 0.2, 0.012, 0.28, 0, 0, 0, 0.003);
-      nb.box(k.m.paper, 0.19, 0.008, 0.27, 0.004, 0.012, 0, 0.001);
-      nb.box(k.p.plasticDark, 0.012, 0.012, 0.13, 0.12, 0.012, 0.02, 0.003);
+      studyNotebook(k, nb);
     }
     for (const [x, z] of [
       [-1.0, -0.62],
@@ -481,6 +491,7 @@ function buildCeiling(): THREE.Group {
 }
 
 export function buildClubRoom(kit: SceneKit): THREE.Group {
+  kit = interiorKit(kit);
   const root = new THREE.Group();
   root.name = "stage-clubRoom";
   const plaster = makePlaster();

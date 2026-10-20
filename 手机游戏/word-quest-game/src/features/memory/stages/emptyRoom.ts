@@ -1,5 +1,6 @@
+import { floorJoints, studyNotebook } from "./studyDetails";
 import * as THREE from "three";
-import { applyKitPattern } from "../../world/kitShader";
+import { interiorKit, interiorPlaster, interiorWood } from "./interiorMaterials";
 import { chair, board, bookshelf, table, windowPane, Frame, type SceneKit } from "../../world/sceneProps";
 import { pieceGroup, type StageDef } from "./types";
 
@@ -35,21 +36,19 @@ export const EMPTY_ROOM_TARGETS = Object.keys(TARGETS);
 
 /** 素净的暖灰泥墙：程序化灰泥表面，污渍与磨损压得很轻，不出现壁纸似的花纹 */
 export function makePlaster(side: THREE.Side = THREE.FrontSide): THREE.MeshStandardMaterial {
-  const mat = new THREE.MeshStandardMaterial({ color: 0xe3d8c4, roughness: 0.95, metalness: 0, side });
-  applyKitPattern(mat, "plaster", { grime: 0.22, wear: 0.15 });
-  return mat;
+  return interiorPlaster(side);
 }
 
 function buildFloor(kit: SceneKit): THREE.Group {
   return pieceGroup(kit, "floor", (k) => {
     const f = new Frame(k.kit);
     // 木地板（程序化木纹）、涂白的踢脚线、一块低饱和的灰褐色地毯
-    const boards = new THREE.MeshStandardMaterial({ color: 0xa38159, roughness: 0.74, metalness: 0 });
-    applyKitPattern(boards, "wood", { grime: 0.3, wear: 0.3 });
+    const boards = interiorWood(0xa38159,.74);
     const skirting = new THREE.MeshStandardMaterial({ color: 0xd9cfbc, roughness: 0.8, metalness: 0 });
     const rug = new THREE.MeshStandardMaterial({ color: 0x8b8173, roughness: 1, metalness: 0, side: THREE.DoubleSide });
     const rugEdge = new THREE.MeshStandardMaterial({ color: 0x766d61, roughness: 1, metalness: 0, side: THREE.DoubleSide });
     f.box(boards, W + 0.4, 0.12, D + 0.4, 0, -0.12, 0, 0.01);
+    floorJoints(k, W, D);
     f.box(skirting, W, 0.12, 0.03, 0, 0, -HZ + 0.015, 0.004);
     f.box(skirting, W, 0.12, 0.03, 0, 0, HZ - 0.015, 0.004);
     f.box(skirting, 0.03, 0.12, D, -HX + 0.015, 0, 0, 0.004);
@@ -60,6 +59,7 @@ function buildFloor(kit: SceneKit): THREE.Group {
 }
 
 export function buildEmptyRoom(kit: SceneKit): THREE.Group {
+  kit = interiorKit(kit);
   const root = new THREE.Group();
   root.name = "stage-emptyRoom";
   const plaster = makePlaster();
@@ -94,6 +94,13 @@ export function buildEmptyRoom(kit: SceneKit): THREE.Group {
   root.add(
     pieceGroup(kit, "table", (k) => {
       table(k, new Frame(k.kit, 0, 0, -0.8), 2.9, 0.95, 0.75);
+      for (const x of [-.9,.85]) studyNotebook(k, new Frame(k.kit,x,.75,-.8,x*.1));
+      const f = new Frame(k.kit);
+      // Cross braces and small metal fasteners ground the tabletop in real joinery.
+      f.box(k.m.woodDark, 2.55, .07, .04, 0, .46, -.8, .003);
+      for (const x of [-1.2,1.2]) for (const z of [-1.12,-.48]) {
+        f.cyl(k.m.steel,.012,.012,.003,x,.683,z,8);
+      }
     })
   );
   root.add(

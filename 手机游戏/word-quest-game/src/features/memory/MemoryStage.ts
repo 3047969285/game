@@ -1,3 +1,4 @@
+import { MemoryAir } from "./MemoryAir";
 import * as THREE from "three";
 import type { WordEntry } from "../../core/types";
 import { foliageSun, setFoliageQuality, windTime } from "../world/foliageMaterials";
@@ -112,6 +113,7 @@ export class MemoryStage {
   private readonly floorRay = new THREE.Raycaster();
   private readonly floorPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
   private stageGroup?: THREE.Group;
+  private air?: MemoryAir;
   /** 词卡跟随的物件（屏幕投影定位） */
   private cardAnchor: THREE.Object3D | null = null;
   /** 第一人称时被隐藏的那位 “借眼睛” 的人物 */
@@ -359,6 +361,7 @@ export class MemoryStage {
     this.pov.dispose();
     this.materializer.dispose();
     this.flow.dispose();
+    this.air?.dispose();
     for (const a of this.actors.values()) a.dispose();
     this.cinema.dispose();
     this.hud.dispose();
@@ -435,6 +438,11 @@ export class MemoryStage {
       const o = overrides.get(child.name);
       this.materializer.register(child, o?.style ?? stage.targets[child.name] ?? "rise");
       if (o?.duration) this.pieceOverrides.set(child.name, { duration: o.duration });
+    }
+
+    if (stage.name === "emptyRoom" || stage.name === "clubRoom") {
+      this.air = new MemoryAir(stage.bounds, this.quality);
+      this.scene.add(this.air.object);
     }
 
     // 词物件
@@ -560,6 +568,7 @@ export class MemoryStage {
     const h = this.renderer.domElement.height;
     this.materializer.setView(h, this.camera.fov);
     this.flow.setView(h, this.camera.fov);
+    this.air?.update(this.time, this.materializer.progress((p) => p.id === "window" || p.id === "floor"), h, this.camera.fov);
   }
 
   private readonly focusV = new THREE.Vector3();

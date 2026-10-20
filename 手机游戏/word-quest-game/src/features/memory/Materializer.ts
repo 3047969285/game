@@ -19,7 +19,7 @@ import type { BuildStyle } from "./types";
  * 开销：Piece 未显形且无幽灵时 obj.visible=false，不产生任何绘制；显形完成后与普通网格相同，仅多一个已跳过的分支。
  */
 
-const EDGE_WIDTH = 0.09;
+const EDGE_WIDTH = 0.06;
 
 const STYLE_PARAMS: Record<BuildStyle, { radial: boolean; noise: number; scale: number; growY: boolean }> = {
   rise: { radial: false, noise: 0.2, scale: 1.35, growY: false },
@@ -86,7 +86,7 @@ if (uRvAmt < 0.9999) {
     if (rvH(floor(vRvPos * 28.0 + uRvSeed)) > cover) discard;
     rvGhostPx = true;
   } else {
-    rvGlow = 1.0 - smoothstep(0.0, ${(EDGE_WIDTH * 2.5).toFixed(3)}, rvR - rvF);
+    rvGlow = 1.0 - smoothstep(0.0, ${(EDGE_WIDTH * 1.8).toFixed(3)}, rvR - rvF);
   }
 }
 `;
@@ -101,10 +101,14 @@ if (uRvAmt < 0.9999) {
 
 const RV_FRAG_OUT = /* glsl */ `
 if (rvGhostPx) {
-  gl_FragColor = vec4(uRvEdge * 0.52, 1.0);
+  gl_FragColor = vec4(uRvEdge * 0.32, 1.0);
 } else {
   gl_FragColor.rgb *= 1.0 - uRvDim * 0.5;
-  gl_FragColor.rgb += uRvEdge * (rvGlow * rvGlow * 0.82);
+  // A cool outer halo and a narrow warm core make the frontier read as light,
+  // while the completed surface keeps its original color and roughness.
+  vec3 rvWarm = vec3(0.96, 0.79, 0.49);
+  gl_FragColor.rgb += uRvEdge * (rvGlow * rvGlow * 0.28);
+  gl_FragColor.rgb += rvWarm * pow(rvGlow, 7.0) * 0.22;
   #ifdef RV_PULSE
   float rvFr = pow(1.0 - clamp(dot(normalize(vViewPosition), normal), 0.0, 1.0), 2.0);
   gl_FragColor.rgb += uRvEdge * uRvPulse * (0.04 + rvFr * 0.32);
@@ -147,7 +151,7 @@ export function applyRevealPatch(clone: THREE.Material, source: THREE.Material, 
     if (!depth) frag = frag.replace("#include <dithering_fragment>", `#include <dithering_fragment>\n${RV_FRAG_OUT}`);
     shader.fragmentShader = frag;
   };
-  clone.customProgramCacheKey = () => `${prevKey}|rv1|${depth ? "d" : "c"}`;
+  clone.customProgramCacheKey = () => `${prevKey}|rv2|${depth ? "d" : "c"}`;
   clone.needsUpdate = true;
 }
 
@@ -241,6 +245,9 @@ void main() {
   vec3 side = normalize(cross(d, vec3(0.0, 1.0, 0.0)) + vec3(1e-4));
   pos += side * sin(m * 3.14159) * (aInfo.z - 0.5) * 0.24 * length(d);
   pos.y += sin(m * 3.14159) * 0.1 * aInfo.z;
+  // Tiny helical drift fades at both ends so particles settle exactly on the surface.
+  float curl = sin(m * 3.14159) * (1.0-m) * 0.09;
+  pos += vec3(cos(m*6.28318+aInfo.z*6.28318), sin(m*6.28318), sin(m*6.28318+aInfo.z*6.28318))*curl;
   vA = smoothstep(0.0, 0.2, k) * (1.0 - smoothstep(0.9, 1.3, k));
   vGlyph = aInfo.w;
   vCol = mix(vec3(0.52, 0.72, 0.78), vec3(0.9, 0.84, 0.7), aLook.y);
@@ -658,7 +665,7 @@ export class Materializer {
         // Reduced motion shows the finished surface immediately while retaining the
         // reveal state and its original duration for callers waiting on the Promise.
         p.u.uRvAmt.value = this.reducedMotion ? 1 : p.amt;
-        p.u.uRvGhost.value = this.reducedMotion ? 0 : Math.max(p.ghostBase * (1 - p.amt), 0.08 * (1 - k));
+        p.u.uRvGhost.value = this.reducedMotion ? 0 : Math.max(p.ghostBase * (1 - p.amt), 0.025 * (1 - k));
         if (STYLE_PARAMS[p.style].growY) {
           const s = this.reducedMotion ? 1 : 0.72 + 0.28 * p.amt;
           p.obj.scale.set(p.baseScale.x, p.baseScale.y * s, p.baseScale.z);
