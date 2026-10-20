@@ -38,6 +38,8 @@ export interface MemoryStageOptions {
   quality?: QualityTier;
   /** 开场用：先等一次轻触（拿到浏览器朗读所需的用户手势） */
   gate?: boolean;
+  /** Entry overlay reveals only after prepare and a rendered frame. */
+  onSceneReady?: () => Promise<void>;
   onMusicScene?: (scene: "memory" | "study") => void;
 }
 
@@ -267,7 +269,13 @@ export class MemoryStage {
     try {
       await this.prepare(script);
       this.startLoop();
-      await this.hud.fade(false, 1400);
+      if (this.opts.onSceneReady) {
+        this.hud.setFadeInstant(false);
+        await this.until(new Promise<void>((resolve) => requestAnimationFrame(() => resolve())));
+        if (this.exited || this.disposed) return { completed: false, exited: true, wordsSeen: [], mistakes: 0 };
+        await this.until(this.opts.onSceneReady());
+      } else await this.hud.fade(false, 1400);
+      if (this.exited || this.disposed) return { completed: false, exited: true, wordsSeen: [], mistakes: 0 };
       if (this.opts.gate) {
         const gate = this.hud.gate("轻触 · 开始回溯", "Tap to begin", () => {
           this.narrator.unlock();
@@ -280,7 +288,7 @@ export class MemoryStage {
       }
       if (!this.exited) {
         // 空场景：只有雾与光尘。稍等片刻，再让 2090 年的他浮现
-        await this.sleep(1800);
+        await this.sleep(this.opts.onSceneReady ? 350 : 1800);
         if (this.stageDef?.showPlayer !== false) {
           void this.materializer.reveal("old-self", 3.2);
           await this.sleep(1200);

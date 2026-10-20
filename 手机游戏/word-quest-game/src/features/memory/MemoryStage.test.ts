@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { MemoryStage } from "./MemoryStage";
 import type { MemoryAct } from "./types";
 
@@ -39,5 +39,33 @@ describe("MemoryStage 第一人称对话中断", () => {
     stage.session = { aborted: false };
     expect(await stage.meAct(act)).toBe(true);
     expect(dialogs).toBe(2);
+  });
+});
+
+
+describe("MemoryStage 入场准备握手", () => {
+  it("首帧渲染后才揭开入口；揭开期间退出不得再弹出开场 gate", async () => {
+    const frames: FrameRequestCallback[] = [];
+    vi.stubGlobal("requestAnimationFrame", (callback: FrameRequestCallback) => { frames.push(callback); return frames.length; });
+    const order: string[] = [];
+    const gate = vi.fn();
+    const stage = Object.create(MemoryStage.prototype) as MemoryStage;
+    Object.assign(stage, {
+      opts: { gate: true, onSceneReady: async () => { order.push("ready"); Object.assign(stage, { disposed: true }); } },
+      exited: false, disposed: false,
+      prepare: async () => undefined,
+      startLoop: () => requestAnimationFrame(() => { order.push("render"); }),
+      until: async (promise: Promise<unknown>) => promise,
+      hud: { setFadeInstant: vi.fn(), gate },
+    });
+    try {
+      const done = stage.play({ beats: [] } as unknown as Parameters<MemoryStage["play"]>[0]);
+      await Promise.resolve();
+      expect(order).toEqual([]);
+      frames.forEach((callback) => callback(16));
+      expect(await done).toMatchObject({ completed: false, exited: true });
+      expect(order).toEqual(["render", "ready"]);
+      expect(gate).not.toHaveBeenCalled();
+    } finally { vi.unstubAllGlobals(); }
   });
 });

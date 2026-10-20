@@ -41,6 +41,7 @@ import { el, showToast } from "../shared/components";
 import { SECTION_KEYS, memoryScriptId, type SectionKey } from "../features/memory/ids";
 import { Narrator } from "../features/memory/Narrator";
 import { isMemoryDone, isPrologueSeen, markMemoryDone, markPrologueSeen } from "../features/memory/progress";
+import { MemoryEntryTransition } from "../features/memory/entry/MemoryEntryTransition";
 import type { MemoryResult, MemoryScript } from "../features/memory/types";
 
 type Screen = "map" | "scene" | "memory";
@@ -1024,19 +1025,27 @@ export class App {
     const host = this.root.querySelector<HTMLElement>("#screen-memory");
     if (!host) return null;
     this.stopRw3Listening();
-    this.show("memory");
+    this.world?.pause();
     let stage: { play(s: MemoryScript): Promise<MemoryResult>; dispose(): void } | null = null;
+    const entry = new MemoryEntryTransition({ title: script.title, onCancel: () => stage?.dispose() });
     try {
-      const { MemoryStage } = await import("../features/memory");
-      const { loadHumanModels } = await import("../features/world/humanVisual");
-      await loadHumanModels();
-      stage = new MemoryStage(host, { words: this.wordMap, gate, onMusicScene: (scene) => this.music.setScene(scene) });
+      const loaded = await Promise.race([
+        Promise.all([import("../features/memory"), import("../features/world/humanVisual")]).then(async ([memory, humans]) => {
+          await humans.loadHumanModels();
+          return memory;
+        }),
+        entry.cancelled,
+      ]);
+      if (!loaded || !(await entry.covered) || entry.isCancelled) return null;
+      this.show("memory");
+      stage = new loaded.MemoryStage(host, { words: this.wordMap, gate, onMusicScene: (scene) => this.music.setScene(scene), onSceneReady: () => entry.reveal() });
       return await stage.play(script);
     } catch (err) {
       console.error(err);
       showToast("回忆启动失败，已返回地图");
       return null;
     } finally {
+      entry.dispose();
       stage?.dispose();
       host.innerHTML = "";
       host.classList.remove("active");

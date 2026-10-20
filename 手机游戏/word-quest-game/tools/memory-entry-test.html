@@ -1,0 +1,17 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>记忆入口 · 视觉验收</title>
+<style>
+html,body{margin:0;height:100%;background:#54726e;color:white;font:14px system-ui}body{background:radial-gradient(ellipse at 30% 30%,#b7c9ae,transparent 50%),linear-gradient(135deg,#467a6b,#8f9c77)}
+nav{position:fixed;bottom:16px;right:16px;z-index:1500;display:flex;gap:12px;align-items:center;padding:12px;border-radius:12px;background:#101827df;flex-wrap:wrap;max-width:calc(100% - 56px)}button,select,input{font:inherit}button,select{padding:7px 12px;border:1px solid #83929c77;border-radius:8px;background:#253647;color:white}#preview{pointer-events:none}#preview .memory-entry-copy{--entry-copy:1}#preview input{pointer-events:auto}
+</style>
+<nav><button id="play">播放完整过渡</button><label>展开进度 <input id="progress" aria-label="展开进度" type="range" min="0" max="100" value="0"></label><label><input id="reduced" type="checkbox">减少动态效果（静态预览）</label><span id="state">等待场景就绪</span></nav>
+<div id="preview" class="memory-entry"><canvas></canvas><div class="memory-entry-copy"><div class="memory-entry-kicker">MEMORY RECALL</div><h2>回溯记忆</h2><p class="memory-entry-title">周四的沉默 · 那些值得重新听见的声音</p><div class="memory-entry-line"></div><p class="memory-entry-hint">拾起那些未曾走远的瞬间</p></div></div>
+<script type="module">
+import {drawMemoryEntry,memoryMotes,ease} from '/src/features/memory/entry/visual.ts';
+import {MemoryEntryTransition} from '/src/features/memory/entry/MemoryEntryTransition.ts';
+const root=document.querySelector('#preview'),canvas=root.querySelector('canvas'),ctx=canvas.getContext('2d');
+const progress=document.querySelector('#progress'),reduced=document.querySelector('#reduced'),state=document.querySelector('#state');
+let transition=null;
+function draw(){const ratio=Math.min(devicePixelRatio,1.5);canvas.width=Math.round(innerWidth*ratio);canvas.height=Math.round(innerHeight*ratio);ctx.setTransform(ratio,0,0,ratio,0,0);const reveal=Number(progress.value)/100;drawMemoryEntry(ctx,innerWidth,innerHeight,{time:2.2,cover:1,reveal,reduced:reduced.checked},memoryMotes(innerWidth<700));root.style.setProperty('--entry-copy',1-ease(reveal));root.style.opacity=1-ease(Math.max(0,(reveal-.7)/.3));state.textContent=reveal===0?'等待场景就绪':reveal===1?'场景已展开':'回忆正在浮现';}
+progress.addEventListener('input',draw);reduced.addEventListener('change',draw);addEventListener('resize',draw);draw();
+document.querySelector('#play').addEventListener('click',async()=>{if(transition)return;root.hidden=true;transition=new MemoryEntryTransition({title:'周四的沉默 · 那些值得重新听见的声音'});await transition.covered;if(!transition.isCancelled){await new Promise(r=>setTimeout(r,600));await transition.reveal();}transition.dispose();transition=null;root.hidden=false;draw();});
+</script>
