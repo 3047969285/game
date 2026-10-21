@@ -80,14 +80,15 @@ public sealed class GameHost : IDisposable
     {
         try
         {
-            _renderer.Initialize(_window!, _logger);
+            var window = _window ?? throw new InvalidOperationException("窗口尚未创建");
+            _renderer.Initialize(window, _logger);
             var fonts = new FontAtlas(_renderer.Gl);
             _ui = new GameUi(_renderer.Overlay, fonts);
             _ui.PrewarmMenuStrings();
-            _input = _window!.CreateInput();
+            _input = window.CreateInput();
             _mouse = _input.Mice.FirstOrDefault();
             UpdateCursorMode();
-            AppLog.Info($"窗口 { _window.Size.X}x{_window.Size.Y}  framebuffer {_window.FramebufferSize.X}x{_window.FramebufferSize.Y}");
+            AppLog.Info($"窗口 {window.Size.X}x{window.Size.Y}  framebuffer {window.FramebufferSize.X}x{window.FramebufferSize.Y}");
             _logger.LogInformation("AimForge 已启动");
         }
         catch (Exception ex)

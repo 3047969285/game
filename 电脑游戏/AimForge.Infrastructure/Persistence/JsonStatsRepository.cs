@@ -120,9 +120,32 @@ public sealed class JsonStatsRepository : IStatsRepository
                ?? [];
     }
 
-    private static async Task SaveInternalAsync<T>(string path, T payload, CancellationToken cancellationToken)
+    private async Task SaveInternalAsync<T>(string path, T payload, CancellationToken cancellationToken)
     {
-        await using var stream = File.Create(path);
-        await JsonSerializer.SerializeAsync(stream, payload, JsonOptions, cancellationToken).ConfigureAwait(false);
+        // 同目录写完后再替换，序列化失败不会截断已有统计文件。
+        var temporaryPath = $"{path}.{Guid.NewGuid():N}.tmp";
+        try
+        {
+            await using (var stream = new FileStream(temporaryPath, FileMode.CreateNew,
+                             FileAccess.Write, FileShare.None, 4096, useAsync: true))
+            {
+                await JsonSerializer.SerializeAsync(stream, payload, JsonOptions, cancellationToken).ConfigureAwait(false);
+                await stream.FlushAsync(cancellationToken).ConfigureAwait(false);
+            }
+            cancellationToken.ThrowIfCancellationRequested();
+            File.Move(temporaryPath, path, overwrite: true);
+        }
+        finally
+        {
+            try
+            {
+                File.Delete(temporaryPath);
+            }
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+            {
+                // 清理失败只能留下可识别的临时文件，不能掩盖保存异常或误报成功保存失败。
+                _logger.LogWarning(exception, "无法清理统计临时文件 {Path}", temporaryPath);
+            }
+        }
     }
 }
