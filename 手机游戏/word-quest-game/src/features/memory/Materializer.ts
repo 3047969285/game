@@ -106,7 +106,7 @@ if (rvGhostPx) {
   gl_FragColor.rgb *= 1.0 - uRvDim * 0.5;
   // A cool outer halo and a narrow warm core make the frontier read as light,
   // while the completed surface keeps its original color and roughness.
-  vec3 rvWarm = vec3(0.96, 0.79, 0.49);
+  vec3 rvWarm = vec3(0.72, 0.87, 0.98);
   gl_FragColor.rgb += uRvEdge * (rvGlow * rvGlow * 0.28);
   gl_FragColor.rgb += rvWarm * pow(rvGlow, 7.0) * 0.22;
   #ifdef RV_PULSE
@@ -155,7 +155,7 @@ export function applyRevealPatch(clone: THREE.Material, source: THREE.Material, 
   clone.needsUpdate = true;
 }
 
-function createUniforms(timeU: { value: number }, seed: number): RevealUniforms {
+function createUniforms(timeU: { value: number }, seed: number, edge: THREE.Color): RevealUniforms {
   return {
     uRvAmt: { value: 0 },
     uRvGhost: { value: 0 },
@@ -170,7 +170,7 @@ function createUniforms(timeU: { value: number }, seed: number): RevealUniforms 
     uRvScale: { value: 2 },
     uRvSeed: { value: seed },
     uRvTime: timeU,
-    uRvEdge: { value: new THREE.Color(0.55, 0.76, 0.78) },
+    uRvEdge: { value: edge },
   };
 }
 
@@ -272,6 +272,8 @@ void main() {
 
 export class Materializer {
   readonly group = new THREE.Group();
+  private readonly edgeColor = new THREE.Color(0.55,0.76,0.88);
+  setEdgeColor(r: number,g: number,b: number): void { this.edgeColor.setRGB(r,g,b,THREE.SRGBColorSpace); }
   private readonly pieces = new Map<string, Piece>();
   /** pieces 的数组镜像：逐帧遍历用它，避免 Map 迭代器分配 */
   private readonly list: Piece[] = [];
@@ -354,7 +356,7 @@ export class Materializer {
     if (this.pieces.has(name)) throw new Error(`Materializer.register: 重复的名字 ${name}`);
     obj.updateMatrixWorld(true);
     const params = STYLE_PARAMS[style];
-    const u = createUniforms(this.timeU, this.rand() * 40);
+    const u = createUniforms(this.timeU, this.rand() * 40, this.edgeColor);
     const box = new THREE.Box3().setFromObject(obj);
     if (box.isEmpty()) box.set(new THREE.Vector3(-0.1, 0, -0.1).add(obj.position), new THREE.Vector3(0.1, 0.2, 0.1).add(obj.position));
     const size = box.getSize(new THREE.Vector3());

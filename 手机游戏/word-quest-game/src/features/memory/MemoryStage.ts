@@ -1,3 +1,4 @@
+import { closeIntroShot, firstIntroShot } from "./introCamera";
 import { MemoryAir } from "./MemoryAir";
 import * as THREE from "three";
 import type { WordEntry } from "../../core/types";
@@ -96,9 +97,7 @@ const VERB_SECONDS = 1.3;
 const VOID_COLOR = new THREE.Color(0x0b1018);
 const baseFovFor = (aspect: number): number => (aspect >= 1 ? 46 : Math.min(70, 46 + (1 - aspect) * 34));
 /** 舞台自带环境色向记忆色调靠拢的比例 */
-const LOOK_MIX = 0.7;
-const EYE_MIN = 1.45;
-const EYE_MAX = 1.7;
+const LOOK_MIX = 0.9;
 const mixRgb = (a: Rgb, b: Rgb, t: number, out: Rgb): Rgb => {
   out.r = a.r + (b.r - a.r) * t;
   out.g = a.g + (b.g - a.g) * t;
@@ -164,6 +163,8 @@ export class MemoryStage {
 
   private script?: MemoryScript;
   private stageDef?: StageDef;
+  private introOriginal?: CameraShot;
+  private introClose?: CameraShot;
   private readonly sourceMaterials = new Set<THREE.Material>();
   private readonly wordObjs = new Map<string, WordObj>();
   private readonly actors = new Map<string, ActorHandle>();
@@ -657,24 +658,27 @@ export class MemoryStage {
    * 取第一个带机位的节拍的起点；没有的话保留“你”的跟随机位（已降到肩后眼高）。
    */
   private placeIntroCamera(script: MemoryScript): void {
-    let shot: CameraShot | undefined;
-    for (const b of script.beats) {
-      if (b.kind === "narrate" || b.kind === "build" || b.kind === "pov" || b.kind === "gap" || b.kind === "choice") {
-        if (b.kind === "pov" && !b.camera) break;
-        if (b.kind === "choice") break; // 附身对话的机位是眼睛，不在这里处理
-        if (b.camera) shot = b.camera;
-        break;
-      }
-      if (b.kind === "wait") continue;
-      break;
-    }
-    if (!shot) return;
-    const from = shot.from ?? shot.to;
-    const pos = new THREE.Vector3(from.x, THREE.MathUtils.clamp(from.y, EYE_MIN, EYE_MAX), from.z);
-    const look = new THREE.Vector3(shot.look.x, shot.look.y, shot.look.z);
-    this.pov.placeCamera(pos, look, shot.fov ?? this.cinema.baseFov);
+    const stage = this.stageDef!;
+    const shot = firstIntroShot(script.beats);
+    const close = closeIntroShot(shot, stage.spawn, stage.cameraBounds ?? stage.bounds);
+    this.introOriginal = shot;
+    this.introClose = close;
+    const from = close.from!;
+    const pos = new THREE.Vector3(from.x,from.y,from.z);
+    const look = new THREE.Vector3(close.look.x,close.look.y,close.look.z);
+    this.pov.placeCamera(pos,look,close.fov!);
     this.setPov("watch");
+    this.cinema.setPoseFrom(pos,look,close.fov!);
     this.pov.cancelBlend();
+  }
+
+  private playShot(shot: CameraShot): Promise<void> {
+    if (shot === this.introOriginal && this.introClose) {
+      const close = this.introClose;
+      this.introOriginal = this.introClose = undefined;
+      return this.cinema.shot(close);
+    }
+    return this.cinema.shot(shot);
   }
 
   // ───────────────────────── 主循环 ─────────────────────────
@@ -787,17 +791,20 @@ export class MemoryStage {
     foliageSun.color.value.copy(this.sunColor).multiplyScalar(this.sun.intensity / 1.45);
     const hs = weatherTint(mixRgb(this.stageHemiSkyRgb, look.hemiSky, LOOK_MIX, this.rgbA), wp, this.rgbA, 0.6);
     this.hemi.color.setRGB(hs.r, hs.g, hs.b, THREE.SRGBColorSpace);
-    const hg = mixRgb(this.stageHemiGroundRgb, look.hemiGround, 0.5, this.rgbB);
+    const hg = mixRgb(this.stageHemiGroundRgb, look.hemiGround, LOOK_MIX, this.rgbB);
     this.hemi.groundColor.setRGB(hg.r, hg.g, hg.b, THREE.SRGBColorSpace);
     this.hemi.intensity = this.hemiBase * l * wp.hemiMul;
     this.scene.environmentIntensity = this.envBase * l * wp.envMul;
     fog.density = this.fogBase * (1.5 - 0.5 * progress) * look.fogMul * wp.fogMul * (1 + wp.mist * 0.8);
     this.renderer.toneMappingExposure = 1.22 * look.exposure * wp.exposureMul;
     this.flow.setColors(look.dustA, look.dustB);
+    this.materializer.setEdgeColor(look.dustA.r,look.dustA.g,look.dustA.b);
+    this.air?.setTint(look.dustB.r,look.dustB.g,look.dustB.b);
     if (this.sunShaft) {
       const m = this.sunShaft.material as THREE.Material;
       m.opacity = THREE.MathUtils.clamp(wp.sunMul * (1 - wp.cloud * 0.6) * 1.1, 0, 1);
       m.transparent = true;
+      if ((m as THREE.MeshBasicMaterial).color) (m as THREE.MeshBasicMaterial).color.setRGB(look.sun.r,look.sun.g,look.sun.b,THREE.SRGBColorSpace);
     }
     if (!this.diving) this.flow.setVisibility(1 - 0.45 * progress);
   }
@@ -886,7 +893,7 @@ export class MemoryStage {
         return this.doActor(beat);
       case "pov":
         this.setPov(beat.to);
-        if (beat.camera) await this.until(this.cinema.shot(beat.camera));
+        if (beat.camera) await this.until(this.playShot(beat.camera));
         return;
       case "paper":
         return this.doPaper(beat);
@@ -987,7 +994,7 @@ export class MemoryStage {
 
   private async doNarrate(b: Extract<Beat, { kind: "narrate" }>): Promise<void> {
     this.setPov(b.pov);
-    if (b.camera) void this.cinema.shot(b.camera);
+    if (b.camera) void this.playShot(b.camera);
     this.hud.setSubtitle(b.text, b.zh, { vocab: this.vocabIn(b.text) });
     // 说这句话的人物：嘴 / 手势 / 其他人的视线与点头跟着他
     const speaker = b.speaker ? this.actors.get(b.speaker) : undefined;
@@ -1223,7 +1230,7 @@ export class MemoryStage {
     const ids = [b.answerWordId, ...b.decoyWordIds].filter((id) => this.materializer.has(this.nameOf(id)) && this.wordObjs.has(id));
     if (!ids.includes(b.answerWordId)) console.warn(`[memory] 断片的答案物件不存在: ${b.answerWordId}`);
     const shot = this.frameCandidates(ids, b.camera) ?? b.camera;
-    if (shot) void this.cinema.shot(shot);
+    if (shot) void this.playShot(shot);
 
     // 候选：完整显形（让玩家看清是什么），光晕 + 问号脉动；其余已显形的物件稍微退暗
     const wasRevealed = new Set(ids.filter((id) => this.materializer.isRevealed(this.nameOf(id))));
@@ -1371,7 +1378,7 @@ export class MemoryStage {
   /** 让一批部件 / 人物 / 物件显形（不朗读） */
   private async doBuild(b: Extract<Beat, { kind: "build" }>): Promise<void> {
     if (b.pov) this.setPov(b.pov);
-    if (b.camera) void this.cinema.shot(b.camera);
+    if (b.camera) void this.playShot(b.camera);
     const dur = b.duration ?? 2.4;
     b.targets.forEach((ref, i) => {
       const name = this.actors.has(ref) ? `actor:${ref}` : this.wordObjs.has(ref) ? this.nameOf(ref) : this.resolveTarget(ref);

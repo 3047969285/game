@@ -24,7 +24,7 @@ export class MemoryAir {
     geometry.setAttribute("aSeed", new THREE.BufferAttribute(seeds, 1));
     geometry.computeBoundingSphere();
     const material = new THREE.ShaderMaterial({
-      uniforms: { uTime: { value: 0 }, uOpacity: { value: 0 }, uScale: { value: 500 } },
+      uniforms: { uTime: { value: 0 }, uOpacity: { value: 0 }, uScale: { value: 500 }, uTint: {value:new THREE.Color(.67,.85,.96)} },
       vertexShader: `
         attribute float aSeed;
         uniform float uTime, uScale;
@@ -41,6 +41,7 @@ export class MemoryAir {
         }`,
       fragmentShader: `
         uniform float uOpacity;
+        uniform vec3 uTint;
         varying float vAlpha;
         void main() {
           float r = length(gl_PointCoord-.5)*2.;
@@ -65,6 +66,7 @@ export class MemoryAir {
     u.uScale.value = heightPx/(2*Math.tan(THREE.MathUtils.degToRad(fov)/2));
     this.object.visible = u.uOpacity.value > .001;
   }
+  setTint(r:number,g:number,b:number):void { this.object.material.uniforms.uTint.value.setRGB(r,g,b,THREE.SRGBColorSpace); }
   dispose(): void {
     if(this.disposed) return;
     this.disposed = true;

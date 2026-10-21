@@ -36,7 +36,7 @@ export function interiorKit(kit: SceneKit): SceneKit {
 
 /** Fine wall grain instead of large cracks and chipped patches. */
 export function interiorPlaster(side: THREE.Side): THREE.MeshStandardMaterial {
-  const mat = new THREE.MeshStandardMaterial({ color: 0xe3d8c4, roughness: .93, side });
+  const mat = new THREE.MeshStandardMaterial({ color: 0xd7dde6, roughness: .93, side });
   mat.name = "memory-interior-plaster";
   mat.onBeforeCompile = (shader) => {
     shader.vertexShader = shader.vertexShader.replace("#include <common>", "#include <common>\nvarying vec3 vPlasterP;")
