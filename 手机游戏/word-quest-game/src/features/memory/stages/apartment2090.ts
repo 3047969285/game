@@ -160,7 +160,7 @@ function windowTexture(): THREE.CanvasTexture | null {
     for (let col = 0; col < 12; col++) {
       const v = r();
       if (v < 0.5) continue;
-      const warm = r() < 0.55;
+      const warm = r() < 0.16;
       const a = 0.35 + r() * 0.65;
       g.fillStyle = warm ? `rgba(255,${196 + Math.floor(r() * 40)},${120 + Math.floor(r() * 50)},${a})` : `rgba(${170 + Math.floor(r() * 50)},225,255,${a})`;
       g.fillRect(col * 10.6 + 2, row * 8 + 1.5, 6.4, 4.4);
@@ -629,13 +629,15 @@ export const APARTMENT_2090: StageDef = {
   spawn: { x: -1.5, y: 0, z: 1.8, yaw: Math.PI },
   slots: { table: [], hover: [], floor: [] },
   shots: [{ from: { x: -0.8, y: 1.5, z: 3.0 }, to: { x: 0, y: 1.45, z: 1.9 }, look: { x: 0.9, y: 1.2, z: -0.6 }, duration: 14, move: "dolly" }],
+  // 公寓自己画窗外的雨（rain 部件）；这里只让光线跟着雨天走
+  weather: { default: "lightRain", mode: "own" },
   environment: {
     fogColor: 0x070b16,
     fogDensity: 0.011,
     skyTop: 0x0a1228,
     skyMid: 0x1c4060,
     skyBot: 0x140f18,
-    sunColor: 0xffd9b0,
+    sunColor: 0xcfe0ff,
     sunDir: { x: 0.55, y: 0.62, z: 0.5 },
     sunIntensity: 1.5,
     hemiSky: 0x5f86c8,

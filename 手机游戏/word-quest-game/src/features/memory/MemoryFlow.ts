@@ -27,6 +27,8 @@ uniform float uScale;
 uniform vec3 uAtt;
 uniform float uAttAmt;
 uniform float uVis;
+uniform vec3 uColA;
+uniform vec3 uColB;
 varying float vA;
 varying float vGlyph;
 varying vec3 vCol;
@@ -49,7 +51,7 @@ void main() {
   }
   vA = tw * edge * uVis * (0.62 + w * 0.28);
   vGlyph = aInfo.z;
-  vCol = mix(vec3(0.52, 0.72, 0.78), vec3(0.9, 0.84, 0.7), step(0.88, fract(aInfo.x * 7.31)));
+  vCol = mix(uColA, uColB, step(0.84, fract(aInfo.x * 7.31)));
   vec4 mv = modelViewMatrix * vec4(p, 1.0);
   gl_Position = projectionMatrix * mv;
   gl_PointSize = clamp(aInfo.w * uScale / max(-mv.z, 0.1), 1.0, 56.0);
@@ -90,6 +92,7 @@ export class MemoryFlow {
   private readonly centerTarget = new THREE.Vector3();
   private pending: number[] = [];
   private nextLetter = 0;
+  private pendingCursor = 0;
   private readonly reducedMotion: boolean;
 
   constructor(quality: QualityTier, options: { reducedMotion?: boolean } = {}) {
@@ -147,6 +150,8 @@ export class MemoryFlow {
         uAtt: { value: new THREE.Vector3() },
         uAttAmt: { value: 0 },
         uVis: { value: 1 },
+        uColA: { value: new THREE.Color(0.52, 0.72, 0.78) },
+        uColB: { value: new THREE.Color(0.8, 0.9, 0.95) },
         uAtlas: { value: this.atlas },
       },
       vertexShader: VERT,
@@ -159,6 +164,13 @@ export class MemoryFlow {
     this.object.frustumCulled = false;
     this.object.renderOrder = 9;
     this.object.name = "memory-flow";
+  }
+
+  /** 记忆色调驱动的两种光尘颜色（sRGB 0..1）；uniform 里是线性空间 */
+  setColors(a: { r: number; g: number; b: number }, b: { r: number; g: number; b: number }): void {
+    const u = this.material.uniforms;
+    (u.uColA.value as THREE.Color).setRGB(a.r, a.g, a.b, THREE.SRGBColorSpace);
+    (u.uColB.value as THREE.Color).setRGB(b.r, b.g, b.b, THREE.SRGBColorSpace);
   }
 
   setView(heightPx: number, fovDeg: number): void {
@@ -220,7 +232,8 @@ export class MemoryFlow {
         const mul = this.info.getY(slot);
         const phase = 0.5 + 0.5 * Math.sin(this.flowT * LETTER_PHASE_RATE * mul + seed * 6.283);
         if (phase * phase < LETTER_SWAP_PHASE_SQUARED) {
-          this.info.setZ(slot, this.pending[Math.floor(Math.random() * this.pending.length)]);
+          this.pendingCursor = (this.pendingCursor + 7) % this.pending.length;
+          this.info.setZ(slot, this.pending[this.pendingCursor]);
           changed = true;
         }
       }

@@ -15,8 +15,8 @@ import type { Pov, Vec3 } from "./types";
 
 const PLAYER_SPEED = 2.5;
 /** 跟随镜头：在 2090 年的他身后很远、偏到肩后，让他只占画面一角，不挡住他身后的物件 */
-const FOLLOW_DIST = 5.6;
-const FOLLOW_HEIGHT = 2.2;
+const FOLLOW_DIST = 3.8;
+const FOLLOW_HEIGHT = 1.72;
 const FOLLOW_LOOK_HEIGHT = 1.2;
 const EYE_HEIGHT = 1.6;
 const BLEND_SECONDS = 1.3;
@@ -25,9 +25,9 @@ const OLD_SELF_OPACITY = 0.62;
 const OLD_SELF_OPACITY_BEHIND = 0.2;
 const TRAIL_COUNT = 56;
 
-const _q = new THREE.Quaternion();
 const _m = new THREE.Matrix4();
 const _up = new THREE.Vector3(0, 1, 0);
+const _euler = new THREE.Euler(0, 0, 0, "YXZ");
 
 function lookQuat(pos: THREE.Vector3, target: THREE.Vector3, out: THREE.Quaternion): THREE.Quaternion {
   _m.lookAt(pos, target, _up);
@@ -177,6 +177,11 @@ export class PovRig {
   /** 第一人称 “低头看桌面”：目标值与当前值（弧度，向下为正） */
   private lookDownGoal = 0;
   private lookDownAmt = 0;
+  /** 第一人称相机的平滑状态 */
+  private meInit = false;
+  private meYaw = 0;
+  private mePitch = 0;
+  private readonly mePos = new THREE.Vector3();
   private time = 0;
 
   private blend: { t: number; fromPos: THREE.Vector3; fromQuat: THREE.Quaternion; fromFov: number } | null = null;
@@ -345,6 +350,20 @@ export class PovRig {
     this.camera.quaternion.copy(this.targetQuat);
   }
 
+  /** 入场用：把相机直接放在 pos 朝 look（不做混合），之后再 setPov("watch") 让运镜从这里起步 */
+  placeCamera(pos: THREE.Vector3, look: THREE.Vector3, fov: number): void {
+    this.camera.position.copy(pos);
+    lookQuat(pos, look, this.camera.quaternion);
+    this.camera.fov = fov;
+    this.camera.updateProjectionMatrix();
+    this.camera.updateMatrixWorld(true);
+  }
+
+  /** 丢弃进行中的视角混合（入场 / 眨眼切镜时，相机已经被直接放好） */
+  cancelBlend(): void {
+    this.blend = null;
+  }
+
   setStick(x: number, z: number): void {
     this.stick.x = x;
     this.stick.z = z;
@@ -379,6 +398,7 @@ export class PovRig {
     if (pov === "me") {
       this.lookYaw = 0;
       this.lookPitch = 0;
+      this.meInit = false;
     }
     this.pov = pov;
     this.root.visible = pov !== "me" && !this.avatarHidden;
@@ -439,7 +459,7 @@ export class PovRig {
       case "you": {
         const sin = Math.sin(this.camYaw);
         const cos = Math.cos(this.camYaw);
-        const pitchLift = Math.sin(this.camPitch) * 2.4;
+        const pitchLift = Math.sin(this.camPitch) * 1.4;
         // 偏到肩后：相机与注视点一起沿右手方向平移，他就出现在画面一侧（竖屏更靠边一点点）
         const aspect = this.camera.aspect || 1.6;
         const half = Math.tan(THREE.MathUtils.degToRad(this.baseFov) / 2) * aspect * this.followDist;
@@ -474,12 +494,31 @@ export class PovRig {
       }
       case "me": {
         const eye = this.eyeAnchor ?? this.pose.set(this.player.x, this.player.y + EYE_HEIGHT, this.player.z);
-        const breathe = Math.sin(this.time * 1.7) * 0.012;
-        this.targetPos.set(eye.x + Math.sin(this.time * 0.6) * 0.006, eye.y + breathe, eye.z);
-        const yaw = this.eyeYaw + this.lookYaw;
-        const pitch = this.eyePitch + this.lookPitch - this.lookDownAmt + Math.sin(this.time * 1.7 + 0.8) * 0.004;
-        _q.setFromEuler(new THREE.Euler(pitch, yaw + Math.PI, 0, "YXZ"));
-        this.targetQuat.copy(_q);
+        const t = this.time;
+        // 呼吸 + 极缓的头部自然晃动（两个不成比例的频率叠加，看不出周期）
+        const dx = Math.sin(t * 0.6) * 0.006;
+        const dy = Math.sin(t * 1.7) * 0.012 + Math.sin(t * 0.43 + 0.5) * 0.004;
+        const yawN = Math.sin(t * 0.23) * 0.0045 + Math.sin(t * 0.57 + 1.2) * 0.002;
+        const pitchN = Math.sin(t * 0.31 + 0.4) * 0.003 + Math.sin(t * 1.7 + 0.8) * 0.004;
+        const wantYaw = this.eyeYaw + this.lookYaw + yawN + Math.PI;
+        const wantPitch = this.eyePitch + this.lookPitch - this.lookDownAmt + pitchN;
+        if (!this.meInit) {
+          this.mePos.set(eye.x + dx, eye.y + dy, eye.z);
+          this.meYaw = wantYaw;
+          this.mePitch = wantPitch;
+          this.meInit = true;
+        } else {
+          // 眼睛位置 / 朝向变化（换人借眼、环顾、低头）都经过临界阻尼，不会瞬移
+          const k = 1 - Math.exp(-dt * 6.5);
+          this.mePos.x += (eye.x + dx - this.mePos.x) * k;
+          this.mePos.y += (eye.y + dy - this.mePos.y) * k;
+          this.mePos.z += (eye.z - this.mePos.z) * k;
+          this.meYaw += angleDiff(wantYaw, this.meYaw) * k;
+          this.mePitch += (wantPitch - this.mePitch) * k;
+        }
+        this.targetPos.copy(this.mePos);
+        _euler.set(this.mePitch, this.meYaw, 0, "YXZ");
+        this.targetQuat.setFromEuler(_euler);
         this.targetFov = this.baseFov + 2;
         break;
       }

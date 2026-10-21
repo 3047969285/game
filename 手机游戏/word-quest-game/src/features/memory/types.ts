@@ -3,6 +3,8 @@
  * 对应 docs/api-memory-m1.md 第 2 节。
  */
 
+import { isWeatherKind, type WeatherKind } from "../world/weather";
+
 export type Pov = "you" | "watch" | "me" | "paper"; // 第二人称 / 第三人称 / 第一人称 / 二维
 
 export interface Vec3 {
@@ -202,7 +204,14 @@ export type Beat =
       camera?: CameraShot;
       wait?: number;
     }
-  | { kind: "dive"; seconds?: number } // 下潜：光粒洪流吞没画面，淡白
+  | { kind: "dive"; seconds?: number } // 下潜：光粒洪流越来越急，闭上眼睛（渐黑，不再淡白）
+  | {
+      /** 切换天气（不阻塞）：seconds 为过渡时长，缺省 6 秒；look 可同时切换记忆色调（2 秒平滑） */
+      kind: "weather";
+      weather: WeatherKind;
+      seconds?: number;
+      look?: string;
+    }
   | {
       /** 进入 “幕” 的时间线：跑完 script.acts 里的全部幕（自由切换视角，默认第三人称），再继续后面的节拍 */
       kind: "acts";
@@ -226,6 +235,10 @@ export interface MemoryScript {
   titleZh: string;
   /** 舞台：由哪个 builder 搭场景 */
   stage: string; // "clubRoom"
+  /** 默认天气（缺省用舞台默认） */
+  weather?: WeatherKind;
+  /** 记忆色调 id 覆盖（缺省按 unitId 取） */
+  look?: string;
   /** 可建立的部件表（可选）。narrate.build 里的字符串先按 id 查这里，查不到就当作舞台部件名直接显形 */
   pieces?: BuildPiece[];
   actors: Actor[];
@@ -388,6 +401,10 @@ export function validateScript(script: MemoryScript, ctx: ValidateContext = {}):
       case "acts":
         if (!script.acts || script.acts.length === 0) err(`${where}: 脚本没有 acts`);
         break;
+      case "weather":
+        if (!isWeatherKind(beat.weather)) err(`${where}: 未知天气 ${String(beat.weather)}`);
+        if (beat.seconds !== undefined && !(beat.seconds >= 0)) err(`${where}: 非法过渡时长`);
+        break;
       case "pov":
       case "dive":
       case "freeze":
@@ -435,6 +452,7 @@ export function validateScript(script: MemoryScript, ctx: ValidateContext = {}):
     }
   }
 
+  if (script.weather !== undefined && !isWeatherKind(script.weather)) err(`未知的默认天气 ${String(script.weather)}`);
   if (script.beats.length === 0) err("脚本没有任何节拍");
   return errors;
 }

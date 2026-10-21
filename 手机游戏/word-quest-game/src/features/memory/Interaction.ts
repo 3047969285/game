@@ -36,6 +36,8 @@ interface Entry {
   radius: number;
   tag?: HTMLElement;
   edge?: HTMLElement;
+  /** 逐帧复用的屏幕投影，避免每帧分配 */
+  proj?: ScreenProjection;
 }
 
 /** 屏幕空间拾取半径（像素） */
@@ -250,13 +252,11 @@ export class Interaction {
     const fy = this.pointer ? this.pointer.y - rect.top : h / 2;
     let focusId: string | null = this.hoverId;
     let bestD = Infinity;
-    const onScreen = new Map<Entry, ScreenProjection>();
     for (const e of this.entries) {
       const obj = e.target.object;
       e.center.copy(e.center0).add(obj.position).sub(e.objPos0);
       this.o.materializer.setPulse(obj, e.target.id === this.hoverId ? 1.15 : this.baseGlow);
-      const p = projectToPixels(e.center, cam, w, h, { x: 0, y: 0, behind: false }, this.tmp);
-      onScreen.set(e, p);
+      const p = projectToPixels(e.center, cam, w, h, (e.proj ??= { x: 0, y: 0, behind: false }), this.tmp);
       const inFrame = !p.behind && p.x > 0 && p.x < w && p.y > 0 && p.y < h;
       if (inFrame && obj.visible && !this.hoverId) {
         const d = Math.hypot(p.x - fx, p.y - fy);
@@ -269,7 +269,7 @@ export class Interaction {
     if (this.alwaysLabels && !this.hoverId) focusId = null; // 断片：候选的词签全部完整显示
 
     for (const e of this.entries) {
-      const p = onScreen.get(e)!;
+      const p = e.proj!;
       const obj = e.target.object;
       const inFrame = !p.behind && p.x > 0 && p.x < w && p.y > 0 && p.y < h;
       // 词签

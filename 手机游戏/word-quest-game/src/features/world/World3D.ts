@@ -5,7 +5,7 @@ import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { Timer } from "three/src/core/Timer.js";
 import type { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import type { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
-import { buildSkyEnvironment, createPostPipeline, detectQuality, QUALITY_PRESETS, type QualityConfig, type QualityTier } from "./postPipeline";
+import { applyGrade, buildSkyEnvironment, createPostPipeline, detectQuality, QUALITY_PRESETS, type QualityConfig, type QualityTier } from "./postPipeline";
 import type { MapNode, WordPickup } from "../../core/types";
 import { loadAvatarGlb, loadModelsManifest, enhanceAvatarMaterials, createContactShadow } from "./ModelLoader";
 
@@ -42,6 +42,12 @@ import { createSignpost } from "./signpost";
 import type { MinimapBiomePalette, MinimapState } from "./Minimap";
 import { getTheme } from "./theme";
 import { DEFAULT_BIOME, getBiome, getGroundPalette, type UnitBiome } from "./unitBiome";
+import { AdaptiveScaler } from "./adaptiveScaler";
+import { attachPerfOverlay, perfOverlayEnabled, type PerfOverlay } from "./perfOverlay";
+import { windStrength } from "./foliageMaterials";
+import { foliageWindStrength, UNIT_DEFAULT_WEATHER, WeatherState, weatherTint, type WeatherKind } from "./weather";
+import { WeatherFx, WetnessTracker } from "./weatherFx";
+import { hexToRgb, LookBlender, lookFor, type Rgb } from "../memory/memoryLooks";
 import { layerWeights, layerWeightsGLSL, LAYER_ROUGHNESS, paletteFromGround, terrainNoises, terrainNoisesGLSL, type LayerPalette } from "./terrainLayers";
 import { buildTerrainTextureSet, type TerrainTextureSet } from "./terrainTextures";
 import {
@@ -84,7 +90,16 @@ float cloudK(vec2 p, float t) {
   float cover = smoothstep(0.38, 0.62, base);
   return 1.04 - 0.24 * cover;
 }
-`;const WARM_SUN = new THREE.Color(0xffb36b);
+`;/** 日照偏低时的光色：冷白（不再往橙黄走） */
+const WARM_SUN = new THREE.Color(0xe4eeff);
+/** 生物群系颜色向记忆色调靠拢的比例 */
+const LOOK_MIX = 0.6;
+const mixRgb = (a: Rgb, b: Rgb, t: number, out: Rgb): Rgb => {
+  out.r = a.r + (b.r - a.r) * t;
+  out.g = a.g + (b.g - a.g) * t;
+  out.b = a.b + (b.b - a.b) * t;
+  return out;
+};
 
 /** 朝向计算常量 */
 const WORLD_UP = new THREE.Vector3(0, 1, 0);
@@ -218,10 +233,23 @@ export class World3D {
   private pausedBeforeVisibility = true;
   private spectatorMode = false;
   private clock = new Timer();
-  /** 帧率自适应 */
-  private _fpsTs = 0;
-  private _fpsFrames = 0;
-  private _fpsAdapted = false;
+  /** 自适应分辨率（目标 60 fps，带迟滞）与 ?perf=1 浮层 */
+  private scaler!: AdaptiveScaler;
+  private perf?: PerfOverlay;
+  private lastFrameTs = 0;
+  /** 记忆色调与天气 */
+  private readonly look = new LookBlender(lookFor(undefined));
+  private readonly weather = new WeatherState("clear");
+  private weatherFx?: WeatherFx;
+  private readonly wet = new WetnessTracker();
+  private gradePass?: import("three/addons/postprocessing/ShaderPass.js").ShaderPass;
+  private weatherTime = 0;
+  private readonly bRgb: Record<"skyTop" | "skyMid" | "skyBot" | "fog" | "sun" | "hemiSky" | "hemiGround" | "ambient", Rgb> = {
+    skyTop: { r: 0, g: 0, b: 0 }, skyMid: { r: 0, g: 0, b: 0 }, skyBot: { r: 0, g: 0, b: 0 }, fog: { r: 0, g: 0, b: 0 },
+    sun: { r: 0, g: 0, b: 0 }, hemiSky: { r: 0, g: 0, b: 0 }, hemiGround: { r: 0, g: 0, b: 0 }, ambient: { r: 0, g: 0, b: 0 },
+  };
+  private readonly rgbT: Rgb = { r: 0, g: 0, b: 0 };
+  private readonly rgbU: Rgb = { r: 0, g: 0, b: 0 };
   private nodes: MapNode[] = [];
   private currentId = "";
   private onNodeClick: (nodeId: string) => void;
@@ -315,6 +343,12 @@ export class World3D {
     this.buildMotes();
     this.spawnExplorer();
     this.setupPostFX();
+    this.cacheBiomeRgb(this.currentBiome);
+    const pr0 = Math.min(window.devicePixelRatio, this.qcfg.pixelRatio);
+    this.scaler = new AdaptiveScaler({ max: pr0, min: Math.min(0.75, pr0), initial: pr0 });
+    if (perfOverlayEnabled()) this.perf = attachPerfOverlay(this.renderer, container, this.scaler);
+    this.weatherFx = new WeatherFx({ quality: this.quality, mode: "outdoor", radius: 14, flatGround: false });
+    this.scene.add(this.weatherFx.object);
     this.bindEvents();
     if (import.meta.env.DEV) (window as unknown as { __world?: World3D }).__world = this;
   }
@@ -324,6 +358,7 @@ export class World3D {
     const post = createPostPipeline(this.renderer, this.scene, this.camera, this.quality);
     this.composer = post?.composer;
     this.bloomPass = post?.bloomPass;
+    this.gradePass = post?.gradePass;
   }
 
   setNodes(nodes: MapNode[], currentId: string, showNodeLandmarks = true): void {
@@ -350,8 +385,7 @@ export class World3D {
     if (!this.paused) return;
     this.paused = false;
     // 暂停时长不是渲染卡顿；恢复后重新计时，避免首帧把整段学习时间误判为低 FPS。
-    this._fpsTs = 0;
-    this._fpsFrames = 0;
+    this.lastFrameTs = 0;
     this.player.setEnabled(!this.spectatorMode);
     this.onResize();
     if (!this.animId) this.animate();
@@ -417,6 +451,31 @@ export class World3D {
     this.applyOutfitFromBiome(biome);
     if (this.mountains) this.mountains.visible = biome.decorStyle === "forest" || biome.decorStyle === "plains";
     this.scene.fog = new THREE.FogExp2(biome.fogColor, biome.fogDensity);
+    this.cacheBiomeRgb(biome);
+    // 记忆色调与天气随单元变化（色调 2 秒、天气 6 秒平滑过渡）
+    this.look.setTarget(lookFor(unitId), 2);
+    this.weather.set(unitId ? UNIT_DEFAULT_WEATHER[unitId] ?? "clear" : "clear", 6);
+  }
+
+  private cacheBiomeRgb(b: UnitBiome): void {
+    const c = this.bRgb;
+    hexToRgb(b.skyTop, c.skyTop);
+    hexToRgb(b.skyMid, c.skyMid);
+    hexToRgb(b.skyBot, c.skyBot);
+    hexToRgb(b.fogColor, c.fog);
+    hexToRgb(b.sunColor, c.sun);
+    hexToRgb(b.hemiSky, c.hemiSky);
+    hexToRgb(b.hemiGround, c.hemiGround);
+    hexToRgb(b.ambientColor, c.ambient);
+  }
+
+  /** 切换天气（默认 6 秒平滑过渡）；seconds <= 0 立即切换 */
+  setWeather(kind: WeatherKind, seconds = 6): void {
+    this.weather.set(kind, seconds);
+  }
+
+  getWeather(): WeatherKind {
+    return this.weather.kind;
   }
 
   /** 切换单元内部子世界的空间焦点，不改变单元入口和词汇探索数据。 */
@@ -826,6 +885,8 @@ export class World3D {
     }
     this.disposeWaterBodies();
     this.mixer?.stopAllAction();
+    this.weatherFx?.dispose();
+    this.perf?.dispose();
     this.composer?.dispose();
     for (const g of this.nodeGroups.values()) disposeGroup(g);
     this.pickupMeshes.clear();
@@ -943,6 +1004,8 @@ export class World3D {
         sunDir: { value: new THREE.Vector3(0.5, 0.72, 0.36).normalize() },
         sunColor: { value: new THREE.Color(0xfff0c8) },
         uTime: { value: 0 },
+        uCloud: { value: 0.12 },
+        uCloudDark: { value: 1 },
       },
       vertexShader: `
         varying vec3 vWorldPosition;
@@ -954,7 +1017,7 @@ export class World3D {
       `,
       fragmentShader: `
         uniform vec3 topColor, midColor, bottomColor, horizonColor, sunColor, sunDir;
-        uniform float uTime;
+        uniform float uTime, uCloud, uCloudDark;
         varying vec3 vWorldPosition;
         float sHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
         float sNoise(vec2 p) {
@@ -972,7 +1035,7 @@ export class World3D {
           vec2 q = p + vec2(t * 0.010, t * 0.004);
           float base = sFbm(q * 0.9);
           float detail = sFbm(q * 3.2 + 7.0);
-          return smoothstep(0.55, 0.8, base * 0.82 + detail * 0.26);
+          return smoothstep(0.55 - uCloud * 0.32, 0.8 - uCloud * 0.36, base * 0.82 + detail * 0.26);
         }
         void main() {
           vec3 dir = normalize(vWorldPosition - cameraPosition);
@@ -990,7 +1053,7 @@ export class World3D {
 
           // 太阳：核心 + 光晕 + 米氏前向散射（靠近地平线更暖）
           float warm = 1.0 - clamp(sd3.y * 1.6, 0.0, 1.0);
-          vec3 sunTint = mix(sunColor, vec3(1.0, 0.62, 0.34), warm * 0.7);
+          vec3 sunTint = mix(sunColor, vec3(0.86, 0.74, 0.82), warm * 0.45);
           col += sunTint * pow(sd, 6.0) * 0.18;
           col += sunTint * pow(sd, 64.0) * 0.55;
           col += sunTint * smoothstep(0.9993, 0.9998, sd) * 2.4;
@@ -1003,8 +1066,8 @@ export class World3D {
             // 向太阳方向偏移采样一次：密度差决定受光面 / 背光面
             float dS = cumulus(cp + sd3.xz * 0.075, uTime);
             float lit = clamp(0.62 + (d - dS) * 3.2, 0.0, 1.0);
-            vec3 shade = mix(vec3(0.54, 0.6, 0.7), vec3(1.02, 0.99, 0.96), lit);
-            shade = mix(shade, shade * vec3(1.0, 0.86, 0.72), warm * 0.5);
+            vec3 shade = mix(vec3(0.54, 0.6, 0.72), vec3(0.97, 1.0, 1.04), lit) * uCloudDark;
+            shade = mix(shade, shade * vec3(1.0, 0.9, 0.9), warm * 0.3);
             shade += sunTint * pow(sd, 5.0) * 0.28 * (1.0 - d * 0.5);
             // 云底更暗，云顶边缘透光
             shade *= 0.88 + 0.12 * smoothstep(0.0, 0.5, d);
@@ -1013,7 +1076,7 @@ export class World3D {
 
             vec2 ci = dir.xz / (h + 0.1) * vec2(0.5, 1.9) + vec2(uTime * 0.006, 0.0);
             float cir = smoothstep(0.52, 0.88, sFbm(ci * 1.4)) * smoothstep(0.18, 0.6, h);
-            col = mix(col, vec3(1.0), cir * 0.2);
+            col = mix(col, vec3(0.94, 0.97, 1.0) * uCloudDark, cir * 0.2);
           }
           gl_FragColor = vec4(col, 1.0);
         }
@@ -2392,28 +2455,10 @@ export class World3D {
     const dt = Math.min(this.clock.getDelta(), 0.05);
     const t = this.clock.getElapsed();
 
-    // 帧率自适应：连续 3 s 平均低于 40 fps 时逐级降低像素比，直到达到下限
-    if (!this._fpsAdapted) {
-      this._fpsFrames++;
-      const now = performance.now();
-      if (this._fpsTs === 0) this._fpsTs = now;
-      if (now - this._fpsTs >= 3000) {
-        const fps = this._fpsFrames / ((now - this._fpsTs) / 1000);
-        if (fps < 40) {
-          const cur = this.renderer.getPixelRatio();
-          const next = Math.max(0.75, cur - 0.5);
-          if (next < cur) {
-            this.renderer.setPixelRatio(next);
-            this.composer?.setPixelRatio(next);
-            this._fpsAdapted = next <= 0.75;
-          } else {
-            this._fpsAdapted = true;
-          }
-        }
-        this._fpsTs = now;
-        this._fpsFrames = 0;
-      }
-    }
+    // 真实帧间隔（毫秒）：交给自适应分辨率与 ?perf=1 浮层；暂停恢复后的第一帧不计
+    const nowTs = timestamp ?? performance.now();
+    const rawMs = this.lastFrameTs > 0 ? nowTs - this.lastFrameTs : 0;
+    this.lastFrameTs = nowTs;
 
     if (this.mixer) this.mixer.update(dt);
 
@@ -2563,7 +2608,87 @@ export class World3D {
     }
     if (this.composer) this.composer.render();
     else this.renderer.render(this.scene, this.camera);
+    if (rawMs > 0) {
+      this.perf?.update(rawMs);
+      const next = this.scaler.push(rawMs, dt);
+      if (next !== null) {
+        this.renderer.setPixelRatio(next);
+        this.composer?.setPixelRatio(next);
+      }
+    }
   };
+
+  /**
+   * 每帧大气：生物群系颜色 → 向记忆色调靠拢（LOOK_MIX）→ 按天气压暗 / 灰化 / 染色；
+   * 再叠加光照强度、雾浓度、曝光、泛光、调色，以及降水粒子、潮湿与风力。
+   */
+  private updateAtmosphere(dt: number): void {
+    this.weather.update(dt);
+    this.look.update(dt);
+    this.weatherTime += dt;
+    const look = this.look.current;
+    const wp = this.weather.params;
+    const b = this.bRgb;
+    const biome = this.currentBiome;
+    const T = this.rgbT;
+    if (this.skyDome) {
+      const u = (this.skyDome.material as THREE.ShaderMaterial).uniforms;
+      let c = weatherTint(mixRgb(b.skyTop, look.skyTop, LOOK_MIX, T), wp, this.rgbU);
+      u.topColor.value.setRGB(c.r, c.g, c.b, THREE.SRGBColorSpace);
+      c = weatherTint(mixRgb(b.skyMid, look.skyMid, LOOK_MIX, T), wp, this.rgbU);
+      u.midColor.value.setRGB(c.r, c.g, c.b, THREE.SRGBColorSpace);
+      c = weatherTint(mixRgb(b.skyBot, look.skyBot, LOOK_MIX, T), wp, this.rgbU);
+      u.bottomColor.value.setRGB(c.r, c.g, c.b, THREE.SRGBColorSpace);
+      c = weatherTint(mixRgb(b.fog, look.fog, LOOK_MIX, T), wp, this.rgbU);
+      u.horizonColor.value.setRGB(c.r, c.g, c.b, THREE.SRGBColorSpace);
+      u.uCloud.value = wp.cloud;
+      u.uCloudDark.value = 1 - 0.4 * wp.cloud * (0.4 + 0.6 * wp.skyDark);
+    }
+    const fogC = weatherTint(mixRgb(b.fog, look.fog, LOOK_MIX, T), wp, this.rgbU);
+    const fog = this.scene.fog as THREE.FogExp2;
+    fog.color.setRGB(fogC.r, fogC.g, fogC.b, THREE.SRGBColorSpace);
+    fog.density = biome.fogDensity * look.fogMul * wp.fogMul * (1 + wp.mist * 1.6);
+    if (this.sun) {
+      const sc = mixRgb(b.sun, look.sun, LOOK_MIX, T);
+      this.sun.color.setRGB(Math.min(1, sc.r * wp.sunTintR), Math.min(1, sc.g * wp.sunTintG), Math.min(1, sc.b * wp.sunTintB), THREE.SRGBColorSpace);
+      this.sun.intensity *= look.sunMul * wp.sunMul;
+      foliageSun.color.value.copy(this.sun.color).multiplyScalar(this.sun.intensity / 1.45);
+      waterUniforms.sunColor.value.copy(this.sun.color).multiplyScalar(Math.min(this.sun.intensity, 3));
+      if (this.sunDisc) {
+        const m = this.sunDisc.material as THREE.SpriteMaterial;
+        m.color.copy(this.sun.color);
+        m.opacity *= Math.max(0, 1 - wp.cloud * 0.92);
+      }
+    }
+    if (this.hemi) {
+      const h = weatherTint(mixRgb(b.hemiSky, look.hemiSky, LOOK_MIX, T), wp, this.rgbU, 0.6);
+      this.hemi.color.setRGB(h.r, h.g, h.b, THREE.SRGBColorSpace);
+      const g = mixRgb(b.hemiGround, look.hemiGround, 0.5, T);
+      this.hemi.groundColor.setRGB(g.r, g.g, g.b, THREE.SRGBColorSpace);
+      this.hemi.intensity *= wp.hemiMul;
+    }
+    if (this.ambientLight) {
+      const a = weatherTint(mixRgb(b.ambient, look.ambient, LOOK_MIX, T), wp, this.rgbU, 0.6);
+      this.ambientLight.color.setRGB(a.r, a.g, a.b, THREE.SRGBColorSpace);
+    }
+    this.scene.environmentIntensity = Math.max(0.15, wp.envMul);
+    this.renderer.toneMappingExposure *= look.exposure * wp.exposureMul;
+    if (this.bloomPass) {
+      const base = THREE.MathUtils.clamp(0.5 + (1.5 - biome.sunIntensity) * 0.28, 0.45, 1.05);
+      this.bloomPass.strength = base * look.bloom * (1 + 0.25 * wp.skyTintAmt);
+    }
+    if (this.gradePass) applyGrade(this.gradePass, look, this.weatherTime, this.renderer.domElement.width, this.renderer.domElement.height);
+    // 风：植被摇摆倍率；降水粒子；潮湿
+    const wind = this.weather.windNow(this.weatherTime);
+    windStrength.value = foliageWindStrength(wind);
+    if (this.weatherFx) {
+      this.weatherFx.setGround(this.player.position.y);
+      const tone = THREE.MathUtils.clamp(wp.sunMul * 0.6 + wp.skyDark * 0.5, 0, 1);
+      this.weatherFx.update(dt, this.weather, this.camera, tone, this.renderer.domElement.height, this.camera.fov, wind);
+    }
+    if (this.terrain) this.wet.add(this.terrain);
+    this.wet.apply(this.weather.wet);
+  }
 
   private tickScene(t: number, dt: number): void {
     this.vegetation?.update(this.camera);
@@ -2606,7 +2731,8 @@ export class World3D {
         (this.sunDisc.material as THREE.SpriteMaterial).opacity = THREE.MathUtils.clamp(daylight * 1.2 * sunDiscOpacity, 0, 1);
       }
     }
-    windTime.value = t; // 树 / 灌木的风摆共用时间
+    this.updateAtmosphere(dt);
+    windTime.value += dt * (0.8 + Math.min(1.2, this.weather.windNow(t)) * 0.9); // 树 / 灌木的风摆共用时间（风越大摆得越快）
     // 草地风吹 + 角色踩踏
     if (this.grassUniforms) {
       this.grassUniforms.uTime.value = t;
@@ -2622,7 +2748,7 @@ export class World3D {
       const u = (this.skyDome.material as THREE.ShaderMaterial).uniforms;
       u.uTime.value = t;
       u.sunDir.value.copy(this.sunDirV);
-      u.sunColor.value.setHex(this.currentBiome.sunColor);
+      if (this.sun) u.sunColor.value.copy(this.sun.color);
     }
     this.updateMotes(t, dt);
 

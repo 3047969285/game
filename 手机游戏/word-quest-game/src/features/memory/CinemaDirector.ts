@@ -31,8 +31,34 @@ interface ShotAnim {
   done?: () => void;
 }
 
+/** 机位输出的临界阻尼时间常数（秒）：目标再怎么突变，相机也只会平滑赶上，不会瞬移 */
+const SMOOTH_TIME = 0.28;
+/** 超过这个距离（米）/ 角度（弧度）的起点要求“切镜”，只允许在眨眼全黑的一瞬间发生；近的则直接滑过去 */
+const CUT_DIST = 0.35;
+const CUT_ANGLE = 0.14;
+
+/** Unity 风格 SmoothDamp（临界阻尼弹簧），数组版：原地更新 cur[i] / vel[i]，无分配 */
+function smoothDamp(cur: Float64Array, vel: Float64Array, target: Float64Array, smoothTime: number, dt: number): void {
+  const omega = 2 / Math.max(1e-4, smoothTime);
+  const x = omega * dt;
+  const ex = 1 / (1 + x + 0.48 * x * x + 0.235 * x * x * x);
+  for (let i = 0; i < cur.length; i++) {
+    const change = cur[i] - target[i];
+    const temp = (vel[i] + omega * change) * dt;
+    vel[i] = (vel[i] - omega * temp) * ex;
+    cur[i] = target[i] + (change + temp) * ex;
+  }
+}
+
 export class CinemaDirector {
+  /** 动画目标姿态（运镜 anim 写这里） */
   private readonly pose: CameraPose = { pos: new THREE.Vector3(0, 1.8, 5), look: new THREE.Vector3(0, 1.2, 0), fov: 46 };
+  /** 平滑后的实际输出姿态：[px,py,pz, lx,ly,lz, fov] */
+  private readonly viewState = new Float64Array([0, 1.8, 5, 0, 1.2, 0, 46]);
+  private readonly viewVel = new Float64Array(7);
+  private readonly targetState = new Float64Array(7);
+  /** 远距离切镜时调用：传入“真正切换”的回调，宿主应在眨眼全黑瞬间执行它。未设置时直接切换。 */
+  blinkCut: ((apply: () => void) => void) | null = null;
   private anim: ShotAnim | null = null;
   private sway = 0;
   private time = 0;
@@ -52,6 +78,7 @@ export class CinemaDirector {
     public baseFov: number
   ) {
     this.pose.fov = baseFov;
+    this.snapView();
   }
 
   // ───────── 黑边 / 字幕 ─────────
@@ -68,16 +95,29 @@ export class CinemaDirector {
 
   /** 当前电影机位姿态（PovRig 在 watch 模式读取） */
   getPose(out: CameraPose): CameraPose {
-    out.pos.copy(this.pose.pos);
-    out.look.copy(this.pose.look);
-    out.fov = this.pose.fov;
-    if (!this.anim) {
-      // 静止机位上叠一点手持呼吸，避免“死”画面
-      const s = this.sway;
-      out.pos.x += Math.sin(s * 0.7) * 0.012;
-      out.pos.y += Math.sin(s * 0.53 + 1.3) * 0.01;
-    }
+    const v = this.viewState;
+    out.pos.set(v[0], v[1], v[2]);
+    out.look.set(v[3], v[4], v[5]);
+    out.fov = v[6];
+    // 手持呼吸始终叠加（幅度随是否在运镜平滑过渡，不会在运镜结束时突然出现 / 消失）
+    const s = this.sway;
+    const k = this.anim ? 0.5 : 1;
+    out.pos.x += Math.sin(s * 0.7) * 0.012 * k;
+    out.pos.y += Math.sin(s * 0.53 + 1.3) * 0.01 * k;
     return out;
+  }
+
+  /** 立即把输出姿态与目标都放到 pose（速度清零） */
+  private snapView(): void {
+    const v = this.viewState;
+    v[0] = this.pose.pos.x;
+    v[1] = this.pose.pos.y;
+    v[2] = this.pose.pos.z;
+    v[3] = this.pose.look.x;
+    v[4] = this.pose.look.y;
+    v[5] = this.pose.look.z;
+    v[6] = this.pose.fov;
+    this.viewVel.fill(0);
   }
 
   /** 把当前姿态硬设为 pose（切入 watch 之前，让运镜从相机现在的位置起步） */
@@ -86,6 +126,7 @@ export class CinemaDirector {
     this.pose.look.copy(look);
     this.pose.fov = fov;
     this.anim = null;
+    this.snapView();
   }
 
   /**
@@ -94,24 +135,61 @@ export class CinemaDirector {
    */
   shot(s: CameraShot): Promise<void> {
     this.finishAnim();
+    if (this.blinkCut && this.needsCut(s)) {
+      const hook = this.blinkCut;
+      return new Promise<void>((resolve) => {
+        hook(() => {
+          void this.startShot(s, true).then(resolve);
+        });
+      });
+    }
+    return this.startShot(s, false);
+  }
+
+  /** 新机位的起点离当前输出姿态有多远：位置超过 CUT_DIST 或朝向超过 CUT_ANGLE 就算“切镜” */
+  private needsCut(s: CameraShot): boolean {
+    const f = s.from ?? (s.move === "still" ? s.to : null);
+    if (!f) return false;
+    const v = this.viewState;
+    if (Math.hypot(f.x - v[0], f.y - v[1], f.z - v[2]) > CUT_DIST) return true;
+    const ax = v[3] - v[0];
+    const ay = v[4] - v[1];
+    const az = v[5] - v[2];
+    const bx = s.look.x - f.x;
+    const by = s.look.y - f.y;
+    const bz = s.look.z - f.z;
+    const la = Math.hypot(ax, ay, az) || 1;
+    const lb = Math.hypot(bx, by, bz) || 1;
+    const cos = (ax * bx + ay * by + az * bz) / (la * lb);
+    return Math.acos(Math.max(-1, Math.min(1, cos))) > CUT_ANGLE;
+  }
+
+  /**
+   * cut=true：起点直接落在 from（只会发生在眨眼全黑的瞬间，或没有眨眼钩子的无头环境）。
+   * cut=false：从当前输出姿态出发，镜头不跳。
+   */
+  private startShot(s: CameraShot, cut: boolean): Promise<void> {
     const move = s.move ?? "dolly";
-    const from: CameraPose = s.from
-      ? { pos: v3(s.from), look: this.pose.look.clone(), fov: this.pose.fov }
-      : { pos: this.pose.pos.clone(), look: this.pose.look.clone(), fov: this.pose.fov };
     const fovTo = s.fov ?? this.baseFov;
     const to: CameraPose = { pos: v3(s.to), look: v3(s.look), fov: move === "push" ? fovTo * 0.9 : fovTo };
-    if (s.from) {
-      // 切镜：起点直接落在 from，look 也跳到目标附近，避免从旧朝向“扫”过来
-      from.look.copy(to.look);
-      from.fov = fovTo;
-    }
+    const hardCut = cut || (!this.blinkCut && (!!s.from || move === "still"));
+    const cur = this.viewState;
+    const from: CameraPose =
+      hardCut && s.from
+        ? { pos: v3(s.from), look: to.look.clone(), fov: fovTo }
+        : { pos: new THREE.Vector3(cur[0], cur[1], cur[2]), look: new THREE.Vector3(cur[3], cur[4], cur[5]), fov: cur[6] };
     const duration = Math.max(0.01, s.duration ?? 6);
     if (move === "still") {
       this.pose.pos.copy(to.pos);
       this.pose.look.copy(to.look);
       this.pose.fov = to.fov;
+      if (hardCut) this.snapView();
       return Promise.resolve();
     }
+    this.pose.pos.copy(from.pos);
+    this.pose.look.copy(from.look);
+    this.pose.fov = from.fov;
+    if (hardCut) this.snapView();
     let orbit: ShotAnim["orbit"];
     if (move === "orbit") {
       const c = to.look;
@@ -220,6 +298,16 @@ export class CinemaDirector {
         f.resolve();
       }
     }
+    // 临界阻尼跟随：输出姿态永远是连续的
+    const t = this.targetState;
+    t[0] = this.pose.pos.x;
+    t[1] = this.pose.pos.y;
+    t[2] = this.pose.pos.z;
+    t[3] = this.pose.look.x;
+    t[4] = this.pose.look.y;
+    t[5] = this.pose.look.z;
+    t[6] = this.pose.fov;
+    smoothDamp(this.viewState, this.viewVel, t, SMOOTH_TIME, Math.min(dt, 0.1));
     applyFilm(this.filmPass, this.film, this.time);
   }
 

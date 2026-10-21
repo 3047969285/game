@@ -272,6 +272,8 @@ const prelude: Beat[] = [
 
 /** 后半段：定格 · 上浮 */
 const finale: Beat[] = [
+  // 天色慢慢转入黄昏（冷调的珊瑚紫，14 秒过渡），笑声里一天快要结束
+  { kind: "weather", weather: "dusk", seconds: 14 },
   // 第一次一起笑：先是 Mei 和 Lin 憋不住（sitLaugh：后仰、肩膀抖动），接着其他人也跟着笑起来
   { kind: "actor", actorId: "mei", action: "pose", pose: "laugh" },
   { kind: "actor", actorId: "lin", action: "pose", pose: "laugh" },
@@ -355,6 +357,7 @@ export const U01A_BASE: MemoryScript = {
   title: "Thursday's Silence",
   titleZh: "周四的沉默",
   stage: "clubRoom",
+  weather: "clear",
   pieces,
   actors,
   objects,

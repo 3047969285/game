@@ -6,7 +6,7 @@ import { EMPTY_ROOM } from "./emptyRoom";
 import type { StageDef } from "./types";
 import { VOID_STAGE } from "./void";
 
-export type { StageDef, StageEnvironment, StageBounds } from "./types";
+export type { StageDef, StageEnvironment, StageBounds, StageWeather } from "./types";
 export { pieceGroup, addDisposer } from "./types";
 export { CLUB_SEATS, CLUB_TABLE, CHAIR_SEAT_HEIGHT, clubSeatSpec } from "./clubRoom";
 export { APARTMENT, OLD_MAN_SEAT } from "./apartment2090";

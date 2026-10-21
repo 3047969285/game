@@ -36,7 +36,7 @@ export function drawMemoryEntry(ctx: CanvasRenderingContext2D, width: number, he
       const tail = (6+cover*20)*(0.45+mote.radius);
       const outward = Math.atan2(y-cy, x-cx);
       ctx.globalAlpha = life*(.13+.30*(.5+.5*Math.sin(time*.7+mote.phase)));
-      ctx.strokeStyle = mote.warmth > .65 ? "#e9cda0" : "#9ecbd4";
+      ctx.strokeStyle = mote.warmth > .65 ? "#b9d8f0" : "#9ecbd4";
       ctx.lineWidth = mote.size*.55;
       if (index%3 === 0) {
         ctx.beginPath(); ctx.moveTo(x, y);
@@ -45,19 +45,19 @@ export function drawMemoryEntry(ctx: CanvasRenderingContext2D, width: number, he
       }
       if (index%16 === 0) {
         const glow = ctx.createRadialGradient(x,y,0,x,y,8+mote.size*3);
-        glow.addColorStop(0, mote.warmth > .65 ? "rgba(243,216,174,.5)" : "rgba(173,215,225,.45)");
+        glow.addColorStop(0, mote.warmth > .65 ? "rgba(190,222,245,.5)" : "rgba(173,215,225,.45)");
         glow.addColorStop(1,"rgba(173,215,225,0)");
         ctx.fillStyle=glow; ctx.fillRect(x-14,y-14,28,28);
       }
       ctx.globalAlpha *= 1.8;
-      ctx.fillStyle = mote.warmth > .65 ? "#f4ddbb" : "#c4e1e5";
+      ctx.fillStyle = mote.warmth > .65 ? "#d6ecfa" : "#c4e1e5";
       ctx.beginPath(); ctx.arc(x, y, mote.size, 0, Math.PI*2); ctx.fill();
     }
     const radius = size*.17*(1+Math.sin(time*1.3)*.025+reveal*1.8);
     ctx.save(); ctx.translate(cx, cy); ctx.rotate(-.25+time*.055);
     for (let i=0; i<3; i++) {
       ctx.globalAlpha = life*(.42-i*.075);
-      ctx.strokeStyle = i === 1 ? "#ddc094" : "#b7dee2";
+      ctx.strokeStyle = i === 1 ? "#a9d3ea" : "#b7dee2";
       ctx.lineWidth = i === 1 ? 1.4 : .8;
       ctx.beginPath(); ctx.ellipse(0, 0, radius*(1+i*.09), radius*(.74+i*.10), i*.42, .15+time*.13, Math.PI*1.63+time*.13); ctx.stroke();
       ctx.globalAlpha *= .18; ctx.lineWidth = 6; ctx.stroke();
@@ -65,7 +65,7 @@ export function drawMemoryEntry(ctx: CanvasRenderingContext2D, width: number, he
     ctx.restore();
     ctx.globalAlpha = life;
     const heart = ctx.createRadialGradient(cx, cy, 0, cx, cy, size*.22);
-    heart.addColorStop(0, "rgba(222,218,183,.28)");
+    heart.addColorStop(0, "rgba(176,214,232,.24)");
     heart.addColorStop(.4, "rgba(119,187,195,.15)");
     heart.addColorStop(1, "rgba(119,187,195,0)");
     ctx.fillStyle = heart; ctx.fillRect(0, 0, width, height);
@@ -74,7 +74,7 @@ export function drawMemoryEntry(ctx: CanvasRenderingContext2D, width: number, he
     ["REMEMBER", "ONCE", "2026", "YESTERDAY"].forEach((word, i) => {
       const angle = i*Math.PI*.5+.4+time*.026;
       ctx.globalAlpha = life*.24;
-      ctx.fillStyle = i%2 ? "#e1c99f" : "#aacbd6";
+      ctx.fillStyle = i%2 ? "#b4cde0" : "#aacbd6";
       ctx.fillText(word, cx+Math.cos(angle)*size*.32, cy+Math.sin(angle)*size*.25);
     });
   }

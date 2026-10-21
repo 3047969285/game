@@ -46,7 +46,7 @@ export class MemoryAir {
           float r = length(gl_PointCoord-.5)*2.;
           float a = (1.-smoothstep(.12,1.,r))*vAlpha*uOpacity;
           if(a<.003) discard;
-          gl_FragColor = vec4(vec3(.93,.84,.66),a);
+          gl_FragColor = vec4(vec3(.84,.92,1.),a);
           #include <tonemapping_fragment>
           #include <colorspace_fragment>
         }`,

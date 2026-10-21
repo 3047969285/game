@@ -5,6 +5,7 @@ import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js"
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
+import { normalizedTint, type ResolvedLook } from "../memory/memoryLooks";
 
 /**
  * 主世界与回忆舞台共用的渲染基础设施：画质分档、后期管线（AO → 泛光 → 输出 → 调色）、
@@ -29,8 +30,8 @@ export interface QualityConfig {
 }
 
 export const QUALITY_PRESETS: Record<QualityTier, QualityConfig> = {
-  high: { pixelRatio: 2, grassRadius: 40, grassCell: 1.1, shadowMap: 2048, bloom: true, bloomScale: 1 },
-  med: { pixelRatio: 1.5, grassRadius: 34, grassCell: 1.5, shadowMap: 1536, bloom: true, bloomScale: 0.66 },
+  high: { pixelRatio: 2, grassRadius: 40, grassCell: 1.1, shadowMap: 2048, bloom: true, bloomScale: 0.6 },
+  med: { pixelRatio: 1.5, grassRadius: 34, grassCell: 1.5, shadowMap: 1536, bloom: true, bloomScale: 0.45 },
   low: { pixelRatio: 1, grassRadius: 26, grassCell: 1.9, shadowMap: 1024, bloom: false, bloomScale: 0.5 },
 };
 
@@ -105,26 +106,60 @@ export function createPostPipeline(
     if (qcfg.bloom) {
       const bs = qcfg.bloomScale;
       bloom = new UnrealBloomPass(new THREE.Vector2(w * bs, h * bs), 0.62, 0.5, 0.78);
+      // EffectComposer.setSize 会把泛光重置成全分辨率；这里包一层，让泛光始终按 bloomScale 降采样（省一大块填充率）
+      const rawSetSize = bloom.setSize.bind(bloom);
+      bloom.setSize = (bw: number, bh: number): void => rawSetSize(Math.max(1, Math.floor(bw * bs)), Math.max(1, Math.floor(bh * bs)));
       composer.addPass(bloom);
     }
     composer.addPass(new OutputPass());
-    // 调色：在输出空间做 S 曲线对比、分离色调（暗部偏冷 / 亮部偏暖）、饱和度与暗角，统一画面质感
+    // 调色（记忆回溯 · 科技风）：输出空间做 S 曲线对比、抬黑、冷暗部 / 中性亮部色偏、饱和度；
+    // 暗角区域额外叠加色差与极淡的扫描线 / 全息微闪（仅画面边缘，中心保持干净）。参数由 applyGrade(look) 驱动。
     const gradePass = new ShaderPass({
-      uniforms: { tDiffuse: { value: null } },
+      uniforms: {
+        tDiffuse: { value: null },
+        uContrast: { value: 1.06 },
+        uSat: { value: 1.04 },
+        uLift: { value: 0.012 },
+        uShadow: { value: new THREE.Vector3(0.7, 1.15, 1.3) },
+        uHighlight: { value: new THREE.Vector3(0.96, 1.0, 1.05) },
+        uTintAmt: { value: 0.14 },
+        uAberration: { value: 0.0016 },
+        uScan: { value: 0.035 },
+        uVig: { value: 0.2 },
+        uRes: { value: new THREE.Vector2(1280, 720) },
+        uTime: { value: 0 },
+      },
       vertexShader: `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
       fragmentShader: `
           uniform sampler2D tDiffuse;
+          uniform float uContrast, uSat, uLift, uTintAmt, uAberration, uScan, uVig, uTime;
+          uniform vec3 uShadow, uHighlight;
+          uniform vec2 uRes;
           varying vec2 vUv;
           void main() {
-            vec3 c = texture2D(tDiffuse, vUv).rgb;
-            float l = dot(c, vec3(0.2126, 0.7152, 0.0722));
-            // 写实调色：轻微饱和与对比（AgX 已经压过高光），弱分离色调，柔和暗角
-            c = mix(vec3(l), c, 1.3);
-            c = mix(c, c * c * (3.0 - 2.0 * c), 0.32);
-            c += vec3(-0.006, 0.0, 0.01) * (1.0 - l) + vec3(0.012, 0.005, -0.008) * l * 0.6;
             vec2 q = vUv - 0.5;
-            float vig = smoothstep(0.98, 0.3, length(q * vec2(1.0, 1.12)));
-            c *= mix(0.86, 1.0, vig);
+            float rr = length(q * vec2(1.0, 1.12));
+            // 只在画面边缘（暗角区域）生效的权重：中心为 0
+            float edge = smoothstep(0.34, 0.92, rr);
+            vec2 dir = normalize(q + 1e-5);
+            float ab = uAberration * edge * (0.4 + rr);
+            vec3 c;
+            c.r = texture2D(tDiffuse, vUv + dir * ab).r;
+            c.g = texture2D(tDiffuse, vUv).g;
+            c.b = texture2D(tDiffuse, vUv - dir * ab).b;
+            float l = dot(c, vec3(0.2126, 0.7152, 0.0722));
+            c = mix(vec3(l), c, uSat);
+            c = mix(c, c * c * (3.0 - 2.0 * c), clamp((uContrast - 1.0) * 4.0 + 0.2, 0.0, 0.6));
+            // 暗部偏冷（微青）、亮部中性偏冷的白；乘子已按亮度归一化，只改色相不改亮度
+            c *= mix(vec3(1.0), mix(uShadow, uHighlight, smoothstep(0.04, 0.7, l)), uTintAmt);
+            c = c * (1.0 - uLift) + uLift;
+            // 全息扫描线：仅边缘，随时间极缓慢流动的亮带
+            float scan = 0.5 + 0.5 * sin(vUv.y * uRes.y * 1.15 + uTime * 0.6);
+            float band = smoothstep(0.0, 1.0, 0.5 + 0.5 * sin(vUv.y * 5.0 - uTime * 0.35));
+            c *= 1.0 - uScan * edge * (scan * 0.6 + band * 0.4);
+            c += vec3(0.0, 0.012, 0.018) * uScan * edge * band * 4.0;
+            float vig = smoothstep(0.98, 0.3, rr);
+            c *= mix(1.0 - uVig * 0.7, 1.0, vig);
             gl_FragColor = vec4(clamp(c, 0.0, 1.0), 1.0);
           }
         `,
@@ -204,4 +239,25 @@ export function buildSkyEnvironment(renderer: THREE.WebGLRenderer, palette: Envi
   } catch {
     return undefined;
   }
+}
+
+const _sh: [number, number, number] = [1, 1, 1];
+const _hi: [number, number, number] = [1, 1, 1];
+
+/** 把当前记忆色调写进调色通道（无分配）。resX/resY 为绘制缓冲像素尺寸，用于扫描线密度 */
+export function applyGrade(pass: ShaderPass, look: ResolvedLook, time: number, resX: number, resY: number): void {
+  const u = pass.uniforms;
+  u.uContrast.value = look.contrast;
+  u.uSat.value = look.saturation;
+  u.uLift.value = look.lift;
+  u.uTintAmt.value = look.tintAmt;
+  u.uAberration.value = look.aberration;
+  u.uScan.value = look.scanline;
+  u.uVig.value = look.vignette;
+  u.uTime.value = time;
+  u.uRes.value.set(resX, resY);
+  normalizedTint(look.shadowTint, _sh);
+  normalizedTint(look.highlightTint, _hi);
+  u.uShadow.value.set(_sh[0], _sh[1], _sh[2]);
+  u.uHighlight.value.set(_hi[0], _hi[1], _hi[2]);
 }

@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { MergedBuilder } from "../../world/detailKit";
 import type { SceneKit } from "../../world/sceneProps";
+import type { WeatherKind } from "../../world/weather";
 import type { BuildStyle, CameraShot, Vec3 } from "../types";
 
 /**
@@ -28,6 +29,20 @@ export interface StageEnvironment {
   shadowRadius: number;
 }
 
+/** 舞台的天气配置 */
+export interface StageWeather {
+  /** 缺省天气 */
+  default: WeatherKind;
+  /** outdoor：粒子落在场景里；window：只在窗玻璃上显示（室内）；own：舞台自己画（apartment2090 的雨），这里只调光 */
+  mode: "outdoor" | "window" | "own";
+  /** window 模式：窗玻璃位置（平面朝 +z，面向室内） */
+  window?: { x: number; y: number; z: number; width: number; height: number };
+  /** 会被雨淋湿的部件名（室内部件不要列） */
+  wetParts?: string[];
+  /** 室外地面高度（outdoor 模式的涟漪 / 水洼） */
+  groundY?: number;
+}
+
 export interface StageBounds {
   minX: number;
   maxX: number;
@@ -52,6 +67,8 @@ export interface StageDef {
   /** 常用电影机位（autoScript 循环使用） */
   shots: CameraShot[];
   environment: StageEnvironment;
+  /** 天气配置；缺省视为 { default: "clear", mode: "off" }（不画天气，仍按天气调光） */
+  weather?: StageWeather;
   /** 搭出所有部件；kit 提供共享材质 */
   build(kit: SceneKit): THREE.Group;
   /**

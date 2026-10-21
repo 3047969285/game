@@ -283,7 +283,7 @@ function buildSunlight(): THREE.Group {
     ] as Array<[THREE.Vector3, number]>).entries()) {
       uv.push(...[[0,0],[1,0],[1,1],[0,0],[1,1],[0,1]][i]);
       pos.push(p.x, p.y, p.z);
-      col.push(1, 0.82, 0.55, al);
+      col.push(0.86, 0.94, 1, al);
     }
   };
   const panes: Array<[number, number, number, number]> = [];
@@ -571,17 +571,23 @@ export const CLUB_ROOM: StageDef = {
     { from: { x: 4.4, y: 1.7, z: 3.0 }, to: { x: 3.6, y: 1.7, z: 2.4 }, look: { x: -0.6, y: 1.0, z: -0.8 }, duration: 10, move: "dolly" },
     { from: { x: 0, y: 1.5, z: 3.4 }, to: { x: 0, y: 1.3, z: 2.0 }, look: { x: 0, y: 1.0, z: -0.8 }, duration: 9, move: "push", fov: 40 },
   ],
+  weather: {
+    default: "clear",
+    mode: "window",
+    window: { x: 0, y: (WIN_Y0 + WIN_Y1) / 2, z: -HZ + 0.05, width: WIN_X * 2, height: WIN_Y1 - WIN_Y0 },
+    wetParts: ["courtyard_ground", "courtyard_path", "benches", "tree_a", "tree_b", "tree_c", "tree_d"],
+  },
   environment: {
-    fogColor: 0xe6cfa6,
+    fogColor: 0xd9e4ea,
     fogDensity: 0.016,
     skyTop: 0x9fb8d6,
-    skyMid: 0xf1d7ab,
-    skyBot: 0x6b5a46,
-    sunColor: 0xffc98a,
+    skyMid: 0xd4e2ec,
+    skyBot: 0x56626c,
+    sunColor: 0xf2f6ff,
     sunDir: { x: CLUB_SUN_DIR.x, y: CLUB_SUN_DIR.y, z: CLUB_SUN_DIR.z },
     sunIntensity: 3.1,
     hemiSky: 0xbac8dc,
-    hemiGround: 0x6e5a44,
+    hemiGround: 0x4d5660,
     hemiIntensity: 1.0,
     envIntensity: 0.85,
     shadowRadius: 10,

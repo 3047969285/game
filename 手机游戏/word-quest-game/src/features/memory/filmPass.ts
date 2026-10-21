@@ -2,8 +2,8 @@ import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 
 /**
  * 回忆的“底片”后期通道（放在调色之后）：
- *  - uFilm：褪成暖色胶片（降饱和 + 暖黄 + 颗粒 + 暗角）——定格用
- *  - uFade：淡白（上浮）
+ *  - uFilm：褪成冷银色胶片（降饱和 + 冷银 + 颗粒 + 暗角）——定格用
+ *  - uFade：闭眼（渐暗到深冷色，上浮 / 下潜用，不再淡白）
  *  - uDim：整体压暗（二维笔记本时背景变暗）
  *  - uJitter：胶片卡顿抖动（断片答错）
  * 所有量为 0 时通道关闭（enabled=false），不产生任何开销。
@@ -43,14 +43,14 @@ export function createFilmPass(): ShaderPass {
         }
         vec3 c = texture2D(tDiffuse, uv).rgb;
         float l = dot(c, vec3(0.2126, 0.7152, 0.0722));
-        vec3 sepia = vec3(l) * vec3(1.14, 0.96, 0.72);
+        vec3 sepia = vec3(l) * vec3(0.94, 1.0, 1.1);
         c = mix(c, sepia, uFilm * 0.64);
-        c *= mix(vec3(1.0), vec3(1.04, 0.99, 0.93), uFilm);
+        c *= mix(vec3(1.0), vec3(0.96, 1.0, 1.05), uFilm);
         c += (h21(vUv * vec2(1731.0, 911.0) + floor(uTime * 4.0)) - 0.5) * 0.026 * uFilm;
         float vig = smoothstep(0.32, 0.95, length((vUv - 0.5) * vec2(1.0, 1.1)) * 1.25);
         c *= 1.0 - vig * 0.34 * uFilm;
         c *= 1.0 - uDim;
-        c = mix(c, vec3(1.0, 0.985, 0.94), uFade);
+        c = mix(c, vec3(0.012, 0.018, 0.03), uFade);
         gl_FragColor = vec4(clamp(c, 0.0, 1.0), 1.0);
       }
     `,

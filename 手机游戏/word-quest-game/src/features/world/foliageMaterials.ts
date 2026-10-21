@@ -10,6 +10,8 @@ import { disposeRockResources } from "./rockMaterial";
 
 /** 共享时间 uniform（秒），由 World3D.tickScene 每帧更新 */
 export const windTime = { value: 0 };
+/** 风力倍率（天气系统驱动）：1 为默认摇摆，阵风 / 暴雨时可到 2 左右 */
+export const windStrength = { value: 1 };
 
 /** 共享太阳 uniform：dir 为世界空间指向太阳的单位向量，color 已含强度，由 World3D.tickScene 每帧更新 */
 export const foliageSun = {
@@ -35,6 +37,7 @@ const ALPHA_TEST = 0.45;
  */
 const WIND_PARS = /* glsl */ `
 uniform float windTime;
+uniform float windStrength;
 attribute vec2 aSway;
 `;
 
@@ -50,18 +53,19 @@ const WIND_VERTEX = /* glsl */ `
   float windGust = 0.5 + 0.5 * sin(windTime * 0.8 + windPh * 0.6) + 0.35 * sin(windTime * 1.7 + windPh * 1.3 + 1.3);
   // 世界风向（+x、+z 方向）换算到物体空间（忽略非均匀缩放）
   vec3 windObjDir = normalize(transpose(mat3(windM)) * vec3(0.82, 0.0, 0.57));
-  transformed += windObjDir * (windGust * aSway.x);
+  transformed += windObjDir * (windGust * aSway.x * windStrength);
   float windFt = windTime * 5.2 + windPh * 2.1;
   transformed += vec3(
     sin(windFt + position.x * 9.0 + position.y * 3.0),
     0.5 * sin(windFt * 1.31 + position.y * 8.0 + position.z * 2.0),
     sin(windFt * 0.87 + position.z * 9.0 + position.x * 3.0)
-  ) * (aSway.y * (0.55 + 0.45 * windGust));
+  ) * (aSway.y * (0.55 + 0.45 * windGust) * (0.7 + 0.3 * windStrength));
 }
 `;
 
 function patchWindVertex(shader: { vertexShader: string; uniforms: Record<string, THREE.IUniform> }): void {
   shader.uniforms.windTime = windTime;
+  shader.uniforms.windStrength = windStrength;
   shader.vertexShader = shader.vertexShader.replace("#include <common>", `#include <common>\n${WIND_PARS}`).replace("#include <begin_vertex>", `#include <begin_vertex>\n${WIND_VERTEX}`);
 }
 

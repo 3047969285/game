@@ -54,6 +54,7 @@ describe("MemoryStage 入场准备握手", () => {
       opts: { gate: true, onSceneReady: async () => { order.push("ready"); Object.assign(stage, { disposed: true }); } },
       exited: false, disposed: false,
       prepare: async () => undefined,
+      awaken: () => { order.push("awaken"); },
       startLoop: () => requestAnimationFrame(() => { order.push("render"); }),
       until: async (promise: Promise<unknown>) => promise,
       hud: { setFadeInstant: vi.fn(), gate },
@@ -64,7 +65,8 @@ describe("MemoryStage 入场准备握手", () => {
       expect(order).toEqual([]);
       frames.forEach((callback) => callback(16));
       expect(await done).toMatchObject({ completed: false, exited: true });
-      expect(order).toEqual(["render", "ready"]);
+      // 先渲染出第一帧（眼睛仍闭着，画面是黑的），再睁眼并揭开入口遮罩
+      expect(order).toEqual(["render", "awaken", "ready"]);
       expect(gate).not.toHaveBeenCalled();
     } finally { vi.unstubAllGlobals(); }
   });

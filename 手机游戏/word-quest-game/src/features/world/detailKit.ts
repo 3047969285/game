@@ -266,7 +266,7 @@ export function createKitMaterials(): KitMaterials {
     leaf: std(0x3f6f45, 0.95),
     leafLight: std(0x5f9150, 0.95),
     soil: std(0x4a3b2c, 1),
-    lampGlass: std(0xfff0c8, 0.3, 0, { emissive: 0xffc15a, emissiveIntensity: 0.9 }),
+    lampGlass: std(0xf2f7ff, 0.3, 0, { emissive: 0xcfe6ff, emissiveIntensity: 0.9 }),
     paper: std(0xece3cf, 0.95),
     darkSteel: std(0x2f353b, 0.5, 0.7),
     rock: std(0x7b7d80, 0.95),

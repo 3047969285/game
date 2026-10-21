@@ -102,18 +102,20 @@ describe("PovRig：2090 年的他是一层微光，不再挡住画面", () => {
     rig.dispose();
   });
 
-  it("相机退到他身后很远、偏到肩后：他在画面里偏向一侧而不是正中，且尺寸变小", () => {
+  it("相机在他身后约 4 米、接近眼高、偏到肩后：他在画面里偏向一侧而不是正中，且不占满画面", () => {
     const { rig, camera } = makeRig();
     run(rig, 1.5);
     const dist = camera.position.distanceTo(new THREE.Vector3(0, 1, 0));
-    expect(dist).toBeGreaterThan(5);
+    expect(dist).toBeGreaterThan(3.2);
+    expect(dist).toBeLessThan(5.2);
+    expect(camera.position.y).toBeLessThan(2.0); // 眼高附近，不再是俯视
     const p = new THREE.Vector3(0, 1.0, 0).project(camera);
     expect(Math.abs(p.x)).toBeGreaterThan(0.3); // 偏到一侧
     expect(Math.abs(p.x)).toBeLessThan(0.85); // 但没出画
-    // 身高（1.8 m）在画面中的高度不超过屏幕的 40%
+    // 身高（1.8 m）在画面中的高度不超过屏幕的 66%
     const top = new THREE.Vector3(0, 1.8, 0).project(camera);
     const bottom = new THREE.Vector3(0, 0, 0).project(camera);
-    expect((top.y - bottom.y) / 2).toBeLessThan(0.4);
+    expect((top.y - bottom.y) / 2).toBeLessThan(0.66);
   });
 
   it("可点的物件在他身后时，他进一步淡出；移开后恢复", () => {
@@ -162,7 +164,7 @@ describe("PovRig：2090 年的他是一层微光，不再挡住画面", () => {
     expect(dir.y).toBeLessThan(0); // 略微低头
     rig.setPov("you");
     run(rig, 3);
-    expect(camera.position.z).toBeGreaterThan(5); // 退到 maxZ=3 的前墙之外
+    expect(camera.position.z).toBeGreaterThan(3.3); // 退到 maxZ=3 的前墙之外
   });
 
   it("第一人称低头看讲义 / 笔记本、抬头看老师：setLookDown 平滑改变俯角，位置不动", () => {
@@ -204,10 +206,10 @@ describe("PovRig：2090 年的他是一层微光，不再挡住画面", () => {
     const { rig, camera } = makeRig();
     run(rig, 2);
     const far = camera.position.distanceTo(rig.player);
-    rig.frameFocus(new THREE.Vector3(0, 0.9, -2), 3, 2.2);
+    rig.frameFocus(new THREE.Vector3(0, 0.9, -2), 2.2, 1.6);
     run(rig, 3);
     const near = camera.position.distanceTo(rig.player);
-    expect(near).toBeLessThan(far - 1.5);
+    expect(near).toBeLessThan(far - 0.8);
     // 视线（相机朝向）指向目标群而不是玩家
     const dir = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
     const toFocus = new THREE.Vector3(0, 0.9, -2).sub(camera.position).normalize();

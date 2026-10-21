@@ -273,6 +273,8 @@ void main() {
 export class Materializer {
   readonly group = new THREE.Group();
   private readonly pieces = new Map<string, Piece>();
+  /** pieces 的数组镜像：逐帧遍历用它，避免 Map 迭代器分配 */
+  private readonly list: Piece[] = [];
   private readonly timeU = { value: 0 };
   private time = 0;
   private points?: THREE.Points;
@@ -432,6 +434,7 @@ export class Materializer {
     piece.samples = this.sampleSurface(piece.meshes, box, center);
     obj.visible = false;
     this.pieces.set(name, piece);
+    this.list.push(piece);
     return piece;
   }
 
@@ -531,7 +534,8 @@ export class Materializer {
 
   /** 立刻完成所有进行中的显形（跳过 / 定格前） */
   completeAll(): void {
-    for (const p of this.pieces.values()) {
+    for (let pi = 0; pi < this.list.length; pi++) {
+      const p = this.list[pi];
       if (p.state === "revealing") this.settle(p, true);
     }
   }
@@ -540,12 +544,46 @@ export class Materializer {
   progress(filter?: (p: Piece) => boolean): number {
     let sum = 0;
     let n = 0;
-    for (const p of this.pieces.values()) {
+    for (let pi = 0; pi < this.list.length; pi++) {
+      const p = this.list[pi];
       if (filter && !filter(p)) continue;
       n++;
       sum += p.state === "revealed" ? 1 : p.state === "revealing" || p.state === "hiding" ? p.amt : 0;
     }
     return n ? sum / n : 1;
+  }
+
+  /** 环境亮度用的建立进度：只统计舞台部件（不含词物件 / 人物 / 2090 的他）。零分配版 progress(filter) */
+  buildProgress(): number {
+    let sum = 0;
+    let n = 0;
+    for (let pi = 0; pi < this.list.length; pi++) {
+      const p = this.list[pi];
+      const id = p.id;
+      if (id === "old-self" || id.startsWith("word:") || id.startsWith("actor:")) continue;
+      n++;
+      sum += p.state === "revealed" ? 1 : p.state === "revealing" || p.state === "hiding" ? p.amt : 0;
+    }
+    return n ? sum / n : 1;
+  }
+
+  /** 窗与地板的进度（窗边光尘的可见度）。零分配 */
+  windowFloorProgress(): number {
+    let sum = 0;
+    let n = 0;
+    for (let pi = 0; pi < this.list.length; pi++) {
+      const p = this.list[pi];
+      if (p.id !== "window" && p.id !== "floor") continue;
+      n++;
+      sum += p.state === "revealed" ? 1 : p.state === "revealing" || p.state === "hiding" ? p.amt : 0;
+    }
+    return n ? sum / n : 1;
+  }
+
+  /** 第一个正在显形的 Piece 的中心（洪流偏向它）；没有返回 null。零分配 */
+  firstRevealingCenter(): THREE.Vector3 | null {
+    for (let pi = 0; pi < this.list.length; pi++) if (this.list[pi].state === "revealing" && this.list[pi].id !== "old-self") return this.list[pi].center;
+    return null;
   }
 
   forEach(cb: (p: Piece) => void): void {
@@ -557,7 +595,8 @@ export class Materializer {
    */
   async prewarm(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Camera): Promise<void> {
     const saved = new Map<Piece, boolean>();
-    for (const p of this.pieces.values()) {
+    for (let pi = 0; pi < this.list.length; pi++) {
+      const p = this.list[pi];
       saved.set(p, p.obj.visible);
       p.obj.visible = true;
     }
@@ -657,7 +696,8 @@ export class Materializer {
   update(dt: number): void {
     this.time += dt;
     this.timeU.value = this.time;
-    for (const p of this.pieces.values()) {
+    for (let pi = 0; pi < this.list.length; pi++) {
+      const p = this.list[pi];
       if (p.state === "revealing") {
         p.t += dt;
         const k = Math.min(1, Math.max(0, p.t / p.duration));
@@ -686,7 +726,8 @@ export class Materializer {
   }
 
   dispose(): void {
-    for (const p of this.pieces.values()) {
+    for (let pi = 0; pi < this.list.length; pi++) {
+      const p = this.list[pi];
       for (const w of p.waiters) w();
       p.waiters = [];
       for (const m of p.clones) m.dispose();
@@ -694,6 +735,7 @@ export class Materializer {
       for (const mesh of p.meshes) mesh.customDepthMaterial = undefined as unknown as THREE.Material;
     }
     this.pieces.clear();
+    this.list.length = 0;
     this.points?.geometry.dispose();
     this.pointsMat?.dispose();
     if (this.atlas) releaseGlyphAtlas();

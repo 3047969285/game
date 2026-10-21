@@ -1,9 +1,16 @@
 import { MemoryAir } from "./MemoryAir";
 import * as THREE from "three";
 import type { WordEntry } from "../../core/types";
-import { foliageSun, setFoliageQuality, windTime } from "../world/foliageMaterials";
+import { foliageSun, setFoliageQuality, windStrength, windTime } from "../world/foliageMaterials";
 import { getSurfaceArrays, setSurfaceQuality } from "../world/kitShader";
-import { buildSkyEnvironment, createPostPipeline, detectQuality, QUALITY_PRESETS, type PostPipeline, type QualityTier } from "../world/postPipeline";
+import { applyGrade, buildSkyEnvironment, createPostPipeline, detectQuality, QUALITY_PRESETS, type PostPipeline, type QualityTier } from "../world/postPipeline";
+import { AdaptiveScaler } from "../world/adaptiveScaler";
+import { attachPerfOverlay, perfOverlayEnabled, type PerfOverlay } from "../world/perfOverlay";
+import { foliageWindStrength, WeatherState, weatherTint, type WeatherKind } from "../world/weather";
+import { WeatherFx, WetnessTracker } from "../world/weatherFx";
+import { hexToRgb, LookBlender, LOOKS, lookFor, type MemoryLook, type Rgb } from "./memoryLooks";
+import { EyeController } from "./eyeOpen";
+import { applyEye, createEyePass } from "./eyePass";
 import { createSceneKit, type SceneKit } from "../world/sceneProps";
 import { spawnActor, updateCrowd, type ActorHandle } from "./actors";
 import { CaptionTracker, NameCaption } from "./NameCaption";
@@ -88,6 +95,16 @@ const VERB_SECONDS = 1.3;
 /** 世界尚未建起时的背景（深色雾） */
 const VOID_COLOR = new THREE.Color(0x0b1018);
 const baseFovFor = (aspect: number): number => (aspect >= 1 ? 46 : Math.min(70, 46 + (1 - aspect) * 34));
+/** 舞台自带环境色向记忆色调靠拢的比例 */
+const LOOK_MIX = 0.7;
+const EYE_MIN = 1.45;
+const EYE_MAX = 1.7;
+const mixRgb = (a: Rgb, b: Rgb, t: number, out: Rgb): Rgb => {
+  out.r = a.r + (b.r - a.r) * t;
+  out.g = a.g + (b.g - a.g) * t;
+  out.b = a.b + (b.b - a.b) * t;
+  return out;
+};
 
 export class MemoryStage {
   private readonly host: HTMLElement;
@@ -102,6 +119,27 @@ export class MemoryStage {
   private readonly sun: THREE.DirectionalLight;
   private readonly hemi: THREE.HemisphereLight;
   private readonly filmPass = createFilmPass();
+  private readonly eyePass = createEyePass();
+  private readonly reduced = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches === true;
+  private readonly eye = new EyeController(this.reduced);
+  private look!: LookBlender;
+  private readonly weather = new WeatherState("clear");
+  private weatherFx?: WeatherFx;
+  private readonly wet = new WetnessTracker();
+  private sunShaft: THREE.Mesh | null = null;
+  private scaler!: AdaptiveScaler;
+  private perf?: PerfOverlay;
+  private shadowFrame = 0;
+  private envLookVersion = -1;
+  private readonly stageFogRgb: Rgb = { r: 0, g: 0, b: 0 };
+  private readonly stageSunRgb: Rgb = { r: 1, g: 1, b: 1 };
+  private readonly stageHemiSkyRgb: Rgb = { r: 1, g: 1, b: 1 };
+  private readonly stageHemiGroundRgb: Rgb = { r: 0, g: 0, b: 0 };
+  private readonly rgbA: Rgb = { r: 0, g: 0, b: 0 };
+  private readonly rgbB: Rgb = { r: 0, g: 0, b: 0 };
+  private actorList: ActorHandle[] = [];
+  private wordList: Array<[string, WordObj]> = [];
+  private readonly posScratch: THREE.Vector3[] = [];
   private post?: PostPipeline;
   private readonly cinema: CinemaDirector;
   private readonly pov: PovRig;
@@ -221,9 +259,28 @@ export class MemoryStage {
     this.scene.add(this.flow.object);
 
     this.post = createPostPipeline(this.renderer, this.scene, this.camera, this.quality, { ao: false, forceComposer: true });
-    if (this.post) this.post.composer.addPass(this.filmPass);
+    if (this.post) {
+      this.post.composer.addPass(this.filmPass);
+      // 眼睛通道放在最后：闭眼时全黑，睁眼时眼睑 + 虚焦 + 曝光适应
+      this.post.composer.addPass(this.eyePass);
+    }
+    const pr0 = Math.min(window.devicePixelRatio || 1, qcfg.pixelRatio);
+    this.scaler = new AdaptiveScaler({ max: pr0, min: Math.min(0.75, pr0), initial: pr0 });
+    if (perfOverlayEnabled()) this.perf = attachPerfOverlay(this.renderer, this.host, this.scaler);
+    this.look = new LookBlender(LOOKS.neutral);
+    this.renderer.shadowMap.autoUpdate = false;
+    this.renderer.shadowMap.needsUpdate = true;
 
     this.cinema = new CinemaDirector(this.hud, this.filmPass, this.camera.fov);
+    // 远距离切镜只在眨眼的全黑瞬间发生
+    if (this.post) {
+      this.cinema.blinkCut = (apply) => {
+        void this.eye.blink(() => {
+          apply();
+          this.pov.cancelBlend();
+        });
+      };
+    }
     const spawn = { x: 0, y: 0, z: 0, yaw: Math.PI };
     this.pov = new PovRig({
       camera: this.camera,
@@ -246,7 +303,7 @@ export class MemoryStage {
     });
 
     this.interaction.onMiss = (x, y) => this.onFloorTap(x, y);
-    this.pov.setTargetsProvider(() => (this.interaction.active ? this.interaction.activePositions() : []));
+    this.pov.setTargetsProvider(() => (this.interaction.active ? this.interaction.activePositions(this.posScratch) : this.clearScratch()));
     this.hud.onExit = () => this.requestExit();
     this.hud.onSkip = () => this.skip();
     this.hud.onStick = (x, z) => this.pov.setStick(x, z);
@@ -271,11 +328,16 @@ export class MemoryStage {
       await this.prepare(script);
       this.startLoop();
       if (this.opts.onSceneReady) {
-        this.hud.setFadeInstant(false);
+        // 眼睛仍闭着（画面是黑的）：先撤掉黑场层，再让入场遮罩散去，然后睁眼——全程没有任何亮闪
+        if (this.post) this.hud.setFadeInstant(false);
         await this.until(new Promise<void>((resolve) => requestAnimationFrame(() => resolve())));
         if (this.exited || this.disposed) return { completed: false, exited: true, wordsSeen: [], mistakes: 0 };
+        this.awaken();
         await this.until(this.opts.onSceneReady());
-      } else await this.hud.fade(false, 1400);
+      } else {
+        this.awaken();
+        await this.sleep(700);
+      }
       if (this.exited || this.disposed) return { completed: false, exited: true, wordsSeen: [], mistakes: 0 };
       if (this.opts.gate) {
         const gate = this.hud.gate("轻触 · 开始回溯", "Tap to begin", () => {
@@ -299,7 +361,7 @@ export class MemoryStage {
       completed = !this.exited && !this.disposed;
       // 以定格收尾的回忆已经淡白上浮，直接交还；其它（开场）渐黑
       const lastKind = script.beats[script.beats.length - 1]?.kind;
-      if (completed && lastKind !== "freeze" && lastKind !== "dive") await this.hud.fade(true, 900);
+      if (completed && lastKind !== "freeze" && lastKind !== "dive") await this.closeEyes(0.9);
       // 玩家退出时 requestExit 已开始淡出黑场，等它走完再交还控制权
       else if (this.exited && !this.disposed) await new Promise<void>((resolve) => setTimeout(resolve, 520));
     } catch (err) {
@@ -314,6 +376,23 @@ export class MemoryStage {
       wordsMastered: [...this.mastered],
       focus: averageFocus([...this.focusScores.values()]),
     };
+  }
+
+  /** 睁眼：从全黑开始的醒来时间线（眼睑张开 + 眨眼 + 虚焦收敛 + 曝光适应）。没有后期管线时退回黑场渐亮 */
+  private awaken(): void {
+    if (this.post) void this.eye.startOpening();
+    else void this.hud.fade(false, 2400);
+  }
+
+  /** 闭眼：慢慢暗到全黑（下潜 / 收尾）。没有后期管线时退回黑场渐暗 */
+  private closeEyes(seconds: number): Promise<void> {
+    if (this.post) return this.eye.close(seconds);
+    return this.hud.fade(true, seconds * 1000);
+  }
+
+  private clearScratch(): THREE.Vector3[] {
+    this.posScratch.length = 0;
+    return this.posScratch;
   }
 
   /** 玩家退出：淡出并让 play() 尽快返回 */
@@ -363,6 +442,8 @@ export class MemoryStage {
     this.materializer.dispose();
     this.flow.dispose();
     this.air?.dispose();
+    this.weatherFx?.dispose();
+    this.perf?.dispose();
     for (const a of this.actors.values()) a.dispose();
     this.cinema.dispose();
     this.nameCaption?.dispose();
@@ -390,6 +471,7 @@ export class MemoryStage {
     this.envRT?.dispose();
     if (this.post) {
       for (const pass of this.post.composer.passes) (pass as { dispose?: () => void }).dispose?.();
+      this.eyePass.dispose();
       this.post.composer.dispose();
     }
     this.scene.clear();
@@ -414,6 +496,12 @@ export class MemoryStage {
       const errs = validateScript(script, { stageTargets: stageTargets(script.stage), words: this.opts.words });
       if (errs.length) console.warn("[memory] 脚本校验问题\n" + errs.join("\n"));
     }
+
+    // 记忆色调与天气：先定下来，再据此生成环境贴图与灯光
+    const lookId = script.look ?? (script.unitId ? script.unitId : stage.name === "apartment2090" ? "memory2090" : "");
+    const startLook: MemoryLook = LOOKS[lookId] ?? lookFor(script.unitId);
+    this.look.setTarget(startLook, 0);
+    this.weather.set(script.weather ?? stage.weather?.default ?? "clear", 0);
 
     setFoliageQuality(this.quality === "low" ? "low" : "high"); // 树 / 灌木的纹理档位：必须先于任何植被材质创建（主世界已建过时无效果）
     this.applyEnvironment(stage);
@@ -446,6 +534,22 @@ export class MemoryStage {
       this.air = new MemoryAir(stage.bounds, this.quality);
       this.scene.add(this.air.object);
     }
+
+    // 天气渲染：室内只在窗上，室外落雪落雨；舞台自己画天气的（own）只调光
+    const sw = stage.weather;
+    if (sw && sw.mode !== "own") {
+      this.weatherFx = new WeatherFx({
+        quality: this.quality,
+        mode: sw.mode,
+        window: sw.window,
+        groundY: sw.groundY ?? 0,
+        flatGround: true,
+        radius: 10,
+      });
+      this.scene.add(this.weatherFx.object);
+    }
+    for (const name of sw?.wetParts ?? []) this.wet.add(group.getObjectByName(name));
+    this.sunShaft = (group.getObjectByName("sunlight")?.children[0] as THREE.Mesh | undefined) ?? null;
 
     // 词物件
     const phases = [0.3, 1.7, 2.9, 4.1, 5.3];
@@ -488,6 +592,10 @@ export class MemoryStage {
     this.pov.place(stage.spawn.x, stage.spawn.y, stage.spawn.z, stage.spawn.yaw);
     this.materializer.register(this.pov.avatar, "fade");
 
+    this.actorList = [...this.actors.values()];
+    this.wordList = [...this.wordObjs.entries()];
+    this.placeIntroCamera(script);
+
     // 笔记本的手写字体需要提前开始下载
     if (script.beats.some((b) => b.kind === "paper")) this.getPaper();
 
@@ -499,6 +607,10 @@ export class MemoryStage {
   private applyEnvironment(stage: StageDef): void {
     const e = stage.environment;
     this.fogTarget.setHex(e.fogColor);
+    hexToRgb(e.fogColor, this.stageFogRgb);
+    hexToRgb(e.sunColor, this.stageSunRgb);
+    hexToRgb(e.hemiSky, this.stageHemiSkyRgb);
+    hexToRgb(e.hemiGround, this.stageHemiGroundRgb);
     this.sunColor.setHex(e.sunColor);
     this.fogBase = e.fogDensity;
     this.sunBase = e.sunIntensity;
@@ -518,14 +630,51 @@ export class MemoryStage {
     cam.near = 1;
     cam.far = 60;
     cam.updateProjectionMatrix();
-    this.hemi.color.setHex(e.hemiSky);
-    this.hemi.groundColor.setHex(e.hemiGround);
-    const rt = buildSkyEnvironment(this.renderer, { skyTop: e.skyTop, skyMid: e.skyMid, skyBot: e.skyBot, sunColor: e.sunColor, sunDir: d });
+    this.rebuildEnvironmentMap(stage);
+  }
+
+  /** 环境反射贴图：用舞台天色向记忆色调混合后的颜色生成（look 切换稳定后才重建，避免过渡中途卡一下） */
+  private rebuildEnvironmentMap(stage: StageDef): void {
+    const e = stage.environment;
+    const l = this.look.current;
+    const mix = (hex: number, c: Rgb): THREE.Color => {
+      hexToRgb(hex, this.rgbA);
+      mixRgb(this.rgbA, c, LOOK_MIX, this.rgbB);
+      return new THREE.Color().setRGB(this.rgbB.r, this.rgbB.g, this.rgbB.b, THREE.SRGBColorSpace);
+    };
+    const d = new THREE.Vector3(e.sunDir.x, e.sunDir.y, e.sunDir.z).normalize();
+    const rt = buildSkyEnvironment(this.renderer, { skyTop: mix(e.skyTop, l.skyTop), skyMid: mix(e.skyMid, l.skyMid), skyBot: mix(e.skyBot, l.skyBot), sunColor: mix(e.sunColor, l.sun), sunDir: d });
     if (rt) {
       this.envRT?.dispose();
       this.envRT = rt;
       this.scene.environment = rt.texture;
     }
+    this.envLookVersion = this.look.version;
+  }
+
+  /**
+   * 入场机位：眼高（约 1.6 m）、离场景近，相机在第一帧就落在那里（不从高处俯冲下来）。
+   * 取第一个带机位的节拍的起点；没有的话保留“你”的跟随机位（已降到肩后眼高）。
+   */
+  private placeIntroCamera(script: MemoryScript): void {
+    let shot: CameraShot | undefined;
+    for (const b of script.beats) {
+      if (b.kind === "narrate" || b.kind === "build" || b.kind === "pov" || b.kind === "gap" || b.kind === "choice") {
+        if (b.kind === "pov" && !b.camera) break;
+        if (b.kind === "choice") break; // 附身对话的机位是眼睛，不在这里处理
+        if (b.camera) shot = b.camera;
+        break;
+      }
+      if (b.kind === "wait") continue;
+      break;
+    }
+    if (!shot) return;
+    const from = shot.from ?? shot.to;
+    const pos = new THREE.Vector3(from.x, THREE.MathUtils.clamp(from.y, EYE_MIN, EYE_MAX), from.z);
+    const look = new THREE.Vector3(shot.look.x, shot.look.y, shot.look.z);
+    this.pov.placeCamera(pos, look, shot.fov ?? this.cinema.baseFov);
+    this.setPov("watch");
+    this.pov.cancelBlend();
   }
 
   // ───────────────────────── 主循环 ─────────────────────────
@@ -536,25 +685,41 @@ export class MemoryStage {
     const frame = (ts: number): void => {
       if (this.disposed) return;
       this.raf = requestAnimationFrame(frame);
-      const dt = Math.min(0.05, Math.max(0, (ts - this.lastTs) / 1000));
+      const rawMs = ts - this.lastTs;
+      const dt = Math.min(0.05, Math.max(0, rawMs / 1000));
       this.lastTs = ts;
       this.tick(dt);
+      // 阴影贴图只在需要时更新：人物 / 显形一直在动，所以中低档隔帧更新，静止（定格）时完全不更新
+      this.shadowFrame++;
+      this.renderer.shadowMap.needsUpdate = !this.cinema.frozen && (this.quality === "high" || (this.shadowFrame & 1) === 0 || this.materializer.progress() < 1);
       if (this.post) this.post.composer.render();
       else this.renderer.render(this.scene, this.camera);
+      this.perf?.update(rawMs);
+      const next = this.scaler.push(rawMs, dt);
+      if (next !== null) {
+        this.renderer.setPixelRatio(next);
+        this.post?.composer.setPixelRatio(next);
+      }
     };
     this.raf = requestAnimationFrame(frame);
   }
 
   private tick(dt: number): void {
     const frozen = this.cinema.frozen;
+    this.eye.update(dt);
     if (!frozen) {
       this.time += dt;
-      windTime.value += dt;
+      this.weather.update(dt);
+      this.look.update(dt);
+      const wind = this.weather.windNow(this.time);
+      windStrength.value = foliageWindStrength(wind);
+      windTime.value += dt * (0.8 + Math.min(1.2, wind) * 0.9);
       this.materializer.update(dt);
       this.flow.update(dt);
       this.updateAttention();
       this.updateCaptions(dt);
-      for (const a of this.actors.values()) {
+      for (let i = 0; i < this.actorList.length; i++) {
+        const a = this.actorList[i];
         a.setDistance(this.camera.position.distanceTo(a.root.position));
         a.update(dt, this.time);
       }
@@ -562,6 +727,11 @@ export class MemoryStage {
       this.updateWordObjects(dt);
       this.updateLighting(dt);
       this.updateAttractor();
+      if (this.weatherFx) {
+        const tone = THREE.MathUtils.clamp(this.weather.params.sunMul * 0.6 + this.weather.params.skyDark * 0.5, 0, 1);
+        this.weatherFx.update(dt, this.weather, this.camera, tone, this.renderer.domElement.height, this.camera.fov, wind);
+      }
+      this.wet.apply(this.weather.wet);
     }
     this.pov.update(dt);
     this.cinema.update(dt);
@@ -575,7 +745,14 @@ export class MemoryStage {
     const h = this.renderer.domElement.height;
     this.materializer.setView(h, this.camera.fov);
     this.flow.setView(h, this.camera.fov);
-    this.air?.update(this.time, this.materializer.progress((p) => p.id === "window" || p.id === "floor"), h, this.camera.fov);
+    this.air?.update(this.time, this.materializer.windowFloorProgress(), h, this.camera.fov);
+    if (this.post) {
+      applyGrade(this.post.gradePass, this.look.current, this.time, this.renderer.domElement.width, h);
+      applyEye(this.eyePass, this.eye, this.camera.aspect, this.time);
+      if (this.post.bloomPass) this.post.bloomPass.strength = 0.62 * this.look.current.bloom;
+    }
+    // 记忆色调切换稳定之后重建一次环境反射贴图
+    if (this.look.settled && this.envLookVersion !== this.look.version && this.stageDef) this.rebuildEnvironmentMap(this.stageDef);
   }
 
   private readonly focusV = new THREE.Vector3();
@@ -584,39 +761,71 @@ export class MemoryStage {
     return dir.multiplyScalar(4).add(this.camera.position);
   }
 
-  /** 世界建得越完整，环境越亮、雾越淡、洪流越淡 */
+  /**
+   * 世界建得越完整，环境越亮、雾越淡、洪流越淡。
+   * 颜色 = 舞台自带色向“记忆色调”靠拢，再经天气（压暗 / 灰化 / 染色）；强度 = 舞台基准 × 世界完整度 × 色调 × 天气。
+   */
   private updateLighting(dt: number, snap = false): void {
-    const progress = this.materializer.progress((p) => !p.id.startsWith("word:") && !p.id.startsWith("actor:") && p.id !== "old-self");
+    const look = this.look.current;
+    const wp = this.weather.params;
+    const progress = this.materializer.buildProgress();
     const target = 0.3 + 0.7 * progress;
     this.lightLevel = snap ? target : this.lightLevel + (target - this.lightLevel) * (1 - Math.exp(-dt * 2.5));
     const l = this.lightLevel;
-    this.sun.intensity = this.sunBase * l * l;
+    this.sun.intensity = this.sunBase * l * l * look.sunMul * wp.sunMul;
     // 世界还没建起来时背景是深色的雾（光尘才看得见）；建得越完整越接近舞台自己的雾色
     const fog = this.scene.fog as THREE.FogExp2;
+    const fc = weatherTint(mixRgb(this.stageFogRgb, look.fog, LOOK_MIX, this.rgbA), wp, this.rgbA);
+    this.fogTarget.setRGB(fc.r, fc.g, fc.b, THREE.SRGBColorSpace);
     this.bgColor.copy(VOID_COLOR).lerp(this.fogTarget, THREE.MathUtils.clamp(progress * 1.15, 0, 1));
     fog.color.copy(this.bgColor);
     (this.scene.background as THREE.Color).copy(this.bgColor);
+    // 太阳色：向冷白靠拢，再乘天气色乘子（黄昏珊瑚 / 夜蓝）
+    const sc = mixRgb(this.stageSunRgb, look.sun, LOOK_MIX, this.rgbB);
+    this.sun.color.setRGB(Math.min(1, sc.r * wp.sunTintR), Math.min(1, sc.g * wp.sunTintG), Math.min(1, sc.b * wp.sunTintB), THREE.SRGBColorSpace);
+    this.sunColor.copy(this.sun.color);
     foliageSun.color.value.copy(this.sunColor).multiplyScalar(this.sun.intensity / 1.45);
-    this.hemi.intensity = this.hemiBase * l;
-    this.scene.environmentIntensity = this.envBase * l;
-    (this.scene.fog as THREE.FogExp2).density = this.fogBase * (1.5 - 0.5 * progress);
+    const hs = weatherTint(mixRgb(this.stageHemiSkyRgb, look.hemiSky, LOOK_MIX, this.rgbA), wp, this.rgbA, 0.6);
+    this.hemi.color.setRGB(hs.r, hs.g, hs.b, THREE.SRGBColorSpace);
+    const hg = mixRgb(this.stageHemiGroundRgb, look.hemiGround, 0.5, this.rgbB);
+    this.hemi.groundColor.setRGB(hg.r, hg.g, hg.b, THREE.SRGBColorSpace);
+    this.hemi.intensity = this.hemiBase * l * wp.hemiMul;
+    this.scene.environmentIntensity = this.envBase * l * wp.envMul;
+    fog.density = this.fogBase * (1.5 - 0.5 * progress) * look.fogMul * wp.fogMul * (1 + wp.mist * 0.8);
+    this.renderer.toneMappingExposure = 1.22 * look.exposure * wp.exposureMul;
+    this.flow.setColors(look.dustA, look.dustB);
+    if (this.sunShaft) {
+      const m = this.sunShaft.material as THREE.Material;
+      m.opacity = THREE.MathUtils.clamp(wp.sunMul * (1 - wp.cloud * 0.6) * 1.1, 0, 1);
+      m.transparent = true;
+    }
     if (!this.diving) this.flow.setVisibility(1 - 0.45 * progress);
   }
 
   /** 洪流偏向正在显形的东西 */
   private updateAttractor(): void {
-    let best: THREE.Vector3 | null = null;
-    this.materializer.forEach((p) => {
-      if (!best && p.state === "revealing" && p.id !== "old-self") best = p.center;
-    });
-    this.flow.setAttractor(best, 1);
+    this.flow.setAttractor(this.materializer.firstRevealingCenter(), 1);
   }
 
   private updateWordObjects(dt: number): void {
-    for (const a of this.verbAnims) a.t += dt / VERB_SECONDS;
-    this.verbAnims = this.verbAnims.filter((a) => a.t < 1 || this.finishVerb(a));
-    for (const [id, w] of this.wordObjs) {
-      const anim = this.verbAnims.find((a) => a.wordId === id);
+    const anims = this.verbAnims;
+    for (let i = 0; i < anims.length; i++) anims[i].t += dt / VERB_SECONDS;
+    for (let i = anims.length - 1; i >= 0; i--) {
+      if (anims[i].t >= 1) {
+        this.finishVerb(anims[i]);
+        anims.splice(i, 1);
+      }
+    }
+    for (let wi = 0; wi < this.wordList.length; wi++) {
+      const id = this.wordList[wi][0];
+      const w = this.wordList[wi][1];
+      let anim: VerbAnim | undefined;
+      for (let i = 0; i < anims.length; i++) {
+        if (anims[i].wordId === id) {
+          anim = anims[i];
+          break;
+        }
+      }
       if (anim) {
         const pose = verbPose(anim.verb, anim.t);
         w.obj.scale.setScalar(w.base.scale * pose.scale);
@@ -687,11 +896,25 @@ export class MemoryStage {
         return this.doBuild(beat);
       case "dive":
         return this.doDive(beat);
+      case "weather":
+        this.setWeather(beat.weather, beat.seconds ?? 6);
+        if (beat.look) this.look.setTarget(LOOKS[beat.look] ?? lookFor(beat.look), 2);
+        return;
       case "acts":
         return this.runActs(beat);
       case "freeze":
         return this.doFreeze(beat);
     }
+  }
+
+  /** 切换天气（不阻塞）；也是对外的 API（脚本节拍、测试页） */
+  setWeather(kind: WeatherKind, seconds = 6): void {
+    this.weather.set(kind, seconds);
+  }
+
+  /** 切换记忆色调（2 秒平滑） */
+  setLook(id: string, seconds = 2): void {
+    this.look.setTarget(LOOKS[id] ?? lookFor(id), seconds);
   }
 
   private setPov(pov: Pov): void {
@@ -790,7 +1013,8 @@ export class MemoryStage {
     this.frustumMatrix.multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse);
     this.frustum.setFromProjectionMatrix(this.frustumMatrix);
     const thirdPerson = this.pov.pov === "watch";
-    for (const a of this.actors.values()) {
+    for (let i = 0; i < this.actorList.length; i++) {
+      const a = this.actorList[i];
       if (this.captionTracker.has(a.id)) continue;
       const isViewer = this.meViewer === a;
       a.eyePosition(this.captionPoint);
@@ -805,7 +1029,7 @@ export class MemoryStage {
   private updateAttention(): void {
     const viewer = this.pov.pov === "me" ? this.meViewer : null;
     if (viewer) viewer.eyePosition(this.viewerEye);
-    updateCrowd(this.actors.values(), viewer ? { handle: viewer, eye: this.viewerEye } : undefined);
+    updateCrowd(this.actorList, viewer ? { handle: viewer, eye: this.viewerEye } : undefined);
   }
 
   private nameOf(wordId: string): string {
@@ -895,7 +1119,7 @@ export class MemoryStage {
     const stand = new THREE.Vector3(center.x + toward.x * 1.5 - toward.z * lateral, 0, center.z + toward.z * 1.5 + toward.x * lateral);
     this.pov.moveTo(stand.x, stand.z, 3.6);
     const dist = THREE.MathUtils.clamp(fit - 1.5, 2.2, 6.5);
-    this.pov.frameFocus(new THREE.Vector3(center.x, Math.max(0.6, union.min.y + (union.max.y - union.min.y) * 0.45), center.z), dist, THREE.MathUtils.clamp(1.1 + dist * 0.4, 1.8, 3.4));
+    this.pov.frameFocus(new THREE.Vector3(center.x, Math.max(0.6, union.min.y + (union.max.y - union.min.y) * 0.45), center.z), dist, THREE.MathUtils.clamp(1.1 + dist * 0.2, 1.6, 2.5));
   }
 
   /** 点地面：2090 年的他走过去（click-to-move）。点到物件走的是 Interaction，不会到这里 */
@@ -1156,16 +1380,16 @@ export class MemoryStage {
     await this.sleep((b.wait ?? dur) * 1000);
   }
 
-  /** 下潜：光粒洪流越来越急，吞没画面，淡白 */
+  /** 下潜：光粒洪流越来越急，他慢慢闭上眼睛（渐黑，不再淡白） */
   private async doDive(b: Extract<Beat, { kind: "dive" }>): Promise<void> {
     const sec = b.seconds ?? 3.4;
     this.diving = true;
     this.hud.clearSubtitle();
     this.hud.setPrompt();
     this.flow.setSpeed(9);
-    this.flow.setVisibility(2.6);
+    this.flow.setVisibility(1.8);
     this.flow.setAttractor(this.camera.position, 1);
-    await this.until(this.hud.fade(true, sec * 1000, "#f6f3ec"));
+    await this.until(this.closeEyes(sec));
   }
 
   private async doActor(b: Extract<Beat, { kind: "actor" }>): Promise<void> {
