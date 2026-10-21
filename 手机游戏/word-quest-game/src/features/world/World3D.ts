@@ -1,3 +1,4 @@
+import { makePhysicalSky, solarPosition, WorldCascades } from "./physicalAtmosphere";
 import { HERO_MODELS } from "./characterModels";
 import { buildVegetationField, type VegetationField } from "./vegetationField";
 import { planVegetation, type AvoidCircle, type AvoidEllipse, type AvoidSegment } from "./vegetationPlan";
@@ -173,6 +174,8 @@ export class World3D {
   private envRT?: THREE.WebGLRenderTarget;
   private mountains?: THREE.Group;
   private skyDome?: THREE.Mesh;
+  private cascades?: WorldCascades;
+  private solarHour = 14;
   private grassMesh?: THREE.InstancedMesh;
   private flowerMesh?: THREE.InstancedMesh;
   private grassUniforms?: { uTime: { value: number }; uPlayer: { value: THREE.Vector3 } };
@@ -332,6 +335,7 @@ export class World3D {
     this.buildSky();
     this.buildClouds();
     this.buildLights();
+    if (this.quality !== "low") this.cascades = new WorldCascades(this.scene, this.camera, this.quality);
     this.buildEnvironment(this.currentBiome);
     // 初始即应用默认生物群系：天空 / 灯光 / 雾，避免首帧沿用占位的深色夜景雾
     this.applyBiomeToSky(this.currentBiome);
@@ -886,8 +890,10 @@ export class World3D {
     }
     this.disposeWaterBodies();
     this.mixer?.stopAllAction();
+    this.cascades?.dispose();
     this.weatherFx?.dispose();
     this.perf?.dispose();
+    for (const pass of this.composer?.passes ?? []) pass.dispose();
     this.composer?.dispose();
     for (const g of this.nodeGroups.values()) disposeGroup(g);
     this.pickupMeshes.clear();
@@ -994,95 +1000,7 @@ export class World3D {
   }
 
   private buildSky(): void {
-    const mat = new THREE.ShaderMaterial({
-      side: THREE.BackSide,
-      depthWrite: false,
-      uniforms: {
-        topColor: { value: new THREE.Color(0x3a5a8a) },
-        midColor: { value: new THREE.Color(0x5a7aaa) },
-        bottomColor: { value: new THREE.Color(0x0a1020) },
-        horizonColor: { value: new THREE.Color(0xbdd0dc) },
-        sunDir: { value: new THREE.Vector3(0.5, 0.72, 0.36).normalize() },
-        sunColor: { value: new THREE.Color(0xfff0c8) },
-        uTime: { value: 0 },
-        uCloud: { value: 0.12 },
-        uCloudDark: { value: 1 },
-      },
-      vertexShader: `
-        varying vec3 vWorldPosition;
-        void main() {
-          vec4 wp = modelMatrix * vec4(position, 1.0);
-          vWorldPosition = wp.xyz;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-      fragmentShader: `
-        uniform vec3 topColor, midColor, bottomColor, horizonColor, sunColor, sunDir;
-        uniform float uTime, uCloud, uCloudDark;
-        varying vec3 vWorldPosition;
-        float sHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
-        float sNoise(vec2 p) {
-          vec2 i = floor(p), f = fract(p);
-          f = f * f * (3.0 - 2.0 * f);
-          return mix(mix(sHash(i), sHash(i + vec2(1.0, 0.0)), f.x), mix(sHash(i + vec2(0.0, 1.0)), sHash(i + vec2(1.0, 1.0)), f.x), f.y);
-        }
-        float sFbm(vec2 p) {
-          float v = 0.0, a = 0.5;
-          for (int i = 0; i < 6; i++) { v += a * sNoise(p); p = p * 2.07 + 13.1; a *= 0.5; }
-          return v;
-        }
-        // 积云密度：基础覆盖 + 边缘侵蚀
-        float cumulus(vec2 p, float t) {
-          vec2 q = p + vec2(t * 0.010, t * 0.004);
-          float base = sFbm(q * 0.9);
-          float detail = sFbm(q * 3.2 + 7.0);
-          return smoothstep(0.55 - uCloud * 0.32, 0.8 - uCloud * 0.36, base * 0.82 + detail * 0.26);
-        }
-        void main() {
-          vec3 dir = normalize(vWorldPosition - cameraPosition);
-          float h = dir.y;
-          vec3 sd3 = normalize(sunDir);
-          float sd = max(dot(dir, sd3), 0.0);
-
-          // 天色：地平线雾色 → 中层 → 天顶，指数过渡让地平线带更宽更柔
-          float up = clamp(h, 0.0, 1.0);
-          vec3 col = mix(horizonColor, midColor, pow(smoothstep(0.0, 0.75, up), 0.9));
-          col = mix(col, topColor, pow(smoothstep(0.25, 1.0, up), 0.9));
-          col = mix(col, bottomColor, smoothstep(0.0, -0.35, h) * 0.55);
-          // 地平线下方直接用雾色（和远处地形 / 山体融为一体）
-          col = mix(col, horizonColor, smoothstep(0.02, -0.06, h));
-
-          // 太阳：核心 + 光晕 + 米氏前向散射（靠近地平线更暖）
-          float warm = 1.0 - clamp(sd3.y * 1.6, 0.0, 1.0);
-          vec3 sunTint = mix(sunColor, vec3(0.86, 0.74, 0.82), warm * 0.45);
-          col += sunTint * pow(sd, 6.0) * 0.18;
-          col += sunTint * pow(sd, 64.0) * 0.55;
-          col += sunTint * smoothstep(0.9993, 0.9998, sd) * 2.4;
-          col += sunTint * exp(-abs(h) * 6.0) * (0.04 + pow(sd, 3.0) * 0.32);
-
-          // 云：积云层（有明暗体积）+ 高空卷云
-          if (h > 0.015) {
-            vec2 cp = dir.xz / (h + 0.28) * 1.15;
-            float d = cumulus(cp, uTime);
-            // 向太阳方向偏移采样一次：密度差决定受光面 / 背光面
-            float dS = cumulus(cp + sd3.xz * 0.075, uTime);
-            float lit = clamp(0.62 + (d - dS) * 3.2, 0.0, 1.0);
-            vec3 shade = mix(vec3(0.54, 0.6, 0.72), vec3(0.97, 1.0, 1.04), lit) * uCloudDark;
-            shade = mix(shade, shade * vec3(1.0, 0.9, 0.9), warm * 0.3);
-            shade += sunTint * pow(sd, 5.0) * 0.28 * (1.0 - d * 0.5);
-            // 云底更暗，云顶边缘透光
-            shade *= 0.88 + 0.12 * smoothstep(0.0, 0.5, d);
-            float fadeH = smoothstep(0.015, 0.2, h);
-            col = mix(col, shade, d * 0.94 * fadeH);
-
-            vec2 ci = dir.xz / (h + 0.1) * vec2(0.5, 1.9) + vec2(uTime * 0.006, 0.0);
-            float cir = smoothstep(0.52, 0.88, sFbm(ci * 1.4)) * smoothstep(0.18, 0.6, h);
-            col = mix(col, vec3(0.94, 0.97, 1.0) * uCloudDark, cir * 0.2);
-          }
-          gl_FragColor = vec4(col, 1.0);
-        }
-      `,
-    });    this.skyDome = new THREE.Mesh(new THREE.SphereGeometry(560, 48, 32), mat);
+    this.skyDome = makePhysicalSky(this.camera.far);
     this.scene.add(this.skyDome);
 
     const positions = new Float32Array(2000 * 3);
@@ -1334,12 +1252,8 @@ export class World3D {
   /** 更新天空 shader 颜色 */
   private applyBiomeToSky(biome: UnitBiome): void {
     if (!this.skyDome) return;
-    const mat = this.skyDome.material as THREE.ShaderMaterial;
-    mat.uniforms.topColor.value.setHex(biome.skyTop);
-    mat.uniforms.midColor.value.setHex(biome.skyMid);
-    mat.uniforms.bottomColor.value.setHex(biome.skyBot);
-    mat.uniforms.horizonColor.value.setHex(biome.fogColor);
-    mat.needsUpdate = true;
+    const u = (this.skyDome.material as THREE.ShaderMaterial).uniforms;
+    u.turbidity.value = 2.5 + biome.fogDensity * 80;
   }
 
   /** 更新光照颜色 */
@@ -2634,16 +2548,13 @@ export class World3D {
     const T = this.rgbT;
     if (this.skyDome) {
       const u = (this.skyDome.material as THREE.ShaderMaterial).uniforms;
-      let c = weatherTint(mixRgb(b.skyTop, look.skyTop, LOOK_MIX, T), wp, this.rgbU);
-      u.topColor.value.setRGB(c.r, c.g, c.b, THREE.SRGBColorSpace);
-      c = weatherTint(mixRgb(b.skyMid, look.skyMid, LOOK_MIX, T), wp, this.rgbU);
-      u.midColor.value.setRGB(c.r, c.g, c.b, THREE.SRGBColorSpace);
-      c = weatherTint(mixRgb(b.skyBot, look.skyBot, LOOK_MIX, T), wp, this.rgbU);
-      u.bottomColor.value.setRGB(c.r, c.g, c.b, THREE.SRGBColorSpace);
-      c = weatherTint(mixRgb(b.fog, look.fog, LOOK_MIX, T), wp, this.rgbU);
-      u.horizonColor.value.setRGB(c.r, c.g, c.b, THREE.SRGBColorSpace);
-      u.uCloud.value = wp.cloud;
-      u.uCloudDark.value = 1 - 0.4 * wp.cloud * (0.4 + 0.6 * wp.skyDark);
+      this.skyDome.position.copy(this.camera.position);
+      u.sunPosition.value.copy(this.sunDirV).multiplyScalar(450000);
+      u.time.value = this.weatherTime;
+      u.cloudCoverage.value = .2 + wp.cloud * .7;
+      u.cloudDensity.value = .4 + wp.skyDark * .5;
+      u.turbidity.value = 2.5 + wp.mist * 5 + wp.cloud * 2;
+      u.mieCoefficient.value = .0035 + wp.mist * .008;
     }
     const fogC = weatherTint(mixRgb(b.fog, look.fog, LOOK_MIX, T), wp, this.rgbU);
     const fog = this.scene.fog as THREE.FogExp2;
@@ -2699,10 +2610,8 @@ export class World3D {
     // 日照循环：太阳在 18°–50° 高度间缓慢摆动（始终是白天），低角度时偏暖；
     // 光源来自相机一侧偏左，使建筑正面被照亮；阴影相机跟随玩家并对齐到网格，近处阴影精细且不闪烁。
     if (this.sun) {
-      const day = t * 0.02;
-      const el = THREE.MathUtils.degToRad(34 + Math.cos(day) * 16);
-      const az = Math.sin(day) * 0.8;
-      this.sunDirV.set(Math.sin(az) * Math.cos(el) + 0.25, Math.sin(el), -0.55 * Math.cos(el)).normalize();
+      this.sunDirV.copy(solarPosition(this.solarHour + t / 3600));
+      const el = Math.asin(this.sunDirV.y);
       const snap = 3;
       const tx = Math.round(this.player.position.x / snap) * snap;
       const tz = Math.round(this.player.position.z / snap) * snap;
@@ -2733,6 +2642,7 @@ export class World3D {
       }
     }
     this.updateAtmosphere(dt);
+    if (this.sun) this.cascades?.update(this.sun, this.sunDirV);
     windTime.value += dt * (0.8 + Math.min(1.2, this.weather.windNow(t)) * 0.9); // 树 / 灌木的风摆共用时间（风越大摆得越快）
     // 草地风吹 + 角色踩踏
     if (this.grassUniforms) {
@@ -2747,9 +2657,9 @@ export class World3D {
     if (this.skyDome) {
       this.skyDome.position.copy(this.camera.position);
       const u = (this.skyDome.material as THREE.ShaderMaterial).uniforms;
-      u.uTime.value = t;
-      u.sunDir.value.copy(this.sunDirV);
-      if (this.sun) u.sunColor.value.copy(this.sun.color);
+      u.time.value = t;
+      u.sunPosition.value.copy(this.sunDirV).multiplyScalar(450000);
+
     }
     this.updateMotes(t, dt);
 

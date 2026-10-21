@@ -2,7 +2,11 @@ import * as THREE from "three";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
-import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+import { SSRPass } from "three/addons/postprocessing/SSRPass.js";
+import { TemporalAA } from "./temporalAA";
+import { MeteredOutputPass } from "./exposureMeter";
+import { createAerialPerspective } from "./aerialPerspective";
+import { makePhysicalSky } from "./physicalAtmosphere";
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
 import { normalizedTint, type ResolvedLook } from "../memory/memoryLooks";
@@ -87,16 +91,45 @@ export function createPostPipeline(
     const pr = Math.min(window.devicePixelRatio, qcfg.pixelRatio);
     const target = new THREE.WebGLRenderTarget(Math.max(1, Math.floor(w * pr)), Math.max(1, Math.floor(h * pr)), {
       type: THREE.HalfFloatType,
-      samples: quality === "high" ? 4 : 2,
+      samples: 0,
+      depthTexture: new THREE.DepthTexture(Math.max(1, Math.floor(w * pr)), Math.max(1, Math.floor(h * pr)), THREE.UnsignedIntType),
     });
     const composer = new EffectComposer(renderer, target);
-    composer.addPass(new RenderPass(scene, camera));
+    const render = new RenderPass(scene, camera);
+    let depth: THREE.DepthTexture | null = null;
+    const taa = camera instanceof THREE.PerspectiveCamera ? new TemporalAA(camera, () => depth) : undefined;
+    const ssr = quality === "high" && options.ao !== false && camera instanceof THREE.PerspectiveCamera
+      ? new SSRPass({renderer,scene,camera,width:w,height:h,selects:[],groundReflector:null}) : undefined;
+    if(ssr){ssr.opacity=.2;ssr.maxDistance=10;ssr.thickness=.08;ssr.resolutionScale=.5;
+      ssr.ssrMaterial.defines.MAX_STEP=48;
+      const resize=render.setSize.bind(render);render.setSize=(rw,rh)=>{resize(rw,rh);ssr.setSize(rw,rh);};
+      const dispose=render.dispose.bind(render);render.dispose=()=>{ssr.dispose();dispose();};
+    }
+    let frame=0;let selected:THREE.Mesh[]=[];
+    const point=new THREE.Vector3();
+    const rawRender = render.render.bind(render);
+    render.render = (r, write, read, dt, mask): void => {
+      if (taa?.enabled) taa.jitter(read.width, read.height);
+      else if (camera instanceof THREE.PerspectiveCamera) camera.clearViewOffset();
+      if(ssr && frame++%30===0){selected=[];scene.traverse(o=>{const mesh=o as THREE.Mesh;if(!mesh.isMesh)return;
+        mesh.getWorldPosition(point);if(point.distanceToSquared(camera.position)>45*45)return;
+        const materials=Array.isArray(mesh.material)?mesh.material:[mesh.material];
+        if(materials.some(m=>m instanceof THREE.MeshStandardMaterial&&m.roughness<.3&&m.metalness>.3))selected.push(mesh);
+      });ssr.selects=selected;}
+      if(ssr && selected.length){ssr.render(r,read,read,dt,mask);depth=ssr.beautyRenderTarget.depthTexture;}
+      else {rawRender(r,write,read,dt,mask);depth=read.depthTexture;}
+    };
+    composer.addPass(render);
+    if (camera instanceof THREE.PerspectiveCamera && camera.far > 200)
+      composer.addPass(createAerialPerspective(camera, scene, () => depth));
+    if (taa) composer.addPass(taa);
 
     // 环境光遮蔽：让建筑根部、石阶缝隙、树下出现接触阴影，物体不再"漂"在地上
-    if (quality === "high" && options.ao !== false) {
+    if (quality !== "low" && options.ao !== false) {
       const ao = new GTAOPass(scene, camera, w, h);
+      const aoSize=ao.setSize.bind(ao);ao.setSize=(aw,ah)=>aoSize(Math.max(1,Math.floor(aw*.5)),Math.max(1,Math.floor(ah*.5)));
       ao.output = GTAOPass.OUTPUT.Default;
-      ao.blendIntensity = 0.85;
+      ao.blendIntensity = 0.55;
       ao.updateGtaoMaterial({ radius: 1.1, distanceExponent: 1.4, thickness: 2, scale: 1.1, samples: 12, distanceFallOff: 1, screenSpaceRadius: false });
       ao.updatePdMaterial({ lumaPhi: 10, depthPhi: 2, normalPhi: 3, radius: 5, rings: 2, samples: 8 });
       composer.addPass(ao);
@@ -111,7 +144,7 @@ export function createPostPipeline(
       bloom.setSize = (bw: number, bh: number): void => rawSetSize(Math.max(1, Math.floor(bw * bs)), Math.max(1, Math.floor(bh * bs)));
       composer.addPass(bloom);
     }
-    composer.addPass(new OutputPass());
+    composer.addPass(new MeteredOutputPass());
     // 调色（记忆回溯 · 科技风）：输出空间做 S 曲线对比、抬黑、冷暗部 / 中性亮部色偏、饱和度；
     // 暗角区域额外叠加色差与极淡的扫描线 / 全息微闪（仅画面边缘，中心保持干净）。参数由 applyGrade(look) 驱动。
     const gradePass = new ShaderPass({
@@ -192,38 +225,10 @@ export function buildSkyEnvironment(renderer: THREE.WebGLRenderer, palette: Envi
   try {
     const pmrem = new THREE.PMREMGenerator(renderer);
     const envScene = new THREE.Scene();
-    const mat = new THREE.ShaderMaterial({
-      side: THREE.BackSide,
-      depthWrite: false,
-      uniforms: {
-        topColor: { value: new THREE.Color(palette.skyTop) },
-        midColor: { value: new THREE.Color(palette.skyMid) },
-        bottomColor: { value: new THREE.Color(palette.skyBot) },
-        sunColor: { value: new THREE.Color(palette.sunColor) },
-        sunDir: { value: (palette.sunDir ?? new THREE.Vector3(0.5, 0.72, 0.36)).clone().normalize() },
-      },
-      vertexShader: `
-          varying vec3 vDir;
-          void main() {
-            vDir = normalize(position);
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-          }
-        `,
-      fragmentShader: `
-          uniform vec3 topColor, midColor, bottomColor, sunColor, sunDir;
-          varying vec3 vDir;
-          void main() {
-            vec3 d = normalize(vDir);
-            vec3 col = mix(bottomColor, midColor, smoothstep(-0.2, 0.35, d.y));
-            col = mix(col, topColor, smoothstep(0.2, 0.95, d.y));
-            float sd = max(dot(d, normalize(sunDir)), 0.0);
-            col += sunColor * pow(sd, 26.0) * 2.6;
-            col += sunColor * pow(sd, 3.0) * 0.26;
-            gl_FragColor = vec4(col, 1.0);
-          }
-        `,
-    });
-    envScene.add(new THREE.Mesh(new THREE.SphereGeometry(10, 32, 24), mat));
+    const sky = makePhysicalSky(10);
+    if (palette.sunDir) sky.material.uniforms.sunPosition.value.copy(palette.sunDir).multiplyScalar(450000);
+    sky.material.uniforms.showSunDisc.value = false;
+    envScene.add(sky);
 
     const rt = pmrem.fromScene(envScene, 0.02);
 
