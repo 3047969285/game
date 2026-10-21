@@ -42,6 +42,15 @@ export interface WaterBody {
   dispose(): void;
 }
 
+let waterViewId=0;
+const waterViews=new Map<number,ReturnType<typeof makeWaterView>>();
+function makeWaterView(){return {
+  reflection:{value:null as THREE.Texture|null},refraction:{value:null as THREE.Texture|null},
+  reflectionMatrix:{value:new THREE.Matrix4()},refractionMatrix:{value:new THREE.Matrix4()},
+  ready:{value:0},planeY:{value:0},
+};}
+export function getWaterView(material:THREE.Material){return waterViews.get(material.userData.waterViewId as number);}
+
 const DEFAULT_SHALLOW = 0x5fa592;
 const DEFAULT_DEEP = 0x0c3a3e;
 
@@ -96,6 +105,9 @@ const FRAG_PARS = /* glsl */ `
   #ifdef W_FOAM_TEX
     uniform sampler2D uWFoam;
   #endif
+  uniform sampler2D uWReflection,uWRefraction;
+  uniform mat4 uWReflectionMatrix,uWRefractionMatrix;
+  uniform float uWViewReady,uWPlaneY;
   varying vec3 vWPos;
   varying float vWLocalZ;
 `;
@@ -162,6 +174,20 @@ const NORMAL_BLOCK = /* glsl */ `
   diffuseColor.a = mix(wAlpha, 0.95, wFoam);
   roughnessFactor = mix(0.14, 0.8, wFoam) + smoothstep(80.0, 300.0, wDist) * 0.2;
 
+  // Planar captures contain this scene's shoreline/buildings, not a generic sky.
+  if(uWViewReady>.5 && abs(vWPos.y-uWPlaneY)<.12){
+    vec4 rp=uWReflectionMatrix*vec4(vWPos,1.0),tp=uWRefractionMatrix*vec4(vWPos,1.0);
+    vec2 ruv=rp.xy/rp.w+wSlope*.015,tuv=tp.xy/tp.w+wSlope*.009;
+    float edge=smoothstep(0.0,.008,min(min(ruv.x,ruv.y),min(1.0-ruv.x,1.0-ruv.y)));
+    vec3 reflected=texture2D(uWReflection,clamp(ruv,.001,.999)).rgb;
+    vec3 refracted=texture2D(uWRefraction,clamp(tuv,.001,.999)).rgb;
+    vec3 transmitted=refracted*exp(-wPath*vec3(.22,.09,.06));
+    vec3 captured=mix(mix(wCol,transmitted,.55),reflected,clamp(wFres*2.5,.12,.92));
+    totalEmissiveRadiance+=captured*edge*(1.0-wFoam)*.7;
+    diffuseColor.rgb*=1.0-edge*(1.0-wFoam)*.55;
+    diffuseColor.a=mix(diffuseColor.a,1.0,edge);
+  }
+
   // 太阳亮点：Blinn，法线碎裂 → 一片闪烁的碎光
   vec3 wR = reflect(-wV, wN);
   float wGlint = pow(max(dot(wR, uWSunDir), 0.0), 520.0);
@@ -206,6 +232,8 @@ function createSurfaceMaterial(cfg: SurfaceConfig): THREE.MeshPhysicalMaterial {
     envMapIntensity: 1,
   });
   mat.fog = cfg.fog;
+  const view=makeWaterView(),id=++waterViewId;waterViews.set(id,view);mat.userData.waterViewId=id;
+  mat.addEventListener('dispose',()=>waterViews.delete(id));
   const normalTex = sharedNormalMap(cfg.quality === "low" ? 128 : 256);
   const foamTex = cfg.quality === "low" || !cfg.depthTex ? undefined : sharedFoamMap(256);
   const shallow = new THREE.Color(cfg.shallow);
@@ -219,6 +247,9 @@ function createSurfaceMaterial(cfg: SurfaceConfig): THREE.MeshPhysicalMaterial {
   ].join("\n");
 
   mat.onBeforeCompile = (shader) => {
+    shader.uniforms.uWReflection=view.reflection;shader.uniforms.uWRefraction=view.refraction;
+    shader.uniforms.uWReflectionMatrix=view.reflectionMatrix;shader.uniforms.uWRefractionMatrix=view.refractionMatrix;
+    shader.uniforms.uWViewReady=view.ready;shader.uniforms.uWPlaneY=view.planeY;
     shader.uniforms.uWTime = waterUniforms.time;
     shader.uniforms.uWSunDir = waterUniforms.sunDir;
     shader.uniforms.uWSunColor = waterUniforms.sunColor;

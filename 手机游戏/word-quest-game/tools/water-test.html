@@ -5,6 +5,8 @@
 <script type="module">
 import * as THREE from "three";
 import { createSimpleWaterMaterial, waterUniforms } from "/src/features/world/waterSurface.ts";
+import { WaterCapture } from "/src/features/world/waterCapture.ts";
+const capture=new WaterCapture("high");
 const r = new THREE.WebGLRenderer({ antialias: true });
 r.setSize(innerWidth, innerHeight);
 r.toneMapping = THREE.ACESFilmicToneMapping;
@@ -28,6 +30,7 @@ r.setAnimationLoop((t) => {
   waterUniforms.time.value = t / 1000;
   waterUniforms.sunDir.value.copy(sun.position).normalize();
   waterUniforms.sunColor.value.copy(sun.color).multiplyScalar(Math.min(sun.intensity, 3));
+  capture.update(r,s,cam);
   r.render(s, cam);
 });
 </script>

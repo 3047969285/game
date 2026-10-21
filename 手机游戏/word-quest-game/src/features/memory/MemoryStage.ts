@@ -1,3 +1,4 @@
+import { WaterCapture } from "../world/waterCapture";
 import { closeIntroShot, firstIntroShot } from "./introCamera";
 import { MemoryAir } from "./MemoryAir";
 import * as THREE from "three";
@@ -108,6 +109,7 @@ const mixRgb = (a: Rgb, b: Rgb, t: number, out: Rgb): Rgb => {
 export class MemoryStage {
   private readonly host: HTMLElement;
   private readonly renderer: THREE.WebGLRenderer;
+  private waterCapture?: WaterCapture;
   private readonly scene = new THREE.Scene();
   private readonly camera: THREE.PerspectiveCamera;
   private readonly quality: QualityTier;
@@ -238,6 +240,7 @@ export class MemoryStage {
     this.camera.position.set(0, 2, 6);
 
     this.scene.fog = new THREE.FogExp2(0x0b1018, 0.06);
+    if(this.quality!=="low")this.waterCapture=new WaterCapture(this.quality);
     this.scene.background = new THREE.Color(0x0b1018);
 
     // 灯光固定为两盏：太阳 + 半球。灯数量不能在运行中变（会让全部着色器重编译），亮度随“世界建好的程度”变化
@@ -443,6 +446,7 @@ export class MemoryStage {
     this.materializer.dispose();
     this.flow.dispose();
     this.air?.dispose();
+    this.waterCapture?.dispose();
     this.weatherFx?.dispose();
     this.perf?.dispose();
     for (const a of this.actors.values()) a.dispose();
@@ -696,6 +700,7 @@ export class MemoryStage {
       // 阴影贴图只在需要时更新：人物 / 显形一直在动，所以中低档隔帧更新，静止（定格）时完全不更新
       this.shadowFrame++;
       this.renderer.shadowMap.needsUpdate = !this.cinema.frozen && (this.quality === "high" || (this.shadowFrame & 1) === 0 || this.materializer.progress() < 1);
+      if(this.materializer.buildProgress()>.98)this.waterCapture?.update(this.renderer,this.scene,this.camera);
       if (this.post) this.post.composer.render();
       else this.renderer.render(this.scene, this.camera);
       this.perf?.update(rawMs);
@@ -2094,7 +2099,8 @@ export class MemoryStage {
       this.pov.root.visible = false;
       this.pov.trail.visible = false;
       this.cinema.captureClean(() => {
-        if (this.post) this.post.composer.render();
+        if(this.materializer.buildProgress()>.98)this.waterCapture?.update(this.renderer,this.scene,this.camera);
+      if (this.post) this.post.composer.render();
         else this.renderer.render(this.scene, this.camera);
       });
       const src = this.renderer.domElement;

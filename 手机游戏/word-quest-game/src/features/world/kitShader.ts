@@ -1,3 +1,4 @@
+import { surfaceClimate } from "./surfaceClimate";
 import * as THREE from "three";
 import {
   SURFACE_ALBEDO_MEAN,
@@ -277,7 +278,7 @@ ${samplingGLSL(kind, low)}
   float kBreak = kNoise(vec2(kHu * 2.3, vKitWorld.y * 1.1 + 3.0));
   float kG = (1.0 - smoothstep(0.0, 1.15 * (0.45 + 0.9 * kBreak), vKitH)) * kWall * uKitGrime * ${f(p.grime)};
   kG = clamp(kG, 0.0, 1.0);
-  diffuseColor.rgb *= mix(vec3(1.0), vec3(0.5, 0.43, 0.35), kG * 0.8);
+  diffuseColor.rgb *= mix(vec3(1.0), vec3(0.48, 0.50, 0.49), kG * 0.8);
   roughnessFactor = mix(roughnessFactor, max(roughnessFactor, 0.9), kG * 0.6);
   kAo *= 1.0 - 0.25 * kG * (1.0 - smoothstep(0.0, 0.35, vKitH));
 ${
@@ -291,6 +292,14 @@ ${
   diffuseColor.rgb *= 1.0 - kStr * vec3(0.26, 0.24, 0.2);
 `
 }
+${!low && ["plaster","concrete","brick","masonry"].includes(kind) ? `
+  // Fine weathering close to facades; neutral damp marks avoid an amber wash.
+  float kCrackNoise=kNoise(vec2(kHu*1.7,vKitWorld.y*3.2));
+  float kHairline=1.0-smoothstep(.004,.018,abs(kCrackNoise-.51));
+  kHairline*=kWall*(1.0-smoothstep(6.0,24.0,kDist))*.1;
+  diffuseColor.rgb*=1.0-kHairline;
+  roughnessFactor=clamp(roughnessFactor+kHairline*.3,0.04,1.0);
+` : ""}
   // edge wear: brighter, less saturated exposed material
   float kLum = dot(diffuseColor.rgb, vec3(0.299, 0.587, 0.114));
   vec3 kChip = mix(diffuseColor.rgb, vec3(kLum), 0.35) * 1.28 + 0.012;
@@ -406,13 +415,16 @@ export function classifySurface(mat: THREE.MeshStandardMaterial, hint?: string):
  * 世界空间图案，不依赖 UV，适合沿曲线铺设的路带。
  */
 export function applyCobblePattern(mat: THREE.MeshStandardMaterial, scale = 5.5): void {
+  mat.userData.isRoadSurface=true;
   mat.onBeforeCompile = (shader) => {
+    shader.uniforms.uRoadWet=surfaceClimate.wet;
     shader.vertexShader = "varying vec3 vCobWorld;\n" + shader.vertexShader.replace(
       "#include <begin_vertex>",
       `#include <begin_vertex>
        vCobWorld = (modelMatrix * vec4(transformed, 1.0)).xyz;`
     );
     shader.fragmentShader = `
+      uniform float uRoadWet;
       varying vec3 vCobWorld;
       float cHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
       vec3 cVor(vec2 p) {
@@ -434,14 +446,20 @@ export function applyCobblePattern(mat: THREE.MeshStandardMaterial, scale = 5.5)
         "#include <color_fragment>",
         `#include <color_fragment>
          float cGap = 0.0;
+         float cPuddle=0.0;
          {
            vec3 v = cVor(vCobWorld.xz * ${scale.toFixed(2)});
            float edge = v.y - v.x;
            cGap = 1.0 - smoothstep(0.03, 0.16, edge);
            diffuseColor.rgb *= (0.78 + v.z * 0.42) * (1.0 - cGap * 0.5);
+           float worn=smoothstep(.45,.9,v.z)*(1.0-cGap)*.1;
+           diffuseColor.rgb=mix(diffuseColor.rgb,vec3(dot(diffuseColor.rgb,vec3(.2126,.7152,.0722))),worn);
+           // Accumulate first in joints/low patches, not uniformly over every stone.
+           cPuddle=smoothstep(.25,.85,uRoadWet)*(smoothstep(.6,.9,v.z*.5+cGap*.5));
+           diffuseColor.rgb*=1.0-cPuddle*.28;
          }`
       )
-      .replace("#include <roughnessmap_fragment>", `#include <roughnessmap_fragment>\n roughnessFactor = mix(roughnessFactor, 1.0, cGap);`)
+      .replace("#include <roughnessmap_fragment>", `#include <roughnessmap_fragment>\n roughnessFactor = mix(mix(roughnessFactor, 1.0, cGap), .08, cPuddle);`)
       .replace(
         "#include <normal_fragment_maps>",
         `#include <normal_fragment_maps>
@@ -454,11 +472,11 @@ export function applyCobblePattern(mat: THREE.MeshStandardMaterial, scale = 5.5)
              vec2 gr = vec2(cDome(q + vec2(cE, 0.0)) - h0, cDome(q + vec2(0.0, cE)) - h0) / cE;
              vec3 gv = mat3(viewMatrix) * vec3(gr.x, 0.0, gr.y);
              gv -= normal * dot(gv, normal);
-             normal = normalize(normal - gv * 0.09 * cFade);
+             normal = normalize(normal - gv * 0.09 * cFade * (1.0-cPuddle));
            }
          }`
       );
   };
-  mat.customProgramCacheKey = () => `cobble-${scale}`;
+  mat.customProgramCacheKey = () => `cobble-weather-${scale}`;
   mat.needsUpdate = true;
 }

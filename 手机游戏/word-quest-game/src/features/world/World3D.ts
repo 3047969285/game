@@ -1,3 +1,4 @@
+import { WaterCapture } from "./waterCapture";
 import { createTerrainTiles, type TerrainTiles } from "./terrainLod";
 import { makePhysicalSky, solarPosition, WorldCascades } from "./physicalAtmosphere";
 import { HERO_MODELS } from "./characterModels";
@@ -293,6 +294,7 @@ export class World3D {
   /** 小地图不需要跟随每一帧重绘，降低移动端主线程压力。 */
   private lastExploreUpdateAt = 0;
   private waterFrame = 0;
+  private waterCapture?: WaterCapture;
 
   constructor(container: HTMLElement, options: World3DOptions) {
     this.container = container;
@@ -348,6 +350,7 @@ export class World3D {
     this.buildMotes();
     this.spawnExplorer();
     this.setupPostFX();
+    if (this.quality !== "low") this.waterCapture = new WaterCapture(this.quality);
     this.cacheBiomeRgb(this.currentBiome);
     const pr0 = Math.min(window.devicePixelRatio, this.qcfg.pixelRatio);
     this.scaler = new AdaptiveScaler({ max: pr0, min: Math.min(0.75, pr0), initial: pr0 });
@@ -890,6 +893,7 @@ export class World3D {
     }
     this.disposeWaterBodies();
     this.mixer?.stopAllAction();
+    this.waterCapture?.dispose();
     this.cascades?.dispose();
     this.weatherFx?.dispose();
     this.perf?.dispose();
@@ -2501,6 +2505,7 @@ export class World3D {
         biome: this.minimapPalette(),
       });
     }
+    this.waterCapture?.update(this.renderer,this.scene,this.camera);
     if (this.composer) this.composer.render();
     else this.renderer.render(this.scene, this.camera);
     if (rawMs > 0) {
