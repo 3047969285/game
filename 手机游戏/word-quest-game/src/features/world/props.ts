@@ -72,7 +72,7 @@ export function grassBladeGeometry(bladeCount = 18): THREE.BufferGeometry {
     const bx = Math.cos(ang) * dist;
     const bz = Math.sin(ang) * dist;
     const h = 0.16 + rnd() * 0.34;
-    const w = 0.05 + rnd() * 0.04;
+    const w = 0.026 + rnd() * 0.025;
     const outward = 0.06 + dist * 0.7 + rnd() * 0.12;
     const segs = 3;
 
@@ -112,7 +112,7 @@ export function grassBladeGeometry(bladeCount = 18): THREE.BufferGeometry {
 
     // 根部深、尖端亮；少量枯黄叶片
     const tint = 0.78 + rnd() * 0.3;
-    const dry = rnd() > 0.82 ? 1 : 0;
+    const dry = rnd() > 0.93 ? 1 : 0;
     const colors = new Float32Array(positions.length);
     for (let v = 0; v < positions.length / 3; v++) {
       const t = THREE.MathUtils.clamp(positions[v * 3 + 1] / GRASS_TUFT_HEIGHT, 0, 1);

@@ -667,9 +667,9 @@ export class World3D {
       this.grassHsl.s,
       this.grassHsl.l * (1 + (h1 - 0.5) * 0.24)
     );
-    this.grassColor.r = (this.grassColor.r * 1.2) / 0.19;
-    this.grassColor.g = (this.grassColor.g * 1.2) / 0.3;
-    this.grassColor.b = (this.grassColor.b * 1.2) / 0.088;
+    this.grassColor.r = (this.grassColor.r * 1.02) / 0.19;
+    this.grassColor.g = (this.grassColor.g * 1.02) / 0.3;
+    this.grassColor.b = (this.grassColor.b * 1.02) / 0.088;
     mesh.setColorAt(slot, this.grassColor);
 
     // 野花：按低频噪声成片分布（花田），一片内有主色调，偶尔混入其它色
@@ -1669,7 +1669,7 @@ export class World3D {
 
   /** 实例化草地：草丛跟随玩家动态铺设，近处密实、远处回收（GPU 风吹摆动） */
   private buildGrass(): void {
-    const geo = grassBladeGeometry();
+    const geo = grassBladeGeometry(this.quality === "low" ? 9 : 12);
     const mat = new THREE.MeshStandardMaterial({
       vertexColors: true,
       roughness: 0.92,
@@ -1680,10 +1680,12 @@ export class World3D {
       shader.uniforms.uTime = { value: 0 };
       shader.uniforms.uPlayer = { value: new THREE.Vector3(0, 0, 0) };
       shader.uniforms.uCloudT = cloudTime;
+      shader.uniforms.uWind = windStrength;
+      shader.uniforms.uGrassSun = foliageSun.dir;
       shader.uniforms.uFade = { value: new THREE.Vector2(this.grassRadius * 0.55, this.grassRadius * 0.96) };
       this.grassUniforms = shader.uniforms as { uTime: { value: number }; uPlayer: { value: THREE.Vector3 } };
-      shader.vertexShader = "uniform float uTime;\nuniform vec3 uPlayer;\nuniform vec2 uFade;\nuniform float uCloudT;\nvarying float vCloud;\n" + CLOUD_GLSL + shader.vertexShader;
-      shader.fragmentShader = "varying float vCloud;\n" + shader.fragmentShader.replace("#include <color_fragment>", "#include <color_fragment>\n diffuseColor.rgb *= vCloud;");
+      shader.vertexShader = "uniform float uWind;\nuniform float uTime;\nuniform vec3 uPlayer;\nuniform vec2 uFade;\nuniform float uCloudT;\nvarying float vCloud;\n" + CLOUD_GLSL + shader.vertexShader;
+      shader.fragmentShader = "uniform vec3 uGrassSun;\nvarying float vCloud;\n" + shader.fragmentShader.replace("#include <color_fragment>", "#include <color_fragment>\n diffuseColor.rgb *= vCloud;").replace("#include <emissivemap_fragment>", "#include <emissivemap_fragment>\n vec3 grassSunView=normalize((viewMatrix*vec4(uGrassSun,0.0)).xyz);\n totalEmissiveRadiance+=diffuseColor.rgb * pow(max(dot(normalize(vViewPosition),-grassSunView),0.0),3.0)*0.16;");
       shader.vertexShader = shader.vertexShader.replace(
         "#include <begin_vertex>",
         `#include <begin_vertex>
@@ -1691,7 +1693,7 @@ export class World3D {
          vec4 gWp = instanceMatrix * vec4(0.0, 0.0, 0.0, 1.0);
          vCloud = cloudK(gWp.xz, uCloudT);
          float gPh = gWp.x * 0.12 + gWp.z * 0.12;
-         float gSway = sin(uTime * 1.5 + gPh) * 0.16 + sin(uTime * 2.7 + gPh * 1.6) * 0.06;
+         float gSway = (sin(uTime * 1.5 + gPh) * 0.12 + sin(uTime * 2.7 + gPh * 1.6) * 0.04) * uWind;
          transformed.x += gSway * gH;
          transformed.z += gSway * 0.4 * gH;
          // 角色踩踏：附近草向外侧倒伏并压低
@@ -2137,7 +2139,7 @@ export class World3D {
       avoidSegments: roadSegments,
       clearCenterStrip: unitMode ? 0 : 14,
     });
-    this.vegetation = buildVegetationField(vegInstances, { castShadow: this.quality !== "low" });
+    this.vegetation = buildVegetationField(vegInstances, { castShadow: this.quality !== "low", groundY:(x,z)=>sampleTerrainY(x,z,terrainHeight) });
     this.decorGroup.add(this.vegetation.group);
 
     const mist = new THREE.Mesh(

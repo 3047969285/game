@@ -34,8 +34,8 @@ export interface QualityConfig {
 }
 
 export const QUALITY_PRESETS: Record<QualityTier, QualityConfig> = {
-  high: { pixelRatio: 2, grassRadius: 40, grassCell: 1.1, shadowMap: 2048, bloom: true, bloomScale: 0.6 },
-  med: { pixelRatio: 1.5, grassRadius: 34, grassCell: 1.5, shadowMap: 1536, bloom: true, bloomScale: 0.45 },
+  high: { pixelRatio: 2, grassRadius: 40, grassCell: 0.8, shadowMap: 2048, bloom: true, bloomScale: 0.6 },
+  med: { pixelRatio: 1.5, grassRadius: 34, grassCell: 1.1, shadowMap: 1536, bloom: true, bloomScale: 0.45 },
   low: { pixelRatio: 1, grassRadius: 26, grassCell: 1.9, shadowMap: 1024, bloom: false, bloomScale: 0.5 },
 };
 

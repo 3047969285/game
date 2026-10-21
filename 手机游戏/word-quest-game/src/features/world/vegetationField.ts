@@ -1,3 +1,4 @@
+import { distantLeafCards, terrainOccludes } from "./vegetationLod";
 import * as THREE from "three";
 import { applyFoliageShadow, createBush, createPine, createRock, createTree, vcMaterial } from "./props";
 import { VARIANTS_PER_KIND, type VegetationInstance, type VegetationKind } from "./vegetationPlan";
@@ -15,7 +16,7 @@ export interface VegetationField {
 const VARIANT_SCALE = [1.0, 1.13, 1.27];
 const UPDATE_INTERVAL = 0.4;
 
-type Lod = "high" | "low";
+type Lod = "high" | "low" | "far";
 
 /** 一份可放进 BatchedMesh 的部件：材质 + 归一化几何 */
 interface Part {
@@ -23,7 +24,7 @@ interface Part {
   geometry: THREE.BufferGeometry;
 }
 
-function makeModel(kind: VegetationKind, variant: number, lod: Lod): THREE.Object3D {
+function makeModel(kind: VegetationKind, variant: number, lod: "high" | "low"): THREE.Object3D {
   const s = VARIANT_SCALE[variant % VARIANTS_PER_KIND];
   if (kind === "broadleaf") return createTree(s, lod);
   if (kind === "pine") return createPine(s, lod);
@@ -77,6 +78,7 @@ function extractParts(root: THREE.Object3D): Part[] {
 interface VariantModel {
   high: Map<THREE.Material, THREE.BufferGeometry>;
   low: Map<THREE.Material, THREE.BufferGeometry>;
+  far: Map<THREE.Material, THREE.BufferGeometry>;
 }
 
 interface Slot {
@@ -84,6 +86,7 @@ interface Slot {
   instanceId: number;
   highGeo: number; // -1 表示该档缺失
   lowGeo: number;
+  farGeo: number;
 }
 
 interface Placed {
@@ -91,11 +94,13 @@ interface Placed {
   z: number;
   slots: Slot[];
   lod: Lod | null;
+  crownY: number;
+  hidden: boolean;
 }
 
 export function buildVegetationField(
   instances: VegetationInstance[],
-  opts: { lodDistance?: number; castShadow?: boolean } = {}
+  opts: { lodDistance?: number; castShadow?: boolean; groundY?:(x:number,z:number)=>number } = {}
 ): VegetationField {
   const berryMat = vcMaterial(0.5, "berry");
   const lodDistance = opts.lodDistance ?? 70;
@@ -109,7 +114,7 @@ export function buildVegetationField(
     const key = `${kind}:${variant}`;
     let m = models.get(key);
     if (!m) {
-      m = { high: new Map(), low: new Map() };
+      m = { high: new Map(), low: new Map(), far:new Map() };
       for (const lod of ["high", "low"] as const) {
         // 岩石只有一档，高低共用（低档直接复用同一份几何）
         if (kind === "rock" && lod === "low") {
@@ -124,6 +129,9 @@ export function buildVegetationField(
           if ((lod === "low" && p.material === berryMat) || target.has(p.material)) p.geometry.dispose();
           else target.set(p.material, p.geometry);
         }
+      }
+      for(const [material, geometry] of m.low){
+        m.far.set(material, material instanceof THREE.MeshStandardMaterial && material.alphaTest>0 ? distantLeafCards(geometry) : geometry);
       }
       models.set(key, m);
     }
@@ -159,13 +167,14 @@ export function buildVegetationField(
   };
   for (const [key, list] of used) {
     const m = models.get(key)!;
-    const mats = new Set<THREE.Material>([...m.high.keys(), ...m.low.keys()]);
+    const mats = new Set<THREE.Material>([...m.high.keys(), ...m.low.keys(), ...m.far.keys()]);
     for (const mat of mats) {
       const p = planOf(mat);
       const h = m.high.get(mat);
       const l = m.low.get(mat);
       if (h) p.geos.add(h);
       if (l) p.geos.add(l);
+      const f=m.far.get(mat);if(f)p.geos.add(f);
       p.instanceCount += list.length;
     }
   }
@@ -207,18 +216,19 @@ export function buildVegetationField(
     scl.setScalar(inst.scale);
     m4.compose(pos, q, scl);
     const slots: Slot[] = [];
-    const mats = new Set<THREE.Material>([...m.high.keys(), ...m.low.keys()]);
+    const mats = new Set<THREE.Material>([...m.high.keys(), ...m.low.keys(), ...m.far.keys()]);
     for (const mat of mats) {
       const batch = batches.get(mat)!;
       const h = m.high.get(mat);
       const l = m.low.get(mat);
       const highGeo = h ? geoIds.get(h)! : -1;
       const lowGeo = l ? geoIds.get(l)! : -1;
+      const f=m.far.get(mat);const farGeo=f?geoIds.get(f)!:-1;
       const instanceId = batch.addInstance(highGeo >= 0 ? highGeo : lowGeo);
       batch.setMatrixAt(instanceId, m4);
-      slots.push({ batch, instanceId, highGeo, lowGeo });
+      slots.push({ batch, instanceId, highGeo, lowGeo, farGeo });
     }
-    placed.push({ x: inst.x, z: inst.z, slots, lod: null });
+    placed.push({ x: inst.x, z: inst.z, slots, lod: null, crownY:inst.y+12*inst.scale, hidden:false });
   }
 
   // 4. LOD 切换（节流）
@@ -226,11 +236,12 @@ export function buildVegetationField(
   let acc = UPDATE_INTERVAL; // 首次 update 立即执行
   let last = performance.now();
   const camPos = new THREE.Vector3();
-  const apply = (p: Placed, lod: Lod): void => {
+  const apply = (p: Placed, lod: Lod, hidden:boolean): void => {
+    p.hidden=hidden;
     p.lod = lod;
     for (const s of p.slots) {
-      const gid = lod === "high" ? s.highGeo : s.lowGeo;
-      if (gid < 0) {
+      const gid = lod === "high" ? s.highGeo : lod === "low" ? s.lowGeo : s.farGeo;
+      if (gid < 0 || hidden) {
         s.batch.setVisibleAt(s.instanceId, false);
       } else {
         s.batch.setGeometryIdAt(s.instanceId, gid);
@@ -251,8 +262,11 @@ export function buildVegetationField(
       for (const p of placed) {
         const dx = p.x - camPos.x;
         const dz = p.z - camPos.z;
-        const lod: Lod = dx * dx + dz * dz < lodSq ? "high" : "low";
-        if (lod !== p.lod) apply(p, lod);
+        const distance=dx*dx+dz*dz;
+        const near=lodSq*(p.lod==="high"?1.15:.9),far=160*160*(p.lod==="far"?.9:1.1);
+        const lod: Lod = distance < near ? "high" : distance < far ? "low" : "far";
+        const hidden=opts.groundY?terrainOccludes(camPos,{x:p.x,y:p.crownY,z:p.z},opts.groundY):false;
+        if (lod !== p.lod || hidden!==p.hidden) apply(p,lod,hidden);
       }
     },
     dispose() {
