@@ -16,6 +16,7 @@ import { createGarmentDetails } from "./garmentDetails";
 export type PersonPose = "stand" | "phone" | "listen" | "talk" | "write" | "read" | "walk" | "point" | "lap" | "reach1" | "reach2" | "reach3" | "reach4";
 
 export interface PersonOptions {
+  model?: string;
   shirt: number;
   trousers?: number;
   skin?: number;
@@ -547,7 +548,7 @@ export function createPerson(opts: PersonOptions): THREE.Group {
       browLift: () => Math.max(0, rig.brows[0].position.y - 0.2165) * 100,
       gazeX: () => rig.gazes[0].position.x * 80, gazeY: () => rig.gazes[0].position.y * 80,
     }, opts.hairStyle === "long" || opts.hairStyle === "bun" ? "female" : "male", {
-      shirt: opts.shirt, trousers: opts.trousers, hair: opts.hair, skin: opts.skin, outfit: opts.humanOutfit, aged: opts.aged, glasses: opts.glasses, seed: opts.seed, look: opts.humanLook,
+      model:opts.model, shirt: opts.shirt, trousers: opts.trousers, hair: opts.hair, skin: opts.skin, outfit: opts.humanOutfit, aged: opts.aged, glasses: opts.glasses, seed: opts.seed, look: opts.humanLook,
     });
     if (updateHuman) {
       const proceduralUpdate = rig.update;

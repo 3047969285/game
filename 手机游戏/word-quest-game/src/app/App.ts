@@ -1031,7 +1031,7 @@ export class App {
     try {
       const loaded = await Promise.race([
         Promise.all([import("../features/memory"), import("../features/world/humanVisual")]).then(async ([memory, humans]) => {
-          await humans.loadHumanModels();
+          await humans.loadHumanModels(script.actors.flatMap(actor => typeof actor.look.model === "string" ? [actor.look.model] : []));
           return memory;
         }),
         entry.cancelled,

@@ -1,3 +1,4 @@
+import { HERO_MODELS } from "./characterModels";
 import { buildVegetationField, type VegetationField } from "./vegetationField";
 import { planVegetation, type AvoidCircle, type AvoidEllipse, type AvoidSegment } from "./vegetationPlan";
 import * as THREE from "three";
@@ -911,7 +912,7 @@ export class World3D {
 
   private spawnExplorer(): void {
     removeGroup(this.scene, this.explorer);
-    this.explorer = createExplorerAvatar();
+    this.explorer = createExplorerAvatar(HERO_MODELS.me2026);
     this.contactShadow = createContactShadow(1.9);
     this.explorer.add(this.contactShadow);
     this.scene.add(this.explorer);
@@ -925,9 +926,9 @@ export class World3D {
     try {
       await loadHumanModels();
       if (this.disposed) return;
-      if (hasHumanModel() && this.explorer?.parent) {
+      if (hasHumanModel("male",HERO_MODELS.me2026) && this.explorer?.parent) {
         const previous = this.explorer;
-        this.explorer = createExplorerAvatar();
+        this.explorer = createExplorerAvatar(HERO_MODELS.me2026);
         this.explorer.position.copy(previous.position);
         this.explorer.quaternion.copy(previous.quaternion);
         this.explorer.visible = previous.visible;

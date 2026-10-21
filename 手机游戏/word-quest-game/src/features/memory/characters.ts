@@ -1,3 +1,4 @@
+import { HERO_MODELS } from "../world/characterModels";
 import { face, type AccessoryId, type FaceShape, type HairStyleId, type HumanLook } from "../world/humanIdentity";
 
 /**
@@ -9,6 +10,7 @@ export interface CharacterIdentity {
   id: "me2026" | "lin" | "mei" | "an" | "rui" | "organizer" | "old2090" | string;
   name: string;
   base: "male" | "female";
+  model?: string;
   face: FaceShape;
   hair: { style: HairStyleId; color: string };
   /** −1..1：在现有肤色上变浅 / 变深 */
@@ -29,7 +31,7 @@ const ME_FACE = face({ jawWidth: -0.25, jawLength: 0.15, cheekbone: 0.25, cheekF
 
 export const CHARACTERS: Readonly<Record<string, CharacterIdentity>> = {
   me2026: {
-    id: "me2026", name: "Me (2026)", base: "male", face: ME_FACE,
+    id: "me2026", name: "Me (2026)", base: "male", model: HERO_MODELS.me2026, face: ME_FACE,
     hair: { style: "messyCrop", color: "#15110f" },
     skinTone: 0, freckles: 0.1, brows: { color: "#0f0c0b", thickness: 1 }, facialHair: "none",
     accessories: ["roundGlasses", "backpack"],
@@ -45,7 +47,7 @@ export const CHARACTERS: Readonly<Record<string, CharacterIdentity>> = {
     heightScale: 0.98, aged: true,
   },
   lin: {
-    id: "lin", name: "Lin", base: "female",
+    id: "lin", name: "Lin", base: "female", model: HERO_MODELS.lin,
     face: face({ jawWidth: 0.7, jawLength: -0.25, cheekbone: 0.1, cheekFull: 0.35, noseLength: -0.1, noseWidth: 0.1, eyeSize: 0.3, eyeSpacing: 0.0, browHeight: 0.1, mouthWidth: 0.15, lipThickness: 0.2, foreheadHeight: -0.2, headAspect: 0.55 }),
     hair: { style: "bob", color: "#6b3f2a" },
     skinTone: 0.4, freckles: 0.6, brows: { color: "#4a2c1e", thickness: 0.35 },
@@ -118,6 +120,7 @@ export function characterLook(id: string, extra: Record<string, unknown> = {}): 
   const accessories = c.accessories ?? [];
   const female = c.base === "female";
   return {
+    model: c.model,
     seated: true,
     shirt: hex(c.outfit.topColor),
     trousers: hex(c.outfit.bottomColor),

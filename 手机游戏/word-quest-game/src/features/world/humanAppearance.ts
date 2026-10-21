@@ -45,6 +45,8 @@ export interface HumanAppearance {
 }
 
 export interface AppearanceBase {
+  /** Optional authored character asset, relative to public/models/. */
+  model?: string;
   shirt?: number;
   trousers?: number;
   hair?: number;

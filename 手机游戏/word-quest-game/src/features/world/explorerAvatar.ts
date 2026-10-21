@@ -464,7 +464,7 @@ function makeLantern(m: Mats): THREE.Group {
 
 // ─────────────────────────────────────────────────────────────
 /** 探险者：一位带着笔记本与提灯、走进"文字世界"的年轻大学生（第三人称、写实比例，约 1.8 米） */
-export function createExplorerAvatar(): THREE.Group {
+export function createExplorerAvatar(model?: string): THREE.Group {
   const root = new THREE.Group();
   root.name = "Explorer";
   const m = createMats();
@@ -550,6 +550,6 @@ export function createExplorerAvatar(): THREE.Group {
     mouthOpen: () => Math.max(0, rig.mouth.scale.y - 1) * 0.15,
     smile: () => Math.max(0, rig.mouth.scale.x - 1) * 0.6,
     gazeX: () => rig.gazeL.position.x * 80, gazeY: () => rig.gazeL.position.y * 80,
-  });
+  }, "male", {model});
   return root;
 }

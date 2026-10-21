@@ -1,3 +1,4 @@
+import { getCharacterModel, HERO_MODELS, loadCharacterModels } from "./characterModels";
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { clone } from "three/addons/utils/SkeletonUtils.js";
@@ -32,7 +33,7 @@ export function registerHumanModel(kind: "male" | "female", scene: THREE.Group, 
   if (pixels) basePixels[kind] = pixels;
 }
 
-export function loadHumanModels(): Promise<void> {
+function loadRocketboxModels(): Promise<void> {
   return loading ??= Promise.all((["male", "female"] as const).map(async (kind) => {
     const url = `${import.meta.env.BASE_URL}models/humans/${kind}.glb`;
     const buffer = await (await fetch(url)).arrayBuffer();
@@ -63,7 +64,12 @@ export function loadHumanModels(): Promise<void> {
     console.warn("[characters] Local human model unavailable; keeping fallback", error);
   });
 }
-export function hasHumanModel(kind: "male" | "female" = "male"): boolean { return !!templates[kind]; }
+/** Authored hero assets are optional; failure keeps the Rocketbox fallback usable. */
+export async function loadHumanModels(models: readonly string[] = Object.values(HERO_MODELS)): Promise<void> {
+  const [,results] = await Promise.all([loadRocketboxModels(), loadCharacterModels(models)]);
+  for (const result of results) if (result.status === "failed" || result.status === "invalid") console.warn(`[characters] ${result.path}: ${result.message}; using fallback`);
+}
+export function hasHumanModel(kind: "male" | "female" = "male", model?: string): boolean { return !!getCharacterModel(model) || !!templates[kind]; }
 
 export interface HumanControls {
   body: THREE.Object3D;
@@ -105,6 +111,7 @@ export interface HumanVisualInfo {
   visual: THREE.Group;
   faces: THREE.Mesh[];
   kind: "male" | "female";
+  sourceModel?: string;
   appearance: HumanAppearance;
   /** 每实例创建的贴图（dispose 时释放；源贴图共享，不在其中） */
   ownedTextures: THREE.Texture[];
@@ -143,11 +150,12 @@ function makeTexture(source: THREE.Texture | null, pixels: ImageData, mutate: (d
 }
 
 export function attachHumanVisual(root: THREE.Group, controls: HumanControls, kind: "male" | "female" = "male", base: AppearanceBase = {}): (() => void) | undefined {
-  const template = templates[kind];
+  const hero = getCharacterModel(base.model);
+  const template = hero ?? templates[kind];
   if (!template) return;
   const appearance = pickAppearance(kind, base, base.seed);
   const ownedTextures: THREE.Texture[] = [];
-  const pixels = basePixels[kind];
+  const pixels = hero ? undefined : basePixels[kind];
   const visual = clone(template) as THREE.Group;
   visual.name = "human-visual";
   const materials = new Map<THREE.Material, THREE.Material>();
@@ -162,8 +170,7 @@ export function attachHumanVisual(root: THREE.Group, controls: HumanControls, ki
       if (!material) {
         material = source.clone();
         const standard = material as THREE.MeshStandardMaterial;
-        standard.roughness = 0.8;
-        standard.metalness = 0;
+        if (!hero) { standard.roughness = 0.8; standard.metalness = 0; }
         if (source.name.endsWith("_body") && pixels?.body) {
           const texture = makeTexture(standard.map, pixels.body, (data) => recolorBody(data, pixels.body!.width, pixels.body!.height, appearance, headSkinMul(pixels, appearance)));
           if (texture) { standard.map = texture; ownedTextures.push(texture); }
@@ -171,7 +178,7 @@ export function attachHumanVisual(root: THREE.Group, controls: HumanControls, ki
           const mul = headSkinMul(pixels, appearance);
           const texture = makeTexture(standard.map, pixels.head, (data) => { rememberSkin(data, pixels.head!.width, kind); recolorHead(data, pixels.head!.width, pixels.head!.height, appearance, mul); addSkinDetails(data, pixels.head!.width, appearance); });
           if (texture) { standard.map = texture; ownedTextures.push(texture); }
-        } else if (source.name.endsWith("_opacity")) {
+        } else if (!hero && source.name.endsWith("_opacity")) {
           // 睫毛 / 眉毛 / 发丝：白色贴图乘发色
           standard.color = new THREE.Color(appearance.hair);
         }
@@ -190,12 +197,13 @@ export function attachHumanVisual(root: THREE.Group, controls: HumanControls, ki
   const look = base.look;
   const skinned: THREE.SkinnedMesh[] = [];
   visual.traverse((object) => { if ((object as THREE.SkinnedMesh).isSkinnedMesh) skinned.push(object as THREE.SkinnedMesh); });
-  const headMesh = skinned.find((mesh) => (mesh.material as THREE.Material).name.endsWith("_head"));
-  const opacityMesh = skinned.find((mesh) => (mesh.material as THREE.Material).name.endsWith("_opacity"));
-  const bodyMesh = skinned.find((mesh) => (mesh.material as THREE.Material).name.endsWith("_body"));
+  const hasMaterial = (mesh:THREE.Mesh,suffix:string):boolean => (Array.isArray(mesh.material)?mesh.material:[mesh.material]).some(m=>m.name.endsWith(suffix));
+  const headMesh = hero ? undefined : skinned.find(mesh=>hasMaterial(mesh,"_head"));
+  const opacityMesh = hero ? undefined : skinned.find(mesh=>hasMaterial(mesh,"_opacity"));
+  const bodyMesh = hero ? undefined : skinned.find(mesh=>hasMaterial(mesh,"_body"));
   const boneNames = headMesh ? headMesh.skeleton.bones.map((bone) => bone.name) : [];
   let landmarks = headMesh ? headLandmarks(headMesh.geometry, boneNames) : null;
-  if (look) {
+  if (!hero && look) {
     const shape = look.aged ? agedFace(look.face) : look.face;
     applyFaceShape(visual, shape);
     // 头部网格雕刻（顶点级）：下颌 / 下巴 / 颧骨 / 鼻 / 眼 / 嘴 / 额头 / 脸长宽；睫毛层同一个场
@@ -204,18 +212,20 @@ export function attachHumanVisual(root: THREE.Group, controls: HumanControls, ki
       landmarks = headLandmarks(headMesh.geometry, boneNames) ?? landmarks;
     }
   }
-  if (look && headMesh && landmarks) {
+  if (!hero && look && headMesh && landmarks) {
     shrinkBaseHair(headMesh.geometry, headMesh.skeleton.bones.map((bone) => bone.name), landmarks);
     if (opacityMesh) {
       if (cullOpacityHair(opacityMesh.geometry, landmarks) === 0) opacityMesh.visible = false;
     }
   }
   visual.updateMatrixWorld(true);
-  const box = new THREE.Box3().setFromObject(visual);
-  const height = box.max.y - box.min.y;
-  const scale = 1.8 / height;
-  visual.scale.set(scale * appearance.widthScale, scale * appearance.heightScale, scale * appearance.widthScale);
-  visual.position.y -= box.min.y * scale * appearance.heightScale;
+  if (!hero) {
+    const box = new THREE.Box3().setFromObject(visual);
+    const height = box.max.y-box.min.y;
+    const scale = 1.8/height;
+    visual.scale.set(scale*appearance.widthScale,scale*appearance.heightScale,scale*appearance.widthScale);
+    visual.position.y -= box.min.y*scale*appearance.heightScale;
+  }
   const baseY = visual.position.y;
   visual.updateMatrixWorld(true);
   const restPose: Array<{ node: THREE.Object3D; q: THREE.Quaternion; p: THREE.Vector3 }> = [];
@@ -228,7 +238,7 @@ export function attachHumanVisual(root: THREE.Group, controls: HumanControls, ki
   // 程序头发与配饰（在高度归一化与休息姿势快照之后加入，所以不影响身高）
   let hair: HairObject | undefined;
   let accessories: AccessorySet | undefined;
-  if (look && headMesh && bodyMesh && landmarks) {
+  if (!hero && look && headMesh && bodyMesh && landmarks) {
     const material = hairMaterial(look.hairColor);
     owned?.add(material);
     hair = createHair(look.hairStyle, landmarks, headMesh, material, base.seed ?? 1) ?? undefined;
@@ -307,7 +317,8 @@ export function attachHumanVisual(root: THREE.Group, controls: HumanControls, ki
   };
   root.userData.updateHumanVisual = update;
   root.userData.humanModel = kind;
-  root.userData.humanVisual = { visual, faces, kind, appearance, ownedTextures, recolored: ownedTextures.length > 0, baseY, restoreRest, hair, accessories } satisfies HumanVisualInfo;
+  root.userData.characterModel = hero ? base.model : undefined;
+  root.userData.humanVisual = { visual, faces, kind, sourceModel:hero?base.model:undefined, appearance, ownedTextures, recolored: ownedTextures.length > 0, baseY, restoreRest, hair, accessories } satisfies HumanVisualInfo;
   update();
   return update;
 }
