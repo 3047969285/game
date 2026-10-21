@@ -1,3 +1,4 @@
+import { getGameSettings } from "../features/world/gameSettings";
 type Sfx = "click" | "nav" | "start" | "win";
 
 /** 程序化 UI 音效 */
@@ -56,6 +57,7 @@ class AudioManager {
         [523, 659, 784, 1046].forEach((f, i) => tone(f, i * 0.1, 0.22, 0.4));
         break;
     }
+    master.gain.value *= getGameSettings().sfxVolume;
   }
 }
 

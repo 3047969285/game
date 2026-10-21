@@ -1,3 +1,4 @@
+import { getGameSettings } from "../world/gameSettings";
 import * as THREE from "three";
 import { createExplorerAvatar, type AvatarRig } from "../world/explorerAvatar";
 import type { CinemaDirector, CameraPose } from "./CinemaDirector";
@@ -738,8 +739,9 @@ export class PovRig {
 
   private readonly onPointerMove = (e: PointerEvent): void => {
     if (e.pointerId !== this.dragPointer) return;
-    const dx = e.clientX - this.lastX;
-    const dy = e.clientY - this.lastY;
+    const settings=getGameSettings();
+    const dx = (e.clientX - this.lastX)*settings.sensitivity;
+    const dy = (e.clientY - this.lastY)*settings.sensitivity*(settings.invertY?-1:1);
     this.lastX = e.clientX;
     this.lastY = e.clientY;
     if (this.pov === "you") {

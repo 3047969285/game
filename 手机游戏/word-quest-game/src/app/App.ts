@@ -363,6 +363,7 @@ export class App {
       this.minimap.setNodes(this.mapNodes);
 
       this.world = new runtime.World3D(viewport, {
+        music:this.music,
         onNodeClick: (id) => this.onNodeClick(id),
         onProximity: (node) => this.updateProximityHud(node),
         onExploreUpdate: (state) => {
@@ -1038,7 +1039,7 @@ export class App {
       ]);
       if (!loaded || !(await entry.covered) || entry.isCancelled) return null;
       this.show("memory");
-      stage = new loaded.MemoryStage(host, { words: this.wordMap, gate, onMusicScene: (scene) => this.music.setScene(scene), onSceneReady: () => entry.reveal() });
+      stage = new loaded.MemoryStage(host, { music:this.music, words: this.wordMap, gate, onMusicScene: (scene) => this.music.setScene(scene), onSceneReady: () => entry.reveal() });
       return await stage.play(script);
     } catch (err) {
       console.error(err);

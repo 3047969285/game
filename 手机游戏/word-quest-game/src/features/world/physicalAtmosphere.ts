@@ -77,5 +77,11 @@ export class WorldCascades {
     this.camera.updateMatrixWorld();
     this.csm.update();
   }
+  setShadowSize(size:number):void {
+    if(this.csm.shadowMapSize===size)return;
+    this.csm.shadowMapSize=size;
+    for(const light of this.csm.lights){light.shadow.map?.dispose();light.shadow.map=null;light.shadow.mapSize.set(size,size);light.shadow.needsUpdate=true;}
+    this.csm.updateFrustums();
+  }
   dispose(): void { this.csm.remove(); this.csm.dispose(); }
 }

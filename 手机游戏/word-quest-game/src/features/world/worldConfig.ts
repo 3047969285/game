@@ -9,8 +9,10 @@ export const TERRAIN_ORIGIN_Z = 180;
 export const INTERACT_RADIUS = 12;
 export const PLAYER_SPEED = 22;
 export const PLAYER_TURN_SPEED = 10;
-export const CAMERA_DISTANCE = 18.0;
-export const CAMERA_HEIGHT = 7.2;
+/** 默认第三人称镜头与角色的距离（米）。 */
+export const CAMERA_DISTANCE = 4.2;
+/** 相机注视点在人物胸肩高度，俯仰围绕该点旋转。 */
+export const CAMERA_HEIGHT = 1.45;
 
 /** 世界坐标 → 地形高度 */
 export function sampleTerrainY(worldX: number, worldZ: number, heightFn: (x: number, z: number) => number): number {

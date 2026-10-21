@@ -1,0 +1,8 @@
+Browser tab: 4, Title: "世界画质 · 固定机位核验", URL: "http://127.0.0.1:5194/tools/world-quality.html".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 19, 54
++	54 text {"meanMs":14.23083333333343,"p95Ms":21.400000000023283,"ratio":0.75,"camera":[-3.999999999999999,8.910678581127033,14.000000000000004]}
++					55 text 74 fps  13.5 ms
+calls 2628  tris 12999139
+ratio 0.75  avg 16.7 ms
+The focused UI element is 5 button 记录 120 帧, ID: measure

@@ -1,3 +1,10 @@
+import { attachGameSettings } from "../world/settingsPanel";
+import { bindRenderSettings } from "../world/renderSettingsBinding";
+import { FrameGate } from "../world/frameGate";
+import { getGameSettings } from "../world/gameSettings";
+import type { MusicPlayer } from "../../infra/music";
+import { renderPixelRatio,resolutionMode } from "../world/renderResolution";
+import { EffectBudget } from "../world/effectBudget";
 import { surfaceClimate } from "../world/surfaceClimate";
 import { WaterCapture } from "../world/waterCapture";
 import { closeIntroShot, firstIntroShot } from "./introCamera";
@@ -44,6 +51,7 @@ import "./memory.css";
  */
 
 export interface MemoryStageOptions {
+  music?:MusicPlayer;
   /** 词表（字幕强调、词签、词卡、纸页用） */
   words: ReadonlyMap<string, WordEntry>;
   quality?: QualityTier;
@@ -130,6 +138,11 @@ export class MemoryStage {
   private readonly wet = new WetnessTracker();
   private sunShaft: THREE.Mesh | null = null;
   private scaler!: AdaptiveScaler;
+  private effectBudget=new EffectBudget();
+  private settingsPanel?:ReturnType<typeof attachGameSettings>;
+  private releaseRenderSettings?:()=>void;
+  private frameGate=new FrameGate();
+  private resolutionPreference=resolutionMode();
   private perf?: PerfOverlay;
   private shadowFrame = 0;
   private envLookVersion = -1;
@@ -227,7 +240,7 @@ export class MemoryStage {
     const h = this.host.clientHeight || window.innerHeight;
 
     this.renderer = new THREE.WebGLRenderer({ antialias: this.quality !== "low", alpha: false, powerPreference: "high-performance" });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, qcfg.pixelRatio));
+    this.renderer.setPixelRatio(renderPixelRatio(w,h,this.resolutionPreference,this.quality,window.devicePixelRatio||1,this.renderer.capabilities.maxTextureSize));
     this.renderer.setSize(w, h);
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = this.quality === "low" ? THREE.PCFShadowMap : THREE.PCFSoftShadowMap;
@@ -269,8 +282,8 @@ export class MemoryStage {
       // 眼睛通道放在最后：闭眼时全黑，睁眼时眼睑 + 虚焦 + 曝光适应
       this.post.composer.addPass(this.eyePass);
     }
-    const pr0 = Math.min(window.devicePixelRatio || 1, qcfg.pixelRatio);
-    this.scaler = new AdaptiveScaler({ max: pr0, min: Math.min(0.75, pr0), initial: pr0 });
+    const pr0 = this.renderer.getPixelRatio();
+    this.scaler = new AdaptiveScaler({ max: pr0, min: this.resolutionPreference!=="balanced"?pr0:Math.min(.75,pr0), initial: pr0 });
     if (perfOverlayEnabled()) this.perf = attachPerfOverlay(this.renderer, this.host, this.scaler);
     this.look = new LookBlender(LOOKS.neutral);
     this.renderer.shadowMap.autoUpdate = false;
@@ -321,6 +334,12 @@ export class MemoryStage {
       this.resizeObserver.observe(this.host);
     }
     this.onResize();
+    this.settingsPanel=attachGameSettings(this.host,{tier:this.quality,unavailableFeatures:['ao','ssr','aerial'],music:opts.music,weather:kind=>this.setWeather(kind),onOpen:open=>this.pov.setEnabled(!open)});
+    this.releaseRenderSettings=bindRenderSettings(this.renderer,this.post,{
+      resolution:mode=>{this.resolutionPreference=mode;this.onResize();},
+      shadowSize:size=>{this.sun.shadow.map?.dispose();this.sun.shadow.map=null;const n=this.quality==="low"?1024:size;this.sun.shadow.mapSize.set(n,n);this.renderer.shadowMap.needsUpdate=true;},
+      stats:()=>{this.perf?.dispose();this.perf=perfOverlayEnabled()?attachPerfOverlay(this.renderer,this.host,this.scaler):undefined;},
+    });
   }
 
   // ───────────────────────── 生命周期 ─────────────────────────
@@ -447,6 +466,7 @@ export class MemoryStage {
     this.materializer.dispose();
     this.flow.dispose();
     this.air?.dispose();
+    this.releaseRenderSettings?.();this.settingsPanel?.();
     this.waterCapture?.dispose();
     this.weatherFx?.dispose();
     this.perf?.dispose();
@@ -694,21 +714,24 @@ export class MemoryStage {
     const frame = (ts: number): void => {
       if (this.disposed) return;
       this.raf = requestAnimationFrame(frame);
+      if(!this.frameGate.ready(ts,getGameSettings().fpsLimit))return;
       const rawMs = ts - this.lastTs;
       const dt = Math.min(0.05, Math.max(0, rawMs / 1000));
       this.lastTs = ts;
       this.tick(dt);
       // 阴影贴图只在需要时更新：人物 / 显形一直在动，所以中低档隔帧更新，静止（定格）时完全不更新
       this.shadowFrame++;
-      this.renderer.shadowMap.needsUpdate = !this.cinema.frozen && (this.quality === "high" || (this.shadowFrame & 1) === 0 || this.materializer.progress() < 1);
+      this.renderer.shadowMap.needsUpdate = !this.cinema.frozen && (this.shadowFrame%(this.effectBudget.level+1)===0 && (this.quality === "high" || (this.shadowFrame & 1) === 0 || this.materializer.progress() < 1));
       if(this.materializer.buildProgress()>.98)this.waterCapture?.update(this.renderer,this.scene,this.camera);
       if (this.post) this.post.composer.render();
       else this.renderer.render(this.scene, this.camera);
       this.perf?.update(rawMs);
+      const budget=this.effectBudget.update(rawMs,dt);if(budget!==null){this.post?.setBudget(budget);this.waterCapture?.setBudget(budget);}
       const next = this.scaler.push(rawMs, dt);
       if (next !== null) {
         this.renderer.setPixelRatio(next);
         this.post?.composer.setPixelRatio(next);
+        this.settingsPanel?.setResolution(this.renderer.domElement.width,this.renderer.domElement.height);
       }
     };
     this.raf = requestAnimationFrame(frame);
@@ -874,6 +897,9 @@ export class MemoryStage {
     const w = this.host.clientWidth || window.innerWidth;
     const h = this.host.clientHeight || window.innerHeight;
     if (!w || !h) return;
+    const ratio=renderPixelRatio(w,h,this.resolutionPreference,this.quality,window.devicePixelRatio||1,this.renderer.capabilities.maxTextureSize);
+    this.scaler=new AdaptiveScaler({max:ratio,min:this.resolutionPreference!=="balanced"?ratio:Math.min(.75,ratio),initial:ratio});
+    this.perf?.setScaler(this.scaler);this.renderer.setPixelRatio(ratio);this.post?.composer.setPixelRatio(ratio);
     this.renderer.setSize(w, h);
     this.post?.composer.setSize(w, h);
     this.camera.aspect = w / h;
@@ -882,6 +908,7 @@ export class MemoryStage {
     if (this.pov.pov === "you" || this.pov.pov === "me") this.camera.fov = fov;
     this.camera.updateProjectionMatrix();
     this.pov.setBaseFov(fov);
+    this.settingsPanel?.setResolution(this.renderer.domElement.width,this.renderer.domElement.height);
   };
 
   // ───────────────────────── 节拍 ─────────────────────────

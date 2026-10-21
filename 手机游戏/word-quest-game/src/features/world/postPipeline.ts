@@ -1,3 +1,4 @@
+import { getGameSettings } from "./gameSettings";
 import * as THREE from "three";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
@@ -41,6 +42,7 @@ export const QUALITY_PRESETS: Record<QualityTier, QualityConfig> = {
 
 /** 依据设备能力推断画质档位 */
 export function detectQuality(): QualityTier {
+  const requested=getGameSettings().tier;if(requested!=="auto")return requested;
   if (typeof window === "undefined") return "med";
   const coarse = window.matchMedia?.("(pointer: coarse)").matches ?? false;
   const small = Math.min(window.innerWidth, window.innerHeight) < 540;
@@ -68,6 +70,8 @@ export interface PostPipeline {
   bloomPass?: UnrealBloomPass;
   /** 调色通道（最后一个内置通道）；追加的通道应在它之后 addPass */
   gradePass: ShaderPass;
+  setBudget(level:0|1|2):void;
+  setFeature(name:"ssr"|"ao"|"taa"|"aerial"|"bloom",enabled:boolean):void;
 }
 
 /**
@@ -88,7 +92,7 @@ export function createPostPipeline(
     const w = size.x;
     const h = size.y;
     // 多重采样渲染目标：否则走后期管线时 renderer 的 antialias 不生效，边缘会有明显锯齿
-    const pr = Math.min(window.devicePixelRatio, qcfg.pixelRatio);
+    const pr = renderer.getPixelRatio();
     const target = new THREE.WebGLRenderTarget(Math.max(1, Math.floor(w * pr)), Math.max(1, Math.floor(h * pr)), {
       type: THREE.HalfFloatType,
       samples: 0,
@@ -97,7 +101,9 @@ export function createPostPipeline(
     const composer = new EffectComposer(renderer, target);
     const render = new RenderPass(scene, camera);
     let depth: THREE.DepthTexture | null = null;
-    const taa = camera instanceof THREE.PerspectiveCamera ? new TemporalAA(camera, () => depth) : undefined;
+    let sharedNormals:THREE.Texture|undefined;
+    let budget:0|1|2=0;let ssrEnabled=true;let aoEnabled=true;
+    const taa = quality!=="low" && camera instanceof THREE.PerspectiveCamera ? new TemporalAA(camera, () => depth) : undefined;
     const ssr = quality === "high" && options.ao !== false && camera instanceof THREE.PerspectiveCamera
       ? new SSRPass({renderer,scene,camera,width:w,height:h,selects:[],groundReflector:null}) : undefined;
     if(ssr){ssr.opacity=.2;ssr.maxDistance=10;ssr.thickness=.08;ssr.resolutionScale=.5;
@@ -116,25 +122,38 @@ export function createPostPipeline(
         const materials=Array.isArray(mesh.material)?mesh.material:[mesh.material];
         if(materials.some(m=>m instanceof THREE.MeshStandardMaterial&&m.roughness<.3&&m.metalness>.3))selected.push(mesh);
       });ssr.selects=selected;}
-      if(ssr && selected.length){ssr.render(r,read,read,dt,mask);depth=ssr.beautyRenderTarget.depthTexture;}
-      else {rawRender(r,write,read,dt,mask);depth=read.depthTexture;}
+      if(ssr && ssrEnabled && budget===0 && selected.length){ssr.render(r,read,read,dt,mask);depth=ssr.beautyRenderTarget.depthTexture;sharedNormals=ssr.normalRenderTarget.texture;}
+      else {rawRender(r,write,read,dt,mask);depth=read.depthTexture;sharedNormals=undefined;}
     };
     composer.addPass(render);
-    if (camera instanceof THREE.PerspectiveCamera && camera.far > 200)
-      composer.addPass(createAerialPerspective(camera, scene, () => depth));
-    if (taa) composer.addPass(taa);
+    const aerial=camera instanceof THREE.PerspectiveCamera && camera.far>200?createAerialPerspective(camera,scene,()=>depth):undefined;
+    if(aerial)composer.addPass(aerial);
 
     // 环境光遮蔽：让建筑根部、石阶缝隙、树下出现接触阴影，物体不再"漂"在地上
+    let ao:GTAOPass|undefined;
     if (quality !== "low" && options.ao !== false) {
-      const ao = new GTAOPass(scene, camera, w, h);
-      const aoSize=ao.setSize.bind(ao);ao.setSize=(aw,ah)=>aoSize(Math.max(1,Math.floor(aw*.5)),Math.max(1,Math.floor(ah*.5)));
+      ao = new GTAOPass(scene, camera, w, h);
+      const ambient=ao;
+      const aoSize=ambient.setSize.bind(ambient);ambient.setSize=(aw,ah)=>aoSize(Math.max(1,Math.floor(aw*.5)),Math.max(1,Math.floor(ah*.5)));
       ao.output = GTAOPass.OUTPUT.Default;
       ao.blendIntensity = 0.55;
       ao.updateGtaoMaterial({ radius: 1.1, distanceExponent: 1.4, thickness: 2, scale: 1.1, samples: 12, distanceFallOff: 1, screenSpaceRadius: false });
       ao.updatePdMaterial({ lumaPhi: 10, depthPhi: 2, normalPhi: 3, radius: 5, rings: 2, samples: 8 });
+      let previousNormals:THREE.Texture|undefined;let configured=false;
+      const aoRender=ambient.render.bind(ambient);
+      ambient.render=(r,write,read,dt,mask):void=>{
+        if(depth){
+          // Public GTAO G-buffer input: reuse SSR normals, or reconstruct normals
+          // from the existing scene depth when SSR is off. No second scene draw.
+          ambient.setGBuffer(depth,sharedNormals);
+          if(!configured||previousNormals!==sharedNormals){ambient.gtaoMaterial.needsUpdate=true;ambient.pdMaterial.needsUpdate=true;previousNormals=sharedNormals;configured=true;}
+        }
+        aoRender(r,write,read,dt,mask);
+      };
       composer.addPass(ao);
     }
 
+    if(taa)composer.addPass(taa);
     let bloom: UnrealBloomPass | undefined;
     if (qcfg.bloom) {
       const bs = qcfg.bloomScale;
@@ -199,10 +218,18 @@ export function createPostPipeline(
     });
     composer.addPass(gradePass);
 
-    composer.setPixelRatio(Math.min(window.devicePixelRatio, qcfg.pixelRatio));
+    composer.setPixelRatio(renderer.getPixelRatio());
     composer.setSize(w, h);
 
-    return { composer, bloomPass: bloom, gradePass };
+    return {composer,bloomPass:bloom,gradePass,
+      setBudget(level){budget=level;if(ao)ao.enabled=aoEnabled&&level<2;},
+      setFeature(name,enabled){if(name==="ssr")ssrEnabled=enabled;
+        if(name==="ao"){aoEnabled=enabled;if(ao)ao.enabled=enabled&&budget<2;}
+        if(name==="taa"&&taa){taa.enabled=enabled;taa.reset();}
+        if(name==="aerial"&&aerial)aerial.enabled=enabled;
+        if(name==="bloom"&&bloom)bloom.enabled=enabled;
+      },
+    };
   } catch {
     // 后期处理初始化失败时回退到直接渲染
     return undefined;

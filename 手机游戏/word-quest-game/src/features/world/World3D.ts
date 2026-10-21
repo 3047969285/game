@@ -1,5 +1,11 @@
+import { renderPixelRatio,resolutionMode,type ResolutionMode } from "./renderResolution";
+import { EffectBudget } from "./effectBudget";
 import { SolarClock } from "./solarClock";
-import { attachWeatherPanel } from "./weatherPanel";
+import { attachGameSettings } from "./settingsPanel";
+import { bindRenderSettings } from "./renderSettingsBinding";
+import { getGameSettings,updateGameSettings } from "./gameSettings";
+import { FrameGate } from "./frameGate";
+import type { MusicPlayer } from "../../infra/music";
 import { surfaceClimate } from "./surfaceClimate";
 import { WaterCapture } from "./waterCapture";
 import { createTerrainTiles, type TerrainTiles } from "./terrainLod";
@@ -12,7 +18,7 @@ import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { Timer } from "three/src/core/Timer.js";
 import type { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import type { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
-import { applyGrade, buildSkyEnvironment, createPostPipeline, detectQuality, QUALITY_PRESETS, type QualityConfig, type QualityTier } from "./postPipeline";
+import { applyGrade, buildSkyEnvironment, createPostPipeline, detectQuality, QUALITY_PRESETS, type PostPipeline, type QualityConfig, type QualityTier } from "./postPipeline";
 import type { MapNode, WordPickup } from "../../core/types";
 import { loadAvatarGlb, loadModelsManifest, enhanceAvatarMaterials, createContactShadow } from "./ModelLoader";
 
@@ -111,6 +117,7 @@ const WORLD_UP = new THREE.Vector3(0, 1, 0);
 const X_AXIS = new THREE.Vector3(1, 0, 0);
 
 export interface World3DOptions {
+  music?:MusicPlayer;
   onNodeClick: (nodeId: string) => void;
   onProximity?: (node: MapNode | null) => void;
   onExploreUpdate?: (state: MinimapState) => void;
@@ -180,7 +187,10 @@ export class World3D {
   private skyDome?: THREE.Mesh;
   private cascades?: WorldCascades;
   private solarClock = new SolarClock(14);
-  private removeWeatherPanel?:()=>void;
+  private removeWeatherPanel?:ReturnType<typeof attachGameSettings>;
+  private releaseRenderSettings?:()=>void;
+  private frameGate=new FrameGate();
+  private settingsOpen=false;
   private starField?:THREE.Points;
   private solarDay = 1;
   private grassMesh?: THREE.InstancedMesh;
@@ -208,6 +218,9 @@ export class World3D {
   private sunDisc?: THREE.Sprite;
   /** 后期处理 */
   private composer?: EffectComposer;
+  private post?:PostPipeline;
+  private resolutionPreference=resolutionMode();
+  private effectBudget=new EffectBudget();
   private bloomPass?: UnrealBloomPass;
   /** 走路相位（驱动四肢摆动） */
   private walkPhase = 0;
@@ -285,7 +298,7 @@ export class World3D {
   private hasSpectatorFocus = false;
   private rebuildToken = 0;
   private player = new PlayerController();
-  private explorerCam = new ExplorerCamera();
+  private explorerCam = new ExplorerCamera((x,z)=>sampleTerrainY(x,z,terrainHeight));
   private nearNode: MapNode | null = null;
   private currentBiome: UnitBiome = DEFAULT_BIOME;
   private activeUnitId?: string;
@@ -325,9 +338,10 @@ export class World3D {
       alpha: false,
       powerPreference: "high-performance",
     });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, this.qcfg.pixelRatio));
+    this.renderer.setPixelRatio(renderPixelRatio(w,h,this.resolutionPreference,this.quality,window.devicePixelRatio,this.renderer.capabilities.maxTextureSize));
     this.renderer.setSize(w, h);
     this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.autoUpdate = false;
     this.renderer.shadowMap.type = this.quality === "low" ? THREE.PCFShadowMap : THREE.PCFSoftShadowMap;
     // AgX：高光平滑去饱和、暗部保留色彩，比 ACES 更接近真实摄影的响应
     this.renderer.toneMapping = THREE.AgXToneMapping;
@@ -344,6 +358,8 @@ export class World3D {
     this.buildClouds();
     this.buildLights();
     if (this.quality !== "low") this.cascades = new WorldCascades(this.scene, this.camera, this.quality);
+    this.scene.userData.atmosphereShadows=this.cascades?.csm.lights??[this.sun];
+    this.scene.userData.atmosphereSun=this.sun;
     this.buildEnvironment(this.currentBiome);
     // 初始即应用默认生物群系：天空 / 灯光 / 雾，避免首帧沿用占位的深色夜景雾
     this.applyBiomeToSky(this.currentBiome);
@@ -358,12 +374,19 @@ export class World3D {
     this.setupPostFX();
     if (this.quality !== "low") this.waterCapture = new WaterCapture(this.quality);
     this.cacheBiomeRgb(this.currentBiome);
-    const pr0 = Math.min(window.devicePixelRatio, this.qcfg.pixelRatio);
-    this.scaler = new AdaptiveScaler({ max: pr0, min: Math.min(0.75, pr0), initial: pr0 });
+    const pr0 = this.renderer.getPixelRatio();
+    this.scaler = new AdaptiveScaler({ max: pr0, min: this.resolutionPreference!=="balanced"?pr0:Math.min(.75,pr0), initial: pr0 });
     if (perfOverlayEnabled()) this.perf = attachPerfOverlay(this.renderer, container, this.scaler);
     this.weatherFx = new WeatherFx({ quality: this.quality, mode: "outdoor", radius: 14, flatGround: false, groundHeight:(x,z)=>sampleTerrainY(x,z,terrainHeight) });
     this.scene.add(this.weatherFx.object);
-    this.removeWeatherPanel=attachWeatherPanel(container,kind=>this.setWeather(kind),hour=>this.setTimeOfDay(hour));
+    this.removeWeatherPanel=attachGameSettings(container,{tier:this.quality,exploration:true,music:options.music,weather:kind=>this.setWeather(kind),time:hour=>this.setTimeOfDay(hour),onOpen:open=>{this.settingsOpen=open;this.player.setEnabled(!open&&!this.spectatorMode&&!this.paused);}});
+    this.releaseRenderSettings=bindRenderSettings(this.renderer,this.post,{
+      resolution:mode=>{this.resolutionPreference=mode;this.onResize();this.perf?.reset();},
+      shadowSize:size=>{this.cascades?.setShadowSize(this.quality==="low"?1024:size);if(this.sun&&!this.cascades){this.sun.shadow.map?.dispose();this.sun.shadow.map=null;this.sun.shadow.mapSize.set(size,size);}},
+      fov:value=>{this.camera.fov=value;this.camera.updateProjectionMatrix();},
+      stats:()=>{this.perf?.dispose();this.perf=perfOverlayEnabled()?attachPerfOverlay(this.renderer,container,this.scaler):undefined;},
+    });
+    this.removeWeatherPanel.setResolution(this.renderer.domElement.width,this.renderer.domElement.height);
     this.bindEvents();
     if (import.meta.env.DEV) (window as unknown as { __world?: World3D }).__world = this;
   }
@@ -371,6 +394,7 @@ export class World3D {
   /** 后期处理管线：泛光（Bloom）让水晶 / 光球 / 太阳产生电影级辉光（共享实现见 postPipeline.ts） */
   private setupPostFX(): void {
     const post = createPostPipeline(this.renderer, this.scene, this.camera, this.quality);
+    this.post=post;
     this.composer = post?.composer;
     this.bloomPass = post?.bloomPass;
     this.gradePass = post?.gradePass;
@@ -401,7 +425,7 @@ export class World3D {
     this.paused = false;
     // 暂停时长不是渲染卡顿；恢复后重新计时，避免首帧把整段学习时间误判为低 FPS。
     this.lastFrameTs = 0;
-    this.player.setEnabled(!this.spectatorMode);
+    this.player.setEnabled(!this.spectatorMode&&!this.settingsOpen);
     this.onResize();
     if (!this.animId) this.animate();
   }
@@ -428,7 +452,7 @@ export class World3D {
   setSpectatorMode(enabled: boolean): void {
     this.spectatorMode = enabled;
     this.player.setStickInput(0, 0);
-    this.player.setEnabled(!enabled && !this.paused);
+    this.player.setEnabled(!enabled && !this.paused&&!this.settingsOpen);
     if (this.explorer) this.explorer.visible = !enabled;
   }
 
@@ -529,7 +553,7 @@ export class World3D {
           this.player.yaw = 0;
           this.player.setPosition(node.x, y, node.z + 2.5);
           this.avatarYaw = 0;
-          this.explorerCam.resetBehind(0);
+          this.explorerCam.snapToPlayer(this.camera,this.player.position,0);
         }
       }
     }
@@ -903,6 +927,7 @@ export class World3D {
     }
     this.disposeWaterBodies();
     this.mixer?.stopAllAction();
+    this.releaseRenderSettings?.();
     this.removeWeatherPanel?.();
     this.starField?.geometry.dispose();
     (this.starField?.material as THREE.Material|undefined)?.dispose();
@@ -1012,9 +1037,7 @@ export class World3D {
     }
     this.avatarYaw = this.player.yaw;
     this.avatarLean = 0;
-    this.explorerCam.resetBehind(this.player.yaw);
-    this.camera.position.set(node.x + 10, y + 7, node.z - 16);
-    this.camera.lookAt(node.x, y + 1.5, node.z);
+    this.explorerCam.snapToPlayer(this.camera,this.player.position,this.player.yaw);
   }
 
   private buildSky(): void {
@@ -2270,14 +2293,14 @@ export class World3D {
   }
 
   private onKeyDown = (e: KeyboardEvent): void => {
-    if (this.paused || this.spectatorMode) return;
+    if (this.paused || this.spectatorMode || this.settingsOpen) return;
     if (e.key.toLowerCase() === "e" || e.key === "Enter") {
       this.tryInteract();
     }
   };
 
   private onPointerDown = (e: PointerEvent): void => {
-    if (this.paused || this.spectatorMode || e.button !== 0) return;
+    if (this.paused || this.spectatorMode || this.settingsOpen || e.button !== 0) return;
     const rect = this.renderer.domElement.getBoundingClientRect();
     this.pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
     this.pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
@@ -2309,9 +2332,34 @@ export class World3D {
     if (!w || !h) return;
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
+    this.configureResolution(w,h);
     this.renderer.setSize(w, h);
     this.composer?.setSize(w, h);
+    this.removeWeatherPanel?.setResolution(this.renderer.domElement.width,this.renderer.domElement.height);
   };
+
+  private configureResolution(w:number,h:number):void {
+    const ratio=renderPixelRatio(w,h,this.resolutionPreference,this.quality,window.devicePixelRatio,this.renderer.capabilities.maxTextureSize);
+    this.scaler=new AdaptiveScaler({max:ratio,min:this.resolutionPreference!=="balanced"?ratio:Math.min(.75,ratio),initial:ratio});
+    this.perf?.setScaler(this.scaler);this.renderer.setPixelRatio(ratio);this.composer?.setPixelRatio(ratio);
+  }
+  setResolutionMode(mode:ResolutionMode):void {updateGameSettings({resolution:mode});}
+  setRenderFeature(name:"ssr"|"ao"|"taa"|"aerial"|"bloom",enabled:boolean):void {this.post?.setFeature(name,enabled);}
+  performanceSnapshot(){return {mode:this.resolutionPreference,effectBudget:this.effectBudget.level,...this.perf?.snapshot()};}
+  capture2K():string {
+    const size=this.renderer.getSize(new THREE.Vector2()),ratio=this.renderer.getPixelRatio(),aspect=this.camera.aspect;
+    try{
+      this.renderer.setPixelRatio(1);this.renderer.setSize(2560,1440,false);
+      this.composer?.setPixelRatio(1);this.composer?.setSize(2560,1440);
+      this.camera.aspect=2560/1440;this.camera.updateProjectionMatrix();
+      if(this.composer)this.composer.render();else this.renderer.render(this.scene,this.camera);
+      return this.renderer.domElement.toDataURL("image/png");
+    }finally{
+      this.camera.aspect=aspect;this.camera.updateProjectionMatrix();
+      this.renderer.setPixelRatio(ratio);this.renderer.setSize(size.x,size.y,false);
+      this.composer?.setPixelRatio(ratio);this.composer?.setSize(size.x,size.y);
+    }
+  }
 
   private updateProximity(): void {
     let nearest: MapNode | null = null;
@@ -2362,6 +2410,7 @@ export class World3D {
     }
     this.animId = requestAnimationFrame(this.animate);
 
+    if(!this.frameGate.ready(timestamp??performance.now(),getGameSettings().fpsLimit))return;
     this.clock.update(timestamp);
     const dt = Math.min(this.clock.getDelta(), 0.05);
     const t = this.clock.getElapsed();
@@ -2517,15 +2566,18 @@ export class World3D {
         biome: this.minimapPalette(),
       });
     }
+    this.renderer.shadowMap.needsUpdate=this.waterFrame%(this.effectBudget.level+1)===0;
     this.waterCapture?.update(this.renderer,this.scene,this.camera);
     if (this.composer) this.composer.render();
     else this.renderer.render(this.scene, this.camera);
     if (rawMs > 0) {
       this.perf?.update(rawMs);
+      const budget=this.effectBudget.update(rawMs,dt);if(budget!==null){this.post?.setBudget(budget);this.waterCapture?.setBudget(budget);}
       const next = this.scaler.push(rawMs, dt);
       if (next !== null) {
         this.renderer.setPixelRatio(next);
         this.composer?.setPixelRatio(next);
+        this.removeWeatherPanel?.setResolution(this.renderer.domElement.width,this.renderer.domElement.height);
       }
     }
   };

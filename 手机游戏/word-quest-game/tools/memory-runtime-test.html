@@ -1,0 +1,13 @@
+<!doctype html><html lang="zh"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>回忆正式渲染器 · 画质与设置验收</title><style>body{margin:0;background:#132331;color:#dceaf7;font:14px system-ui}#launch{padding:24px}button,select{font:inherit;padding:9px;background:#23405c;color:white;border:1px solid #8daac6;border-radius:8px}#status{white-space:pre-wrap}</style><div id="launch"><h1>回忆正式渲染器验收</h1><select id="stage" aria-label="回忆舞台"><option value="emptyRoom">通用回忆教室</option><option value="clubRoom">社团教室</option><option value="apartment2090">2090 公寓</option></select><button id="start">载入回忆世界</button><p>调用正式 MemoryStage，完整显形后保持世界；无旁白，不写学习进度。可检查设置、2K 绘制缓冲与视角控制。</p><p id="status"></p></div><script type="module">
+import {MemoryStage} from '/src/features/memory/MemoryStage.ts';
+import {stageTargets} from '/src/features/memory/stages/index.ts';
+let stage;
+document.getElementById('start').onclick=async()=>{
+  stage?.dispose();const name=document.getElementById('stage').value;
+  try{stage=new MemoryStage(document.body,{words:new Map(),gate:false,onSceneReady:async()=>{}});
+    await stage.play({id:'quality-runtime',unitId:'unit01',section:'section_a',title:'World quality',titleZh:'世界画质核验',stage:name,actors:[],objects:[],beats:[{kind:'build',targets:stageTargets(name),duration:.4,wait:.6,pov:'watch',camera:{from:{x:0,y:1.6,z:3},to:{x:0,y:1.6,z:3},look:{x:0,y:1.2,z:-2},duration:0,fov:52,move:'still'}},{kind:'wait',seconds:3600}]});
+    stage.dispose();stage=undefined;
+  }catch(error){document.getElementById('status').textContent=String(error);stage?.dispose();}
+};
+window.addEventListener('pagehide',()=>stage?.dispose(),{once:true});
+</script></html>
