@@ -1,3 +1,6 @@
+import { SolarClock } from "./solarClock";
+import { attachWeatherPanel } from "./weatherPanel";
+import { surfaceClimate } from "./surfaceClimate";
 import { WaterCapture } from "./waterCapture";
 import { createTerrainTiles, type TerrainTiles } from "./terrainLod";
 import { makePhysicalSky, solarPosition, WorldCascades } from "./physicalAtmosphere";
@@ -176,7 +179,10 @@ export class World3D {
   private mountains?: THREE.Group;
   private skyDome?: THREE.Mesh;
   private cascades?: WorldCascades;
-  private solarHour = 14;
+  private solarClock = new SolarClock(14);
+  private removeWeatherPanel?:()=>void;
+  private starField?:THREE.Points;
+  private solarDay = 1;
   private grassMesh?: THREE.InstancedMesh;
   private flowerMesh?: THREE.InstancedMesh;
   private grassUniforms?: { uTime: { value: number }; uPlayer: { value: THREE.Vector3 } };
@@ -355,8 +361,9 @@ export class World3D {
     const pr0 = Math.min(window.devicePixelRatio, this.qcfg.pixelRatio);
     this.scaler = new AdaptiveScaler({ max: pr0, min: Math.min(0.75, pr0), initial: pr0 });
     if (perfOverlayEnabled()) this.perf = attachPerfOverlay(this.renderer, container, this.scaler);
-    this.weatherFx = new WeatherFx({ quality: this.quality, mode: "outdoor", radius: 14, flatGround: false });
+    this.weatherFx = new WeatherFx({ quality: this.quality, mode: "outdoor", radius: 14, flatGround: false, groundHeight:(x,z)=>sampleTerrainY(x,z,terrainHeight) });
     this.scene.add(this.weatherFx.object);
+    this.removeWeatherPanel=attachWeatherPanel(container,kind=>this.setWeather(kind),hour=>this.setTimeOfDay(hour));
     this.bindEvents();
     if (import.meta.env.DEV) (window as unknown as { __world?: World3D }).__world = this;
   }
@@ -462,7 +469,7 @@ export class World3D {
     this.cacheBiomeRgb(biome);
     // 记忆色调与天气随单元变化（色调 2 秒、天气 6 秒平滑过渡）
     this.look.setTarget(lookFor(unitId), 2);
-    this.weather.set(unitId ? UNIT_DEFAULT_WEATHER[unitId] ?? "clear" : "clear", 6);
+    this.setWeather(unitId ? UNIT_DEFAULT_WEATHER[unitId] ?? "clear" : "clear", 6);
   }
 
   private cacheBiomeRgb(b: UnitBiome): void {
@@ -480,7 +487,10 @@ export class World3D {
   /** 切换天气（默认 6 秒平滑过渡）；seconds <= 0 立即切换 */
   setWeather(kind: WeatherKind, seconds = 6): void {
     this.weather.set(kind, seconds);
+    this.solarClock.set(kind==="night"?22:kind==="dusk"?18.5:14,seconds);
   }
+
+  setTimeOfDay(hour:number,seconds=6):void {this.solarClock.set(hour,seconds);}
 
   getWeather(): WeatherKind {
     return this.weather.kind;
@@ -893,6 +903,9 @@ export class World3D {
     }
     this.disposeWaterBodies();
     this.mixer?.stopAllAction();
+    this.removeWeatherPanel?.();
+    this.starField?.geometry.dispose();
+    (this.starField?.material as THREE.Material|undefined)?.dispose();
     this.waterCapture?.dispose();
     this.cascades?.dispose();
     this.weatherFx?.dispose();
@@ -1020,12 +1033,8 @@ export class World3D {
     }
     const starsGeo = new THREE.BufferGeometry();
     starsGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    this.scene.add(
-      new THREE.Points(
-        starsGeo,
-        new THREE.PointsMaterial({ color: 0xe8eef8, size: 0.42, transparent: true, opacity: 0.0, sizeAttenuation: true, visible: false })
-      )
-    );
+    this.starField=new THREE.Points(starsGeo,new THREE.PointsMaterial({ color: 0xe8eef8, size: 0.42, transparent: true, opacity: 0.0, sizeAttenuation: true, visible: false, depthWrite:false }));
+    this.scene.add(this.starField);
 
     // 发光太阳圆盘（配合 Bloom 形成耀斑光晕）
     const sunMat = new THREE.SpriteMaterial({
@@ -1241,6 +1250,7 @@ export class World3D {
       }
 
       const light = candidate as THREE.PointLight | THREE.SpotLight;
+      if(!light.userData.isOrbLight){light.userData.nightBase??=light.intensity;light.intensity=(light.userData.nightBase as number)*(.25+.75*(1-this.solarDay));}
       light.getWorldPosition(this._lightPosition);
       candidates.push({
         light,
@@ -1686,10 +1696,11 @@ export class World3D {
       shader.uniforms.uCloudT = cloudTime;
       shader.uniforms.uWind = windStrength;
       shader.uniforms.uGrassSun = foliageSun.dir;
+      shader.uniforms.uGrassSunColor = foliageSun.color;
       shader.uniforms.uFade = { value: new THREE.Vector2(this.grassRadius * 0.55, this.grassRadius * 0.96) };
       this.grassUniforms = shader.uniforms as { uTime: { value: number }; uPlayer: { value: THREE.Vector3 } };
       shader.vertexShader = "uniform float uWind;\nuniform float uTime;\nuniform vec3 uPlayer;\nuniform vec2 uFade;\nuniform float uCloudT;\nvarying float vCloud;\n" + CLOUD_GLSL + shader.vertexShader;
-      shader.fragmentShader = "uniform vec3 uGrassSun;\nvarying float vCloud;\n" + shader.fragmentShader.replace("#include <color_fragment>", "#include <color_fragment>\n diffuseColor.rgb *= vCloud;").replace("#include <emissivemap_fragment>", "#include <emissivemap_fragment>\n vec3 grassSunView=normalize((viewMatrix*vec4(uGrassSun,0.0)).xyz);\n totalEmissiveRadiance+=diffuseColor.rgb * pow(max(dot(normalize(vViewPosition),-grassSunView),0.0),3.0)*0.16;");
+      shader.fragmentShader = "uniform vec3 uGrassSun,uGrassSunColor;\nvarying float vCloud;\n" + shader.fragmentShader.replace("#include <color_fragment>", "#include <color_fragment>\n diffuseColor.rgb *= vCloud;").replace("#include <emissivemap_fragment>", "#include <emissivemap_fragment>\n vec3 grassSunView=normalize((viewMatrix*vec4(uGrassSun,0.0)).xyz);\n totalEmissiveRadiance+=diffuseColor.rgb * uGrassSunColor * pow(max(dot(normalize(vViewPosition),-grassSunView),0.0),3.0)*0.16;");
       shader.vertexShader = shader.vertexShader.replace(
         "#include <begin_vertex>",
         `#include <begin_vertex>
@@ -1807,6 +1818,7 @@ export class World3D {
   }
 
   private rebuildPath(): void {
+    this.wet.clear();
     removeGroup(this.scene, this.pathGroup);
     this.pathGroup = new THREE.Group();
     if (this.nodes.length < 2) {
@@ -2568,7 +2580,7 @@ export class World3D {
       const a = weatherTint(mixRgb(b.ambient, look.ambient, LOOK_MIX, T), wp, this.rgbU, 0.6);
       this.ambientLight.color.setRGB(a.r, a.g, a.b, THREE.SRGBColorSpace);
     }
-    this.scene.environmentIntensity = Math.max(0.15, wp.envMul);
+    this.scene.environmentIntensity = Math.max(0.04, wp.envMul*(.15+.85*this.solarDay));
     this.renderer.toneMappingExposure *= look.exposure * wp.exposureMul;
     if (this.bloomPass) {
       const base = THREE.MathUtils.clamp(0.5 + (1.5 - biome.sunIntensity) * 0.28, 0.45, 1.05);
@@ -2584,7 +2596,10 @@ export class World3D {
       this.weatherFx.update(dt, this.weather, this.camera, tone, this.renderer.domElement.height, this.camera.fov, wind);
     }
     if (this.terrain) this.wet.add(this.terrain);
+    this.wet.add(this.grassMesh);this.wet.add(this.pathGroup);this.wet.add(this.decorGroup);this.wet.add(this.unitLandscape);
     this.wet.apply(this.weather.wet);
+    surfaceClimate.wet.value=this.weather.wet;surfaceClimate.rain.value=wp.rain;surfaceClimate.time.value=this.weatherTime;
+    if(this.starField){const material=this.starField.material as THREE.PointsMaterial;material.opacity=(1-this.solarDay)*.85;material.visible=material.opacity>.01;}
   }
 
   private tickScene(t: number, dt: number): void {
@@ -2596,7 +2611,8 @@ export class World3D {
     // 日照循环：太阳在 18°–50° 高度间缓慢摆动（始终是白天），低角度时偏暖；
     // 光源来自相机一侧偏左，使建筑正面被照亮；阴影相机跟随玩家并对齐到网格，近处阴影精细且不闪烁。
     if (this.sun) {
-      this.sunDirV.copy(solarPosition(this.solarHour + t / 3600));
+      this.sunDirV.copy(solarPosition(this.solarClock.update(dt)));
+      this.solarDay=THREE.MathUtils.smoothstep(this.sunDirV.y,-.08,.18);
       const el = Math.asin(this.sunDirV.y);
       const snap = 3;
       const tx = Math.round(this.player.position.x / snap) * snap;
@@ -2607,14 +2623,14 @@ export class World3D {
       const daylight = THREE.MathUtils.clamp((Math.sin(el) - 0.15) / 0.6, 0.3, 1);
       const focusedWorld = isFocusedLearningWorld(this.activeWorldId);
       this.sun.color.setHex(this.currentBiome.sunColor).lerp(WARM_SUN, (1 - daylight) * 0.6);
-      this.sun.intensity = this.currentBiome.sunIntensity * (focusedWorld ? 0.92 : 0.88 + daylight * 0.12);
+      this.sun.intensity = this.currentBiome.sunIntensity * (focusedWorld ? 0.92 : 0.88 + daylight * 0.12) * this.solarDay;
       // 植被：叶片逆光透射用的太阳方向 / 颜色（颜色含强度）
       waterUniforms.sunDir.value.copy(this.sunDirV);
       waterUniforms.sunColor.value.copy(this.sun.color).multiplyScalar(Math.min(this.sun.intensity, 3));
       foliageSun.dir.value.copy(this.sunDirV);
       foliageSun.color.value.copy(this.sun.color).multiplyScalar(this.sun.intensity / 1.45);
       this.renderer.toneMappingExposure = focusedWorld ? 1.16 : 1.1 + daylight * 0.08;
-      if (this.hemi) this.hemi.intensity = focusedWorld ? 0.66 : 0.58 + daylight * 0.12;
+      if (this.hemi) this.hemi.intensity = (focusedWorld ? 0.66 : 0.58 + daylight * 0.12)*(.3+.7*this.solarDay);
 
       // 太阳圆盘跟随光源方向，锚定在相机前方的固定远处（天空穹顶附近）。
       if (this.sunDisc) {

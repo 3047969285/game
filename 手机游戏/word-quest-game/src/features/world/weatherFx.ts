@@ -1,3 +1,4 @@
+import { WeatherHeightField } from "./weatherHeightField";
 import * as THREE from "three";
 import { maxBudget, type WeatherQuality, type WeatherState } from "./weather";
 
@@ -28,6 +29,7 @@ export interface WeatherFxOptions {
   mode: WeatherFxMode;
   window?: WeatherWindow;
   groundY?: number;
+  groundHeight?:(x:number,z:number)=>number;
   /** 平整地面（水洼才有意义）；主世界地形起伏，不画水洼 */
   flatGround?: boolean;
   /** 降水体积的水平半径（米） */
@@ -74,6 +76,12 @@ uniform vec3 uOff;      // 累积位移（风 + 下落）
 uniform vec3 uVel;      // 当前速度方向参考（只用于条纹朝向）
 uniform float uIntensity;
 uniform float uGroundY;
+
+uniform sampler2D uGroundTex;
+uniform vec4 uGroundBox;
+uniform float uUseGroundMap;
+float weatherGround(vec2 p){return uUseGroundMap>.5?texture2D(uGroundTex,(p-uGroundBox.xy)*uGroundBox.zw).r:uGroundY;}
+
 uniform float uMode;    // 1 雨线 0 雪片
 uniform float uLen;
 uniform float uWidth;
@@ -92,7 +100,7 @@ void main() {
   p = uBoxMin + mod(p - uBoxMin, uVol);
   vec3 toCam = cameraPosition - p;
   float dist = length(toCam);
-  float below = step(uGroundY, p.y);
+  float below = step(weatherGround(p.xz), p.y);
   vec3 wp;
   float widthW = max(uWidth, dist * uPx * 1.1);
   float aComp = clamp(uWidth / widthW, 0.15, 1.0);
@@ -147,6 +155,12 @@ attribute vec4 aRnd;
 uniform vec3 uCamXZ;
 uniform float uRadius;
 uniform float uGroundY;
+
+uniform sampler2D uGroundTex;
+uniform vec4 uGroundBox;
+uniform float uUseGroundMap;
+float weatherGround(vec2 p){return uUseGroundMap>.5?texture2D(uGroundTex,(p-uGroundBox.xy)*uGroundBox.zw).r:uGroundY;}
+
 uniform float uIntensity;
 uniform float uT;
 varying vec2 vUv;
@@ -162,7 +176,7 @@ void main() {
   vec2 wp2 = uCamXZ.xz + off;
   float vis = step(aRnd.w, uIntensity);
   float size = (0.08 + 0.2 * ph) * (0.8 + 0.5 * fract(aRnd.w * 17.0));
-  vec3 wp = vec3(wp2.x + position.x * size * 2.0, uGroundY + 0.012, wp2.y + position.y * size * 2.0);
+  vec3 wp = vec3(wp2.x + position.x * size * 2.0, weatherGround(wp2) + 0.028, wp2.y + position.y * size * 2.0);
   vUv = uv;
   vAge = ph;
   float d = length(off) / uRadius;
@@ -291,10 +305,12 @@ export class WeatherFx {
   private t = 0;
   private groundY: number;
   private readonly opts: WeatherFxOptions;
+  private heightField?:WeatherHeightField;
 
   constructor(opts: WeatherFxOptions) {
     this.opts = opts;
     this.groundY = opts.groundY ?? 0;
+    if(opts.groundHeight){this.heightField=new WeatherHeightField(opts.groundHeight,(opts.radius??12)*2+16);this.disposables.push(this.heightField);}
     const r = opts.radius ?? 12;
     this.vol = new THREE.Vector3(r * 2, 14, r * 2);
     this.object.name = "weather-fx";
@@ -305,6 +321,9 @@ export class WeatherFx {
       uOff: { value: this.off },
       uVel: { value: this.vel },
       uIntensity: { value: 0 },
+      uGroundTex:{value:this.heightField?.texture??null},
+      uGroundBox:{value:this.heightField?.box??new THREE.Vector4()},
+      uUseGroundMap:{value:this.heightField?1:0},
       uGroundY: { value: this.groundY },
       uMode: { value: 1 },
       uLen: { value: 0.55 },
@@ -324,6 +343,9 @@ export class WeatherFx {
     this.rippleU = {
       uCamXZ: { value: new THREE.Vector3() },
       uRadius: { value: 9 },
+      uGroundTex:{value:this.heightField?.texture??null},
+      uGroundBox:{value:this.heightField?.box??new THREE.Vector4()},
+      uUseGroundMap:{value:this.heightField?1:0},
       uGroundY: { value: this.groundY },
       uIntensity: { value: 0 },
       uT: { value: 0 },
@@ -431,6 +453,7 @@ export class WeatherFx {
     const px = (2 * Math.tan(THREE.MathUtils.degToRad(fovDeg) / 2)) / Math.max(1, viewH);
     const lightTone = 0.25 + 0.75 * tone;
 
+    if(p.rain>.005||p.snow>.005)this.heightField?.update(camera.position.x,camera.position.z);
     const rainOn = p.rain > 0.005;
     if (this.rain) {
       this.rain.visible = rainOn;
@@ -516,7 +539,10 @@ export class WetnessTracker {
     for (const root of this.roots) {
       root.traverse((o) => {
         const mesh = o as THREE.Mesh;
-        if (!mesh.isMesh) return;
+        if (!mesh.isMesh || (mesh as THREE.SkinnedMesh).isSkinnedMesh) return;
+        for(let parent:THREE.Object3D|null=mesh;parent;parent=parent.parent){
+          if(parent.name==="scene-person"||parent.name==="explorer-avatar"||parent.userData.noSurface)return;
+        }
         const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
         for (const m of mats) {
           const s = m as THREE.MeshStandardMaterial;

@@ -1,3 +1,4 @@
+import { surfaceClimate } from "../world/surfaceClimate";
 import { WaterCapture } from "../world/waterCapture";
 import { closeIntroShot, firstIntroShot } from "./introCamera";
 import { MemoryAir } from "./MemoryAir";
@@ -777,6 +778,7 @@ export class MemoryStage {
   private updateLighting(dt: number, snap = false): void {
     const look = this.look.current;
     const wp = this.weather.params;
+    surfaceClimate.wet.value=this.weather.wet;surfaceClimate.rain.value=wp.rain;surfaceClimate.time.value=this.time;
     const progress = this.materializer.buildProgress();
     const target = 0.3 + 0.7 * progress;
     this.lightLevel = snap ? target : this.lightLevel + (target - this.lightLevel) * (1 - Math.exp(-dt * 2.5));
