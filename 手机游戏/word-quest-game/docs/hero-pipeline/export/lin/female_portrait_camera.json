@@ -1,0 +1,20 @@
+{
+ "image": "female_portrait.png",
+ "image_size": [
+  1024,
+  1024
+ ],
+ "ue_location_cm": [
+  0.0,
+  88.35008943450248,
+  156.97332740754078
+ ],
+ "ue_rotation": {
+  "pitch": 0.0,
+  "yaw": -90.0,
+  "roll": 0.0
+ },
+ "ue_fov_deg_horizontal": 30.0,
+ "projection": "perspective",
+ "note": "Blender (x,y,z) m -> UE (100x,-100y,100z) cm; face looks toward UE +Y"
+}

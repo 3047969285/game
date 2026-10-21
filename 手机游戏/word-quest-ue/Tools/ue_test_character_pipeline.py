@@ -4,7 +4,7 @@ from pathlib import Path
 import struct
 import tempfile
 import unittest
-from ue_character_common import VIEWS, character_id, fit_pose
+from ue_character_common import VIEWS, character_id, fit_pose, character_profile
 from ue_render_compare import validate_capture, inherited_lock, archive_capture
 
 class CaptureContract(unittest.TestCase):
@@ -29,6 +29,49 @@ class CaptureContract(unittest.TestCase):
         self.assertTrue(inherited_lock(10,{30:20,20:10,10:1},30))
         self.assertFalse(inherited_lock(99,{30:20,20:10,10:1},30))
         self.assertFalse(inherited_lock(99,{30:20,20:30},30))
+    def test_import_plan_owns_only_blueprints_and_preserves_source_hash(self):
+        from unittest.mock import patch
+        from ue_import_character import import_plan
+        (self.folder/'male_groom.abc').write_bytes(b'fixture')
+        (self.folder/'male_brows.abc').write_bytes(b'brows')
+        with patch('ue_import_character.export_dir',return_value=self.folder):
+            plan=import_plan('me2026')
+        self.assertEqual(len(plan['files']),2)
+        self.assertTrue(plan['destination'].startswith('/Game/Blueprints/'))
+        self.assertEqual(plan['conversion']['scale'],[100,100,-100])
+        self.assertEqual(plan['conversion']['rotation'],[-90,0,0])
+        self.assertEqual(len(plan['files'][0]['sha256']),64)
+    def test_missing_groom_fails_before_editor_start(self):
+        from unittest.mock import patch
+        from ue_import_character import import_plan
+        with patch('ue_import_character.export_dir',return_value=self.folder):
+            with self.assertRaises(FileNotFoundError):import_plan('me2026')
+    def test_build_and_editor_commands_share_lock(self):
+        from unittest.mock import patch
+        from ue_character_common import run_locked_command
+        with patch('ue_character_common.ROOT',self.folder), patch('subprocess.check_output',return_value='200 100\n100 1\n'), patch('os.getpid',return_value=200), patch('subprocess.run') as run:
+            run_locked_command(['Build.sh','WordQuestUEEditor'],{},self.folder/'build.log')
+            self.assertEqual(run.call_args.args[0][0],'bash')
+            self.assertTrue(run.call_args.args[0][1].endswith('run_ue_serial.sh'))
+            self.assertEqual(run.call_args.kwargs['env']['UE_LOCK_WHO'],'codex')
+            lock=self.folder/'Saved/ue_run.lock/pid';lock.parent.mkdir(parents=True);lock.write_text('100')
+            run_locked_command(['UnrealEditor','-ExecutePythonScript=test.py'],{},self.folder/'editor.log')
+            self.assertEqual(run.call_args.args[0][0],'UnrealEditor')
+            lock.write_text('999')
+            run_locked_command(['UnrealEditor'],{},self.folder/'other.log')
+            self.assertEqual(run.call_args.args[0][0],'bash')
+    def test_cast_height_and_who(self):
+        p=self.folder/'mei_cast.json';p.write_text('{"height_m":1.63}')
+        profile=character_profile('mei',self.folder)
+        self.assertEqual(profile['who'],'mei');self.assertEqual(profile['height_cm'],163)
+        p.write_text('{"height_m":NaN}')
+        with self.assertRaises(ValueError):character_profile('mei',self.folder)
+    def test_missing_cast_height_fails_instead_of_using_female(self):
+        with self.assertRaises(FileNotFoundError):character_profile('mei',self.folder)
+    def test_cast_no_fit_defaults_without_roll(self):
+        import unittest.mock
+        with unittest.mock.patch('pathlib.Path.is_file',return_value=False):
+            self.assertEqual(fit_pose('an')[0],[37,0,0])
     def test_complete_mhc(self): self.assertEqual(validate_capture(self.folder,True)['source'],'MHC')
     def test_source_fallback_rejected(self):
         self.capture['source']='Source';self.save()

@@ -193,3 +193,25 @@ KEY=70 AMB=0.22 $B -b fit/male_hair.blend -P lookdev.py -- male fit headviews
   2. 用代码生成发丝 Groom（Blender 曲线 → Alembic），替代 `hair_cards2`。`hair_cards2` 的渲染出现倒退，已作废。
   3. 代码生成眉毛 Groom。
   4. 衣服改为基于 MetaHuman 身体来做。
+
+### 7.1 UE / MetaHuman 流水线（已跑通）
+
+```bash
+cd ~/.local/share/hunyuan3d/work; B=/Applications/Blender.app/Contents/MacOS/Blender
+E=~/项目/.claude/worktrees/game-memory/手机游戏/word-quest-game/docs/hero-pipeline/export/<id>
+$B -b fit/<who>_fit.blend -P export_metahuman_input.py -- <who> $E          # 中性 body.fbx / head.obj / 3D 关键点
+$B -b fit/<who>_textured.blend -P render_portrait.py -- <who> $E            # 已知相机的正面像（CLAY=1 出灰模版）
+EXPORT_GUIDES=fit/<who>_guides.pkl $B -b fit/<who>_textured.blend -P hair_cards.py -- <who> fit   # 发簇引导
+$B -b fit/<who>_textured.blend -P groom_strands.py -- <who> fit $E          # 发丝 Groom（Alembic）
+$B -b fit/<who>_textured.blend -P groom_brows.py -- <who> fit $E            # 眉毛 Groom（Alembic）
+# UE：MetaHuman 拟合（要在完整编辑器里跑；commandlet 模式会崩在 Slate）
+CHAR_ID=<id> CHAR_WHO=<who> CHAR_QUIT=1 UnrealEditor WordQuestUE.uproject -ExecutePythonScript=Tools/char_conform_metahuman.py
+```
+
+- 男主 me2026：
+  - 已拟合，生成 `/Game/Characters/me2026/MHC_me2026` 和 `export/me2026/metahuman/me2026_PosedDNA.dna`。
+  - 发丝 102,928 根，眉毛 2,141 根。
+- 女主：`hair_cards.py` 新增长直发模式（中分、空气刘海到眼睛、发长约 52 cm），用 `LONG = WHO == "female"` 开关。
+- 用户要做的两件事：
+  1. 安装 MetaHuman Creator Core Data（Optional Content）。装好后才能用皮肤纹理合成。
+  2. 在 UE 里登录 Epic 账号，用于 auto-rig；导出几何体也要先完成 auto-rig。

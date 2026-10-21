@@ -230,9 +230,13 @@ def usable_pixels(px, lm):
     # protect only the brows, eyes and lips (they are dark / low-chroma but belong to the face)
     lm = np.asarray(lm)
     protect = np.zeros((Hh, Ww), bool)
-    for grp, grow in ((BROW_L, 0.25), (BROW_R, 0.25), (EYE_L, 0.35), (EYE_R, 0.35), (LIPS, 0.15)):
-        g = lm[grp]; c_ = g.mean(0)
-        protect |= hull_mask(c_ + (g - c_) * (1 + grow), Hh, Ww)
+    # Features (brows / eyes / lips) are real geometry or painted separately: with PROTECT=0 their
+    # dark photo pixels are masked like hair and replaced with clean skin, which removes the
+    # pale "protected hull" patches around the eyes.
+    if os.environ.get("PROTECT", "0") == "1":
+        for grp, grow in ((BROW_L, 0.25), (BROW_R, 0.25), (EYE_L, 0.35), (EYE_R, 0.35), (LIPS, 0.15)):
+            g = lm[grp]; c_ = g.mean(0)
+            protect |= hull_mask(c_ + (g - c_) * (1 + grow), Hh, Ww)
     bad = dilate((hair | nonskin) & ~protect, 6) & ~protect
     ok = fg & ~bad
     # soft confidence: low next to masked pixels (strand edges are mixed colours)
@@ -315,29 +319,64 @@ def voxel_field(vals, mask, passes=4, width=3):
 
 smooth = voxel_field(lum[:, None].astype(np.float64), seen, passes=3, width=2)[0][:, 0]
 target = np.median(smooth[seen])
-DELIGHT = float(os.environ.get("DELIGHT", "0.7"))
+DELIGHT = float(os.environ.get("DELIGHT", "0.85"))
 gain = np.where(seen, (target / np.maximum(smooth, 1e-3)) ** DELIGHT, 1.0)
 proj = np.clip(proj * gain[:, None], 0, 1)
 
-# ---- fill: stock skin detail carried at the photo's local tone; soft blend into the projection
+# equalize the local skin hue: the reference photos have bright highlights where the light
+# washes the chroma out (pale patches around the eyes and forehead). Smoothing the chroma field
+# keeps the photo's luminance detail but restores one consistent skin colour.
+lum3 = np.maximum(proj.mean(1), 1e-4)
+chroma = proj / lum3[:, None]
+chroma_s, cov_chroma = voxel_field(chroma, seen, passes=3, width=2)
+chroma_s = np.where(cov_chroma[:, None] > 1e-9, chroma_s, np.median(chroma[seen], axis=0) if seen.any() else np.ones(3))
+proj = np.clip(lum3[:, None] * (chroma * 0.45 + chroma_s * 0.55), 0, 1)
+
+# suppress the reference photo's baked specular highlights: they read as plastic sheen on skin
+lum2 = proj.mean(1)
+over = np.clip((lum2 - target * 1.22) / (target * 0.45 + 1e-6), 0, 1) * float(os.environ.get("HOT", "0.75"))
+hot_gain = np.minimum(1.0, (target * 1.22) / np.maximum(lum2, target * 1.22))
+proj = np.clip(proj * hot_gain[:, None], 0, 1)
+
+# ---- stock skin kept only as micro detail / fallback; the face colour comes from the photos
 old = base_px[headmask][:, :3].astype(np.float64)
 good = seen & (wsum > 0.05)
-glob = proj[good].mean(0) / np.maximum(old[good].mean(0), 1e-3)
+glob = proj[good].mean(0) / np.maximum(old[good].mean(0), 1e-3) * float(os.environ.get("TONE", "0.88")) * np.array([1.0, 0.972, 0.945])
 Cp, covp = voxel_field(proj, good)
 Co, _ = voxel_field(old, np.ones(len(P), bool))
 Cp = np.where(covp[:, None] > 1e-6, Cp, Co * glob)
-fill = np.clip(old * Cp / np.maximum(Co, 1e-3), 0, 1)
+fill = np.clip(old * Cp / np.maximum(Co, 1e-3), 0, 1)       # debug / fallback
+fallback = np.clip(old * glob, 0, 1)
 ws, _ = voxel_field(wsum[:, None].astype(np.float64), np.ones(len(P), bool), passes=3, width=1)
-alpha = np.clip(np.minimum(wsum / 0.2, ws[:, 0] / 0.12), 0, 1) ** 1.5
+w_proj = np.clip(wsum / 0.05, 0, 1) * np.clip(ws[:, 0] / 0.02, 0, 1)
+alpha = np.clip(w_proj, 0, 1) ** 1.1
 alpha *= np.clip((P[:, 2] - (NECK_Z - height * 0.015)) / (height * 0.03), 0, 1)
-# forehead above the brows is seen only between fringe strands: take the clean fill there
-alpha *= np.clip(1.0 - (P[:, 2] - (Z_BROWTOP + height * 0.002)) / (height * 0.006), 0, 1)
+# forehead above the brows: the fringe strands are already masked out of the photo, so the
+# projection can continue up the forehead (a hard cut here leaves a tone seam across the brow line)
+if os.environ.get("FOREHEAD", "0") == "1":
+    alpha *= np.clip(1.0 - (P[:, 2] - (Z_BROWTOP + height * 0.002)) / (height * 0.006), 0, 1)
 # neck: the collar edge shadows sit there, fade out below the jaw
 alpha *= np.clip((P[:, 2] - (Z_CHIN - height * 0.02)) / (height * 0.015), 0, 1)
-new = fill * (1 - alpha[:, None]) + proj * alpha[:, None]
-# blend into the (globally toned) body texture at the bottom of the head region -> no seam
-wb = np.clip((P[:, 2] - (NECK_Z - height * 0.02)) / (height * 0.03), 0, 1)
-new = new * wb[:, None] + np.clip(old * glob, 0, 1) * (1 - wb[:, None])
+# the reference photos contain soft shadows cast by the fringe across the brow / eye band; our
+# 3D hair will cast its own shadows, so treat those darker-than-local-skin texels as holes too
+smooth_lum = voxel_field(lum3[:, None].astype(np.float64), seen, passes=4, width=2)[0][:, 0]
+shadow = seen & (lum3 < 0.80 * np.maximum(smooth_lum, 1e-4))
+alpha[shadow] = 0.0
+hole = alpha < 0.6
+# masked texels (brows / eyes / lips / hair strands) get the local photo tone extrapolated from
+# the surrounding clean projection, plus a little stock texture micro detail. Filling them with
+# the stock texture was what produced the pale grey patches around the eyes.
+smooth_proj, cov_proj = voxel_field(proj, (~hole) & (alpha > 0.9), passes=2, width=1)
+skin_base = np.median(proj[(~hole) & (alpha > 0.9)], axis=0) if int(((~hole) & (alpha > 0.9)).sum()) > 50 else fallback.mean(0)
+smooth_proj = np.where(cov_proj[:, None] > 1e-9, smooth_proj, skin_base)
+stock_detail = np.clip((old - Co) * 0.45, -0.04, 0.04)
+hole_fill = np.clip(smooth_proj + stock_detail, 0, 1)
+w_mix = np.clip((alpha - 0.55) / 0.35, 0, 1)[:, None]
+new = hole_fill * (1 - w_mix) + proj * w_mix
+# below the jaw the photos are blocked by the shirt collar; the neck/chest takes the globally
+# toned stock texture again so the head and body stay the same colour across the UV island seam
+wb = np.clip((P[:, 2] - (Z_CHIN - height * 0.020)) / (height * 0.040), 0, 1)
+new = new * wb[:, None] + fallback * (1 - wb[:, None])
 # scalp under the hair: dark hair-root colour so gaps between cards never show bare skin
 sys.path.insert(0, HERE)
 import hairline
@@ -347,11 +386,32 @@ hcs = hc.copy(); hcs[0] = 0.5 * (lm3[234][0] + lm3[454][0])
 zb_ = max(lm3[105][2], lm3[334][2])
 sw_ = hairline.scalp_weight(P, hcs, zb_, top, WHO, 0.010 * S_)
 ROOT = {"male": np.array([0.045, 0.036, 0.034]), "female": np.array([0.16, 0.06, 0.055])}[WHO]
+new = new * np.array([1.0, 0.985, 0.968])
 new = new * (1 - 0.88 * sw_[:, None]) + ROOT * 0.88 * sw_[:, None]
 # hair occlusion baked along the hairline (the fringe and sides shadow the skin right under them)
 sw_ao = hairline.scalp_weight(P, hcs, zb_, top, WHO, 0.05 * S_)
 new = new * (1 - 0.22 * np.clip(sw_ao - sw_, 0, 1))[:, None]
 print("photo/stock tone ratio", np.round(glob, 3), flush=True)
+
+if os.environ.get("DBG", "0") == "1":
+    def save_dbg(name, val):
+        arr = np.zeros((TH, TW, 3), np.float32)
+        arr[headmask] = np.repeat(val.reshape(-1, 1), 3, axis=1) if val.ndim == 1 else val
+        bimg = bpy.data.images.new(f"dbg_{name}", TW, TH, alpha=False)
+        bimg.pixels[:] = np.concatenate([arr, np.ones((TH, TW, 1), np.float32)], axis=2).ravel()
+        bimg.filepath_raw = os.path.join(OUT, f"dbg_{name}.png")
+        bimg.file_format = "PNG"
+        bimg.save()
+        bpy.data.images.remove(bimg)
+
+    save_dbg("alpha", alpha.astype(np.float32))
+    save_dbg("hole", hole.astype(np.float32))
+    save_dbg("proj", proj)
+    save_dbg("fill", fill)
+    save_dbg("new", new)
+    save_dbg("over", over.astype(np.float32))
+    print("DBG images written", flush=True)
+
 # the rest of the body takes the same tone
 base_px[..., :3] = np.clip(base_px[..., :3] * glob, 0, 1)
 out_px = base_px.copy()

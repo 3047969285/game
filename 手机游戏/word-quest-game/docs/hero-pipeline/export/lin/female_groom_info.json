@@ -1,0 +1,16 @@
+{
+ "strands": 71776,
+ "points_per_strand": 16,
+ "guides": 2547,
+ "frame": "real metres, Z-up in Blender (Alembic writes Y-up), feet at 0",
+ "height_m": 1.68,
+ "strand_width_m": [
+  6e-05,
+  9e-05
+ ],
+ "colour_linear": [
+  0.2,
+  0.035,
+  0.04
+ ]
+}

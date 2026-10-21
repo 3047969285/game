@@ -102,7 +102,37 @@ def comb(p, n):
     return unit(c + rng.normal(0, 0.03, 3))
 
 
+LONG = WHO == "female"          # long straight hair, centre part, curtain bangs
+Z_HAIRLINE_FRONT = hairline.hair_height(np.array([[hc[0], hc[1] - 0.1, 0.0]]), hc, z_brow, top, WHO)[0]
+
+
+def is_bang(p):
+    az = hairline.azimuth(p[None], hc)[0]
+    return az < 42 and p[2] < Z_HAIRLINE_FRONT + 0.035 * S and p[1] < hc[1]
+
+
+def comb_long(p, n):
+    side = np.array([np.sign(p[0] - hc[0]) or 1.0, 0, 0])
+    az = hairline.azimuth(p[None], hc)[0]
+    if is_bang(p):
+        c = FWD * 0.45 + DOWN * 1.0 + side * 0.18
+    else:
+        temple = np.clip(1 - abs(az - 70) / 35, 0, 1)        # front-of-ear hair sweeps back past the ear
+        front = np.clip((75 - az) / 40, 0, 1)                 # hair from the front hairline: out to the side and back
+        c = (side * (0.55 + 0.30 * front) * (1 - np.clip((az - 100) / 60, 0, 1)) + DOWN * (0.9 - 0.5 * front)
+             + BACK * (0.12 * (az > 60) + 0.45 * temple + 0.35 * front))
+    c = c - (c @ n) * n * 0.7
+    return unit(unit(c) + rng.normal(0, 0.02, 3))
+
+
 def length_for(p):
+    if LONG:
+        if is_bang(p):
+            return 0.10 * S * rng.uniform(0.95, 1.05)
+        az = hairline.azimuth(p[None], hc)[0]
+        # measured (DeepSeek D7): sides 30-35 cm, behind the ear 55-60 cm, back 95-105 cm (to the hips)
+        L = np.interp(az, [0, 60, 100, 130, 180], [0.34, 0.36, 0.58, 0.85, 1.00])
+        return L * S * rng.uniform(0.95, 1.05)
     az = hairline.azimuth(p[None], hc)[0]
     if p[2] > top - 0.035 * S and az < 140:
         L = STYLE["crown_len"]
@@ -119,7 +149,10 @@ def length_for(p):
 
 def grow(root, layer, n_seg=22, len_k=1.0, vol_k=1.0, off_k=0.0):
     loc, n, _ = nearest(root)
-    c = comb(loc, n)
+    if LONG:
+        n_seg = 64
+    c = comb_long(loc, n) if LONG else comb(loc, n)
+    bang = LONG and is_bang(loc)
     L = length_for(loc) * len_k
     az = hairline.azimuth(loc[None], hc)[0]
     topness = np.clip((loc[2] - (z_brow + 0.03 * S)) / (top - z_brow - 0.03 * S), 0, 1)
@@ -135,7 +168,12 @@ def grow(root, layer, n_seg=22, len_k=1.0, vol_k=1.0, off_k=0.0):
     for i in range(1, n_seg + 1):
         t = i / n_seg
         grav = 0.10 + 0.35 * t
-        d = unit(d * 0.55 + c * 0.60 + DOWN * grav * (0.6 + 0.8 * t if az < 70 else 1.0))
+        if LONG:
+            # long hair: follows the comb over the skull, then hangs; gravity dominates once off the head
+            off_head = np.clip((t - (0.30 if az < 75 and not bang else 0.18)) / 0.15, 0, 1)
+            d = unit(d * 0.55 + c * 0.5 * (1 - off_head) + DOWN * (0.25 + 1.4 * off_head))
+        else:
+            d = unit(d * 0.55 + c * 0.60 + DOWN * grav * (0.6 + 0.8 * t if az < 70 else 1.0))
         p = pts[-1] + d * step
         q, qn, dist = nearest(p)
         want = base_off + vol * (math.sin(min(t, 0.55) / 0.55 * math.pi / 2)) * (1 - 0.5 * max(0, t - 0.6))
@@ -143,6 +181,13 @@ def grow(root, layer, n_seg=22, len_k=1.0, vol_k=1.0, off_k=0.0):
         if side_ < want:
             p = q + qn * want
         pts.append(p)
+        if LONG:
+            # curtain bangs: shortest at the centre part, longer toward the temples, pointed staggered tips
+            dx = min(1.0, abs(loc[0] - hc[0]) / (0.055 * S))
+            bang_z = z_brow + (-0.002 - 0.012 * dx ** 1.5 + 0.004 * (layer == 0)) * S + jit * 0.5
+            if bang and p[2] < bang_z:
+                break
+            continue
         # fringe stops at the brows, sides stay above the ear
         stop_z = z_brow + (STYLE["fringe_stop"] + (0.018 if layer == 0 else 0.0 if layer == 1 else -0.014)) * S
         az_p = hairline.azimuth(p[None], hc)[0]
@@ -269,13 +314,16 @@ def clumped(g, root, strength):
     return out
 
 
+GUIDES = []
 for li, lay in enumerate(LAYERS):
     roots = poisson(scalp_v, lay["r"] * S)
     roots = roots + rng.normal(0, 0.002 * S, roots.shape)
     for root in roots:
         az_r = hairline.azimuth(root[None], hc)[0]
         len_k = lay.get("len", 1.0)
-        if li <= 1 and az_r < 60 and root[1] < hc[1]:
+        if LONG and li <= 2 and is_bang(root):
+            len_k *= 0.75 if li <= 1 else 1.0     # blunt bangs (spec: 8-9 cm, at the brows)
+        if li <= 1 and az_r < 60 and root[1] < hc[1] and not LONG:
             len_k *= 0.6                    # thin inner fringe: skin shows between the outer clumps
         if li == 0 and root[2] > top - 0.03 * S:
             continue                        # no flat cap flakes on the very top
@@ -294,6 +342,7 @@ for li, lay in enumerate(LAYERS):
         tint = rng.uniform(0.55, 1.6) if li >= 2 else rng.uniform(0.6, 1.0)
         twist = rng.uniform(-0.25, 0.25)
         b = None
+        card_b, card_w = [], []
         for i, (p, t) in enumerate(zip(g, T)):
             if b is None:
                 _, nrm, _ = nearest(g[min(2, len(g) - 1)])
@@ -306,13 +355,21 @@ for li, lay in enumerate(LAYERS):
             tt = i / (len(g) - 1)
             w = w0 * (1 - 0.72 * tt ** 1.6) * (0.55 + 0.45 * min(1.0, tt / 0.12))
             verts += [p - b * w / 2, p + b * w / 2]
+            card_b.append(b.copy()); card_w.append(w)
             tints += [tint, tint]
             uvs += [(u0, 1 - tt), (u1, 1 - tt)]
             if i:
                 k = base + 2 * i
                 faces.append((k - 2, k - 1, k + 1, k))
         n_cards += 1
+        GUIDES.append(dict(g=np.array(g), b=np.array(card_b), w=np.array(card_w), tint=tint, layer=li))
 print("cards", n_cards, "quads", len(faces), flush=True)
+if os.environ.get("EXPORT_GUIDES"):
+    import pickle
+    pickle.dump(dict(guides=GUIDES, hc=hc, S=S, top=top, height=height), open(os.environ["EXPORT_GUIDES"], "wb"))
+    print("guides saved", len(GUIDES), flush=True)
+    if os.environ.get("GUIDES_ONLY"):
+        sys.exit(0)
 
 me = bpy.data.meshes.new(f"{WHO}_hair")
 me.from_pydata([tuple(v) for v in verts], [], faces)

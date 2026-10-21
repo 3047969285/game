@@ -129,3 +129,11 @@ QA 工具实际执行完成，每位 4 FAIL（没有修改工具/阈值）：
 | side 脸部剪影 IoU | 0.218 | ≥ 0.95 | FAIL | 白底前景去掉头发 |
 
 当前无 Groom；灰背景低于 QA 白底阈值 244，因此 side 前景分割 IoU 不能单独判断脸型。Core Data 缺少 Optional/BodyTextures/T_Skin_Microtiling_M 等纹理，日志 LoadErrors 保留，Skin 灰白不表示真实皮肤完成；最新两位 MHC 已不再张嘴露牙。照片相似度、发型和 GPU 性能仍需后续验收。
+
+### 背颈诊断的需求、接口与实测
+
+需求：区分女主背颈暗带来自后处理/贴图/阴影，还是 MHC 表面过渡。接口：`python3 Tools/ue_diagnose_neck.py` 通过共享锁运行完整编辑器，只在临时预览组件上替换统一灰色 PBR 材质（无纹理、无法线贴图、roughness=1），关闭阴影/SSAO/Lumen，并将背光由 z=220 改到 z=95 cm；不保存 MHC。输出 `Saved/CompareDiagnostics/lin/{back_beauty,back_flat_no_shadow,back_flat_low_light}.png` 和 `diagnosis.json`。
+
+测试：实际退出 0，三张 1024² 同机位图成功，MHC SHA256 不变。无贴图和屏幕/自阴影的灰模仍有同一条颅底—颈部折痕；改下方光后暗带变亮但表面折线仍可见。因此源于模型表面/顶点法线过渡，顶部轮廓光会放大；不归因于地面、曝光或皮肤法线贴图。尚未进一步分离顶点几何和法线的贡献，交 Claude 检查拟合后颅底和颈部的过渡及法线平滑。
+
+**新增强制约定：C++ Build.sh / UBT 也必须使用与 UE 同一把锁。** 22:33 Codex 未加锁链接造成 dylib 短暂缺失，rui 的 ab600750130147c79cbe4febbbe333bb 日志明确为模块找不到。后续编译不再与编辑器并行。

@@ -16,30 +16,34 @@ fit = json.load(open(os.path.join(OUT, f"{WHO}_fit.json")))
 POSE = tuple(fit.get("pose_q34", [fit["yaw_q34"], 0, 0]))
 
 # ---------------------------------------------------------------- skin
+SKIN_TWEAK = os.environ.get("MATS", "1") == "1"
 for slot in body.material_slots:
     m = slot.material
-    if not m or not m.use_nodes:
+    if not SKIN_TWEAK or not m or not m.use_nodes:
         continue
     for n in m.node_tree.nodes:
         if n.type == "GROUP":
             ins = n.inputs
             if "Roughness" in ins:
-                ins["Roughness"].default_value = 0.62 if "lips" not in m.name else 0.45
-            for k, v in (("Clearcoat", 0.0), ("Pore strength", 0.28), ("SSS strength", 0.35), ("colorMixInStrength", 0.0)):
+                ins["Roughness"].default_value = 0.50 if "lips" not in m.name else 0.40
+            for k, v in (("Clearcoat", 0.0), ("Pore strength", 0.20), ("SSS strength", 0.15), ("colorMixInStrength", 0.0), ("Brightness", float(os.environ.get("SKIN_BRIGHT", "0.0")))):
                 if k in ins:
                     ins[k].default_value = v
+            if "lips" in m.name and "colorMixIn" in ins:
+                ins["colorMixIn"].default_value = (0.42, 0.11, 0.10, 1.0)
+                ins["colorMixInStrength"].default_value = 0.45
 
 # ---------------------------------------------------------------- eyes
-for o in bpy.data.objects:
+for o in (bpy.data.objects if SKIN_TWEAK else []):
     if o.type == "MESH" and o.name.endswith("high-poly"):
         for slot in o.material_slots:
             nt = slot.material.node_tree
             mix = nt.nodes.get("diffuseIntensity"); bs = nt.nodes.get("Principled BSDF")
             if mix:
                 mix.blend_type = "MULTIPLY"; mix.inputs["Fac"].default_value = 1.0
-                mix.inputs["Color1"].default_value = (0.55, 0.45, 0.40, 1.0)
+                mix.inputs["Color1"].default_value = (0.26, 0.19, 0.16, 1.0)
             if bs:
-                bs.inputs["Roughness"].default_value = 0.08
+                bs.inputs["Roughness"].default_value = 0.10
                 bs.inputs["Coat Weight"].default_value = 1.0
                 bs.inputs["Coat Roughness"].default_value = 0.02
 
@@ -53,7 +57,7 @@ LM = np.array(list(json.load(open(os.path.join(OUT, f"{WHO}_lm3d.json"))).values
 hc = LM.mean(0); hc[1] += 0.03 * height / 1.84 * 1.0; hc[2] += 0.012 * height / 1.84
 w = scene.world
 w.node_tree.nodes["Background"].inputs[0].default_value = (0.92, 0.93, 0.95, 1)
-w.node_tree.nodes["Background"].inputs[1].default_value = float(os.environ.get("AMB", "0.25"))
+w.node_tree.nodes["Background"].inputs[1].default_value = float(os.environ.get("AMB", "0.15"))
 
 
 def area(loc, energy, size, colour=(1, 1, 1)):
@@ -63,11 +67,12 @@ def area(loc, energy, size, colour=(1, 1, 1)):
     lo.rotation_euler = (Vector(hc.tolist()) - lo.location).to_track_quat("-Z", "Y").to_euler()
 
 
-area((0.9, -1.5, 0.9), float(os.environ.get("KEY", "260")), 1.6, (1.0, 0.97, 0.94))     # key, soft, front-left above
-area((-1.4, -1.0, 0.2), 55, 2.2, (0.92, 0.95, 1.0))     # fill
-area((0.2, 1.4, 1.0), 120, 0.9, (0.95, 0.97, 1.0))      # rim / hair light
+area((0.9, -1.5, 0.9), float(os.environ.get("KEY", "60")), 1.6, (1.0, 0.97, 0.94))      # key, soft, front-left above
+area((-1.4, -1.0, 0.2), float(os.environ.get("FILL", "15")), 2.2, (0.92, 0.95, 1.0))     # fill
+area((0.2, 1.4, 1.0), float(os.environ.get("RIM", "40")), 0.9, (0.95, 0.97, 1.0))       # rim / hair light
 scene.view_settings.view_transform = os.environ.get("VT", "Standard")
 scene.view_settings.look = "None"
+scene.view_settings.exposure = float(os.environ.get("EXPO", "0.0"))
 scene.render.engine = "BLENDER_EEVEE_NEXT"
 try:
     scene.eevee.use_shadows = True; scene.eevee.use_raytracing = True
@@ -94,11 +99,19 @@ def frame(pose):
 
 
 shots = (("front", 0, "front"), ("q34", POSE, "q34"), ("side", 90, "left"), ("back", 180, "back"))
+cam.data.ortho_scale = 0.135 * height * 2.0
 for name, pose, ref in shots:
     d, r, u = frame(pose)
     cam.location = Vector((hc + d * 3).tolist())
     cam.rotation_euler = Matrix([[r[0], u[0], d[0]], [r[1], u[1], d[1]], [r[2], u[2], d[2]]]).to_euler()
     scene.render.filepath = os.path.join(OUT, f"{WHO}_look_{name}.png")
     bpy.ops.render.render(write_still=True)
+# close-up for judging brows / eyes / strand detail
+d, r, u = frame(0)
+cam.location = Vector((hc + d * 3).tolist())
+cam.rotation_euler = Matrix([[r[0], u[0], d[0]], [r[1], u[1], d[1]], [r[2], u[2], d[2]]]).to_euler()
+cam.data.ortho_scale = 0.135 * height * 1.05
+scene.render.filepath = os.path.join(OUT, f"{WHO}_look_closeup.png")
+bpy.ops.render.render(write_still=True)
 bpy.ops.wm.save_as_mainfile(filepath=os.path.join(OUT, f"{WHO}_look.blend"))
 print("LOOK DONE", WHO)

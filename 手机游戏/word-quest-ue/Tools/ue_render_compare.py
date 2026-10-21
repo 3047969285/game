@@ -11,7 +11,7 @@ import hashlib
 import shutil
 import uuid
 sys.path.insert(0,str(Path(__file__).parent))
-from ue_character_common import ROOT,VIEWS,character_id,fit_pose
+from ue_character_common import ROOT,VIEWS,character_id,fit_pose,character_profile,inherited_lock,run_locked_editor
 
 def editor_main(unreal):
     unreal.EditorPythonScripting.set_keep_python_script_alive(True)
@@ -20,12 +20,12 @@ def editor_main(unreal):
     run_id=character_id(os.environ.get('WQ_COMPARE_RUN_ID',uuid.uuid4().hex))
     out=ROOT/'Saved/Compare'/cid;out.mkdir(parents=True,exist_ok=True)
     run=ROOT/'Saved/CompareRuns'/cid/run_id;run.mkdir(parents=True,exist_ok=True)
-    archive_capture(out,ROOT/'Saved/CompareHistory'/cid/uuid.uuid4().hex)
+    profile=character_profile(cid)
     pose,fit,fit_hash=fit_pose(cid,os.environ.get('WQ_COMPARE_FIT_JSON'))
     les=unreal.get_editor_subsystem(unreal.LevelEditorSubsystem);les.load_level('/Game/Maps/L_CharacterLookdev')
     eas=unreal.get_editor_subsystem(unreal.EditorActorSubsystem)
     rig=next(a for a in eas.get_all_level_actors() if a.get_actor_label()=='WQ_Lookdev_RefCameraRig')
-    rig.set_editor_property('q34_pose',unreal.Vector(*pose));rig.set_editor_property('character_height_cm',184 if cid=='me2026' else 168)
+    rig.set_editor_property('q34_pose',unreal.Vector(*pose));rig.set_editor_property('character_height_cm',profile['height_cm'])
     bp=f'/Game/Blueprints/Characters/BP_{cid}'
     source=None;source_asset=None;edited=None;mh=None
     mh_path=f'/Game/Characters/{cid}/MHC_{cid}'
@@ -46,7 +46,7 @@ def editor_main(unreal):
             mh.remove_object_to_edit(edited);raise
     else:
         if os.environ.get('WQ_COMPARE_REQUIRE_MHC')=='1':raise RuntimeError('Required MHC missing: '+mh_path)
-        who='male' if cid=='me2026' else 'female'
+        who=profile['who']
         source_asset=f'/Game/Characters/{cid}/Source/{who}_body';source='Source'
         if not unreal.EditorAssetLibrary.does_asset_exist(source_asset):raise RuntimeError('No renderable assembled character, MHC or source body: '+source_asset)
         mesh=unreal.load_asset(source_asset)
@@ -58,20 +58,43 @@ def editor_main(unreal):
         else:eas.destroy_actor(actor)
     actor.set_actor_label('WQ_Compare_'+cid)
     if edited is not None and not rig.use_preview_skin(edited):raise RuntimeError('Cannot enable transient MHC skin preview')
-    head=unreal.Vector(0,0,(184 if cid=='me2026' else 168)*.91)
+    groom_assets=[]
+    if os.environ.get('WQ_COMPARE_GROOMS')=='1':
+        base=f'/Game/Blueprints/Characters/Imported/{cid}/'
+        for kind in ('groom','brows'):
+            path=base+profile['who']+'_'+kind
+            if not unreal.EditorAssetLibrary.does_asset_exist(path):
+                if kind=='groom':raise RuntimeError('Imported Groom missing: '+path)
+                continue
+            groom=unreal.load_asset(path)
+            if not rig.attach_preview_groom(actor,groom,os.environ.get('WQ_GROOM_ATTACHMENT','skin')=='skin'):raise RuntimeError('Cannot bind preview Groom: '+path)
+            groom_assets.append(path)
+    head=unreal.Vector(0,0,(profile['height_cm'])*.91)
     for component in actor.get_components_by_class(unreal.SkeletalMeshComponent):
         if component.get_bone_index('FACIAL_L_Eye')>=0:
             eye=component.get_socket_location('FACIAL_L_Eye');head=unreal.Vector(0,eye.y,eye.z-3);break
     rig.set_editor_property('head_center_cm',head);rig.configure_views()
     for component in rig.get_editor_property('views'):
         pp=component.get_editor_property('post_process_settings');pp.set_editor_property('auto_exposure_bias',-9.5);component.set_editor_property('post_process_settings',pp)
-    state={'frame':0,'view':0,'started':time.monotonic()};out=ROOT/'Saved/Compare'/cid;out.mkdir(parents=True,exist_ok=True)
-    report={'run_id':run_id,'status':'complete','character':cid,'source':source,'source_asset':source_asset,'source_preview':source=='Source','unrigged_preview':source=='MHC','preview_material':'Skin' if source=='MHC' else 'asset','fit_json':fit,'fit_sha256':fit_hash,'q34_pose':pose,'resolution':[1024,1024],'projection':'orthographic','exposure_ev100_equivalent':9.5,'head_center_cm':str(head),'views':{}}
+    state={'frame':0,'view':0,'started':time.monotonic(),'bindings_ready':False};out=ROOT/'Saved/Compare'/cid;out.mkdir(parents=True,exist_ok=True)
+    report={'run_id':run_id,'status':'complete','character':cid,'character_profile':profile,'source':source,'source_asset':source_asset,'source_preview':source=='Source','unrigged_preview':source=='MHC','preview_material':'Skin' if source=='MHC' else 'asset','groom_assets':groom_assets,'groom_binding':os.environ.get('WQ_GROOM_ATTACHMENT','skin')+' transient FaceMesh' if groom_assets else None,'fit_json':fit,'fit_sha256':fit_hash,'q34_pose':pose,'resolution':[1024,1024],'projection':'orthographic','exposure_ev100_equivalent':9.5,'head_center_cm':str(head),'views':{}}
     def tick(dt):
         try:
+            if rig.get_editor_property('failed_groom_bindings'):raise RuntimeError('Groom binding failed')
+            if rig.get_editor_property('pending_groom_bindings'):
+                if time.monotonic()-state['started']>600:raise RuntimeError('Groom binding timeout')
+                return
+            if not state['bindings_ready']:
+                state['bindings_ready']=True;state['started']=time.monotonic()
             index=state['view'];rig.warm_view(index);state['frame']+=1
             if state['frame']<48 or time.monotonic()-state['started']<5:return
-            if not rig.export_view(index,cid):raise RuntimeError('PNG export failed: '+VIEWS[index])
+            if not rig.export_run_view(index,cid,run_id):raise RuntimeError('PNG export failed: '+VIEWS[index])
+            if index==0 and groom_assets:
+                image_size,pixels=unreal.PromotedFrameUtils.get_promoted_frame_as_pixel_array_from_disk(str(run/'front.png'))
+                contours=mh.track_face_landmarks_from_image(pixels,image_size.x,image_size.y)
+                if isinstance(contours,tuple) and len(contours)==1:contours=contours[0]
+                if not contours:raise RuntimeError('Groom render invalid: no visible front face; comparison output preserved')
+                report['front_face_contours']=len(contours)
             component=rig.get_editor_property('views')[index]
             report['views'][VIEWS[index]]={'location':str(component.get_world_location()),'rotation':str(component.get_world_rotation()),'ortho_width':component.get_editor_property('ortho_width')}
             unreal.log('WQ_COMPARE_VIEW '+VIEWS[index]);state['frame']=0;state['view']+=1;state['started']=time.monotonic()
@@ -79,13 +102,14 @@ def editor_main(unreal):
                 if source=='MHC' and hashlib.sha256(owned_asset.read_bytes()).hexdigest()!=asset_hash:raise RuntimeError('MHC asset changed during capture')
                 report['mhc_asset_sha256']=asset_hash if source=='MHC' else None
                 report['mhc_asset_unchanged']=source=='MHC'
-                (out/'capture.json').write_text(json.dumps(report,ensure_ascii=False,indent=2));unreal.unregister_slate_post_tick_callback(handle)
+                (run/'capture.json').write_text(json.dumps(report,ensure_ascii=False,indent=2));unreal.unregister_slate_post_tick_callback(handle)
                 cleanup()
-                for name in [v+'.png' for v in VIEWS]+['capture.json']:shutil.copy2(out/name,run/name)
+                archive_capture(out,ROOT/'Saved/CompareHistory'/cid/uuid.uuid4().hex)
+                for name in [v+'.png' for v in VIEWS]+['capture.json']:shutil.copy2(run/name,out/name)
                 unreal.log('WQ_C2_RENDER_PASS');print('WQ_C2_RENDER_PASS',flush=True);os._exit(0)
         except Exception:
             import traceback
-            (out/'capture-error.txt').write_text(traceback.format_exc());unreal.unregister_slate_post_tick_callback(handle)
+            (run/'capture-error.txt').write_text(traceback.format_exc());unreal.unregister_slate_post_tick_callback(handle)
             try:cleanup()
             finally:sys.stderr.flush();os._exit(1)
     handle=unreal.register_slate_post_tick_callback(tick)
@@ -113,19 +137,12 @@ def validate_capture(folder, require_mhc=False):
         if abs(width-(25 if view=='closeup' else 40))>.01:raise RuntimeError('Wrong portrait framing: '+view)
     return capture
 
-def inherited_lock(lock_pid, parents, current_pid):
-    """Only an actual process ancestor may supply the shared UE lock."""
-    seen=set()
-    while current_pid and current_pid not in seen:
-        if current_pid==lock_pid:return True
-        seen.add(current_pid);current_pid=parents.get(current_pid,0)
-    return False
-
 def cli():
     import argparse,subprocess,struct
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('id');parser.add_argument('--fit-json');parser.add_argument('--require-mhc',action='store_true');parser.add_argument('--engine',default='/Users/Shared/Epic Games/UE_5.8');args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('id');parser.add_argument('--fit-json');parser.add_argument('--grooms',action='store_true');parser.add_argument('--groom-attachment',choices=['skin','rigid'],default='skin');parser.add_argument('--require-mhc',action='store_true');parser.add_argument('--engine',default='/Users/Shared/Epic Games/UE_5.8');args=parser.parse_args()
     cid=character_id(args.id);env=dict(os.environ,WQ_CHARACTER_ID=cid,UE_LOCK_WHO='codex')
     if args.require_mhc:env['WQ_COMPARE_REQUIRE_MHC']='1'
+    if args.grooms:env['WQ_COMPARE_GROOMS']='1';env['WQ_GROOM_ATTACHMENT']=args.groom_attachment
     if args.fit_json:env['WQ_COMPARE_FIT_JSON']=str(Path(args.fit_json).resolve())
     binary=Path(args.engine)/'Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor';out=ROOT/'Saved/Compare'/cid;out.mkdir(parents=True,exist_ok=True)
     run_id=uuid.uuid4().hex;env['WQ_COMPARE_RUN_ID']=run_id
@@ -146,17 +163,7 @@ def cli():
         if not owners:break
         if waited%60==0:print('Waiting for existing project UE processes: '+', '.join(owners),flush=True)
         time.sleep(5);waited+=5
-    with log_path.open('w') as log:
-        command=[str(binary),str(ROOT/'WordQuestUE.uproject'),'/Game/Maps/L_CharacterLookdev',f'-ExecutePythonScript={Path(__file__).resolve()}','-RenderOffscreen','-culture=en','-language=en','-unattended','-nosplash','-nosound','-NoEpicPortal','-stdout','-FullStdOutLogOutput']
-        parent_rows=subprocess.check_output(['ps','-ax','-o','pid=,ppid='],text=True)
-        parents={int(a):int(b) for a,b in (row.split() for row in parent_rows.splitlines())}
-        lock_file=ROOT/'Saved/ue_run.lock/pid'
-        try:lock_pid=int(lock_file.read_text())
-        except (FileNotFoundError,ValueError):lock_pid=0
-        if not lock_pid or not inherited_lock(lock_pid,parents,os.getpid()):
-            command=['bash',str(ROOT/'Tools/run_ue_serial.sh')]+command
-        else:print('Reusing ancestor run_ue_serial.sh lock '+str(lock_pid),flush=True)
-        result=subprocess.run(command,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=None)
+    result=run_locked_editor(__file__,env,log_path,args.engine,'/Game/Maps/L_CharacterLookdev')
     if result.returncode or 'WQ_C2_RENDER_PASS' not in log_path.read_text(errors='replace'):raise RuntimeError(f'Render failed (exit={result.returncode}); inspect '+str(log_path))
     capture=validate_capture(run,args.require_mhc)
     if capture['run_id']!=run_id:raise RuntimeError('Capture run id mismatch')

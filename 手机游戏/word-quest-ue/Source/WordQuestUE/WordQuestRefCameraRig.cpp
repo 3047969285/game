@@ -12,6 +12,10 @@
 #include "MetaHumanCharacter.h"
 #include "MetaHumanCharacterSkin.h"
 #include "MetaHumanCharacterEditorSubsystem.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "GroomAsset.h"
+#include "GroomBindingAsset.h"
+#include "GroomComponent.h"
 #endif
 
 AWordQuestRefCameraRig::AWordQuestRefCameraRig()
@@ -61,15 +65,36 @@ bool AWordQuestRefCameraRig::ExportView(int32 Index,const FString& CharacterId)
 {
     if(!Views.IsValidIndex(Index)||CharacterId.IsEmpty()||CharacterId.Len()>64)return false;
     for(TCHAR C:CharacterId)if(!FChar::IsAlnum(C)&&C!='_'&&C!='-')return false;
+    const TCHAR* Names[]={TEXT("front"),TEXT("q34"),TEXT("side"),TEXT("back"),TEXT("closeup")};
+    return SaveView(Index,FPaths::Combine(FPaths::ProjectSavedDir(),TEXT("Compare"),CharacterId),Names[Index]);
+}
+
+bool AWordQuestRefCameraRig::ExportRunView(int32 Index,const FString& CharacterId,const FString& RunId)
+{
+    if(Index<0 || Index>=5 || CharacterId.IsEmpty() || RunId.IsEmpty() || CharacterId.Len()>64 || RunId.Len()>64)return false;
+    for(const FString* Value : {&CharacterId,&RunId})for(TCHAR C:*Value)if(!FChar::IsAlnum(C)&&C!='_'&&C!='-')return false;
+    const TCHAR* Names[]={TEXT("front"),TEXT("q34"),TEXT("side"),TEXT("back"),TEXT("closeup")};
+    return SaveView(Index,FPaths::Combine(FPaths::ProjectSavedDir(),TEXT("CompareRuns"),CharacterId,RunId),Names[Index]);
+}
+
+bool AWordQuestRefCameraRig::ExportDiagnosticView(int32 Index,const FString& CharacterId,const FString& Name)
+{
+    if(CharacterId.IsEmpty() || Name.IsEmpty() || CharacterId.Len()>64 || Name.Len()>64)return false;
+    for(const FString* Value : {&CharacterId,&Name})for(TCHAR C:*Value)if(!FChar::IsAlnum(C)&&C!='_'&&C!='-')return false;
+    return SaveView(Index,FPaths::Combine(FPaths::ProjectSavedDir(),TEXT("CompareDiagnostics"),CharacterId),Name);
+}
+
+bool AWordQuestRefCameraRig::SaveView(int32 Index,const FString& Directory,const FString& Name)
+{
+    if(!Views.IsValidIndex(Index))return false;
     auto* Target=Views[Index]->TextureTarget.Get();if(!Target)return false;
     FlushRenderingCommands();TArray<FColor> Pixels;
     if(!Target->GameThread_GetRenderTargetResource()->ReadPixels(Pixels)||Pixels.Num()!=1024*1024)return false;
     TArray64<uint8> PNG;FImageUtils::PNGCompressImageArray(1024,1024,Pixels,PNG);
-    const TCHAR* Names[]={TEXT("front"),TEXT("q34"),TEXT("side"),TEXT("back"),TEXT("closeup")};
-    const FString Directory=FPaths::Combine(FPaths::ProjectSavedDir(),TEXT("Compare"),CharacterId);
     IFileManager::Get().MakeDirectory(*Directory,true);
-    return FFileHelper::SaveArrayToFile(PNG,*FPaths::Combine(Directory,FString(Names[Index])+TEXT(".png")));
+    return FFileHelper::SaveArrayToFile(PNG,*FPaths::Combine(Directory,Name+TEXT(".png")));
 }
+
 
 
 bool AWordQuestRefCameraRig::UsePreviewSkin(UObject* Object)
@@ -79,6 +104,54 @@ bool AWordQuestRefCameraRig::UsePreviewSkin(UObject* Object)
     auto* Subsystem=GEditor ? GEditor->GetEditorSubsystem<UMetaHumanCharacterEditorSubsystem>() : nullptr;
     if(!Character || !Subsystem || !Subsystem->IsObjectAddedForEditing(Character))return false;
     Subsystem->UpdateCharacterPreviewMaterial(Character, EMetaHumanCharacterSkinPreviewMaterial::Editable, false);
+    return true;
+#else
+    return false;
+#endif
+}
+
+
+bool AWordQuestRefCameraRig::AttachPreviewGroom(AActor* Actor,UObject* Object,bool bSkinBinding)
+{
+#if WITH_EDITOR
+    auto* Groom=Cast<UGroomAsset>(Object);
+    if(!Actor || !Groom)return false;
+    USkeletalMeshComponent* Face=nullptr;
+    TArray<USkeletalMeshComponent*> Meshes;Actor->GetComponents(Meshes);
+    for(auto* Mesh:Meshes)if(Mesh->GetBoneIndex(TEXT("FACIAL_L_Eye"))!=INDEX_NONE){Face=Mesh;break;}
+    if(!Face || !Face->GetSkeletalMeshAsset())return false;
+    FBox Bounds(ForceInit);
+    for(const auto& Group:Groom->GetHairGroupsPlatformData())Bounds+=Group.Strands.GetBounds();
+    UE_LOG(LogTemp,Display,TEXT("WQ_GROOM_BOUNDS %s %s"),*Groom->GetName(),*Bounds.ToString());
+    const double EyeZ=Face->GetSocketLocation(TEXT("FACIAL_L_Eye")).Z;
+    if(!Bounds.IsValid || Bounds.Max.Z<EyeZ-30 || Bounds.Max.Z>EyeZ+80){
+        UE_LOG(LogTemp,Error,TEXT("WQ_GROOM_HEAD_BOUNDS_INVALID %s EyeZ=%f"),*Groom->GetName(),EyeZ);
+        return false;
+    }
+    if(!bSkinBinding){
+        auto* Component=NewObject<UGroomComponent>(Actor,NAME_None,RF_Transient);
+        Actor->AddInstanceComponent(Component);Component->SetupAttachment(Face);
+        Component->SetGroomAsset(Groom);Component->RegisterComponent();
+        UE_LOG(LogTemp,Display,TEXT("WQ_GROOM_RIGID_PREVIEW %s"),*Groom->GetName());
+        return true;
+    }
+    // MHC preview meshes are transient. Never save a binding that references them.
+    auto* Binding=NewObject<UGroomBindingAsset>(GetTransientPackage(),NAME_None,RF_Transient);
+    Binding->SetGroom(Groom);Binding->SetTargetSkeletalMesh(Face->GetSkeletalMeshAsset());
+    PreviewBindings.Add(Binding);++PendingGroomBindings;
+    const TWeakObjectPtr<AActor> WeakActor(Actor);
+    const TWeakObjectPtr<USkeletalMeshComponent> WeakFace(Face);
+    Binding->Build(FOnGroomBindingAssetBuildCompleteNative::CreateWeakLambda(this,
+        [this,WeakActor,WeakFace,Groom](UGroomBindingAsset* Built,EGroomBindingAssetBuildResult Result){
+            --PendingGroomBindings;
+            if(Result!=EGroomBindingAssetBuildResult::Succeeded || !WeakActor.IsValid() || !WeakFace.IsValid()){
+                ++FailedGroomBindings;UE_LOG(LogTemp,Error,TEXT("WQ_GROOM_BINDING_FAILED"));return;
+            }
+            auto* Component=NewObject<UGroomComponent>(WeakActor.Get(),NAME_None,RF_Transient);
+            WeakActor->AddInstanceComponent(Component);Component->SetupAttachment(WeakFace.Get());
+            Component->SetGroomAsset(Groom,Built,false);Component->RegisterComponent();
+            UE_LOG(LogTemp,Display,TEXT("WQ_GROOM_BOUND %s -> %s"),*Groom->GetName(),*WeakFace->GetName());
+        }));
     return true;
 #else
     return false;

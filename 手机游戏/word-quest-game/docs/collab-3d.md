@@ -41,7 +41,7 @@
 
 | 时间 | 文件 | 说明 |
 |------|------|------|
-| — | — | 待交付 |
+| 2026-10-21 | `public/models/heroes/me2026.glb` | 首版：Rocketbox 骨骼 53 joints、6 个 ARKit morph、56,436 tris、1m/Y-up/+Z、脚底 y=0；已合并为 4 mesh（身体+衣服+眉毛睫毛单蒙皮网格、头发卡、头皮、眼睛）、**材质 3 个**（body/hair/eyes）；预览图见 `docs/hero-pipeline/progress/male_hero_*.png`。**待办**：最终对比图、女主 lin |
 
 ## 需求 / 问题（双方在这里留言）
 
