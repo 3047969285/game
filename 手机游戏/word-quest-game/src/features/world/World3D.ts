@@ -1,3 +1,4 @@
+import { createTerrainTiles, type TerrainTiles } from "./terrainLod";
 import { makePhysicalSky, solarPosition, WorldCascades } from "./physicalAtmosphere";
 import { HERO_MODELS } from "./characterModels";
 import { buildVegetationField, type VegetationField } from "./vegetationField";
@@ -59,7 +60,6 @@ import {
   hash2,
   removeGroup,
   seededRand,
-  smoothstep,
   terrainHeight,
 } from "./utils";
 import { buildUnitLandscape, isFocusedLearningWorld } from "./unitLandscape";
@@ -68,7 +68,6 @@ import {
   sampleTerrainY,
   TERRAIN_ORIGIN_Y,
   TERRAIN_ORIGIN_Z,
-  TERRAIN_SEGMENTS,
   TERRAIN_SIZE,
 } from "./worldConfig";
 
@@ -155,6 +154,7 @@ export class World3D {
   private nearScatter?: NearScatter;
   private waterGroup?: THREE.Group;
   private terrain?: THREE.Mesh;
+  private terrainTiles?: TerrainTiles;
   private terrainTex?: TerrainTextureSet;
   /** 地形湿润带：湖泊 (x, z, rx, rz) 与水位，rebuildDecor 随湖泊更新数值（材质不重编译） */
   private readonly lakeUniforms = {
@@ -899,6 +899,7 @@ export class World3D {
     this.pickupMeshes.clear();
 
     if (this.terrain) {
+      this.terrainTiles?.dispose();
       this.terrain.geometry.dispose();
       const mat = this.terrain.material as THREE.MeshStandardMaterial;
       mat.dispose();
@@ -1452,25 +1453,8 @@ export class World3D {
   }
 
   private buildTerrain(): void {
-    const geo = new THREE.PlaneGeometry(
-      TERRAIN_SIZE.width,
-      TERRAIN_SIZE.depth,
-      TERRAIN_SEGMENTS.w,
-      TERRAIN_SEGMENTS.d
-    );
-    geo.rotateX(-Math.PI / 2);
-    const pos = geo.attributes.position;
-
-    for (let i = 0; i < pos.count; i++) {
-      const x = pos.getX(i);
-      const z = pos.getZ(i);
-      const h = terrainHeight(x, z);
-      pos.setY(i, h);
-    }
-    geo.computeVertexNormals();
-
-    // 顶点色：承载草 / 土 / 岩的自然分布（由 paintTerrain 填充）
-    geo.setAttribute("color", new THREE.BufferAttribute(new Float32Array(pos.count * 3).fill(1), 3));
+    const geo = new THREE.PlaneGeometry(0, 0);
+    geo.setDrawRange(0, 0);
 
     const terrainMat = new THREE.MeshStandardMaterial({
       color: 0xffffff,
@@ -1536,6 +1520,17 @@ export class World3D {
          float w[5];
          for (int k = 0; k < 5; k++) lh[k] = 0.5;
          layerWeights(tN.y, tHgt, tnz.x, tnz.y, tnz.z, lh, w);
+         #ifdef TERR_HI
+           // Bounded two-sample parallax: centimetre relief, fades before distant aliasing.
+           vec3 tv = normalize(cameraPosition - wp);
+           float pf = (1.0 - smoothstep(14.0, 65.0, length(cameraPosition - wp))) * smoothstep(0.35, 0.8, tN.y);
+           vec2 pv = tv.xz / max(abs(tv.y), 0.3) * 0.014 * pf;
+           int dominant = 0; for(int k=1;k<5;k++)if(w[k]>w[dominant])dominant=k;
+           float relief = tlA(float(dominant), uvA, gxA, gyA).a - 0.5;
+           uvA -= pv * relief;
+           relief = tlA(float(dominant), uvA, gxA, gyA).a - 0.5;
+           uvA -= pv * relief * 0.5;
+         #endif
          vec4 cc[5];
          cc[0] = tlA(0.0, uvA, gxA, gyA);
          cc[1] = tlA(1.0, uvA, gxA, gyA);
@@ -1637,8 +1632,10 @@ export class World3D {
          #endif`
       );
     };
-    terrainMat.customProgramCacheKey = () => "terrain-v5-" + this.quality;
+    terrainMat.customProgramCacheKey = () => "terrain-v6-parallax-" + this.quality;
     this.terrain = new THREE.Mesh(geo, terrainMat);
+    this.terrainTiles = createTerrainTiles(terrainMat, this.quality);
+    this.terrain.add(this.terrainTiles.group);
     this.terrain.receiveShadow = true;
     this.terrain.position.set(0, TERRAIN_ORIGIN_Y, TERRAIN_ORIGIN_Z);
     this.scene.add(this.terrain);
@@ -1652,28 +1649,9 @@ export class World3D {
    * 平坦处铺草、噪声斑块露出泥土、陡坡过渡为岩石，并叠加明暗起伏。
    */
   private paintTerrain(biome: UnitBiome, focusedWorld: boolean): void {
-    if (!this.terrain) return;
-    const geo = this.terrain.geometry;
-    const pos = geo.attributes.position;
-    const colorAttr = geo.attributes.color as THREE.BufferAttribute;
-    const arr = colorAttr.array as Float32Array;
-
-    // 顶点色只承载整体色调（冷暖）与大尺度明暗；层分布与细节由片元着色器决定，去饱和由 uTerrDesat 处理
-    void biome;
-    void focusedWorld;
-    for (let i = 0; i < pos.count; i++) {
-      const x = pos.getX(i);
-      const z = pos.getZ(i);
-      const h = pos.getY(i);
-      const warm = fbm(x * 0.017 + 91, z * 0.017 + 47, 3) - 0.5;
-      const shade =
-        (0.86 + fbm(x * 0.02 + 5, z * 0.02 + 9, 3) * 0.26 + smoothstep(6, 34, h) * 0.1) *
-        (0.94 + smoothstep(-6, 10, h) * 0.08);
-      arr[i * 3] = shade * (1 + warm * 0.16);
-      arr[i * 3 + 1] = shade;
-      arr[i * 3 + 2] = shade * (1 - warm * 0.16);
-    }
-    colorAttr.needsUpdate = true;
+    // LOD tiles bake continuous world-coordinate macro colour once at construction.
+    // Unit colour and desaturation remain in the shared terrain shader uniforms.
+    void biome; void focusedWorld;
   }
 
   /** 远景山脉环带：山脊 / 岩层 / 林带 / 雪线（顶点色，合并为单个网格） */
@@ -2296,7 +2274,7 @@ export class World3D {
     }
 
     if (this.terrain) {
-      const groundHit = this.raycaster.intersectObject(this.terrain, false)[0];
+      const groundHit = this.raycaster.intersectObject(this.terrain, true)[0];
       if (groundHit) {
         this.player.setMoveTarget(groundHit.point.x, groundHit.point.z);
         if (crystalId) {
@@ -2603,6 +2581,7 @@ export class World3D {
   }
 
   private tickScene(t: number, dt: number): void {
+    this.terrainTiles?.update(this.camera);
     this.vegetation?.update(this.camera);
     this.nearScatter?.update(this.camera);
     this.updateDynamicLightBudget();
