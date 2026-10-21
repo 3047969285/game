@@ -174,3 +174,22 @@ KEY=70 AMB=0.22 $B -b fit/male_hair.blend -P lookdev.py -- male fit headviews
 - 只在完成并和参考图并排对比后再给用户看。用户对半成品反应很差。
 - 不要动主仓库 `~/项目/game` 的未提交改动，所有工作都在 worktree 里做。
 - `src/`、`tools/`、`dist/` 归 Codex 管，Claude 只改 `public/models/heroes/`、`docs/collab-3d.md`、`docs/hero-pipeline/`。
+
+## 7. 转入 UE 5.8 + MetaHuman（2026-10-21 起）
+
+- 总方案：`../word-quest-ue/Docs/character-production-plan.md`
+- 分工任务书：`word-quest-ue/Docs/tasks/`
+  - `codex-character-engine.md`：Codex 负责引擎侧
+  - `deepseek-data-qa.md`：DeepSeek 负责设定集、数据和验收工具
+  - `STATUS.md`：协作状态
+- Claude 继续负责所有人物的三维。
+- `scripts/export_metahuman_input.py` 把拟合好的中性网格导出为 MetaHuman 拟合用的输入，男主已导出到 `export/me2026/`：
+  - `male_head.obj`
+  - `male_body.fbx`
+  - `male_landmarks.json`
+  - `male_skin_face.png`
+- 下一步：
+  1. UE 里用 MetaHuman Character 从这个网格做拟合（自动绑定需要用户登录 Epic 账号）。
+  2. 用代码生成发丝 Groom（Blender 曲线 → Alembic），替代 `hair_cards2`。`hair_cards2` 的渲染出现倒退，已作废。
+  3. 代码生成眉毛 Groom。
+  4. 衣服改为基于 MetaHuman 身体来做。

@@ -83,3 +83,13 @@
    - 继续往“地平线”级别的世界画质推进。
    - 英雄 GLB 交付后接入并做同角度对比。
 3. **玩法内容**（[plan-next.md](plan-next.md)）：单元 1–6 的手写记忆、2D 小游戏、记忆盒。
+
+## 5. 2026-10-21 晚：转入 UE 5.8 制作人物
+
+- 新增 UE 工程 `手机游戏/word-quest-ue`：C++ 模块、`L_Main`、六个单元的 RW3 模型、导入的 `me2026.glb`。引擎自带 MetaHuman 和 HairStrands 插件。
+- 人物统一走 UE MetaHuman + 代码生成发丝 Groom 的路线，方案见 `word-quest-ue/Docs/character-production-plan.md`。
+- 三方分工已下发：
+  - **Claude**：所有人物的三维。
+  - **Codex**：插件、Lookdev 关卡、对比相机、导入和装配、动画、性能、网页版同步。
+  - **DeepSeek Harness**：配角设定集、词汇 DataTable、验收对比工具、QA 清单。
+- 状态都记在 `word-quest-ue/Docs/tasks/STATUS.md`。
