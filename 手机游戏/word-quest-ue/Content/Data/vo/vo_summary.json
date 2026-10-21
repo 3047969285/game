@@ -1,0 +1,30 @@
+{
+ "total_lines": 441,
+ "total_seconds": 2765.9,
+ "speakers": {
+  "tts_reader": {
+   "lines": 359,
+   "seconds": 2518.76
+  },
+  "narrator": {
+   "lines": 76,
+   "seconds": 226.3
+  },
+  "old2090": {
+   "lines": 3,
+   "seconds": 11.09
+  },
+  "system": {
+   "lines": 1,
+   "seconds": 1.58
+  },
+  "lin": {
+   "lines": 1,
+   "seconds": 3.12
+  },
+  "rui": {
+   "lines": 1,
+   "seconds": 5.02
+  }
+ }
+}

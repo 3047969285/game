@@ -1,0 +1,2053 @@
+{
+ "source": "college_english_rw3",
+ "units": [
+  {
+   "unit_id": "unit01",
+   "unit_number": 1,
+   "edition": 4,
+   "title": "The digital age: Are we ready?",
+   "title_zh": "数字时代：我们准备好了吗？",
+   "theme": "digital life, connection, technology",
+   "word_ids": [
+    "rw3_unit01_01",
+    "rw3_unit01_02",
+    "rw3_unit01_03",
+    "rw3_unit01_04",
+    "rw3_unit01_05",
+    "rw3_unit01_06",
+    "rw3_unit01_07",
+    "rw3_unit01_08",
+    "rw3_unit01_09",
+    "rw3_unit01_10",
+    "rw3_unit01_11",
+    "rw3_unit01_12",
+    "rw3_unit01_13",
+    "rw3_unit01_14",
+    "rw3_unit01_15",
+    "rw3_unit01_16",
+    "rw3_unit01_17",
+    "rw3_unit01_18",
+    "rw3_unit01_19",
+    "rw3_unit01_20",
+    "rw3_unit01_21",
+    "rw3_unit01_22",
+    "rw3_unit01_23",
+    "rw3_unit01_24",
+    "rw3_unit01_25",
+    "rw3_unit01_26",
+    "rw3_unit01_27",
+    "rw3_unit01_28",
+    "rw3_unit01_29",
+    "rw3_unit01_30"
+   ],
+   "micro_world_checks": {
+    "section_a": [
+     {
+      "question": "What problem led the club to run a listening experiment?",
+      "options": [
+       "The library had banned all electronic devices.",
+       "Students wanted to replace every class with a club meeting.",
+       "Members felt disconnected despite frequent digital contact.",
+       "The group needed to test a new messaging application."
+      ],
+      "answer": 2,
+      "explanation": "The club noticed that being constantly connected did not always help people feel heard."
+     },
+     {
+      "question": "What changed by the third listening session?",
+      "options": [
+       "Pauses became useful, and listeners chose their words more carefully.",
+       "Participants stopped using online tools for planning.",
+       "Every participant agreed that phones should be banned.",
+       "The club replaced discussion with written reports."
+      ],
+      "answer": 0,
+      "explanation": "The second world describes how participants grew more comfortable with pauses and attentive listening."
+     },
+     {
+      "question": "What limitation did the organizers place on their notes?",
+      "options": [
+       "They were collected before the activity began.",
+       "They measured the quality of the students' devices.",
+       "They proved that online friendships were harmful.",
+       "They described one club's experience, not a rule for everyone."
+      ],
+      "answer": 3,
+      "explanation": "The passage explicitly distinguishes local observations from universal scientific proof."
+     },
+     {
+      "question": "According to the final world, what does digital readiness involve?",
+      "options": [
+       "Answering every notification as quickly as possible",
+       "Choosing technology according to the purpose of the moment",
+       "Avoiding conversation whenever a device is available",
+       "Using the same communication routine in every situation"
+      ],
+      "answer": 1,
+      "explanation": "Readiness is framed as intentional choice: use a tool when it serves the need, and make room for conversation when it matters."
+     }
+    ],
+    "section_b": [
+     {
+      "question": "How can an algorithm shape a student's digital feed?",
+      "options": [
+       "It guarantees that every viewpoint appears equally often.",
+       "It decides when a student should sleep.",
+       "It removes the need to make privacy choices.",
+       "It filters posts and may repeatedly surface selected stories."
+      ],
+      "answer": 3,
+      "explanation": "The opening world explains that algorithms filter feeds, so repeated exposure should not be mistaken for a balanced view."
+     },
+     {
+      "question": "Why did students schedule set times to check messages?",
+      "options": [
+       "To avoid communicating with classmates altogether",
+       "To make it easier to return attention to the study task",
+       "To make every virtual meeting longer",
+       "To remove all notifications from their devices"
+      ],
+      "answer": 1,
+      "explanation": "The class found that opening a device between tasks made it harder to resume the original question."
+     },
+     {
+      "question": "What did the cyber safety instructor ask students to consider?",
+      "options": [
+       "Whether a link, request, or post has consequences before they act",
+       "Whether all public posts should be deleted",
+       "How to avoid using a platform for school work",
+       "Why a privacy setting makes every online choice safe"
+      ],
+      "answer": 0,
+      "explanation": "The instructor teaches deliberate choices about links, password requests, and public posts."
+     },
+     {
+      "question": "Which practice helped students restore balance?",
+      "options": [
+       "Checking each message as soon as it arrives",
+       "Joining several virtual groups at once",
+       "Keeping a device-free meal and a clear end time for study",
+       "Treating every long evening online as an addiction"
+      ],
+      "answer": 2,
+      "explanation": "Small planned routines, including offline time, helped protect attention, rest, and interaction."
+     }
+    ],
+    "section_c": [
+     {
+      "question": "What was the local health center trying to make easier?",
+      "options": [
+       "Replacing all local staff with a remote application",
+       "Moving older residents to the coastal city",
+       "Making routine specialist advice available without an unnecessary long trip",
+       "Collecting health information for public social media"
+      ],
+      "answer": 2,
+      "explanation": "The first world introduces a local service designed to reduce avoidable travel for routine advice."
+     },
+     {
+      "question": "Who remained responsible for follow-up care?",
+      "options": [
+       "The local clinicians",
+       "The patient's distant family members alone",
+       "The makers of the telemedicine device",
+       "An automated platform without a medical team"
+      ],
+      "answer": 0,
+      "explanation": "Remote doctors reviewed information, while local clinicians stayed responsible for follow-up."
+     },
+     {
+      "question": "What limitation does the passage acknowledge about telemedicine?",
+      "options": [
+       "It works only when every patient owns the same phone.",
+       "It removes the need to protect private information.",
+       "It makes local health professionals unnecessary.",
+       "It cannot replace every examination or suit every village."
+      ],
+      "answer": 3,
+      "explanation": "The third world warns that online advice is not a universal substitute for in-person examination."
+     },
+     {
+      "question": "How does the final world define meaningful digital progress?",
+      "options": [
+       "By the number of screens installed in a community",
+       "By whether residents can participate safely and with dignity",
+       "By how quickly a remote platform can process every request",
+       "By replacing community services with one central system"
+      ],
+      "answer": 1,
+      "explanation": "The conclusion measures progress by safe, dignified participation and shared responsibility, not by devices alone."
+     }
+    ]
+   },
+   "sections": {
+    "section_a": {
+     "title": "Connection or conversation",
+     "type": "reading",
+     "passage": "A campus conversation club met each Thursday in a room that looked out over the library courtyard. Its members could send a message in seconds, yet during shared breaks some sat together without knowing how to begin. Several said they felt lonely even while their screens filled with names, photos, and alerts. The club asked a practical question: what kind of connection does this moment need? To explore it, student organizers designed a four-week listening experiment for learning, not a scientific study. At each session, members placed their devices in a basket for twenty minutes and took turns describing a small challenge. The listener had to ask one follow-up question and summarize what they had heard before replying. The rule felt awkward at first, and some participants were anxious that an urgent message might arrive. By the third session, a pause no longer seemed like a failure; it gave people time to choose words carefully. Members began noticing tone, hesitation, and the meaning behind a brief answer. They did not stop using group chats or video calls, which remained useful for planning and maintaining distant friendships. A quick digital message worked well when information was simple and time was short. A face-to-face conversation offered something different: people could revise an idea, respond to emotion, and build trust. The club's notes described its own practice, not proof that every student needed the same routine. That limit made the experiment more useful, because it invited discussion instead of imposing a universal rule. Readiness for the digital age therefore means choosing a tool with a purpose, rather than treating every notification as a command. On busy days, members used a shared calendar to protect an uninterrupted study session. On difficult days, they put phones away and asked a friend to listen before giving advice. Their goal was not less technology, but more intentional communication and a clearer sense of when to converse. Each Thursday ended with one question: did today's connection help someone feel understood?"
+    },
+    "section_b": {
+     "title": "Living in the digital world",
+     "type": "reading",
+     "passage": "For many students, the digital world begins before breakfast, when a notification lights up a device beside the bed. A student may intend to check one message and then scroll through a platform for several minutes. An algorithm filters the feed, quietly deciding which stories appear again and which disappear. Because the stream feels personal, users can mistake repeated exposure for a balanced view of the world. That is why digital literacy starts with attention: notice what a platform asks you to do, and decide whether it deserves the next minute. A first-year class tested a simple habit plan for two weeks, keeping short notes on when they checked screens during study. They found that opening a device between tasks often made it harder to return to the original question. Trying to multitask did not remove the work; it scattered the attention needed to understand complex ideas. The students began grouping messages into set check-in times and placing one offline study block on their daily schedule. One student found virtual study groups useful, provided that members agreed on a goal before joining. Another reviewed privacy settings after learning how much information a default profile could reveal. A cyber safety instructor asked the class to treat each link, password request, and public post as a choice with consequences. The lesson was not to fear every platform but to understand how its tools filter information and shape habits. When a data leak or unwanted contact occurs, prevention is valuable; afterwards, calm reporting and account changes matter too. Students also discussed screen addiction without using the term as a casual label for every long evening online. A habit becomes concerning when it repeatedly harms sleep, learning, or relationships and a person cannot easily adjust it. Restored balance came from small changes: a mindful walk between lectures, a device-free meal, and a clear end time for study. During an offline hour, roommates noticed more interaction and solved small disagreements before they grew. These routines did not make the internet less powerful; they helped students use it more deliberately. Living well online is not a contest to stay disconnected, but a practice of protecting attention, privacy, and human presence."
+    },
+    "section_c": {
+     "title": "Stories of China",
+     "type": "stories_of_china",
+     "passage": "This original practice story is set in a fictional mountain county, where the nearest specialist clinic is several hours from some villages. A local health center wanted older residents to receive advice without turning every checkup into a long journey. It partnered with doctors in a coastal teaching hospital and used a secure telemedicine platform to review basic scans. The small team added a familiar phone and a private room so patients could ask questions with a nurse nearby. At first, the technology was only one part of a bigger plan. Local staff helped residents learn how to place the device, describe symptoms, and ask for a second explanation. When a connection failed, the center recorded questions and arranged a call-back instead of pretending the screen had solved everything. Doctors reviewed images carefully and sent written guidance to local clinicians, who remained responsible for follow-up care. A daughter living far away could join one appointment, but the patient still chose what information to share. The process respected privacy as well as distance. This fictional example does not claim that every village has the same service or that online advice can replace an examination. It shows why human communication matters when a new tool enters healthcare. The clinic kept an offline option for people who lacked a suitable phone, steady signal, or confidence using an app. Volunteers explained how the service worked, while medical staff checked whether the advice was clear and useful. Gradually, families spent less time arranging travel for routine questions and more time planning care with local professionals. The change depended on trust, accessible design, and patient choice rather than on a device alone. Stories of China can include this kind of practical innovation: people using knowledge and technology to solve a local need. Its value is measured not by how advanced a screen looks, but by whether residents can participate safely. A shared project becomes stronger when city doctors, county clinicians, families, and public services each take a clear role. In that sense, digital progress is a human achievement: it expands connection while keeping dignity, responsibility, and community in view."
+    },
+    "vocabulary": {
+     "level_count": 6,
+     "words_per_level": 5
+    },
+    "reading": {
+     "title": "Connection or Conversation?",
+     "passage": "A campus conversation club met each Thursday in a room that looked out over the library courtyard. Its members could send a message in seconds, yet during shared breaks some sat together without knowing how to begin. Several said they felt lonely even while their screens filled with names, photos, and alerts. The club asked a practical question: what kind of connection does this moment need? To explore it, student organizers designed a four-week listening experiment for learning, not a scientific study. At each session, members placed their devices in a basket for twenty minutes and took turns describing a small challenge. The listener had to ask one follow-up question and summarize what they had heard before replying. The rule felt awkward at first, and some participants were anxious that an urgent message might arrive. By the third session, a pause no longer seemed like a failure; it gave people time to choose words carefully. Members began noticing tone, hesitation, and the meaning behind a brief answer. They did not stop using group chats or video calls, which remained useful for planning and maintaining distant friendships. A quick digital message worked well when information was simple and time was short. A face-to-face conversation offered something different: people could revise an idea, respond to emotion, and build trust. The club's notes described its own practice, not proof that every student needed the same routine. That limit made the experiment more useful, because it invited discussion instead of imposing a universal rule. Readiness for the digital age therefore means choosing a tool with a purpose, rather than treating every notification as a command. On busy days, members used a shared calendar to protect an uninterrupted study session. On difficult days, they put phones away and asked a friend to listen before giving advice. Their goal was not less technology, but more intentional communication and a clearer sense of when to converse. Each Thursday ended with one question: did today's connection help someone feel understood?",
+     "questions": [
+      {
+       "question": "What did the listening experiment ask members to do?",
+       "options": [
+        "Stop using every online tool for the whole semester",
+        "Put devices away, take turns, and listen before replying",
+        "Write a scientific report about phone manufacturers",
+        "Replace face-to-face meetings with longer messages"
+       ],
+       "answer": 1,
+       "explanation": "The club used a short device-free session with turn-taking, a follow-up question, and a summary."
+      },
+      {
+       "question": "What claim did the organizers avoid making?",
+       "options": [
+        "That the club's observations created a universal rule for every student",
+        "That conversation can help people build trust",
+        "That messages can be useful for simple information",
+        "That different situations may call for different tools"
+       ],
+       "answer": 0,
+       "explanation": "The passage presents the club's notes as local observations, not universal scientific proof."
+      },
+      {
+       "question": "What is the central argument of the passage?",
+       "options": [
+        "All communication should move to digital platforms.",
+        "Devices are harmful and should be removed from campus.",
+        "A fast message always creates deeper understanding.",
+        "Digital readiness includes choosing a tool that fits the purpose."
+       ],
+       "answer": 3,
+       "explanation": "The argument favors intentional choice rather than rejecting technology or responding automatically to every alert."
+      }
+     ]
+    },
+    "listening": {
+     "title": "Listening: The digital age: Are we ready?",
+     "script": "In our first-year seminar, we kept a seven-day attention diary. I expected it to be a list of screen hours, but the useful question was what I had meant to do each time I picked up my device. On Monday, I opened a message during a reading task and followed a platform recommendation into several unrelated posts. The algorithm had not forced me to stay; it had made the next item easy to see. My group designed a small plan. We set two message check-in times, left urgent calls available, and used a twenty-five-minute offline block for reading. A classmate also showed us how to review privacy settings and check a link before entering account details. The plan did not remove virtual meetings or online research. It helped us choose them with a purpose. By Friday, I was still using the same phone, but I had fewer accidental interruptions and more time to finish one task before starting another. We learned that balance is not a perfect number of online and offline minutes. It is the ability to notice a habit, protect attention, and make room for real interaction when a conversation matters.",
+     "questions": [
+      {
+       "question": "What did the speaker's attention diary focus on?",
+       "options": [
+        "Only the total price of each device",
+        "How many virtual meetings the school cancelled",
+        "Which platform had the largest number of users",
+        "What the speaker intended to do when picking up the device"
+       ],
+       "answer": 3,
+       "explanation": "The speaker says the diary was useful because it recorded the intention behind each device check, not just screen hours."
+      },
+      {
+       "question": "Why did the group set message check-in times?",
+       "options": [
+        "To make it easier to protect a focused reading block",
+        "To remove all online communication from the seminar",
+        "To prevent urgent calls from reaching students",
+        "To increase the number of unrelated posts they saw"
+       ],
+       "answer": 0,
+       "explanation": "Scheduled check-ins left space for a focused offline block while still allowing urgent calls."
+      },
+      {
+       "question": "What did the classmate show the group how to do?",
+       "options": [
+        "Delete every message before reading it",
+        "Turn all virtual meetings into offline events",
+        "Review privacy settings and check links before entering account details",
+        "Change the recommendation algorithm on the platform"
+       ],
+       "answer": 2,
+       "explanation": "The safety step combined a privacy review with checking a link before sharing account details."
+      },
+      {
+       "question": "How does the speaker define balance?",
+       "options": [
+        "Using exactly equal amounts of online and offline time",
+        "Noticing habits, protecting attention, and making room for real interaction",
+        "Avoiding virtual meetings and online research",
+        "Responding to every message as soon as it arrives"
+       ],
+       "answer": 1,
+       "explanation": "The conclusion defines balance as intentional attention and human connection, not a fixed time ratio."
+      }
+     ]
+    },
+    "translation": {
+     "sentences": [
+      {
+       "zh": "请将下列句子译为英文：在数字时代，真正的联结不仅取决于网速，还取决于我们是否愿意专注倾听。",
+       "en_reference": "In the digital age, genuine connection depends not only on internet speed but also on our willingness to communicate and listen attentively.",
+       "keywords": [
+        "digital",
+        "connection"
+       ]
+      },
+      {
+       "zh": "请将下列句子译为英文：减少不必要的消息提醒有助于学生保护注意力。",
+       "en_reference": "Reducing unnecessary notifications helps students protect their attention.",
+       "keywords": [
+        "notifications",
+        "protect",
+        "attention"
+       ]
+      },
+      {
+       "zh": "请将下列句子译为英文：固定的消息查看时段不仅能保护整块阅读时间，也能为紧急联络留出空间。",
+       "en_reference": "Not only do scheduled message check-in times protect a focused reading block, but they also leave room for urgent contact.",
+       "keywords": [
+        "not only",
+        "but also",
+        "protect",
+        "urgent contact"
+       ]
+      },
+      {
+       "zh": "请将下列句子译为英文：多任务处理似乎节省时间，却可能使我们更难记住谈话的重点。",
+       "en_reference": "Multitasking may seem to save time, but it can make it harder for us to remember the main point of a conversation.",
+       "keywords": [
+        "multitasking",
+        "save time",
+        "harder",
+        "conversation"
+       ]
+      }
+     ]
+    },
+    "writing": {
+     "prompt": "Respond to the question: Are we ready for the digital age? State a clear position, support it with one concrete example from student life, and explain how people can balance useful technology with focused attention and meaningful face-to-face interaction.",
+     "outline": [
+      "State your position: What does being ready mean beyond owning digital devices?",
+      "Develop one student-life example: Show how a notification, platform, or device helps or interrupts learning.",
+      "Explain your reasoning: Connect a deliberate habit to attention and face-to-face interaction.",
+      "Conclude with one practical principle for responsible digital use."
+     ]
+    }
+   }
+  },
+  {
+   "unit_id": "unit02",
+   "unit_number": 2,
+   "edition": 4,
+   "title": "Life stories",
+   "title_zh": "人生故事",
+   "theme": "biography, exploration, inspiration",
+   "word_ids": [
+    "rw3_unit02_01",
+    "rw3_unit02_02",
+    "rw3_unit02_03",
+    "rw3_unit02_04",
+    "rw3_unit02_05",
+    "rw3_unit02_06",
+    "rw3_unit02_07",
+    "rw3_unit02_08",
+    "rw3_unit02_09",
+    "rw3_unit02_10",
+    "rw3_unit02_11",
+    "rw3_unit02_12",
+    "rw3_unit02_13",
+    "rw3_unit02_14",
+    "rw3_unit02_15",
+    "rw3_unit02_16",
+    "rw3_unit02_17",
+    "rw3_unit02_18",
+    "rw3_unit02_19",
+    "rw3_unit02_20"
+   ],
+   "micro_world_checks": {
+    "section_a": [
+     {
+      "question": "Why did the students organize the exhibit around choices and evidence?",
+      "options": [
+       "To rank famous people by the size of their audience.",
+       "To replace historical sources with dramatic portraits.",
+       "To examine evidence that explains the subjects' choices and turning points.",
+       "To prove that every biography follows one pattern."
+      ],
+      "answer": 2,
+      "explanation": "The exhibit asks readers to connect choices with evidence instead of ranking people or inventing a universal model."
+     },
+     {
+      "question": "Which materials helped the class follow the explorer's voyage?",
+      "options": [
+       "Maps, port names, and records of exchanged goods",
+       "A movie script and an imagined speech",
+       "A portrait with no dates or source note",
+       "A list of modern travel advertisements"
+      ],
+      "answer": 0,
+      "explanation": "The passage names maps, ports, and trade records as evidence for tracing the route."
+     },
+     {
+      "question": "What did the class learn from Hepburn's public mission?",
+      "options": [
+       "One visitor can solve every part of a humanitarian crisis.",
+       "A public portrait is enough to explain a whole life.",
+       "Fame removes the need to check historical evidence.",
+       "Public attention can support a cause but is not a complete solution."
+      ],
+      "answer": 3,
+      "explanation": "The mission drew attention to children's needs while the class avoided claiming that one person could end a crisis."
+     },
+     {
+      "question": "How does the exhibit define a meaningful legacy?",
+      "options": [
+       "As a perfect legend that readers should never question.",
+       "As influence that people can inherit, examine, and continue.",
+       "As public recognition without evidence or context.",
+       "As a single career path everyone should follow."
+      ],
+      "answer": 1,
+      "explanation": "The ending treats legacy as an influence that invites evidence-based reflection and responsible action."
+     }
+    ],
+    "section_b": [
+     {
+      "question": "Why was the elegant portrait not enough for the biography exhibit?",
+      "options": [
+       "It proved that her film career never mattered.",
+       "It showed a public image but could not tell the whole story.",
+       "It contained every private thought she had.",
+       "It made historical dates impossible to check."
+      ],
+      "answer": 1,
+      "explanation": "The passage says a portrait can open the topic but cannot represent an entire life."
+     },
+     {
+      "question": "What did Hepburn do in 1988 according to the passage?",
+      "options": [
+       "She opened a film school for every UNICEF worker.",
+       "She claimed to have ended drought in the region.",
+       "She stopped working with humanitarian organizations.",
+       "She traveled to Ethiopia to raise awareness of drought affecting children and women."
+      ],
+      "answer": 3,
+      "explanation": "The passage identifies the Ethiopia trip as an effort to draw attention to the drought's impact."
+     },
+     {
+      "question": "Why should local experience be heard in charitable work?",
+      "options": [
+       "Local people can understand needs that an outsider may miss.",
+       "A visiting celebrity always knows more than local groups.",
+       "Public attention makes long-term partnership unnecessary.",
+       "A portrait can replace conversations with a community."
+      ],
+      "answer": 0,
+      "explanation": "The passage emphasizes listening to people who live with an issue rather than assuming an outsider knows best."
+     },
+     {
+      "question": "What is the central lesson of the exhibit?",
+      "options": [
+       "A celebrated face can solve a crisis without local partners.",
+       "A public image matters more than the work behind it.",
+       "Responsible support combines compassion with evidence, listening, and continued action.",
+       "Readers should admire a person without asking questions."
+      ],
+      "answer": 2,
+      "explanation": "The final panels connect compassion to careful research, local knowledge, and responsible support."
+     }
+    ],
+    "section_c": [
+     {
+      "question": "What did the class use to trace the voyages?",
+      "options": [
+       "A modern tourist guide with fictional destinations",
+       "A list of private conversations that no source recorded",
+       "Only a portrait of the explorer",
+       "Port names and directions found in maps and written accounts"
+      ],
+      "answer": 3,
+      "explanation": "The students began with recorded ports and direction marks, then compared maps with written accounts."
+     },
+     {
+      "question": "Which goods are named in the passage?",
+      "options": [
+       "Only books and musical instruments",
+       "Silk, porcelain, medicines, and metal objects",
+       "Modern engines and digital devices",
+       "Food grown only at the destination ports"
+      ],
+      "answer": 1,
+      "explanation": "Those four categories are listed as examples of goods carried on the voyages."
+     },
+     {
+      "question": "How did the learners avoid making unsupported claims?",
+      "options": [
+       "They treated one map as a complete record of every encounter.",
+       "They ignored written descriptions and relied on memory.",
+       "They compared maps and accounts, separating evidence from interpretation.",
+       "They assumed every stop had the same purpose."
+      ],
+      "answer": 2,
+      "explanation": "The class used more than one source and kept route evidence distinct from broader interpretations."
+     },
+     {
+      "question": "What does the chart-room lesson encourage readers to do?",
+      "options": [
+       "Study historical achievements while asking what the evidence can support.",
+       "Memorize a legend without checking sources.",
+       "Assume all historical encounters were identical.",
+       "Reject maps because they never contain useful information."
+      ],
+      "answer": 0,
+      "explanation": "The ending pairs curiosity about a historical legacy with verification of the sources behind it."
+     }
+    ]
+   },
+   "sections": {
+    "section_a": {
+     "title": "Two Lives, One Lesson",
+     "type": "reading",
+     "passage": "The class opened an exhibit called Lives in Motion in the campus archive, where biographies were read as sequences of choices. Its task was not to rank remarkable people, but to ask which evidence could explain a turning point. One case followed Zheng He, the explorer whose fleet traveled across Indian Ocean routes in the early fifteenth century. Another introduced Audrey Hepburn, whose public portrait later became linked to a humanitarian mission for children. Though the lives belonged to different eras and different professions, students searched for a shared question: what does service require? The first group placed maps and port names beside a short narrative of the voyage. Records show that trade goods moved across sea routes, yet a map cannot tell every story of the people along them. Students marked documented details in blue and their own interpretations in amber. This color code helped them witness the difference between a source and a conclusion. It also kept the display from presenting one simple motive as the whole explanation. In the second case, the class examined why an ambitious performer might use fame to draw attention to children's needs. They learned that Hepburn served UNICEF as Goodwill Ambassador and traveled to Ethiopia in 1988 to highlight the drought's effects. Her work did not mean one visitor could solve a complex crisis. It showed how compassion and sustained attention could support a wider humanitarian effort. Students compared what the sources stated with what a reader might only infer. When they turned to the final wall, neither figure seemed like a ready-made model for every life. The students could admire particular choices without treating a famous person as perfect. They described a legacy as influence people inherit, question, and sometimes continue in new ways. The exhibit's narrative joined evidence, context, and consequences instead of relying on a dramatic portrait. Each visitor left with one question about ambition, responsibility, and the next action they could take."
+    },
+    "section_b": {
+     "title": "Audrey Hepburn — a real angel in the world",
+     "type": "reading",
+     "passage": "Students built an original exhibit about Audrey Hepburn, and they started with the familiar elegant portrait on a screen. The image opened a door, but it could not tell visitors everything about a life. A biography becomes richer when it places public work beside career and context. Their teacher asked them to separate documented events from assumptions about a famous person's private thoughts. That rule turned the display into a lesson in evidence, not a shrine. The class added one verified fact: Hepburn served as a UNICEF Goodwill Ambassador. In 1988 she traveled to Ethiopia to raise awareness of drought affecting children and women. Her mission brought a humanitarian concern into view, but did not claim that one person could end a crisis. Students explained why a public witness can help an audience notice a problem. They also asked whose experience should be heard first: the people living with that problem. A local organization may understand needs that an outsider cannot see from a brief visit. For that reason, charity work needs listening, accountability, and long-term partnership as well as attention. Compassion is not a decoration added to a portrait; it is a reason to respond thoughtfully. Supporting a humanitarian mission also requires perseverance, because public attention alone cannot sustain long-term work. They admired her devotion without claiming that fame guarantees wisdom. The discussion made one tension visible: publicity can open a door, yet it can also simplify people's lives. Students revised their headline to include both career and service. A second panel told how readers can check dates and original sources before repeating a claim. Instead of copying a dramatic quotation, they wrote a precise summary and named the source. The exhibit closed by asking visitors to find one responsible action that could inspire others in their community."
+    },
+    "section_c": {
+     "title": "Stories of China",
+     "type": "stories_of_china",
+     "passage": "The class opened a chart room to study Zheng He's voyages as a historical narrative rather than a legend. Their guide explained that historians describe seven expeditions across the Indian Ocean in the early fifteenth century. The students began with a fleet route and traced the names of ports recorded in maps and written accounts. The archive showed that the voyages carried goods including silk, porcelain, medicines, and metal objects to trading ports. A route map helped them imagine distance, but also reminded them that maps select what to show. The group labeled locations and directions before drawing any conclusion about the purpose of a stop. Each stop was discussed as a place where people met, exchanged goods, and made decisions. Trade is one documented purpose, and historical records can reveal how maritime networks connected regions. However, no single map can witness every conversation or explain every participant's experience. The learners compared a chart with written descriptions rather than treating either source as complete. This practice made the lesson more remarkable than memorizing a list of destinations. One student asked whether a modern reader should admire a voyage without asking difficult questions. The class agreed that respect for achievement and careful criticism can exist together. They separated evidence about routes from broader claims about what every encounter meant. That distinction kept the story open to more than one question. A voyage can reveal planning, navigation, and exchange, while still leaving gaps in the record. The fleet's legacy is therefore a useful subject for comparing past and present ideas of connection. The class placed a route-map model beside a note about how historical knowledge is built. The display invited visitors to follow an explorer's path, then inspect the sources that support the narrative. At the exit, each learner wrote one question inspired by the map and one fact they could verify."
+    },
+    "vocabulary": {
+     "level_count": 4,
+     "words_per_level": 5
+    },
+    "reading": {
+     "title": "Two Lives, One Lesson",
+     "passage": "The class opened an exhibit called Lives in Motion in the campus archive, where biographies were read as sequences of choices. Its task was not to rank remarkable people, but to ask which evidence could explain a turning point. One case followed Zheng He, the explorer whose fleet traveled across Indian Ocean routes in the early fifteenth century. Another introduced Audrey Hepburn, whose public portrait later became linked to a humanitarian mission for children. Though the lives belonged to different eras and different professions, students searched for a shared question: what does service require? The first group placed maps and port names beside a short narrative of the voyage. Records show that trade goods moved across sea routes, yet a map cannot tell every story of the people along them. Students marked documented details in blue and their own interpretations in amber. This color code helped them witness the difference between a source and a conclusion. It also kept the display from presenting one simple motive as the whole explanation. In the second case, the class examined why an ambitious performer might use fame to draw attention to children's needs. They learned that Hepburn served UNICEF as Goodwill Ambassador and traveled to Ethiopia in 1988 to highlight the drought's effects. Her work did not mean one visitor could solve a complex crisis. It showed how compassion and sustained attention could support a wider humanitarian effort. Students compared what the sources stated with what a reader might only infer. When they turned to the final wall, neither figure seemed like a ready-made model for every life. The students could admire particular choices without treating a famous person as perfect. They described a legacy as influence people inherit, question, and sometimes continue in new ways. The exhibit's narrative joined evidence, context, and consequences instead of relying on a dramatic portrait. Each visitor left with one question about ambition, responsibility, and the next action they could take.",
+     "questions": [
+      {
+       "question": "Why did students arrange the exhibit around choices instead of ranking the subjects?",
+       "options": [
+        "To show that one person's career is always superior.",
+        "To identify evidence that helps explain important turning points.",
+        "To avoid discussing the sources behind each biography.",
+        "To prove that every life follows the same sequence."
+       ],
+       "answer": 1,
+       "explanation": "The exhibit focuses on choices and the evidence that can explain them, not on ranking people."
+      },
+      {
+       "question": "What did the map help students do, and what could it not do?",
+       "options": [
+        "It proved every motive and recorded every conversation.",
+        "It replaced written accounts and all historical research.",
+        "It showed that every port had an identical purpose.",
+        "It helped trace routes but could not tell every person's experience."
+       ],
+       "answer": 3,
+       "explanation": "The passage uses maps to trace routes while noting that they cannot capture every story or motive."
+      },
+      {
+       "question": "What did the 1988 Ethiopia example help the class understand?",
+       "options": [
+        "A public mission can draw attention without solving a crisis by itself.",
+        "A famous visitor can replace all local organizations.",
+        "A portrait provides enough evidence to explain a humanitarian issue.",
+        "Public figures should never speak about children's needs."
+       ],
+       "answer": 0,
+       "explanation": "The students distinguish drawing attention from claiming that one person can solve a complex crisis."
+      },
+      {
+       "question": "Which idea best summarizes the exhibit?",
+       "options": [
+        "Famous people should be copied without questioning their choices.",
+        "A legacy is only a record of public attention.",
+        "Read biographies through evidence, context, and consequences.",
+        "Different eras make comparison impossible."
+       ],
+       "answer": 2,
+       "explanation": "The final sentences present biography as evidence-based interpretation that can inform responsible choices."
+      }
+     ]
+    },
+    "listening": {
+     "title": "Listening: Life stories",
+     "script": "In our seminar, we compared two biographies from different eras. One account described an explorer and the fleet that traveled across the Indian Ocean; another followed Audrey Hepburn from a celebrated film career to humanitarian work. Our instructor gave us a simple rule: write down what a source shows, then mark what is still an interpretation. A map helped us trace a voyage and identify ports, but it could not witness every conversation along the route. A public portrait showed an elegant image, but it could not explain a whole mission. We learned that Hepburn served as a UNICEF Goodwill Ambassador and traveled to Ethiopia in 1988 to raise awareness of drought affecting children and women. That fact helped us discuss how a public figure may draw attention to a need without replacing local knowledge or long-term work. One student asked whether admiration meant we should stop questioning a biography. Our mentor said the opposite: careful questions make respect more thoughtful. We compared records, checked dates, and revised a sentence that had gone beyond its evidence. The lesson was not to choose one remarkable life as a model for everyone. It was to notice ambition, perseverance, and compassion, then ask what action fits our own community. Stories can inspire us when we read them with curiosity and care.",
+     "questions": [
+      {
+       "question": "What rule did the seminar instructor give the group?",
+       "options": [
+        "Choose the most dramatic version of every story.",
+        "Treat a map as a complete record of every conversation.",
+        "Rank biographies by the subjects' popularity.",
+        "Record what a source shows and separate it from interpretation."
+       ],
+       "answer": 3,
+       "explanation": "The instructor asks students to distinguish information directly supported by a source from interpretation."
+      },
+      {
+       "question": "What limitation of the map does the speaker mention?",
+       "options": [
+        "It showed too many private thoughts to interpret.",
+        "It could trace a voyage but not witness every conversation.",
+        "It contained no ports or route information.",
+        "It proved that every stop served the same purpose."
+       ],
+       "answer": 1,
+       "explanation": "The speaker says the map helped trace the route but could not record every conversation."
+      },
+      {
+       "question": "What did the Ethiopia example help students discuss?",
+       "options": [
+        "Why one public figure can solve every humanitarian problem.",
+        "Why dates and sources are unnecessary in a biography.",
+        "How public attention can support a cause without replacing local knowledge.",
+        "How a portrait can provide long-term community services."
+       ],
+       "answer": 2,
+       "explanation": "The speaker distinguishes drawing attention to a need from replacing local expertise or sustained work."
+      },
+      {
+       "question": "What is the speaker's conclusion about admiration?",
+       "options": [
+        "Admiration is stronger when it includes careful questions and evidence.",
+        "Admiration requires choosing one perfect model for everyone.",
+        "A remarkable life should never be examined critically.",
+        "People should ignore stories that cross different eras."
+       ],
+       "answer": 0,
+       "explanation": "The seminar concludes that curiosity and care make respect more thoughtful, not less sincere."
+      }
+     ]
+    },
+    "translation": {
+     "sentences": [
+      {
+       "zh": "请将下列句子译为英文：那位率领船队的探险家留下了值得后人研究的遗产。",
+       "en_reference": "The explorer who led the fleet left a legacy worth studying.",
+       "keywords": [
+        "explorer",
+        "fleet",
+        "legacy",
+        "who"
+       ]
+      },
+      {
+       "zh": "请将下列句子译为英文：学生打开展览时，已经比较了两篇人物传记。",
+       "en_reference": "By the time the students opened the exhibit, they had compared two biographies.",
+       "keywords": [
+        "by the time",
+        "had compared",
+        "biographies"
+       ]
+      },
+      {
+       "zh": "请将下列句子译为英文：一幅优雅的肖像无法讲述一个人的全部人生。",
+       "en_reference": "An elegant portrait cannot tell the whole story of a person's life.",
+       "keywords": [
+        "elegant",
+        "portrait"
+       ]
+      },
+      {
+       "zh": "请将下列句子译为英文：有证据支持的叙述能启发读者，也能提醒他们区分事实与推断。",
+       "en_reference": "A narrative supported by evidence can inspire readers and remind them to distinguish facts from inferences.",
+       "keywords": [
+        "narrative",
+        "evidence",
+        "inspire"
+       ]
+      }
+     ]
+    },
+    "writing": {
+     "prompt": "Write 120-150 words comparing two life stories. Use one checked fact, explain a meaningful choice, and distinguish evidence from your interpretation.",
+     "outline": [
+      "Introduce the two people and the context",
+      "Give one verified fact and explain its source",
+      "Compare a choice, obstacle, or act of service",
+      "Explain what readers may learn without treating either life as a perfect template"
+     ]
+    }
+   }
+  },
+  {
+   "unit_id": "unit03",
+   "unit_number": 3,
+   "edition": 4,
+   "title": "Let's go",
+   "title_zh": "出发吧",
+   "theme": "travel, purpose, solo journey",
+   "word_ids": [
+    "rw3_unit03_01",
+    "rw3_unit03_02",
+    "rw3_unit03_03",
+    "rw3_unit03_04",
+    "rw3_unit03_05",
+    "rw3_unit03_06",
+    "rw3_unit03_07",
+    "rw3_unit03_08",
+    "rw3_unit03_09",
+    "rw3_unit03_10",
+    "rw3_unit03_11",
+    "rw3_unit03_12",
+    "rw3_unit03_13",
+    "rw3_unit03_14",
+    "rw3_unit03_15",
+    "rw3_unit03_16",
+    "rw3_unit03_17",
+    "rw3_unit03_18",
+    "rw3_unit03_19",
+    "rw3_unit03_20"
+   ],
+   "micro_world_checks": {
+    "section_a": [
+     {
+      "question": "What idea did the seminar ask students to examine?",
+      "options": [
+       "Whether travelers should avoid planning or safety checks",
+       "Whether every trip must include a hostel stay",
+       "Whether famous sights alone explain the purpose of a journey",
+       "Whether photos are more important than local conversations"
+      ],
+      "answer": 2,
+      "explanation": "The seminar asks whether reaching a destination and collecting photos fully explain what a journey can change."
+     },
+     {
+      "question": "How did the solo traveler respond when her train connection was cancelled?",
+      "options": [
+       "She used a map to navigate nearby streets and choose another route.",
+       "She returned home without exploring the neighborhood.",
+       "She blamed the local shop owner for the delay.",
+       "She followed the original itinerary without checking it."
+      ],
+      "answer": 0,
+      "explanation": "Rather than treating the cancelled connection as failure, she used a map to explore a nearby neighborhood."
+     },
+     {
+      "question": "What did the rain teach the travelers in the covered-market scene?",
+      "options": [
+       "A memorable trip must follow the shortest route.",
+       "A reservation makes every unexpected change unnecessary.",
+       "A local conversation should replace all safety checks.",
+       "A flexible traveler can adapt instead of forcing an unsafe plan."
+      ],
+      "answer": 3,
+      "explanation": "When rain blocked the footpath, the group changed plans and used the market as a safe place to pause."
+     },
+     {
+      "question": "How does the passage define a meaningful journey?",
+      "options": [
+       "By the number of landmarks completed on schedule",
+       "By what travelers notice and reconsider along the way",
+       "By how little luggage the traveler carries",
+       "By whether the trip ends at a famous destination"
+      ],
+      "answer": 1,
+      "explanation": "The conclusion measures a journey by attention and reflection, not only by distance or attractions."
+     }
+    ],
+    "section_b": [
+     {
+      "question": "What did Mei prepare before departure to make the journey practical?",
+      "options": [
+       "She memorized every street and refused to carry a phone.",
+       "She checked her reservation, kept the hostel address handy, and packed light luggage.",
+       "She cancelled the hostel and left without telling anyone.",
+       "She packed extra bags and avoided checking her arrival time."
+      ],
+      "answer": 1,
+      "explanation": "The opening describes her checked reservation, hostel address, arrival message, and light luggage."
+     },
+     {
+      "question": "What route advice did the desk clerk give Mei?",
+      "options": [
+       "The clerk told her to walk beside the river after dark.",
+       "The clerk asked her to cancel her hostel reservation.",
+       "The clerk recommended avoiding all local streets.",
+       "The clerk marked a route to the market and warned her about a closed riverside path."
+      ],
+      "answer": 3,
+      "explanation": "The clerk marks a simple market route and advises her to avoid the closed riverside path."
+     },
+     {
+      "question": "What did Mei learn from the rainy detour?",
+      "options": [
+       "Adapting can preserve both safety and curiosity.",
+       "A traveler should never change a planned route.",
+       "The landscape matters only when the weather is clear.",
+       "A solo traveler must refuse help from other people."
+      ],
+      "answer": 0,
+      "explanation": "She changed the slippery route, waited under a covered stall, and still noticed the landscape around her."
+     },
+     {
+      "question": "What does Mei's final reflection say about independence?",
+      "options": [
+       "It depends on controlling every detail in advance.",
+       "It means refusing directions and avoiding conversation.",
+       "It can include preparation, curiosity, and asking for help.",
+       "It is possible only when a traveler reaches a famous place."
+      ],
+      "answer": 2,
+      "explanation": "Mei concludes that traveling alone can combine preparation, curiosity, and trust rather than requiring isolation."
+     }
+    ],
+    "section_c": [
+     {
+      "question": "What did Lin's teacher ask each traveler to note before departure?",
+      "options": [
+       "A list of every shop at the destination",
+       "A promise not to speak with other passengers",
+       "A photograph of each station on the route",
+       "One expectation and one question"
+      ],
+      "answer": 3,
+      "explanation": "The travel assignment begins with one expectation and one question, giving the journey a reflective purpose."
+     },
+     {
+      "question": "How did Lin handle the retired teacher's account?",
+      "options": [
+       "She presented it as proof that every family makes the same choices.",
+       "She ignored it because it did not describe a famous destination.",
+       "She added it to her notes without treating it as a universal rule.",
+       "She replaced her teacher's assignment with a photograph."
+      ],
+      "answer": 2,
+      "explanation": "Lin listens and records the story, while explicitly avoiding a universal conclusion from one person's experience."
+     },
+     {
+      "question": "What did Lin do after the arrival track changed?",
+      "options": [
+       "She left the station without checking the signs.",
+       "She checked her destination, followed directions, and helped another traveler.",
+       "She insisted that the original platform must still be correct.",
+       "She cancelled her cousin's visit and returned home."
+      ],
+      "answer": 1,
+      "explanation": "Lin checks the destination information, follows the new signs, and helps someone else find the platform."
+     },
+     {
+      "question": "Which idea best summarizes the China travel story?",
+      "options": [
+       "Infrastructure provides a route, while people give a journey meaning.",
+       "Fast transportation makes local stories less important.",
+       "Travel is valuable only when the destination is unfamiliar.",
+       "A traveler should photograph a landscape instead of asking questions."
+      ],
+      "answer": 0,
+      "explanation": "The ending distinguishes the path offered by transport from the meaning created through curiosity and human encounters."
+     }
+    ]
+   },
+   "sections": {
+    "section_a": {
+     "title": "The Surprising Purpose of Travel",
+     "type": "reading",
+     "passage": "Many students imagine a successful trip as reaching a famous destination, taking clear photos, and returning without delay. Their itinerary lists landmarks in order, while a light bag of luggage keeps every step efficient. A campus travel seminar asked whether this plan explains what a journey can change. Its learners compared three journals rather than treating one traveler as a model for everyone. They found that travel also depends on curiosity: noticing details that a hurried schedule might hide. One journal belonged to a solo traveler whose train connection was cancelled before departure. Instead of calling the day a failure, she used a map to navigate a nearby neighborhood. She chose a quieter route, asked a local bookshop owner for directions, and began to wander. That brief encounter led to a conversation about the river, old streets, and everyday work. The new landscape became memorable not because it was famous, but because she had paid attention. Another student preferred a hostel where guests shared a kitchen and could exchange practical advice. She had made a reservation for the first night, yet left the following morning open. When rain blocked the footpath, the group had to adapt rather than force the original plan. A covered market gave them shelter, a warm drink, and time to compare their expectations. Their conversation shifted perspective: unfamiliar places were not puzzles to conquer but communities to meet. The seminar did not suggest that planning or safety checks were unnecessary. It recommended a flexible itinerary, reliable contacts, and enough time to reflect after an unexpected change. Students wrote one question about what they hoped to learn before choosing a destination. Later, they described how each detour could transform their attention to ordinary life at home. Their conclusion was simple: a meaningful journey is measured by what you notice and reconsider."
+    },
+    "section_b": {
+     "title": "Traveling Solo: Room to Adapt",
+     "type": "reading",
+     "passage": "Mei had traveled with family before, but her first solo departure made a familiar station feel enormous. She checked her reservation twice, placed a small card with the hostel address in her pocket, and told her sister when she expected to arrive. Packing light luggage let her keep one hand free for her ticket and phone. She had expected confidence to arrive before the trip began, but it came in smaller decisions. At the platform, she felt nervous and reminded herself why she had chosen to go. Her itinerary named the hostel and one museum, while leaving the afternoon unplanned. After checking in, she asked the desk clerk which streets remained busy before dusk. The clerk marked a simple route to a market and advised her to avoid a closed riverside path. Mei used the map to navigate the first turns, then put it away to notice shop signs and sounds. When she missed a turning, she did not pretend to understand the route. A local bookseller showed her a safer street and asked what she hoped to see. That encounter became a memorable conversation about the neighborhood's changing shops. Mei began to wander slowly, choosing a public square rather than chasing a distant destination. A sudden rain shower made the shortest path slippery, so she adapted and waited under a covered stall. The landscape looked different from beneath the awning, and a shop owner offered tea while the rain passed. By returning to the hostel before dusk, Mei kept her trip both open and sensible. Her journal noted that independence does not require refusing help. She had once thought a fixed itinerary was the only protection from uncertainty. Now she would rather ask a respectful question than follow a confusing route alone. The journey transformed her perspective: solo travel could combine preparation, curiosity, and trust."
+    },
+    "section_c": {
+     "title": "Stories of China",
+     "type": "stories_of_china",
+     "passage": "In an original practice story, Lin leaves Chengdu for Xi'an on a high-speed train to meet her cousin. She has visited stations with classmates, but never studied a route as part of a reading assignment. Before departure, her teacher asks each traveler to note one expectation and one question. Lin expects a quick arrival and plans to photograph the station architecture. She carries light luggage, a notebook, and an itinerary with an afternoon left open. Across the aisle, a retired teacher is traveling to visit an old friend. They compare the route with the places each hopes to see, without claiming one person's plan is better. Their encounter begins with a question about the landscape beyond the window. The teacher describes how moving between cities has changed the work and family routines of people she knows. Lin listens, then adds the story to her notes rather than treating it as a universal rule. As the train continues, fields, rivers, and denser neighborhoods appear in sequence. The shifting landscape helps her notice that a route connects places without making them identical. She uses a map to follow the journey and ask how people navigate changes in daily life. A station announcement changes the arrival track, and passengers adapt calmly to new directions. Lin checks her destination, follows signs, and helps another traveler locate the correct platform. Later, her cousin shows her a street market that does not appear on the short itinerary. The local vendors explain how seasonal choices shape what they sell, and Lin asks permission before taking a photo. The trip's memorable moments come from conversations as much as scenery. On returning, Lin says travel can transform perspective when curiosity is joined to respect. Her class concludes that transport infrastructure offers a path, but people give the journey meaning."
+    },
+    "vocabulary": {
+     "level_count": 4,
+     "words_per_level": 5
+    },
+    "reading": {
+     "title": "Why We Leave Home",
+     "passage": "Many students imagine a successful trip as reaching a famous destination, taking clear photos, and returning without delay. Their itinerary lists landmarks in order, while a light bag of luggage keeps every step efficient. A campus travel seminar asked whether this plan explains what a journey can change. Its learners compared three journals rather than treating one traveler as a model for everyone. They found that travel also depends on curiosity: noticing details that a hurried schedule might hide. One journal belonged to a solo traveler whose train connection was cancelled before departure. Instead of calling the day a failure, she used a map to navigate a nearby neighborhood. She chose a quieter route, asked a local bookshop owner for directions, and began to wander. That brief encounter led to a conversation about the river, old streets, and everyday work. The new landscape became memorable not because it was famous, but because she had paid attention. Another student preferred a hostel where guests shared a kitchen and could exchange practical advice. She had made a reservation for the first night, yet left the following morning open. When rain blocked the footpath, the group had to adapt rather than force the original plan. A covered market gave them shelter, a warm drink, and time to compare their expectations. Their conversation shifted perspective: unfamiliar places were not puzzles to conquer but communities to meet. The seminar did not suggest that planning or safety checks were unnecessary. It recommended a flexible itinerary, reliable contacts, and enough time to reflect after an unexpected change. Students wrote one question about what they hoped to learn before choosing a destination. Later, they described how each detour could transform their attention to ordinary life at home. Their conclusion was simple: a meaningful journey is measured by what you notice and reconsider.",
+     "questions": [
+      {
+       "question": "What idea did the seminar ask students to examine?",
+       "options": [
+        "Whether travelers should avoid planning or safety checks",
+        "Whether famous sights alone explain the purpose of a journey",
+        "Whether every trip must include a hostel stay",
+        "Whether photos are more important than local conversations"
+       ],
+       "answer": 1,
+       "explanation": "The seminar asks whether reaching a destination and collecting photos fully explain what a journey can change."
+      },
+      {
+       "question": "What did the unexpected encounter help the traveler notice?",
+       "options": [
+        "Only the landmarks listed in the original itinerary",
+        "That local people never change their routines",
+        "That the cancelled train had made the whole trip useless",
+        "Details of the neighborhood and the everyday work around her"
+       ],
+       "answer": 3,
+       "explanation": "The conversation about the river, streets, and everyday work made the local setting meaningful."
+      },
+      {
+       "question": "What did the seminar recommend after an unexpected change?",
+       "options": [
+        "Keep a flexible plan and make time to reflect.",
+        "Ignore contacts and continue without checking safety.",
+        "Avoid all future journeys that include uncertainty.",
+        "Replace the itinerary with a list of famous photographs."
+       ],
+       "answer": 0,
+       "explanation": "The passage supports planning and reliable contacts while leaving enough flexibility to reflect."
+      },
+      {
+       "question": "Which choice best expresses the passage's conclusion?",
+       "options": [
+        "A journey is meaningful only if it follows the original route.",
+        "A destination matters more than the people who live there.",
+        "A journey is measured by what travelers notice and reconsider.",
+        "Travel should be judged by how many landmarks are completed."
+       ],
+       "answer": 2,
+       "explanation": "The final sentence defines a meaningful journey through attention and reconsideration."
+      }
+     ]
+    },
+    "listening": {
+     "title": "Listening: Let's go",
+     "script": "On my first solo journey, I thought successful travel meant following every point on an itinerary. I had made a reservation at a hostel and packed light luggage, so my departure felt organized. Yet a cancelled bus forced me to navigate a part of town I had not planned to see. I checked a printed route, asked a local shopkeeper for directions, and left enough time to wander safely. The detour led to a quiet garden and a memorable encounter with a woman who sold handmade paper. She explained how visitors often hurried past because they were trying to reach a famous destination before closing. Her comment changed my perspective. I began to notice the landscape, the shop signs, and the people whose routines continued around me. Later, rain made the path slippery, so I adapted and took a bus back to the hostel. I did not treat the change as a failure because I had built an alternative route into my plan. In my journal, I wrote that curiosity is not the same as ignoring safety. It means asking questions, checking directions, and staying open to a respectful conversation. Travel cannot promise that every encounter will transform us, but it can give us a reason to look more carefully. I would rather return with one new question than collect photos I never think about again.",
+     "questions": [
+      {
+       "question": "What had the speaker arranged before departure?",
+       "options": [
+        "A fixed guide for every street and conversation",
+        "A promise to avoid asking anyone for directions",
+        "A hostel reservation and light luggage",
+        "A ticket that guaranteed the weather would stay clear"
+       ],
+       "answer": 2,
+       "explanation": "The speaker says they had made a hostel reservation and packed light luggage; the script does not mention an open afternoon."
+      },
+      {
+       "question": "Why did the speaker ask the shopkeeper for directions?",
+       "options": [
+        "A cancelled bus led the speaker into an unfamiliar area.",
+        "The shopkeeper had taken the speaker's itinerary.",
+        "The hostel had permanently closed before the trip.",
+        "The speaker wanted to avoid every local street."
+       ],
+       "answer": 0,
+       "explanation": "The cancelled bus changed the route, so the speaker checked a map and asked a local person for help."
+      },
+      {
+       "question": "What did the woman's comment help the speaker understand?",
+       "options": [
+        "A destination is valuable only when it is difficult to reach.",
+        "Local conversations should be avoided during solo travel.",
+        "A printed route is always less useful than memory.",
+        "Visitors can miss meaningful details when they hurry toward famous sights."
+       ],
+       "answer": 3,
+       "explanation": "The speaker notices that visitors may rush past local life while trying to reach an attraction."
+      },
+      {
+       "question": "How does the speaker define curiosity?",
+       "options": [
+        "Ignoring safety so every turn becomes a surprise",
+        "Asking questions, checking directions, and remaining open to respectful conversation",
+        "Collecting photographs without thinking about the experience",
+        "Following an itinerary even when conditions change"
+       ],
+       "answer": 1,
+       "explanation": "The speaker links curiosity to questions, safe route-checking, and respectful openness."
+      }
+     ]
+    },
+    "translation": {
+     "sentences": [
+      {
+       "zh": "请将下列句子译为英文：为了给探索留出空间，Mei没有把每一分钟都写进行程表。",
+       "en_reference": "Mei left part of her itinerary open in order to make room for exploration.",
+       "keywords": [
+        "itinerary",
+        "in order to",
+        "exploration"
+       ]
+      },
+      {
+       "zh": "请将下列句子译为英文：她宁愿向当地人问路，也不愿假装自己知道方向。",
+       "en_reference": "She would rather ask a local for directions than pretend to know the route.",
+       "keywords": [
+        "would rather",
+        "local",
+        "route"
+       ]
+      },
+      {
+       "zh": "请将下列句子译为英文：为了安全抵达旅店，旅行者调整了路线。",
+       "en_reference": "The traveler changed the route in order to reach the hostel safely.",
+       "keywords": [
+        "route",
+        "in order to",
+        "hostel"
+       ]
+      },
+      {
+       "zh": "请将下列句子译为英文：那次旅程改变了她看待目的地和旅途的视角。",
+       "en_reference": "That journey transformed her perspective on destinations and travel.",
+       "keywords": [
+        "journey",
+        "transformed",
+        "perspective"
+       ]
+      }
+     ]
+    },
+    "writing": {
+     "prompt": "Write 120-150 words about a real or imagined journey that changed your perspective. Explain your purpose, one unexpected encounter, and a choice you would rather make. Distinguish evidence from assumption.",
+     "outline": [
+      "State why you chose to travel and what you expected",
+      "Describe one encounter or change of route with concrete detail",
+      "Explain how you adapted and what evidence changed your view",
+      "Conclude with what the journey means beyond reaching a destination"
+     ]
+    }
+   }
+  },
+  {
+   "unit_id": "unit04",
+   "unit_number": 4,
+   "edition": 4,
+   "title": "When work is a pleasure",
+   "title_zh": "当工作成为乐趣",
+   "theme": "work, labor, tradition, pride",
+   "word_ids": [
+    "rw3_unit04_01",
+    "rw3_unit04_02",
+    "rw3_unit04_03",
+    "rw3_unit04_04",
+    "rw3_unit04_05",
+    "rw3_unit04_06",
+    "rw3_unit04_07",
+    "rw3_unit04_08",
+    "rw3_unit04_09",
+    "rw3_unit04_10",
+    "rw3_unit04_11",
+    "rw3_unit04_12",
+    "rw3_unit04_13",
+    "rw3_unit04_14",
+    "rw3_unit04_15",
+    "rw3_unit04_16",
+    "rw3_unit04_17",
+    "rw3_unit04_18",
+    "rw3_unit04_19",
+    "rw3_unit04_20"
+   ],
+   "micro_world_checks": {
+    "section_a": [
+     {
+      "question": "Why does the instructor reject ranking people by the labels worker and laborer?",
+      "options": [
+       "Because only office occupations should be discussed at a career workshop.",
+       "Because the two words always have exactly the same dictionary meaning.",
+       "Because physical and repetitive work can also require judgment, skill, and care.",
+       "Because students should choose a job before learning what it involves."
+      ],
+      "answer": 2,
+      "explanation": "The opening discussion argues that a job label does not measure a person's worth; many kinds of work require judgment and care."
+     },
+     {
+      "question": "What did the student notice while observing a routine task?",
+      "options": [
+       "A worker can notice and report a safety problem beyond the checklist.",
+       "A repeated step is useful only when a supervisor is watching.",
+       "A checklist removes the need to understand the purpose of a task.",
+       "The fastest worker always produces the most reliable result."
+      ],
+      "answer": 0,
+      "explanation": "The worker notices a loose chair and reports it; she uses judgment beyond simply following the routine checklist."
+     },
+     {
+      "question": "What does the violin maker's careful measurement demonstrate?",
+      "options": [
+       "A respected craft depends on titles rather than practice.",
+       "A repair should be completed before the customer can ask questions.",
+       "Traditional tools are always more accurate than new ones.",
+       "Careful attention protects the quality of a repair and the instrument's sound."
+      ],
+      "answer": 3,
+      "explanation": "The maker's example shows that a tiny gap can alter the sound, so careful measurement protects the quality of the work."
+     },
+     {
+      "question": "What conclusion does the workshop reach about meaningful work?",
+      "options": [
+       "Meaning comes only from work that is creative and unusual.",
+       "Respect, responsibility, and care can give many kinds of work meaning.",
+       "A high-status occupation matters more than the quality of its work.",
+       "Routine work becomes meaningful only when it is quick."
+      ],
+      "answer": 1,
+      "explanation": "The final discussion links fulfillment to responsibility for quality and respect for people, not to occupational status."
+     }
+    ],
+    "section_b": [
+     {
+      "question": "Why did the master ask the apprentice to measure a violin joint twice?",
+      "options": [
+       "The customer wanted two identical instruments.",
+       "A small gap can change the sound and weaken the repair.",
+       "The apprentice had forgotten the name of the tool.",
+       "The workshop measured every object twice for no particular reason."
+      ],
+      "answer": 1,
+      "explanation": "The passage traces a small measurement error to a weaker repair and a change in the instrument's sound."
+     },
+     {
+      "question": "How does the apprentice decide whether to keep a new tool?",
+      "options": [
+       "He keeps it only if it is more expensive than the old tool.",
+       "He replaces every familiar method as soon as a new tool appears.",
+       "He lets the tool's appearance decide whether it belongs in the workshop.",
+       "He compares the readings to see whether the new method makes the result clearer."
+      ],
+      "answer": 3,
+      "explanation": "Lin compares the readings and keeps the new method when it makes the result clearer."
+     },
+     {
+      "question": "Why does Lin record the improved procedure?",
+      "options": [
+       "So the whole team can use a method that made the result clearer.",
+       "So the customer will not ask how the repair was done.",
+       "So the workshop can stop measuring the joints.",
+       "So the older tool can be discarded without comparison."
+      ],
+      "answer": 0,
+      "explanation": "After the test shows the gauge improves clarity, Lin records the procedure for the team."
+     },
+     {
+      "question": "What does Lin's view of tradition show?",
+      "options": [
+       "Tradition must stay unchanged to remain valuable.",
+       "Only the oldest craftsperson should make decisions.",
+       "Useful knowledge can be preserved while weak habits are questioned.",
+       "A new tool automatically makes a craft less meaningful."
+      ],
+      "answer": 2,
+      "explanation": "Lin treats tradition as knowledge that can be carried forward, examined, and improved when evidence supports change."
+     }
+    ],
+    "section_c": [
+     {
+      "question": "What does Mei learn about creating a flower design?",
+      "options": [
+       "The number of colors alone determines whether a pattern is accurate.",
+       "Visitors select the stitch direction before meeting the artisans.",
+       "Every flower design must be copied without changes.",
+       "A maker considers the line, its future use, and which details should remain clear."
+      ],
+      "answer": 3,
+      "explanation": "The passage states that makers consider the direction of a line, the fabric's use, and the details that need to stay clear."
+     },
+     {
+      "question": "What helps the apprentice improve her stitching?",
+      "options": [
+       "She copies the whole pattern without looking at the thread.",
+       "Visitors choose the angle of each stitch for her.",
+       "Her mentor gives a correction and asks her to explain what changed.",
+       "She skips practice and studies only finished objects."
+      ],
+      "answer": 2,
+      "explanation": "The mentor corrects her angle and prompts her to describe the change, linking feedback to deliberate practice."
+     },
+     {
+      "question": "Why do the makers review the exhibition design together?",
+      "options": [
+       "To remove the familiar motif from the design.",
+       "To improve visibility while ensuring the change is not imposed on the makers.",
+       "To let visitors make every decision for the workshop.",
+       "To stop teaching the craft to new apprentices."
+      ],
+      "answer": 1,
+      "explanation": "The design is resized for visibility, but the makers review the change rather than having it imposed on them."
+     },
+     {
+      "question": "In this story, what keeps embroidery heritage alive?",
+      "options": [
+       "Passing on skill through valued work while allowing thoughtful renewal.",
+       "Putting every finished piece behind glass and ending daily practice.",
+       "Making visitors responsible for preserving the craft alone.",
+       "Keeping the craft secret from younger learners."
+      ],
+      "answer": 0,
+      "explanation": "Living heritage depends on skilled people, fair livelihoods, teaching, and careful adaptation—not display alone."
+     }
+    ]
+   },
+   "sections": {
+    "section_a": {
+     "title": "What Makes Work Meaningful?",
+     "type": "reading",
+     "passage": "At a campus career workshop, students gathered around a question that sounded simple but unsettled them: what makes work meaningful? The facilitator wrote worker and laborer on the board, then asked whether either word could measure a person's worth. One student associated laborer with strength and routine, while another imagined worker as someone who made decisions. The instructor warned that this attitude can quietly rank people before anyone understands what their jobs require. A task may be physical, repetitive, or performed behind the scenes, yet still demand close attention. The group visited a campus service team and watched a worker prepare a busy study room. She followed a routine checklist, but she also noticed a loose chair and stopped to report it. A student asked whether that extra judgment was part of the occupation or simply personal kindness. The worker explained that safety and dignity often depend on small decisions no checklist can predict. Later, a violin maker invited the class into a workshop. He asked his apprentice to compare two joints that looked almost identical. With careful precision, the apprentice measured the narrow gap that could alter the instrument's sound. The demonstration did not make one occupation more valuable than another; instead, it showed how knowledge and responsibility shape the quality of work. Back at the workshop, the students revised their first definitions and saw that skill can grow inside a routine and that craft is not limited to objects displayed in galleries. The instructor asked everyone to name one contribution they had previously overlooked. Students mentioned cleaners, repairers, cooks, and laboratory assistants. Each example required different knowledge, but each could protect another person's time, safety, or trust. The discussion ended without ranking the jobs, and the students agreed that meaningful work is not defined by a title alone. Pride becomes durable when people take responsibility for quality and treat those affected by their work with respect. That kind of fulfillment can belong to many occupations."
+    },
+    "section_b": {
+     "title": "A Craft Tradition, Practiced with Care",
+     "type": "reading",
+     "passage": "When Lin first entered the violin workshop, the master gave the apprentice a repair that seemed almost finished. A narrow joint still needed attention, although it was difficult to see without a lamp, so the master asked Lin to measure it twice and explain what the numbers meant. Lin wanted to hurry because a customer was waiting, but the master reminded him that a beautiful surface could hide a weak connection. A gap that was too wide might change the instrument's sound and shorten the repair's life. Lin repeated the measurement, adjusted the piece, and tested the fit before using glue. The routine felt slow, yet each step answered a different question about strength and balance. The master explained that precision was not perfection for its own sake; it was a promise about how the instrument would perform. Months later, Lin began to teach the same routine to a new apprentice. He kept the useful checks but also tried a digital gauge beside the workshop's older tool. Rather than accepting novelty or rejecting it, he compared the readings and asked whether the new method made the result clearer. When it did, he recorded the procedure so the whole team could use it. His dedication grew through repeated practice, and his passion became visible in how carefully he explained mistakes. A customer returned after hearing the repaired violin in a small concert. She thanked Lin not only for restoring the sound but also for describing what had been changed. That honest conversation strengthened trust between the workshop and its neighbors. Lin understood that tradition was not a command to repeat every motion forever. It was a body of knowledge carried forward, examined, and improved when evidence justified a change. The craft would remain rewarding only if young workers could learn, question, and contribute. In the final lesson of the day, the master asked Lin to name the standard he hoped to pass on. Lin answered: protect the work, respect the person who depends on it, and pursue excellence without confusing speed with skill."
+    },
+    "section_c": {
+     "title": "Stories of China",
+     "type": "stories_of_china",
+     "passage": "In this original learning story, a student named Mei visits a small silk-embroidery workshop in Suzhou with her class. She expects to see finished patterns, but the guide introduces the artisans who prepare the threads and study the designs, and Mei notices that a flower is not copied by counting colors alone. Each maker considers how a line turns, where the fabric will be used, and which details must remain clear. An artisan invites the students to look closely at a sample under a lamp. Mei records the explanation and asks before taking a photograph. The group learns that respect begins by listening to the people who hold the knowledge. At the next table, an apprentice practices a short row of stitches. Her mentor corrects the angle gently and asks her to describe what changed. The repeated exercise is not empty routine; it trains the hand to control tension and the eye to notice uneven thread. The student sees that heritage is carried by people who work, teach, and make decisions today. Later, the team discusses a new design for a community exhibition. They keep a familiar motif but adjust its size so visitors can see the stitch pattern from a distance. The change is reviewed with the makers rather than imposed by the visitors. Mei asks how the workshop can make this labor sustainable. The guide explains that fair payment, credit for makers, and opportunities to teach matter as much as displaying beautiful objects. Before leaving, each student chooses one question to investigate instead of claiming to understand the whole craft in an afternoon. Mei writes that an occupation can create income and also protect a shared memory. Her class understands that dignity is not supplied by praise alone; it grows when skilled people can make choices and be recognized for them. The visit changes their idea of tradition: it is not a silent object behind glass, but living knowledge practiced with care, renewed with permission, and shared across generations. These stories of China show how meaningful work can connect personal skill, community identity, and a future that still has room to change."
+    },
+    "vocabulary": {
+     "level_count": 4,
+     "words_per_level": 5
+    },
+    "reading": {
+     "title": "More Than a Paycheck",
+     "passage": "A neighborhood repair cooperative was preparing for its annual open workshop. Its members included a bicycle mechanic, a seamstress, a cook, and a retired engineer. At first, visitors asked which occupation was the most skilled. The coordinator changed the question: what evidence would show that a job had been done well? The mechanic pointed to a safe brake test, while the seamstress showed how a repaired seam could bear weight without tearing. The cook described how timing and temperature protected both flavor and food safety. The engineer explained that a clear instruction sheet could prevent a costly mistake for the next person. None of these examples depended on a prestigious title. Each required knowledge, practice, and responsibility for someone who would use the result. During the workshop, a teenager helped repair a lamp. She wanted to replace a loose part quickly, but the engineer asked her to test why it had loosened. They found a worn screw and chose a stronger fitting. The teenager wrote down the steps so another volunteer could repeat the repair safely. Later, she told the group that the task felt rewarding because she understood its purpose and could see who benefited. The coordinator added that good work also needs fair conditions: reasonable time, safe tools, honest credit, and a chance to learn. The cooperative did not claim that every job was enjoyable every day. Instead, its members showed how pride can grow when a person is trusted, supported, and able to improve a result. By closing time, visitors had repaired several items and learned to ask better questions about labor. Quality was visible in the object, but meaning came from the care, judgment, and shared responsibility behind it.",
+     "questions": [
+      {
+       "question": "What question does the coordinator use to replace ranking occupations?",
+       "options": [
+        "What evidence shows the job was done well?",
+        "Which job earns the most public attention?",
+        "Which worker can finish without using tools?",
+        "Which occupation should be removed from the cooperative?"
+       ],
+       "answer": 0,
+       "explanation": "The coordinator redirects the group from social ranking to evidence of quality."
+      },
+      {
+       "question": "Why does the teenager test the lamp before replacing its loose part?",
+       "options": [
+        "To avoid writing down the repair steps.",
+        "To make the repair look more difficult than it is.",
+        "To identify the cause and choose a safe, durable repair.",
+        "To prove that older tools are always unreliable."
+       ],
+       "answer": 2,
+       "explanation": "Testing reveals a worn screw, so the team can address the cause rather than make a temporary fix."
+      },
+      {
+       "question": "What helps the teenager find the task rewarding?",
+       "options": [
+        "The coordinator promises that the task will never be repeated.",
+        "Visitors praise the object without knowing who repaired it.",
+        "She finishes before anyone can inspect the lamp.",
+        "She understands its purpose and sees who benefits from the result."
+       ],
+       "answer": 3,
+       "explanation": "She explicitly connects fulfillment to understanding the purpose and seeing the beneficiary."
+      },
+      {
+       "question": "Which condition does the cooperative say supports good work?",
+       "options": [
+        "Competition for the highest-status title.",
+        "Safe tools, fair time, honest credit, and opportunities to learn.",
+        "Removing every routine task from the day.",
+        "Keeping methods secret from new learners."
+       ],
+       "answer": 1,
+       "explanation": "The coordinator lists these practical conditions as support for responsible, improving work."
+      }
+     ]
+    },
+    "listening": {
+     "title": "Listening: When work is a pleasure",
+     "script": "Welcome to the community workshop. Today we are looking at a repaired wooden chair, but the lesson is not simply about furniture. First, ask what the chair must do: support a person safely, remain stable, and last through ordinary use. The repairer checked each joint before adding a new piece of wood. She explained that a quick repair might look finished while leaving the chair weak underneath. A volunteer suggested copying the old method exactly. The repairer agreed that the older method contained useful knowledge, then showed how a new clamp made the pressure easier to control. The team tested the clamp on a sample before changing its routine. That small experiment helped them keep the sound principle and improve one step. A student asked whether this kind of work could be called creative. The repairer answered that creativity is not limited to painting or performance. It can also mean noticing a problem, selecting a method, and taking responsibility for the result. She invited the student to explain each choice aloud. When the student missed a safety check, the repairer gave immediate feedback and asked her to try again. The second attempt was slower but more accurate. At the end, the chair was tested under weight and the repair was recorded for the next volunteer. The team did not celebrate speed alone. They discussed who would use the chair, what evidence showed the repair was safe, and what they should review next week. A useful tradition, the repairer said, is knowledge that remains open to careful testing. Work becomes more satisfying when people can practice, receive feedback, and see the value their effort brings to others. Thank you for listening; after the questions, choose one example and explain the evidence that supports your answer.",
+     "questions": [
+      {
+       "question": "What does the repairer check before adding a new piece of wood?",
+       "options": [
+        "Whether the chair can be sold as an antique.",
+        "Whether the volunteer can finish without feedback.",
+        "Whether the new wood looks exactly like the old paint.",
+        "Whether each joint is stable and the chair can be used safely."
+       ],
+       "answer": 3,
+       "explanation": "The repairer checks the joints and the chair's safety before adding material."
+      },
+      {
+       "question": "How does the team decide whether to adopt the new clamp?",
+       "options": [
+        "They test it on a sample and compare whether it improves control.",
+        "They adopt it immediately because it is newer.",
+        "They reject it because tradition can never change.",
+        "They ask visitors to choose based on its color."
+       ],
+       "answer": 0,
+       "explanation": "The team tests the clamp before changing the routine, preserving evidence-based judgment."
+      },
+      {
+       "question": "What feedback does the student receive after missing a safety check?",
+       "options": [
+        "She is told to leave the workshop.",
+        "The repairer completes the task without explaining the error.",
+        "The repairer explains the miss and invites her to try again.",
+        "She is asked to explain the safety rule but not to retry."
+       ],
+       "answer": 2,
+       "explanation": "The repairer gives immediate feedback and has the student repeat the task more accurately."
+      },
+      {
+       "question": "Which evidence best supports the team's final judgment that the repair is ready?",
+       "options": [
+        "The chair looks clean from across the room.",
+        "The chair was tested under weight and the repair was recorded.",
+        "The repair was completed before the other volunteers arrived.",
+        "The team agrees that the old method should never be reviewed."
+       ],
+       "answer": 1,
+       "explanation": "The chair's load test and written record provide direct evidence of safety and repeatability."
+      }
+     ]
+    },
+    "translation": {
+     "sentences": [
+      {
+       "zh": "从业者应为工作质量负责，而不只是完成规定的步骤。",
+       "en_reference": "Workers should take responsibility for the quality of their work rather than simply complete the required steps.",
+       "keywords": [
+        "workers",
+        "responsibility",
+        "quality"
+       ]
+      },
+      {
+       "zh": "这位学徒请师傅检查接合处，然后自己再次测量。",
+       "en_reference": "The apprentice had the joint checked by the master before measuring it again himself.",
+       "keywords": [
+        "apprentice",
+        "had",
+        "check",
+        "measuring"
+       ]
+      },
+      {
+       "zh": "这项传统由工匠们传承下来，同时也根据新的证据不断改进。",
+       "en_reference": "The tradition is carried forward by craftspeople and continually improved in light of new evidence.",
+       "keywords": [
+        "tradition",
+        "is carried forward",
+        "improved"
+       ]
+      },
+      {
+       "zh": "当人们看到自己的技艺帮助了他人，工作就可能变得更有意义。",
+       "en_reference": "Work can become more meaningful when people see how their skill helps others.",
+       "keywords": [
+        "meaningful",
+        "skill",
+        "helps"
+       ]
+      }
+     ]
+    },
+    "writing": {
+     "prompt": "Write 120–150 words: Describe a task that can be done well only when someone uses judgment, not just speed. Explain the skill it requires, the evidence of quality, and how responsible work can benefit another person.",
+     "outline": [
+      "State your view: what makes work meaningful?",
+      "Give one concrete task and explain the skill or judgment it requires.",
+      "Describe how the worker checks quality and responds to feedback.",
+      "Explain who benefits and conclude with your own standard for good work."
+     ]
+    }
+   }
+  },
+  {
+   "unit_id": "unit05",
+   "unit_number": 5,
+   "edition": 4,
+   "title": "China's space dream",
+   "title_zh": "中国的航天梦",
+   "theme": "space exploration, innovation, China",
+   "word_ids": [
+    "rw3_unit05_01",
+    "rw3_unit05_02",
+    "rw3_unit05_03",
+    "rw3_unit05_04",
+    "rw3_unit05_05",
+    "rw3_unit05_06",
+    "rw3_unit05_07",
+    "rw3_unit05_08",
+    "rw3_unit05_09",
+    "rw3_unit05_10",
+    "rw3_unit05_11",
+    "rw3_unit05_12",
+    "rw3_unit05_13",
+    "rw3_unit05_14",
+    "rw3_unit05_15",
+    "rw3_unit05_16",
+    "rw3_unit05_17",
+    "rw3_unit05_18",
+    "rw3_unit05_19",
+    "rw3_unit05_20"
+   ],
+   "micro_world_checks": {
+    "section_a": [
+     {
+      "question": "Why did the far-side probe need a relay link to communicate with Earth?",
+      "options": [
+       "The probe was too small to collect scientific data.",
+       "The Moon blocked a direct radio path between the probe and Earth.",
+       "The landing site had no sunlight for its instruments.",
+       "The spacecraft was designed to communicate only with astronauts."
+      ],
+      "answer": 1,
+      "explanation": "The Moon blocks a direct line of communication from the far side, so the relay passes messages between the probe and Earth."
+     },
+     {
+      "question": "What is the main purpose of repeating tests before a landing?",
+      "options": [
+       "To make every design appear perfect in public.",
+       "To remove the need for sensors during flight.",
+       "To guarantee that no unexpected condition can occur.",
+       "To learn whether a system works under defined conditions and improve it with evidence."
+      ],
+      "answer": 3,
+      "explanation": "The passage treats tests as evidence about performance under specified conditions, not as proof that a system can never fail."
+     },
+     {
+      "question": "What helped the two student groups resolve their disagreement about the landing site?",
+      "options": [
+       "They compared their reference points and found a sensor had been read from the wrong scale.",
+       "They chose the site shown in the most dramatic image.",
+       "They ignored the slope readings and followed the original plan.",
+       "They asked the guide to choose without explaining the evidence."
+      ],
+      "answer": 0,
+      "explanation": "Comparing methods revealed a scale-reading error, which changed the evidence and the landing choice."
+     },
+     {
+      "question": "What does Lin learn about exploration by the end of the passage?",
+      "options": [
+       "A successful mission depends mainly on one brilliant inventor.",
+       "The best scientific story is the one with the most exciting pictures.",
+       "A dream becomes more reliable when generations inherit methods for testing it.",
+       "Future teams should repeat every earlier decision without review."
+      ],
+      "answer": 2,
+      "explanation": "Lin concludes that exploration passes both an ambition and an evidence-based method to future generations."
+     }
+    ],
+    "section_b": [
+     {
+      "question": "Why did the simulation team add a relay satellite to its model?",
+      "options": [
+       "It could replace every navigation and science team.",
+       "It made the lunar surface easier to see through a telescope.",
+       "It could carry a message around the Moon's obstruction.",
+       "It allowed the spacecraft to skip orbit planning."
+      ],
+      "answer": 2,
+      "explanation": "The direct radio route is blocked in the simulation, so the relay creates a communication path."
+     },
+     {
+      "question": "Why did An compare several sensor readings before changing the orbit?",
+      "options": [
+       "To separate a confirmed drift from an uncertain reading before acting.",
+       "To prove that the spacecraft should never be adjusted.",
+       "To reduce the number of people involved in the mission.",
+       "To make the control-room display more impressive."
+      ],
+      "answer": 0,
+      "explanation": "The team labels confirmed, estimated, and uncertain information so that a decision rests on reliable evidence."
+     },
+     {
+      "question": "What did the follow-up trial show about the smaller correction?",
+      "options": [
+       "It restored the signal only by ignoring the fuel limit.",
+       "It made the relay unnecessary for later communication.",
+       "It worked in every possible condition without further testing.",
+       "It restored the signal with less fuel under the tested conditions."
+      ],
+      "answer": 3,
+      "explanation": "The trial supports the smaller change for the tested setup; it does not establish that it works under every condition."
+     },
+     {
+      "question": "Why did An record both the successful result and its limitation?",
+      "options": [
+       "To hide the uncertain readings from the next team.",
+       "So another team can understand what was tested and where caution is still needed.",
+       "To show that a breakthrough never requires revision.",
+       "So the mission can be judged by speed alone."
+      ],
+      "answer": 1,
+      "explanation": "Recording the result and its boundary makes the procedure reviewable and prevents one test from being overstated."
+     }
+    ],
+    "section_c": [
+     {
+      "question": "What does Rui discover about astronaut preparation?",
+      "options": [
+       "A strong launch vehicle is enough to prepare a crew.",
+       "Training is mainly a public performance before launch.",
+       "An astronaut can rely on instinct instead of practicing procedures.",
+       "Technical knowledge, physical readiness, judgment, and team practice work together."
+      ],
+      "answer": 3,
+      "explanation": "The exhibit connects systems knowledge, physical and psychological preparation, emergency procedures, and coordination."
+     },
+     {
+      "question": "What does the simulated warning teach the trainee to do first?",
+      "options": [
+       "Silence the alarm and continue the planned task.",
+       "Wait for one teammate to make every decision.",
+       "Follow a checklist, communicate the reading, and confirm the next safe step.",
+       "Change the spacecraft setting before checking the data."
+      ],
+      "answer": 2,
+      "explanation": "The scenario rewards a deliberate sequence: use the procedure, share evidence, and confirm a safe response."
+     },
+     {
+      "question": "Why does the exhibit include a model of a space station as well as a rocket?",
+      "options": [
+       "Long-term work in orbit depends on systems and research after launch, too.",
+       "A station removes the effects of gravity from every experiment.",
+       "A station is used only to display a launch vehicle.",
+       "The exhibit wants visitors to ignore crew preparation."
+      ],
+      "answer": 0,
+      "explanation": "The station model helps Rui see that sustained experiments, maintenance, and crew routines continue after a launch."
+     },
+     {
+      "question": "Which idea best summarizes the passage's view of a space frontier?",
+      "options": [
+       "Only astronauts contribute to a space program.",
+       "A frontier is meaningful when careful preparation and shared research let people explore responsibly.",
+       "Scientific success should be measured by publicity rather than evidence.",
+       "Training can stop once the first mission has succeeded."
+      ],
+      "answer": 1,
+      "explanation": "The ending links exploration with disciplined preparation, reliable systems, and work shared across generations."
+     }
+    ]
+   },
+   "sections": {
+    "section_a": {
+     "title": "No limit for China's astronauts in their space exploration endeavors",
+     "type": "reading",
+     "passage": "At a university mission exhibit, Lin received a blank map of the Moon and a question: why does the far side ask more of a spacecraft than a powerful engine can provide? He drew Earth behind the lunar disk, then placed a relay satellite where both Earth and the hidden landing area could be reached. Only then did the communication problem become visible: a probe behind the Moon cannot send a direct radio signal to a ground station. The exhibit explained that Chang'e-4 achieved the first soft landing and rover operations on the lunar far side in 2019, supported by the Queqiao relay link. Lin had celebrated the breakthrough as a single moment, but the guide asked him to see the mission as a chain of decisions. A launch window, a planned orbit, and a controlled landing each depend on different checks. Before a model spacecraft descended, the team rehearsed the sequence in simulation and agreed on what every sensor should report. When one reading falls outside its expected range, engineers compare it with other data before changing course. The purpose of a test is not to prove a design perfect but to learn whether it works under specified conditions. Lin wrote down the claim, the evidence, and the uncertainty instead of trusting the brightest image. At the display, an animation showed the relay passing a message between the far-side probe and Earth. Lin followed the signal route with his finger and saw how cooperation joined operators, scientists, and equipment across distance. Research and innovation therefore appeared not as slogans but as tools for solving a communication constraint. A telescope can reveal a distant surface, yet a landing still requires measurements, communication, and safe decisions close to the Moon. The guide called the scientific frontier a place where curiosity must become a testable question. Students next received sample data and had to decide which model site was level enough for a safe descent. Two groups disagreed because they had used different reference points on the same slope. When they compared their methods, they found that one sensor had been read from the wrong scale. Lin revised his answer and explained why the corrected evidence changed the landing choice. He left with a more ambitious idea of exploration: each generation inherits not only a dream, but a method for checking it."
+    },
+    "section_b": {
+     "title": "Chang'e-4 kicked off a new space odyssey",
+     "type": "reading",
+     "passage": "In a campus control-room simulation, An joined a team asked to deliver a message from a lunar probe hidden behind the Moon. A direct route disappeared from the screen whenever the Moon blocked the line between the probe and Earth. Their model added a relay satellite, turning one broken connection into two monitored links. An wanted to move the spacecraft immediately, but the mentor asked her to inspect the data log first. The orbit trace showed a small drift; a second sensor confirmed it, while a third reading remained uncertain. The team labeled each fact, estimate, and open question rather than treating every number as equally reliable. They checked how a correction would affect fuel, timing, and the next communication window. No single control carried the whole mission: navigation, communication, and science teams had to compare their evidence. When An simulated an orbit adjustment, the relay link returned, but the margin for error narrowed. She recorded both the successful result and the condition that could make it fail. The mentor explained that a breakthrough is repeatable only when its method is documented and tested. The class then compared two designs, one simpler and one more ambitious. Students chose neither because it looked advanced; they asked what test would distinguish them. A follow-up trial showed that the smaller change restored the signal with less fuel under the tested conditions. This choice was not a rejection of innovation but a decision guided by evidence. An understood why exploration requires both courage and restraint. A lunar odyssey stretches across years, yet each careful check protects the next step. The simulation ended with an unanswered question about communication reliability. Rather than guess, the team planned a new trial and assigned one task to each member. An left the control room seeing cooperation not as a slogan, but as a way to expose weak assumptions before they became costly."
+    },
+    "section_c": {
+     "title": "Stories of China",
+     "type": "stories_of_china",
+     "passage": "At a science center, Rui expected an astronaut exhibit to focus on rockets, but the first room showed a crew practicing ordinary procedures. A guide explained that astronaut candidates study spacecraft systems and rehearse physical, psychological, and emergency tasks before a mission. Their preparation is an endeavor measured in careful practice, not a dramatic countdown. In a training pool, a crew learns to move steadily while a partner checks the route and the equipment. A simulated warning then interrupts the exercise. The trainee reads the panel, reports the data, and waits for the team to confirm which procedure applies. One student asks why the crew does not simply react by instinct. The guide answers that in a complex environment, practiced communication can prevent a small uncertainty from becoming a larger risk. The next display shows how gravity affects movement and why a station needs routines for work, rest, and research. A telescope is not just an impressive object on the wall; it represents questions that scientists can investigate when instruments, people, and records work together. Rui sees that a spacecraft launch is only one stage in a longer system. After liftoff, teams monitor the orbit, support the crew, and interpret results. The exhibit asks visitors to match each mission task with the evidence that would show it was completed safely. Rui first chooses a photograph, then notices that a checklist, measurement, and crew report provide stronger support. The group discusses how cooperation connects engineers on Earth with astronauts in orbit. Their work opens a frontier, but it also depends on shared preparation and public investment in research. Before leaving, Rui writes one question for a future science lesson and one skill he could practice now: explain a claim with evidence. He understands that exploration is not a promise of easy answers. It is a disciplined way for people across generations to ask better questions and test them together."
+    },
+    "vocabulary": {
+     "level_count": 4,
+     "words_per_level": 5
+    },
+    "reading": {
+     "title": "The Message That Crossed the Moon",
+     "passage": "During a public science workshop, a student team had to design a communication plan for a probe on the Moon's far side. Their first sketch pointed a radio line straight toward Earth, but a lunar model blocked it. A mentor asked the students to identify the constraint before adding equipment. They placed a relay satellite where it could pass messages between the hidden probe and Earth, then drew a second route for backup communication. The model did not prove that a real mission would succeed; it helped the team ask which parts would need testing. They listed power, orbit, timing, and signal quality as separate questions. One group wanted to choose a path because it looked shortest. Another compared the angles and found that a slightly longer route offered a clearer link. The students recorded what their model showed and what it could not show. Their report distinguished evidence from assumption and suggested a next test rather than claiming certainty. The mentor connected the exercise with Chang'e-4, whose far-side operations depended on a relay link because the Moon interrupts direct communication. The historic result was not a shortcut around engineering; it was evidence that careful system design can make a difficult task possible. By the end, the students understood that exploration is a chain: a question guides a model, a test challenges the model, and new data shapes the next decision. A successful mission may make headlines, but the habits that support it are patient research, clear records, and cooperation across different specialties.",
+     "questions": [
+      {
+       "question": "What problem did the lunar model reveal in the team's first sketch?",
+       "options": [
+        "The probe had already landed in the wrong place.",
+        "The team had no measurements for the lunar surface.",
+        "The relay satellite was too close to Earth.",
+        "A straight radio path was blocked by the Moon."
+       ],
+       "answer": 3,
+       "explanation": "The lunar model physically blocks the direct line drawn from the far-side probe to Earth."
+      },
+      {
+       "question": "Why did the students prefer a slightly longer communication route?",
+       "options": [
+        "It required no equipment or testing.",
+        "It offered a clearer link after they compared the angles.",
+        "It made the mission shorter in every stage.",
+        "It proved that the first plan was completely useless."
+       ],
+       "answer": 1,
+       "explanation": "The team compared the geometry and found the longer route provided a clearer communication link."
+      },
+      {
+       "question": "What does the report distinguish?",
+       "options": [
+        "Evidence from assumption, along with limits of the model.",
+        "Public interest from scientific research.",
+        "The relay satellite from the spacecraft.",
+        "The Moon's near side from its craters."
+       ],
+       "answer": 0,
+       "explanation": "The students record what their model demonstrates, what it cannot show, and what should be tested next."
+      },
+      {
+       "question": "Which conclusion is best supported by the passage?",
+       "options": [
+        "A model removes the need for real mission tests.",
+        "A relay works only when every team uses the same specialty.",
+        "Reliable exploration grows through models, tests, records, and cooperation.",
+        "Historic missions succeed through luck more than planning."
+       ],
+       "answer": 2,
+       "explanation": "The passage closes with a chain from question to model, test, evidence, and collaboration."
+      }
+     ]
+    },
+    "listening": {
+     "title": "Listening: A Test Before the Next Step",
+     "script": "Welcome to the mission-training room. Today, our crew is not launching a spacecraft; it is rehearsing what to do when a sensor gives an unexpected reading. First, the trainee reads the procedure and says the value aloud. A teammate checks the number against a second display, while the instructor records the time and the system's status. The team does not change the orbit just because one signal looks unusual. They compare the data, identify what remains uncertain, and decide whether the mission rule calls for a pause or a correction. In a separate exercise, the crew practices moving through a station module in low gravity. The goal is not speed. Each person must secure the equipment, report a change, and leave a clear note for the next shift. After the rehearsal, the group reviews one mistake without blaming the trainee. They ask which cue was missed and how the checklist can make the next attempt safer. The instructor says that research missions depend on accurate instruments, but also on people who communicate honestly. When a later test improves the procedure, the change is recorded and shared with the whole team. A space mission may be ambitious, yet its reliability is built from small actions that can be checked and repeated. For your question, listen for the evidence the crew uses before it acts.",
+     "questions": [
+      {
+       "question": "What does the crew do before changing the orbit in response to an unusual signal?",
+       "options": [
+        "They silence the alarm and continue without recording it.",
+        "They ask one specialist to decide without checking the procedure.",
+        "They compare the reading with other data and identify uncertainty.",
+        "They change the spacecraft setting immediately."
+       ],
+       "answer": 2,
+       "explanation": "The team checks a second display and identifies uncertainty before deciding whether to pause or correct."
+      },
+      {
+       "question": "What is the goal of the low-gravity station exercise?",
+       "options": [
+        "To see who can finish the module route fastest.",
+        "To avoid communicating with the next shift.",
+        "To prove that the station has normal gravity.",
+        "To practice securing equipment, reporting changes, and leaving a useful note."
+       ],
+       "answer": 3,
+       "explanation": "The exercise emphasizes safe equipment handling, clear reporting, and handover rather than speed."
+      },
+      {
+       "question": "How does the instructor respond to a mistake in rehearsal?",
+       "options": [
+        "The instructor removes the trainee from the next exercise.",
+        "The team identifies the missed cue and improves the checklist without blame.",
+        "The mistake is hidden so that the schedule stays on time.",
+        "The crew stops documenting procedures."
+       ],
+       "answer": 1,
+       "explanation": "The group asks what cue was missed and how the checklist can improve, without blaming the trainee."
+      },
+      {
+       "question": "Which idea best captures the speaker's final point?",
+       "options": [
+        "A mission is reliable when its small actions can be checked and repeated.",
+        "Only advanced equipment matters in scientific work.",
+        "A procedure should never change after its first use.",
+        "An ambitious mission can succeed without honest communication."
+       ],
+       "answer": 0,
+       "explanation": "The closing lines connect reliability with repeatable, checkable actions and honest communication."
+      }
+     ]
+    },
+    "translation": {
+     "sentences": [
+      {
+       "zh": "由中继卫星传回的数据帮助工程师检查了月球背面的通信链路。",
+       "en_reference": "The data returned by the relay satellite helped engineers check the communication link on the far side of the Moon.",
+       "keywords": [
+        "data",
+        "returned",
+        "relay satellite",
+        "communication link"
+       ]
+      },
+      {
+       "zh": "正在监测信号的工程师发现轨道读数出现了细微变化。",
+       "en_reference": "The engineers monitoring the signal noticed a small change in the orbit readings.",
+       "keywords": [
+        "engineers",
+        "monitoring",
+        "signal",
+        "orbit"
+       ]
+      },
+      {
+       "zh": "团队已经记录了测试结果，并说明了它的适用条件。",
+       "en_reference": "The team has recorded the test result and explained the conditions under which it applies.",
+       "keywords": [
+        "has recorded",
+        "test result",
+        "conditions"
+       ]
+      },
+      {
+       "zh": "航天员在进入空间站前练习了应急程序。",
+       "en_reference": "The astronauts practiced emergency procedures before entering the space station.",
+       "keywords": [
+        "astronauts",
+        "practiced",
+        "emergency procedures",
+        "space station"
+       ]
+      }
+     ]
+    },
+    "writing": {
+     "prompt": "Write 120–150 words: Explain how a challenging science mission can turn an ambitious idea into reliable work. Use one example of evidence or testing, explain how cooperation changes a decision, and connect the lesson to a goal you could pursue.",
+     "outline": [
+      "State your view: what makes a scientific goal reliable rather than merely exciting?",
+      "Describe one mission or classroom example and name the evidence used.",
+      "Explain how testing, feedback, or cooperation changes a decision.",
+      "Connect the lesson to your own learning or a future goal and conclude clearly."
+     ]
+    }
+   }
+  },
+  {
+   "unit_id": "unit06",
+   "unit_number": 6,
+   "edition": 4,
+   "title": "The economy: power behind everyday life",
+   "title_zh": "经济：日常生活背后的力量",
+   "theme": "economy, crisis, sharing economy",
+   "word_ids": [
+    "rw3_unit06_01",
+    "rw3_unit06_02",
+    "rw3_unit06_03",
+    "rw3_unit06_04",
+    "rw3_unit06_05",
+    "rw3_unit06_06",
+    "rw3_unit06_07",
+    "rw3_unit06_08",
+    "rw3_unit06_09",
+    "rw3_unit06_10",
+    "rw3_unit06_11",
+    "rw3_unit06_12",
+    "rw3_unit06_13",
+    "rw3_unit06_14",
+    "rw3_unit06_15",
+    "rw3_unit06_16",
+    "rw3_unit06_17",
+    "rw3_unit06_18",
+    "rw3_unit06_19",
+    "rw3_unit06_20"
+   ],
+   "micro_world_checks": {
+    "section_a": [
+     {
+      "question": "Which pressures first put Lantern Books at risk?",
+      "options": [
+       "A sudden surplus of books and lower delivery costs",
+       "A plan to move the store to a larger building",
+       "Rising rent and delivery costs during a recession, alongside a tight budget",
+       "A new rule requiring every reader to buy a book"
+      ],
+      "answer": 2,
+      "explanation": "The opening links the recession and inflation to higher rent and delivery costs, while the budget and savings are shrinking."
+     },
+     {
+      "question": "What did Mei and the campus club build to respond to readers' needs?",
+      "options": [
+       "A larger shop stocked only brand-new titles.",
+       "A book-sharing wall, funded by a small loan and run as a measured pilot.",
+       "A delivery service that charged readers before showing the books.",
+       "A private club that stopped serving neighborhood consumers."
+      ],
+      "answer": 1,
+      "explanation": "Mei used a small loan to build weatherproof shelves, then the club tracked exchanges during a two-week pilot."
+     },
+     {
+      "question": "Why did the exchange not automatically mean higher profit or effortless service?",
+      "options": [
+       "Cleaning, sorting, and checking missing copies still took staff time.",
+       "No readers wanted to reuse books after the first day.",
+       "The shop stopped keeping any records of its inventory.",
+       "The club required every customer to buy two new titles."
+      ],
+      "answer": 0,
+      "explanation": "Reuse improved efficiency, but the passage explicitly names cleaning, sorting, and copy checks as continuing labor."
+     },
+     {
+      "question": "What best explains the bookstore's modest resilience by the end of term?",
+      "options": [
+       "A single investment guaranteed a large profit.",
+       "The neighborhood no longer needed affordable reading.",
+       "The shop stopped listening to customers and club members.",
+       "Trust, clear records, cooperation, and repeated adjustments kept value circulating."
+      ],
+      "answer": 3,
+      "explanation": "The ending credits resilience to trust, records, repair, and adjustment, not a guaranteed windfall."
+     }
+    ],
+    "section_b": [
+     {
+      "question": "What was the campus club's first goal for its book exchange?",
+      "options": [
+       "To promise instant revenue to every member",
+       "To replace the campus library with a commercial store",
+       "To make useful books affordable and keep them circulating among readers",
+       "To collect damaged books without recording their condition"
+      ],
+      "answer": 2,
+      "explanation": "The opening frames the project as access and reuse, not as a promise of immediate profit."
+     },
+     {
+      "question": "Which practice helped users trust the exchange during its pilot?",
+      "options": [
+       "Logging book condition, exchanges, and clear return responsibilities",
+       "Keeping the fee and the checkout rules secret",
+       "Letting the first user decide who could borrow next",
+       "Removing all records to make the process faster"
+      ],
+      "answer": 0,
+      "explanation": "Transparent condition notes and checkout records make responsibility visible and disputes easier to resolve."
+     },
+     {
+      "question": "Why did the club compare staffing and repair costs before expanding?",
+      "options": [
+       "They planned to stop recording damage and returns.",
+       "They wanted to prove that any increase in loans guarantees fair access.",
+       "A sponsor had already promised to cover every future cost.",
+       "A new site could add reach but weaken local support if no partner maintained the books."
+      ],
+      "answer": 3,
+      "explanation": "The passage names staffing and repair costs, then warns that expansion could weaken local support without a maintenance partner."
+     },
+     {
+      "question": "Which test best shows whether the project can continue responsibly?",
+      "options": [
+       "Count only the most popular books on opening day.",
+       "Compare access, maintenance costs, local-shop support, and user feedback over time.",
+       "Measure success only by how quickly the project expands.",
+       "Assume that every sharing platform is fair by definition."
+      ],
+      "answer": 1,
+      "explanation": "The final scene treats sustainability as a balance of usefulness, affordability, costs, and feedback."
+     }
+    ],
+    "section_c": [
+     {
+      "question": "In the students' fictional county case, what first made reading harder for families?",
+      "options": [
+       "A sudden increase in free transport to the library",
+       "Lower household budgets and the cost of buying every title separately",
+       "A rule that families could use only printed maps",
+       "A lack of interest in reading among all age groups"
+      ],
+      "answer": 1,
+      "explanation": "The fictional case begins with tight household budgets and the difficulty of purchasing each book individually."
+     },
+     {
+      "question": "Why did the library keep an assisted, offline option alongside digital lending?",
+      "options": [
+       "Some residents lacked reliable devices or felt unsure using the platform.",
+       "The digital catalog contained no books at all.",
+       "The library wanted to prevent volunteers from helping readers.",
+       "Offline service always costs less than maintaining a digital catalog."
+      ],
+      "answer": 0,
+      "explanation": "The story identifies device access and confidence as barriers, so a human-assisted route remains important."
+     },
+     {
+      "question": "How did cooperation improve the service rather than merely add publicity?",
+      "options": [
+       "Partners removed every lending rule and condition check.",
+       "The library transferred all decisions to one sponsor.",
+       "Residents stopped reporting problems with access.",
+       "Readers, volunteers, and librarians found barriers and adjusted the service together."
+      ],
+      "answer": 3,
+      "explanation": "The partners used reader feedback to improve assistance, catalog guidance, and device access."
+     },
+     {
+      "question": "What would be the strongest evidence that the library project is resilient?",
+      "options": [
+       "A large download count, even if many users cannot open the books",
+       "A one-time donation with no plan for maintenance",
+       "Sustained reading access, manageable costs, and useful feedback from different residents",
+       "An announcement that the service will never need revision"
+      ],
+      "answer": 2,
+      "explanation": "Resilience is shown by lasting access and an ability to learn and adapt, not by a single headline number."
+     }
+    ]
+   },
+   "sections": {
+    "section_a": {
+     "title": "Surviving an economic crisis",
+     "type": "reading",
+     "passage": "In the old harbor district, Lantern Books had served students for twenty years, but a recession changed the street. Inflation pushed up rent and delivery costs, while a tight budget left fewer new titles on its shelves. Owner Mei wrote each expense beside the supply of books and the demand from readers instead of guessing. Her savings covered only two months, and she feared the shop would close before the next school term. To understand the crisis, she asked customers what they needed and what they could afford. A campus club suggested a sharing wall where a reader could leave one book and choose another. Mei took a small loan to build weatherproof shelves and a simple checkout desk. During a two-week pilot, every exchange was entered in a paper ledger with a fair, affordable fee. The club recorded the book condition, the reader's choice, and the time each title remained on the shelf. The early numbers showed that a few popular subjects moved quickly while other titles waited. Rather than call the project an instant success, Mei compared its modest revenue with saved purchasing costs. Reusing books improved efficiency, but cleaning, sorting, and missing-copy checks still required staff time. Some consumers could not pay even a small fee, so the club created a no-fee exchange hour. The change widened access without hiding the real cost of keeping the service open. Mei explained that sharing works only when rules protect both the resource and the people using it. By the end of the term, the shop had not become rich, yet it had kept two local jobs and reopened a quiet reading corner. Readers returned with suggestions, and the club helped repair damaged covers instead of discarding every copy. This modest resilience came from trust, clear records, and repeated adjustments rather than one heroic investment. Students traced how price, supply, demand, and access shaped ordinary choices in the neighborhood. They left with a practical lesson: a healthy economy depends on choices that keep value circulating and responsibility visible."
+    },
+    "section_b": {
+     "title": "The sharing economy turns a new page with books",
+     "type": "reading",
+     "passage": "On campus, a club found that students often bought a required book for one term and then let it collect dust. They designed a sharing exchange where members could lend or swap a copy through a staffed locker. The organizers called it Page Loop, an original student startup built to expand access, not promise instant revenue. Before opening, they surveyed consumers about prices, titles, and whether a refundable deposit felt fair. Their first design offered one flat fee, but readers warned that the rule could exclude people with a tight budget. The team revised the model: a small affordable charge covered checks, while members could volunteer during free-access hours. A barcode, condition note, and clear return date let volunteers track supply without treating every user as a risk. During a month-long trial, they logged which titles moved, which stayed untouched, and when the line grew. Demand shifted around exam weeks, so the club added high-use titles and asked departments to donate older editions. The records also revealed a bottleneck: volunteers spent too long checking books at a single desk. They arranged two return boxes and a short inspection rota, improving efficiency without removing a human check. One sponsor suggested rapid expansion, but the club compared extra staffing and repair costs first. The new site would add reach, yet could weaken local support if no partner helped maintain the books. A teacher asked the group to distinguish activity from impact: more loans did not automatically mean fairer access. Members compared user feedback, wait times, damaged copies, and costs before changing the rules. They kept a free weekly hour for students who could not pay, supported by a campus fund. During that hour, exchange still followed the same condition and return standards. After one term, the project had modest revenue and stronger ties between the club and the campus shop. The team described the model as sustainable only if access, maintenance, and local cooperation remained in balance. Page Loop taught them that sharing works best when transparency makes responsibility as visible as convenience."
+    },
+    "section_c": {
+     "title": "Stories of China: A Fictional County Library Case",
+     "type": "stories_of_china",
+     "passage": "For a class project, students created a fictional county case called Yunhe to examine access to reading during a downturn. In their story, many families had a tight budget, and the county library could not buy every new title. The students proposed a shared digital-lending catalog so one licensed copy could reach more readers over time. They did not present Yunhe as a documented real event; it was a model for testing choices, costs, and access. Their first question was simple: who might still be left out if the service moved online? A group of older residents had no reliable device, while some families shared one phone among several people. Librarians therefore kept printed guides and an assisted desk beside the digital screen. Volunteers helped readers request a title, set a return reminder, and find an offline alternative when needed. The team listed the resources: licenses, devices, staff time, network access, and community knowledge. Demand rose before exams, so a booking queue showed where extra copies or longer lending periods mattered. The students compared costs with the number of completed reads rather than counting clicks alone. A local school offered quiet study space, and a community group helped troubleshoot basic device problems. These partners could not erase the recession, but they reduced barriers that price alone could not explain. The library also collected feedback in short interviews, including from people who had not used the service. Their comments led to clearer instructions, larger text, and a weekly in-person help session. One student argued that digital lending was always more efficient, but the access notes challenged that claim. A shared platform saved travel for some readers while still requiring licenses, maintenance, and human support. In the fictional case, resilience meant keeping useful knowledge accessible while adjusting the system as needs changed. The class concluded that communities invest in one another when they plan for both convenience and exclusion. Their final report asked readers to judge an economy by who can participate, what it costs, and whether the value lasts."
+    },
+    "vocabulary": {
+     "level_count": 4,
+     "words_per_level": 5
+    },
+    "reading": {
+     "title": "The Library of Useful Things",
+     "passage": "When a student housing cooperative noticed that residents were buying tools they used only once, it proposed a small lending room. At first, the idea sounded simple: place a drill, a sewing kit, and a bicycle pump on a shelf, then let anyone borrow them. But the student team quickly learned that access depends on more than putting objects in a room. A tool needs an inspection record, a return date, and a person responsible for checking damage. The cooperative created a modest membership fee to cover repairs, while reserving free borrowing hours for residents facing a tight budget. Its first month produced an unexpected pattern. The bicycle pump moved every week, but the drill waited until a repair workshop advertised its availability. Demand was therefore not a fixed number; it changed with information and timing. One resident argued that the team should buy more equipment immediately. Another asked them to compare actual use with storage and maintenance costs before spending the cooperative's limited saving. They checked the log, asked neighbors what repairs they planned, and borrowed a second drill from a nearby community center for one weekend. This test met the short-term need without creating an unnecessary purchase. The project also exposed a fairness problem: residents who worked late could not reach the room before it closed. Volunteers added a staffed evening slot and a simple booking board. The system did not remove every cost, and it was not automatically sustainable just because people shared. It became more useful when clear rules protected the tools, transparent records showed what was needed, and residents could suggest changes. By the end of the term, the cooperative had a better estimate of which resources deserved investment. The lesson was practical: a sharing economy is a set of choices about access, responsibility, and value, not merely a shelf of free things.",
+     "questions": [
+      {
+       "question": "Why did the team borrow a second drill instead of buying one immediately?",
+       "options": [
+        "The community center refused to lend any equipment.",
+        "Residents were not allowed to repair anything themselves.",
+        "The log showed that immediate demand did not yet justify a permanent purchase.",
+        "The cooperative wanted to remove all maintenance records."
+       ],
+       "answer": 2,
+       "explanation": "The group checked real use and planned repairs, then borrowed a second drill for a short-term need instead of assuming a purchase was necessary."
+      },
+      {
+       "question": "What did the drill's use after a repair-workshop announcement show?",
+       "options": [
+        "Equipment use can change when people learn that a resource is available.",
+        "Residents prefer to buy a new tool every time.",
+        "The lending room no longer needed maintenance.",
+        "Demand always stays the same regardless of timing or information."
+       ],
+       "answer": 0,
+       "explanation": "The passage connects the drill's increased use to a repair workshop advertising it, showing that demand responds to information and timing."
+      },
+      {
+       "question": "Which change addressed the access problem for residents who worked late?",
+       "options": [
+        "The team bought more tools for storage.",
+        "The membership fee was doubled.",
+        "The lending room was closed during weekends.",
+        "Volunteers added an evening borrowing slot and booking board."
+       ],
+       "answer": 3,
+       "explanation": "A staffed evening slot and booking board made the service usable for residents who could not arrive earlier."
+      },
+      {
+       "question": "What is the passage's main conclusion about sharing?",
+       "options": [
+        "Shared resources require no rules or upkeep.",
+        "Sharing works better when access, responsibility, records, and feedback are balanced.",
+        "A fee automatically guarantees a fair outcome.",
+        "Every frequently used object should be purchased at once."
+       ],
+       "answer": 1,
+       "explanation": "The final sentences define sharing as choices about access, responsibility, and value, supported by clear rules and feedback."
+      }
+     ]
+    },
+    "listening": {
+     "title": "Listening: Should the campus expand its book exchange?",
+     "script": "Welcome back to the campus economics podcast. Our student group has run a book exchange for one term, and the first result is encouraging but incomplete. More than a hundred books changed hands, yet the number alone cannot tell us whether the project was fair or sustainable. We compared the titles requested, the waiting time, repair costs, and the comments from students who could not pay the regular fee. During exam weeks, demand rose for a few subjects, so the club borrowed extra copies from two departments instead of purchasing a large stock. We also kept a free-access hour supported by a small campus fund. That choice widened access, but volunteers still had to inspect returns and maintain the shelves. A local shop now offers a discount on basic repairs, which keeps some spending in the community. Before expanding to another building, the club will run a second trial and ask evening students about opening hours. In other words, we will not treat popularity as proof of success. The more carefully we track costs and listen to users, the more responsibly we can decide what to share. A strong local economy is not simply about moving more goods; it is about making useful exchange possible while keeping its rules, costs, and benefits visible.",
+     "questions": [
+      {
+       "question": "Why does the speaker say that the number of books exchanged is incomplete evidence?",
+       "options": [
+        "It counts only books bought by the student group.",
+        "It does not reveal fairness, waiting time, repair costs, or who was excluded.",
+        "It proves that the exchange lost every book.",
+        "It measures how much money each student saved on transport."
+       ],
+       "answer": 1,
+       "explanation": "The speaker says the total cannot show whether the project was fair or sustainable, then names waiting, repair, and user feedback as additional evidence."
+      },
+      {
+       "question": "How did the club respond to higher demand during exam weeks?",
+       "options": [
+        "It purchased a large permanent stock immediately.",
+        "It cancelled the free-access hour.",
+        "It stopped lending the most requested subjects.",
+        "It borrowed extra copies from two departments for the peak period."
+       ],
+       "answer": 3,
+       "explanation": "The club used a temporary supply from two departments rather than making a large permanent purchase."
+      },
+      {
+       "question": "What trade-off is mentioned about the free-access hour?",
+       "options": [
+        "It widens access, while volunteers still need time to inspect and maintain books.",
+        "It raises the price for students who pay the regular fee.",
+        "It prevents the shop from offering repair discounts.",
+        "It removes the need to ask students about opening hours."
+       ],
+       "answer": 0,
+       "explanation": "The speaker pairs wider access with ongoing volunteer labor for inspection and shelf maintenance."
+      },
+      {
+       "question": "What will the club do before opening an exchange in another building?",
+       "options": [
+        "Announce success based only on the number of books moved",
+        "Remove the trial and make all rules permanent",
+        "Run another trial and ask evening students about access times",
+        "Ask one sponsor to decide without consulting users"
+       ],
+       "answer": 2,
+       "explanation": "The final plan is to test again and consult evening students before expanding."
+      }
+     ]
+    },
+    "translation": {
+     "sentences": [
+      {
+       "zh": "如果读者在拿走一本书时登记，书店就能更准确地追踪库存。",
+       "en_reference": "If readers register when they take a book, the shop can track its inventory more accurately.",
+       "keywords": [
+        "if",
+        "register",
+        "track",
+        "inventory"
+       ]
+      },
+      {
+       "zh": "如果团队更透明地说明费用，学生就会更愿意信任这个交换项目。",
+       "en_reference": "If the team explained the fee more transparently, students would be more willing to trust the exchange program.",
+       "keywords": [
+        "if",
+        "explained",
+        "would",
+        "trust"
+       ]
+      },
+      {
+       "zh": "规则越清晰，资源就越容易公平地流动。",
+       "en_reference": "The clearer the rules are, the more fairly resources circulate.",
+       "keywords": [
+        "clearer",
+        "the more",
+        "fairly",
+        "resources"
+       ]
+      },
+      {
+       "zh": "在危机时期，小额储蓄和互助能够帮助社区保持韧性。",
+       "en_reference": "During a crisis, small savings and mutual support can help a community remain resilient.",
+       "keywords": [
+        "crisis",
+        "savings",
+        "support",
+        "resilient"
+       ]
+      }
+     ]
+    },
+    "writing": {
+     "prompt": "Write 120–150 words: Design a fair sharing scheme for a resource used by students or your community. Explain who provides it, who can access it, how rules cover cost and responsibility, and what evidence would show whether the system is sustainable.",
+     "outline": [
+      "State the resource and the need: who has it, who needs it, and what problem exists.",
+      "Describe the sharing process, including access, exchange or return rules, and an affordable option.",
+      "Explain the trade-off: name real costs, risks, and how transparent records or feedback address them.",
+      "Conclude with evidence you would track to judge fairness, efficiency, and long-term resilience."
+     ]
+    }
+   }
+  }
+ ]
+}

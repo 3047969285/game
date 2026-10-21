@@ -1,0 +1,17 @@
+{
+ "sourceCjkStrings": 1027,
+ "coveredByCurated": 286,
+ "files": 177,
+ "examples": [
+  "${kind === \"section_a\" ? \"A\" : kind === \"section_b\" ? \"B\" : \"C\"} · 世界 ${worldIndex + 1}",
+  "${phase.label} · 分段 ${articlePartIndex}/${articlePhases.length}",
+  "${phase.label} · 学习材料",
+  "${provider === \"qq\" ? \"QQ\" : \"微信\"}登录尚未配置后端回调",
+  "${result.sentenceCount} 句 · 开头：${result.firstSentence || \"（尚无正文）\"}",
+  "${script.title} · 我的教材${importedTitle ?",
+  "${unitZh} · 单元全景（${words.length} 词）",
+  "${where}.dialog: 没有正确选项",
+  "${where}.dialog: 说话的人 ${act.dialog.speaker} 不在 actors 里",
+  "${where}.dialog: 选项少于 2 个"
+ ]
+}

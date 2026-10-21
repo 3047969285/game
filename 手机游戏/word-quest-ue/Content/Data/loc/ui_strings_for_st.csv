@@ -1,0 +1,127 @@
+﻿Key,SourceString
+ui.common.back,返回
+ui.common.next,继续
+ui.common.submit,提交
+ui.common.skip,跳过
+ui.common.close,关闭
+ui.common.cancel,取消
+ui.common.confirm,确认
+ui.common.retry,重试
+ui.common.loading,加载中…
+ui.common.error,出错了
+ui.common.saved,已保存
+ui.common.score,得分
+ui.common.progress,进度
+ui.common.completed,已完成
+ui.common.locked,未解锁
+ui.common.unlocked,已解锁
+ui.common.start,开始
+ui.common.pause,暂停
+ui.common.resume,继续
+ui.common.exit,退出
+ui.common.settings,设置
+ui.common.on,开
+ui.common.off,关
+ui.common.day,天
+ui.common.days,天后
+ui.nav.memory_box,记忆匣
+ui.nav.learning,学习实验室
+ui.nav.explore,探索
+ui.nav.review,复习
+ui.unit.title,单元
+ui.unit.select,选择单元
+ui.unit.enter_memory,进入记忆
+ui.unit.complete,本单元已完成
+ui.unit.locked_hint,完成上一单元后解锁
+ui.unit.words,本单元词汇
+ui.unit.continue_last,继续上次
+ui.learn.vocabulary,词汇
+ui.learn.reading,阅读
+ui.learn.listening,听力
+ui.learn.translation,翻译
+ui.learn.writing,写作
+ui.learn.quiz,小测
+ui.learn.new_words,新词学习
+ui.learn.weak_words,薄弱巩固
+ui.learn.spaced_review,间隔复习
+ui.learn.start_review,开始复习
+ui.learn.due_count,待复习 {0} 词
+ui.learn.mastered_count,已掌握 {0}
+ui.wordcard.reveal,点击翻面
+ui.wordcard.word,单词
+ui.wordcard.phonetic,音标
+ui.wordcard.pos,词性
+ui.wordcard.meaning,释义
+ui.wordcard.example,例句
+ui.wordcard.collocation,搭配
+ui.wordcard.blurred,模糊
+ui.wordcard.clear,清晰
+ui.wordcard.sparkling,闪光
+ui.wordcard.play_audio,播放发音
+ui.wordcard.prev,上一个
+ui.wordcard.next,下一个
+ui.reading.title,课文
+ui.reading.paragraph,段落
+ui.reading.anchor,段落锚点
+ui.reading.read_aloud,朗读本段
+ui.reading.hide_meaning,隐藏释义
+ui.reading.next_paragraph,下一段
+ui.listening.title,听力
+ui.listening.play,播放
+ui.listening.show_script,显示原文
+ui.listening.hide_script,隐藏原文
+ui.listening.replay,重听
+ui.listening.speed,语速
+ui.translation.title,翻译
+ui.translation.source,中文
+ui.translation.input_hint,输入英文…
+ui.translation.keywords,关键词提示
+ui.translation.submit,提交
+ui.translation.show_reference,看参考
+ui.translation.reference,参考译文
+ui.translation.keyword_hits,命中 {0}/{1} 个关键词
+ui.writing.title,写作
+ui.writing.prompt,题目
+ui.writing.outline,提纲
+ui.writing.drafting,写作中
+ui.writing.word_bank,词块
+ui.writing.word_count,字数：{0}
+ui.quiz.title,小测
+ui.quiz.question,第 {0} 题，共 {1} 题
+ui.quiz.correct,正确
+ui.quiz.incorrect,不正确
+ui.quiz.explanation,解析
+ui.quiz.show_answer,显示答案
+ui.quiz.streak,连对 {0}
+ui.quiz.result,本轮结果
+ui.review.title,间隔复习
+ui.review.due_today,今日 {0} 词
+ui.review.weak,薄弱词
+ui.review.all,全部
+ui.review.next_review,下次复习：{0}
+ui.review.reviewed_times,已复习 {0} 次
+ui.review.empty,今天没有到期复习词
+ui.review.round_done,本轮复习完成！
+ui.result.title,记忆底片
+ui.result.correct_ratio,正确 {0}/{1}
+ui.result.new_mastered,新掌握 {0} 词
+ui.result.back_to_box,返回记忆匣
+ui.result.watch_again,再看一遍
+ui.settings.subtitle,字幕
+ui.settings.subtitle_zh,仅中文
+ui.settings.subtitle_en,仅英文
+ui.settings.subtitle_both,中英双语
+ui.settings.subtitle_off,关闭字幕
+ui.settings.font_size,字号
+ui.settings.font_standard,标准
+ui.settings.font_large,大
+ui.settings.font_xl,特大
+ui.settings.reduce_motion,减少动态
+ui.settings.high_contrast,高对比度
+ui.settings.volume,音量
+ui.settings.language,语言
+ui.a11y.focus_hint,按 Tab 移动焦点，Enter 确认
+ui.a11y.question_progress,第 {0} 题，共 {1} 题
+ui.system.memory_recall,记忆回放
+ui.system.enter_memory,进入记忆
+ui.system.recalling,正在回忆…

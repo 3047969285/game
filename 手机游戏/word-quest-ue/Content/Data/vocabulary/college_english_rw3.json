@@ -1,0 +1,2714 @@
+{
+  "meta": {
+    "course_id": "college_english_rw3",
+    "name": "大学英语读写教程3",
+    "textbook": "新视野大学英语（第四版）读写教程 Book 3（思政智慧版）",
+    "edition": 4,
+    "units": 6,
+    "sections_per_unit": [
+      "Section A",
+      "Section B",
+      "Section C Stories of China"
+    ],
+    "note": "词汇与阅读内容为原创仿学材料，用于游戏化学习，非教材原文转载"
+  },
+  "count": 130,
+  "words": [
+    {
+      "id": "rw3_unit01_01",
+      "word": "digital",
+      "phonetic": "/ˈdɪdʒɪtl/",
+      "pos": "adj.",
+      "meaning": "数字的；数码的",
+      "meanings": [
+        "adj. 数字的；数码的"
+      ],
+      "example": "The club used a digital calendar to protect an uninterrupted study block.",
+      "example_zh": "社团使用数字日历，为不受打扰的学习时段留出时间。",
+      "collocation": "digital age / digital world / digital device",
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_02",
+      "word": "connection",
+      "phonetic": "/kəˈnekʃn/",
+      "pos": "n.",
+      "meaning": "连接；联系；关系",
+      "meanings": [
+        "n. 连接；联系；关系"
+      ],
+      "example": "The club asked whether the moment needed a quick connection or a face-to-face conversation.",
+      "example_zh": "社团成员思考当下需要的是快速联系，还是面对面的交谈。",
+      "collocation": "make a connection / internet connection / emotional connection",
+      "difficulty": 4,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_03",
+      "word": "conversation",
+      "phonetic": "/ˌkɒnvəˈseɪʃn/",
+      "pos": "n.",
+      "meaning": "对话；交谈；会话",
+      "meanings": [
+        "n. 对话；交谈；会话"
+      ],
+      "example": "A face-to-face conversation gave the listener time to ask a follow-up question.",
+      "example_zh": "面对面的交谈让倾听者有时间追问一个问题。",
+      "collocation": "have a conversation / start a conversation / meaningful conversation",
+      "difficulty": 2,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_04",
+      "word": "notification",
+      "phonetic": "/ˌnəʊtɪfɪˈkeɪʃn/",
+      "pos": "n.",
+      "meaning": "通知；消息提醒；告知",
+      "meanings": [
+        "n. 通知；消息提醒；告知"
+      ],
+      "example": "During the offline study block, Mei set non-urgent notifications aside until the next check-in.",
+      "example_zh": "在离线学习时段，梅把非紧急通知留到下一次查看时再处理。",
+      "collocation": "receive a notification / push notification / turn off notifications",
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_05",
+      "word": "scroll",
+      "phonetic": "/skrəʊl/",
+      "pos": "v.",
+      "meaning": "滚动浏览；上下滑动屏幕",
+      "meanings": [
+        "v. 滚动浏览；上下滑动",
+        "n. 卷轴"
+      ],
+      "example": "A student may open one message and then scroll through a feed for several minutes.",
+      "example_zh": "学生可能原本只想打开一条消息，却接着浏览信息流好几分钟。",
+      "collocation": "scroll down / scroll through / endless scrolling",
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_06",
+      "word": "algorithm",
+      "phonetic": "/ˈælɡərɪðəm/",
+      "pos": "n.",
+      "meaning": "算法；运算程序",
+      "meanings": [
+        "n. 算法；运算程序"
+      ],
+      "example": "An algorithm can repeatedly surface similar posts, shaping what appears in a student's feed.",
+      "example_zh": "算法可能反复推送相似帖子，从而影响学生信息流中出现的内容。",
+      "collocation": "recommendation algorithm / run an algorithm / algorithm-driven",
+      "difficulty": 4,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_07",
+      "word": "privacy",
+      "phonetic": "/ˈprɪvəsi/",
+      "pos": "n.",
+      "meaning": "隐私；私密；独处",
+      "meanings": [
+        "n. 隐私；私密"
+      ],
+      "example": "Rui reviewed the platform's privacy settings before deciding what information to share.",
+      "example_zh": "瑞在决定分享哪些信息前，先检查了平台的隐私设置。",
+      "collocation": "invasion of privacy / privacy settings / right to privacy",
+      "difficulty": 4,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_08",
+      "word": "virtual",
+      "phonetic": "/ˈvɜːtʃuəl/",
+      "pos": "adj.",
+      "meaning": "虚拟的；网络上的；实质上的",
+      "meanings": [
+        "adj. 虚拟的；网络上的",
+        "adj. 实际上的（=almost）"
+      ],
+      "example": "A virtual study group worked well after its members agreed on a shared goal.",
+      "example_zh": "成员先商定共同目标后，线上学习小组开展得很顺利。",
+      "collocation": "virtual reality / virtual meeting / virtual world",
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_09",
+      "word": "attention",
+      "phonetic": "/əˈtenʃn/",
+      "pos": "n.",
+      "meaning": "注意力；关注；照料",
+      "meanings": [
+        "n. 注意力；关注"
+      ],
+      "example": "Grouping message checks helped the students return their attention to the study question.",
+      "example_zh": "把查看消息安排在固定时段，帮助学生把注意力重新放回学习问题上。",
+      "collocation": "pay attention / attract attention / attention span",
+      "difficulty": 2,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_10",
+      "word": "offline",
+      "phonetic": "/ˌɒfˈlaɪn/",
+      "pos": "adj.",
+      "meaning": "离线的；不联网的；线下的",
+      "meanings": [
+        "adj./adv. 离线的；不联网的"
+      ],
+      "example": "The club reserved an offline hour for students who wanted an uninterrupted conversation.",
+      "example_zh": "社团为希望不受打扰地交谈的学生留出了一小时离线时间。",
+      "collocation": "go offline / offline mode / offline activities",
+      "difficulty": 2,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_11",
+      "word": "multitask",
+      "phonetic": "/ˌmʌltiˈtɑːsk/",
+      "pos": "v.",
+      "meaning": "同时处理多项任务；多任务操作",
+      "meanings": [
+        "v. 同时处理多项任务"
+      ],
+      "example": "During the study block, students tried not to multitask between messages and reading.",
+      "example_zh": "在学习时段，学生尽量不在消息和阅读之间来回切换。",
+      "collocation": "multitask effectively / multitasking ability",
+      "difficulty": 4,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_12",
+      "word": "cyber",
+      "phonetic": "/ˈsaɪbə/",
+      "pos": "adj.",
+      "meaning": "网络的；信息技术的；赛博",
+      "meanings": [
+        "adj. 网络的；计算机的"
+      ],
+      "example": "The cyber safety instructor asked students to think before clicking a link.",
+      "example_zh": "网络安全讲师提醒学生点击链接前先仔细判断。",
+      "collocation": "cyber security / cyber attack / cyber crime",
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_13",
+      "word": "device",
+      "phonetic": "/dɪˈvaɪs/",
+      "pos": "n.",
+      "meaning": "设备；装置；仪器",
+      "meanings": [
+        "n. 设备；装置；仪器"
+      ],
+      "example": "Members placed each device in a basket before the listening exercise.",
+      "example_zh": "倾听练习开始前，成员们把各自的设备放进篮子里。",
+      "collocation": "digital device / mobile device / electronic device",
+      "difficulty": 2,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_14",
+      "word": "addiction",
+      "phonetic": "/əˈdɪkʃn/",
+      "pos": "n.",
+      "meaning": "上瘾；沉迷；成瘾",
+      "meanings": [
+        "n. 上瘾；成瘾"
+      ],
+      "example": "The instructor avoided calling every long evening online an addiction.",
+      "example_zh": "讲师避免把每个长时间上网的夜晚都称为“成瘾”。",
+      "collocation": "internet addiction / phone addiction / overcome addiction",
+      "difficulty": 4,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_15",
+      "word": "balance",
+      "phonetic": "/ˈbæləns/",
+      "pos": "n.",
+      "meaning": "平衡；均衡；协调",
+      "meanings": [
+        "n. 平衡；均衡",
+        "v. 使保持平衡"
+      ],
+      "example": "For the students, balance meant protecting study time without abandoning useful online groups.",
+      "example_zh": "对学生而言，平衡意味着保护学习时间，同时不放弃有用的线上小组。",
+      "collocation": "maintain a balance / work-life balance / strike a balance",
+      "difficulty": 2,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_16",
+      "word": "interaction",
+      "phonetic": "/ˌɪntərˈækʃn/",
+      "pos": "n.",
+      "meaning": "互动；交流；相互作用",
+      "meanings": [
+        "n. 互动；交流"
+      ],
+      "example": "Roommates noticed more interaction during a shared meal without phones.",
+      "example_zh": "室友们发现，不带手机一起吃饭时，彼此互动更多了。",
+      "collocation": "social interaction / online interaction / positive interaction",
+      "difficulty": 4,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_17",
+      "word": "platform",
+      "phonetic": "/ˈplætfɔːm/",
+      "pos": "n.",
+      "meaning": "平台；社交媒体平台；讲台",
+      "meanings": [
+        "n. 平台；台子；社交平台"
+      ],
+      "example": "A platform may shape which posts reappear in a student's feed.",
+      "example_zh": "平台可能影响哪些帖子会再次出现在学生的信息流中。",
+      "collocation": "social media platform / digital platform / online platform",
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_18",
+      "word": "filter",
+      "phonetic": "/ˈfɪltə(r)/",
+      "pos": "v.",
+      "meaning": "过滤；筛选；净化",
+      "meanings": [
+        "v. 过滤；筛选",
+        "n. 过滤器；滤镜"
+      ],
+      "example": "The class learned to filter online claims by checking their sources and evidence.",
+      "example_zh": "全班通过核对来源和证据来筛选网上的说法。",
+      "collocation": "filter out / filter information / spam filter",
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_19",
+      "word": "habit",
+      "phonetic": "/ˈhæbɪt/",
+      "pos": "n.",
+      "meaning": "习惯；习性；常规行为",
+      "meanings": [
+        "n. 习惯；习性"
+      ],
+      "example": "The class tracked one screen habit for two weeks before deciding what to change.",
+      "example_zh": "全班记录了一项屏幕使用习惯两周，再决定要改变什么。",
+      "collocation": "form a habit / break a habit / good habit",
+      "difficulty": 2,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_20",
+      "word": "mindful",
+      "phonetic": "/ˈmaɪndfʊl/",
+      "pos": "adj.",
+      "meaning": "用心的；留意的；正念的",
+      "meanings": [
+        "adj. 有意识的；留意的；正念的"
+      ],
+      "example": "A mindful pause helped the listener choose a follow-up question rather than rush to reply.",
+      "example_zh": "有意识地停顿片刻，让倾听者先想好追问，而不是急着回应。",
+      "collocation": "be mindful of / mindful eating / mindful practice",
+      "difficulty": 4,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit01"
+      ]
+    },
+    {
+      "id": "rw3_unit01_21",
+      "word": "message",
+      "phonetic": "/ˈmesɪdʒ/",
+      "pos": "n.",
+      "meaning": "消息；信息；留言",
+      "meanings": ["n. 消息；信息；留言"],
+      "example": "A short message worked well when information was simple and time was short.",
+      "example_zh": "信息简单、时间紧迫时，一条简短消息就很合适。",
+      "collocation": "send a message / text message / leave a message",
+      "difficulty": 2,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": ["college_english_rw3", "edition4", "unit01", "article-anchor"]
+    },
+    {
+      "id": "rw3_unit01_22",
+      "word": "lonely",
+      "phonetic": "/ˈləʊnli/",
+      "pos": "adj.",
+      "meaning": "孤独的；寂寞的",
+      "meanings": ["adj. 孤独的；寂寞的"],
+      "example": "Several members felt lonely even while names and alerts filled their screens.",
+      "example_zh": "尽管屏幕上满是联系人和提醒，仍有几位成员感到孤独。",
+      "collocation": "feel lonely / a lonely moment / lonely but connected",
+      "difficulty": 2,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": ["college_english_rw3", "edition4", "unit01", "article-anchor"]
+    },
+    {
+      "id": "rw3_unit01_23",
+      "word": "communication",
+      "phonetic": "/kəˌmjuːnɪˈkeɪʃn/",
+      "pos": "n.",
+      "meaning": "交流；沟通；通信",
+      "meanings": ["n. 交流；沟通；通信"],
+      "example": "The club's communication rule asked listeners to summarize what they heard before replying.",
+      "example_zh": "社团的沟通规则要求倾听者先复述听到的内容，再作回应。",
+      "collocation": "effective communication / communication skills / open communication",
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": ["college_english_rw3", "edition4", "unit01", "article-anchor"]
+    },
+    {
+      "id": "rw3_unit01_24",
+      "word": "anxious",
+      "phonetic": "/ˈæŋkʃəs/",
+      "pos": "adj.",
+      "meaning": "焦虑的；不安的；渴望的",
+      "meanings": ["adj. 焦虑的；不安的；渴望的"],
+      "example": "Some members felt anxious that an urgent message might arrive during the exercise.",
+      "example_zh": "一些成员担心练习期间会收到紧急消息，因此感到不安。",
+      "collocation": "feel anxious / anxious about / anxious to know",
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": ["college_english_rw3", "edition4", "unit01", "article-anchor"]
+    },
+    {
+      "id": "rw3_unit01_25",
+      "word": "carefully",
+      "phonetic": "/ˈkeəfəli/",
+      "pos": "adv.",
+      "meaning": "仔细地；谨慎地；认真地",
+      "meanings": ["adv. 仔细地；谨慎地；认真地"],
+      "example": "After pausing, the listener could choose words more carefully.",
+      "example_zh": "停顿片刻后，倾听者能够更谨慎地选择措辞。",
+      "collocation": "listen carefully / read carefully / consider carefully",
+      "difficulty": 2,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": ["college_english_rw3", "edition4", "unit01", "article-anchor"]
+    },
+    {
+      "id": "rw3_unit01_26",
+      "word": "session",
+      "phonetic": "/ˈseʃn/",
+      "pos": "n.",
+      "meaning": "一场活动；一节课；会议时段",
+      "meanings": ["n. 一场活动；一节课；会议时段"],
+      "example": "By the third session, a pause no longer seemed like a failure.",
+      "example_zh": "到了第三次活动时，停顿已不再像是一种失败。",
+      "collocation": "training session / discussion session / attend a session",
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": ["college_english_rw3", "edition4", "unit01", "article-anchor"]
+    },
+    {
+      "id": "rw3_unit01_27",
+      "word": "converse",
+      "phonetic": "/kənˈvɜːs/",
+      "pos": "v.",
+      "meaning": "交谈；谈话；交流",
+      "meanings": ["v. 交谈；谈话；交流"],
+      "example": "The members chose to converse face to face when a friend needed a patient listener.",
+      "example_zh": "朋友需要耐心倾听时，成员们选择面对面交谈。",
+      "collocation": "converse with someone / converse openly / converse in English",
+      "difficulty": 4,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": ["college_english_rw3", "edition4", "unit01", "article-anchor"]
+    },
+    {
+      "id": "rw3_unit01_28",
+      "word": "readiness",
+      "phonetic": "/ˈredinəs/",
+      "pos": "n.",
+      "meaning": "准备状态；准备就绪；愿意",
+      "meanings": ["n. 准备状态；准备就绪；愿意"],
+      "example": "Digital readiness includes choosing a tool that fits the purpose of the moment.",
+      "example_zh": "数字生活的准备状态包括选择适合当下目的的工具。",
+      "collocation": "readiness for change / operational readiness / show readiness",
+      "difficulty": 4,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": ["college_english_rw3", "edition4", "unit01", "article-anchor"]
+    },
+    {
+      "id": "rw3_unit01_29",
+      "word": "experiment",
+      "phonetic": "/ɪkˈsperɪmənt/",
+      "pos": "n.",
+      "meaning": "实验；试验；尝试",
+      "meanings": ["n. 实验；试验；尝试"],
+      "example": "The club called its listening activity an experiment for learning, not a scientific study.",
+      "example_zh": "社团把倾听活动称为学习尝试，而不是科学研究。",
+      "collocation": "conduct an experiment / a scientific experiment / experiment with",
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": ["college_english_rw3", "edition4", "unit01", "article-anchor"]
+    },
+    {
+      "id": "rw3_unit01_30",
+      "word": "purpose",
+      "phonetic": "/ˈpɜːpəs/",
+      "pos": "n.",
+      "meaning": "目的；意图；用途",
+      "meanings": ["n. 目的；意图；用途"],
+      "example": "Before opening a platform, Mei asked what purpose the next check would serve.",
+      "example_zh": "打开平台前，梅先想了想这次查看是为了什么。",
+      "collocation": "a clear purpose / purpose of doing / serve a purpose",
+      "difficulty": 3,
+      "unit_id": "unit01",
+      "unit_title": "The digital age: Are we ready?",
+      "tags": ["college_english_rw3", "edition4", "unit01", "article-anchor"]
+    },
+    {
+      "id": "rw3_unit02_01",
+      "word": "explorer",
+      "phonetic": "/ɪkˈsplɔːrə(r)/",
+      "pos": "n.",
+      "meaning": "探索者；探险家",
+      "meanings": [
+        "n. 探索者；探险家"
+      ],
+      "example": "Zheng He was one of the greatest explorers in Chinese history.",
+      "example_zh": "郑和是中国历史上最伟大的探险家之一。",
+      "collocation": "great explorer / space explorer / explorer of ideas",
+      "difficulty": 2,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_02",
+      "word": "voyage",
+      "phonetic": "/ˈvɔɪɪdʒ/",
+      "pos": "n.",
+      "meaning": "（长途）航行；航程；旅程",
+      "meanings": [
+        "n. 长途航行；海上旅程"
+      ],
+      "example": "His seven voyages reached ports across South Asia, Arabia, and East Africa.",
+      "example_zh": "他的七次航行到达了南亚、阿拉伯和东非的各个港口。",
+      "collocation": "ocean voyage / embark on a voyage / maiden voyage",
+      "difficulty": 3,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_03",
+      "word": "fleet",
+      "phonetic": "/fliːt/",
+      "pos": "n.",
+      "meaning": "舰队；船队；机队",
+      "meanings": [
+        "n. 舰队；船队"
+      ],
+      "example": "The museum displayed a model of the fleet that sailed across the Indian Ocean.",
+      "example_zh": "博物馆展出了曾横渡印度洋的船队模型。",
+      "collocation": "naval fleet / merchant fleet / fleet of ships",
+      "difficulty": 3,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_04",
+      "word": "legacy",
+      "phonetic": "/ˈleɡəsi/",
+      "pos": "n.",
+      "meaning": "遗产；历史遗留；前人留下的东西",
+      "meanings": [
+        "n. 遗产；遗留物（精神或历史上的）"
+      ],
+      "example": "The exhibition traces the legacy of Zheng He's voyages through maps and port records.",
+      "example_zh": "展览通过地图和港口记录梳理郑和航行留下的历史遗产。",
+      "collocation": "lasting legacy / leave a legacy / cultural legacy",
+      "difficulty": 4,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_05",
+      "word": "biography",
+      "phonetic": "/baɪˈɒɡrəfi/",
+      "pos": "n.",
+      "meaning": "传记；人物传；生平",
+      "meanings": [
+        "n. 传记；人物传"
+      ],
+      "example": "A good biography reveals the real person behind public achievements.",
+      "example_zh": "一本好传记揭示了公众成就背后的真实人物。",
+      "collocation": "write a biography / authorized biography / biography of…",
+      "difficulty": 3,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_06",
+      "word": "humanitarian",
+      "phonetic": "/hjuːˌmænɪˈteəriən/",
+      "pos": "adj./n.",
+      "meaning": "人道主义的；人道救援的；人道主义者",
+      "meanings": [
+        "adj. 人道主义的；人道救援的",
+        "n. 人道主义者"
+      ],
+      "example": "Hepburn was a humanitarian who used her public voice to advocate for children's rights.",
+      "example_zh": "赫本是一位人道主义者，曾公开为儿童权利发声。",
+      "collocation": "humanitarian aid / humanitarian crisis / humanitarian work",
+      "difficulty": 5,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_07",
+      "word": "elegant",
+      "phonetic": "/ˈelɪɡənt/",
+      "pos": "adj.",
+      "meaning": "优雅的；雅致的；高雅的",
+      "meanings": [
+        "adj. 优雅的；雅致的"
+      ],
+      "example": "Her elegant style on screen made Audrey Hepburn a timeless global icon.",
+      "example_zh": "她在银幕上的优雅风格使奥黛丽·赫本成为永恒的全球偶像。",
+      "collocation": "elegant style / elegant solution / look elegant",
+      "difficulty": 3,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_08",
+      "word": "charity",
+      "phonetic": "/ˈtʃærəti/",
+      "pos": "n.",
+      "meaning": "慈善；仁慈；慈善机构",
+      "meanings": [
+        "n. 慈善；慈善组织"
+      ],
+      "example": "A local charity works with community partners to identify urgent needs.",
+      "example_zh": "当地慈善机构与社区伙伴合作，了解最紧迫的需求。",
+      "collocation": "charity work / raise money for charity / donate to charity",
+      "difficulty": 2,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_09",
+      "word": "inspire",
+      "phonetic": "/ɪnˈspaɪə(r)/",
+      "pos": "v.",
+      "meaning": "激励；启发；激起（感情或想法）",
+      "meanings": [
+        "v. 激励；启发；使产生灵感"
+      ],
+      "example": "Their life stories continue to inspire young people around the world.",
+      "example_zh": "他们的人生故事继续激励着世界各地的年轻人。",
+      "collocation": "inspire confidence / inspire others / be inspired by",
+      "difficulty": 3,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_10",
+      "word": "perseverance",
+      "phonetic": "/ˌpɜːsɪˈvɪərəns/",
+      "pos": "n.",
+      "meaning": "坚持不懈；毅力；耐力",
+      "meanings": [
+        "n. 坚持；毅力"
+      ],
+      "example": "Perseverance helped the research team continue after its first plan failed.",
+      "example_zh": "最初方案失败后，团队依靠坚持不懈继续推进研究。",
+      "collocation": "show perseverance / with perseverance / require perseverance",
+      "difficulty": 5,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_11",
+      "word": "ambition",
+      "phonetic": "/æmˈbɪʃn/",
+      "pos": "n.",
+      "meaning": "雄心；抱负；野心；渴望",
+      "meanings": [
+        "n. 雄心；抱负；野心"
+      ],
+      "example": "The team's ambition was to document each port while listening to local accounts.",
+      "example_zh": "团队的抱负是记录各个港口，同时倾听当地人的讲述。",
+      "collocation": "have ambition / burning ambition / political ambition",
+      "difficulty": 3,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_12",
+      "word": "compassion",
+      "phonetic": "/kəmˈpæʃn/",
+      "pos": "n.",
+      "meaning": "同情心；怜悯；慈悲",
+      "meanings": [
+        "n. 同情心；怜悯"
+      ],
+      "example": "Compassion begins with listening to people describe the support they need.",
+      "example_zh": "同情心始于倾听人们说明自己需要怎样的帮助。",
+      "collocation": "show compassion / feel compassion for / compassion fatigue",
+      "difficulty": 4,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_13",
+      "word": "portrait",
+      "phonetic": "/ˈpɔːtrɪt/",
+      "pos": "n.",
+      "meaning": "肖像；人物描写；画像",
+      "meanings": [
+        "n. 肖像画；人物描写",
+        "v. 描绘（portray）"
+      ],
+      "example": "The article paints a vivid portrait of two extraordinary historical figures.",
+      "example_zh": "这篇文章生动地描绘了两位非凡历史人物的肖像。",
+      "collocation": "paint a portrait / character portrait / portrait of…",
+      "difficulty": 4,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_14",
+      "word": "era",
+      "phonetic": "/ˈɪərə/",
+      "pos": "n.",
+      "meaning": "时代；历史时期；纪元",
+      "meanings": [
+        "n. 时代；时期；纪元"
+      ],
+      "example": "Each era creates its own kind of hero, shaped by unique challenges.",
+      "example_zh": "每个时代都会产生其独特挑战所塑造的英雄。",
+      "collocation": "modern era / historical era / a new era of…",
+      "difficulty": 3,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_15",
+      "word": "mission",
+      "phonetic": "/ˈmɪʃn/",
+      "pos": "n.",
+      "meaning": "使命；任务；重要目标",
+      "meanings": [
+        "n. 使命；任务；特派工作"
+      ],
+      "example": "In 1988, Hepburn's UNICEF mission took her to Ethiopia.",
+      "example_zh": "1988年，赫本以 UNICEF 亲善大使身份赴埃塞俄比亚执行任务。",
+      "collocation": "on a mission / mission accomplished / humanitarian mission",
+      "difficulty": 3,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_16",
+      "word": "remarkable",
+      "phonetic": "/rɪˈmɑːkəbl/",
+      "pos": "adj.",
+      "meaning": "非凡的；卓越的；值得关注的",
+      "meanings": [
+        "adj. 非凡的；卓越的；出众的"
+      ],
+      "example": "The exhibit used verified evidence to explain why each life was remarkable.",
+      "example_zh": "展览用核实过的证据说明每段人生的非凡之处。",
+      "collocation": "remarkable achievement / truly remarkable / remarkable story",
+      "difficulty": 4,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_17",
+      "word": "witness",
+      "phonetic": "/ˈwɪtnɪs/",
+      "pos": "v./n.",
+      "meaning": "见证；目睹；目击者；证人",
+      "meanings": [
+        "v. 见证；目睹",
+        "n. 目击者；证人"
+      ],
+      "example": "Students witnessed how new evidence changed the exhibit's account of the voyages.",
+      "example_zh": "学生们见证了新证据如何改变展览对这些航行的叙述。",
+      "collocation": "bear witness to / eyewitness / witness history",
+      "difficulty": 3,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_18",
+      "word": "devotion",
+      "phonetic": "/dɪˈvəʊʃn/",
+      "pos": "n.",
+      "meaning": "奉献；热爱；忠诚；虔诚",
+      "meanings": [
+        "n. 奉献；热爱；忠诚"
+      ],
+      "example": "Hepburn's work with UNICEF reflected her devotion to children's rights.",
+      "example_zh": "赫本在 UNICEF 的工作体现了她对儿童权利事业的投入。",
+      "collocation": "show devotion / devotion to duty / total devotion",
+      "difficulty": 4,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_19",
+      "word": "narrative",
+      "phonetic": "/ˈnærətɪv/",
+      "pos": "n.",
+      "meaning": "叙事；故事；描述；叙述手法",
+      "meanings": [
+        "n. 叙事；故事；叙述方式"
+      ],
+      "example": "A well-crafted narrative shows not only success but also setbacks and growth.",
+      "example_zh": "精心撰写的叙事不仅展示成功，也展示挫折与成长。",
+      "collocation": "compelling narrative / narrative structure / shape the narrative",
+      "difficulty": 5,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit02_20",
+      "word": "admire",
+      "phonetic": "/ədˈmaɪə(r)/",
+      "pos": "v.",
+      "meaning": "钦佩；欣赏；崇拜；赞美",
+      "meanings": [
+        "v. 钦佩；欣赏；崇拜"
+      ],
+      "example": "People across the world admire those who use their fame to serve others.",
+      "example_zh": "世界各地的人都钦佩那些用名气服务他人的人。",
+      "collocation": "deeply admire / admire someone for / be admired by",
+      "difficulty": 2,
+      "unit_id": "unit02",
+      "unit_title": "Remarkable lives: Zheng He and Audrey Hepburn",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit02"
+      ]
+    },
+    {
+      "id": "rw3_unit03_01",
+      "word": "travel",
+      "phonetic": "/ˈtrævl/",
+      "pos": "v.",
+      "meaning": "旅行；旅游；行进",
+      "meanings": [
+        "v./n. 旅行；旅游"
+      ],
+      "example": "Before the trip, Mei checked how long it would take to travel from the station to her hostel.",
+      "example_zh": "出发前，梅核对了从车站到旅舍需要多长时间。",
+      "collocation": "travel abroad / travel light / world travel",
+      "difficulty": 1,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_02",
+      "word": "journey",
+      "phonetic": "/ˈdʒɜːni/",
+      "pos": "n.",
+      "meaning": "旅程；旅行；历程（比喻义）",
+      "meanings": [
+        "n. 旅程；旅行",
+        "n. 人生历程（比喻）"
+      ],
+      "example": "The journey from Chengdu to Xi'an took Lin past changing fields, rivers, and city landscapes.",
+      "example_zh": "从成都到西安的旅程中，林一路看见田野、河流与城市景观的变化。",
+      "collocation": "a long journey / journey of discovery / on a journey",
+      "difficulty": 1,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_03",
+      "word": "destination",
+      "phonetic": "/ˌdestɪˈneɪʃn/",
+      "pos": "n.",
+      "meaning": "目的地；终点；目标",
+      "meanings": [
+        "n. 目的地；终点"
+      ],
+      "example": "Xi'an was Lin's destination, but she left the afternoon open for an unplanned stop.",
+      "example_zh": "西安是林此行的目的地，但她把下午留空，以便临时停留。",
+      "collocation": "travel destination / popular destination / reach a destination",
+      "difficulty": 3,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_04",
+      "word": "solo",
+      "phonetic": "/ˈsəʊləʊ/",
+      "pos": "adj.",
+      "meaning": "独自的；单独的；单独行动的",
+      "meanings": [
+        "adj. 独自的；单独的"
+      ],
+      "example": "Traveling solo, Mei kept her hostel address handy and shared her arrival time with her sister.",
+      "example_zh": "独自旅行时，梅把旅舍地址放在手边，并把预计抵达时间告诉了姐姐。",
+      "collocation": "solo travel / solo performance / go solo",
+      "difficulty": 3,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_05",
+      "word": "itinerary",
+      "phonetic": "/aɪˈtɪnərəri/",
+      "pos": "n.",
+      "meaning": "旅程计划；行程表；路线",
+      "meanings": [
+        "n. 行程计划；路线安排"
+      ],
+      "example": "Mei's itinerary listed her hostel and one museum but left the afternoon unplanned.",
+      "example_zh": "梅的行程表列出了旅舍和一座博物馆，但下午没有安排。",
+      "collocation": "plan an itinerary / flexible itinerary / follow the itinerary",
+      "difficulty": 5,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_06",
+      "word": "luggage",
+      "phonetic": "/ˈlʌɡɪdʒ/",
+      "pos": "n.",
+      "meaning": "行李；旅行包",
+      "meanings": [
+        "n. 行李；旅行包（不可数）"
+      ],
+      "example": "Mei packed light luggage so she could keep one hand free for her ticket and phone.",
+      "example_zh": "梅轻装出行，以便空出一只手拿车票和手机。",
+      "collocation": "carry-on luggage / check luggage / pack luggage",
+      "difficulty": 2,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_07",
+      "word": "hostel",
+      "phonetic": "/ˈhɒstl/",
+      "pos": "n.",
+      "meaning": "青年旅社；廉价旅馆",
+      "meanings": [
+        "n. 青年旅社；廉价旅馆"
+      ],
+      "example": "Before leaving the station, Mei checked the hostel address and her reservation.",
+      "example_zh": "离开车站前，梅核对了旅舍地址和预订信息。",
+      "collocation": "youth hostel / book a hostel / stay at a hostel",
+      "difficulty": 3,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_08",
+      "word": "landscape",
+      "phonetic": "/ˈlændskeɪp/",
+      "pos": "n.",
+      "meaning": "风景；景色；地形地貌",
+      "meanings": [
+        "n. 风景；景色；地形地貌"
+      ],
+      "example": "The landscape changed from fields and rivers to denser neighborhoods as Lin's train neared Xi'an.",
+      "example_zh": "随着林乘坐的列车驶近西安，沿途景观从田野、河流逐渐变为密集街区。",
+      "collocation": "breathtaking landscape / urban landscape / landscape photography",
+      "difficulty": 3,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_09",
+      "word": "encounter",
+      "phonetic": "/ɪnˈkaʊntə(r)/",
+      "pos": "v.",
+      "meaning": "偶遇；遭遇；邂逅",
+      "meanings": [
+        "v. 偶遇；遭遇",
+        "n. 邂逅；碰面"
+      ],
+      "example": "A brief encounter with a bookseller helped Mei find a safer street.",
+      "example_zh": "与书店老板的一次短暂交谈，帮助梅找到了一条更安全的街道。",
+      "collocation": "unexpected encounter / encounter difficulty / first encounter",
+      "difficulty": 4,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_10",
+      "word": "perspective",
+      "phonetic": "/pəˈspektɪv/",
+      "pos": "n.",
+      "meaning": "视角；观点；看法；透视感",
+      "meanings": [
+        "n. 视角；观点；看法"
+      ],
+      "example": "After the conversation, Mei's perspective on asking for help while traveling alone began to change.",
+      "example_zh": "交谈之后，梅对独自旅行时向他人求助的看法开始改变。",
+      "collocation": "from a different perspective / global perspective / put in perspective",
+      "difficulty": 4,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_11",
+      "word": "navigate",
+      "phonetic": "/ˈnævɪɡeɪt/",
+      "pos": "v.",
+      "meaning": "导航；找路；应对（复杂情况）",
+      "meanings": [
+        "v. 导航；找路；应对"
+      ],
+      "example": "Lin used the station signs to navigate to the correct platform after the track changed.",
+      "example_zh": "到站台变更后，林借助车站标识找到了正确的站台。",
+      "collocation": "navigate through / navigate a city / navigate challenges",
+      "difficulty": 4,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_12",
+      "word": "curiosity",
+      "phonetic": "/ˌkjʊəriˈɒsəti/",
+      "pos": "n.",
+      "meaning": "好奇心；求知欲；稀奇的人或事",
+      "meanings": [
+        "n. 好奇心；求知欲"
+      ],
+      "example": "Curiosity led Lin to ask the retired teacher how life had changed along the route.",
+      "example_zh": "好奇心促使林询问那位退休教师，沿线人们的生活发生了怎样的变化。",
+      "collocation": "natural curiosity / out of curiosity / satisfy curiosity",
+      "difficulty": 4,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_13",
+      "word": "reservation",
+      "phonetic": "/ˌrezəˈveɪʃn/",
+      "pos": "n.",
+      "meaning": "预订；保留；保留意见",
+      "meanings": [
+        "n. 预订；预约",
+        "n. 保留（意见）"
+      ],
+      "example": "Mei checked her hostel reservation before leaving the station.",
+      "example_zh": "离开车站前，梅核对了旅舍预订信息。",
+      "collocation": "make a reservation / hotel reservation / advance reservation",
+      "difficulty": 3,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_14",
+      "word": "wander",
+      "phonetic": "/ˈwɒndə(r)/",
+      "pos": "v.",
+      "meaning": "漫游；闲逛；漫步",
+      "meanings": [
+        "v. 漫游；闲逛；徘徊"
+      ],
+      "example": "Mei wandered through the covered market while waiting for the rain to stop.",
+      "example_zh": "等雨停时，梅在有顶棚的集市里闲逛。",
+      "collocation": "wander around / wander off / mind wanders",
+      "difficulty": 3,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_15",
+      "word": "memorable",
+      "phonetic": "/ˈmemərəbl/",
+      "pos": "adj.",
+      "meaning": "难忘的；值得纪念的；印象深刻的",
+      "meanings": [
+        "adj. 难忘的；令人印象深刻的"
+      ],
+      "example": "The conversation with a local bookseller made the detour memorable for Mei.",
+      "example_zh": "与当地书店老板的交谈，让这次绕行成为梅难忘的经历。",
+      "collocation": "memorable experience / truly memorable / make it memorable",
+      "difficulty": 3,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_16",
+      "word": "adapt",
+      "phonetic": "/əˈdæpt/",
+      "pos": "v.",
+      "meaning": "适应；调整；改编",
+      "meanings": [
+        "v. 适应；调整；改编"
+      ],
+      "example": "Mei adapted her route when rain made the riverside path slippery.",
+      "example_zh": "雨水让河边小路变滑后，梅调整了路线。",
+      "collocation": "adapt to / adapt well / adapt quickly",
+      "difficulty": 3,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_17",
+      "word": "route",
+      "phonetic": "/ruːt/",
+      "pos": "n.",
+      "meaning": "路线；路途；方向",
+      "meanings": [
+        "n. 路线；路途；途径"
+      ],
+      "example": "The desk clerk marked a route to the market that avoided the closed riverside path.",
+      "example_zh": "前台工作人员标出一条避开封闭河边小路、通往集市的路线。",
+      "collocation": "scenic route / trade route / route map / plan a route",
+      "difficulty": 2,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_18",
+      "word": "local",
+      "phonetic": "/ˈləʊkl/",
+      "pos": "adj.",
+      "meaning": "当地的；本地的；地方性的",
+      "meanings": [
+        "adj. 当地的；本地的",
+        "n. 当地居民"
+      ],
+      "example": "A local bookseller showed Mei a safer street after she missed a turn.",
+      "example_zh": "梅走错路口后，当地书店老板为她指了一条更安全的街道。",
+      "collocation": "local culture / local food / local residents",
+      "difficulty": 1,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_19",
+      "word": "departure",
+      "phonetic": "/dɪˈpɑːtʃə(r)/",
+      "pos": "n.",
+      "meaning": "出发；离开；启程",
+      "meanings": [
+        "n. 出发；离开；启程"
+      ],
+      "example": "Before departure, Lin wrote down one expectation and one question.",
+      "example_zh": "出发前，林写下了一个期待和一个问题。",
+      "collocation": "departure time / point of departure / departure gate",
+      "difficulty": 3,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit03_20",
+      "word": "transform",
+      "phonetic": "/trænsˈfɔːm/",
+      "pos": "v.",
+      "meaning": "转变；改变；使变形",
+      "meanings": [
+        "v. 彻底改变；使转变"
+      ],
+      "example": "The detour transformed Mei's view of travel: it could include noticing people as well as following a schedule.",
+      "example_zh": "这次绕行改变了梅对旅行的看法：旅行不仅是按计划行进，也可以留心身边的人。",
+      "collocation": "transform into / completely transform / transform lives",
+      "difficulty": 4,
+      "unit_id": "unit03",
+      "unit_title": "Travel: a journey of growth",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit03"
+      ]
+    },
+    {
+      "id": "rw3_unit04_01",
+      "word": "worker",
+      "phonetic": "/ˈwɜːkə(r)/",
+      "pos": "n.",
+      "meaning": "工人；从业者；劳动者",
+      "meanings": [
+        "n. 工人；劳动者；从业者"
+      ],
+      "example": "The worker followed the room checklist and reported a loose chair before students arrived.",
+      "example_zh": "工作人员按房间检查清单逐项检查，并在学生到来前报告了一把松动的椅子。",
+      "collocation": "skilled worker / office worker / factory worker",
+      "difficulty": 1,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_02",
+      "word": "laborer",
+      "phonetic": "/ˈleɪbərə(r)/",
+      "pos": "n.",
+      "meaning": "体力劳动者；工人；劳工",
+      "meanings": [
+        "n. 体力劳动者；劳工"
+      ],
+      "example": "The laborer measured each panel before moving it to the next station.",
+      "example_zh": "体力劳动者在把每块板材送往下一工位前都先测量了一遍。",
+      "collocation": "migrant laborer / unskilled laborer / manual laborer",
+      "difficulty": 3,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_03",
+      "word": "craft",
+      "phonetic": "/krɑːft/",
+      "pos": "n.",
+      "meaning": "工艺；手艺；技艺",
+      "meanings": [
+        "n. 工艺；手艺；技艺",
+        "v. 精心制作"
+      ],
+      "example": "Violin repair is a craft that combines careful measurement with a trained ear.",
+      "example_zh": "小提琴修复是一门结合细致测量与敏锐听觉的手艺。",
+      "collocation": "master a craft / traditional craft / craft skills",
+      "difficulty": 3,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_04",
+      "word": "tradition",
+      "phonetic": "/trəˈdɪʃn/",
+      "pos": "n.",
+      "meaning": "传统；惯例；习俗",
+      "meanings": [
+        "n. 传统；惯例；风俗"
+      ],
+      "example": "The workshop kept its tradition alive by teaching established methods and testing a new measuring tool.",
+      "example_zh": "工作室通过传授已有方法并测试新的测量工具，让传统延续下来。",
+      "collocation": "cultural tradition / long tradition / break with tradition",
+      "difficulty": 2,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_05",
+      "word": "pride",
+      "phonetic": "/praɪd/",
+      "pos": "n.",
+      "meaning": "自豪；骄傲；自尊心",
+      "meanings": [
+        "n. 自豪；骄傲；自尊"
+      ],
+      "example": "Lin took pride in explaining the repair and the checks behind it.",
+      "example_zh": "林为自己能讲清这次修理及其背后的检查步骤感到自豪。",
+      "collocation": "take pride in / sense of pride / national pride",
+      "difficulty": 2,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_06",
+      "word": "skill",
+      "phonetic": "/skɪl/",
+      "pos": "n.",
+      "meaning": "技能；技巧；本领",
+      "meanings": [
+        "n. 技能；技巧；能力"
+      ],
+      "example": "A violin apprentice develops the skill of judging a joint through repeated measurements.",
+      "example_zh": "小提琴学徒通过反复测量，逐渐练就判断接合处的技能。",
+      "collocation": "develop a skill / language skill / professional skill",
+      "difficulty": 1,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_07",
+      "word": "routine",
+      "phonetic": "/ruːˈtiːn/",
+      "pos": "n.",
+      "meaning": "常规；日常程序；例行公事",
+      "meanings": [
+        "n. 常规；日常程序；例行公事",
+        "adj. 例行的；常规的"
+      ],
+      "example": "The checklist made the routine clear, but the worker still had to notice the loose chair.",
+      "example_zh": "清单让例行流程一目了然，但工作人员仍需留意那把松动的椅子。",
+      "collocation": "daily routine / follow a routine / break the routine",
+      "difficulty": 3,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_08",
+      "word": "fulfillment",
+      "phonetic": "/fʊlˈfɪlmənt/",
+      "pos": "n.",
+      "meaning": "成就感；满足感；实现",
+      "meanings": [
+        "n. 成就感；满足感；完成"
+      ],
+      "example": "Lin found fulfillment in work that protected the instrument and kept the customer informed.",
+      "example_zh": "林在保护乐器并及时告知顾客的工作中获得了成就感。",
+      "collocation": "sense of fulfillment / personal fulfillment / find fulfillment",
+      "difficulty": 4,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_09",
+      "word": "dedication",
+      "phonetic": "/ˌdedɪˈkeɪʃn/",
+      "pos": "n.",
+      "meaning": "专注；奉献；敬业精神",
+      "meanings": [
+        "n. 专注；奉献；献身"
+      ],
+      "example": "Lin's dedication showed in the care he took to measure the joint twice.",
+      "example_zh": "林对工作的投入体现在他认真地把接合处测量了两遍。",
+      "collocation": "show dedication / total dedication / dedication to work",
+      "difficulty": 4,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_10",
+      "word": "apprentice",
+      "phonetic": "/əˈprentɪs/",
+      "pos": "n.",
+      "meaning": "学徒；见习者",
+      "meanings": [
+        "n. 学徒；见习者"
+      ],
+      "example": "The apprentice measured the violin joint twice before adjusting it.",
+      "example_zh": "学徒在调整小提琴接合处前测量了两次。",
+      "collocation": "serve as an apprentice / take on an apprentice / apprentice carpenter",
+      "difficulty": 4,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_11",
+      "word": "master",
+      "phonetic": "/ˈmɑːstə(r)/",
+      "pos": "n.",
+      "meaning": "大师；师傅；能手；主人",
+      "meanings": [
+        "n. 大师；能手；主人",
+        "v. 掌握；精通"
+      ],
+      "example": "The master asked the apprentice to explain why the joint needed another measurement.",
+      "example_zh": "师傅让学徒解释为什么还需要再测量一次接合处。",
+      "collocation": "master craftsman / master of ceremonies / master a skill",
+      "difficulty": 2,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_12",
+      "word": "dignity",
+      "phonetic": "/ˈdɪɡnəti/",
+      "pos": "n.",
+      "meaning": "尊严；尊重；高贵",
+      "meanings": [
+        "n. 尊严；高贵；庄重"
+      ],
+      "example": "The class discussed ways to respect the dignity of people in every occupation.",
+      "example_zh": "全班讨论了如何尊重各行各业从业者的尊严。",
+      "collocation": "sense of dignity / human dignity / maintain dignity",
+      "difficulty": 4,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_13",
+      "word": "passion",
+      "phonetic": "/ˈpæʃn/",
+      "pos": "n.",
+      "meaning": "激情；热情；热爱",
+      "meanings": [
+        "n. 激情；热情；强烈的爱好"
+      ],
+      "example": "Mei wrote with passion about the artisans' careful work and knowledge of each stitch.",
+      "example_zh": "梅满怀热情地写下了她对匠人细致技艺和针法知识的观察。",
+      "collocation": "have a passion for / pursue a passion / burning passion",
+      "difficulty": 3,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_14",
+      "word": "occupation",
+      "phonetic": "/ˌɒkjuˈpeɪʃn/",
+      "pos": "n.",
+      "meaning": "职业；工作；占领",
+      "meanings": [
+        "n. 职业；工作；职务"
+      ],
+      "example": "The workshop discussion asked whether an occupation's title alone can show its value.",
+      "example_zh": "工作坊讨论了仅凭职业名称能否判断一份工作的价值。",
+      "collocation": "professional occupation / choose an occupation / occupational health",
+      "difficulty": 3,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_15",
+      "word": "workshop",
+      "phonetic": "/ˈwɜːkʃɒp/",
+      "pos": "n.",
+      "meaning": "车间；工作室；研讨会",
+      "meanings": [
+        "n. 车间；工作室；研讨会"
+      ],
+      "example": "The workshop compared an older measuring tool with a digital gauge before recording a new procedure.",
+      "example_zh": "工作室将旧式测量工具与数字量规进行比较后，记录了新的操作流程。",
+      "collocation": "craft workshop / training workshop / set up a workshop",
+      "difficulty": 2,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_16",
+      "word": "precision",
+      "phonetic": "/prɪˈsɪʒn/",
+      "pos": "n.",
+      "meaning": "精确；精密；准确性",
+      "meanings": [
+        "n. 精确；精密"
+      ],
+      "example": "Precision matters when a narrow gap can affect a violin joint's strength and sound.",
+      "example_zh": "接合处的细小缝隙会影响小提琴的牢固度和音色，因此精确度很重要。",
+      "collocation": "with precision / precision tools / high precision",
+      "difficulty": 4,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_17",
+      "word": "heritage",
+      "phonetic": "/ˈherɪtɪdʒ/",
+      "pos": "n.",
+      "meaning": "遗产；文化遗产；传统",
+      "meanings": [
+        "n. 遗产；文化遗产"
+      ],
+      "example": "The embroidery class treated heritage as knowledge practiced and taught by makers today.",
+      "example_zh": "刺绣课将文化遗产视为当代匠人正在实践和传授的知识。",
+      "collocation": "cultural heritage / world heritage / heritage site",
+      "difficulty": 4,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_18",
+      "word": "attitude",
+      "phonetic": "/ˈætɪtjuːd/",
+      "pos": "n.",
+      "meaning": "态度；看法；心态",
+      "meanings": [
+        "n. 态度；看法；姿态"
+      ],
+      "example": "The student's attitude toward routine changed after observing the judgment it required.",
+      "example_zh": "观察到例行工作所需的判断力后，这名学生改变了对常规工作的看法。",
+      "collocation": "positive attitude / change attitude / attitude toward",
+      "difficulty": 2,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_19",
+      "word": "rewarding",
+      "phonetic": "/rɪˈwɔːdɪŋ/",
+      "pos": "adj.",
+      "meaning": "有价值的；令人满意的；值得做的",
+      "meanings": [
+        "adj. 有价值的；令人满意的"
+      ],
+      "example": "Teaching the repair routine became rewarding when the new apprentice could explain each check.",
+      "example_zh": "新学徒能解释每项检查后，传授维修流程也变得令人满足。",
+      "collocation": "financially rewarding / emotionally rewarding / deeply rewarding",
+      "difficulty": 3,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit04_20",
+      "word": "excellence",
+      "phonetic": "/ˈeksələns/",
+      "pos": "n.",
+      "meaning": "卓越；优秀；出色",
+      "meanings": [
+        "n. 卓越；优秀；出类拔萃"
+      ],
+      "example": "The workshop pursued excellence by testing the repair and explaining the result to the customer.",
+      "example_zh": "工作室通过测试修复效果并向顾客说明结果来追求卓越。",
+      "collocation": "strive for excellence / pursue excellence / center of excellence",
+      "difficulty": 4,
+      "unit_id": "unit04",
+      "unit_title": "The dignity of labor",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit04"
+      ]
+    },
+    {
+      "id": "rw3_unit05_01",
+      "word": "astronaut",
+      "phonetic": "/ˈæstrənɔːt/",
+      "pos": "n.",
+      "meaning": "宇航员；航天员",
+      "meanings": [
+        "n. 宇航员；航天员"
+      ],
+      "example": "The astronaut read the warning panel aloud while her teammate checked the equipment.",
+      "example_zh": "宇航员读出了警示面板上的信息，同时由队友检查设备。",
+      "collocation": "become an astronaut / astronaut training / send astronauts to",
+      "difficulty": 3,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_02",
+      "word": "spacecraft",
+      "phonetic": "/ˈspeɪskrɑːft/",
+      "pos": "n.",
+      "meaning": "航天器；宇宙飞船",
+      "meanings": [
+        "n. 航天器；宇宙飞船"
+      ],
+      "example": "The spacecraft lost direct contact with Earth when it passed behind the Moon.",
+      "example_zh": "航天器飞到月球背面时，与地球的直接通信中断了。",
+      "collocation": "launch a spacecraft / manned spacecraft / spacecraft design",
+      "difficulty": 3,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_03",
+      "word": "exploration",
+      "phonetic": "/ˌekspləˈreɪʃn/",
+      "pos": "n.",
+      "meaning": "探索；探险；勘察",
+      "meanings": [
+        "n. 探索；探险；勘察"
+      ],
+      "example": "Space exploration turns curiosity into questions that instruments can test.",
+      "example_zh": "太空探索把好奇心转化为仪器能够检验的问题。",
+      "collocation": "space exploration / scientific exploration / exploration mission",
+      "difficulty": 3,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_04",
+      "word": "mission",
+      "phonetic": "/ˈmɪʃn/",
+      "pos": "n.",
+      "meaning": "任务；使命；出使",
+      "meanings": [
+        "n. 任务；使命；专项工作"
+      ],
+      "example": "The Chang'e-4 mission used a relay satellite to communicate with the lunar far-side lander.",
+      "example_zh": "嫦娥四号任务利用中继卫星与月球背面的着陆器通信。",
+      "collocation": "space mission / complete a mission / on a mission",
+      "difficulty": 3,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_05",
+      "word": "lunar",
+      "phonetic": "/ˈluːnə(r)/",
+      "pos": "adj.",
+      "meaning": "月球的；农历的",
+      "meanings": [
+        "adj. 月球的；月亮的；农历的"
+      ],
+      "example": "The team marked a possible landing area on a lunar map before discussing the slope.",
+      "example_zh": "团队先在月球地图上标出可能的着陆区域，再讨论坡度。",
+      "collocation": "lunar surface / lunar orbit / lunar new year",
+      "difficulty": 4,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_06",
+      "word": "orbit",
+      "phonetic": "/ˈɔːbɪt/",
+      "pos": "n.",
+      "meaning": "轨道；运行轨迹",
+      "meanings": [
+        "n. 轨道；运行轨迹",
+        "v. 绕轨道运行"
+      ],
+      "example": "Engineers checked whether the relay satellite's orbit could maintain a link with the probe and Earth.",
+      "example_zh": "工程师检查中继卫星的轨道能否让它与探测器和地球保持通信。",
+      "collocation": "enter orbit / circular orbit / orbit the Earth",
+      "difficulty": 3,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_07",
+      "word": "landing",
+      "phonetic": "/ˈlændɪŋ/",
+      "pos": "n.",
+      "meaning": "着陆；登陆；降落",
+      "meanings": [
+        "n. 着陆；降落；登陆"
+      ],
+      "example": "Before a simulated landing, students checked the slope and compared sensor readings.",
+      "example_zh": "模拟着陆前，学生检查了坡度并比较传感器读数。",
+      "collocation": "safe landing / moon landing / emergency landing",
+      "difficulty": 2,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_08",
+      "word": "endeavor",
+      "phonetic": "/ɪnˈdevə(r)/",
+      "pos": "n.",
+      "meaning": "努力；尽力；事业",
+      "meanings": [
+        "n. 努力；尽力；事业",
+        "v. 尽力；努力"
+      ],
+      "example": "Building a reliable relay link is a demanding endeavor for the mission team.",
+      "example_zh": "对任务团队来说，建立可靠的中继链路是一项艰巨的工程。",
+      "collocation": "human endeavor / joint endeavor / scientific endeavor",
+      "difficulty": 5,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_09",
+      "word": "breakthrough",
+      "phonetic": "/ˈbreɪkθruː/",
+      "pos": "n.",
+      "meaning": "突破；重大进展",
+      "meanings": [
+        "n. 突破；重大进展；突破口"
+      ],
+      "example": "Chang'e-4's first soft landing on the lunar far side was a breakthrough in exploration.",
+      "example_zh": "嫦娥四号首次在月球背面软着陆，是探月领域的一项重大突破。",
+      "collocation": "major breakthrough / scientific breakthrough / achieve a breakthrough",
+      "difficulty": 3,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_10",
+      "word": "innovation",
+      "phonetic": "/ˌɪnəˈveɪʃn/",
+      "pos": "n.",
+      "meaning": "创新；革新；新方法",
+      "meanings": [
+        "n. 创新；革新"
+      ],
+      "example": "The team tested a relay design as one possible innovation for solving the communication problem.",
+      "example_zh": "团队测试了一种中继设计，作为解决通信问题的一项创新方案。",
+      "collocation": "technological innovation / drive innovation / spirit of innovation",
+      "difficulty": 3,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_11",
+      "word": "research",
+      "phonetic": "/rɪˈsɜːtʃ/",
+      "pos": "n.",
+      "meaning": "研究；调查；科研",
+      "meanings": [
+        "n. 研究；调查",
+        "v. 研究；调查"
+      ],
+      "example": "The research team compared sensor readings before choosing a model landing site.",
+      "example_zh": "研究小组在选择模拟着陆点前比较了传感器读数。",
+      "collocation": "conduct research / scientific research / research findings",
+      "difficulty": 2,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_12",
+      "word": "telescope",
+      "phonetic": "/ˈtelɪskəʊp/",
+      "pos": "n.",
+      "meaning": "望远镜",
+      "meanings": [
+        "n. 望远镜"
+      ],
+      "example": "A telescope can reveal a distant surface, but a safe landing still depends on measurements and communication.",
+      "example_zh": "望远镜能够呈现遥远的表面，但安全着陆仍有赖于测量和通信。",
+      "collocation": "space telescope / powerful telescope / optical telescope",
+      "difficulty": 3,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_13",
+      "word": "gravity",
+      "phonetic": "/ˈɡrævəti/",
+      "pos": "n.",
+      "meaning": "重力；引力；严重性",
+      "meanings": [
+        "n. 重力；地心引力",
+        "n. 严重性（formal）"
+      ],
+      "example": "The exhibit showed how reduced gravity can alter movement during a station task.",
+      "example_zh": "展览展示了微重力环境如何改变空间站任务中的动作方式。",
+      "collocation": "force of gravity / low gravity / defy gravity",
+      "difficulty": 3,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_14",
+      "word": "station",
+      "phonetic": "/ˈsteɪʃn/",
+      "pos": "n.",
+      "meaning": "空间站；站；地位",
+      "meanings": [
+        "n. 站；空间站；工作台"
+      ],
+      "example": "The exhibit matched each space-station task with evidence that it had been completed safely.",
+      "example_zh": "展览将每项空间站任务与证明其已安全完成的证据对应起来。",
+      "collocation": "space station / research station / police station",
+      "difficulty": 2,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_15",
+      "word": "launch",
+      "phonetic": "/lɔːntʃ/",
+      "pos": "v.",
+      "meaning": "发射；发布；启动",
+      "meanings": [
+        "v. 发射；发布；启动",
+        "n. 发射；发布"
+      ],
+      "example": "The students checked the launch window before starting their simulated countdown.",
+      "example_zh": "学生们在启动模拟倒计时前检查了发射窗口。",
+      "collocation": "launch a rocket / product launch / launch an attack",
+      "difficulty": 2,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_16",
+      "word": "ambitious",
+      "phonetic": "/æmˈbɪʃəs/",
+      "pos": "adj.",
+      "meaning": "雄心勃勃的；有抱负的；宏大的",
+      "meanings": [
+        "adj. 雄心勃勃的；有抱负的"
+      ],
+      "example": "The team proposed an ambitious test plan with separate checks for timing, fuel, and signal strength.",
+      "example_zh": "团队提出了一项宏大的测试计划，分别检查时序、燃料和信号强度。",
+      "collocation": "ambitious plan / ambitious goal / highly ambitious",
+      "difficulty": 4,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_17",
+      "word": "cooperation",
+      "phonetic": "/kəʊˌɒpəˈreɪʃn/",
+      "pos": "n.",
+      "meaning": "合作；协作；配合",
+      "meanings": [
+        "n. 合作；协作；配合"
+      ],
+      "example": "Cooperation allowed the navigation and science teams to compare their evidence before acting.",
+      "example_zh": "协作使导航团队与科学团队能够在行动前比较各自的证据。",
+      "collocation": "close cooperation / international cooperation / in cooperation with",
+      "difficulty": 3,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_18",
+      "word": "data",
+      "phonetic": "/ˈdeɪtə/",
+      "pos": "n.",
+      "meaning": "数据；资料；信息",
+      "meanings": [
+        "n. 数据；资料（复数形式）"
+      ],
+      "example": "Engineers compared the probe's data with a second sensor before changing course.",
+      "example_zh": "工程师在改变航向前将探测器数据与另一台传感器的读数进行比较。",
+      "collocation": "collect data / analyze data / scientific data",
+      "difficulty": 2,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_19",
+      "word": "frontier",
+      "phonetic": "/ˈfrʌntɪə(r)/",
+      "pos": "n.",
+      "meaning": "前沿；边界；新领域",
+      "meanings": [
+        "n. 前沿；领域边界；新领域"
+      ],
+      "example": "The lunar far side became a frontier that required a relay for communication with Earth.",
+      "example_zh": "月球背面成为需要通过中继与地球通信的探索前沿。",
+      "collocation": "scientific frontier / new frontier / push the frontier",
+      "difficulty": 4,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit05_20",
+      "word": "odyssey",
+      "phonetic": "/ˈɒdɪsi/",
+      "pos": "n.",
+      "meaning": "漫长的探索旅程；奥德赛",
+      "meanings": [
+        "n. 漫长的旅程；艰难的探索"
+      ],
+      "example": "An's odyssey through the mission model began with a lost signal and ended with a plan for another test.",
+      "example_zh": "安在任务模拟中的漫长探索从信号中断开始，最终以制定新的测试计划结束。",
+      "collocation": "epic odyssey / space odyssey / begin an odyssey",
+      "difficulty": 5,
+      "unit_id": "unit05",
+      "unit_title": "Reaching for the stars",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit05"
+      ]
+    },
+    {
+      "id": "rw3_unit06_01",
+      "word": "economy",
+      "phonetic": "/ɪˈkɒnəmi/",
+      "pos": "n.",
+      "meaning": "经济；经济体；节约",
+      "meanings": [
+        "n. 经济；经济体"
+      ],
+      "example": "The class judged the local economy by who could participate, what it cost, and whether value lasted.",
+      "example_zh": "全班从谁能参与、参与成本和价值能否持续等方面评估当地经济。",
+      "collocation": "global economy / local economy / sharing economy",
+      "difficulty": 2,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_02",
+      "word": "crisis",
+      "phonetic": "/ˈkraɪsɪs/",
+      "pos": "n.",
+      "meaning": "危机；紧急关头；严重困难",
+      "meanings": [
+        "n. 危机；紧急关头"
+      ],
+      "example": "In the class case, the bookstore tracked costs and reader requests before changing its service.",
+      "example_zh": "在课堂案例中，书店先记录成本和读者需求，再调整服务。",
+      "collocation": "economic crisis / face a crisis / crisis management",
+      "difficulty": 3,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_03",
+      "word": "inflation",
+      "phonetic": "/ɪnˈfleɪʃn/",
+      "pos": "n.",
+      "meaning": "通货膨胀；物价上涨",
+      "meanings": [
+        "n. 通货膨胀；物价上涨"
+      ],
+      "example": "Rising inflation can increase operating costs, so Mei tracked rent and delivery expenses separately.",
+      "example_zh": "通货膨胀上升可能推高经营成本，因此梅分别记录租金和配送支出。",
+      "collocation": "rate of inflation / control inflation / rising inflation",
+      "difficulty": 4,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_04",
+      "word": "budget",
+      "phonetic": "/ˈbʌdʒɪt/",
+      "pos": "n.",
+      "meaning": "预算；经费；(adj.)经济实惠的",
+      "meanings": [
+        "n. 预算；经费",
+        "adj. 经济实惠的"
+      ],
+      "example": "A tight budget led the club to compare the cost of a new copy with the cost of borrowing one.",
+      "example_zh": "预算紧张促使社团比较新购一本书与借用一本书的成本。",
+      "collocation": "monthly budget / tight budget / on a budget",
+      "difficulty": 2,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_05",
+      "word": "saving",
+      "phonetic": "/ˈseɪvɪŋ/",
+      "pos": "n.",
+      "meaning": "储蓄；节省；存款",
+      "meanings": [
+        "n. 储蓄；节省；（pl.）存款"
+      ],
+      "example": "The book exchange brought savings on new purchases, although staff still checked each returned copy.",
+      "example_zh": "图书交换减少了新购书的开支，但员工仍需检查每本归还的书。",
+      "collocation": "personal savings / saving account / encourage saving",
+      "difficulty": 2,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_06",
+      "word": "sharing",
+      "phonetic": "/ˈʃeərɪŋ/",
+      "pos": "adj.",
+      "meaning": "共享的；分享式的",
+      "meanings": [
+        "adj. 共享的",
+        "n. 分享；共用"
+      ],
+      "example": "The sharing model let readers exchange books under clear return rules.",
+      "example_zh": "这种共享模式让读者按照明确的归还规则交换图书。",
+      "collocation": "sharing economy / ride-sharing / sharing platform",
+      "difficulty": 2,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_07",
+      "word": "resource",
+      "phonetic": "/rɪˈzɔːs/",
+      "pos": "n.",
+      "meaning": "资源；财力；智谋",
+      "meanings": [
+        "n. 资源；财力（pl.）",
+        "n. 智谋；应变力"
+      ],
+      "example": "Each book became a shared resource whose condition the club recorded.",
+      "example_zh": "每本书都成为共享资源，社团会记录其保存状况。",
+      "collocation": "natural resources / limited resources / allocate resources",
+      "difficulty": 3,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_08",
+      "word": "consumer",
+      "phonetic": "/kənˈsjuːmə(r)/",
+      "pos": "n.",
+      "meaning": "消费者；用户",
+      "meanings": [
+        "n. 消费者；用户"
+      ],
+      "example": "The club surveyed consumers before setting a fee for the exchange.",
+      "example_zh": "社团在为交换服务定价前调查了消费者。",
+      "collocation": "consumer behavior / consumer goods / protect consumers",
+      "difficulty": 3,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_09",
+      "word": "supply",
+      "phonetic": "/səˈplaɪ/",
+      "pos": "n.",
+      "meaning": "供应；供给；供应量",
+      "meanings": [
+        "n. 供应；供给",
+        "v. 供应；提供"
+      ],
+      "example": "The team compared the supply of available books with requests from readers.",
+      "example_zh": "团队将现有图书的供应量与读者的需求进行比较。",
+      "collocation": "supply chain / supply and demand / in short supply",
+      "difficulty": 2,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_10",
+      "word": "demand",
+      "phonetic": "/dɪˈmɑːnd/",
+      "pos": "n.",
+      "meaning": "需求；要求；需要量",
+      "meanings": [
+        "n. 需求；要求",
+        "v. 要求；需要"
+      ],
+      "example": "Demand for some titles rose before exams, so Page Loop tracked its waiting list.",
+      "example_zh": "考试前，部分书目的需求上升，因此 Page Loop 记录了等候名单。",
+      "collocation": "meet demand / supply and demand / in great demand",
+      "difficulty": 2,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_11",
+      "word": "startup",
+      "phonetic": "/ˈstɑːtʌp/",
+      "pos": "n.",
+      "meaning": "初创企业；创业公司",
+      "meanings": [
+        "n. 初创企业；创业公司"
+      ],
+      "example": "The student startup revised its fee after readers said the flat rate was hard to afford.",
+      "example_zh": "读者反映统一收费难以承担后，这家学生初创项目调整了费用。",
+      "collocation": "tech startup / startup founder / launch a startup",
+      "difficulty": 3,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_12",
+      "word": "sustainable",
+      "phonetic": "/səˈsteɪnəbl/",
+      "pos": "adj.",
+      "meaning": "可持续的；可维持的；环保的",
+      "meanings": [
+        "adj. 可持续的；可维持的"
+      ],
+      "example": "Page Loop would be sustainable only if its income covered upkeep without excluding readers.",
+      "example_zh": "只有在收入能够覆盖维护成本、又不把读者排除在外时，Page Loop 才能持续运营。",
+      "collocation": "sustainable development / sustainable model / environmentally sustainable",
+      "difficulty": 4,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_13",
+      "word": "recession",
+      "phonetic": "/rɪˈseʃn/",
+      "pos": "n.",
+      "meaning": "经济衰退；萧条期",
+      "meanings": [
+        "n. 经济衰退；萧条"
+      ],
+      "example": "In a fictional recession case, the bookstore reviewed expenses before adjusting its exchange service.",
+      "example_zh": "在一个虚构的经济衰退案例中，书店先审视开支，再调整图书交换服务。",
+      "collocation": "economic recession / global recession / slide into recession",
+      "difficulty": 4,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_14",
+      "word": "invest",
+      "phonetic": "/ɪnˈvest/",
+      "pos": "v.",
+      "meaning": "投资；投入（时间/精力）",
+      "meanings": [
+        "v. 投资；投入（时间、精力）"
+      ],
+      "example": "The campus group invested time in checking returned books and repairing damaged covers.",
+      "example_zh": "校园社团投入时间检查归还的图书并修补破损封面。",
+      "collocation": "invest in / invest time / invest wisely",
+      "difficulty": 2,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_15",
+      "word": "loan",
+      "phonetic": "/ləʊn/",
+      "pos": "n.",
+      "meaning": "贷款；借出；借用",
+      "meanings": [
+        "n. 贷款；借出物",
+        "v. 借出"
+      ],
+      "example": "Mei took a small loan to build weatherproof shelves for the exchange.",
+      "example_zh": "梅申请了一笔小额贷款，为图书交换服务搭建防雨书架。",
+      "collocation": "take out a loan / repay a loan / student loan",
+      "difficulty": 2,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_16",
+      "word": "revenue",
+      "phonetic": "/ˈrevənjuː/",
+      "pos": "n.",
+      "meaning": "收入；营业额；税收",
+      "meanings": [
+        "n. 收入；营业额；（政府）税收"
+      ],
+      "example": "The team compared its modest revenue with the costs the exchange had avoided.",
+      "example_zh": "团队将有限的收入与图书交换所节省的购书成本进行比较。",
+      "collocation": "annual revenue / generate revenue / revenue stream",
+      "difficulty": 4,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_17",
+      "word": "efficiency",
+      "phonetic": "/ɪˈfɪʃnsi/",
+      "pos": "n.",
+      "meaning": "效率；效能；高效",
+      "meanings": [
+        "n. 效率；效能"
+      ],
+      "example": "Two return boxes improved efficiency by reducing the line at one inspection desk.",
+      "example_zh": "两个归还箱缩短了单个检查台前的队伍，提高了效率。",
+      "collocation": "improve efficiency / operational efficiency / energy efficiency",
+      "difficulty": 4,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_18",
+      "word": "exchange",
+      "phonetic": "/ɪksˈtʃeɪndʒ/",
+      "pos": "n.",
+      "meaning": "交换；交流；交易所",
+      "meanings": [
+        "n. 交换；交流",
+        "v. 交换；互换"
+      ],
+      "example": "At the weekly exchange, a reader could leave one book and choose another.",
+      "example_zh": "在每周的交换时段，读者可以留下一本书，再选取另一本。",
+      "collocation": "book exchange / cultural exchange / exchange ideas",
+      "difficulty": 2,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_19",
+      "word": "affordable",
+      "phonetic": "/əˈfɔːdəbl/",
+      "pos": "adj.",
+      "meaning": "买得起的；价格合理的；实惠的",
+      "meanings": [
+        "adj. 负担得起的；价格合理的"
+      ],
+      "example": "The club kept the fee affordable and offered a no-fee hour for students who could not pay.",
+      "example_zh": "社团将费用控制在可负担范围内，并为无力付费的学生提供免收费时段。",
+      "collocation": "affordable housing / affordable price / affordable solution",
+      "difficulty": 3,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    },
+    {
+      "id": "rw3_unit06_20",
+      "word": "resilience",
+      "phonetic": "/rɪˈzɪliəns/",
+      "pos": "n.",
+      "meaning": "韧性；恢复力；适应力",
+      "meanings": [
+        "n. 韧性；恢复力；抗压力"
+      ],
+      "example": "Lantern Books showed resilience by adjusting its service as readers' needs changed.",
+      "example_zh": "随着读者需求变化，Lantern Books 通过调整服务展现了韧性。",
+      "collocation": "build resilience / show resilience / economic resilience",
+      "difficulty": 5,
+      "unit_id": "unit06",
+      "unit_title": "Sharing economy and community resilience",
+      "tags": [
+        "college_english_rw3",
+        "edition4",
+        "unit06"
+      ]
+    }
+  ]
+}
