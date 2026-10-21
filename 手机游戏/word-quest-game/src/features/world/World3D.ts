@@ -1,3 +1,5 @@
+import { WorldCollision } from "./worldCollision";
+import { Locomotion } from "./locomotion";
 import { renderPixelRatio,resolutionMode,type ResolutionMode } from "./renderResolution";
 import { EffectBudget } from "./effectBudget";
 import { SolarClock } from "./solarClock";
@@ -297,8 +299,11 @@ export class World3D {
   private readonly spectatorFocus = new THREE.Vector3();
   private hasSpectatorFocus = false;
   private rebuildToken = 0;
-  private player = new PlayerController();
-  private explorerCam = new ExplorerCamera((x,z)=>sampleTerrainY(x,z,terrainHeight));
+  private collisions=new WorldCollision((x,z)=>sampleTerrainY(x,z,terrainHeight));
+  private collisionDirty=true;
+  private locomotion=new Locomotion();
+  private player = new PlayerController(this.collisions);
+  private explorerCam = new ExplorerCamera((x,z)=>sampleTerrainY(x,z,terrainHeight),(target,position)=>this.collisions.clipCamera(target,position));
   private nearNode: MapNode | null = null;
   private currentBiome: UnitBiome = DEFAULT_BIOME;
   private activeUnitId?: string;
@@ -379,7 +384,7 @@ export class World3D {
     if (perfOverlayEnabled()) this.perf = attachPerfOverlay(this.renderer, container, this.scaler);
     this.weatherFx = new WeatherFx({ quality: this.quality, mode: "outdoor", radius: 14, flatGround: false, groundHeight:(x,z)=>sampleTerrainY(x,z,terrainHeight) });
     this.scene.add(this.weatherFx.object);
-    this.removeWeatherPanel=attachGameSettings(container,{tier:this.quality,exploration:true,music:options.music,weather:kind=>this.setWeather(kind),time:hour=>this.setTimeOfDay(hour),onOpen:open=>{this.settingsOpen=open;this.player.setEnabled(!open&&!this.spectatorMode&&!this.paused);}});
+    this.removeWeatherPanel=attachGameSettings(container,{tier:this.quality,exploration:true,music:options.music,weather:kind=>this.setWeather(kind),time:hour=>this.setTimeOfDay(hour),onOpen:open=>{this.settingsOpen=open;this.explorerCam.setInputEnabled(!open&&!this.paused);this.player.setEnabled(!open&&!this.spectatorMode&&!this.paused);}});
     this.releaseRenderSettings=bindRenderSettings(this.renderer,this.post,{
       resolution:mode=>{this.resolutionPreference=mode;this.onResize();this.perf?.reset();},
       shadowSize:size=>{this.cascades?.setShadowSize(this.quality==="low"?1024:size);if(this.sun&&!this.cascades){this.sun.shadow.map?.dispose();this.sun.shadow.map=null;this.sun.shadow.mapSize.set(size,size);}},
@@ -401,6 +406,7 @@ export class World3D {
   }
 
   setNodes(nodes: MapNode[], currentId: string, showNodeLandmarks = true): void {
+    this.collisionDirty=true;
     this.nodes = nodes;
     this.currentId = currentId;
     this.rebuildPath();
@@ -426,12 +432,14 @@ export class World3D {
     // 暂停时长不是渲染卡顿；恢复后重新计时，避免首帧把整段学习时间误判为低 FPS。
     this.lastFrameTs = 0;
     this.player.setEnabled(!this.spectatorMode&&!this.settingsOpen);
+    this.explorerCam.setInputEnabled(!this.settingsOpen);
     this.onResize();
     if (!this.animId) this.animate();
   }
 
   pause(): void {
     this.paused = true;
+    this.explorerCam.setInputEnabled(false);
     this.player.setEnabled(false);
     if (this.animId) {
       cancelAnimationFrame(this.animId);
@@ -881,7 +889,12 @@ export class World3D {
     cancelAnimationFrame(this.animId);
     this.animId = 0;
     this.renderer.domElement.removeEventListener("pointerdown", this.onPointerDown);
+    this.renderer.domElement.removeEventListener("pointerup", this.onPointerUp);
+    this.renderer.domElement.removeEventListener("pointermove", this.onPointerMove);
+    this.renderer.domElement.removeEventListener("pointercancel", this.onPointerCancel);
+    this.renderer.domElement.removeEventListener("lostpointercapture", this.onPointerCancel);
     this.explorerCam.disposeDrag();
+    this.collisions.dispose();
     window.removeEventListener("keydown", this.onKeyDown);
     window.removeEventListener("resize", this.onResize);
     document.removeEventListener("visibilitychange", this.onVisibilityChange);
@@ -1988,6 +2001,7 @@ export class World3D {
   }
 
   private rebuildDecor(): void {
+    this.collisionDirty=true;
     this.disposeWaterBodies();
     this.vegetation?.dispose();
     this.vegetation = undefined;
@@ -2181,18 +2195,13 @@ export class World3D {
     this.vegetation = buildVegetationField(vegInstances, { castShadow: this.quality !== "low", groundY:(x,z)=>sampleTerrainY(x,z,terrainHeight) });
     this.decorGroup.add(this.vegetation.group);
 
-    const mist = new THREE.Mesh(
-      new THREE.PlaneGeometry(unitMode ? halfW * 2.2 : TERRAIN_SIZE.width + 40, unitMode ? halfD * 2.2 : TERRAIN_SIZE.depth + 40),
-      new THREE.MeshBasicMaterial({ color: 0x9ec8ff, transparent: true, opacity: 0.038, depthWrite: false })
-    );
-    mist.rotation.x = -Math.PI / 2;
-    mist.position.set(anchorX, 5, anchorZ);
-    this.decorGroup.add(mist);
+    this.collisions.setVegetation(vegInstances);
     this.scene.add(this.decorGroup, this.waterGroup);
     this.updateDynamicLightBudget(true);
   }
 
   private rebuildUnitLandscape(): void {
+    this.collisionDirty=true;
     removeGroup(this.scene, this.unitLandscape);
     this.unitLandscape = undefined;
 
@@ -2275,6 +2284,7 @@ export class World3D {
       group.add(sign);
 
       if (!node.unlocked) applyLockedStyle(group);
+      this.collisionDirty=true;
       this.nodeGroups.set(node.id, group);
       this.scene.add(group);
       this.updateDynamicLightBudget(true);
@@ -2283,6 +2293,10 @@ export class World3D {
 
   private bindEvents(): void {
     this.renderer.domElement.addEventListener("pointerdown", this.onPointerDown);
+    this.renderer.domElement.addEventListener("pointerup", this.onPointerUp);
+    this.renderer.domElement.addEventListener("pointermove", this.onPointerMove);
+    this.renderer.domElement.addEventListener("pointercancel", this.onPointerCancel);
+    this.renderer.domElement.addEventListener("lostpointercapture", this.onPointerCancel);
     window.addEventListener("keydown", this.onKeyDown);
     window.addEventListener("resize", this.onResize);
     if (typeof ResizeObserver !== "undefined") {
@@ -2299,8 +2313,21 @@ export class World3D {
     }
   };
 
+  private pointerTap?: { id:number;x:number;y:number };
   private onPointerDown = (e: PointerEvent): void => {
-    if (this.paused || this.spectatorMode || this.settingsOpen || e.button !== 0) return;
+    if (this.paused || this.spectatorMode || this.settingsOpen || this.explorerCam.mouseLookActive || e.button !== 0 || this.pointerTap) return;
+    this.pointerTap = {id:e.pointerId,x:e.clientX,y:e.clientY};
+  };
+  private onPointerCancel = (): void => { this.pointerTap = undefined; };
+  private onPointerMove = (e: PointerEvent): void => {
+    const tap = this.pointerTap;
+    if (tap?.id === e.pointerId && Math.hypot(e.clientX-tap.x,e.clientY-tap.y)>10) this.pointerTap = undefined;
+  };
+  private onPointerUp = (e: PointerEvent): void => {
+    const tap = this.pointerTap;
+    if (!tap || tap.id !== e.pointerId) return;
+    this.pointerTap = undefined;
+    if (this.paused || this.spectatorMode || this.settingsOpen || this.explorerCam.mouseLookActive || Math.hypot(e.clientX-tap.x,e.clientY-tap.y)>10) return;
     const rect = this.renderer.domElement.getBoundingClientRect();
     this.pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
     this.pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
@@ -2422,18 +2449,23 @@ export class World3D {
 
     if (this.mixer) this.mixer.update(dt);
 
-    const camYaw = this.explorerCam.update(
+    if(this.collisionDirty){
+      this.collisions.rebuild([...this.nodeGroups.values(),...[this.unitLandscape,this.decorGroup].filter((root):root is THREE.Group=>!!root)]);
+      this.collisionDirty=false;
+    }
+    // Move first, then follow the same displayed position; no one-frame camera lag.
+    this.player.update(dt,this.explorerCam.heading);
+    if(this.explorer)this.explorer.position.lerp(this.player.position,1-Math.exp(-14*dt));
+    this.explorerCam.update(
       this.camera,
-      this.player.position,
+      this.explorer?.position??this.player.position,
       this.player.yaw,
       dt,
       !this.spectatorMode,
       this.spectatorMode && this.hasSpectatorFocus ? this.spectatorFocus : undefined
     );
-    this.player.update(dt, camYaw);
 
     if (this.explorer) {
-      this.explorer.position.lerp(this.player.position, 1 - Math.exp(-14 * dt));
 
       // 平滑朝向角
       let yawDiff = this.player.yaw - this.avatarYaw;
@@ -2441,10 +2473,11 @@ export class World3D {
       while (yawDiff < -Math.PI) yawDiff += Math.PI * 2;
       this.avatarYaw += yawDiff * Math.min(1, dt * 12);
 
-      const walk = this.player.isMoving();
+      const walk = this.player.speed>.08;
       const sprint = this.player.isSprinting();
+      this.locomotion.update(dt,this.player.speed,sprint);
       if (walk) {
-        this.walkPhase += dt * (sprint ? 15 : 9.5);
+        this.walkPhase = this.locomotion.phase;
         // 每半个步态周期落地一次 → 扬尘
         const step = Math.floor(this.walkPhase / Math.PI);
         if (step !== this.lastStep) {
@@ -2458,47 +2491,7 @@ export class World3D {
 
       const rig = this.explorer.userData.rig as AvatarRig | undefined;
       if (rig) {
-        if (walk) {
-          // 屈膝步态：髋摆动 + 膝在抬腿相位弯曲
-          const hipAmp = sprint ? 0.95 : 0.6;
-          const kneeAmp = sprint ? 1.35 : 0.95;
-          const swL = Math.sin(this.walkPhase);
-          const swR = Math.sin(this.walkPhase + Math.PI);
-          rig.leftLeg.hip.rotation.x = swL * hipAmp;
-          rig.rightLeg.hip.rotation.x = swR * hipAmp;
-          rig.leftLeg.knee.rotation.x = 0.12 + Math.max(0, -swL) * kneeAmp;
-          rig.rightLeg.knee.rotation.x = 0.12 + Math.max(0, -swR) * kneeAmp;
-          rig.leftArm.rotation.x = -swL * 0.8;
-          rig.rightArm.rotation.x = -swR * 0.8;
-          // 肘部随摆臂屈伸；脚踝抵消髋 + 膝的俯仰，使脚掌基本保持水平（蹬地时脚尖略下压）
-          (rig.leftArm.userData.elbow as THREE.Group).rotation.x = -0.25 - Math.max(0, swL) * 0.55;
-          (rig.rightArm.userData.elbow as THREE.Group).rotation.x = -0.25 - Math.max(0, swR) * 0.55;
-          rig.leftLeg.ankle.rotation.x = -(rig.leftLeg.hip.rotation.x + rig.leftLeg.knee.rotation.x) * 0.9 - Math.max(0, swL) * 0.12;
-          rig.rightLeg.ankle.rotation.x = -(rig.rightLeg.hip.rotation.x + rig.rightLeg.knee.rotation.x) * 0.9 - Math.max(0, swR) * 0.12;
-          rig.head.rotation.z = 0;
-          // 围巾尾端随步伐向身后飘起
-          rig.cape.rotation.x = 0.16 + (0.3 + Math.abs(Math.sin(this.walkPhase)) * 0.2) * (sprint ? 1.4 : 1);
-          rig.cape.rotation.z = Math.sin(this.walkPhase * 0.5) * 0.08;
-        } else {
-          // 回归站姿 + 待机呼吸
-          const k = Math.min(1, dt * 9);
-          rig.leftLeg.hip.rotation.x *= 1 - k;
-          rig.rightLeg.hip.rotation.x *= 1 - k;
-          rig.leftLeg.knee.rotation.x += (0.06 - rig.leftLeg.knee.rotation.x) * k;
-          rig.rightLeg.knee.rotation.x += (0.06 - rig.rightLeg.knee.rotation.x) * k;
-          rig.leftArm.rotation.x *= 1 - k;
-          rig.rightArm.rotation.x *= 1 - k;
-          const elL = rig.leftArm.userData.elbow as THREE.Group;
-          const elR = rig.rightArm.userData.elbow as THREE.Group;
-          elL.rotation.x += (-0.22 - elL.rotation.x) * k;
-          elR.rotation.x += (-0.22 - elR.rotation.x) * k;
-          rig.leftLeg.ankle.rotation.x *= 1 - k;
-          rig.rightLeg.ankle.rotation.x *= 1 - k;
-          rig.head.rotation.z = Math.sin(t * 1.4) * 0.05;
-          // 披风静止微摆
-          rig.cape.rotation.x += (0.16 - rig.cape.rotation.x) * k;
-          rig.cape.rotation.z += (Math.sin(t * 1.1) * 0.04 - rig.cape.rotation.z) * k;
-        }
+        this.locomotion.apply(rig,dt,sprint);
 
         this.updateFace(rig, dt);
         this.explorer.userData.updateHumanVisual?.();
@@ -2513,7 +2506,7 @@ export class World3D {
       }
 
       // 目标前倾角度（行进 / 奔跑）
-      const targetLean = walk ? (sprint ? 0.14 : 0.05) : 0;
+      const targetLean = this.locomotion.weight * (sprint ? .08 : .025);
       this.avatarLean += (targetLean - this.avatarLean) * Math.min(1, dt * 8);
 
       // 采样地形法线 → 角色贴地朝向（坡面对齐，告别"悬空平站"）
@@ -2538,8 +2531,7 @@ export class World3D {
       this._q.multiply(this._leanQ);
       this.explorer.quaternion.slerp(this._q, 1 - Math.exp(-12 * dt));
 
-      const bob = walk ? Math.abs(Math.sin(this.walkPhase)) * 0.06 : Math.sin(t * 1.4) * 0.01;
-      this.explorer.position.y = this.player.position.y + bob;
+      this.explorer.position.y = this.collisions.ground(px,pz,this.player.position.y);
 
       const footRing = this.explorer.children.find((c) => (c as THREE.Mesh).userData?.isFootRing) as THREE.Mesh | undefined;
       if (footRing) {
@@ -2608,7 +2600,7 @@ export class World3D {
     const fogC = weatherTint(mixRgb(b.fog, look.fog, LOOK_MIX, T), wp, this.rgbU);
     const fog = this.scene.fog as THREE.FogExp2;
     fog.color.setRGB(fogC.r, fogC.g, fogC.b, THREE.SRGBColorSpace);
-    fog.density = biome.fogDensity * look.fogMul * wp.fogMul * (1 + wp.mist * 1.6);
+    fog.density = biome.fogDensity * look.fogMul * wp.fogMul * (1 + wp.mist * 1.6) * getGameSettings().hazeStrength;
     if (this.sun) {
       const sc = mixRgb(b.sun, look.sun, LOOK_MIX, T);
       this.sun.color.setRGB(Math.min(1, sc.r * wp.sunTintR), Math.min(1, sc.g * wp.sunTintG), Math.min(1, sc.b * wp.sunTintB), THREE.SRGBColorSpace);
@@ -2636,9 +2628,22 @@ export class World3D {
     this.renderer.toneMappingExposure *= look.exposure * wp.exposureMul;
     if (this.bloomPass) {
       const base = THREE.MathUtils.clamp(0.5 + (1.5 - biome.sunIntensity) * 0.28, 0.45, 1.05);
-      this.bloomPass.strength = base * look.bloom * (1 + 0.25 * wp.skyTintAmt);
+      this.bloomPass.strength = base * .32 * look.bloom * (1 + 0.25 * wp.skyTintAmt);
+      this.bloomPass.threshold = 1.2;
     }
-    if (this.gradePass) applyGrade(this.gradePass, look, this.weatherTime, this.renderer.domElement.width, this.renderer.domElement.height);
+    if (this.gradePass) {
+      applyGrade(this.gradePass, look, this.weatherTime, this.renderer.domElement.width, this.renderer.domElement.height);
+      // A clean exploration view: retain unit hue, without a milky black floor,
+      // chromatic blur or scan lines over the landscape.
+      const u = this.gradePass.uniforms;
+      u.uLift.value = 0;
+      u.uTintAmt.value *= .35;
+      u.uSat.value = Math.max(1.06, look.saturation);
+      u.uContrast.value = Math.max(1.12, look.contrast);
+      u.uAberration.value = 0;
+      u.uScan.value = 0;
+      u.uVig.value *= .5;
+    }
     // 风：植被摇摆倍率；降水粒子；潮湿
     const wind = this.weather.windNow(this.weatherTime);
     windStrength.value = foliageWindStrength(wind);

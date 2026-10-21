@@ -395,7 +395,7 @@ export class App {
     const hintBar = screen.querySelector("#world-hint-bar");
     if (hintBar) {
       hintBar.textContent = isRw3
-        ? "WASD/摇杆走动 · Shift 奔跑 · 走近 Unit 水晶 · E 进入学习"
+        ? "WASD/摇杆移动 · 鼠标/拖动环顾 · Shift 奔跑 · 走近水晶 · E 进入学习"
         : "WASD 走动 · Shift 奔跑 · 点地探路 · 走近站点按 E 进入";
     }
 
@@ -473,7 +473,7 @@ export class App {
           ? "观赏模式：拖动画面查看世界 · 可随时返回行走"
             : this.unitExplore
             ? "走近发光词球按 E 收集词汇 · 中央枢纽进入总览 · 沿路线进入文章世界"
-            : "WASD/摇杆走动 · Shift 奔跑 · 走近 Unit 水晶 · E 进入单元地图";
+            : "WASD/摇杆移动 · 鼠标/拖动环顾 · Shift 奔跑 · 走近水晶 · E 进入单元地图";
       }
       audio.play("click");
     });
@@ -1071,7 +1071,7 @@ export class App {
 
     const hintBar = this.root.querySelector("#world-hint-bar");
     if (hintBar) {
-      hintBar.textContent = "WASD/摇杆走动 · Shift 奔跑 · 走近 Unit 水晶 · E 进入单元地图";
+      hintBar.textContent = "WASD/摇杆移动 · 鼠标/拖动环顾 · Shift 奔跑 · 走近水晶 · E 进入单元地图";
     }
 
     const selectedUnitId = this.state.save.mapNodeId.split("::")[0];

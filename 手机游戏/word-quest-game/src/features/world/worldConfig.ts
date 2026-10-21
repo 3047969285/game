@@ -7,7 +7,7 @@ export const TERRAIN_ORIGIN_Y = -0.5;
 export const TERRAIN_ORIGIN_Z = 180;
 
 export const INTERACT_RADIUS = 12;
-export const PLAYER_SPEED = 22;
+export const PLAYER_SPEED = 2.2;
 export const PLAYER_TURN_SPEED = 10;
 /** 默认第三人称镜头与角色的距离（米）。 */
 export const CAMERA_DISTANCE = 4.2;

@@ -12,27 +12,34 @@ export class PlayerController {
   private stick = { x: 0, z: 0 };
   private enabled = true;
   private sprint = false;
+  private velocity=new THREE.Vector3();
+  private desired=new THREE.Vector3();
+  private before=new THREE.Vector3();
+  private groundedSpeed=0;
+  get speed():number{return this.groundedSpeed;}
 
-  constructor() {
+  constructor(private readonly collision?:{move(start:THREE.Vector3,delta:THREE.Vector3,out:THREE.Vector3):void}) {
     window.addEventListener("keydown", this.onKeyDown);
     window.addEventListener("keyup", this.onKeyUp);
+    window.addEventListener("blur", this.onBlur);
   }
 
   dispose(): void {
     window.removeEventListener("keydown", this.onKeyDown);
     window.removeEventListener("keyup", this.onKeyUp);
+    window.removeEventListener("blur", this.onBlur);
   }
 
   setEnabled(on: boolean): void {
     this.enabled = on;
     if (!on) {
       this.keys.clear();
-      this.moveTarget = null;
+      this.moveTarget = null;this.velocity.set(0,0,0);this.groundedSpeed=0;
     }
   }
 
   setPosition(x: number, y: number, z: number): void {
-    this.position.set(x, y, z);
+    this.position.set(x, y, z);this.velocity.set(0,0,0);this.groundedSpeed=0;
     this.moveTarget = null;
   }
 
@@ -93,18 +100,21 @@ export class PlayerController {
       }
     }
 
-    if (dx !== 0 || dz !== 0) {
-      const speed = PLAYER_SPEED * (this.sprint ? 1.85 : 1) * dt;
-      this.position.x += dx * speed;
-      this.position.z += dz * speed;
-    }
-
-    this.position.y = sampleTerrainY(this.position.x, this.position.z, terrainHeight) + 0.05;
+    const speed=PLAYER_SPEED*(this.sprint?1.85:1);
+    this.desired.set(dx*speed,0,dz*speed);
+    this.velocity.lerp(this.desired,1-Math.exp(-dt/((dx!==0||dz!==0)?.12:.08)));
+    this.before.copy(this.position);
+    this.desired.copy(this.velocity).multiplyScalar(dt);
+    if(this.collision)this.collision.move(this.position,this.desired,this.position);
+    else {this.position.add(this.desired);this.position.y=sampleTerrainY(this.position.x,this.position.z,terrainHeight)+.05;}
+    this.groundedSpeed=dt>0?Math.hypot(this.position.x-this.before.x,this.position.z-this.before.z)/dt:0;
   }
 
   isSprinting(): boolean {
     return this.sprint && this.isMoving();
   }
+
+  private onBlur = ():void => {this.keys.clear();this.sprint=false;this.velocity.set(0,0,0);this.groundedSpeed=0;};
 
   private onKeyDown = (e: KeyboardEvent): void => {
     if (!this.enabled) return;

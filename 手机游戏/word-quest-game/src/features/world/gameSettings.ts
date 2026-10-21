@@ -2,10 +2,10 @@ import type { ResolutionMode } from './renderResolution';
 import type { QualityTier } from './postPipeline';
 export interface GameSettings {
   tier:QualityTier|'auto';resolution:ResolutionMode;shadows:boolean;ssr:boolean;ao:boolean;taa:boolean;aerial:boolean;bloom:boolean;
-  shadowSize:1024|2048;fpsLimit:0|60|120;sensitivity:number;invertY:boolean;exploreFov:number;followDistance:number;showStats:boolean;sfxVolume:number;
+  shadowSize:1024|2048;fpsLimit:0|60|120;sensitivity:number;invertY:boolean;exploreFov:number;followDistance:number;hazeStrength:number;showStats:boolean;sfxVolume:number;
 }
 const KEY='word-quest-settings-v1';
-export function defaultSettings(mobile=false):GameSettings {return {tier:'auto',resolution:mobile?'balanced':'quality',shadows:true,ssr:true,ao:true,taa:true,aerial:true,bloom:true,shadowSize:mobile?1024:2048,fpsLimit:0,sensitivity:1,invertY:false,exploreFov:50,followDistance:4.2,showStats:false,sfxVolume:1};}
+export function defaultSettings(mobile=false):GameSettings {return {tier:'auto',resolution:mobile?'balanced':'quality',shadows:true,ssr:true,ao:true,taa:true,aerial:true,bloom:true,shadowSize:mobile?1024:2048,fpsLimit:0,sensitivity:1,invertY:false,exploreFov:50,followDistance:4.2,hazeStrength:.35,showStats:false,sfxVolume:1};}
 export function sanitizeSettings(raw:unknown,mobile=false):GameSettings {
   const defaults=defaultSettings(mobile),value=raw&&typeof raw==='object'?raw as Record<string,unknown>:{};
   const result={...defaults};
@@ -14,7 +14,7 @@ export function sanitizeSettings(raw:unknown,mobile=false):GameSettings {
   if(['quality','1080p','balanced'].includes(value.resolution as string))result.resolution=value.resolution as ResolutionMode;
   if(value.shadowSize===1024||value.shadowSize===2048)result.shadowSize=value.shadowSize;
   if(value.fpsLimit===0||value.fpsLimit===60||value.fpsLimit===120)result.fpsLimit=value.fpsLimit;
-  for(const [key,min,max]of [['sensitivity',.25,2.5],['exploreFov',40,75],['followDistance',2.5,12],['sfxVolume',0,1]] as const){const n=value[key];if(typeof n==='number'&&Number.isFinite(n))result[key]=Math.max(min,Math.min(max,n));}
+  for(const [key,min,max]of [['sensitivity',.25,2.5],['exploreFov',40,75],['followDistance',2.5,12],['hazeStrength',0,1],['sfxVolume',0,1]] as const){const n=value[key];if(typeof n==='number'&&Number.isFinite(n))result[key]=Math.max(min,Math.min(max,n));}
   return result;
 }
 let cached:GameSettings|undefined;
