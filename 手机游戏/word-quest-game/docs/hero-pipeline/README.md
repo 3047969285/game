@@ -2,7 +2,7 @@
 
 > Owner：Claude（人物模型）。世界画质由 Codex 负责，分工见 [../collab-3d.md](../collab-3d.md)。
 > 用户要求：男女主和参考图**完全一致，不得打折扣**；**用代码建造所有细节，质量最高**（不用 MetaHuman，不买模型）。
-> 最后更新：2026-10-21
+> 最后更新：2026-10-21（男主：脸型、皮肤投影、发片头发初版已完成）
 
 ## 1. 参考图（用户提供，位于 `~/Downloads/`）
 
@@ -77,20 +77,71 @@ cd ~/.local/share/hunyuan3d/work
     - 弱的“保持原位”先验
   - 结果写回为 shape key `refine`，然后 `HumanService.refit` 让眼球等跟随。
 
+## 4b. 完整重跑顺序（2026-10-21 最新）
+
+```bash
+cd ~/.local/share/hunyuan3d/work
+B=/Applications/Blender.app/Contents/MacOS/Blender
+$B -b -P fit_face.py -- male fit headviews/male_front.png headviews/male_q34.png
+$B -b fit/male_fit.blend      -P project_mpfb.py -- male fit headviews
+$B -b fit/male_textured.blend -P hair_cards.py   -- male fit
+KEY=70 AMB=0.22 $B -b fit/male_hair.blend -P lookdev.py -- male fit headviews
+```
+
+- **`fit_face.py`**（约 10 分钟）：拟合脸型。
+  - 3/4 视角做头部姿态（yaw/pitch/roll）坐标下降搜索，男主最佳约 (37, 3~6, -8)。
+  - 左右对称的 target 合并为一个变量。
+  - 不用 ears / forehead 区的 target：这两处没有关键点，拟合只会产生噪声。
+  - 宏参数可用环境变量调：`WEIGHT=0.26`、`MUSCLE=0.68`。
+  - 输出：`fit/{who}_fit.blend`、`{who}_fit.json`（含 `pose_q34`）、`{who}_lm3d.json`（拟合后 468 个点的 3D 坐标，后续步骤都要用）。
+- **`project_mpfb.py`**：照片投影到皮肤贴图。
+  - 遮罩：用肤色色度判断（r−b），去掉头发、衬衫和背景；保护眉、眼、唇。
+  - 软置信度：发丝边缘降低权重。
+  - 去光照。
+  - 补洞：未投影的区域用原皮肤贴图的细节，但套上照片的局部色调（三线性体素场）。
+  - 额头（刘海下）和脖子（领口阴影）不用投影，改用补洞结果。
+  - 头皮刷成发根深色，发际线处烘焙头发遮挡阴影（AO）。
+  - 输出：`fit/{who}_textured.blend`。
+- **`hair_cards.py`**：用代码生成发片头发，规则在 `hairline.py`。
+  - 发际线规则是共享的。
+  - 发流：以发旋 WHORL 为中心向外梳，前额区向前扫，两侧和后脑受重力下垂。
+  - 4 层发片：头皮覆盖层、内层、中层、外层。外两层向 89 个发簇 leader 聚拢，形成成束的发尖。
+  - 法线做体积化（55% 球面 + 45% 发片自身），每片发片随机色调。
+  - 发丝 atlas 用 numpy 绘制，4 种变体。
+  - 输出：`fit/{who}_hair.blend` 和 `{who}_hair_atlas.png`，约 2600 片、5.6 万个四边形。
+- **`lookdev.py`**：设材质（皮肤哑光 SSS、湿润的眼睛、深色虹膜）、三点布光、透明背景，渲染正面 / 3/4 / 侧面 / 背面。
+  - `scripts/compare_sheet.sh` 把渲染和参考图拼成对比图。
+
 ## 5. 完成情况
 
 | 项 | 状态 |
 |----|------|
 | 环境：Blender、MPFB、mediapipe、venv | ✅ |
 | 男主 target 拟合，加侧面轮廓 | ✅ 正面 3.8 px，3/4 19 px，侧面 1.9 px |
-| 男主 RBF 自由形变 | 🟡 已跑通（侧 2.2 px，正面下颌 3.1 px），但要逐项确认（见第 6 节第 1 步） |
-| 照片投影到 MPFB 皮肤（`project_mpfb.py`） | 🟡 跑通，但会把刘海和衬衫投到皮肤上，要加遮罩 |
-| 发丝头发 | ❌ 未开始。早期的 `hairgen.py` 原型在临时目录里，已丢失，需重写 |
+| 男主 RBF 自由形变 | ✅ 头顶不再被压扁，眼睑和口腔不穿模 |
+| 3/4 头部姿态 | ✅ 3/4 关键点误差 20 px → 10 px |
+| 照片投影到皮肤 | ✅ 头发 / 衬衫遮罩、去光照、色调匹配补洞、头皮着色、发际线 AO。脸已经像参考图（见 `progress/male_skin_vs_ref.png`） |
+| 发片头发（男） | 🟡 侧面和后脑已像短碎发，刘海有尖。还剩三个问题：头顶轮廓有碎片感（发旋附近）、前额上方显得像头盔、高光层次不够。见 `progress/male_look_vs_ref.png` |
+| 皮肤 / 眼睛材质 | 🟡 有了初版（`lookdev.py`）。皮肤偏白偏粉，肩部贴图有一道接缝竖线 |
 | 衣服 / 绑定 / ARKit 表情 / GLB 导出 | ❌ |
 | 女主 | ❌ 流程同男主，换参数和参考图 |
 | 最新对比图 | `progress/male_fit_vs_ref.png`，上排是参考，下排是当前模型 |
 
 ## 6. 下一步（按顺序做）
+
+**接着做（2026-10-21 停在这里）：**
+
+1. **头发**（`hair_cards.py`）
+   - 头顶碎片：发旋附近的发片太短、方向乱。可以把 WHORL 再往后下移，或者让头顶区域只用长的外层发片。
+   - 前额上方“头盔”感：内层发片在正面太均匀。可以减少前额区内层的数量，加强发簇间的缝隙，并在 atlas 里画出明显的高光带。
+   - 加几根“飞丝”。
+   - 头发要能导出到 glTF：法线和顶点色 `tint` 要带进 GLB。three.js 端用 alphaTest / alphaToCoverage。
+2. **皮肤**
+   - `lookdev` 里皮肤偏白，可在 `project_mpfb` 的 glob 色调后乘 0.92，并降低 SSS。
+   - 修肩部接缝：查 `base_px * glob` 是否在 UV 岛边界造成色差。
+   - 眉心（额头中间）有一小块发丝残影，扩大那里的遮罩。
+3. **眉毛 / 睫毛**：加 MPFB 的 eyebrows / eyelashes 资产，或用代码做眉毛卡片。眉毛浓黑是这张脸的重要特征。
+4. 之后继续下面原来的第 3 步以后的内容（衣服、骨骼、导出、女主）。
 
 1. **检查形变结果**：看 `fit/male_fit_{front,q34,side}.png`。
    - 头顶 / 额头不能被压扁，下颌要更窄更利落。

@@ -62,7 +62,8 @@ INNER_LIP = {78, 191, 80, 81, 82, 13, 312, 311, 310, 415, 308, 324, 318, 402, 31
 pa0 = np.einsum("kj,kjc->kc", aw, V[ab])
 Z_BROW = pa0[valid.index(9), 2]
 t = np.radians(yaw)
-rq = np.array([np.cos(t), np.sin(t), 0.0])
+rq = d["rq"] if "rq" in d else np.array([np.cos(t), np.sin(t), 0.0])
+uq = d["uq"] if "uq" in d else np.array([0.0, 0.0, 1.0])
 use = [k for k, v in enumerate(valid) if v not in EYE and v not in INNER_LIP and pa0[k, 2] < Z_BROW + 0.004]
 PhiA = np.stack([np.einsum("j,jk->k", aw[k], phi(V[ab[k]])) for k in use])   # (nA, K)
 print("landmarks used", len(use), "of", len(valid), flush=True)
@@ -82,7 +83,7 @@ def lm_system():
     As_, b_ = rows_for(PhiA, (0, 0, -1), (PF[use, 1] - tf[1]) / sf + pa[:, 2], w1); As.append(As_); bs.append(b_)
     wqq = W_Q * np.where(wq[use] > 0.3, wq[use], 0)
     As_, b_ = rows_for(PhiA, rq, (PQ[use, 0] - tq[0]) / sq - pa @ rq, wqq); As.append(As_); bs.append(b_)
-    As_, b_ = rows_for(PhiA, (0, 0, -1), (PQ[use, 1] - tq[1]) / sq + pa[:, 2], wqq); As.append(As_); bs.append(b_)
+    As_, b_ = rows_for(PhiA, -uq, (PQ[use, 1] - tq[1]) / sq + pa @ uq, wqq); As.append(As_); bs.append(b_)
     return np.concatenate(As), np.concatenate(bs)
 
 
@@ -165,7 +166,7 @@ ey = np.array([0, 1.0, 0]); ez = np.array([0, 0, -1.0]); ex = np.array([1.0, 0, 
 zf = np.percentile(pa0[:, 2], 45)
 for it in range(6):
     SA, Sb, se, sn = sil_system(Vc, ey, ez, sp, tp, C, CN, side_shape, 22.0,
-                                lambda X, S: (X[S, 1] < X[Ri, 1].mean() + 0.01) & (X[S, 2] < Z_BROW))
+                                lambda X, S: (X[S, 1] < X[Ri, 1].mean() + 0.01) & (X[S, 2] < Z_BROW + height * 0.009))
     FA, Fb, fe, fn = sil_system(Vc, ex, ez, sf, tf, FC, FCN, fm.shape, 22.0,
                                 lambda X, S: X[S, 2] < zf)
     A = np.concatenate([LM_A, PIN_A, STAY_A, SA, FA]); b = np.concatenate([LM_b, PIN_b, STAY_b, Sb, Fb])

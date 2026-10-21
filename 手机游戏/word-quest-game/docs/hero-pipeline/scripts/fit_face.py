@@ -36,7 +36,7 @@ for o in list(bpy.data.objects):
     bpy.data.objects.remove(o, do_unlink=True)
 
 MACRO = {
-    "male": {"gender": 1.0, "age": 0.48, "muscle": 0.6, "weight": 0.38, "proportions": 1.0, "height": 0.82,
+    "male": {"gender": 1.0, "age": 0.48, "muscle": float(os.environ.get("MUSCLE", "0.68")), "weight": float(os.environ.get("WEIGHT", "0.26")), "proportions": 1.0, "height": 0.82,
              "cupsize": 0.5, "firmness": 0.5, "race": {"asian": 0.72, "caucasian": 0.28, "african": 0.0}},
     "female": {"gender": 0.0, "age": 0.42, "muscle": 0.45, "weight": 0.38, "proportions": 1.0, "height": 0.55,
                "cupsize": 0.55, "firmness": 0.65, "race": {"asian": 0.75, "caucasian": 0.25, "african": 0.0}},
@@ -90,18 +90,34 @@ ORTHO = HEAD_H * 1.6
 scene.render.resolution_x = RES; scene.render.resolution_y = RES
 
 
-def view_axes(yaw_deg):
-    t = math.radians(yaw_deg)
-    d = np.array([math.sin(t), -math.cos(t), 0.0])   # toward camera
-    r = np.array([math.cos(t), math.sin(t), 0.0])    # image right
+def _rot(v, axis, deg):
+    a = math.radians(deg); axis = axis / np.linalg.norm(axis)
+    return v * math.cos(a) + np.cross(axis, v) * math.sin(a) + axis * (axis @ v) * (1 - math.cos(a))
+
+
+def view_frame(pose):
+    """pose = yaw or (yaw, pitch, roll) in degrees -> (toward-camera d, image-right r, image-up u)."""
+    yaw, pitch, roll = (pose, 0.0, 0.0) if np.isscalar(pose) else pose
+    t = math.radians(yaw)
+    d = np.array([math.sin(t), -math.cos(t), 0.0])
+    r = np.array([math.cos(t), math.sin(t), 0.0])
+    u = np.array([0.0, 0.0, 1.0])
+    d, u = _rot(d, r, pitch), _rot(u, r, pitch)     # pitch > 0: camera above the head
+    r, u = _rot(r, d, roll), _rot(u, d, roll)
+    return d, r, u
+
+
+def view_axes(pose):
+    d, r, _ = view_frame(pose)
     return d, r
 
 
-def render(path, yaw_deg):
-    d, r = view_axes(yaw_deg)
+def render(path, pose):
+    d, r, u = view_frame(pose)
+    from mathutils import Matrix
     cd.ortho_scale = ORTHO
     cam.location = Vector((hc + d * 3).tolist())
-    cam.rotation_euler = (Vector(hc.tolist()) - cam.location).to_track_quat("-Z", "Y").to_euler()
+    cam.rotation_euler = Matrix([[r[0], u[0], d[0]], [r[1], u[1], d[1]], [r[2], u[2], d[2]]]).to_euler()
     scene.render.filepath = path
     bpy.ops.render.render(write_still=True)
     return d, r
@@ -167,6 +183,7 @@ A0 = anchor_pos(V0)
 _xc = hc[0]
 _zb = A0[valid.index(9), 2] if 9 in valid else top - height * 0.06      # between the brows
 _zc = A0[valid.index(152), 2] if 152 in valid else top - height * 0.13  # chin
+_zb = _zb + height * 0.009   # the side photo shows ~2 cm of forehead above the brows
 MID = np.where((np.abs(V0[:, 0] - _xc) < height * 0.03) & (V0[:, 2] < _zb) & (V0[:, 2] > _zc - height * 0.035)
                & (V0[:, 1] < hc[1]) & ~helper_v)[0]
 ZBINS = np.linspace(_zc - height * 0.035, _zb, 70)
@@ -174,7 +191,7 @@ M0 = V0[MID]
 print("midline verts", len(MID), "zb", round(_zb,3), "zc", round(_zc,3), "top", round(top,3), "height", round(height,3), "Mz", np.round([V0[MID,2].min(), V0[MID,2].max()],3), "nose", np.round(A0[valid.index(4)],3), flush=True)
 
 # ---------------------------------------------------------------- stage 3: target basis
-REGIONS = ["head", "forehead", "eyebrows", "eyes", "nose", "mouth", "ears", "chin", "cheek", "neck"]
+REGIONS = ["head", "eyebrows", "eyes", "nose", "mouth", "chin", "cheek", "neck"]   # no landmarks on ears/forehead
 files = []
 for reg in REGIONS:
     d = os.path.join(SYS_TARGETS, reg)
@@ -210,12 +227,29 @@ def photo_lm(path):
 
 PF = photo_lm(FRONT)
 PQ = photo_lm(Q34)
+# left/right symmetric targets are solved as one variable (photo noise otherwise makes the face lopsided)
+RAW_NAMES = names
+groups, seen_ = [], set()
+for i, nm in enumerate(names):
+    if i in seen_:
+        continue
+    g = [i]
+    for a_, b_ in (("_l-", "_r-"), ("-l-", "-r-")):
+        if a_ in nm:
+            twin = nm.replace(a_, b_)
+            if twin in names:
+                g.append(names.index(twin))
+    seen_.update(g); groups.append(g)
+D = np.stack([D[:, :, g].sum(-1) for g in groups], -1)
+DM = np.stack([DM[:, :, g].sum(-1) for g in groups], -1)
+names = [RAW_NAMES[g[0]].replace("_l-", "_lr-") for g in groups]
+print("symmetric variables", len(names), "from", len(RAW_NAMES), flush=True)
 nT = D.shape[2]
 
 
-def proj(points, yaw):
-    _, r = view_axes(yaw)
-    return np.stack([points @ r, -points[:, 2]], -1)  # (u, v) up to similarity
+def proj(points, pose):
+    _, r, u = view_frame(pose)
+    return np.stack([points @ r, -(points @ u)], -1)  # (u, v) up to similarity
 
 
 # incr/decr pair coupling: penalise w_incr * w_decr co-activation via off-diagonal terms
@@ -327,6 +361,7 @@ def fit_similarity(src, dst, wts):
 
 
 LAST = {}
+PAIR_W = float(os.environ.get("PAIR_W", "1.0"))
 # landmarks above the brows sit under the fringe in every photo: MediaPipe only guesses them
 VIS = np.where(A0[:, 2] > A0[valid.index(9), 2] + 0.004, 0.0, 1.0)
 print("visible landmarks", int(VIS.sum()), flush=True)
@@ -350,16 +385,16 @@ def solve(yaw_q, iters=8, lam=0.02):
         sq, tq = fit_similarity(proj(X, yaw_q), PQ, wq)
         rows, rhs, rw = [], [], []
         for (s, t, yaw, P, ww) in ((sf, tf, 0, PF, wf), (sq, tq, yaw_q, PQ, wq)):
-            _, r = view_axes(yaw)
+            _, r, u = view_frame(yaw)
             Ju = s * np.einsum("nct,c->nt", D, r)          # (n, T)
-            Jv = -s * D[:, 2, :]
+            Jv = -s * np.einsum("nct,c->nt", D, u)
             base = s * proj(A0, yaw) + t
             rows += [Ju, Jv]; rhs += [P[:, 0] - base[:, 0], P[:, 1] - base[:, 1]]; rw += [ww, ww]
         J = np.concatenate(rows); y = np.concatenate(rhs); W = np.concatenate(rw)
         Jw = J * W[:, None]; yw = y * W
         reg = lam * (np.abs(Jw).mean() + 1e-9)
         A_ = Jw.T @ Jw + reg * len(yw) * 1e-3 * np.eye(nT); b_ = Jw.T @ yw
-        A_ = A_ + PAIR * (reg * len(yw) * 0.05)
+        A_ = A_ + PAIR * (reg * len(yw) * PAIR_W)
         # side profile silhouette rows (lian2): frontmost point per height row
         if sp is not None:
             Mx = M0 + DM @ w
@@ -402,7 +437,7 @@ def solve(yaw_q, iters=8, lam=0.02):
     if sp is not None:
         _M = M0 + DM @ w
         json.dump({"model": (sp * side_proj(_M[lead_idx(_M)]) + tp).tolist(), "base": (sp * side_proj(M0[lead_idx(M0)]) + tp).tolist(),
-                   "contour": PROFILE[0].tolist(), "raw": _M[lead_idx(_M)].tolist(), "zbins": ZBINS.tolist()}, open(os.path.join(OUT, f"{WHO}_profile_dbg_{yaw_q}.json"), "w"))
+                   "contour": PROFILE[0].tolist(), "raw": _M[lead_idx(_M)].tolist(), "zbins": ZBINS.tolist()}, open(os.path.join(OUT, f"{WHO}_profile_dbg.json"), "w"))
         print("  profile mean px", round(perr, 2), "scale", round(sp, 1), flush=True)
     return w, ef, eq
 
@@ -417,28 +452,47 @@ for yaw in [int(x) for x in os.environ.get("YAWS", "25,30,35,40,45,50").split(",
     if best is None or ef + eq < best[1] + best[2]:
         best = (w, ef, eq, yaw)
 w, ef, eq, yaw = best
+# refine the 3/4 head pose (the 3/4 photo is not a pure yaw): coordinate descent on yaw / pitch / roll
+pose = [float(yaw), 0.0, 0.0]
+for step in (6.0, 3.0, 1.5):
+    improved = True
+    while improved:
+        improved = False
+        for axis in (1, 2, 0):
+            for sgn in (-1, 1):
+                cand_ = list(pose); cand_[axis] += sgn * step
+                w_, ef_, eq_ = solve(tuple(cand_))
+                if ef_ + eq_ < ef + eq - 0.05:
+                    w, ef, eq, pose = w_, ef_, eq_, cand_
+                    improved = True
+                    print("pose", tuple(cand_), "front px", round(ef_, 2), "q34 px", round(eq_, 2), flush=True)
+                    break
+yaw = tuple(pose)
+if np.isscalar(yaw):
+    yaw = (yaw, 0.0, 0.0)
 print("BEST yaw", yaw, "front px", round(ef, 2), "q34 px", round(eq, 2), "active targets", int((w > 0.02).sum()), flush=True)
 
 # ---------------------------------------------------------------- stage 5: apply + save
-for nm, val in zip(names, w):
+for g, val in zip(groups, w):
+  for nm in [RAW_NAMES[i_] for i_ in g]:
     kb = basemesh.data.shape_keys.key_blocks.get(nm)
     if kb:
         kb.value = float(val)
-json.dump({"yaw_q34": yaw, "weights": {n: float(v) for n, v in zip(names, w) if v > 0.01},
+json.dump({"yaw_q34": yaw[0], "pose_q34": list(yaw), "weights": {RAW_NAMES[i_]: float(v) for g, v in zip(groups, w) for i_ in g if v > 0.01},
            "err_front_px": ef, "err_q34_px": eq}, open(os.path.join(OUT, f"{WHO}_fit.json"), "w"), indent=1)
 bpy.context.view_layer.update()
 V1 = eval_verts(basemesh)
 
 # ---------------------------------------------------------------- stage 6: free-form refinement (Laplacian)
 if os.environ.get("REFINE", "1") == "1" and PROFILE is not None:
-    st = LAST[yaw]
+    st = LAST[yaw] if yaw in LAST else LAST[yaw[0]]
     polys = [list(p_.vertices) for p_ in basemesh.data.polygons]
     flat = np.array([i_ for p_ in polys for i_ in p_]); offs = np.cumsum([0] + [len(p_) for p_ in polys])
     ab = np.array([anchors[k][0] for k in valid]); aw = np.array([anchors[k][1] for k in valid])
     SL = detect(SIDE)
     np.savez(os.path.join(OUT, f"{WHO}_refine_in.npz"), V=V1, flat=flat, offs=offs, helper=helper_v,
              ab=ab, aw=aw, valid=np.array(valid), PF=PF, PQ=PQ, wq=st["wq"], sf=st["sf"], tf=st["tf"],
-             sq=st["sq"], tq=st["tq"], yaw=yaw, sp=st["sp"], tp=st["tp"], C=PROFILE[0], CN=PROFILE[1],
+             sq=st["sq"], tq=st["tq"], yaw=yaw[0], rq=view_frame(yaw)[1], uq=view_frame(yaw)[2], sp=st["sp"], tp=st["tp"], C=PROFILE[0], CN=PROFILE[1],
              SL=SL if SL is not None else np.zeros((0, 2)), top=top, height=height,
              side=SIDE, front=FRONT, q34=Q34)
     r = subprocess.run([VENV_PY, os.path.join(HERE, "refine_solve.py"), os.path.join(OUT, f"{WHO}_refine_in.npz"),
@@ -457,6 +511,8 @@ if os.environ.get("REFINE", "1") == "1" and PROFILE is not None:
     print("refine applied, max move mm", round(float(np.linalg.norm(Vn - V1 + (V1 - V1), axis=1).max() * 0), 1), flush=True)
 
 hc = V1[V1[:, 2] > V1[:, 2].max() - height * 0.14].mean(0)
+json.dump({str(k): p_.tolist() for k, p_ in zip(valid, anchor_pos(V1))},
+          open(os.path.join(OUT, f"{WHO}_lm3d.json"), "w"))
 render(os.path.join(OUT, f"{WHO}_fit_front.png"), 0)
 render(os.path.join(OUT, f"{WHO}_fit_q34.png"), yaw)
 render(os.path.join(OUT, f"{WHO}_fit_side.png"), 90)
