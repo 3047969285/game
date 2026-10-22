@@ -1,14 +1,14 @@
 {
- "generatedFrom": "/Users/shoudaodefengge/项目/.claude/worktrees/game-memory/手机游戏/word-quest-game/public/data/content/college_english_rw3",
+ "generatedFrom": "/Users/shoudaodefengge/项目/game/手机游戏/word-quest-game/public/data/content/college_english_rw3",
  "counts": {
   "unit": 6,
   "section": 18,
-  "reading_question": 23,
-  "listening_question": 24,
+  "reading_question": 60,
+  "listening_question": 59,
   "micro_check": 72,
-  "translation": 24,
+  "translation": 19,
   "writing": 6,
   "outline_point": 24
  },
- "merged": "/Users/shoudaodefengge/项目/.claude/worktrees/game-memory/手机游戏/word-quest-ue/Content/Data/content/rw3_units.json"
+ "merged": "/Users/shoudaodefengge/项目/game/手机游戏/word-quest-ue/Content/Data/content/rw3_units.json"
 }

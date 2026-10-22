@@ -11,7 +11,10 @@
 | `word-quest/data/textbook/rw3/qa/unit01–06.json` | **校对后的干净内容**（数据层唯一输入） |
 | `word-quest/data/textbook/rw3/textbook.json` | **教材基准数据**：6 单元、Text A/B 文章、New words、练习题、Stories of China、翻译 |
 | `word-quest/data/content/college_english_rw3/` | 游戏实际内容：6 单元课文/词表/题目/翻译/写作（由 QA 生成） |
-| `word-quest/data/vocabulary/college_english_rw3.json` | 教材词表（音标取自 CET 词库，缺则留空） |
+| `word-quest/data/vocabulary/college_english_rw3.json` | 教材词表（音标取自教材页图转写，缺则留空） |
+| `Content/Data/vocabulary/college_english_rw3.json` / `.csv` | UE 词表（536 词，由 `Tools/data_vocabulary_csv.py` 生成） |
+| `Content/Data/content/rw3_units.json` + `Content/Data/content/dt_*.csv` | UE 内容数据（由 `Tools/data_import_content.py --data-only` 从 `public/data` 重新生成） |
+| `DT_Vocabulary` / `DT_Content_*` | UE DataTable（无头 `UnrealEditor-Cmd -run=pythonscript` 重新导入） |
 | `Content/Data/textbook/rw3/pages/page_*.txt` | OCR 原始页文本（复核用） |
 | `Content/Data/textbook/rw3/units/unit0*.md` | 单元可读版（校对用） |
 | `Content/Data/textbook/rw3/words.csv` / `questions.csv` | 词表 / 题库（分析用） |
@@ -62,3 +65,6 @@
   `textbook_units.json` 保留为 UE 导入用的中间格式，不再与旧 D8 原创数据并存。
 
 > **2026-10-22 完成**：数据层已按本约定替换——`word-quest/data/content/college_english_rw3/unit01–06.json` 与 `vocabulary/college_english_rw3.json` 已由教材 QA 结果生成（536 词、72 道微检查、模板 v2.0.0 / 127 关），游戏 `public/data` 已重新打包。音标按教材 New words 页图转写，页图未印音标的短语留空。
+
+> **2026-10-22 DataTable 刷新**：`Content/Data/**` 源数据（536 词、18 篇课文、60 阅读题、59 听力题、72 微检查、19 翻译、6 写作）已由教材版重新生成；但 `DT_*` 是二进制 uasset，且仓库不含 `Binaries/`，无头 `UnrealEditor-Cmd` 无法加载 C++ 模块。刷新方法：在本机 UE 5.8 打开工程（首次会编译，或先跑 `Engine/Build/BatchFiles/Mac/Build.sh WordQuestUEEditor Mac Development`），然后执行
+> `-ExecutePythonScript="Tools/data_import_content.py"` 与 `-ExecutePythonScript="Tools/data_import_vocabulary.py"`（或在编辑器 Output Log 里 `py Tools/data_import_content.py`、`py Tools/data_import_vocabulary.py`）。

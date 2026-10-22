@@ -11,14 +11,14 @@
 |------|------|------|
 | 单元 unit | 6 | 每单元 1 |
 | 课文段落 section_a/b/c | 18 | 每单元 3 段（`title` / `type` / `passage`） |
-| 阅读题 reading.questions | 23 | unit01 3 题，其余每单元 4 题 |
-| 听力题 listening.questions | 24 | 每单元 4 题 |
+| 阅读题 reading.questions | 60 | 每单元 10 题（四选一，含答案与中文解析） |
+| 听力题 listening.questions | 59 | 每单元 10 题（Text B 原文 + 阅读理解题） |
 | 微检查 micro_world_checks | 72 | 每单元 3 段 × 4 题 |
-| 翻译 translation.sentences | 24 | 每单元 4 句（zh / en_reference / keywords） |
+| 翻译 translation.sentences | 19 | 教材 Section C 中文段落（zh / en_reference / keywords） |
 | 写作 writing | 6 | 每单元 1 个 prompt + 4 条 outline |
 | 写作提纲 outline | 24 | 每单元 4 条 |
 
-词表见 `Docs/data/rw3-vocabulary.md`（D2，130 词，30/20/20/20/20/20）。
+词表见 `Content/Data/vocabulary/college_english_rw3.json`（D2，**536 词**，每单元 84/102/88/79/73/110；音标来自教材页图转写）。
 
 ## 2. 字段说明
 
@@ -56,7 +56,7 @@
 `prompt`（英文写作要求）、`outline[]`（4 条英文提纲）。
 
 ### 2.7 vocabulary
-`sections.vocabulary = { level_count: 6, words_per_level: 5 }`；实际词条在 `public/data/vocabulary/college_english_rw3.json`（130 条），已由 D2 导入 `DT_Vocabulary`。
+`sections.vocabulary = { level_count: 6, words_per_level: 5 }`；实际词条在 `public/data/vocabulary/college_english_rw3.json`（**536 条**，教材 New words），已由 D2 导入 `DT_Vocabulary`。
 
 ### 2.8 template（`templates/college_english_rw3.json`）
 `id/name/name_en/description/version/source/exam_info/zones/rank_tiers/game_rules`：
