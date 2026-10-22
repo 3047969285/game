@@ -2,9 +2,10 @@
   "unit_id": "unit06",
   "unit_number": 6,
   "edition": 4,
+  "source": "textbook-rw3",
   "title": "The economy: power behind everyday life",
   "title_zh": "经济：日常生活背后的力量",
-  "theme": "economy, crisis, sharing economy",
+  "theme": "economy, unemployment, economic bubbles, the sharing economy",
   "word_ids": [
     "rw3_unit06_01",
     "rw3_unit06_02",
@@ -25,145 +26,235 @@
     "rw3_unit06_17",
     "rw3_unit06_18",
     "rw3_unit06_19",
-    "rw3_unit06_20"
+    "rw3_unit06_20",
+    "rw3_unit06_21",
+    "rw3_unit06_22",
+    "rw3_unit06_23",
+    "rw3_unit06_24",
+    "rw3_unit06_25",
+    "rw3_unit06_26",
+    "rw3_unit06_27",
+    "rw3_unit06_28",
+    "rw3_unit06_29",
+    "rw3_unit06_30",
+    "rw3_unit06_31",
+    "rw3_unit06_32",
+    "rw3_unit06_33",
+    "rw3_unit06_34",
+    "rw3_unit06_35",
+    "rw3_unit06_36",
+    "rw3_unit06_37",
+    "rw3_unit06_38",
+    "rw3_unit06_39",
+    "rw3_unit06_40",
+    "rw3_unit06_41",
+    "rw3_unit06_42",
+    "rw3_unit06_43",
+    "rw3_unit06_44",
+    "rw3_unit06_45",
+    "rw3_unit06_46",
+    "rw3_unit06_47",
+    "rw3_unit06_48",
+    "rw3_unit06_49",
+    "rw3_unit06_50",
+    "rw3_unit06_51",
+    "rw3_unit06_52",
+    "rw3_unit06_53",
+    "rw3_unit06_54",
+    "rw3_unit06_55",
+    "rw3_unit06_56",
+    "rw3_unit06_57",
+    "rw3_unit06_58",
+    "rw3_unit06_59",
+    "rw3_unit06_60",
+    "rw3_unit06_61",
+    "rw3_unit06_62",
+    "rw3_unit06_63",
+    "rw3_unit06_64",
+    "rw3_unit06_65",
+    "rw3_unit06_66",
+    "rw3_unit06_67",
+    "rw3_unit06_68",
+    "rw3_unit06_69",
+    "rw3_unit06_70",
+    "rw3_unit06_71",
+    "rw3_unit06_72",
+    "rw3_unit06_73",
+    "rw3_unit06_74",
+    "rw3_unit06_75",
+    "rw3_unit06_76",
+    "rw3_unit06_77",
+    "rw3_unit06_78",
+    "rw3_unit06_79",
+    "rw3_unit06_80",
+    "rw3_unit06_81",
+    "rw3_unit06_82",
+    "rw3_unit06_83",
+    "rw3_unit06_84",
+    "rw3_unit06_85",
+    "rw3_unit06_86",
+    "rw3_unit06_87",
+    "rw3_unit06_88",
+    "rw3_unit06_89",
+    "rw3_unit06_90",
+    "rw3_unit06_91",
+    "rw3_unit06_92",
+    "rw3_unit06_93",
+    "rw3_unit06_94",
+    "rw3_unit06_95",
+    "rw3_unit06_96",
+    "rw3_unit06_97",
+    "rw3_unit06_98",
+    "rw3_unit06_99",
+    "rw3_unit06_100",
+    "rw3_unit06_101",
+    "rw3_unit06_102",
+    "rw3_unit06_103",
+    "rw3_unit06_104",
+    "rw3_unit06_105",
+    "rw3_unit06_106",
+    "rw3_unit06_107",
+    "rw3_unit06_108",
+    "rw3_unit06_109",
+    "rw3_unit06_110"
   ],
   "micro_world_checks": {
     "section_a": [
       {
-        "question": "Which pressures first put Lantern Books at risk?",
+        "question": "What was the consequence when large numbers of homeowners failed to repay their loans?",
         "options": [
-          "A sudden surplus of books and lower delivery costs",
-          "A plan to move the store to a larger building",
-          "Rising rent and delivery costs during a recession, alongside a tight budget",
-          "A new rule requiring every reader to buy a book"
-        ],
-        "answer": 2,
-        "explanation": "The opening links the recession and inflation to higher rent and delivery costs, while the budget and savings are shrinking."
-      },
-      {
-        "question": "What did Mei and the campus club build to respond to readers' needs?",
-        "options": [
-          "A larger shop stocked only brand-new titles.",
-          "A book-sharing wall, funded by a small loan and run as a measured pilot.",
-          "A delivery service that charged readers before showing the books.",
-          "A private club that stopped serving neighborhood consumers."
-        ],
-        "answer": 1,
-        "explanation": "Mei used a small loan to build weatherproof shelves, then the club tracked exchanges during a two-week pilot."
-      },
-      {
-        "question": "Why did the exchange not automatically mean higher profit or effortless service?",
-        "options": [
-          "Cleaning, sorting, and checking missing copies still took staff time.",
-          "No readers wanted to reuse books after the first day.",
-          "The shop stopped keeping any records of its inventory.",
-          "The club required every customer to buy two new titles."
+          "The companies that owned the loans and their shareholders lost sizable amounts of money.",
+          "The price of houses rose sharply across the United States.",
+          "The government took over the mortgage companies.",
+          "Unemployment benefits were raised for homeowners."
         ],
         "answer": 0,
-        "explanation": "Reuse improved efficiency, but the passage explicitly names cleaning, sorting, and copy checks as continuing labor."
+        "explanation": "第1段：大量房主无力还贷，拥有这些贷款的公司及其子公司、股东因此损失了大笔资金，随之而来的裁员与解聘又冲击了美国就业市场。"
       },
       {
-        "question": "What best explains the bookstore's modest resilience by the end of term?",
+        "question": "Who were the “99ers”?",
         "options": [
-          "A single investment guaranteed a large profit.",
-          "The neighborhood no longer needed affordable reading.",
-          "The shop stopped listening to customers and club members.",
-          "Trust, clear records, cooperation, and repeated adjustments kept value circulating."
+          "People who earned less than 99 dollars a week.",
+          "People who had exhausted the maximum 99 weeks of unemployment insurance benefits they could claim.",
+          "People who lost their jobs at the age of 99.",
+          "People who had worked for 99 months without a break."
+        ],
+        "answer": 1,
+        "explanation": "第4段：他们自称“99ers”，因为他们已经用完了可以领取的最长99周失业保险金。"
+      },
+      {
+        "question": "What did the unemployment benefits mean to the jobless people?",
+        "options": [
+          "They covered the cost of a university education.",
+          "They allowed them to start their own businesses.",
+          "They were a lifeline that let them keep a roof over their heads and pay their bills.",
+          "They helped them buy new cars and houses."
+        ],
+        "answer": 2,
+        "explanation": "第5段：失业救济金是“a lifeline”，让失业者至少维持正常生活的表象——有住处、给车加油、付电费和电话费。"
+      },
+      {
+        "question": "Why does the author say Sue spent each day like a ping pong ball?",
+        "options": [
+          "She kept moving from one city to another.",
+          "She played table tennis to forget her troubles.",
+          "She was passed between different employers.",
+          "She went back and forth between resolve and despair."
         ],
         "answer": 3,
-        "explanation": "The ending credits resilience to trust, records, repair, and adjustment, not a guaranteed windfall."
+        "explanation": "第7段：每天像乒乓球一样在“resolve（决心）”与“despair（绝望）”之间来回摇摆。"
       }
     ],
     "section_b": [
       {
-      "question": "What was the campus club's first goal for its book exchange?",
-      "options": [
-        "To promise instant revenue to every member",
-        "To replace the campus library with a commercial store",
-        "To make useful books affordable and keep them circulating among readers",
-        "To collect damaged books without recording their condition"
-      ],
-      "answer": 2,
-        "explanation": "The opening frames the project as access and reuse, not as a promise of immediate profit."
+        "question": "What are “economic bubbles”?",
+        "options": [
+          "A government policy that keeps prices stable over a long period.",
+          "A sudden fall in the price of oil and other commodities.",
+          "A period when banks refuse to lend money to homeowners.",
+          "A situation in which excessive investment drives prices far beyond an item’s intrinsic value."
+        ],
+        "answer": 3,
+        "explanation": "第1段定义：对商品、证券、房地产或收藏品的过度投资把价格推高到远超其内在价值的程度，其必然结果是暴涨后崩盘。"
       },
       {
-      "question": "Which practice helped users trust the exchange during its pilot?",
-      "options": [
-        "Logging book condition, exchanges, and clear return responsibilities",
-        "Keeping the fee and the checkout rules secret",
-        "Letting the first user decide who could borrow next",
-        "Removing all records to make the process faster"
-      ],
-      "answer": 0,
-        "explanation": "Transparent condition notes and checkout records make responsibility visible and disputes easier to resolve."
+        "question": "What is the “negative feedback mechanism” of the economy?",
+        "options": [
+          "Rising prices encourage greater production or greater willingness of owners to sell, which pushes prices down.",
+          "Speculators become nervous and stop investing in the market.",
+          "The government raises interest rates to control prices.",
+          "Buyers refuse to pay more than the intrinsic value of an asset."
+        ],
+        "answer": 0,
+        "explanation": "第2段：价格上涨会促使产量增加，或使持有者更愿意出售，这两种情况都能把价格压低，即“负反馈”机制。"
       },
       {
-      "question": "Why did the club compare staffing and repair costs before expanding?",
-      "options": [
-        "They planned to stop recording damage and returns.",
-        "They wanted to prove that any increase in loans guarantees fair access.",
-        "A sponsor had already promised to cover every future cost.",
-        "A new site could add reach but weaken local support if no partner maintained the books."
-      ],
-      "answer": 3,
-        "explanation": "The passage names staffing and repair costs, then warns that expansion could weaken local support without a maintenance partner."
+        "question": "What is the “greater fool theory”?",
+        "options": [
+          "Fools always lose money in the stock market.",
+          "Buyers justify their purchases by believing they will find someone who will pay even more.",
+          "Only foolish people invest in real estate.",
+          "Prices fall because buyers are foolish."
+        ],
+        "answer": 1,
+        "explanation": "第3段：买家以“总会有更大的傻瓜出更高价”来自我辩解，买盘彼此传染，把价格进一步推高。"
       },
       {
-      "question": "Which test best shows whether the project can continue responsibly?",
-      "options": [
-        "Count only the most popular books on opening day.",
-        "Compare access, maintenance costs, local-shop support, and user feedback over time.",
-        "Measure success only by how quickly the project expands.",
-        "Assume that every sharing platform is fair by definition."
-      ],
-      "answer": 1,
-        "explanation": "The final scene treats sustainability as a balance of usefulness, affordability, costs, and feedback."
+        "question": "How is “herd mentality” defined here?",
+        "options": [
+          "Investors carefully study a company’s future profits.",
+          "Brokers refuse to buy when prices are rising.",
+          "Too many brokers rush to buy, driving prices to unrealistic levels.",
+          "Companies sell their assets to healthier companies."
+        ],
+        "answer": 2,
+        "explanation": "第6段：herd mentality 指众多经纪人蜂拥买入，像温度计里的水银一样把价格抬到不切实际的高度。"
       }
     ],
     "section_c": [
       {
-        "question": "In the students' fictional county case, what first made reading harder for families?",
+        "question": "How do readers borrow books from the sharing bookstore in Hefei?",
         "options": [
-          "A sudden increase in free transport to the library",
-          "Lower household budgets and the cost of buying every title separately",
-          "A rule that families could use only printed maps",
-          "A lack of interest in reading among all age groups"
+          "By paying a monthly fee at the bookstore counter",
+          "By scanning a QR code after paying a deposit",
+          "By leaving an ID card with the shop assistant",
+          "By ordering the books online and waiting for delivery"
         ],
         "answer": 1,
-        "explanation": "The fictional case begins with tight household budgets and the difficulty of purchasing each book individually."
+        "explanation": "第2段：合肥三孝口新华书店要求读者下载App、在线交押金，再扫码借书。"
       },
       {
-        "question": "Why did the library keep an assisted, offline option alongside digital lending?",
+        "question": "About how many books were borrowed and returned in the bookstore's first month?",
         "options": [
-          "Some residents lacked reliable devices or felt unsure using the platform.",
-          "The digital catalog contained no books at all.",
-          "The library wanted to prevent volunteers from helping readers.",
-          "Offline service always costs less than maintaining a digital catalog."
-        ],
-        "answer": 0,
-        "explanation": "The story identifies device access and confidence as barriers, so a human-assisted route remains important."
-      },
-      {
-        "question": "How did cooperation improve the service rather than merely add publicity?",
-        "options": [
-          "Partners removed every lending rule and condition check.",
-          "The library transferred all decisions to one sponsor.",
-          "Residents stopped reporting problems with access.",
-          "Readers, volunteers, and librarians found barriers and adjusted the service together."
-        ],
-        "answer": 3,
-        "explanation": "The partners used reader feedback to improve assistance, catalog guidance, and device access."
-      },
-      {
-        "question": "What would be the strongest evidence that the library project is resilient?",
-        "options": [
-          "A large download count, even if many users cannot open the books",
-          "A one-time donation with no plan for maintenance",
-          "Sustained reading access, manageable costs, and useful feedback from different residents",
-          "An announcement that the service will never need revision"
+          "Nearly 8,000",
+          "Nearly 18,000",
+          "Nearly 80,000",
+          "Nearly 800,000"
         ],
         "answer": 2,
-        "explanation": "Resilience is shown by lasting access and an ability to learn and adapt, not by a single headline number."
+        "explanation": "第2段：书店开业第一个月，借出和归还的图书接近8万册（nearly 80,000）。"
+      },
+      {
+        "question": "Why does the book lover prefer the sharing bookstore to a library?",
+        "options": [
+          "Its books are much cheaper to buy",
+          "Its reading rooms are quieter and larger",
+          "Its staff know more about literature",
+          "Its shelves are updated more frequently"
+        ],
+        "answer": 3,
+        "explanation": "第4段：这位爱书者认为，与图书馆相比，大书店更新书架更频繁，读者更容易读到喜欢的书。"
+      },
+      {
+        "question": "Why do some experts doubt the “book sharing” services?",
+        "options": [
+          "Because they still charge deposits and fines",
+          "Because they are run by foreign companies",
+          "Because they offer too few books to readers",
+          "Because they will replace public libraries"
+        ],
+        "answer": 0,
+        "explanation": "第7段：有专家认为部分“图书共享”只是噱头，只要还要交押金或罚款，就与以往小书店的借书服务无异，并非真正的共享。"
       }
     ]
   },
@@ -171,173 +262,275 @@
     "section_a": {
       "title": "Surviving an economic crisis",
       "type": "reading",
-      "passage": "In the old harbor district, Lantern Books had served students for twenty years, but a recession changed the street. Inflation pushed up rent and delivery costs, while a tight budget left fewer new titles on its shelves. Owner Mei wrote each expense beside the supply of books and the demand from readers instead of guessing. Her savings covered only two months, and she feared the shop would close before the next school term. To understand the crisis, she asked customers what they needed and what they could afford. A campus club suggested a sharing wall where a reader could leave one book and choose another. Mei took a small loan to build weatherproof shelves and a simple checkout desk. During a two-week pilot, every exchange was entered in a paper ledger with a fair, affordable fee. The club recorded the book condition, the reader's choice, and the time each title remained on the shelf. The early numbers showed that a few popular subjects moved quickly while other titles waited. Rather than call the project an instant success, Mei compared its modest revenue with saved purchasing costs. Reusing books improved efficiency, but cleaning, sorting, and missing-copy checks still required staff time. Some consumers could not pay even a small fee, so the club created a no-fee exchange hour. The change widened access without hiding the real cost of keeping the service open. Mei explained that sharing works only when rules protect both the resource and the people using it. By the end of the term, the shop had not become rich, yet it had kept two local jobs and reopened a quiet reading corner. Readers returned with suggestions, and the club helped repair damaged covers instead of discarding every copy. This modest resilience came from trust, clear records, and repeated adjustments rather than one heroic investment. Students traced how price, supply, demand, and access shaped ordinary choices in the neighborhood. They left with a practical lesson: a healthy economy depends on choices that keep value circulating and responsibility visible."
+      "passage": "The economic slump that so many people suffered through originated in the United States, with a regulatory failure of mortgages rated less risky than they turned out to be. As large numbers of homeowners proved unable to repay their loans, the companies that owned the loans (as well as their subsidiaries and shareholders) lost sizable amounts of money. The effects of these drastic losses soon spiraled into the U.S. job market as lay-offs and terminations. The rebound was slow in coming. Many people experienced long months of financial difficulties just like the character in this story. Facing tenant eviction after several months of unpaid rent, Sue Johnson packed up whatever she could fit into her two-door automobile and drove out of town. She wound up at a motel, putting down the $260 she had managed to scrape together from friends and from selling her living room set. It was all the money Sue had after her unemployment benefits had expired. She faced life as a migrant, a previously unimaginable situation for a woman who, not that long before, had held a corporate job in a metropolitan city and had been enrolled in a graduate business school. Sue knew that, in all likelihood, she would end up living in her car. She was part of a hard-luck group of jobless people who called themselves “99ers”, because they had exhausted the maximum 99 weeks of unemployment insurance benefits that they could claim. Long-term unemployment was at record levels. Modest payments of unemployment benefits were a lifeline that enabled people who were out of work to maintain at least an appearance of normalcy, keeping a roof over their heads, putting gas in their cars, and paying electric and phone bills. Without the checks, people like Sue, who had once been a director of client services at a technology company, began to tumble over the economic cliff. The last remnants of their former working-class or middle-class lives were gone, and all of them faced unsure futures. When Sue received her last unemployment check, she felt a wave of profound grief. With no income to deposit, Sue’s checking account went into a negative balance. Her car was on the verge of being repossessed. And, the constant harassment of the financing company for her car loan added to her daily stress. Each day, like a ping pong ball, Sue went back and forth between resolve and despair. It was a sickening plunge considering that only a short year and a half before, Sue had earned $56,000 a year at her old job, enjoyed vacationing in places like Mexico and the Caribbean, and started business school at an excellent university. Initially, Sue had tried to finish her university certification remotely, but finally dropped out because of the stress from her sinking finances. She applied for every possible job in the employment spectrum, from minimum-wage retail jobs to director positions. Sue should have been evicted from her two-bedroom apartment for non-payment several months before she was, but, thankfully, the process was delayed by paperwork and bureaucracy. Eventually, the bureaucracy caught up with her, and she was given 10 days to leave her apartment for good. She had no choice but to comply. That last day of her old life, Sue wept as she drove away. She wondered if she would ever again be able to reclaim that life of comfort and respect. She fell into complete despair and didn’t know what would happen to her next. Friends came to her aid. One friend wired her $200 while she was driving away from her old apartment, enabling her to find refuge in a motel along the way. But Sue worried there wouldn’t be any more charity that she desperately needed. Helped by gas cards donated by a church, Sue decided to return to her hometown. She figured the health-care safety net there was better, as well as the job market. She contacted a local shelter but learned there was a waiting list. Welfare was not an option, because she didn’t have young children. And, Sue knew that none of her three adult sons were in a position to help her. “I knew the only help I was going to get was from me myself,” Sue said. “I thought to myself: I have to take care of myself. I really, really need to get work. I need a job. I don’t want to be seen as a parasite.” Sue’s motel room was depressing. Lining the shelves underneath the television were her food supplies: rice and noodles that she mixed with water in the motel’s ice bucket and heated up in a microwave, peanut butter and jelly, a loaf of white bread – the subsistence of a desperate person. Sue’s days were spent surfing Internet job indexes and applying for jobs where the silent “No”, “No”, “No” led to a feeling of helplessness. Sue had all new problems and obstacles to deal with, too, like what to do for an address for job applications. She worried about what would happen when her cell phone was cut off for non-payment, and calls to her number would disappear into an invisible world she could not reach. Finally, an old friend sent Sue a ray of hope, a small miracle: $300 cash – just enough for another brutal week of financial struggles."
     },
     "section_b": {
-      "title": "The sharing economy turns a new page with books",
+      "title": "Economic bubbles: causes and conditions",
       "type": "reading",
-      "passage": "On campus, a club found that students often bought a required book for one term and then let it collect dust. They designed a sharing exchange where members could lend or swap a copy through a staffed locker. The organizers called it Page Loop, an original student startup built to expand access, not promise instant revenue. Before opening, they surveyed consumers about prices, titles, and whether a refundable deposit felt fair. Their first design offered one flat fee, but readers warned that the rule could exclude people with a tight budget. The team revised the model: a small affordable charge covered checks, while members could volunteer during free-access hours. A barcode, condition note, and clear return date let volunteers track supply without treating every user as a risk. During a month-long trial, they logged which titles moved, which stayed untouched, and when the line grew. Demand shifted around exam weeks, so the club added high-use titles and asked departments to donate older editions. The records also revealed a bottleneck: volunteers spent too long checking books at a single desk. They arranged two return boxes and a short inspection rota, improving efficiency without removing a human check. One sponsor suggested rapid expansion, but the club compared extra staffing and repair costs first. The new site would add reach, yet could weaken local support if no partner helped maintain the books. A teacher asked the group to distinguish activity from impact: more loans did not automatically mean fairer access. Members compared user feedback, wait times, damaged copies, and costs before changing the rules. They kept a free weekly hour for students who could not pay, supported by a campus fund. During that hour, exchange still followed the same condition and return standards. After one term, the project had modest revenue and stronger ties between the club and the campus shop. The team described the model as sustainable only if access, maintenance, and local cooperation remained in balance. Page Loop taught them that sharing works best when transparency makes responsibility as visible as convenience."
+      "passage": "Economic bubbles occur when, for any number of reasons, excessive investment in commodities (such as oil), securities (such as stocks and bonds), real estate, or collectibles drives up prices well beyond the item’s intrinsic value. The inevitable result of this boom in price is a crash or bust. The price falls sharply once it becomes clear that it has grown far beyond the purchasing power of potential customers. Speculators risk money in such investments because they hope that the price of an asset they purchase will quickly increase. Since most speculators are nervous about where they invest their money, bubbles are by no means the norm. After all, every investment entails the risk that it is overpriced. Speculators also know that rising prices will encourage either greater production of a commodity or greater willingness of current owners to sell. Either of these conditions can serve as a “negative feedback” mechanism that adjusts prices downward. As an analogy, think of negative feedback like your eyes. As the light gets brighter, your pupils get smaller and let in less light. But what if, instead, your eyes worked as a “positive feedback” mechanism? In sunlight, your pupils would open wide and damage your eyes. Economic bubbles occur when prices trending sharply upward spur positive, rather than negative, feedback. For whatever reason (fear of shortages, greed, an excessively optimistic attitude toward the future, or flaws in the analysis of an asset’s underlying value), buyers believe that the value of the asset will continue to rise. If the price rises, overly enthusiastic speculators buy more, or those who missed out on the lower price flock to buy before the price rises any higher. The foremost explanation is the “greater fool theory”: Buyers justify their purchases by assuring themselves they will find “a greater fool” who will pay even more. Buyer enthusiasm infects other buyers, amplifying the effect even further. Under the right conditions, prices can reach dizzying heights before falling. One famous example is the tulip-buying bubble which happened in the Netherlands in the 1630s when a single tulip bulb could cost a year’s salary. Most bubbles are easily assimilated or averted by an elastic market. Provided the bubble is small enough, the losers earn wisdom in retrospect, and the winners earn a lot of money. But the effects of a bubble might become cumulative if many owners of an overpriced asset feel rich and spend foolishly, especially in a period of deregulation. Imagine this: You buy a house for $200,000, for which you borrowed $160,000 beforehand. You have $40,000 in equity in the house. Over the next five years, the market appraisal rises to $500,000. Now you have $340,000 in equity ($500,000 – $160,000), so you borrow another $240,000 from a bank using this equity to secure the loan. You still have $100,000 in equity in your home, and you have $240,000 to spend. You suddenly feel less need to be economical with your purchases and allocate more money for things like a vacation home and a new car. But equity is not revenue. The market holds long enough for you to spend the money. Then it crashes and the value of your home falls to $325,000. Now you have negative equity and owe the bank $400,000. So you default on your loan and give your house, car, and vacation home to the bank. If this situation is widespread, it can culminate in the failure of those banks and a severe blow to the lending needed to grow the economy. There are also stock market bubbles. In a normal market, investors buy stock in a company because they anticipate that future profits will become dividends and they believe the value of the company’s assets will increase. Sometimes, though, a “herd mentality” sets in and too many brokers rush to buy, driving prices like mercury up a thermometer to levels that prove unrealistic. Eventually, it becomes clear that further increases are not forthcoming and price deterioration develops, followed by a swift drop. When this happens to too many companies in aggregate, it is called a stock market crash. A striking example of a stock market bubble is the “dot-com” bubble. The buzz about the economic possibilities of the Internet encouraged investors to fund the creation of many dot-com companies – too many, it turned out. For several years, dozens of entrepreneurs sought to duplicate for themselves the results of those that had come before. Many investors envisaged wealth for any business with a website that could advertise on TV or billboards, even if its actual services were ambiguous. Instead, on March 10, 2000, the dot-com boom reached its peak when the stock index hit 5,132.52. Over the next two and a half years, the index dropped to as low as 1,108.49. Very few companies bucked the trend. Most had blundered into awful financial difficulties, selling off their assets to healthier companies. Bubbles are not limited to the arena of real estate or “get-rich” stock offerings. In the 1990s, a series of stuffed animal toys became such a fad that speculators bought up large quantities, assuming that their value as collectibles would continue to rise. Did anyone make money on that fad? If you check out their prices on an online auction site, you can decide whether any of these sellers have struck it rich."
     },
     "section_c": {
-      "title": "Stories of China: A Fictional County Library Case",
+      "title": "The sharing economy turns a new page with books",
       "type": "stories_of_china",
-      "passage": "For a class project, students created a fictional county case called Yunhe to examine access to reading during a downturn. In their story, many families had a tight budget, and the county library could not buy every new title. The students proposed a shared digital-lending catalog so one licensed copy could reach more readers over time. They did not present Yunhe as a documented real event; it was a model for testing choices, costs, and access. Their first question was simple: who might still be left out if the service moved online? A group of older residents had no reliable device, while some families shared one phone among several people. Librarians therefore kept printed guides and an assisted desk beside the digital screen. Volunteers helped readers request a title, set a return reminder, and find an offline alternative when needed. The team listed the resources: licenses, devices, staff time, network access, and community knowledge. Demand rose before exams, so a booking queue showed where extra copies or longer lending periods mattered. The students compared costs with the number of completed reads rather than counting clicks alone. A local school offered quiet study space, and a community group helped troubleshoot basic device problems. These partners could not erase the recession, but they reduced barriers that price alone could not explain. The library also collected feedback in short interviews, including from people who had not used the service. Their comments led to clearer instructions, larger text, and a weekly in-person help session. One student argued that digital lending was always more efficient, but the access notes challenged that claim. A shared platform saved travel for some readers while still requiring licenses, maintenance, and human support. In the fictional case, resilience meant keeping useful knowledge accessible while adjusting the system as needs changed. The class concluded that communities invest in one another when they plan for both convenience and exclusion. Their final report asked readers to judge an economy by who can participate, what it costs, and whether the value lasts."
+      "passage": "From sharing bicycles to sharing cars, China’s sharing economy has now swept into the book industry. Book-sharing services have been launched in cities such as Shanghai, Suzhou, and Hefei. Sanxiaokou Xinhua Bookstore in Hefei of Anhui Province, which declared itself the “first sharing bookstore in the world”, opened to the public in July 2017. Readers need to download an app and pay a deposit online. Then they can borrow books by scanning the QR code. During the first month of the bookstore’s operation, the number of books borrowed and returned reached nearly 80,000. In addition, banks are also involved in the sharing economy, offering book-lending services. Users can borrow books after registering through the official account on social media and paying the deposit. “It doesn’t matter if books are sold or shared; as long as they are read, they benefit society. Culture can be delivered in different forms,” said a woman who is a book lover and likes the sharing of books. “Compared with borrowing books from libraries, the large bookstores update their shelves more frequently, so readers can enjoy their favorite books more easily.” A national reading survey showed that on average, Chinese people read less than eight books a year. Jumping on the bandwagon of the sharing economy may tempt young people to return to bookstores first, and help develop their reading habits. However, there is still no specific definition of “book sharing”, and many problems need to be resolved in the actual operation. Some experts claim that some “book sharing” is just a gimmick, the same stuff with a new label. From a business perspective, they think that today’s “book sharing” is no different from the book-lending services some small bookstores have long offered. This is not real sharing as long as the book-sharing services require a deposit or impose a fine. Some people claim that the “sharing bookstore” is only a concept, just like the previous “flowing bookstall” on the street, which can also be labeled as “sharing”. Many people believe that “book sharing” is a new business attempt in the book industry and the public should give it a chance. There is a long way to go, for “book sharing”."
     },
     "vocabulary": {
-      "level_count": 4,
+      "level_count": 22,
       "words_per_level": 5
     },
     "reading": {
-      "title": "The Library of Useful Things",
-      "passage": "When a student housing cooperative noticed that residents were buying tools they used only once, it proposed a small lending room. At first, the idea sounded simple: place a drill, a sewing kit, and a bicycle pump on a shelf, then let anyone borrow them. But the student team quickly learned that access depends on more than putting objects in a room. A tool needs an inspection record, a return date, and a person responsible for checking damage. The cooperative created a modest membership fee to cover repairs, while reserving free borrowing hours for residents facing a tight budget. Its first month produced an unexpected pattern. The bicycle pump moved every week, but the drill waited until a repair workshop advertised its availability. Demand was therefore not a fixed number; it changed with information and timing. One resident argued that the team should buy more equipment immediately. Another asked them to compare actual use with storage and maintenance costs before spending the cooperative's limited saving. They checked the log, asked neighbors what repairs they planned, and borrowed a second drill from a nearby community center for one weekend. This test met the short-term need without creating an unnecessary purchase. The project also exposed a fairness problem: residents who worked late could not reach the room before it closed. Volunteers added a staffed evening slot and a simple booking board. The system did not remove every cost, and it was not automatically sustainable just because people shared. It became more useful when clear rules protected the tools, transparent records showed what was needed, and residents could suggest changes. By the end of the term, the cooperative had a better estimate of which resources deserved investment. The lesson was practical: a sharing economy is a set of choices about access, responsibility, and value, not merely a shelf of free things.",
+      "title": "Surviving an economic crisis",
+      "passage": "The economic slump that so many people suffered through originated in the United States, with a regulatory failure of mortgages rated less risky than they turned out to be. As large numbers of homeowners proved unable to repay their loans, the companies that owned the loans (as well as their subsidiaries and shareholders) lost sizable amounts of money. The effects of these drastic losses soon spiraled into the U.S. job market as lay-offs and terminations. The rebound was slow in coming. Many people experienced long months of financial difficulties just like the character in this story. Facing tenant eviction after several months of unpaid rent, Sue Johnson packed up whatever she could fit into her two-door automobile and drove out of town. She wound up at a motel, putting down the $260 she had managed to scrape together from friends and from selling her living room set. It was all the money Sue had after her unemployment benefits had expired. She faced life as a migrant, a previously unimaginable situation for a woman who, not that long before, had held a corporate job in a metropolitan city and had been enrolled in a graduate business school. Sue knew that, in all likelihood, she would end up living in her car. She was part of a hard-luck group of jobless people who called themselves “99ers”, because they had exhausted the maximum 99 weeks of unemployment insurance benefits that they could claim. Long-term unemployment was at record levels. Modest payments of unemployment benefits were a lifeline that enabled people who were out of work to maintain at least an appearance of normalcy, keeping a roof over their heads, putting gas in their cars, and paying electric and phone bills. Without the checks, people like Sue, who had once been a director of client services at a technology company, began to tumble over the economic cliff. The last remnants of their former working-class or middle-class lives were gone, and all of them faced unsure futures. When Sue received her last unemployment check, she felt a wave of profound grief. With no income to deposit, Sue’s checking account went into a negative balance. Her car was on the verge of being repossessed. And, the constant harassment of the financing company for her car loan added to her daily stress. Each day, like a ping pong ball, Sue went back and forth between resolve and despair. It was a sickening plunge considering that only a short year and a half before, Sue had earned $56,000 a year at her old job, enjoyed vacationing in places like Mexico and the Caribbean, and started business school at an excellent university. Initially, Sue had tried to finish her university certification remotely, but finally dropped out because of the stress from her sinking finances. She applied for every possible job in the employment spectrum, from minimum-wage retail jobs to director positions. Sue should have been evicted from her two-bedroom apartment for non-payment several months before she was, but, thankfully, the process was delayed by paperwork and bureaucracy. Eventually, the bureaucracy caught up with her, and she was given 10 days to leave her apartment for good. She had no choice but to comply. That last day of her old life, Sue wept as she drove away. She wondered if she would ever again be able to reclaim that life of comfort and respect. She fell into complete despair and didn’t know what would happen to her next. Friends came to her aid. One friend wired her $200 while she was driving away from her old apartment, enabling her to find refuge in a motel along the way. But Sue worried there wouldn’t be any more charity that she desperately needed. Helped by gas cards donated by a church, Sue decided to return to her hometown. She figured the health-care safety net there was better, as well as the job market. She contacted a local shelter but learned there was a waiting list. Welfare was not an option, because she didn’t have young children. And, Sue knew that none of her three adult sons were in a position to help her. “I knew the only help I was going to get was from me myself,” Sue said. “I thought to myself: I have to take care of myself. I really, really need to get work. I need a job. I don’t want to be seen as a parasite.” Sue’s motel room was depressing. Lining the shelves underneath the television were her food supplies: rice and noodles that she mixed with water in the motel’s ice bucket and heated up in a microwave, peanut butter and jelly, a loaf of white bread – the subsistence of a desperate person. Sue’s days were spent surfing Internet job indexes and applying for jobs where the silent “No”, “No”, “No” led to a feeling of helplessness. Sue had all new problems and obstacles to deal with, too, like what to do for an address for job applications. She worried about what would happen when her cell phone was cut off for non-payment, and calls to her number would disappear into an invisible world she could not reach. Finally, an old friend sent Sue a ray of hope, a small miracle: $300 cash – just enough for another brutal week of financial struggles.",
       "questions": [
         {
-      "question": "Why did the team borrow a second drill instead of buying one immediately?",
-      "options": [
-        "The community center refused to lend any equipment.",
-        "Residents were not allowed to repair anything themselves.",
-        "The log showed that immediate demand did not yet justify a permanent purchase.",
-        "The cooperative wanted to remove all maintenance records."
-      ],
-      "answer": 2,
-          "explanation": "The group checked real use and planned repairs, then borrowed a second drill for a short-term need instead of assuming a purchase was necessary."
-        },
-        {
-          "question": "What did the drill's use after a repair-workshop announcement show?",
+          "question": "Why did Sue decide to return to her hometown?",
           "options": [
-            "Equipment use can change when people learn that a resource is available.",
-            "Residents prefer to buy a new tool every time.",
-            "The lending room no longer needed maintenance.",
-            "Demand always stays the same regardless of timing or information."
+            "She believed the health-care safety net and the job market were better there.",
+            "She had inherited a house there.",
+            "Her three adult sons invited her to live with them.",
+            "A local shelter had promised her a place to stay."
           ],
           "answer": 0,
-          "explanation": "The passage connects the drill's increased use to a repair workshop advertising it, showing that demand responds to information and timing."
+          "explanation": "第13段：她认为家乡的医疗保障网和就业市场都更好；她联系当地收容所，却得知还要排队等位。"
         },
         {
-      "question": "Which change addressed the access problem for residents who worked late?",
-      "options": [
-        "The team bought more tools for storage.",
-        "The membership fee was doubled.",
-        "The lending room was closed during weekends.",
-        "Volunteers added an evening borrowing slot and booking board."
-      ],
-      "answer": 3,
-          "explanation": "A staffed evening slot and booking board made the service usable for residents who could not arrive earlier."
+          "question": "Why did Sue think the only help she was going to get was from herself?",
+          "options": [
+            "She did not know that any welfare program existed.",
+            "She had no young children, so welfare was not an option, and none of her three adult sons could help her.",
+            "Her friends and sons had all refused to help her.",
+            "She was too proud to accept help from a church."
+          ],
+          "answer": 1,
+          "explanation": "第13、14段：她没有年幼子女，不符合福利救济条件；三个成年儿子也无力帮她，所以她说“only help ... from me myself”。"
         },
         {
-      "question": "What is the passage's main conclusion about sharing?",
-      "options": [
-        "Shared resources require no rules or upkeep.",
-        "Sharing works better when access, responsibility, records, and feedback are balanced.",
-        "A fee automatically guarantees a fair outcome.",
-        "Every frequently used object should be purchased at once."
-      ],
-      "answer": 1,
-          "explanation": "The final sentences define sharing as choices about access, responsibility, and value, supported by clear rules and feedback."
+          "question": "What new problems and obstacles did Sue have to face when she applied for a job?",
+          "options": [
+            "She was too old to be considered by employers.",
+            "She had no clothes suitable for a job interview.",
+            "She had no address for job applications and her cell phone might be cut off.",
+            "She could not read or write well enough to fill in forms."
+          ],
+          "answer": 2,
+          "explanation": "第16段：她求职时没有地址可用；手机因欠费被停机后，打到她号码的电话会“消失”在她无法触及的世界里。"
+        },
+        {
+          "question": "What does the author intend to tell us by Sue’s story?",
+          "options": [
+            "Charities are more helpful than government programs.",
+            "Unemployment benefits should be abolished.",
+            "Moving back to one’s hometown is the best solution.",
+            "An economic crisis can push an ordinary person with a decent job into deep poverty and despair."
+          ],
+          "answer": 3,
+          "explanation": "全文以 Sue 从公司主管沦落到住汽车旅馆的经历，说明经济危机如何一步步侵蚀普通人的收入、居住、教育与信心。"
+        },
+        {
+          "question": "When you ______ clothes, you not only free up room in your closet but also help people in need.",
+          "options": [
+            "donate",
+            "comply",
+            "reclaim",
+            "expire"
+          ],
+          "answer": 0,
+          "explanation": "句意为“捐出衣物”：donate 捐赠；comply 须与 with 搭配表示“遵守”，expire 指“到期”，reclaim 指“取回”，均不合语境。"
+        },
+        {
+          "question": "The young man watched his financial life ______ downward just when he thought he had overcome the obstacles which had dominated his past.",
+          "options": [
+            "reclaim",
+            "spiral",
+            "donate",
+            "expire"
+          ],
+          "answer": 1,
+          "explanation": "spiral downward 表示“（财务状况）不断恶化、急剧下滑”，watch sb./sth. do 后接动词原形。"
+        },
+        {
+          "question": "Setbacks are the things in life that test your ______ to achieve your goals.",
+          "options": [
+            "subsistence",
+            "eviction",
+            "resolve",
+            "harassment"
+          ],
+          "answer": 2,
+          "explanation": "test your resolve 意为“考验你的决心”；resolve 作名词表示“决心、决意”。"
+        },
+        {
+          "question": "The company was reportedly going bankrupt and this would result in ______ of thousands of employees.",
+          "options": [
+            "deposits",
+            "evictions",
+            "obstacles",
+            "lay-offs"
+          ],
+          "answer": 3,
+          "explanation": "lay-off 意为“解雇、裁员”，此处用复数 lay-offs：result in lay-offs of thousands of employees（导致数千名员工被裁）。"
+        },
+        {
+          "question": "She has always lived a life of wealth and doesn’t understand that many things she is used to are unimaginable luxuries to people on ______ wages.",
+          "options": [
+            "subsistence",
+            "harassment",
+            "resolve",
+            "termination"
+          ],
+          "answer": 0,
+          "explanation": "subsistence wages 指“勉强糊口的工资”，与前面的 wealth、luxuries 形成鲜明对比。"
+        },
+        {
+          "question": "The social media giant has announced that it is to roll out new tools to protect its users from ______ or unwanted contact from other people.",
+          "options": [
+            "eviction",
+            "harassment",
+            "deposit",
+            "expiration"
+          ],
+          "answer": 1,
+          "explanation": "harassment 意为“骚扰、侵扰”，与后面的 unwanted contact 并列，说明要保护用户免受骚扰。"
         }
       ]
     },
     "listening": {
-      "title": "Listening: Should the campus expand its book exchange?",
-      "script": "Welcome back to the campus economics podcast. Our student group has run a book exchange for one term, and the first result is encouraging but incomplete. More than a hundred books changed hands, yet the number alone cannot tell us whether the project was fair or sustainable. We compared the titles requested, the waiting time, repair costs, and the comments from students who could not pay the regular fee. During exam weeks, demand rose for a few subjects, so the club borrowed extra copies from two departments instead of purchasing a large stock. We also kept a free-access hour supported by a small campus fund. That choice widened access, but volunteers still had to inspect returns and maintain the shelves. A local shop now offers a discount on basic repairs, which keeps some spending in the community. Before expanding to another building, the club will run a second trial and ask evening students about opening hours. In other words, we will not treat popularity as proof of success. The more carefully we track costs and listen to users, the more responsibly we can decide what to share. A strong local economy is not simply about moving more goods; it is about making useful exchange possible while keeping its rules, costs, and benefits visible.",
+      "title": "Listening: The economy: power behind everyday life",
+      "script": "Economic bubbles occur when, for any number of reasons, excessive investment in commodities (such as oil), securities (such as stocks and bonds), real estate, or collectibles drives up prices well beyond the item’s intrinsic value. The inevitable result of this boom in price is a crash or bust. The price falls sharply once it becomes clear that it has grown far beyond the purchasing power of potential customers. Speculators risk money in such investments because they hope that the price of an asset they purchase will quickly increase. Since most speculators are nervous about where they invest their money, bubbles are by no means the norm. After all, every investment entails the risk that it is overpriced. Speculators also know that rising prices will encourage either greater production of a commodity or greater willingness of current owners to sell. Either of these conditions can serve as a “negative feedback” mechanism that adjusts prices downward. As an analogy, think of negative feedback like your eyes. As the light gets brighter, your pupils get smaller and let in less light. But what if, instead, your eyes worked as a “positive feedback” mechanism? In sunlight, your pupils would open wide and damage your eyes. Economic bubbles occur when prices trending sharply upward spur positive, rather than negative, feedback. For whatever reason (fear of shortages, greed, an excessively optimistic attitude toward the future, or flaws in the analysis of an asset’s underlying value), buyers believe that the value of the asset will continue to rise. If the price rises, overly enthusiastic speculators buy more, or those who missed out on the lower price flock to buy before the price rises any higher. The foremost explanation is the “greater fool theory”: Buyers justify their purchases by assuring themselves they will find “a greater fool” who will pay even more. Buyer enthusiasm infects other buyers, amplifying the effect even further. Under the right conditions, prices can reach dizzying heights before falling. One famous example is the tulip-buying bubble which happened in the Netherlands in the 1630s when a single tulip bulb could cost a year’s salary. Most bubbles are easily assimilated or averted by an elastic market. Provided the bubble is small enough, the losers earn wisdom in retrospect, and the winners earn a lot of money. But the effects of a bubble might become cumulative if many owners of an overpriced asset feel rich and spend foolishly, especially in a period of deregulation. Imagine this: You buy a house for $200,000, for which you borrowed $160,000 beforehand. You have $40,000 in equity in the house. Over the next five years, the market appraisal rises to $500,000. Now you have $340,000 in equity ($500,000 – $160,000), so you borrow another $240,000 from a bank using this equity to secure the loan. You still have $100,000 in equity in your home, and you have $240,000 to spend. You suddenly feel less need to be economical with your purchases and allocate more money for things like a vacation home and a new car. But equity is not revenue. The market holds long enough for you to spend the money. Then it crashes and the value of your home falls to $325,000. Now you have negative equity and owe the bank $400,000. So you default on your loan and give your house, car, and vacation home to the bank. If this situation is widespread, it can culminate in the failure of those banks and a severe blow to the lending needed to grow the economy. There are also stock market bubbles. In a normal market, investors buy stock in a company because they anticipate that future profits will become dividends and they believe the value of the company’s assets will increase. Sometimes, though, a “herd mentality” sets in and too many brokers rush to buy, driving prices like mercury up a thermometer to levels that prove unrealistic. Eventually, it becomes clear that further increases are not forthcoming and price deterioration develops, followed by a swift drop. When this happens to too many companies in aggregate, it is called a stock market crash. A striking example of a stock market bubble is the “dot-com” bubble. The buzz about the economic possibilities of the Internet encouraged investors to fund the creation of many dot-com companies – too many, it turned out. For several years, dozens of entrepreneurs sought to duplicate for themselves the results of those that had come before. Many investors envisaged wealth for any business with a website that could advertise on TV or billboards, even if its actual services were ambiguous. Instead, on March 10, 2000, the dot-com boom reached its peak when the stock index hit 5,132.52. Over the next two and a half years, the index dropped to as low as 1,108.49. Very few companies bucked the trend. Most had blundered into awful financial difficulties, selling off their assets to healthier companies. Bubbles are not limited to the arena of real estate or “get-rich” stock offerings. In the 1990s, a series of stuffed animal toys became such a fad that speculators bought up large quantities, assuming that their value as collectibles would continue to rise. Did anyone make money on that fad? If you check out their prices on an online auction site, you can decide whether any of these sellers have struck it rich.",
       "questions": [
         {
-      "question": "Why does the speaker say that the number of books exchanged is incomplete evidence?",
-      "options": [
-        "It counts only books bought by the student group.",
-        "It does not reveal fairness, waiting time, repair costs, or who was excluded.",
-        "It proves that the exchange lost every book.",
-            "It measures how much money each student saved on transport."
-          ],
-      "answer": 1,
-          "explanation": "The speaker says the total cannot show whether the project was fair or sustainable, then names waiting, repair, and user feedback as additional evidence."
-        },
-        {
-      "question": "How did the club respond to higher demand during exam weeks?",
-      "options": [
-        "It purchased a large permanent stock immediately.",
-        "It cancelled the free-access hour.",
-        "It stopped lending the most requested subjects.",
-        "It borrowed extra copies from two departments for the peak period."
-      ],
-      "answer": 3,
-          "explanation": "The club used a temporary supply from two departments rather than making a large permanent purchase."
-        },
-        {
-          "question": "What trade-off is mentioned about the free-access hour?",
+          "question": "What is a “stock market crash”?",
           "options": [
-            "It widens access, while volunteers still need time to inspect and maintain books.",
-            "It raises the price for students who pay the regular fee.",
-            "It prevents the shop from offering repair discounts.",
-            "It removes the need to ask students about opening hours."
+            "A single company’s shares lose value quickly.",
+            "Investors receive fewer dividends than expected.",
+            "The government closes the stock market for a period.",
+            "Price deterioration and a swift drop happen to too many companies in aggregate."
+          ],
+          "answer": 3,
+          "explanation": "第6段末：当大量公司同时出现价格恶化和暴跌时，就称为股市崩盘（stock market crash）。"
+        },
+        {
+          "question": "What is the “dot-com bubble”?",
+          "options": [
+            "A stock market bubble in which too many Internet companies were funded and the index later collapsed.",
+            "A bubble in the price of tulip bulbs in the Netherlands.",
+            "A bubble caused by the shortage of computer equipment.",
+            "A period when no investors were willing to fund new businesses."
           ],
           "answer": 0,
-          "explanation": "The speaker pairs wider access with ongoing volunteer labor for inspection and shelf maintenance."
+          "explanation": "第7段：互联网前景的炒作让投资者资助了过多网络公司，股指在2000年3月10日见顶5,132.52后，两年半内跌至1,108.49。"
         },
         {
-      "question": "What will the club do before opening an exchange in another building?",
-      "options": [
-        "Announce success based only on the number of books moved",
-        "Remove the trial and make all rules permanent",
-        "Run another trial and ask evening students about access times",
-        "Ask one sponsor to decide without consulting users"
-      ],
-      "answer": 2,
-          "explanation": "The final plan is to test again and consult evening students before expanding."
+          "question": "Which of the following is the consequence of economic bubbles?",
+          "options": [
+            "Panic buying.",
+            "A crash in price.",
+            "Excessive investment.",
+            "Raised purchasing power."
+          ],
+          "answer": 1,
+          "explanation": "第1段：价格暴涨（boom in price）的必然结果是“a crash or bust”，即价格暴跌。"
+        },
+        {
+          "question": "Why are economic bubbles by no means the norm?",
+          "options": [
+            "Speculators are nervous about their investment.",
+            "People usually know the intrinsic value of an asset.",
+            "Manufacturers are reluctant to expand production for fear of risk.",
+            "Overpriced products are beyond the purchasing power of customers."
+          ],
+          "answer": 0,
+          "explanation": "第2段：多数投机者对自己投资的对象心存不安，因此泡沫并非常态（by no means the norm）。"
+        },
+        {
+          "question": "In a positive feedback system, what would happen when prices increase sharply?",
+          "options": [
+            "Speculators know the prices will fall in the near future.",
+            "Speculators are eager to sell their assets to make a profit.",
+            "Speculators become greedier and buy more assets.",
+            "Speculators become more united to get the best prices."
+          ],
+          "answer": 2,
+          "explanation": "第3段：价格一涨，过度热情的投机者会买得更多，错过低价的人也会蜂拥而入，形成“正反馈”。"
+        },
+        {
+          "question": "The “greater fool theory” explains ______.",
+          "options": [
+            "how prices reach dizzying heights",
+            "how people’s foolishness can be avoided",
+            "why buyers buy more than necessary",
+            "why speculators do not flock to the market"
+          ],
+          "answer": 0,
+          "explanation": "第3段：买家相信会有“更大的傻瓜”出更高价，这种心态互相传染，价格因而被推到令人眩晕的高位。"
+        },
+        {
+          "question": "What will happen when big economic bubbles occur?",
+          "options": [
+            "The involved banks may fail.",
+            "You will be economical with your purchases.",
+            "The market can easily assimilate the bubbles.",
+            "The market can help the winners earn wisdom."
+          ],
+          "answer": 0,
+          "explanation": "第5段：若负资产情况普遍，就可能“culminate in the failure of those banks”，并重创经济增长所需的信贷。"
+        },
+        {
+          "question": "The “herd mentality” explains ______.",
+          "options": [
+            "how the stock market goes bust",
+            "what happens to a company in economic crises",
+            "how brokers drive the stock prices to unrealistic heights",
+            "how investors buy stock in a company in a reasonable way"
+          ],
+          "answer": 2,
+          "explanation": "第6段：herd mentality 指过多经纪人蜂拥买入，把股价推高到不切实际的水平。"
+        },
+        {
+          "question": "What do we know about the “dot-com” bubble?",
+          "options": [
+            "The stock index dropped by about 40 percent in 2002.",
+            "Many companies ended up selling off their assets to other companies.",
+            "The investors were provided with false information about the business.",
+            "The stock index dropped to 1,108.49 right after the boom reached its peak."
+          ],
+          "answer": 1,
+          "explanation": "第7段末：多数公司陷入严重财务困境，把资产出售给更健康的公司；股指是在两年半里逐步跌至1,108.49，并非见顶后立即暴跌。"
+        },
+        {
+          "question": "What can we learn from the text?",
+          "options": [
+            "Economic bubbles reflect the laws of economics.",
+            "Economic bubbles often occur in the stock market.",
+            "Economic bubbles mostly result in very bad consequences.",
+            "Economic bubbles first appeared at the turn of the 21st century."
+          ],
+          "answer": 0,
+          "explanation": "全文说明泡沫是过度投资、投机心理与市场反馈等经济规律共同作用的结果：泡沫不限于股市，多数可被弹性市场吸收，郁金香泡沫早在17世纪就已出现。"
         }
       ]
     },
     "translation": {
       "sentences": [
         {
-          "zh": "如果读者在拿走一本书时登记，书店就能更准确地追踪库存。",
-          "en_reference": "If readers register when they take a book, the shop can track its inventory more accurately.",
+          "zh": "当前，中国实行更加积极主动的开放战略，构建面向全球的高标准自由贸易区网络，加快推进自由贸易试验区、海南自由贸易港建设。中国已成为140多个国家和地区的主要贸易伙伴，吸引外资和对外投资（outbound investment）居世界前列。未来，中国将不断推进高水平对外开放，提升贸易投资合作质量和水平，加快建设贸易强国。",
+          "en_reference": "At present, China is pursuing a more proactive opening-up strategy, building a global network of high-standard free trade areas, and stepping up the development of pilot free trade zones and the Hainan Free Trade Port. China has become a major trading partner of more than 140 countries and regions, and ranks among the world’s leaders in both attracting foreign investment and making outbound investment. In the future, China will continue to advance high-standard opening-up, improve the quality and level of trade and investment cooperation, and move faster to build itself into a strong trading nation.",
           "keywords": [
-            "if",
-            "register",
-            "track",
-            "inventory"
-          ]
-        },
-        {
-          "zh": "如果团队更透明地说明费用，学生就会更愿意信任这个交换项目。",
-          "en_reference": "If the team explained the fee more transparently, students would be more willing to trust the exchange program.",
-          "keywords": [
-            "if",
-            "explained",
-            "would",
-            "trust"
-          ]
-        },
-        {
-          "zh": "规则越清晰，资源就越容易公平地流动。",
-          "en_reference": "The clearer the rules are, the more fairly resources circulate.",
-          "keywords": [
-            "clearer",
-            "the more",
-            "fairly",
-            "resources"
-          ]
-        },
-        {
-          "zh": "在危机时期，小额储蓄和互助能够帮助社区保持韧性。",
-          "en_reference": "During a crisis, small savings and mutual support can help a community remain resilient.",
-          "keywords": [
-            "crisis",
-            "savings",
-            "support",
-            "resilient"
+            "present",
+            "China",
+            "pursuing",
+            "more"
           ]
         }
       ]
     },
     "writing": {
-      "prompt": "Write 120–150 words: Design a fair sharing scheme for a resource used by students or your community. Explain who provides it, who can access it, how rules cover cost and responsibility, and what evidence would show whether the system is sustainable.",
+      "prompt": "Write an essay of no less than 140 words on the negative effects of staying up late. Develop your essay as a cause-and-effect essay: state your thesis in the introduction, present the effects in the body from the least to the most important, and restate your position in the conclusion.",
       "outline": [
-        "State the resource and the need: who has it, who needs it, and what problem exists.",
-        "Describe the sharing process, including access, exchange or return rules, and an affordable option.",
-        "Explain the trade-off: name real costs, risks, and how transparent records or feedback address them.",
-        "Conclude with evidence you would track to judge fairness, efficiency, and long-term resilience."
+        "Introduction: Thesis statement – staying up late can do severe harm to us mainly in three aspects.",
+        "Body: Effect 1 – negative impacts on our physical health; Effect 2 – lower work efficiency; Effect 3 – mental stress.",
+        "Support each effect with details or examples from students’ daily life, and arrange them from the least to the most serious.",
+        "Conclusion: Staying up late is by no means a good choice for us."
       ]
     }
   }

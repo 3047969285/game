@@ -7,8 +7,7 @@ from pathlib import Path
 
 SCRIPTS = [
     "build_vocabulary.py",
-    "build_rw3_content.py",
-    "enrich_rw3_vocab.py",   # 覆盖词汇，添加音标/例句译文/搭配
+    "build_rw3_content.py",  # 从教材 QA 结果生成读写3 数据层
     "build_exam_content.py",
     "build_templates.py",
     "validate_data.py",    # 引用、计数、ID 与答案校验

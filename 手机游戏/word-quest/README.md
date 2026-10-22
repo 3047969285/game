@@ -16,7 +16,8 @@ word-quest/
 │   ├── schema/              # JSON Schema
 │   ├── vocabulary/          # 词汇库
 │   ├── content/             # 听力/阅读/翻译/单元内容
-│   └── templates/           # 三套课程模板
+│   ├── templates/           # 三套课程模板
+│   └── textbook/            # 读写教程3 教材原文与校对稿（qa/ 为数据层输入）
 ├── scripts/                 # 数据构建脚本
 └── docs/                    # 说明文档
 ```
@@ -41,7 +42,7 @@ python scripts/build_templates.py    # 生成模板
 ## 数据来源
 
 - **CET4/CET6 词汇**：`KyleBing/english-vocabulary` 开源词表（`_sources/cet4-words.txt`, `cet6-words.txt`）
-- **读写教程3**：按《新视野大学英语（第四版）读写教程 Book 3》单元主题编写**原创**学习材料（非教材原文）
+- **读写教程3**：教材原文（《新视野大学英语（第四版）读写教程 Book 3（思政智慧版）》），由教师授权用于本教学应用；答案/听力稿为本项目自编
 
 ## 模板说明
 
@@ -54,4 +55,5 @@ python scripts/build_templates.py    # 生成模板
 
 ## 许可说明
 
-开源词表仅供学习应用；读写教程内容为原创仿学材料，请勿作为教材替代品转载。
+- 开源词表仅供学习应用。
+- 读写教程3 内容取自教材原文（《新视野大学英语（第四版）读写教程 3（思政智慧版）》），由教师授权用于本教学应用；对外分发前需确认授权范围，不得商业转售。

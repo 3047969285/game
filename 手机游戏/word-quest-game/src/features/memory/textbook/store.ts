@@ -1,10 +1,12 @@
 import type { SectionKey } from "../ids";
 import { MAX_TEXTBOOK_CHARS } from "./parse";
-import { TextbookInputError, TextbookStorageError, type TextbookPassage, type TextbookPassageInput } from "./types";
+import { TextbookInputError, TextbookStorageError, type TextbookPack, type TextbookPassage, type TextbookPassageInput } from "./types";
 
 const DB_NAME = "word-quest-textbook-local";
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 const STORE_NAME = "passages";
+const PACK_STORE_NAME = "rw3_pack";
+const PACK_KEY = "current";
 
 export interface TextbookDatabasePort {
   list(): Promise<TextbookPassage[]>;
@@ -13,12 +15,21 @@ export interface TextbookDatabasePort {
   clear(): Promise<void>;
 }
 
+export interface PackDatabasePort {
+  getPack(): Promise<TextbookPack | null>;
+  putPack(pack: TextbookPack): Promise<void>;
+  clearPack(): Promise<void>;
+}
+
 export interface TextbookStore {
   list(): Promise<TextbookPassage[]>;
   get(unit: number, section: SectionKey): Promise<TextbookPassage | null>;
   save(input: TextbookPassageInput): Promise<TextbookPassage>;
   remove(unit: number, section: SectionKey): Promise<void>;
   clear(): Promise<void>;
+  savePack(pack: TextbookPack): Promise<void>;
+  loadPack(): Promise<TextbookPack | null>;
+  clearPack(): Promise<void>;
 }
 
 function copy(passage: TextbookPassage): TextbookPassage {
@@ -46,6 +57,7 @@ function openDatabase(factory: IDBFactory | undefined): Promise<IDBDatabase> {
     request.onupgradeneeded = () => {
       const db = request.result;
       if (!db.objectStoreNames.contains(STORE_NAME)) db.createObjectStore(STORE_NAME, { keyPath: "id" });
+      if (!db.objectStoreNames.contains(PACK_STORE_NAME)) db.createObjectStore(PACK_STORE_NAME);
     };
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(new TextbookStorageError("无法打开本机 IndexedDB，教材没有保存。"));
@@ -54,13 +66,13 @@ function openDatabase(factory: IDBFactory | undefined): Promise<IDBDatabase> {
 }
 
 function createIndexedDbPort(factory: IDBFactory | undefined): TextbookDatabasePort {
-  const run = async <T>(mode: IDBTransactionMode, operation: (store: IDBObjectStore) => IDBRequest<T>): Promise<T> => {
+  const run = async <T>(storeName: string, mode: IDBTransactionMode, operation: (store: IDBObjectStore) => IDBRequest<T>): Promise<T> => {
     const db = await openDatabase(factory);
     return new Promise<T>((resolve, reject) => {
       let tx: IDBTransaction;
       try {
-        tx = db.transaction(STORE_NAME, mode);
-        const request = operation(tx.objectStore(STORE_NAME));
+        tx = db.transaction(storeName, mode);
+        const request = operation(tx.objectStore(storeName));
         let result: T;
         request.onsuccess = () => { result = request.result; };
         request.onerror = () => reject(new TextbookStorageError("本机教材数据库操作失败；请检查浏览器存储空间后重试。"));
@@ -75,15 +87,41 @@ function createIndexedDbPort(factory: IDBFactory | undefined): TextbookDatabaseP
     });
   };
   return {
-    list: () => run("readonly", (store) => store.getAll() as IDBRequest<TextbookPassage[]>),
-    put: async (passage) => { await run("readwrite", (store) => store.put(passage)); },
-    delete: (id) => run("readwrite", (store) => store.delete(id)),
-    clear: () => run("readwrite", (store) => store.clear()),
+    list: () => run(STORE_NAME, "readonly", (store) => store.getAll() as IDBRequest<TextbookPassage[]>),
+    put: async (passage) => { await run(STORE_NAME, "readwrite", (store) => store.put(passage)); },
+    delete: (id) => run(STORE_NAME, "readwrite", (store) => store.delete(id)),
+    clear: () => run(STORE_NAME, "readwrite", (store) => store.clear()),
+  };
+}
+
+function createIndexedDbPackPort(factory: IDBFactory | undefined): PackDatabasePort {
+  const run = async <T>(mode: IDBTransactionMode, operation: (store: IDBObjectStore) => IDBRequest<T>): Promise<T> => {
+    const db = await openDatabase(factory);
+    return new Promise<T>((resolve, reject) => {
+      try {
+        const tx = db.transaction(PACK_STORE_NAME, mode);
+        const request = operation(tx.objectStore(PACK_STORE_NAME));
+        let result: T;
+        request.onsuccess = () => { result = request.result; };
+        tx.oncomplete = () => resolve(result!);
+        tx.onerror = tx.onabort = () => reject(new TextbookStorageError("本机教材数据库操作失败；请检查浏览器存储空间后重试。"));
+      } catch {
+        reject(new TextbookStorageError("无法访问本机教材数据库；请检查浏览器存储权限后重试。"));
+      } finally {
+        db.close();
+      }
+    });
+  };
+  return {
+    getPack: async () => (await run("readonly", (store) => store.get(PACK_KEY) as IDBRequest<TextbookPack | undefined>)) ?? null,
+    putPack: async (pack) => { await run("readwrite", (store) => store.put(pack, PACK_KEY)); },
+    clearPack: async () => { await run("readwrite", (store) => store.delete(PACK_KEY)); },
   };
 }
 
 export function createTextbookStore(
-  database: TextbookDatabasePort = createIndexedDbPort(typeof indexedDB === "undefined" ? undefined : indexedDB)
+  database: TextbookDatabasePort = createIndexedDbPort(typeof indexedDB === "undefined" ? undefined : indexedDB),
+  packDatabase: PackDatabasePort = createIndexedDbPackPort(typeof indexedDB === "undefined" ? undefined : indexedDB)
 ): TextbookStore {
   const withStorageError = async <T>(action: () => Promise<T>): Promise<T> => {
     try {
@@ -116,6 +154,12 @@ export function createTextbookStore(
       await database.delete(idFor(unit, section));
     }),
     clear: () => withStorageError(() => database.clear()),
+    savePack: (pack) => withStorageError(() => packDatabase.putPack(structuredClone(pack))),
+    loadPack: () => withStorageError(async () => {
+      const pack = await packDatabase.getPack();
+      return pack ? structuredClone(pack) : null;
+    }),
+    clearPack: () => withStorageError(() => packDatabase.clearPack()),
   };
 }
 

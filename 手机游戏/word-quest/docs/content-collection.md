@@ -24,10 +24,13 @@
 ### 3. 大学英语读写教程3 (`college_english_rw3`) — **第四版**
 
 - **教材对应**：《新视野大学英语（第四版）读写教程 Book 3（思政智慧版）》
-- **6 个单元**，每单元 20 词 + Section A/B/C + 阅读 + 听力 + 单元 Boss
-- **词汇**：120 条（原创例句）
-- **阅读**：6 篇原创短文（非教材原文）
-- **关卡**：42 关（每单元 7 关：4 词汇 + 阅读 + 听力 + Boss）
+- **6 个单元**，每单元 Text A / Text B / Section C *Stories of China* + 阅读 + 听力 + 单元 Boss
+- **词汇**：536 条（教材 New words，音标从教材 New words 页图逐词转写，页图未印音标的短语留空；例句取自课文原句）
+- **阅读**：18 篇（每单元 3 篇，教材原文，经教师授权用于本教学应用）
+- **题目**：413 道四选一（含答案与中文解析；教材无答案页，答案由教师侧推导/命题）
+- **微检查**：每单元 A/B/C 各 4 题，共 72 题
+- **翻译**：19 段教材 Section C 中文段落 + 本项目英文参考译文
+- **关卡**：127 关（按单元词数自动分关：5 词/关 + 阅读 + 听力 + 单元挑战）
 
 #### 单元列表（第四版）
 
@@ -53,8 +56,8 @@ data/content/college_english_rw3/unit01.json ... unit06.json
 ## 重建命令
 
 ```bash
-python scripts/build_rw3_content.py
-python scripts/build_templates.py
+python3 scripts/build_rw3_content.py   # 由 data/textbook/rw3/qa 生成教材版数据
+python3 scripts/build_templates.py
 ```
 
 或：
@@ -71,5 +74,5 @@ python scripts/build_all.py
 ## 版权说明
 
 - CET 词表：开源整理，标注来源
-- 读写教程：仅使用公开单元主题，内容为原创仿学材料
+- 读写教程3：课文、New words、练习取自教材原文（教师授权用于本教学应用），音频/听力稿与答案为本项目自编
 - 真题：当前为仿真题，不直接使用历年真题原文

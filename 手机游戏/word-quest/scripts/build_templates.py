@@ -273,8 +273,8 @@ def build_rw3_template() -> dict:
         "name": "大学英语读写教程3",
         "name_en": "College English Reading & Writing Book 3",
         "description": "新视野大学英语（第四版）读写教程3，按单元闯关",
-        "version": "1.1.0",
-        "source": "新视野大学英语（第四版）读写教程 Book 3（思政智慧版）单元主题 + 原创学习内容",
+        "version": "2.0.0",
+        "source": "新视野大学英语（第四版）读写教程 Book 3（思政智慧版）教材原文（教师授权教学使用）",
         "exam_info": {
             "full_score": 100,
             "pass_score": 60,

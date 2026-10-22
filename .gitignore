@@ -40,3 +40,8 @@ Desktop.ini
 
 # IDE module files
 *.iml
+
+# Python caches
+__pycache__/
+*.pyc
+.pytest_cache/

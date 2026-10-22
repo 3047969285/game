@@ -2,6 +2,7 @@
   "unit_id": "unit02",
   "unit_number": 2,
   "edition": 4,
+  "source": "textbook-rw3",
   "title": "Life stories",
   "title_zh": "人生故事",
   "theme": "biography, exploration, inspiration",
@@ -25,315 +26,533 @@
     "rw3_unit02_17",
     "rw3_unit02_18",
     "rw3_unit02_19",
-    "rw3_unit02_20"
+    "rw3_unit02_20",
+    "rw3_unit02_21",
+    "rw3_unit02_22",
+    "rw3_unit02_23",
+    "rw3_unit02_24",
+    "rw3_unit02_25",
+    "rw3_unit02_26",
+    "rw3_unit02_27",
+    "rw3_unit02_28",
+    "rw3_unit02_29",
+    "rw3_unit02_30",
+    "rw3_unit02_31",
+    "rw3_unit02_32",
+    "rw3_unit02_33",
+    "rw3_unit02_34",
+    "rw3_unit02_35",
+    "rw3_unit02_36",
+    "rw3_unit02_37",
+    "rw3_unit02_38",
+    "rw3_unit02_39",
+    "rw3_unit02_40",
+    "rw3_unit02_41",
+    "rw3_unit02_42",
+    "rw3_unit02_43",
+    "rw3_unit02_44",
+    "rw3_unit02_45",
+    "rw3_unit02_46",
+    "rw3_unit02_47",
+    "rw3_unit02_48",
+    "rw3_unit02_49",
+    "rw3_unit02_50",
+    "rw3_unit02_51",
+    "rw3_unit02_52",
+    "rw3_unit02_53",
+    "rw3_unit02_54",
+    "rw3_unit02_55",
+    "rw3_unit02_56",
+    "rw3_unit02_57",
+    "rw3_unit02_58",
+    "rw3_unit02_59",
+    "rw3_unit02_60",
+    "rw3_unit02_61",
+    "rw3_unit02_62",
+    "rw3_unit02_63",
+    "rw3_unit02_64",
+    "rw3_unit02_65",
+    "rw3_unit02_66",
+    "rw3_unit02_67",
+    "rw3_unit02_68",
+    "rw3_unit02_69",
+    "rw3_unit02_70",
+    "rw3_unit02_71",
+    "rw3_unit02_72",
+    "rw3_unit02_73",
+    "rw3_unit02_74",
+    "rw3_unit02_75",
+    "rw3_unit02_76",
+    "rw3_unit02_77",
+    "rw3_unit02_78",
+    "rw3_unit02_79",
+    "rw3_unit02_80",
+    "rw3_unit02_81",
+    "rw3_unit02_82",
+    "rw3_unit02_83",
+    "rw3_unit02_84",
+    "rw3_unit02_85",
+    "rw3_unit02_86",
+    "rw3_unit02_87",
+    "rw3_unit02_88",
+    "rw3_unit02_89",
+    "rw3_unit02_90",
+    "rw3_unit02_91",
+    "rw3_unit02_92",
+    "rw3_unit02_93",
+    "rw3_unit02_94",
+    "rw3_unit02_95",
+    "rw3_unit02_96",
+    "rw3_unit02_97",
+    "rw3_unit02_98",
+    "rw3_unit02_99",
+    "rw3_unit02_100",
+    "rw3_unit02_101",
+    "rw3_unit02_102"
   ],
   "micro_world_checks": {
     "section_a": [
       {
-        "question": "Why did the students organize the exhibit around choices and evidence?",
+        "question": "What did the elderly men on Pate tell the American journalist?",
         "options": [
-          "To rank famous people by the size of their audience.",
-          "To replace historical sources with dramatic portraits.",
-          "To examine evidence that explains the subjects' choices and turning points.",
-          "To prove that every biography follows one pattern."
-        ],
-        "answer": 2,
-        "explanation": "The exhibit asks readers to connect choices with evidence instead of ranking people or inventing a universal model."
-      },
-      {
-        "question": "Which materials helped the class follow the explorer's voyage?",
-        "options": [
-          "Maps, port names, and records of exchanged goods",
-          "A movie script and an imagined speech",
-          "A portrait with no dates or source note",
-          "A list of modern travel advertisements"
+          "They were descendants of Chinese sailors shipwrecked on the island centuries before.",
+          "They had sailed to China on Zheng He’s fleet and decided to stay there.",
+          "They had bought Chinese porcelain from Portuguese traders.",
+          "They were the last survivors of a Chinese colony on the island."
         ],
         "answer": 0,
-        "explanation": "The passage names maps, ports, and trade records as evidence for tracing the route."
+        "explanation": "第1段：老人告诉这位美国记者，他们是几百年前在帕泰岛失事的中国水手的后裔（descendants of Chinese sailors, shipwrecked on Pate several centuries ago）。"
       },
       {
-        "question": "What did the class learn from Hepburn's public mission?",
+        "question": "What can be inferred from the comparison between the scale of Zheng He’s fleet and that of Columbus’?",
         "options": [
-          "One visitor can solve every part of a humanitarian crisis.",
-          "A public portrait is enough to explain a whole life.",
-          "Fame removes the need to check historical evidence.",
-          "Public attention can support a cause but is not a complete solution."
+          "Columbus’ voyage lasted much longer than Zheng He’s.",
+          "Both fleets carried about the same number of people.",
+          "Zheng He’s fleet was far larger and more powerful than Columbus’s.",
+          "Columbus had more ships but fewer soldiers than Zheng He."
         ],
-        "answer": 3,
-        "explanation": "The mission drew attention to children's needs while the class avoided claiming that one person could end a crisis."
+        "answer": 2,
+        "explanation": "第2段：郑和船队有27,000多名水手和士兵，而哥伦布最大的船员队伍只有约1,500人；郑和最大的宝船也比“圣玛丽亚号”大得多，可见其规模远超哥伦布。"
       },
       {
-        "question": "How does the exhibit define a meaningful legacy?",
+        "question": "Why does the author use quotation marks around the word “discovered” (Para. 3)?",
         "options": [
-          "As a perfect legend that readers should never question.",
-          "As influence that people can inherit, examine, and continue.",
-          "As public recognition without evidence or context.",
-          "As a single career path everyone should follow."
+          "To show that the word is a direct quotation from an official record.",
+          "To suggest that Europeans were not really the first to reach the Indian Ocean.",
+          "To point out that the word is spelled wrongly in the original source.",
+          "To stress that the Indian Ocean was discovered by Asian sailors only."
         ],
         "answer": 1,
-        "explanation": "The ending treats legacy as an influence that invites evidence-based reflection and responsible action."
+        "explanation": "第3段说这些远航比绕过好望角的第一批欧洲人早约半个世纪到达印度洋，引号带反讽意味：欧洲人并非真正“发现”了这片海域。"
+      },
+      {
+        "question": "What kind of books did Zheng He start reading from a young age?",
+        "options": [
+          "Books on navigation and shipbuilding.",
+          "Books about the history of the Ming court.",
+          "Travel journals written by his father and grandfather.",
+          "Books by great scholars such as Confucius and Mencius."
+        ],
+        "answer": 3,
+        "explanation": "第4段：他从小就开始读孔子、孟子等大学者的书（books by great scholars, such as Confucius and Mencius）。"
       }
     ],
     "section_b": [
       {
-        "question": "Why was the elegant portrait not enough for the biography exhibit?",
+        "question": "Which of the following did Audrey Hepburn prefer most?",
         "options": [
-          "It proved that her film career never mattered.",
-          "It showed a public image but could not tell the whole story.",
-          "It contained every private thought she had.",
-          "It made historical dates impossible to check."
+          "Becoming a prime dancer.",
+          "Carrying out humanitarian work.",
+          "Starring in as many films as possible.",
+          "Thrilling audiences with starring roles."
         ],
         "answer": 1,
-        "explanation": "The passage says a portrait can open the topic but cannot represent an entire life."
+        "explanation": "第2段说她在电影之外最看重的是做两个儿子的模范母亲以及联合国儿童基金会亲善大使的工作；第6段又明确说她认为自己最有意义的工作是为需要帮助的人所做的人道主义工作。"
       },
       {
-        "question": "What did Hepburn do in 1988 according to the passage?",
+        "question": "Which of the following is true regarding Audrey Hepburn’s life during the Nazi occupation of the Netherlands?",
         "options": [
-          "She opened a film school for every UNICEF worker.",
-          "She claimed to have ended drought in the region.",
-          "She stopped working with humanitarian organizations.",
-          "She traveled to Ethiopia to raise awareness of drought affecting children and women."
-        ],
-        "answer": 3,
-        "explanation": "The passage identifies the Ethiopia trip as an effort to draw attention to the drought's impact."
-      },
-      {
-        "question": "Why should local experience be heard in charitable work?",
-        "options": [
-          "Local people can understand needs that an outsider may miss.",
-          "A visiting celebrity always knows more than local groups.",
-          "Public attention makes long-term partnership unnecessary.",
-          "A portrait can replace conversations with a community."
+          "Her family was bankrupted.",
+          "Her mom managed to get her enough food.",
+          "She lived in a basement full of rats.",
+          "She failed to escape from the guards."
         ],
         "answer": 0,
-        "explanation": "The passage emphasizes listening to people who live with an issue rather than assuming an outsider knows best."
+        "explanation": "第3段：由于入侵，她的家庭破产（her family was bankrupted），她因此营养不良；她只是躲进满是老鼠的地下室，并非“住在”那里；她趁卫兵不注意逃走了。"
       },
       {
-        "question": "What is the central lesson of the exhibit?",
+        "question": "What do we learn about Audrey Hepburn who experienced life’s horrors and fragility as a child?",
         "options": [
-          "A celebrated face can solve a crisis without local partners.",
-          "A public image matters more than the work behind it.",
-          "Responsible support combines compassion with evidence, listening, and continued action.",
-          "Readers should admire a person without asking questions."
+          "She tried to forget the terrible experiences.",
+          "She was determined to overcome the challenges.",
+          "She lost hope at first but soon pulled herself together.",
+          "She did not admit that the desperate reality had an effect on her."
         ],
-        "answer": 2,
-        "explanation": "The final panels connect compassion to careful research, local knowledge, and responsible support."
+        "answer": 1,
+        "explanation": "第4段：她不让自己的精神被童年的困境击垮，而是超越了这些挑战（she transcended those challenges），可见她决心战胜困难；同时她从未忘记受苦的滋味。"
+      },
+      {
+        "question": "What happened to Audrey Hepburn after she moved to the U.K.?",
+        "options": [
+          "She enrolled in a famous film school.",
+          "She met her soul mate Gregory Peck.",
+          "She wrote a biography of Billy Wilder.",
+          "She got a role in the film Roman Holiday."
+        ],
+        "answer": 3,
+        "explanation": "第5段：她先进入著名芭蕾舞学校，后来被制片人发现，最终在《罗马假日》中获得角色；她的灵魂伴侣是 Robert Wolders，不是 Gregory Peck。"
       }
     ],
     "section_c": [
       {
-        "question": "What did the class use to trace the voyages?",
+        "question": "What was Mei Lanfang's real name?",
         "options": [
-          "A modern tourist guide with fictional destinations",
-          "A list of private conversations that no source recorded",
-          "Only a portrait of the explorer",
-          "Port names and directions found in maps and written accounts"
-        ],
-        "answer": 3,
-        "explanation": "The students began with recorded ports and direction marks, then compared maps with written accounts."
-      },
-      {
-        "question": "Which goods are named in the passage?",
-        "options": [
-          "Only books and musical instruments",
-          "Silk, porcelain, medicines, and metal objects",
-          "Modern engines and digital devices",
-          "Food grown only at the destination ports"
+          "Mei Baojiu",
+          "Mei Lan",
+          "Mei Shaowu",
+          "Mei Yanqiu"
         ],
         "answer": 1,
-        "explanation": "Those four categories are listed as examples of goods carried on the voyages."
+        "explanation": "第1段：梅兰芳是艺名，他的本名是梅兰（Mei Lan）。"
       },
       {
-        "question": "How did the learners avoid making unsupported claims?",
+        "question": "At what age did Mei Lanfang make his stage debut?",
         "options": [
-          "They treated one map as a complete record of every encounter.",
-          "They ignored written descriptions and relied on memory.",
-          "They compared maps and accounts, separating evidence from interpretation.",
-          "They assumed every stop had the same purpose."
-        ],
-        "answer": 2,
-        "explanation": "The class used more than one source and kept route evidence distinct from broader interpretations."
-      },
-      {
-        "question": "What does the chart-room lesson encourage readers to do?",
-        "options": [
-          "Study historical achievements while asking what the evidence can support.",
-          "Memorize a legend without checking sources.",
-          "Assume all historical encounters were identical.",
-          "Reject maps because they never contain useful information."
+          "At the age of 10",
+          "At the age of 8",
+          "At the age of 13",
+          "At the age of 16"
         ],
         "answer": 0,
-        "explanation": "The ending pairs curiosity about a historical legacy with verification of the sources behind it."
+        "explanation": "第2段：梅兰芳8岁学戏，10岁首次登台，扮演织女；13岁加入喜连成班社。题干问首次登台，故为10岁。"
+      },
+      {
+        "question": "Which of the following best shows Mei's contribution to spreading Peking Opera overseas?",
+        "options": [
+          "He trained many foreign students in Beijing.",
+          "He wrote new plays about Western countries.",
+          "He performed only for foreign visitors at home.",
+          "He toured the world and met Western artists."
+        ],
+        "answer": 3,
+        "explanation": "第5段：梅兰芳通过赴日本、美国等国的文化交流把京剧推向海外，还周游世界，与卓别林等西方同代艺术家结交。"
+      },
+      {
+        "question": "Why did Mei keep a moustache during the War of Resistance Against Japanese Aggression?",
+        "options": [
+          "To follow an old tradition of the Mei School",
+          "To make himself look older on the stage",
+          "To refuse to perform for the Japanese",
+          "To protect his voice in cold weather"
+        ],
+        "answer": 2,
+        "explanation": "第6段：日方要求他演出时，梅兰芳蓄须明志，以示拒绝，这一爱国之举为他赢得极大尊重。"
       }
     ]
   },
   "sections": {
     "section_a": {
-      "title": "Two Lives, One Lesson",
+      "title": "Zheng He, the great ancient Chinese explorer",
       "type": "reading",
-      "passage": "The class opened an exhibit called Lives in Motion in the campus archive, where biographies were read as sequences of choices. Its task was not to rank remarkable people, but to ask which evidence could explain a turning point. One case followed Zheng He, the explorer whose fleet traveled across Indian Ocean routes in the early fifteenth century. Another introduced Audrey Hepburn, whose public portrait later became linked to a humanitarian mission for children. Though the lives belonged to different eras and different professions, students searched for a shared question: what does service require? The first group placed maps and port names beside a short narrative of the voyage. Records show that trade goods moved across sea routes, yet a map cannot tell every story of the people along them. Students marked documented details in blue and their own interpretations in amber. This color code helped them witness the difference between a source and a conclusion. It also kept the display from presenting one simple motive as the whole explanation. In the second case, the class examined why an ambitious performer might use fame to draw attention to children's needs. They learned that Hepburn served UNICEF as Goodwill Ambassador and traveled to Ethiopia in 1988 to highlight the drought's effects. Her work did not mean one visitor could solve a complex crisis. It showed how compassion and sustained attention could support a wider humanitarian effort. Students compared what the sources stated with what a reader might only infer. When they turned to the final wall, neither figure seemed like a ready-made model for every life. The students could admire particular choices without treating a famous person as perfect. They described a legacy as influence people inherit, question, and sometimes continue in new ways. The exhibit's narrative joined evidence, context, and consequences instead of relying on a dramatic portrait. Each visitor left with one question about ambition, responsibility, and the next action they could take."
+      "passage": "In 1999, an American journalist reported a surprising encounter on a tiny African island called Pate, just off the coast of Kenya. There, in a village of stone huts set amongst dense trees, the journalist met a number of elderly men who told him that they were descendants of Chinese sailors, shipwrecked on Pate several centuries ago. Their ancestors had traded with the local Africans, who had given them giraffes to take back to China; then their boat was driven onto the nearby reef. He noted many clues that seemed to confirm the islanders’ tale, including their vaguely Asian appearance, the antique porcelain heirlooms in their homes, and the porcelain shards on the beaches. Evidently, this remote African village retains an echo of one of history’s most astonishing episodes of maritime exploration. About six centuries ago, a mighty fleet of Chinese ships ventured west to the India Ocean, reaching Ceylon, Arabia, and East Africa. The fleet included giant nine-masted junks escorted by dozens of supply ships, water tankers, transports for cavalry horses, and patrol boats. The fleet’s crew totaled more than 27,000 sailors and soldiers. As a comparison, Columbus’ largest crew was of only about 1,500 people and the Santa Maria, the largest ship for his first voyage, was much smaller than Zheng He’s largest junk. Seven times, from 1405 to 1433, the Chinese fleet set off for the unknown. These great expeditions took place about half a century before the first Europeans, rounding the tip of Africa in frail Portuguese caravels, “discovered” the Indian Ocean. The seven expeditions were all led by one man, Zheng He, one of the greatest explorers in Chinese history. Zheng He was born around 1371 in Yunnan, southwestern China. As a child, he was very curious about the world. He often asked his father and grandfather, who had been to distant places, questions about their journey, along with the people and places they encountered. From a young age, he started reading books by great scholars, such as Confucius and Mencius. Later when he served in the royal court, he received military training and became a trusted assistant and adviser to the emperor. He was also in charge of palace construction and repairs, learned more about weapons, and became more knowledgeable in ship construction. In 1403, the emperor commanded the construction of the Treasure Fleet. Both the treasure ships and the support vessels – battleships and boats carrying grain and horses – featured divided hulls with several watertight compartments. This engineering innovation had roots in early Chinese seafaring. It allowed mariners to take unprecedented amounts of drinking water on long voyages, while also adding much-needed ballast, balance, and stability. In 1405, the emperor appointed Zheng He to head a massive fleet of more than 200 junks with a royal order to establish ties with rulers all around the Indian Ocean. It was the start of the seven great voyages of the Treasure Fleet. The junks, loaded with Chinese silk, porcelain, and lacquerware, visited ports around the Indian Ocean, where Zheng He exchanged the goods for spices, ivory, medicines, rare wood, pearls, and exotic animals, sought by the Ming court. During his career as a naval commander, Zheng He negotiated trade pacts, fought pirates, and brought back gifts to China. He and his crew traveled and traded not only with the cities in what are now Indonesia, Malaysia, Thailand, and India, but also with the Arabian ports of modern-day Yemen and Saudi Arabia. The rulers he encountered there were impressed by his diplomatic skills and the elaborate gifts he brought them. They agreed to send ambassadors to the Ming court. In 1431, Zheng He set out with his fleet for the seventh expedition around the Indian Ocean, sailing all the way to Malindi on Kenya’s east coast and stopping at trading ports along the way. Toward the end of this voyage in 1433, Zheng He died of disease. Zheng He had helped spread the culture and influence of China over a vast realm. But the war in the north then drew military investment away from the maintenance of the fleet and the royal court turned its focus to the construction and expansion of the Great Wall. Inevitably, the navy shrank and all the larger classes of ships were destroyed. This contributed to the end of the epic time of the Ming Dynasty sea voyages. Zheng He spent years at sea sailing between China and the east coast of Africa, setting up diplomatic relationships that would reshape Asian life. His seven expeditions challenged what humans could do at sea, pushing the limits of their boats’ size, complexity, and capacity for long-distance travel. They were also essential to the spread of two Chinese technologies that helped build our modern world: gunpowder and the compass. Today, whether people view Zheng He as an emblem of Chinese diplomacy or as a symbol of the country’s spirit of adventure and bravery, one thing is for certain: Zheng He remains one of the greatest explorers in world history, and the voyages he led stand among the great wonders in the history of ocean navigation, contributing significantly to the progress of human civilization."
     },
     "section_b": {
-      "title": "Audrey Hepburn — a real angel in the world",
+      "title": "Audrey Hepburn – a true angel in this world",
       "type": "reading",
-      "passage": "Students built an original exhibit about Audrey Hepburn, and they started with the familiar elegant portrait on a screen. The image opened a door, but it could not tell visitors everything about a life. A biography becomes richer when it places public work beside career and context. Their teacher asked them to separate documented events from assumptions about a famous person's private thoughts. That rule turned the display into a lesson in evidence, not a shrine. The class added one verified fact: Hepburn served as a UNICEF Goodwill Ambassador. In 1988 she traveled to Ethiopia to raise awareness of drought affecting children and women. Her mission brought a humanitarian concern into view, but did not claim that one person could end a crisis. Students explained why a public witness can help an audience notice a problem. They also asked whose experience should be heard first: the people living with that problem. A local organization may understand needs that an outsider cannot see from a brief visit. For that reason, charity work needs listening, accountability, and long-term partnership as well as attention. Compassion is not a decoration added to a portrait; it is a reason to respond thoughtfully. Supporting a humanitarian mission also requires perseverance, because public attention alone cannot sustain long-term work. They admired her devotion without claiming that fame guarantees wisdom. The discussion made one tension visible: publicity can open a door, yet it can also simplify people's lives. Students revised their headline to include both career and service. A second panel told how readers can check dates and original sources before repeating a claim. Instead of copying a dramatic quotation, they wrote a precise summary and named the source. The exhibit closed by asking visitors to find one responsible action that could inspire others in their community."
+      "passage": "Audrey Hepburn thrilled audiences with starring roles in noteworthy films like Breakfast at Tiffany’s, Sabrina, Roman Holiday, My Fair Lady, War and Peace, and Always. Despite her success in the film domain, the roles she most preferred portraying were not in movies. She was an exemplary mother to her two sons and a UNICEF (the United Nations International Children’s Emergency Fund) Goodwill Ambassador serving victims in war-torn countries. As a young girl during the Nazi occupation of the Netherlands, Audrey Hepburn was aware of the brutality, death, and destruction of war. She was malnourished, as her family was bankrupted as a result of the invasion. One day, Audrey was grabbed off the street by the Nazis and placed in line to be sent to a work camp. When the guards glanced away she darted off, barely escaping, and huddled in a cold, foul basement full of rats. The little girl who would become one of the world’s most magical actresses began as an anonymous refugee confronting life’s horrors and fragility firsthand. She refused to allow her spirit to be afflicted by the desperate reality of her childhood. Instead, she transcended those challenges but never forgot what it felt like to suffer, to be hungry, alone, and helpless. After the war, Audrey and her mother left the Netherlands and arrived in the U.K. Her dream of becoming a prime dancer drove her into a rigorous schedule at a famous ballet school. Later, she was spotted by a producer and eventually landed a role in the film Roman Holiday starring Gregory Peck, one of Hollywood’s top leading men. Soon, Audrey was transformed from a malnourished girl into an internationally famous movie star. Director Billy Wilder complimented her, saying, “Audrey walked beautifully; she spoke beautifully.” Although she won many awards for acting, Audrey felt that her most significant work was humanitarian work for those in need, and as the mother to her two sons. She suffered through two divorces and from her memories of the war. Yet, Audrey never let her sadness overcome her or jeopardize her hope for a brighter future. Audrey finally met her soul mate, Robert Wolders, and spent the last 12 years of her life with him. Becoming famous never changed Audrey’s generous and compassionate character. She felt a deep sense of responsibility to alleviate the suffering of those in need, especially children. Friends said Audrey had a complete lack of ego and accepted and appreciated others as they were. Although she became very wealthy, she owned only one home in Switzerland. For Audrey it was a paradise where she could hide from the world with her beloved family, work in her garden, and take long walks in nature. In 1988, Audrey was appointed a Goodwill Ambassador for UNICEF designed to provide emergency food and health care to children suffering as a result of war or other catastrophes. In that role, her lifelong passion for helping those in need found its greatest calling. She turned down three million dollars to write her autobiography and instead accepted one dollar a year for the more conscientious role as an ambassador for UNICEF. For seven months out of each of her last five years, she and Robby left the peace and beauty in their cozy home to embark on outreach trips into some of the most difficult places on earth. From Bangladesh, Sudan, Vietnam, Kenya, Ethiopia, Central and South America, to Somalia, Audrey Hepburn traveled representing UNICEF, making over 50 emotionally draining and physically dangerous missions into bleak destinations to raise world awareness of wars and droughts. Having been a victim of war, she understood the blessing of being the beneficiary of food, clothing, and, most of all, hope. Audrey felt it was wicked that billions of children were deprived of simple joys and drowned in overwhelming misery. She believed deeply in the ideology that all people share in the duty to care for those in need. Audrey was always ready to lead by example. She said, “When you deny childhood, you deny life.” She saw UNICEF’s work as an integral, sacred force in people’s lives and said of UNICEF’s results, “Anyone who doesn’t believe in miracles is not a realist.” In 1992, Audrey was stricken by cancer. She, Robby, and her two sons returned to their home in Switzerland for their last Christmas together. Audrey’s cherished friend, a world-famous fashion designer, spoke to her for the last time just before she died. He said she was “... serene at the end because she knew she had achieved everything with perfection”. Audrey Hepburn’s passion for service was enduring. Even as her life ended at 63 years of age, she remained a gracious woman who perpetually signified simplicity, charity, charm, and kindness. The majesty of Audrey Hepburn’s spirit of social responsibility and dedication lives on in her words: “Remember, if you ever need a helping hand, it’s at the end of your arm. As you get older, remember you have another hand: The first is to help yourself, the second is to help others.” And “For beautiful eyes, look for the good in others; for beautiful lips, speak only words of kindness; and for poise, walk with the knowledge that you are never alone.”"
     },
     "section_c": {
-      "title": "Stories of China",
+      "title": "Mei Lanfang – a Peking Opera legend",
       "type": "stories_of_china",
-      "passage": "The class opened a chart room to study Zheng He's voyages as a historical narrative rather than a legend. Their guide explained that historians describe seven expeditions across the Indian Ocean in the early fifteenth century. The students began with a fleet route and traced the names of ports recorded in maps and written accounts. The archive showed that the voyages carried goods including silk, porcelain, medicines, and metal objects to trading ports. A route map helped them imagine distance, but also reminded them that maps select what to show. The group labeled locations and directions before drawing any conclusion about the purpose of a stop. Each stop was discussed as a place where people met, exchanged goods, and made decisions. Trade is one documented purpose, and historical records can reveal how maritime networks connected regions. However, no single map can witness every conversation or explain every participant's experience. The learners compared a chart with written descriptions rather than treating either source as complete. This practice made the lesson more remarkable than memorizing a list of destinations. One student asked whether a modern reader should admire a voyage without asking difficult questions. The class agreed that respect for achievement and careful criticism can exist together. They separated evidence about routes from broader claims about what every encounter meant. That distinction kept the story open to more than one question. A voyage can reveal planning, navigation, and exchange, while still leaving gaps in the record. The fleet's legacy is therefore a useful subject for comparing past and present ideas of connection. The class placed a route-map model beside a note about how historical knowledge is built. The display invited visitors to follow an explorer's path, then inspect the sources that support the narrative. At the exit, each learner wrote one question inspired by the map and one fact they could verify."
+      "passage": "Mei Lanfang, a Chinese theatrical performer, is recognized as one of the greatest Peking Opera artists in Chinese history. Actually, Mei Lanfang is his stage name and his real name is Mei Lan. The son and grandson of noted opera singers, Mei began studying Peking Opera at the age of 8 and made his stage debut at 10, playing a weaving girl. Thereafter he played mostly female roles, becoming especially well-known for his portrayal in The Heavenly Maid Scatters Blossoms. At the age of 13 he joined the Xiliancheng Theatrical Company and, through performances in Shanghai and elsewhere, acquired a national reputation. His style of dance, singing, etc. won such acclaim over the years that it came to be known as the “Mei School”. The early 1900s are widely considered the golden age of Peking Opera in China. Competition was fierce as opera troupes led by renowned stars toured all over China. Meanwhile, critics were ever ready to fire off their assessments of the quality of each troupe’s performance. In a survey in 1927, the public voted for their favorite new play of the most famous Peking Opera performers of female roles. Such a role is known as dan. Among the performers were Mei Lanfang, Cheng Yanqiu, Shang Xiaoyun, and Xun Huisheng. Later, the four artists became widely known as the Four Great Dans of Peking Opera, and each went on to develop their own disciplines which have been studied and followed by generations of Peking Opera singers. Mei was renowned for his efforts in modernizing Peking Opera in terms of plays, stage design, lighting, makeup, and costume design. Mei also made great contributions to the spread of Peking Opera to foreign countries by participating in cultural exchanges with Japan, the United States, and other countries. He toured the world, forming friendships with his Western contemporaries, including Charlie Chaplin. During the War of Resistance Against Japanese Aggression, Mei kept a moustache as a reply to the Japanese who asked him to perform. This bold act of patriotism earned him great respect and bolstered his fame as an artist."
     },
     "vocabulary": {
-      "level_count": 4,
+      "level_count": 21,
       "words_per_level": 5
     },
     "reading": {
-      "title": "Two Lives, One Lesson",
-      "passage": "The class opened an exhibit called Lives in Motion in the campus archive, where biographies were read as sequences of choices. Its task was not to rank remarkable people, but to ask which evidence could explain a turning point. One case followed Zheng He, the explorer whose fleet traveled across Indian Ocean routes in the early fifteenth century. Another introduced Audrey Hepburn, whose public portrait later became linked to a humanitarian mission for children. Though the lives belonged to different eras and different professions, students searched for a shared question: what does service require? The first group placed maps and port names beside a short narrative of the voyage. Records show that trade goods moved across sea routes, yet a map cannot tell every story of the people along them. Students marked documented details in blue and their own interpretations in amber. This color code helped them witness the difference between a source and a conclusion. It also kept the display from presenting one simple motive as the whole explanation. In the second case, the class examined why an ambitious performer might use fame to draw attention to children's needs. They learned that Hepburn served UNICEF as Goodwill Ambassador and traveled to Ethiopia in 1988 to highlight the drought's effects. Her work did not mean one visitor could solve a complex crisis. It showed how compassion and sustained attention could support a wider humanitarian effort. Students compared what the sources stated with what a reader might only infer. When they turned to the final wall, neither figure seemed like a ready-made model for every life. The students could admire particular choices without treating a famous person as perfect. They described a legacy as influence people inherit, question, and sometimes continue in new ways. The exhibit's narrative joined evidence, context, and consequences instead of relying on a dramatic portrait. Each visitor left with one question about ambition, responsibility, and the next action they could take.",
+      "title": "Zheng He, the great ancient Chinese explorer",
+      "passage": "In 1999, an American journalist reported a surprising encounter on a tiny African island called Pate, just off the coast of Kenya. There, in a village of stone huts set amongst dense trees, the journalist met a number of elderly men who told him that they were descendants of Chinese sailors, shipwrecked on Pate several centuries ago. Their ancestors had traded with the local Africans, who had given them giraffes to take back to China; then their boat was driven onto the nearby reef. He noted many clues that seemed to confirm the islanders’ tale, including their vaguely Asian appearance, the antique porcelain heirlooms in their homes, and the porcelain shards on the beaches. Evidently, this remote African village retains an echo of one of history’s most astonishing episodes of maritime exploration. About six centuries ago, a mighty fleet of Chinese ships ventured west to the India Ocean, reaching Ceylon, Arabia, and East Africa. The fleet included giant nine-masted junks escorted by dozens of supply ships, water tankers, transports for cavalry horses, and patrol boats. The fleet’s crew totaled more than 27,000 sailors and soldiers. As a comparison, Columbus’ largest crew was of only about 1,500 people and the Santa Maria, the largest ship for his first voyage, was much smaller than Zheng He’s largest junk. Seven times, from 1405 to 1433, the Chinese fleet set off for the unknown. These great expeditions took place about half a century before the first Europeans, rounding the tip of Africa in frail Portuguese caravels, “discovered” the Indian Ocean. The seven expeditions were all led by one man, Zheng He, one of the greatest explorers in Chinese history. Zheng He was born around 1371 in Yunnan, southwestern China. As a child, he was very curious about the world. He often asked his father and grandfather, who had been to distant places, questions about their journey, along with the people and places they encountered. From a young age, he started reading books by great scholars, such as Confucius and Mencius. Later when he served in the royal court, he received military training and became a trusted assistant and adviser to the emperor. He was also in charge of palace construction and repairs, learned more about weapons, and became more knowledgeable in ship construction. In 1403, the emperor commanded the construction of the Treasure Fleet. Both the treasure ships and the support vessels – battleships and boats carrying grain and horses – featured divided hulls with several watertight compartments. This engineering innovation had roots in early Chinese seafaring. It allowed mariners to take unprecedented amounts of drinking water on long voyages, while also adding much-needed ballast, balance, and stability. In 1405, the emperor appointed Zheng He to head a massive fleet of more than 200 junks with a royal order to establish ties with rulers all around the Indian Ocean. It was the start of the seven great voyages of the Treasure Fleet. The junks, loaded with Chinese silk, porcelain, and lacquerware, visited ports around the Indian Ocean, where Zheng He exchanged the goods for spices, ivory, medicines, rare wood, pearls, and exotic animals, sought by the Ming court. During his career as a naval commander, Zheng He negotiated trade pacts, fought pirates, and brought back gifts to China. He and his crew traveled and traded not only with the cities in what are now Indonesia, Malaysia, Thailand, and India, but also with the Arabian ports of modern-day Yemen and Saudi Arabia. The rulers he encountered there were impressed by his diplomatic skills and the elaborate gifts he brought them. They agreed to send ambassadors to the Ming court. In 1431, Zheng He set out with his fleet for the seventh expedition around the Indian Ocean, sailing all the way to Malindi on Kenya’s east coast and stopping at trading ports along the way. Toward the end of this voyage in 1433, Zheng He died of disease. Zheng He had helped spread the culture and influence of China over a vast realm. But the war in the north then drew military investment away from the maintenance of the fleet and the royal court turned its focus to the construction and expansion of the Great Wall. Inevitably, the navy shrank and all the larger classes of ships were destroyed. This contributed to the end of the epic time of the Ming Dynasty sea voyages. Zheng He spent years at sea sailing between China and the east coast of Africa, setting up diplomatic relationships that would reshape Asian life. His seven expeditions challenged what humans could do at sea, pushing the limits of their boats’ size, complexity, and capacity for long-distance travel. They were also essential to the spread of two Chinese technologies that helped build our modern world: gunpowder and the compass. Today, whether people view Zheng He as an emblem of Chinese diplomacy or as a symbol of the country’s spirit of adventure and bravery, one thing is for certain: Zheng He remains one of the greatest explorers in world history, and the voyages he led stand among the great wonders in the history of ocean navigation, contributing significantly to the progress of human civilization.",
       "questions": [
         {
-          "question": "Why did students arrange the exhibit around choices instead of ranking the subjects?",
+          "question": "What order did Zheng He receive when he was appointed to head the massive fleet in 1405?",
           "options": [
-            "To show that one person's career is always superior.",
-            "To identify evidence that helps explain important turning points.",
-            "To avoid discussing the sources behind each biography.",
-            "To prove that every life follows the same sequence."
-          ],
-          "answer": 1,
-          "explanation": "The exhibit focuses on choices and the evidence that can explain them, not on ranking people."
-        },
-        {
-          "question": "What did the map help students do, and what could it not do?",
-          "options": [
-            "It proved every motive and recorded every conversation.",
-            "It replaced written accounts and all historical research.",
-            "It showed that every port had an identical purpose.",
-            "It helped trace routes but could not tell every person's experience."
-          ],
-          "answer": 3,
-          "explanation": "The passage uses maps to trace routes while noting that they cannot capture every story or motive."
-        },
-        {
-          "question": "What did the 1988 Ethiopia example help the class understand?",
-          "options": [
-            "A public mission can draw attention without solving a crisis by itself.",
-            "A famous visitor can replace all local organizations.",
-            "A portrait provides enough evidence to explain a humanitarian issue.",
-            "Public figures should never speak about children's needs."
-          ],
-          "answer": 0,
-          "explanation": "The students distinguish drawing attention from claiming that one person can solve a complex crisis."
-        },
-        {
-          "question": "Which idea best summarizes the exhibit?",
-          "options": [
-            "Famous people should be copied without questioning their choices.",
-            "A legacy is only a record of public attention.",
-            "Read biographies through evidence, context, and consequences.",
-            "Different eras make comparison impossible."
+            "To build more than 200 new junks for the emperor.",
+            "To conquer the trading ports of the Arabian Peninsula.",
+            "To establish ties with rulers all around the Indian Ocean.",
+            "To bring back rare wood, pearls, and exotic animals."
           ],
           "answer": 2,
-          "explanation": "The final sentences present biography as evidence-based interpretation that can inform responsible choices."
+          "explanation": "第6段：皇帝命他率领两百多艘帆船的庞大船队，并下旨与印度洋周边的统治者建立联系（a royal order to establish ties with rulers all around the Indian Ocean）。"
+        },
+        {
+          "question": "How did Zheng He impress the rulers he encountered?",
+          "options": [
+            "With his diplomatic skills and the elaborate gifts he brought.",
+            "With the size of his fleet and the number of his soldiers.",
+            "With his knowledge of the ports of Yemen and Saudi Arabia.",
+            "With the Chinese silk and porcelain he sold at low prices."
+          ],
+          "answer": 0,
+          "explanation": "第7段：当地统治者对他的外交才能（diplomatic skills）和他带来的精美礼物印象深刻，并同意派使者到明朝。"
+        },
+        {
+          "question": "Why did the royal court draw military investment away from the maintenance of the Treasure Fleet?",
+          "options": [
+            "Because pirates had destroyed most of the fleet.",
+            "Because Zheng He had died and no one could replace him.",
+            "Because the emperor wanted to spend the money on new trade pacts.",
+            "Because the war in the north led the court to focus on building and expanding the Great Wall."
+          ],
+          "answer": 3,
+          "explanation": "第9段：北方的战争使军费不再用于船队维护，朝廷转而修建和扩建长城，海军随之萎缩，大型船只被毁。"
+        },
+        {
+          "question": "What is the influence of Zheng He’s seven expeditions on maritime exploration according to Para. 10?",
+          "options": [
+            "They pushed the limits of boats’ size, complexity, and capacity for long-distance travel.",
+            "They proved that long-distance sea travel was too dangerous to continue.",
+            "They replaced gunpowder and the compass with new Chinese technologies.",
+            "They persuaded Asian rulers to stop trading across the Indian Ocean."
+          ],
+          "answer": 0,
+          "explanation": "第10段：七次远航挑战了人类在海上能做到的事，把船只的规模、复杂程度和远距离航行能力推向极限，并传播了火药和指南针。"
+        },
+        {
+          "question": "The eastern area is three times bigger than the western area, featuring ______ tropical rainforests and giant waterfalls.",
+          "options": [
+            "vague",
+            "frail",
+            "dense",
+            "royal"
+          ],
+          "answer": 2,
+          "explanation": "dense 表示“茂密的”，dense tropical rainforests 即茂密的热带雨林，与 giant waterfalls 并列描写东部地区。"
+        },
+        {
+          "question": "In the meeting, a new manager was ______ to take charge of the project which was in financial difficulties.",
+          "options": [
+            "appointed",
+            "escorted",
+            "patrolled",
+            "expanded"
+          ],
+          "answer": 0,
+          "explanation": "appoint sb. to do sth. 表示“任命某人做某事”，此处用被动 was appointed to take charge，说明新经理被任命接手项目。"
+        },
+        {
+          "question": "Services such as cooking, cleaning, and ______ the elderly to hospitals are in high demand.",
+          "options": [
+            "patrolling",
+            "escorting",
+            "appointing",
+            "maintaining"
+          ],
+          "answer": 1,
+          "explanation": "escort sb. to somewhere 表示“护送某人去某地”，与 cooking、cleaning 并列作 Services 的内容，故用动名词 escorting。"
+        },
+        {
+          "question": "A high-tech police car capable of immediately detecting stolen cars, disqualified drivers, and other offenses is ______ the roads.",
+          "options": [
+            "escorting",
+            "maintaining",
+            "expanding",
+            "patrolling"
+          ],
+          "answer": 3,
+          "explanation": "patrol the roads 表示“在道路上巡逻”，主语是高科技警车，用现在分词 patrolling 构成现在进行时。"
+        },
+        {
+          "question": "Around 300 workers and engineers are working hard for the timely delivery of the project despite its ______.",
+          "options": [
+            "realm",
+            "complexity",
+            "patrol",
+            "expansion"
+          ],
+          "answer": 1,
+          "explanation": "despite its complexity 表示“尽管项目复杂”，complexity 指“复杂性”，符合 despite 后接名词的用法。"
+        },
+        {
+          "question": "A researcher said China’s fast economic ______ in recent years has made great contributions to world economic growth.",
+          "options": [
+            "expansion",
+            "maintenance",
+            "complexity",
+            "escort"
+          ],
+          "answer": 0,
+          "explanation": "economic expansion 表示“经济扩张（增长）”，与 in recent years 以及“对世界经济增长的贡献”搭配。"
         }
       ]
     },
     "listening": {
       "title": "Listening: Life stories",
-      "script": "In our seminar, we compared two biographies from different eras. One account described an explorer and the fleet that traveled across the Indian Ocean; another followed Audrey Hepburn from a celebrated film career to humanitarian work. Our instructor gave us a simple rule: write down what a source shows, then mark what is still an interpretation. A map helped us trace a voyage and identify ports, but it could not witness every conversation along the route. A public portrait showed an elegant image, but it could not explain a whole mission. We learned that Hepburn served as a UNICEF Goodwill Ambassador and traveled to Ethiopia in 1988 to raise awareness of drought affecting children and women. That fact helped us discuss how a public figure may draw attention to a need without replacing local knowledge or long-term work. One student asked whether admiration meant we should stop questioning a biography. Our mentor said the opposite: careful questions make respect more thoughtful. We compared records, checked dates, and revised a sentence that had gone beyond its evidence. The lesson was not to choose one remarkable life as a model for everyone. It was to notice ambition, perseverance, and compassion, then ask what action fits our own community. Stories can inspire us when we read them with curiosity and care.",
+      "script": "Audrey Hepburn thrilled audiences with starring roles in noteworthy films like Breakfast at Tiffany’s, Sabrina, Roman Holiday, My Fair Lady, War and Peace, and Always. Despite her success in the film domain, the roles she most preferred portraying were not in movies. She was an exemplary mother to her two sons and a UNICEF (the United Nations International Children’s Emergency Fund) Goodwill Ambassador serving victims in war-torn countries. As a young girl during the Nazi occupation of the Netherlands, Audrey Hepburn was aware of the brutality, death, and destruction of war. She was malnourished, as her family was bankrupted as a result of the invasion. One day, Audrey was grabbed off the street by the Nazis and placed in line to be sent to a work camp. When the guards glanced away she darted off, barely escaping, and huddled in a cold, foul basement full of rats. The little girl who would become one of the world’s most magical actresses began as an anonymous refugee confronting life’s horrors and fragility firsthand. She refused to allow her spirit to be afflicted by the desperate reality of her childhood. Instead, she transcended those challenges but never forgot what it felt like to suffer, to be hungry, alone, and helpless. After the war, Audrey and her mother left the Netherlands and arrived in the U.K. Her dream of becoming a prime dancer drove her into a rigorous schedule at a famous ballet school. Later, she was spotted by a producer and eventually landed a role in the film Roman Holiday starring Gregory Peck, one of Hollywood’s top leading men. Soon, Audrey was transformed from a malnourished girl into an internationally famous movie star. Director Billy Wilder complimented her, saying, “Audrey walked beautifully; she spoke beautifully.” Although she won many awards for acting, Audrey felt that her most significant work was humanitarian work for those in need, and as the mother to her two sons. She suffered through two divorces and from her memories of the war. Yet, Audrey never let her sadness overcome her or jeopardize her hope for a brighter future. Audrey finally met her soul mate, Robert Wolders, and spent the last 12 years of her life with him. Becoming famous never changed Audrey’s generous and compassionate character. She felt a deep sense of responsibility to alleviate the suffering of those in need, especially children. Friends said Audrey had a complete lack of ego and accepted and appreciated others as they were. Although she became very wealthy, she owned only one home in Switzerland. For Audrey it was a paradise where she could hide from the world with her beloved family, work in her garden, and take long walks in nature. In 1988, Audrey was appointed a Goodwill Ambassador for UNICEF designed to provide emergency food and health care to children suffering as a result of war or other catastrophes. In that role, her lifelong passion for helping those in need found its greatest calling. She turned down three million dollars to write her autobiography and instead accepted one dollar a year for the more conscientious role as an ambassador for UNICEF. For seven months out of each of her last five years, she and Robby left the peace and beauty in their cozy home to embark on outreach trips into some of the most difficult places on earth. From Bangladesh, Sudan, Vietnam, Kenya, Ethiopia, Central and South America, to Somalia, Audrey Hepburn traveled representing UNICEF, making over 50 emotionally draining and physically dangerous missions into bleak destinations to raise world awareness of wars and droughts. Having been a victim of war, she understood the blessing of being the beneficiary of food, clothing, and, most of all, hope. Audrey felt it was wicked that billions of children were deprived of simple joys and drowned in overwhelming misery. She believed deeply in the ideology that all people share in the duty to care for those in need. Audrey was always ready to lead by example. She said, “When you deny childhood, you deny life.” She saw UNICEF’s work as an integral, sacred force in people’s lives and said of UNICEF’s results, “Anyone who doesn’t believe in miracles is not a realist.” In 1992, Audrey was stricken by cancer. She, Robby, and her two sons returned to their home in Switzerland for their last Christmas together. Audrey’s cherished friend, a world-famous fashion designer, spoke to her for the last time just before she died. He said she was “... serene at the end because she knew she had achieved everything with perfection”. Audrey Hepburn’s passion for service was enduring. Even as her life ended at 63 years of age, she remained a gracious woman who perpetually signified simplicity, charity, charm, and kindness. The majesty of Audrey Hepburn’s spirit of social responsibility and dedication lives on in her words: “Remember, if you ever need a helping hand, it’s at the end of your arm. As you get older, remember you have another hand: The first is to help yourself, the second is to help others.” And “For beautiful eyes, look for the good in others; for beautiful lips, speak only words of kindness; and for poise, walk with the knowledge that you are never alone.”",
       "questions": [
         {
-          "question": "What rule did the seminar instructor give the group?",
+          "question": "What do we learn about Audrey Hepburn’s home in Switzerland?",
           "options": [
-            "Choose the most dramatic version of every story.",
-            "Treat a map as a complete record of every conversation.",
-            "Rank biographies by the subjects' popularity.",
-            "Record what a source shows and separate it from interpretation."
+            "It was one of the several homes she owned.",
+            "It was very modern and life was comfortable there.",
+            "It was the place where she wrote her autobiography.",
+            "It was a place where she could stay with her family undisturbed."
           ],
           "answer": 3,
-          "explanation": "The instructor asks students to distinguish information directly supported by a source from interpretation."
+          "explanation": "第8段：她虽然富有，却只拥有一处住宅；对她来说那是可以“躲开世界”、与挚爱家人安静相处的乐园（a paradise where she could hide from the world with her beloved family）。"
         },
         {
-          "question": "What limitation of the map does the speaker mention?",
+          "question": "Why does the author say Audrey’s missions were “physically dangerous”?",
           "options": [
-            "It showed too many private thoughts to interpret.",
-            "It could trace a voyage but not witness every conversation.",
-            "It contained no ports or route information.",
-            "It proved that every stop served the same purpose."
+            "She went to remote places alone.",
+            "She visited places which were at war.",
+            "She had little time to rest during her missions.",
+            "She often encountered people hostile to foreigners."
           ],
           "answer": 1,
-          "explanation": "The speaker says the map helped trace the route but could not record every conversation."
+          "explanation": "第10段说她的出访地包括孟加拉国、苏丹、越南、埃塞俄比亚、索马里等正经历战争与旱灾的地方，因此这些人道主义行程在身体上很危险。"
         },
         {
-          "question": "What did the Ethiopia example help students discuss?",
+          "question": "What is the ideology Audrey Hepburn deeply believed in?",
           "options": [
-            "Why one public figure can solve every humanitarian problem.",
-            "Why dates and sources are unnecessary in a biography.",
-            "How public attention can support a cause without replacing local knowledge.",
-            "How a portrait can provide long-term community services."
+            "When you deny childhood, you deny life.",
+            "All people share in the duty to care for those in need.",
+            "Anyone who doesn’t believe in miracles is not a realist.",
+            "If you ever need a helping hand, it’s at the end of your arm."
+          ],
+          "answer": 1,
+          "explanation": "第11段：她深信“所有人都分担着照顾需要帮助者的责任”这一理念（the ideology that all people share in the duty to care for those in need）。其余三项是她说过的话，不是“ideology”的内容。"
+        },
+        {
+          "question": "According to the text, which of the following words could best describe Audrey Hepburn?",
+          "options": [
+            "Frank.",
+            "Creative.",
+            "Energetic.",
+            "Kind-hearted."
+          ],
+          "answer": 3,
+          "explanation": "全文反复写她慷慨、富有同情心、乐于助人（generous and compassionate, alleviate the suffering, gracious），kind-hearted 最能概括她的品格。"
+        },
+        {
+          "question": "Which of the following statements from Text B is an opinion rather than a fact?",
+          "options": [
+            "After the war, Audrey and her mother left the Netherlands and arrived in the U.K.",
+            "In 1988, Audrey was appointed a Goodwill Ambassador for UNICEF.",
+            "Becoming famous never changed Audrey’s generous and compassionate character.",
+            "She, Robby, and her two sons returned to their home in Switzerland for their last Christmas together."
           ],
           "answer": 2,
-          "explanation": "The speaker distinguishes drawing attention to a need from replacing local expertise or sustained work."
+          "explanation": "事实是可用时间、地点等核实的具体情况；C 句是对人物品格的评价（judgment），属于观点。A、B、D 都叙述了可核实的事件。"
         },
         {
-          "question": "What is the speaker's conclusion about admiration?",
+          "question": "Which of the following statements from Text B is a fact rather than an opinion?",
           "options": [
-            "Admiration is stronger when it includes careful questions and evidence.",
-            "Admiration requires choosing one perfect model for everyone.",
-            "A remarkable life should never be examined critically.",
-            "People should ignore stories that cross different eras."
+            "Audrey was grabbed off the street by the Nazis and placed in line to be sent to a work camp.",
+            "Audrey walked beautifully; she spoke beautifully.",
+            "Even as her life ended at 63, she remained a gracious woman who perpetually signified simplicity, charity, charm, and kindness.",
+            "Audrey’s generosity and compassion made her one of the most admirable actresses in the world."
           ],
           "answer": 0,
-          "explanation": "The seminar concludes that curiosity and care make respect more thoughtful, not less sincere."
+          "explanation": "A 句叙述可核实的具体事件（被纳粹抓走、排队送往劳动营），属于事实；其余各句含 beautiful、gracious、admirable 等主观评价词，属于观点。"
+        },
+        {
+          "question": "Xu Xiake, a Chinese geographer and travel writer of the Ming Dynasty, traveled around China for over 30 years. In spite of many hardships and ______ dangerous situations along the way, he kept on traveling and left detailed and extensive records of his travels.",
+          "options": [
+            "physically",
+            "emotionally",
+            "perpetually",
+            "vastly"
+          ],
+          "answer": 0,
+          "explanation": "physically dangerous 表示“在身体上危险的”，与 hardships 并列说明旅途艰险；emotionally 与 dangerous 不搭配。"
+        },
+        {
+          "question": "His writing, which ______ an echo of his love of nature, records numerous phenomena in the vast realm of nature and is widely admired for its high literary quality.",
+          "options": [
+            "remains",
+            "retains",
+            "contains",
+            "maintains"
+          ],
+          "answer": 1,
+          "explanation": "retain an echo of 表示“保留着……的印迹/回声”；此处主语 His writing 为第三人称单数，故用 retains。"
+        },
+        {
+          "question": "His writing retains an echo of his love of nature and records numerous phenomena in the ______ realm of nature.",
+          "options": [
+            "dense",
+            "frail",
+            "vast",
+            "vague"
+          ],
+          "answer": 2,
+          "explanation": "the vast realm of nature 表示“广阔的自然领域”，vast 与 realm 搭配，也与前文“记录大量自然现象”呼应。"
+        },
+        {
+          "question": "The vast trade network of the Silk Road carried more than just precious commodities. In fact, the constant movement and mixing of populations ______ different cultures and beliefs, which had a profound impact on the history and civilizations of the Eurasian peoples.",
+          "options": [
+            "divided",
+            "collected",
+            "replaced",
+            "spread"
+          ],
+          "answer": 3,
+          "explanation": "spread different cultures and beliefs 表示“传播不同的文化与信仰”，与后文“对欧亚各民族历史与文明产生深远影响”一致。"
         }
       ]
     },
     "translation": {
       "sentences": [
         {
-          "zh": "请将下列句子译为英文：那位率领船队的探险家留下了值得后人研究的遗产。",
-          "en_reference": "The explorer who led the fleet left a legacy worth studying.",
+          "zh": "中央电视台春节联欢晚会（Spring Festival Gala）自1983年举办以来，已成为中国人生活中不可缺少的文化消费品和一个重要的文化符号。",
+          "en_reference": "Since it was first staged in 1983, the CCTV Spring Festival Gala has become an indispensable cultural product in the life of the Chinese people and an important cultural symbol.",
           "keywords": [
-            "explorer",
-            "fleet",
-            "legacy",
-            "who"
+            "Since",
+            "first",
+            "staged",
+            "CCTV"
           ]
         },
         {
-          "zh": "请将下列句子译为英文：学生打开展览时，已经比较了两篇人物传记。",
-          "en_reference": "By the time the students opened the exhibit, they had compared two biographies.",
+          "zh": "虽然众口难调，但必须承认的是，“春晚”已成为一项“新民俗”。",
+          "en_reference": "It is hard to please everyone, but it must be admitted that the Gala has become a “new folk custom”.",
           "keywords": [
-            "by the time",
-            "had compared",
-            "biographies"
+            "hard",
+            "please",
+            "everyone",
+            "must"
           ]
         },
         {
-          "zh": "请将下列句子译为英文：一幅优雅的肖像无法讲述一个人的全部人生。",
-          "en_reference": "An elegant portrait cannot tell the whole story of a person's life.",
+          "zh": "它不仅是一台晚会，更是一种仪式与象征，一种文化与标签，一种情感与寄托。",
+          "en_reference": "It is more than a gala: it is a ritual and a symbol, a culture and a label, a bond of emotion and a source of comfort.",
           "keywords": [
-            "elegant",
-            "portrait"
+            "more",
+            "than",
+            "gala",
+            "ritual"
           ]
         },
         {
-          "zh": "请将下列句子译为英文：有证据支持的叙述能启发读者，也能提醒他们区分事实与推断。",
-          "en_reference": "A narrative supported by evidence can inspire readers and remind them to distinguish facts from inferences.",
+          "zh": "随着新媒体的出现，“春晚”也在与时俱进，以满足大众日渐多样化的需求。",
+          "en_reference": "With the rise of new media, the Gala has also kept pace with the times in order to meet the increasingly diverse needs of the public.",
           "keywords": [
-            "narrative",
-            "evidence",
-            "inspire"
+            "rise",
+            "new",
+            "media",
+            "Gala"
           ]
         }
       ]
     },
     "writing": {
-      "prompt": "Write 120-150 words comparing two life stories. Use one checked fact, explain a meaningful choice, and distinguish evidence from your interpretation.",
+      "prompt": "Write an essay of no less than 140 words on one of the following topics. One topic has an outline you can follow: an influential Chinese explorer. Develop your essay as a biographical narrative in chronological order, using time-order signals such as when, during, and later, and select only the details that best portray the person.",
       "outline": [
-        "Introduce the two people and the context",
-        "Give one verified fact and explain its source",
-        "Compare a choice, obstacle, or act of service",
-        "Explain what readers may learn without treating either life as a perfect template"
+        "When and where the explorer was born",
+        "How the explorer started his or her career",
+        "What the explorer has achieved and what contribution he or she has made to China and the world",
+        "Conclusion: the significance of the explorer to China and the world"
       ]
     }
   }

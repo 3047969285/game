@@ -2,9 +2,10 @@
   "unit_id": "unit05",
   "unit_number": 5,
   "edition": 4,
+  "source": "textbook-rw3",
   "title": "China's space dream",
-  "title_zh": "中国的航天梦",
-  "theme": "space exploration, innovation, China",
+  "title_zh": "中国航天梦",
+  "theme": "space exploration, manned spaceflight, lunar exploration, national pride",
   "word_ids": [
     "rw3_unit05_01",
     "rw3_unit05_02",
@@ -25,145 +26,198 @@
     "rw3_unit05_17",
     "rw3_unit05_18",
     "rw3_unit05_19",
-    "rw3_unit05_20"
+    "rw3_unit05_20",
+    "rw3_unit05_21",
+    "rw3_unit05_22",
+    "rw3_unit05_23",
+    "rw3_unit05_24",
+    "rw3_unit05_25",
+    "rw3_unit05_26",
+    "rw3_unit05_27",
+    "rw3_unit05_28",
+    "rw3_unit05_29",
+    "rw3_unit05_30",
+    "rw3_unit05_31",
+    "rw3_unit05_32",
+    "rw3_unit05_33",
+    "rw3_unit05_34",
+    "rw3_unit05_35",
+    "rw3_unit05_36",
+    "rw3_unit05_37",
+    "rw3_unit05_38",
+    "rw3_unit05_39",
+    "rw3_unit05_40",
+    "rw3_unit05_41",
+    "rw3_unit05_42",
+    "rw3_unit05_43",
+    "rw3_unit05_44",
+    "rw3_unit05_45",
+    "rw3_unit05_46",
+    "rw3_unit05_47",
+    "rw3_unit05_48",
+    "rw3_unit05_49",
+    "rw3_unit05_50",
+    "rw3_unit05_51",
+    "rw3_unit05_52",
+    "rw3_unit05_53",
+    "rw3_unit05_54",
+    "rw3_unit05_55",
+    "rw3_unit05_56",
+    "rw3_unit05_57",
+    "rw3_unit05_58",
+    "rw3_unit05_59",
+    "rw3_unit05_60",
+    "rw3_unit05_61",
+    "rw3_unit05_62",
+    "rw3_unit05_63",
+    "rw3_unit05_64",
+    "rw3_unit05_65",
+    "rw3_unit05_66",
+    "rw3_unit05_67",
+    "rw3_unit05_68",
+    "rw3_unit05_69",
+    "rw3_unit05_70",
+    "rw3_unit05_71",
+    "rw3_unit05_72",
+    "rw3_unit05_73"
   ],
   "micro_world_checks": {
     "section_a": [
       {
-        "question": "Why did the far-side probe need a relay link to communicate with Earth?",
+        "question": "What is one of the most spectacular endeavors of China's space exploration according to Para. 1?",
         "options": [
-          "The probe was too small to collect scientific data.",
-          "The Moon blocked a direct radio path between the probe and Earth.",
-          "The landing site had no sunlight for its instruments.",
-          "The spacecraft was designed to communicate only with astronauts."
-        ],
-        "answer": 1,
-        "explanation": "The Moon blocks a direct line of communication from the far side, so the relay passes messages between the probe and Earth."
-      },
-      {
-        "question": "What is the main purpose of repeating tests before a landing?",
-        "options": [
-          "To make every design appear perfect in public.",
-          "To remove the need for sensors during flight.",
-          "To guarantee that no unexpected condition can occur.",
-          "To learn whether a system works under defined conditions and improve it with evidence."
-        ],
-        "answer": 3,
-        "explanation": "The passage treats tests as evidence about performance under specified conditions, not as proof that a system can never fail."
-      },
-      {
-        "question": "What helped the two student groups resolve their disagreement about the landing site?",
-        "options": [
-          "They compared their reference points and found a sensor had been read from the wrong scale.",
-          "They chose the site shown in the most dramatic image.",
-          "They ignored the slope readings and followed the original plan.",
-          "They asked the guide to choose without explaining the evidence."
-        ],
-        "answer": 0,
-        "explanation": "Comparing methods revealed a scale-reading error, which changed the evidence and the landing choice."
-      },
-      {
-        "question": "What does Lin learn about exploration by the end of the passage?",
-        "options": [
-          "A successful mission depends mainly on one brilliant inventor.",
-          "The best scientific story is the one with the most exciting pictures.",
-          "A dream becomes more reliable when generations inherit methods for testing it.",
-          "Future teams should repeat every earlier decision without review."
+          "Landing a rover on Mars",
+          "Building a base on the far side of the moon",
+          "Building and operating China's first space station",
+          "Sending a probe to photograph the moon's far side"
         ],
         "answer": 2,
-        "explanation": "Lin concludes that exploration passes both an ambition and an evidence-based method to future generations."
+        "explanation": "第1段末句：All these astronauts have been training for one of the most spectacular endeavors of China's space exploration: building and operating China's first space station."
+      },
+      {
+        "question": "When was the PLA Astronaut Group established?",
+        "options": [
+          "In 1998",
+          "In 1992",
+          "In 2003",
+          "In 2021"
+        ],
+        "answer": 0,
+        "explanation": "第2段：1992 年立项并开始训练；1998 年这 14 名飞行员成为中国人民解放军航天员大队的创始成员（In 1998, they became the founding members of the PLA Astronaut Group.）。"
+      },
+      {
+        "question": "What did it mean when Yang Liwei became the first Chinese person to go into space in the Shenzhou-5 manned mission?",
+        "options": [
+          "China launched its first satellite",
+          "China became the third country to send a man into space",
+          "China finished building its first space station",
+          "China became the first country to land on the moon"
+        ],
+        "answer": 1,
+        "explanation": "第3段：making China the third country to send a man into space（使中国成为第三个把人送入太空的国家）。"
+      },
+      {
+        "question": "What have the Chinese astronauts accomplished since Yang Liwei's momentous journey according to Para. 4?",
+        "options": [
+          "They have lived on the Tiangong space station for a whole year",
+          "They have landed on the moon and brought back lunar samples",
+          "They have sent unmanned probes to Mars and to the moon's far side",
+          "They have performed scientific experiments and technological tests, undertaken extravehicular activities, and delivered a science lecture"
+        ],
+        "answer": 3,
+        "explanation": "第4段：The astronauts have performed scientific experiments and technological tests, undertaken extravehicular activities, and even delivered a science lecture watched by tens of millions of students."
       }
     ],
     "section_b": [
       {
-        "question": "Why did the simulation team add a relay satellite to its model?",
+        "question": "Why do we want to explore the moon according to the text?",
         "options": [
-          "It could replace every navigation and science team.",
-          "It made the lunar surface easier to see through a telescope.",
-          "It could carry a message around the Moon's obstruction.",
-          "It allowed the spacecraft to skip orbit planning."
+          "To solve resource problems on earth.",
+          "To build a similar biosphere on the moon.",
+          "To peer into and explore the deep universe.",
+          "To learn more about the other side of the moon."
         ],
         "answer": 2,
-        "explanation": "The direct radio route is blocked in the simulation, so the relay creates a communication path."
+        "explanation": "Text B 第2段：It's an ideal place to peer into the deep reaches of the universe. 其他三项在原文中都不是探月的理由。"
       },
       {
-        "question": "Why did An compare several sensor readings before changing the orbit?",
+        "question": "Why is the far side of the moon also called the dark side?",
         "options": [
-          "To separate a confirmed drift from an uncertain reading before acting.",
-          "To prove that the spacecraft should never be adjusted.",
-          "To reduce the number of people involved in the mission.",
-          "To make the control-room display more impressive."
-        ],
-        "answer": 0,
-        "explanation": "The team labels confirmed, estimated, and uncertain information so that a decision rests on reliable evidence."
-      },
-      {
-        "question": "What did the follow-up trial show about the smaller correction?",
-        "options": [
-          "It restored the signal only by ignoring the fuel limit.",
-          "It made the relay unnecessary for later communication.",
-          "It worked in every possible condition without further testing.",
-          "It restored the signal with less fuel under the tested conditions."
-        ],
-        "answer": 3,
-        "explanation": "The trial supports the smaller change for the tested setup; it does not establish that it works under every condition."
-      },
-      {
-        "question": "Why did An record both the successful result and its limitation?",
-        "options": [
-          "To hide the uncertain readings from the next team.",
-          "So another team can understand what was tested and where caution is still needed.",
-          "To show that a breakthrough never requires revision.",
-          "So the mission can be judged by speed alone."
+          "It is covered by black rocks.",
+          "It is relatively unknown to us.",
+          "It is darker than the near side.",
+          "It is more dangerous than the near side."
         ],
         "answer": 1,
-        "explanation": "Recording the result and its boundary makes the procedure reviewable and prevents one test from being overstated."
+        "explanation": "第3段：It's also called the dark side, although it's not darker than the near side. The word dark only shows how we feel about the unknown. 可见“dark”说的是我们对未知的感受，并非真得更暗。"
+      },
+      {
+        "question": "Which of the following is the first-ever mission to photograph the moon's far side?",
+        "options": [
+          "The Luna 3 mission.",
+          "The Apollo 8 mission.",
+          "The Chang'e-1 mission.",
+          "The Chang'e-4 mission."
+        ],
+        "answer": 0,
+        "explanation": "第4段：Nobody had ever seen the moon's far side before the Soviet Union launched the Luna 3 probe in 1959. It was the first-ever mission to photograph the far side."
+      },
+      {
+        "question": "When did China join the lunar exploration club?",
+        "options": [
+          "In the 1950s.",
+          "In the 1970s.",
+          "At the beginning of 2007.",
+          "At the turn of the millennium."
+        ],
+        "answer": 3,
+        "explanation": "第5段：Since the turn of the millennium, more countries such as China, Japan, and India have joined the lunar exploration club. 2007 年是中国验证探月技术的年份，不是加入的时间。"
       }
     ],
     "section_c": [
       {
-        "question": "What does Rui discover about astronaut preparation?",
+        "question": "What is the main idea of the passage?",
         "options": [
-          "A strong launch vehicle is enough to prepare a crew.",
-          "Training is mainly a public performance before launch.",
-          "An astronaut can rely on instinct instead of practicing procedures.",
-          "Technical knowledge, physical readiness, judgment, and team practice work together."
+          "China's space program aims at peaceful development for all",
+          "China plans to build a military base on the moon",
+          "China will stop cooperating with other countries in space",
+          "China spends more on space than on everyday needs"
+        ],
+        "answer": 0,
+        "explanation": "全文主旨：中国以“和平发展”“人类命运共同体”为出发点探索太空，成果惠及全人类，并邀请各国参与合作（第2、6段）。"
+      },
+      {
+        "question": "Which mission brought back samples of lunar rock?",
+        "options": [
+          "The Tianwen-1 mission",
+          "The Zhurong probe",
+          "The Tiangong core module",
+          "The Chang'e-5 mission"
         ],
         "answer": 3,
-        "explanation": "The exhibit connects systems knowledge, physical and psychological preparation, emergency procedures, and coordination."
+        "explanation": "第1段：嫦娥五号（Chang'e-5）任务成功带回月岩样本；天问一号和祝融号负责火星探测。"
       },
       {
-      "question": "What does the simulated warning teach the trainee to do first?",
-      "options": [
-        "Silence the alarm and continue the planned task.",
-        "Wait for one teammate to make every decision.",
-        "Follow a checklist, communicate the reading, and confirm the next safe step.",
-        "Change the spacecraft setting before checking the data."
-      ],
-      "answer": 2,
-        "explanation": "The scenario rewards a deliberate sequence: use the procedure, share evidence, and confirm a safe response."
+        "question": "According to Paragraph 3, space activities may help to ___.",
+        "options": [
+          "replace international trade with space travel",
+          "ease shortages of energy and resources on earth",
+          "solve all social problems on earth",
+          "reduce the cost of building space stations"
+        ],
+        "answer": 1,
+        "explanation": "第3段：太空活动有潜力解决能源和资源短缺、污染等问题，因此太空进步最终惠及所有人。"
       },
       {
-      "question": "Why does the exhibit include a model of a space station as well as a rocket?",
-      "options": [
-        "Long-term work in orbit depends on systems and research after launch, too.",
-        "A station removes the effects of gravity from every experiment.",
-        "A station is used only to display a launch vehicle.",
-        "The exhibit wants visitors to ignore crew preparation."
-      ],
-      "answer": 0,
-        "explanation": "The station model helps Rui see that sustained experiments, maintenance, and crew routines continue after a launch."
-      },
-      {
-      "question": "Which idea best summarizes the passage's view of a space frontier?",
-      "options": [
-        "Only astronauts contribute to a space program.",
-        "A frontier is meaningful when careful preparation and shared research let people explore responsibly.",
-        "Scientific success should be measured by publicity rather than evidence.",
-        "Training can stop once the first mission has succeeded."
-      ],
-      "answer": 1,
-        "explanation": "The ending links exploration with disciplined preparation, reliable systems, and work shared across generations."
+        "question": "Why does the author mention the invention of the satellite?",
+        "options": [
+          "To explain why satellites are expensive to launch",
+          "To prove that only rich nations can explore space",
+          "To show how space progress changes life on earth",
+          "To argue that globalization should be slowed down"
+        ],
+        "answer": 2,
+        "explanation": "第4段：卫星等发明在推动全球化和互联互通方面价值巨大，说明太空成就改变了我们的生活方式。"
       }
     ]
   },
@@ -171,172 +225,304 @@
     "section_a": {
       "title": "No limit for China's astronauts in their space exploration endeavors",
       "type": "reading",
-      "passage": "At a university mission exhibit, Lin received a blank map of the Moon and a question: why does the far side ask more of a spacecraft than a powerful engine can provide? He drew Earth behind the lunar disk, then placed a relay satellite where both Earth and the hidden landing area could be reached. Only then did the communication problem become visible: a probe behind the Moon cannot send a direct radio signal to a ground station. The exhibit explained that Chang'e-4 achieved the first soft landing and rover operations on the lunar far side in 2019, supported by the Queqiao relay link. Lin had celebrated the breakthrough as a single moment, but the guide asked him to see the mission as a chain of decisions. A launch window, a planned orbit, and a controlled landing each depend on different checks. Before a model spacecraft descended, the team rehearsed the sequence in simulation and agreed on what every sensor should report. When one reading falls outside its expected range, engineers compare it with other data before changing course. The purpose of a test is not to prove a design perfect but to learn whether it works under specified conditions. Lin wrote down the claim, the evidence, and the uncertainty instead of trusting the brightest image. At the display, an animation showed the relay passing a message between the far-side probe and Earth. Lin followed the signal route with his finger and saw how cooperation joined operators, scientists, and equipment across distance. Research and innovation therefore appeared not as slogans but as tools for solving a communication constraint. A telescope can reveal a distant surface, yet a landing still requires measurements, communication, and safe decisions close to the Moon. The guide called the scientific frontier a place where curiosity must become a testable question. Students next received sample data and had to decide which model site was level enough for a safe descent. Two groups disagreed because they had used different reference points on the same slope. When they compared their methods, they found that one sensor had been read from the wrong scale. Lin revised his answer and explained why the corrected evidence changed the landing choice. He left with a more ambitious idea of exploration: each generation inherits not only a dream, but a method for checking it."
+      "passage": "China's space exploration had reached a new milestone by 2021, when three astronauts of Shenzhou-12 crew successfully docked at the Tiangong space station, worked there for months, and then safely returned to the earth. The three - Nie Haisheng, Liu Boming, and Tang Hongbo - were selected rigorously from the current active, qualified Chinese astronauts. All these astronauts have been training for one of the most spectacular endeavors of China's space exploration: building and operating China's first space station. It was back in 1992 that China approved a blueprint for her manned space program and began training astronauts. The first batch of astronauts was chosen from veteran pilots in the People's Liberation Army (PLA) Air Force who had at least 600 flight hours in fighter jets or attack aircraft. More than 1,500 pilots applied, and after rounds of most demanding tests, the number reduced sharply to 14. In 1998, they became the founding members of the PLA Astronaut Group. On October 15, 2003, Yang Liwei became the first Chinese person to go into space in the Shenzhou-5 manned mission, making China the third country to send a man into space. During his 600,000 km expedition, Yang simultaneously displayed the Chinese and UN flags to hundreds of millions of Chinese who were witnessing his feat on television, and said, “Make use of outer space peacefully and for the benefit of all humankind.” Since Yang's momentous journey, China has made a gigantic progress in space exploration, and more astronauts have been sent into orbit. The astronauts have performed scientific experiments and technological tests, undertaken extravehicular activities, and even delivered a science lecture watched by tens of millions of students. To achieve these accomplishments, though, the astronauts have endured countless rounds of training, tests, and drills, shedding sweat and owing an enormous debt to their families for their thorough understanding and continuous support. Once pilots are admitted to the astronaut team, they must immerse themselves in the study of about 60 subjects, including physics, astronautics, and astronomy. Normally, each of these subjects requires university students to take four-year courses, but the astronauts have just one year to complete their studies and must pass exams in every subject. During training, to simulate weightlessness, astronauts have to wear suits that weigh 160 kg and stay underwater for about four hours. They lose an average of 2 kg during each training session, and after a session they would be too exhausted to hold chopsticks. When conducting centrifuge training, astronauts must endure a force as much as eight times their own weight so that they will be able to resist the g-forces that severely restrict the ability to breathe during lift-off. None of the astronauts has pressed the emergency button to halt the program. The astronauts have also overcome hardships and difficulties during missions. Yang Liwei recalled that when Shenzhou-5 ascended toward the sky, a low-frequency oscillation made his internal organs vibrate violently, inflicting almost unbearable pain. He gritted his teeth and endured the pain because he was about to realize the nation's long-lasting dream of flying in space. During the Shenzhou-7 mission, Zhai Zhigang and Liu Boming discovered they were unable to open the spaceship's exit hatch. They decided to use a tool to force the hatch open despite the obvious safety risk. “We both knew what the other one was thinking at that very moment: We had to accomplish our mission and wave the Chinese flag in space, even though we realized that there would probably be no return trip for us,” Zhai said. Looking back at their experiences, the astronauts thought their struggles, sacrifices, and persistence were all worthwhile. It is awe-inspiring and unforgettable for the astronauts to observe the earth and the universe from space. “I saw the lights of cities on earth and lightning ripping through the night sky. From our orbit, I saw the darkness and emptiness of space, and I wondered where the boundary is between the sky and the stars. I will never forget those scenes,” said Liu Wang, who took part in the Shenzhou-9 mission. Jing Haipeng, who has taken part in several space missions, was awarded the August 1 Medal, the highest honor given to individual members of the Chinese PLA. Jing was both pleased and modest when he received the medal. For him, the honor and glory belong not only to the astronauts but also to tens of thousands of scientists, engineers, and workers who have played a role in the nation's manned space programs and contributed to sending the astronauts into space. The accomplishments of China's space exploration have become a source of pride and growing confidence in the nation, in addition to sparking patriotic sentiments in Chinese communities across the world. Wang Yaping, the female astronaut who delivered the science lecture from space, felt overwhelmed by the number of boys and girls who wrote to her upon her return. She had never imagined that her teaching could trigger off so many dreams and aspirations. Yang Liwei recalled that during a visit to New York, a Chinese-American held his hands and tearfully told him that the nation's achievements in space reflected the fact that “our motherland has risen”, which gave Chinese people living overseas more courage and strength. The bravery, wisdom, and commitment the Chinese astronauts embody will definitely inspire numerous young people to join the lofty cause and set space as the stage to realize their ambitions and the dream of national rejuvenation. There is no limit to the vast universe or to China's space exploration endeavors."
     },
     "section_b": {
       "title": "Chang'e-4 kicked off a new space odyssey",
       "type": "reading",
-      "passage": "In a campus control-room simulation, An joined a team asked to deliver a message from a lunar probe hidden behind the Moon. A direct route disappeared from the screen whenever the Moon blocked the line between the probe and Earth. Their model added a relay satellite, turning one broken connection into two monitored links. An wanted to move the spacecraft immediately, but the mentor asked her to inspect the data log first. The orbit trace showed a small drift; a second sensor confirmed it, while a third reading remained uncertain. The team labeled each fact, estimate, and open question rather than treating every number as equally reliable. They checked how a correction would affect fuel, timing, and the next communication window. No single control carried the whole mission: navigation, communication, and science teams had to compare their evidence. When An simulated an orbit adjustment, the relay link returned, but the margin for error narrowed. She recorded both the successful result and the condition that could make it fail. The mentor explained that a breakthrough is repeatable only when its method is documented and tested. The class then compared two designs, one simpler and one more ambitious. Students chose neither because it looked advanced; they asked what test would distinguish them. A follow-up trial showed that the smaller change restored the signal with less fuel under the tested conditions. This choice was not a rejection of innovation but a decision guided by evidence. An understood why exploration requires both courage and restraint. A lunar odyssey stretches across years, yet each careful check protects the next step. The simulation ended with an unanswered question about communication reliability. Rather than guess, the team planned a new trial and assigned one task to each member. An left the control room seeing cooperation not as a slogan, but as a way to expose weak assumptions before they became costly."
+      "passage": "No wind blows and no rain falls there. Only crashing meteorites occasionally disrupt the stillness. The desolate landscape on the moon's far side has waited billions of years to see the first-ever soft landing of a visitor from the earth - Chang'e-4 from China. As the nearest heavenly body, the moon has fascinated humankind since we first gazed at the sky. The silver disc in the sky is always a captivating theme in our legends, myths, and dreams. Its ever-changing face has inspired ambitious aspirations. We admire its beauty from the earth, so why are we so eager to reach the moon? It's an ideal place to peer into the deep reaches of the universe. It inspires our imaginations and dreams of space travel. The moon and the earth share a similar “childhood”, yet traces of the remote past on earth have been erased by geological activities. Exploration of the moon might provide some insights into the early history of the earth. But due to the tidal locking effect, we only get to see one side of the moon from the earth, and the far side remains a mystery. It's also called the dark side, although it's not darker than the near side. The word dark only shows how we feel about the unknown. Nobody had ever seen the moon's far side before the Soviet Union launched the Luna 3 probe in 1959. It was the first-ever mission to photograph the far side. The United States Apollo 8 mission sent three astronauts around the moon in 1968, the first time humans saw the moon's far side with their own eyes. Now China sent the first-ever probe to soft-land and rove on the far side, which has deepened our understanding of the moon, the earth, and the universe. Between the 1950s and 1970s, the United States and the Soviet Union raced against each other in early lunar exploration. After a lull, new interest was triggered in the 1990s when scientists found there might be water on the moon. Since the turn of the millennium, more countries such as China, Japan, and India have joined the lunar exploration club. To date, the world has launched over 100 manned or unmanned missions to the moon. Flying to the moon has been a dream of the Chinese since ancient times. The moon has long been a major theme in Chinese poems, music, and paintings, with artists and writers using the moon to express their emotions and thoughts about the universe. Since the 1990s, Chinese scientists and engineers have endeavored to make the dream a reality. China announced in 2000 that its space planning agenda contained preparatory research about lunar exploration. It officially began the lunar exploration program in 2004, with the aim of orbiting and landing on the moon, and bringing samples back to the earth. The program was named after the moon goddess Chang'e, who, in Chinese mythology, lived on the moon and was accompanied by the Jade Rabbit. Although China is a latecomer in lunar exploration, its program has made many achievements in a few expeditions. The country verified its lunar probe technologies in 2007 with the successful launch of Chang'e-1, the first spacecraft stemming from the program. In 2013 Chang'e-3 accomplished China's first soft-landing on the moon, which was the first man-made craft to achieve this goal in nearly four decades. After Chang'e-3's accomplishment, Chinese space experts aimed high to make the Chang'e-4 mission more innovative and challenging: to realize the first-ever soft-landing on the far side of the moon. In order to achieve that goal, China launched a relay satellite, named Queqiao (Magpie Bridge) after an ancient legend, to set up a communication link between the earth and the moon's far side. Chinese space experts also overcame difficulties with the rugged terrain on the far side, making the probe land on the moon with high precision. The Chang'e-4 mission carried instruments that had been developed by scientists from Sweden, Germany, the Netherlands, and Saudi Arabia, providing more opportunities for the world's scientists and combining human wisdom to explore the universe. Now China is drawing up plans to explore the moon's polar regions and inviting other countries to join in further expeditions. “I think one of the beauties of space science is that we do cooperate internationally. Space science to me is something important, also as a message of peace worldwide,” said a German professor in the program. The probe took some live species like cotton and potato to the lifeless environment to form a mini biosphere, which is expected to produce the first flower on the moon. Engineers also plan to get data by constantly measuring temperatures on the surface of the moon. From robotic to manned missions, from short- to long-term, China's lunar exploration will go deeper. The Chinese will leave their footprints on the surface of the moon in the foreseeable future. Exploring the moon has inspired scientists and engineers, fascinated young and old, and motivated young people to pursue scientific careers, not only in space but also in the depths of the ocean or in the nucleus of an atom. Reaching the moon, the first outpost in deep space, is just the beginning of our space odyssey."
     },
     "section_c": {
-      "title": "Stories of China",
+      "title": "China aims for peaceful use of space exploration",
       "type": "stories_of_china",
-      "passage": "At a science center, Rui expected an astronaut exhibit to focus on rockets, but the first room showed a crew practicing ordinary procedures. A guide explained that astronaut candidates study spacecraft systems and rehearse physical, psychological, and emergency tasks before a mission. Their preparation is an endeavor measured in careful practice, not a dramatic countdown. In a training pool, a crew learns to move steadily while a partner checks the route and the equipment. A simulated warning then interrupts the exercise. The trainee reads the panel, reports the data, and waits for the team to confirm which procedure applies. One student asks why the crew does not simply react by instinct. The guide answers that in a complex environment, practiced communication can prevent a small uncertainty from becoming a larger risk. The next display shows how gravity affects movement and why a station needs routines for work, rest, and research. A telescope is not just an impressive object on the wall; it represents questions that scientists can investigate when instruments, people, and records work together. Rui sees that a spacecraft launch is only one stage in a longer system. After liftoff, teams monitor the orbit, support the crew, and interpret results. The exhibit asks visitors to match each mission task with the evidence that would show it was completed safely. Rui first chooses a photograph, then notices that a checklist, measurement, and crew report provide stronger support. The group discusses how cooperation connects engineers on Earth with astronauts in orbit. Their work opens a frontier, but it also depends on shared preparation and public investment in research. Before leaving, Rui writes one question for a future science lesson and one skill he could practice now: explain a claim with evidence. He understands that exploration is not a promise of easy answers. It is a disciplined way for people across generations to ask better questions and test them together."
+      "passage": "Over the past few years, China has made great achievements and experienced a number of breakthroughs pertaining to outer space. The Chang'e-5 mission successfully brought back samples of lunar rock. The core module of Tiangong, the space station, was launched and astronauts were sent up there. China also became just the second nation to land a rover on Mars with the Tianwen-1 mission and Zhurong probe. Furthermore, China and Russia have released a joint road map for building the International Lunar Research Station, which will be the first structures built on the moon, by 2035. Long before the modern era, Chinese culture and tradition attached great importance to the heavens and the moon, and from here emerged many of the world's earliest astronomers and cosmologists. China's vision for the exploration of outer space should be understood through the lens of its economic strategy for “peaceful development” and “a global community of shared future” for the good of humankind. China has a nonmilitary view of space exploration and sees advances in science as a means for accelerating global prosperity and economic development. Since the 20th century, outer space has been the newest frontier of humankind, and understanding it and knowing how to use it productively are crucial for humanity. The advancement of space-related activities has the potential to overcome many problems on earth, including shortages of energy and resources as well as pollution. As a consequence, progress made in space is ultimately progress in the name of all, and serves to benefit all. Each civil feat in space subsequently transforms the way we live, even if we do not realize it. The achievements of the 20th century transformed our world in communications and expanded our capability to understand ourselves. The invention of the satellite and similar resources has been invaluable in promoting globalization and interconnectivity. As a result, the Tiangong space station and the planned International Lunar Research Station will aim to shape the future of humanity accordingly, by expanding the scope of knowledge to new levels. The Chinese endeavor is not a zero-sum game; China invites all countries to participate in its projects as a peaceful initiative and to help shape humanity's future. China will pursue the path of peaceful development in space with a view to the moon, Mars, and beyond."
     },
     "vocabulary": {
-      "level_count": 4,
+      "level_count": 15,
       "words_per_level": 5
     },
     "reading": {
-      "title": "The Message That Crossed the Moon",
-      "passage": "During a public science workshop, a student team had to design a communication plan for a probe on the Moon's far side. Their first sketch pointed a radio line straight toward Earth, but a lunar model blocked it. A mentor asked the students to identify the constraint before adding equipment. They placed a relay satellite where it could pass messages between the hidden probe and Earth, then drew a second route for backup communication. The model did not prove that a real mission would succeed; it helped the team ask which parts would need testing. They listed power, orbit, timing, and signal quality as separate questions. One group wanted to choose a path because it looked shortest. Another compared the angles and found that a slightly longer route offered a clearer link. The students recorded what their model showed and what it could not show. Their report distinguished evidence from assumption and suggested a next test rather than claiming certainty. The mentor connected the exercise with Chang'e-4, whose far-side operations depended on a relay link because the Moon interrupts direct communication. The historic result was not a shortcut around engineering; it was evidence that careful system design can make a difficult task possible. By the end, the students understood that exploration is a chain: a question guides a model, a test challenges the model, and new data shapes the next decision. A successful mission may make headlines, but the habits that support it are patient research, clear records, and cooperation across different specialties.",
+      "title": "No limit for China's astronauts in their space exploration endeavors",
+      "passage": "China's space exploration had reached a new milestone by 2021, when three astronauts of Shenzhou-12 crew successfully docked at the Tiangong space station, worked there for months, and then safely returned to the earth. The three - Nie Haisheng, Liu Boming, and Tang Hongbo - were selected rigorously from the current active, qualified Chinese astronauts. All these astronauts have been training for one of the most spectacular endeavors of China's space exploration: building and operating China's first space station. It was back in 1992 that China approved a blueprint for her manned space program and began training astronauts. The first batch of astronauts was chosen from veteran pilots in the People's Liberation Army (PLA) Air Force who had at least 600 flight hours in fighter jets or attack aircraft. More than 1,500 pilots applied, and after rounds of most demanding tests, the number reduced sharply to 14. In 1998, they became the founding members of the PLA Astronaut Group. On October 15, 2003, Yang Liwei became the first Chinese person to go into space in the Shenzhou-5 manned mission, making China the third country to send a man into space. During his 600,000 km expedition, Yang simultaneously displayed the Chinese and UN flags to hundreds of millions of Chinese who were witnessing his feat on television, and said, “Make use of outer space peacefully and for the benefit of all humankind.” Since Yang's momentous journey, China has made a gigantic progress in space exploration, and more astronauts have been sent into orbit. The astronauts have performed scientific experiments and technological tests, undertaken extravehicular activities, and even delivered a science lecture watched by tens of millions of students. To achieve these accomplishments, though, the astronauts have endured countless rounds of training, tests, and drills, shedding sweat and owing an enormous debt to their families for their thorough understanding and continuous support. Once pilots are admitted to the astronaut team, they must immerse themselves in the study of about 60 subjects, including physics, astronautics, and astronomy. Normally, each of these subjects requires university students to take four-year courses, but the astronauts have just one year to complete their studies and must pass exams in every subject. During training, to simulate weightlessness, astronauts have to wear suits that weigh 160 kg and stay underwater for about four hours. They lose an average of 2 kg during each training session, and after a session they would be too exhausted to hold chopsticks. When conducting centrifuge training, astronauts must endure a force as much as eight times their own weight so that they will be able to resist the g-forces that severely restrict the ability to breathe during lift-off. None of the astronauts has pressed the emergency button to halt the program. The astronauts have also overcome hardships and difficulties during missions. Yang Liwei recalled that when Shenzhou-5 ascended toward the sky, a low-frequency oscillation made his internal organs vibrate violently, inflicting almost unbearable pain. He gritted his teeth and endured the pain because he was about to realize the nation's long-lasting dream of flying in space. During the Shenzhou-7 mission, Zhai Zhigang and Liu Boming discovered they were unable to open the spaceship's exit hatch. They decided to use a tool to force the hatch open despite the obvious safety risk. “We both knew what the other one was thinking at that very moment: We had to accomplish our mission and wave the Chinese flag in space, even though we realized that there would probably be no return trip for us,” Zhai said. Looking back at their experiences, the astronauts thought their struggles, sacrifices, and persistence were all worthwhile. It is awe-inspiring and unforgettable for the astronauts to observe the earth and the universe from space. “I saw the lights of cities on earth and lightning ripping through the night sky. From our orbit, I saw the darkness and emptiness of space, and I wondered where the boundary is between the sky and the stars. I will never forget those scenes,” said Liu Wang, who took part in the Shenzhou-9 mission. Jing Haipeng, who has taken part in several space missions, was awarded the August 1 Medal, the highest honor given to individual members of the Chinese PLA. Jing was both pleased and modest when he received the medal. For him, the honor and glory belong not only to the astronauts but also to tens of thousands of scientists, engineers, and workers who have played a role in the nation's manned space programs and contributed to sending the astronauts into space. The accomplishments of China's space exploration have become a source of pride and growing confidence in the nation, in addition to sparking patriotic sentiments in Chinese communities across the world. Wang Yaping, the female astronaut who delivered the science lecture from space, felt overwhelmed by the number of boys and girls who wrote to her upon her return. She had never imagined that her teaching could trigger off so many dreams and aspirations. Yang Liwei recalled that during a visit to New York, a Chinese-American held his hands and tearfully told him that the nation's achievements in space reflected the fact that “our motherland has risen”, which gave Chinese people living overseas more courage and strength. The bravery, wisdom, and commitment the Chinese astronauts embody will definitely inspire numerous young people to join the lofty cause and set space as the stage to realize their ambitions and the dream of national rejuvenation. There is no limit to the vast universe or to China's space exploration endeavors.",
       "questions": [
         {
-      "question": "What problem did the lunar model reveal in the team's first sketch?",
-      "options": [
-        "The probe had already landed in the wrong place.",
-        "The team had no measurements for the lunar surface.",
-        "The relay satellite was too close to Earth.",
-        "A straight radio path was blocked by the Moon."
-      ],
-      "answer": 3,
-          "explanation": "The lunar model physically blocks the direct line drawn from the far-side probe to Earth."
-        },
-        {
-          "question": "Why did the students prefer a slightly longer communication route?",
+          "question": "What do astronauts have to do to simulate weightlessness during training?",
           "options": [
-            "It required no equipment or testing.",
-            "It offered a clearer link after they compared the angles.",
-            "It made the mission shorter in every stage.",
-            "It proved that the first plan was completely useless."
+            "Spend eight hours a day in a centrifuge",
+            "Wear suits that weigh 160 kg and stay underwater for about four hours",
+            "Train inside a spaceship orbiting the earth",
+            "Hold chopsticks for hours after every session"
           ],
           "answer": 1,
-          "explanation": "The team compared the geometry and found the longer route provided a clearer communication link."
+          "explanation": "第7段：to simulate weightlessness, astronauts have to wear suits that weigh 160 kg and stay underwater for about four hours。"
         },
         {
-      "question": "What does the report distinguish?",
-      "options": [
-        "Evidence from assumption, along with limits of the model.",
-        "Public interest from scientific research.",
-        "The relay satellite from the spacecraft.",
-        "The Moon's near side from its craters."
-      ],
-      "answer": 0,
-          "explanation": "The students record what their model demonstrates, what it cannot show, and what should be tested next."
+          "question": "What did Zhai Zhigang and Liu Boming decide to do when they discovered they were unable to open the spaceship's exit hatch?",
+          "options": [
+            "They decided to give up the mission and return to the earth",
+            "They decided to ask the ground control to send a new hatch",
+            "They decided to use a tool to force the hatch open despite the safety risk",
+            "They decided to wait until the hatch opened by itself"
+          ],
+          "answer": 2,
+          "explanation": "第8段：They decided to use a tool to force the hatch open despite the obvious safety risk。"
         },
         {
-      "question": "Which conclusion is best supported by the passage?",
-      "options": [
-        "A model removes the need for real mission tests.",
-        "A relay works only when every team uses the same specialty.",
-        "Reliable exploration grows through models, tests, records, and cooperation.",
-        "Historic missions succeed through luck more than planning."
-      ],
-      "answer": 2,
-          "explanation": "The passage closes with a chain from question to model, test, evidence, and collaboration."
+          "question": "What are the impacts that the accomplishments of China's space exploration have on the Chinese at home and abroad?",
+          "options": [
+            "They have made young Chinese lose interest in science",
+            "They have replaced traditional Chinese culture with space technology",
+            "They have benefited only the scientists and engineers working in the program",
+            "They have become a source of pride and growing confidence at home and sparked patriotic sentiments in Chinese communities abroad"
+          ],
+          "answer": 3,
+          "explanation": "第11段：The accomplishments ... have become a source of pride and growing confidence in the nation, in addition to sparking patriotic sentiments in Chinese communities across the world."
+        },
+        {
+          "question": "What are the qualities the Chinese astronauts embody?",
+          "options": [
+            "Wealth, power, and fame",
+            "Bravery, wisdom, and commitment",
+            "Curiosity, humor, and patience",
+            "Honesty, modesty, and caution"
+          ],
+          "answer": 1,
+          "explanation": "第12段：The bravery, wisdom, and commitment the Chinese astronauts embody will definitely inspire numerous young people ..."
+        },
+        {
+          "question": "All these industries have ______ the decline and in some cases reversed it by innovations of their own.",
+          "options": [
+            "embodied",
+            "simulated",
+            "halted",
+            "ascended"
+          ],
+          "answer": 2,
+          "explanation": "halt 意为“（使）停止”，halt the decline 指“遏止下滑”；embody（体现）、simulate（模拟）、ascend（上升）均不合搭配。"
+        },
+        {
+          "question": "The city has recently devised a series of strategies mapping out a(n) ______ for the city's development.",
+          "options": [
+            "boundary",
+            "blueprint",
+            "milestone",
+            "oscillation"
+          ],
+          "answer": 1,
+          "explanation": "blueprint 指“蓝图、规划”，map out a blueprint for ... development 是常用搭配；boundary（边界）、milestone（里程碑）、oscillation（摆动）都不能与 map out 搭配表示“规划”。"
+        },
+        {
+          "question": "Research laboratories could ______ environmental conditions surrounding historical sites to help researchers with their cultural heritage protection endeavors.",
+          "options": [
+            "ascend",
+            "halt",
+            "simulate",
+            "vibrate"
+          ],
+          "answer": 2,
+          "explanation": "simulate 意为“模拟”，simulate environmental conditions 即“模拟环境条件”，符合实验室研究的语境。"
+        },
+        {
+          "question": "My phone ______ in my pocket while I was walking around the mall.",
+          "options": [
+            "vibrated",
+            "halted",
+            "embodied",
+            "simulated"
+          ],
+          "answer": 0,
+          "explanation": "vibrate 指“振动”，手机在口袋里振动用 vibrated；其余三词分别表示停止、体现、模拟，均不能描述手机。"
+        },
+        {
+          "question": "This meeting proved to be a very important ______ for the development of the program.",
+          "options": [
+            "boundary",
+            "blueprint",
+            "organ",
+            "milestone"
+          ],
+          "answer": 3,
+          "explanation": "milestone 指“里程碑、重大事件”，an important milestone for the development of ... 表示“项目发展的重要里程碑”。"
+        },
+        {
+          "question": "The drought has ______ a direct agricultural economic loss of 952 million dollars in that area.",
+          "options": [
+            "ascended",
+            "vibrated",
+            "inflicted",
+            "embodied"
+          ],
+          "answer": 2,
+          "explanation": "inflict 意为“使遭受（不愉快的事）”，inflict a loss on ... 指“造成损失”；此处 inflict a direct agricultural economic loss 表示“造成直接农业经济损失”。"
         }
       ]
     },
     "listening": {
-      "title": "Listening: A Test Before the Next Step",
-      "script": "Welcome to the mission-training room. Today, our crew is not launching a spacecraft; it is rehearsing what to do when a sensor gives an unexpected reading. First, the trainee reads the procedure and says the value aloud. A teammate checks the number against a second display, while the instructor records the time and the system's status. The team does not change the orbit just because one signal looks unusual. They compare the data, identify what remains uncertain, and decide whether the mission rule calls for a pause or a correction. In a separate exercise, the crew practices moving through a station module in low gravity. The goal is not speed. Each person must secure the equipment, report a change, and leave a clear note for the next shift. After the rehearsal, the group reviews one mistake without blaming the trainee. They ask which cue was missed and how the checklist can make the next attempt safer. The instructor says that research missions depend on accurate instruments, but also on people who communicate honestly. When a later test improves the procedure, the change is recorded and shared with the whole team. A space mission may be ambitious, yet its reliability is built from small actions that can be checked and repeated. For your question, listen for the evidence the crew uses before it acts.",
+      "title": "Listening: China's space dream",
+      "script": "No wind blows and no rain falls there. Only crashing meteorites occasionally disrupt the stillness. The desolate landscape on the moon's far side has waited billions of years to see the first-ever soft landing of a visitor from the earth - Chang'e-4 from China. As the nearest heavenly body, the moon has fascinated humankind since we first gazed at the sky. The silver disc in the sky is always a captivating theme in our legends, myths, and dreams. Its ever-changing face has inspired ambitious aspirations. We admire its beauty from the earth, so why are we so eager to reach the moon? It's an ideal place to peer into the deep reaches of the universe. It inspires our imaginations and dreams of space travel. The moon and the earth share a similar “childhood”, yet traces of the remote past on earth have been erased by geological activities. Exploration of the moon might provide some insights into the early history of the earth. But due to the tidal locking effect, we only get to see one side of the moon from the earth, and the far side remains a mystery. It's also called the dark side, although it's not darker than the near side. The word dark only shows how we feel about the unknown. Nobody had ever seen the moon's far side before the Soviet Union launched the Luna 3 probe in 1959. It was the first-ever mission to photograph the far side. The United States Apollo 8 mission sent three astronauts around the moon in 1968, the first time humans saw the moon's far side with their own eyes. Now China sent the first-ever probe to soft-land and rove on the far side, which has deepened our understanding of the moon, the earth, and the universe. Between the 1950s and 1970s, the United States and the Soviet Union raced against each other in early lunar exploration. After a lull, new interest was triggered in the 1990s when scientists found there might be water on the moon. Since the turn of the millennium, more countries such as China, Japan, and India have joined the lunar exploration club. To date, the world has launched over 100 manned or unmanned missions to the moon. Flying to the moon has been a dream of the Chinese since ancient times. The moon has long been a major theme in Chinese poems, music, and paintings, with artists and writers using the moon to express their emotions and thoughts about the universe. Since the 1990s, Chinese scientists and engineers have endeavored to make the dream a reality. China announced in 2000 that its space planning agenda contained preparatory research about lunar exploration. It officially began the lunar exploration program in 2004, with the aim of orbiting and landing on the moon, and bringing samples back to the earth. The program was named after the moon goddess Chang'e, who, in Chinese mythology, lived on the moon and was accompanied by the Jade Rabbit. Although China is a latecomer in lunar exploration, its program has made many achievements in a few expeditions. The country verified its lunar probe technologies in 2007 with the successful launch of Chang'e-1, the first spacecraft stemming from the program. In 2013 Chang'e-3 accomplished China's first soft-landing on the moon, which was the first man-made craft to achieve this goal in nearly four decades. After Chang'e-3's accomplishment, Chinese space experts aimed high to make the Chang'e-4 mission more innovative and challenging: to realize the first-ever soft-landing on the far side of the moon. In order to achieve that goal, China launched a relay satellite, named Queqiao (Magpie Bridge) after an ancient legend, to set up a communication link between the earth and the moon's far side. Chinese space experts also overcame difficulties with the rugged terrain on the far side, making the probe land on the moon with high precision. The Chang'e-4 mission carried instruments that had been developed by scientists from Sweden, Germany, the Netherlands, and Saudi Arabia, providing more opportunities for the world's scientists and combining human wisdom to explore the universe. Now China is drawing up plans to explore the moon's polar regions and inviting other countries to join in further expeditions. “I think one of the beauties of space science is that we do cooperate internationally. Space science to me is something important, also as a message of peace worldwide,” said a German professor in the program. The probe took some live species like cotton and potato to the lifeless environment to form a mini biosphere, which is expected to produce the first flower on the moon. Engineers also plan to get data by constantly measuring temperatures on the surface of the moon. From robotic to manned missions, from short- to long-term, China's lunar exploration will go deeper. The Chinese will leave their footprints on the surface of the moon in the foreseeable future. Exploring the moon has inspired scientists and engineers, fascinated young and old, and motivated young people to pursue scientific careers, not only in space but also in the depths of the ocean or in the nucleus of an atom. Reaching the moon, the first outpost in deep space, is just the beginning of our space odyssey.",
       "questions": [
         {
-      "question": "What does the crew do before changing the orbit in response to an unusual signal?",
-      "options": [
-        "They silence the alarm and continue without recording it.",
-        "They ask one specialist to decide without checking the procedure.",
-        "They compare the reading with other data and identify uncertainty.",
-        "They change the spacecraft setting immediately."
-      ],
-      "answer": 2,
-          "explanation": "The team checks a second display and identifies uncertainty before deciding whether to pause or correct."
-        },
-        {
-      "question": "What is the goal of the low-gravity station exercise?",
-      "options": [
-        "To see who can finish the module route fastest.",
-        "To avoid communicating with the next shift.",
-        "To prove that the station has normal gravity.",
-        "To practice securing equipment, reporting changes, and leaving a useful note."
-      ],
-      "answer": 3,
-          "explanation": "The exercise emphasizes safe equipment handling, clear reporting, and handover rather than speed."
-        },
-        {
-      "question": "How does the instructor respond to a mistake in rehearsal?",
-      "options": [
-        "The instructor removes the trainee from the next exercise.",
-        "The team identifies the missed cue and improves the checklist without blame.",
-        "The mistake is hidden so that the schedule stays on time.",
-        "The crew stops documenting procedures."
-      ],
-      "answer": 1,
-          "explanation": "The group asks what cue was missed and how the checklist can improve, without blaming the trainee."
-        },
-        {
-          "question": "Which idea best captures the speaker's final point?",
+          "question": "Which of the following is a goal of China's lunar exploration program according to the text?",
           "options": [
-            "A mission is reliable when its small actions can be checked and repeated.",
-            "Only advanced equipment matters in scientific work.",
-            "A procedure should never change after its first use.",
-            "An ambitious mission can succeed without honest communication."
+            "To find signs of life on the moon.",
+            "To bring samples back to the earth.",
+            "To establish a settlement on the moon.",
+            "To find a good location to observe the earth."
+          ],
+          "answer": 1,
+          "explanation": "第6段：It officially began the lunar exploration program in 2004, with the aim of orbiting and landing on the moon, and bringing samples back to the earth."
+        },
+        {
+          "question": "Which mission accomplished China's first soft-landing on the moon?",
+          "options": [
+            "The Chang'e-1 mission.",
+            "The Chang'e-2 mission.",
+            "The Chang'e-3 mission.",
+            "The Chang'e-4 mission."
+          ],
+          "answer": 2,
+          "explanation": "第7段：In 2013 Chang'e-3 accomplished China's first soft-landing on the moon ... 嫦娥四号实现的是月球背面首次软着陆。"
+        },
+        {
+          "question": "Why did China launch the satellite Queqiao?",
+          "options": [
+            "To survey the rugged terrain on the moon's far side.",
+            "To take on the role of Chang'e-4 if it failed to function.",
+            "To help with the Chang'e-4 mission by carrying more instruments.",
+            "To set up a communication link between the earth and the moon's far side."
+          ],
+          "answer": 3,
+          "explanation": "第8段：China launched a relay satellite, named Queqiao (Magpie Bridge) ..., to set up a communication link between the earth and the moon's far side."
+        },
+        {
+          "question": "What is special about Chang'e-4?",
+          "options": [
+            "It brought fresh flowers and potato seeds with it to the moon.",
+            "It is the first man-made craft to soft land on the far side of the moon.",
+            "It helped humans see the moon's far side with their own eyes for the first time.",
+            "It carried instruments developed by foreign scientists from Japan and Germany."
+          ],
+          "answer": 1,
+          "explanation": "第8段：to realize the first-ever soft-landing on the far side of the moon；第4段也说 Now China sent the first-ever probe to soft-land and rove on the far side。“fresh flowers”与原文 cotton and potato 不符；C 项是 Apollo 8 宇航员首次用肉眼看到；D 项国家名单错误。"
+        },
+        {
+          "question": "The successful re-entry and landing of the Chang'e-5 probe has enabled China to obtain its first lunar samples, marking ______ progress in lunar and planetary research.",
+          "options": [
+            "continuous",
+            "precautionary",
+            "gigantic",
+            "momentary"
+          ],
+          "answer": 2,
+          "explanation": "gigantic progress 意为“巨大进步”，与“首次获得月球样品”这一重大成果匹配；continuous（持续的）、momentary（短暂的）都不表示程度之大。"
+        },
+        {
+          "question": "With this achievement, China has ______ a new milestone in the space domain.",
+          "options": [
+            "deepened",
+            "reached",
+            "accomplished",
+            "captivated"
+          ],
+          "answer": 1,
+          "explanation": "reach a milestone 是固定搭配，意为“达到一个里程碑”；deepen（加深）、accomplish（完成）不能与 milestone 搭配。"
+        },
+        {
+          "question": "The primary goal of Chang'e-5 was to bring back samples from the moon's surface. This will ______ our understanding of the state, temperature, and material content of the moon.",
+          "options": [
+            "deepen",
+            "accomplish",
+            "reach",
+            "disrupt"
           ],
           "answer": 0,
-          "explanation": "The closing lines connect reliability with repeatable, checkable actions and honest communication."
+          "explanation": "deepen our understanding 意为“加深我们的理解”，与 understanding 构成固定搭配；reach、accomplish、disrupt 均不与 understanding 搭配。"
+        },
+        {
+          "question": "No matter how far China goes into space, it always aims at ______ its original mission - revealing the secrets of the universe and providing great continuous support for humanity's peaceful use of space.",
+          "options": [
+            "deepening",
+            "reaching",
+            "disrupting",
+            "accomplishing"
+          ],
+          "answer": 3,
+          "explanation": "accomplish one's mission 意为“完成使命”，aime at accomplishing its original mission 表示“以完成其最初使命为目标”。"
+        },
+        {
+          "question": "No matter how far China goes into space, it always aims at accomplishing its original mission - revealing the secrets of the universe and providing great ______ support for humanity's peaceful use of space.",
+          "options": [
+            "gigantic",
+            "momentary",
+            "continuous",
+            "precautionary"
+          ],
+          "answer": 2,
+          "explanation": "continuous support 意为“持续的支持”，与 providing ... support for humanity's peaceful use of space 搭配；momentary（短暂的）与语义相反。"
         }
       ]
     },
     "translation": {
       "sentences": [
         {
-          "zh": "由中继卫星传回的数据帮助工程师检查了月球背面的通信链路。",
-          "en_reference": "The data returned by the relay satellite helped engineers check the communication link on the far side of the Moon.",
+          "zh": "实现中华民族伟大复兴是近代以来中国人民最伟大的梦想，我们称之为“中国梦”，其基本内涵是实现国家富强、民族振兴、人民幸福。",
+          "en_reference": "To realize the great rejuvenation of the Chinese nation has been the greatest dream of the Chinese people since modern times. We call it the “Chinese Dream”, whose essential meaning is to build a prosperous and strong country, to rejuvenate the nation, and to bring happiness to the people.",
           "keywords": [
-            "data",
-            "returned",
-            "relay satellite",
-            "communication link"
+            "realize",
+            "great",
+            "rejuvenation",
+            "Chinese"
           ]
         },
         {
-          "zh": "正在监测信号的工程师发现轨道读数出现了细微变化。",
-          "en_reference": "The engineers monitoring the signal noticed a small change in the orbit readings.",
+          "zh": "每个中国人都是中国梦的参与者和创造者。",
+          "en_reference": "Every Chinese is a participant in and a creator of the Chinese Dream.",
           "keywords": [
-            "engineers",
-            "monitoring",
-            "signal",
-            "orbit"
+            "Every",
+            "Chinese",
+            "participant",
+            "creator"
           ]
         },
         {
-          "zh": "团队已经记录了测试结果，并说明了它的适用条件。",
-          "en_reference": "The team has recorded the test result and explained the conditions under which it applies.",
+          "zh": "我们要把自己的前途与国家的命运紧紧相连。",
+          "en_reference": "We should link our own future closely with the destiny of our country.",
           "keywords": [
-            "has recorded",
-            "test result",
-            "conditions"
+            "should",
+            "link",
+            "own",
+            "future"
           ]
         },
         {
-          "zh": "航天员在进入空间站前练习了应急程序。",
-          "en_reference": "The astronauts practiced emergency procedures before entering the space station.",
+          "zh": "中国梦是民族的梦，也是每个中国人的梦。",
+          "en_reference": "The Chinese Dream is the dream of the nation, and it is also the dream of every Chinese.",
           "keywords": [
-            "astronauts",
-            "practiced",
-            "emergency procedures",
-            "space station"
+            "Chinese",
+            "Dream",
+            "nation",
+            "also"
+          ]
+        },
+        {
+          "zh": "我们应坚定信心、同心同德，为全面推进中华民族伟大复兴而团结奋斗。",
+          "en_reference": "We should have firm confidence, work with one heart and one mind, and strive in unity to advance the great rejuvenation of the Chinese nation in all respects.",
+          "keywords": [
+            "should",
+            "have",
+            "firm",
+            "confidence"
           ]
         }
       ]
     },
     "writing": {
-      "prompt": "Write 120–150 words: Explain how a challenging science mission can turn an ambitious idea into reliable work. Use one example of evidence or testing, explain how cooperation changes a decision, and connect the lesson to a goal you could pursue.",
+      "prompt": "Write an essay of no less than 140 words on one of the following topics: “Curiosity and scientific breakthroughs” (an outline is given), “Procrastination is a bad habit”, or “Exploring the space for the benefit of all humankind”. Support your point with sufficient examples that are specific and typical, interesting and relevant, and arrange them in a clear order.",
       "outline": [
-        "State your view: what makes a scientific goal reliable rather than merely exciting?",
-        "Describe one mission or classroom example and name the evidence used.",
-        "Explain how testing, feedback, or cooperation changes a decision.",
-        "Connect the lesson to your own learning or a future goal and conclude clearly."
+        "Introduction: State the thesis that curiosity is the secret to scientific breakthroughs.",
+        "Body 1: Curiosity sparks questions that matter in scientific discovery - the example of Li Siguang and the Quaternary Glacial Theory of China.",
+        "Body 2: Curiosity gives people the persistence to keep looking for discoveries - the examples of Michael Faraday and Tu Youyou.",
+        "Conclusion: Curiosity plays a key role in important scientific breakthroughs."
       ]
     }
   }
