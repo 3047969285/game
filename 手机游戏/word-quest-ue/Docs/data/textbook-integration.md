@@ -60,7 +60,7 @@
 
 ## 5. 边界（2026-10-22 更新）
 
-- 教材原文经**教师授权**用于本项目教学应用，可进数据层、仓库与 dist；对外再分发需教师确认授权范围，不得商业转售。
+- 教材原文经**新加坡教师授权**用于其课堂教学，可进数据层、仓库与 dist；对外再分发需确认授权范围，不得商业转售。
 - 数据层 `word-quest/data/content/college_english_rw3/` 与 `word-quest/data/vocabulary/college_english_rw3.json` 已由教材内容生成，是游戏实际内容源；
   `textbook_units.json` 保留为 UE 导入用的中间格式，不再与旧 D8 原创数据并存。
 

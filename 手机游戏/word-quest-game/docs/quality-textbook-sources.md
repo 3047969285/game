@@ -1,4 +1,4 @@
-> **2026-10-22 更新**：教师已提供本书并授权教学使用，教材原文已进入数据层（`word-quest/data/textbook/` → `word-quest/data/content/college_english_rw3/`）。
+> **2026-10-22 更新**：新加坡教师已提供本书并授权教学使用，教材原文已进入数据层（`word-quest/data/textbook/` → `word-quest/data/content/college_english_rw3/`）。
 > 本文保留为“玩家自带教材导入”功能的说明；下面的来源核查是历史记录。
 
 # 我的教材本机来源接入
