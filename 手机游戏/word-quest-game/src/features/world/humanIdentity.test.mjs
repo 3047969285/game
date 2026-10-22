@@ -8,7 +8,7 @@ import { applyFaceShape, face, faceBoneOffsets, faceDistance, FACE_LIMITS, NEUTR
 import { registerHumanModel } from "./humanVisual";
 import { spawnActor } from "../memory/actors";
 import { CHARACTERS, characterLook } from "../memory/characters";
-import { U01A_BASE } from "../memory/scripts/u01a";
+import { CLUB_ACTORS_FIXTURE } from "../memory/testFixtures";
 import { PROLOGUE_SCRIPT } from "../memory/scripts/prologue";
 
 beforeAll(async () => {
@@ -96,7 +96,7 @@ describe("身份表", () => {
     expect(CHARACTERS.organizer.hair.style).toBe("lowPonytail");
   });
   it("u01a 与 prologue 的演员都用身份表（同一身份每次生成一致）", () => {
-    for (const actor of U01A_BASE.actors) expect(actor.look).toEqual(characterLook(actor.id));
+    for (const actor of CLUB_ACTORS_FIXTURE) expect(actor.look).toEqual(characterLook(actor.id));
     expect(PROLOGUE_SCRIPT.actors[0].look).toEqual(characterLook("old2090"));
   });
 });

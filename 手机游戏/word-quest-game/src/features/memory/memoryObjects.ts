@@ -4,10 +4,11 @@ import { Frame, chair, cup, globe, laptop, monitor, openBook, bookStack, suitcas
 
 /**
  * 单词即物件：每个词在记忆里是一个能看见、能拿起、能用的实体。
- *  - archetype：外形原型（用 sceneProps 的道具 + 少量新几何拼出，约 30 种）
+ *  - archetype：外形原型（用 sceneProps 的道具 + 少量新几何拼出）
  *  - verb：触碰时的小动画（glow / open / spin / ring / flip / bloom）
  *  - line：第二人称旁白一句，含该词
- * M1 覆盖单元 1 的 30 个词；其它单元的词先走 memoryObjectFor 的确定性回退，M2/M3 再补手写条目。
+ * 不再为某个单元手写词表：任意单元词都按词形 + 词 id 哈希稳定地分配原型与动画，
+ * 因此换教材数据后不用再维护 30 条专用映射。
  */
 
 export type Verb = "glow" | "open" | "spin" | "ring" | "flip" | "bloom";
@@ -333,48 +334,38 @@ export const ARCHETYPES: Record<string, Archetype> = {
   },
 };
 
-const E = (archetype: string, verb: Verb, line: string): MemoryObjectDef => ({ archetype, verb, line });
+/**
+ * 可选的专用覆盖：默认空。以前这里写死了单元 1 的 30 个词；现在所有词都走通用策略，
+ * 只有将来确实需要某个词的特殊外形时才往这里加一条。
+ */
+export const MEMORY_OBJECTS: Record<string, MemoryObjectDef> = {};
+
+const VERBS: readonly Verb[] = ["glow", "open", "spin", "ring", "flip", "bloom"];
+const ALL_ARCHETYPES = Object.keys(ARCHETYPES);
 
 /**
- * 单元 1《数字时代》30 词 → 物件。每条旁白是第二人称的一句话，自然地用到这个词（词形可以变化）。
- * 物件都是桌上 / 手边能拿起的东西，不贴字。
+ * 词形 → 原型池。只做一点语义倾向（抽象名词像书 / 卡片，副词像钟表，动作像机械 / 器皿），
+ * 具体是池里的哪一个仍由词 id 的哈希决定，所以同一个词永远得到同一个物件。
  */
-export const MEMORY_OBJECTS: Record<string, MemoryObjectDef> = {
-  rw3_unit01_01: E("screen", "glow", "You watch the digital screen glow, soft and always on."),
-  rw3_unit01_02: E("cable", "glow", "You follow the thin cable between two phones, the one connection you can see."),
-  rw3_unit01_03: E("topicCard", "bloom", "You read the topic on the card and wait for the conversation to begin."),
-  rw3_unit01_04: E("phone", "ring", "Another notification lights up your phone."),
-  rw3_unit01_05: E("scroll", "open", "You scroll and scroll until the whole evening unrolls."),
-  rw3_unit01_06: E("gear", "spin", "You feel an algorithm quietly choosing for you."),
-  rw3_unit01_07: E("lock", "flip", "You lock your privacy behind a dozen tiny settings."),
-  rw3_unit01_08: E("globe", "spin", "You turn the little globe, and a virtual world spins with it."),
-  rw3_unit01_09: E("eye", "bloom", "Wherever your attention goes, the day follows."),
-  rw3_unit01_10: E("plug", "flip", "You pull the plug and go offline, and the room breathes."),
-  rw3_unit01_11: E("cards", "flip", "You try to multitask, with three cards held in one hand."),
-  rw3_unit01_12: E("antenna", "ring", "You hear the cyber world hum on its tall antenna."),
-  rw3_unit01_13: E("phoneRow", "glow", "You line up every device on the table, and one is still glowing."),
-  rw3_unit01_14: E("bottle", "flip", "You turn the little brown bottle and think about addiction."),
-  rw3_unit01_15: E("scales", "ring", "You look for balance, a little here and a little there."),
-  rw3_unit01_16: E("blocks", "flip", "You fit two blocks together, and that is what interaction feels like."),
-  rw3_unit01_17: E("podium", "bloom", "You step onto the platform, and suddenly everyone can see you."),
-  rw3_unit01_18: E("funnel", "spin", "You filter the noise, and only a little of the world gets through."),
-  rw3_unit01_19: E("calendar", "flip", "You colour in one more square, because a habit is built day by day."),
-  rw3_unit01_20: E("sprout", "bloom", "You stay mindful, and something small begins to grow."),
-  rw3_unit01_21: E("chatScreen", "open", "You open a short message and read it twice."),
-  rw3_unit01_22: E("emptyChair", "glow", "You look at the empty chair and feel a little lonely."),
-  rw3_unit01_23: E("megaphone", "ring", "You lift the megaphone, because good communication needs a voice and an ear."),
-  rw3_unit01_24: E("clock", "ring", "You feel anxious as the clock keeps ticking."),
-  rw3_unit01_25: E("cup", "glow", "You carry the cup carefully, so the tea stays warm."),
-  rw3_unit01_26: E("hourglass", "flip", "You turn the hourglass to begin another session."),
-  rw3_unit01_27: E("teaPair", "bloom", "You sit down to converse, and the tea slowly cools."),
-  rw3_unit01_28: E("suitcase", "open", "You pack the bag the night before, and readiness feels like a closed zip."),
-  rw3_unit01_29: E("flask", "glow", "You watch the experiment bubble away, green and uncertain."),
-  rw3_unit01_30: E("compass", "spin", "You follow the needle, because purpose always points somewhere."),
-};
+const FORM_POOLS: ReadonlyArray<{ test: RegExp; pool: readonly string[] }> = [
+  { test: /(?:tion|sion|ment|ness|ity|ance|ence|ship|hood|ism)$/i, pool: ["book", "scroll", "letter", "cards", "calendar", "podium"] },
+  { test: /ly$/i, pool: ["clock", "compass", "hourglass", "scales", "lamp"] },
+  { test: /ing$/i, pool: ["sprout", "funnel", "gear", "lamp", "hourglass"] },
+  { test: /ed$/i, pool: ["blocks", "lock", "suitcase", "bottle", "book"] },
+  { test: /(?:ous|ful|ive|able|ible|al|ic|less|ary)$/i, pool: ["eye", "globe", "scales", "compass", "lamp"] },
+  { test: /(?:ise|ize|ate|ify|en|ish)$/i, pool: ["gear", "flask", "plug", "laptop", "phone", "antenna"] },
+  { test: /(?:er|or|ist|ant|ent)$/i, pool: ["podium", "megaphone", "suitcase", "phoneRow", "cup"] },
+];
 
-/** 其它单元（M3 之前）用的通用原型池 */
-const GENERIC_ARCHETYPES = ["book", "books", "lamp", "globe", "cup", "letter", "clock", "compass", "sprout", "lock", "hourglass", "calendar", "scroll", "blocks", "scales", "podium"] as const;
-const GENERIC_VERBS: Verb[] = ["glow", "open", "spin", "ring", "flip", "bloom"];
+/** 触碰动画对应的第二人称旁白：每句都自然地用到这个词 */
+const LINE: Record<Verb, (word: string) => string> = {
+  glow: (word) => `You watch “${word}” glow softly, and the room keeps it.`,
+  open: (word) => `You open the memory of “${word}” and let it speak.`,
+  spin: (word) => `You turn “${word}” slowly, and the whole day turns with it.`,
+  ring: (word) => `You hear “${word}” ring once in the quiet room.`,
+  flip: (word) => `You flip “${word}” over, and another side of the day appears.`,
+  bloom: (word) => `You hold “${word}” close, and the memory blooms around it.`,
+};
 
 function hashString(s: string): number {
   let h = 2166136261;
@@ -385,17 +376,24 @@ function hashString(s: string): number {
   return h >>> 0;
 }
 
-/** 词 → 物件定义：有手写条目用手写，否则按词 id 确定性回退（同一个词永远得到同一个物件） */
+/** 按词形挑一个原型池；没有匹配的词形用全部原型 */
+function archetypePool(word: string): readonly string[] {
+  const w = word.toLowerCase().trim();
+  for (const { test, pool } of FORM_POOLS) if (test.test(w)) return pool;
+  return ALL_ARCHETYPES;
+}
+
+/** 词 → 物件定义：所有词都按词 id 确定性分配（同一个词永远得到同一个物件）。MEMORY_OBJECTS 里可以放专用覆盖 */
 export function memoryObjectFor(wordId: string, word?: string): MemoryObjectDef {
   const hit = MEMORY_OBJECTS[wordId];
   if (hit) return hit;
   const h = hashString(wordId);
   const shown = word ?? "this";
-  return {
-    archetype: GENERIC_ARCHETYPES[h % GENERIC_ARCHETYPES.length],
-    verb: GENERIC_VERBS[(h >>> 4) % GENERIC_VERBS.length],
-    line: `The memory settles around the word ${shown}.`,
-  };
+  const pool = archetypePool(shown);
+  // 同一个哈希拆成两个独立的选择：原型看低位，动画看高位
+  const archetype = pool[h % pool.length] ?? ALL_ARCHETYPES[0];
+  const verb = VERBS[(h >>> 8) % VERBS.length];
+  return { archetype, verb, line: LINE[verb](shown) };
 }
 
 /**

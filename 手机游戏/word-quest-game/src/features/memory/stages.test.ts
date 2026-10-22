@@ -5,7 +5,7 @@ import { spawnActor } from "./actors";
 import { Materializer } from "./Materializer";
 import { buildWordObject } from "./memoryObjects";
 import { PROLOGUE_SCRIPT } from "./scripts/prologue";
-import { U01A_BASE as U01A_SCRIPT } from "./scripts/u01a";
+import { CLUB_ACTORS_FIXTURE, CLUB_OBJECTS_FIXTURE } from "./testFixtures";
 import { buildStage, getStage, stageTargets } from "./stages";
 import { CLUB_SEATS } from "./stages/clubRoom";
 
@@ -121,13 +121,13 @@ describe("clubRoom（《周四的沉默》的舞台）", () => {
   it("回退绘制预算：舞台 + 五个可表情人物 + 全部物件 ≤ 165 个网格", () => {
     const stage = countMeshes(buildStage("clubRoom", kit));
     let actors = 0;
-    for (const a of U01A_SCRIPT.actors) {
+    for (const a of CLUB_ACTORS_FIXTURE) {
       const h = spawnActor(a, ["phone", "listen", "talk"]);
       h.setPose("phone");
       actors += countMeshes(h.root, true);
     }
     let objects = 0;
-    for (const o of U01A_SCRIPT.objects) objects += countMeshes(buildWordObject(o.wordId, kit, o.archetype));
+    for (const o of CLUB_OBJECTS_FIXTURE) objects += countMeshes(buildWordObject(o.wordId, kit, o.archetype));
     expect(stage).toBeLessThanOrEqual(85);
     // 回退身体保留独立眼白/虹膜/皮肤材质；本地真人资产为每人 3 个批次。
     expect(actors).toBeLessThanOrEqual(40);
@@ -233,12 +233,12 @@ describe("手写舞台与 Materializer 的配合", () => {
       registered.push(child);
       expect(child.visible, `${child.name} 注册后应隐藏`).toBe(false);
     }
-    for (const o of U01A_SCRIPT.objects) {
+    for (const o of CLUB_OBJECTS_FIXTURE) {
       const g = buildWordObject(o.wordId, kit, o.archetype);
       m.register(g, "condense");
       registered.push(g);
     }
-    for (const a of U01A_SCRIPT.actors) {
+    for (const a of CLUB_ACTORS_FIXTURE) {
       const h = spawnActor(a, ["phone", "listen", "talk"]);
       m.register(h.root, "fade");
       registered.push(h.root);

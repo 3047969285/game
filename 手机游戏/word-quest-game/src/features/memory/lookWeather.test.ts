@@ -4,7 +4,6 @@ import { isWeatherKind } from "../world/weather";
 import { CinemaDirector } from "./CinemaDirector";
 import { LOOKS, lookFor } from "./memoryLooks";
 import { PROLOGUE_SCRIPT } from "./scripts/prologue";
-import { U01A_BASE } from "./scripts/u01a";
 import { getStage, stageTargets } from "./stages";
 import { validateScript, type Beat, type MemoryScript } from "./types";
 
@@ -47,7 +46,7 @@ describe("weather 节拍与脚本 / 舞台的天气配置", () => {
   });
 
   it("手写脚本的单元色调存在；开场用 2090 深蓝夜", () => {
-    expect(lookFor(U01A_BASE.unitId).id).toBe("unit01");
+    expect(lookFor("unit01").id).toBe("unit01");
     expect(PROLOGUE_SCRIPT.unitId).toBe("");
     expect(LOOKS.memory2090).toBeTruthy();
   });

@@ -159,16 +159,31 @@ describe("点词查义与相关句", () => {
 
   it("先查单元词（含屈折形式和标点），再查整本词表，查不到返回 null", () => {
     expect(gloss.lookup("devices,")?.word).toBe("device");
-    expect(gloss.lookup("Carefully.")?.word).toBe("carefully");
+    expect(gloss.lookup("immersed")?.word).toBe("immerse");
+    expect(gloss.lookup("Carefree.")?.word).toBe("carefree");
     expect(gloss.lookup("zzzqx")).toBeNull();
     expect(gloss.lookup("—")).toBeNull();
   });
 
   it("答错后讲义上闪的句子是题目考的那一句", () => {
     const acts = buildActs(unit, words, "section_a");
-    const q = acts.flatMap((a) => a.questions).find((x) => /third listening session/i.test(x.question) || /changed by the third/i.test(x.question))!;
-    const host = acts.find((a) => a.questions.includes(q))!;
-    const i = relatedSentences(host, q)[0];
-    expect(host.sentences[i]).toMatch(/third session/i);
+    const q = acts.flatMap((a) => a.questions).find((x) => /trusted others/i.test(x.question));
+    expect(q).toBeDefined();
+    const host = acts.find((a) => a.questions.includes(q!))!;
+    const i = relatedSentences(host, q!)[0];
+    expect(i).toBeGreaterThanOrEqual(0);
+    expect(host.sentences[i]).toMatch(/trusted others/i);
+  });
+
+  it("长课文的十几幕也能从第一幕连续推进到 finished", () => {
+    const acts = buildActs(unit, words, "section_a");
+    expect(acts.length).toBeGreaterThan(6);
+    let s = initFlow(acts.length);
+    for (let i = 0; i < acts.length; i++) {
+      s = flowReduce(s, { type: "complete", pov: "watch" });
+      expect(s.progress.filter((p) => p.watched)).toHaveLength(i + 1);
+    }
+    expect(s.finished).toBe(true);
+    expect(s.act).toBe(acts.length - 1);
   });
 });

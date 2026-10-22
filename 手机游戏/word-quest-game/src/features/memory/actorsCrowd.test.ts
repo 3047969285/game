@@ -4,7 +4,6 @@ import { updateCrowd, type ActorHandle } from "./actors";
 import { CLUB_SEATS, clubSeatSpec } from "./stages/clubRoom";
 import { OLD_MAN_SEAT } from "./stages/apartment2090";
 import { PROLOGUE_SCRIPT } from "./scripts/prologue";
-import { U01A_BASE } from "./scripts/u01a";
 
 function fake(id: string, x: number): ActorHandle & { log: string[] } {
   const log: string[] = [];
@@ -65,23 +64,15 @@ describe("座位标定与剧本接入", () => {
     expect(clubSeatSpec("lin").paper!.x).toBeCloseTo(-0.35, 5);
   });
 
-  it("u01a 的五个同学都有座位标定；老人有座位且会伸手去够悬浮界面", () => {
-    for (const actor of U01A_BASE.actors) {
-      expect(actor.seat, actor.id).toBeTruthy();
-      expect(actor.seat!.tableEdge).toBeCloseTo(0.35, 5);
+  it("五个座位都有座位标定；老人有座位且会伸手去够悬浮界面", () => {
+    for (const id of Object.keys(CLUB_SEATS) as (keyof typeof CLUB_SEATS)[]) {
+      expect(clubSeatSpec(id).tableEdge, id).toBeCloseTo(0.35, 5);
     }
     const old = PROLOGUE_SCRIPT.actors[0];
     expect(old.look.aged).toBe(true);
     expect(old.seat).toBe(OLD_MAN_SEAT);
     expect(OLD_MAN_SEAT.reach!.z).toBeGreaterThan(1.2); // 界面在前方约 1.5 m
     expect(OLD_MAN_SEAT.reach!.y).toBeCloseTo(1.3, 5);
-  });
-
-  it("第一次一起笑用 sitLaugh（laugh 姿势），定格前所有人都笑", () => {
-    const beats = U01A_BASE.beats;
-    const freeze = beats.findIndex((b) => b.kind === "freeze");
-    const laughers = beats.slice(0, freeze).filter((b) => b.kind === "actor" && b.action === "pose" && b.pose === "laugh").map((b) => (b as { actorId: string }).actorId);
-    expect(new Set(laughers)).toEqual(new Set(["mei", "lin", "an", "me2026", "rui"]));
   });
 
   it("2090 年旁白由老人的 actor 说出（speaker），嘴 / 手势跟着旁白", () => {

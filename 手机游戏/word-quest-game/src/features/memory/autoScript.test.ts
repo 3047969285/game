@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import type { WordEntry } from "../../core/types";
 import type { Rw3UnitContent } from "../../infra/data";
-import { buildAutoScript } from "./autoScript";
+import { buildAutoScript, GAP_MAX } from "./autoScript";
 import { SECTION_KEYS, memoryScriptId } from "./ids";
-import { MEMORY_OBJECTS } from "./memoryObjects";
+import { ARCHETYPES, memoryObjectFor } from "./memoryObjects";
 import { stageTargets } from "./stages";
 import { splitSentences } from "./text";
 import { loadUnits, loadVocab } from "./testData";
@@ -38,8 +38,11 @@ describe("buildAutoScript：6 个单元 × A/B/C 全部可生成（基于幕）"
         expect(errors).toEqual([]);
       });
 
-      it("全文都在幕里（每幕 3–6 句），题目 / 翻译 / 写作都分配了", () => {
-        expect(acts.flatMap((a) => a.sentences)).toEqual(splitSentences(passage));
+      it("全文都在幕里（每幕 3–6 句，幕数随句数增加），题目 / 翻译 / 写作都分配了", () => {
+        const passageSentences = splitSentences(passage);
+        expect(acts.flatMap((a) => a.sentences)).toEqual(passageSentences);
+        expect(acts.length).toBeGreaterThanOrEqual(Math.ceil(passageSentences.length / 6));
+        expect(acts.length).toBeLessThanOrEqual(20);
         for (const a of acts) {
           expect(a.sentences.length).toBeGreaterThanOrEqual(3);
           expect(a.sentences.length).toBeLessThanOrEqual(6);
@@ -59,10 +62,21 @@ describe("buildAutoScript：6 个单元 × A/B/C 全部可生成（基于幕）"
         for (const bad of ["gap", "choice", "paper"]) expect(k).not.toContain(bad);
       });
 
-      it("断片：每个有单元词的幕都尽量有一次；答案词出现在句子里，干扰词不同于答案、不在句子里、都已摆放", () => {
+      it("断片：在全篇均匀挑幕；答案词出现在句子里，干扰词不同于答案、不在句子里、都已摆放", () => {
         const placed = new Set(script.objects.map((o) => o.wordId));
         const gaps = acts.filter((a) => a.gap);
-        expect(gaps.length).toBeGreaterThanOrEqual(Math.min(3, acts.length - 1));
+        const eligible = acts.filter((a) => a.wordIds.length > 0);
+        const uniqueWords = new Set(eligible.flatMap((a) => a.wordIds));
+        // 长课文不可能每幕一次断片（摆放位有限），且一个词只能做一次答案；
+        // 期望值由“有单元词的幕数”“不同单元词数”和 GAP_MAX 共同推导。
+        expect(gaps.length).toBe(Math.min(GAP_MAX, eligible.length, uniqueWords.size));
+        const gapActs = gaps.map((a) => a.index);
+        expect(new Set(gapActs).size).toBe(gaps.length);
+        expect(gapActs).toEqual([...gapActs].sort((a, b) => a - b));
+        if (acts.length > GAP_MAX) {
+          // 断片要铺到后半篇，不能只落在开头几幕
+          expect(gapActs[gapActs.length - 1]).toBeGreaterThanOrEqual(Math.floor(acts.length / 2));
+        }
         for (const a of gaps) {
           const g = a.gap!;
           const sentence = a.sentences[g.sentence];
@@ -118,10 +132,18 @@ describe("buildAutoScript：导入的教材原文", () => {
   });
 });
 
-describe("单元 1 的 30 个词物件", () => {
-  it("手写条目与单元词表一一对应", () => {
-    const ids = unitWords(units[0]).map((w) => w.id);
-    expect(ids).toHaveLength(30);
-    for (const id of ids) expect(MEMORY_OBJECTS[id]).toBeDefined();
+describe("单元词物件（手写条目 + 确定性回退）", () => {
+  it("6 个单元的每个词都能解析出有效物件原型", () => {
+    for (const unit of units) {
+      const ids = unit.word_ids ?? [];
+      expect(ids.length).toBeGreaterThan(0);
+      expect(new Set(ids).size).toBe(ids.length);
+      for (const id of ids) {
+        const w = vocab.get(id);
+        expect(w, id).toBeDefined();
+        const def = memoryObjectFor(id, w!.word);
+        expect(ARCHETYPES[def.archetype], `${id} 的原型 ${def.archetype} 不存在`).toBeDefined();
+      }
+    }
   });
 });

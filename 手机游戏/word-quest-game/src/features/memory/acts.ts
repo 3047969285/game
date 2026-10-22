@@ -12,8 +12,16 @@ import { findWordToken, type ActQuestion, type MemoryAct, type NoteTask, type Ou
  *  - passageOverride：导入的教材原文替换练习原文；配套理解题 / 翻译 / 写作不用于导入文本，避免内容错配。
  */
 
+/** 每幕句子数下限 / 上限 */
 export const ACT_MIN = 3;
 export const ACT_MAX = 6;
+/**
+ * 幕数范围。旧虚拟课文只有 20 句左右，4–6 幕就够；现在的教材课文有 40–70 句，
+ * 幕数随句子数自动增加（每幕仍 3–6 句），但仍设上限，避免一篇课文切出几十幕。
+ */
+export const ACT_COUNT_MIN = 4;
+export const ACT_COUNT_MAX = 20;
+/** 没有段落标记时的目标幕长（句） */
 const ACT_TARGET = 4;
 
 /** 这些词开头的句子紧跟着上一句（代词 / 承接词），尽量不要在它前面切幕 */
@@ -38,13 +46,15 @@ export function parsePassage(passage: string): { sentences: string[]; paragraphS
 
 /**
  * 幕的起点（句序）。段落优先；太短（< 3 句）的段落并进下一段，太长（> 6 句）的段落均匀切开，
- * 切口避开以代词 / 承接词开头的句子（尽量不拆开句意）。没有段落标记时每幕约 4 句。
+ * 切口避开以代词 / 承接词开头的句子（尽量不拆开句意）。
+ * 没有段落标记时每幕约 4 句；课文变长时幕数随之增加，尽量落在 ACT_COUNT_MIN–ACT_COUNT_MAX 之间
+ * （课文太短时做不到下限；长到 20 幕 × 6 句也放不下时，优先守住“每幕 3–6 句”）。
  */
 export function planActStarts(sentences: readonly string[], paragraphStarts: readonly number[] = [0]): number[] {
   const n = sentences.length;
   if (n === 0) return [];
   const heads = [...new Set([0, ...paragraphStarts.filter((i) => i > 0 && i < n)])].sort((a, b) => a - b);
-  let ranges: Array<[number, number]> = heads.map((s, i) => [s, heads[i + 1] ?? n]);
+  const ranges: Array<[number, number]> = heads.map((s, i) => [s, heads[i + 1] ?? n]);
   const merged: Array<[number, number]> = [];
   for (const r of ranges) {
     const last = merged[merged.length - 1];
@@ -58,14 +68,59 @@ export function planActStarts(sentences: readonly string[], paragraphStarts: rea
       merged[merged.length - 1][1] = tail[1];
     }
   }
-  ranges = merged;
+
+  const sizes = merged.map(([s, e]) => e - s);
+  // 每段至少 / 至多切几幕：至少保证每幕 ≤ ACT_MAX 句，至多保证每幕 ≥ ACT_MIN 句
+  const minCounts = sizes.map((size) => Math.max(1, Math.ceil(size / ACT_MAX)));
+  const maxCounts = sizes.map((size) => Math.max(1, Math.floor(size / ACT_MIN)));
+  const counts = sizes.map((size, i) => {
+    if (size <= ACT_MAX) return 1;
+    const target = Math.max(2, Math.round(size / ACT_TARGET));
+    return Math.min(maxCounts[i], Math.max(minCounts[i], target));
+  });
+  const total = (): number => counts.reduce((a, b) => a + b, 0);
+
+  // 幕数上限：长课文不能被切成几十幕。优先压缩“每幕句数最多”的那一段。
+  const minTotal = minCounts.reduce((a, b) => a + b, 0);
+  // 课文长到 20 幕 × 6 句都放不下时，只能超过 20 幕来守住每幕 3–6 句。
+  const maxTotal = Math.max(ACT_COUNT_MAX, minTotal);
+  while (total() > maxTotal) {
+    let pick = -1;
+    let worst = -Infinity;
+    counts.forEach((c, i) => {
+      if (c <= minCounts[i]) return;
+      const perAct = sizes[i] / c;
+      if (perAct > worst) {
+        worst = perAct;
+        pick = i;
+      }
+    });
+    if (pick < 0) break;
+    counts[pick]--;
+  }
+
+  // 幕数下限：句子足够多时不要只切两三幕（12 句以上才可能做到每幕 ≥3 句）。
+  const maxPossible = Math.min(ACT_COUNT_MAX, maxCounts.reduce((a, b) => a + b, 0));
+  const minDesired = Math.min(ACT_COUNT_MIN, maxPossible);
+  while (total() < minDesired) {
+    let pick = -1;
+    let best = -Infinity;
+    counts.forEach((c, i) => {
+      if (c >= maxCounts[i]) return;
+      const perAct = sizes[i] / c;
+      if (perAct > best) {
+        best = perAct;
+        pick = i;
+      }
+    });
+    if (pick < 0) break;
+    counts[pick]++;
+  }
 
   const starts: number[] = [];
-  for (const [s, e] of ranges) {
+  merged.forEach(([s, e], ri) => {
     const size = e - s;
-    let k = size <= ACT_MAX ? 1 : Math.max(2, Math.round(size / ACT_TARGET));
-    k = Math.max(k, Math.ceil(size / ACT_MAX));
-    k = Math.max(1, Math.min(k, Math.floor(size / ACT_MIN)));
+    const k = counts[ri];
     const cuts: number[] = [];
     for (let j = 0; j <= k; j++) cuts.push(s + Math.round((j * size) / k));
     for (let j = 1; j < k; j++) {
@@ -84,7 +139,7 @@ export function planActStarts(sentences: readonly string[], paragraphStarts: rea
       cuts[j] = best;
     }
     starts.push(...cuts.slice(0, k));
-  }
+  });
   return starts;
 }
 
@@ -188,29 +243,35 @@ export function monotoneAssign(scores: readonly number[][], actCount: number): n
   return result;
 }
 
-/** 把题目按它考的那一段课文分配到幕里（每个列表内部保持课文顺序）。同一幕里保持原顺序 */
+/**
+ * 把题目按它考的那一段课文分配到幕里。长课文的题目列表不一定严格按课文顺序
+ * （reading.questions 在理解题后面还混有词汇题），所以不再强制“幕序号单调不减”，
+ * 而是按相关度贪心挑幕，并限制每幕的题目数，避免全堆在一幕。
+ * 同一幕里的题目保持它们在题目列表里的先后顺序。
+ */
 export function assignQuestions(acts: MemoryAct[], lists: readonly (readonly ActQuestion[])[]): void {
   if (acts.length === 0) return;
+  const questions = lists.flat();
+  if (questions.length === 0) return;
   const index = actIndex(acts);
-  const placed: Array<{ q: ActQuestion; act: number; order: number }> = [];
-  let order = 0;
-  for (const list of lists) {
-    const scores = list.map((q, i) => {
-      const correct = q.options[q.answer] ?? "";
-      const others = q.options.filter((_, k) => k !== q.answer).join(" ");
-      const s = relevance(index, [
-        { text: q.question, w: 1.5 },
-        { text: correct, w: 1.5 },
-        { text: q.explanation, w: 1 },
-        { text: others, w: 0.15 },
-      ]);
-      // 位置先验：题目大体按课文顺序出，得分接近时倾向于顺序对应的幕
-      const expected = ((i + 0.5) / list.length) * acts.length;
-      return s.map((v, a) => v + 0.25 * Math.max(0, 1 - Math.abs(a + 0.5 - expected) / acts.length));
-    });
-    const picks = monotoneAssign(scores, acts.length);
-    list.forEach((q, i) => placed.push({ q, act: picks[i], order: order++ }));
-  }
+  const total = questions.length;
+  const scores = questions.map((q, i) => {
+    const correct = q.options[q.answer] ?? "";
+    const others = q.options.filter((_, k) => k !== q.answer).join(" ");
+    const s = relevance(index, [
+      { text: q.question, w: 1.5 },
+      { text: correct, w: 1.5 },
+      { text: q.explanation, w: 1 },
+      { text: others, w: 0.15 },
+    ]);
+    // 位置先验只用来打破平局：整份题目列表大体跟着课文推进，但相关度高的题以相关度为准。
+    const expected = ((i + 0.5) / total) * acts.length;
+    return s.map((v, a) => v + 0.25 * Math.max(0, 1 - Math.abs(a + 0.5 - expected) / acts.length));
+  });
+  // 每幕的题量上限：题少时尽量一题一幕；题多时允许同幕最多 3 题左右
+  const cap = Math.max(1, Math.ceil(total / acts.length));
+  const picks = assignGreedy(scores, acts.length, cap);
+  const placed = questions.map((q, i) => ({ q, act: picks[i], order: i }));
   for (const p of placed) acts[p.act].questions.push(p.q);
   for (const act of acts) act.questions.sort((a, b) => (placed.find((p) => p.q === a)?.order ?? 0) - (placed.find((p) => p.q === b)?.order ?? 0));
 }

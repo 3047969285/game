@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import type { WordEntry } from "../../core/types";
 import type { Rw3UnitContent } from "../../infra/data";
-import { ACT_MAX, ACT_MIN, buildActs, parsePassage, planActStarts, zhPrompt } from "./acts";
+import { ACT_COUNT_MAX, ACT_COUNT_MIN, ACT_MAX, ACT_MIN, buildActs, parsePassage, planActStarts, zhPrompt } from "./acts";
 import { SECTION_KEYS } from "./ids";
-import { splitSentences } from "./text";
+import { sentenceHasWord, splitSentences } from "./text";
 import { loadUnits, loadVocab } from "./testData";
 
 const vocab = loadVocab();
@@ -15,7 +15,7 @@ const cases = units.flatMap((unit) => SECTION_KEYS.map((section) => ({ unit, sec
 describe("planActStarts：按段落切幕", () => {
   const mk = (n: number): string[] => Array.from({ length: n }, (_, i) => `Sentence number ${i} is here.`);
 
-  it("20 句的单段落课文切成 5 幕、每幕 4 句", () => {
+  it("20 句的单段落课文按每幕约 4 句切成 5 幕", () => {
     expect(planActStarts(mk(20))).toEqual([0, 4, 8, 12, 16]);
   });
 
@@ -33,14 +33,43 @@ describe("planActStarts：按段落切幕", () => {
 
   it("有段落标记时段落优先；太短的段落并进下一段，太长的段落均匀切开", () => {
     // 段落：[0,4) [4,6) [6,16)
-    expect(planActStarts(mk(16), [0, 4, 6])).toEqual([0, 4, 9, 12].filter((x) => x !== 12 || false).length ? planActStarts(mk(16), [0, 4, 6]) : []);
     const starts = planActStarts(mk(16), [0, 4, 6]);
     expect(starts[0]).toBe(0);
     expect(starts).toContain(4);
     expect(starts).not.toContain(6); // 2 句的短段落并入后一段
     const sizes = starts.map((s, i) => (starts[i + 1] ?? 16) - s);
-    for (const size of sizes) expect(size).toBeLessThanOrEqual(ACT_MAX);
+    for (const size of sizes) {
+      expect(size).toBeGreaterThanOrEqual(ACT_MIN);
+      expect(size).toBeLessThanOrEqual(ACT_MAX);
+    }
     expect(sizes.reduce((a, b) => a + b, 0)).toBe(16);
+  });
+
+  it("长课文（59 句）自动增加幕数，不受旧的 4–6 幕限制", () => {
+    const n = 59;
+    const starts = planActStarts(mk(n));
+    // 每幕 3–6 句推导出的幕数上下界；同时不超过 ACT_COUNT_MAX
+    expect(starts.length).toBeGreaterThan(6);
+    expect(starts.length).toBeGreaterThanOrEqual(Math.ceil(n / ACT_MAX));
+    expect(starts.length).toBeLessThanOrEqual(Math.min(ACT_COUNT_MAX, Math.floor(n / ACT_MIN)));
+    const sizes = starts.map((s, i) => (starts[i + 1] ?? n) - s);
+    for (const size of sizes) {
+      expect(size).toBeGreaterThanOrEqual(ACT_MIN);
+      expect(size).toBeLessThanOrEqual(ACT_MAX);
+    }
+    expect(sizes.reduce((a, b) => a + b, 0)).toBe(n);
+  });
+
+  it("极长课文也不会切出超过 ACT_COUNT_MAX 幕（每幕仍 3–6 句）", () => {
+    const n = 100;
+    const starts = planActStarts(mk(n));
+    expect(starts.length).toBeLessThanOrEqual(ACT_COUNT_MAX);
+    expect(starts.length).toBeGreaterThanOrEqual(Math.ceil(n / ACT_MAX));
+    const sizes = starts.map((s, i) => (starts[i + 1] ?? n) - s);
+    for (const size of sizes) {
+      expect(size).toBeGreaterThanOrEqual(ACT_MIN);
+      expect(size).toBeLessThanOrEqual(ACT_MAX);
+    }
   });
 
   it("parsePassage 记录段落起点", () => {
@@ -65,10 +94,14 @@ describe("buildActs：6 个单元 × 3 篇", () => {
       const sentences = splitSentences(passage);
       const acts = buildActs(unit, words, section);
 
-      it("每一句都被分配，顺序不变；每幕 3–6 句，共 4–6 幕", () => {
+      it("每一句都被分配，顺序不变；每幕 3–6 句，幕数随句子数增加", () => {
         expect(acts.flatMap((a) => a.sentences)).toEqual(sentences);
-        expect(acts.length).toBeGreaterThanOrEqual(4);
-        expect(acts.length).toBeLessThanOrEqual(6);
+        // 幕数从本课实际句数推导：每幕最多 6 句 / 最少 3 句，同时不超过全局上限
+        const maxActs = Math.min(ACT_COUNT_MAX, Math.floor(sentences.length / ACT_MIN));
+        const minActs = Math.min(ACT_COUNT_MIN, maxActs);
+        expect(acts.length).toBeGreaterThanOrEqual(minActs);
+        expect(acts.length).toBeLessThanOrEqual(maxActs);
+        expect(acts.length).toBeLessThanOrEqual(ACT_COUNT_MAX);
         for (const a of acts) {
           expect(a.sentences.length).toBeGreaterThanOrEqual(ACT_MIN);
           expect(a.sentences.length).toBeLessThanOrEqual(ACT_MAX);
@@ -116,7 +149,11 @@ describe("buildActs：6 个单元 × 3 篇", () => {
             const original = n.line.replace("____", n.answers[0]);
             expect(a.sentences).toContain(original);
             expect(n.decoys.length).toBeGreaterThanOrEqual(2);
-            for (const d of n.decoys) expect(d.toLowerCase()).not.toBe(n.answers[0].toLowerCase());
+            for (const d of n.decoys) {
+              expect(d.toLowerCase()).not.toBe(n.answers[0].toLowerCase());
+              // 干扰词不能也出现在原句里，否则空位有第二个正确答案
+              expect(sentenceHasWord(original, d), `干扰词 ${d} 出现在原句里`).toBe(false);
+            }
             for (const id of n.wordIds) expect(vocab.has(id)).toBe(true);
           }
         }
@@ -157,8 +194,15 @@ describe("buildActs：passageOverride（导入的教材原文）", () => {
 
   it("用导入原文切幕，只保留直接来自该文的挖词笔记，不混用配套练习", () => {
     const acts = buildActs(unit, words, "section_a", own);
-    expect(acts.flatMap((a) => a.sentences)).toEqual(splitSentences(own));
-    expect(acts.length).toBeGreaterThanOrEqual(2);
+    const ownSentences = splitSentences(own);
+    expect(acts.flatMap((a) => a.sentences)).toEqual(ownSentences);
+    // 幕数由导入原文的句数推导（每幕 3–6 句），不再假设固定 4–6 幕
+    expect(acts.length).toBeGreaterThanOrEqual(Math.ceil(ownSentences.length / ACT_MAX));
+    expect(acts.length).toBeLessThanOrEqual(Math.floor(ownSentences.length / ACT_MIN));
+    for (const a of acts) {
+      expect(a.sentences.length).toBeGreaterThanOrEqual(ACT_MIN);
+      expect(a.sentences.length).toBeLessThanOrEqual(ACT_MAX);
+    }
     expect(acts.flatMap((a) => a.questions)).toEqual([]);
     expect(acts.flatMap((a) => a.notes).every((note) => note.kind === "fill")).toBe(true);
     for (const note of acts.flatMap((a) => a.notes)) {

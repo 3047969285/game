@@ -17,6 +17,11 @@ import type { Actor, Beat, BuildPiece, CameraShot, DistractionSpec, MemoryAct, M
  */
 
 const TOUCH_COUNT = 5;
+/**
+ * 断片上限。旧课文只有 4–6 幕，可以每幕一次断片；长课文有 10–18 幕，
+ * 而房间只有 14 个摆放位（还要留给 touch 词和干扰词），所以断片改为在全篇均匀挑 6 幕。
+ */
+export const GAP_MAX = 6;
 
 /** 房间的主体在下潜阶段（两句系统旁白）建起；剩下的部件分到各幕 */
 const PRELUDE_BUILD: string[][] = [["floor", "wall_back", "wall_left", "wall_right", "wall_front"], ["window", "table", "chairs"]];
@@ -48,6 +53,16 @@ function shuffle<T>(list: readonly T[], rand: () => number): T[] {
   return out;
 }
 
+/** 从列表里均匀挑 n 个（含首尾），用于把断片 / touch 词铺到整篇长课文上 */
+function spread<T>(list: readonly T[], n: number): T[] {
+  if (n <= 0 || list.length === 0) return [];
+  if (n >= list.length) return [...list];
+  if (n === 1) return [list[0]];
+  const out: T[] = [];
+  for (let i = 0; i < n; i++) out.push(list[Math.round((i * (list.length - 1)) / (n - 1))]);
+  return out;
+}
+
 export interface GapPlan {
   act: number;
   /** 断片的句子在本幕里的序号 */
@@ -55,21 +70,46 @@ export interface GapPlan {
   answer: WordEntry;
 }
 
-/** 每幕挑一句含单元词的句子做断片；一个词只做一次答案。本幕没有可用的单元词时这一幕没有断片 */
+/**
+ * 挑几幕做断片：在“有单元词的幕”里均匀选，最多 GAP_MAX 幕；
+ * 每一幕挑一句含单元词的句子，一个词只做一次答案。全篇没有单元词时没有断片。
+ */
 export function planGaps(acts: readonly MemoryAct[], words: readonly WordEntry[], rand: () => number): GapPlan[] {
   const used = new Set<string>();
   const plans: GapPlan[] = [];
-  for (const act of acts) {
-    const options: Array<{ sentence: number; word: WordEntry }> = [];
+  const eligible = acts.filter((act) => act.wordIds.length > 0);
+  // 一个词只能做一次答案：可选幕数还要受“全篇不同的单元词数”限制
+  const uniqueWordCount = new Set(eligible.flatMap((act) => act.wordIds)).size;
+  const target = Math.min(GAP_MAX, eligible.length, uniqueWordCount);
+  if (target === 0) return plans;
+  const chosen = spread(eligible, target);
+  const rest = shuffle(eligible.filter((act) => !chosen.includes(act)), rand);
+
+  const optionsFor = (act: MemoryAct): Array<{ sentence: number; word: WordEntry }> => {
+    const byWord = new Map<string, { sentence: number; word: WordEntry }>();
     act.sentences.forEach((s, i) => {
-      for (const w of words) if (!used.has(w.id) && sentenceHasWord(s, w.word)) options.push({ sentence: i, word: w });
+      for (const w of words) if (!used.has(w.id) && !byWord.has(w.id) && sentenceHasWord(s, w.word)) byWord.set(w.id, { sentence: i, word: w });
     });
-    if (options.length === 0) continue;
-    const pick = shuffle(options, rand)[0];
-    used.add(pick.word.id);
-    plans.push({ act: act.index, sentence: pick.sentence, answer: pick.word });
-  }
-  return plans;
+    return shuffle([...byWord.values()], rand);
+  };
+
+  // 先处理可选词最少的幕：共享同一个词的两幕（如 act A 有 deposit/account，act B 只有 deposit）
+  // 会先把唯一的词留给 B，避免 A 抢走 B 唯一的答案导致断片变少。
+  const tryActs = (list: readonly MemoryAct[]): void => {
+    const sized = list.map((act) => ({ act, size: optionsFor(act).length }));
+    sized.sort((a, b) => a.size - b.size || a.act.index - b.act.index);
+    for (const { act } of sized) {
+      if (plans.length >= target) break;
+      const options = optionsFor(act);
+      if (options.length === 0) continue;
+      const pick = options[0];
+      used.add(pick.word.id);
+      plans.push({ act: act.index, sentence: pick.sentence, answer: pick.word });
+    }
+  };
+  tryActs(chosen);
+  if (plans.length < target) tryActs(rest);
+  return plans.sort((a, b) => a.act - b.act);
 }
 
 export function buildAutoScript(unit: Rw3UnitContent, words: WordEntry[], section: SectionKey, stageName = "emptyRoom", passageOverride?: string): MemoryScript {
@@ -86,7 +126,17 @@ export function buildAutoScript(unit: Rw3UnitContent, words: WordEntry[], sectio
   const takeTouch = (w: WordEntry): void => {
     if (touchWords.length < TOUCH_COUNT && !touchWords.some((t) => t.id === w.id) && !answerIds.has(w.id)) touchWords.push(w);
   };
-  for (const act of acts.slice(0, 2)) for (const wid of act.wordIds) takeTouch(words.find((w) => w.id === wid)!);
+  // touch 词在整篇课文里均匀取，长课文不会只碰开头两幕的词
+  const touchActs = spread(acts, Math.min(TOUCH_COUNT, acts.length));
+  const touchOrder = [...touchActs, ...shuffle(acts.filter((act) => !touchActs.includes(act)), rand)];
+  for (const act of touchOrder) {
+    if (touchWords.length >= TOUCH_COUNT) break;
+    for (const wid of act.wordIds) {
+      if (touchWords.length >= TOUCH_COUNT) break;
+      const word = words.find((w) => w.id === wid);
+      if (word) takeTouch(word);
+    }
+  }
   for (const w of shuffle(words, rand)) {
     if (touchWords.length >= TOUCH_COUNT) break;
     takeTouch(w);
