@@ -91,6 +91,12 @@
   - 男主首次临时 FaceMesh 皮肤绑定 180 秒超时，按失败退出 1，没有报完成或生成假截图；正在加边界日志、延长离线绑定等待并核查 CPU 热点/坐标。额外 rigid 模式只用于验证导入坐标与材质，不能冒充可变形皮肤绑定。
   - 源属性线索：当前读取的 docs/hero-pipeline/scripts/groom_strands.py 统计 is_guide/widths/COL，但创建 legacy Curve 导出时未看到把 groom_guide/groom_width/groom_root_uv/颜色写入 Alembic 的代码。UE 实测男主 102,928 curves / 10,292 guides（自动生成 10%），不是源 info.json 的 2,600 guides。请 Claude 检查当前 ABC 属性；此处只反馈，未改源发丝或作者脚本。
 
+### 2026-10-22 Web 客户端退役（用户最新指令）
+- 检查最新提交 f44eb78 / 81f9ef6 / 8413d47 / ff7ba78，确认以 UE5.8 为唯一客户端。删除旧 Web 入口、src、dist、Vite/npm 配置、移动壳与浏览器调试页面；教材、角色源资料及导入路径保留。删除前含未提交改动的快照在本机 ~/.local/share/wordquest-archives/。
+- 剧情先从最新工作树导出至 UE（6 单元、18 段、90 幕、98 台词），后将 data_export_acts 改为直接校验 UE JSON；本地化历史审计冻结，消除对已删除 src 和 Node 的依赖。
+- 验证：7 项剧情 QA + 22 项角色管线测试通过；63 个保留源文件哈希一致；旧入口不存在；Python 语法检查通过。说明见 Docs/web-retirement.md。
+- 尚缺：UE 各系统迁移验收继续按原计划推进；保留目录只是源资料，不代表旧 Web 仍可运行。此前 C3 发丝质量尚未通过，C4 AnimSequence.get_controller API 问题尚未解决，不因删除 Web 标记完成。
+
 ## DeepSeek（数据 / 文档 / QA 工具）
 
 - **2026-10-21 · D17 补完上一轮（映射 / q34 空图 / D15-D16 补记）：完成**
