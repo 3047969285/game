@@ -2,6 +2,7 @@
   "unit_id": "unit01",
   "unit_number": 1,
   "edition": 4,
+  "source": "textbook-rw3",
   "title": "The digital age: Are we ready?",
   "title_zh": "数字时代：我们准备好了吗？",
   "theme": "digital life, connection, technology",
@@ -35,305 +36,505 @@
     "rw3_unit01_27",
     "rw3_unit01_28",
     "rw3_unit01_29",
-    "rw3_unit01_30"
+    "rw3_unit01_30",
+    "rw3_unit01_31",
+    "rw3_unit01_32",
+    "rw3_unit01_33",
+    "rw3_unit01_34",
+    "rw3_unit01_35",
+    "rw3_unit01_36",
+    "rw3_unit01_37",
+    "rw3_unit01_38",
+    "rw3_unit01_39",
+    "rw3_unit01_40",
+    "rw3_unit01_41",
+    "rw3_unit01_42",
+    "rw3_unit01_43",
+    "rw3_unit01_44",
+    "rw3_unit01_45",
+    "rw3_unit01_46",
+    "rw3_unit01_47",
+    "rw3_unit01_48",
+    "rw3_unit01_49",
+    "rw3_unit01_50",
+    "rw3_unit01_51",
+    "rw3_unit01_52",
+    "rw3_unit01_53",
+    "rw3_unit01_54",
+    "rw3_unit01_55",
+    "rw3_unit01_56",
+    "rw3_unit01_57",
+    "rw3_unit01_58",
+    "rw3_unit01_59",
+    "rw3_unit01_60",
+    "rw3_unit01_61",
+    "rw3_unit01_62",
+    "rw3_unit01_63",
+    "rw3_unit01_64",
+    "rw3_unit01_65",
+    "rw3_unit01_66",
+    "rw3_unit01_67",
+    "rw3_unit01_68",
+    "rw3_unit01_69",
+    "rw3_unit01_70",
+    "rw3_unit01_71",
+    "rw3_unit01_72",
+    "rw3_unit01_73",
+    "rw3_unit01_74",
+    "rw3_unit01_75",
+    "rw3_unit01_76",
+    "rw3_unit01_77",
+    "rw3_unit01_78",
+    "rw3_unit01_79",
+    "rw3_unit01_80",
+    "rw3_unit01_81",
+    "rw3_unit01_82",
+    "rw3_unit01_83",
+    "rw3_unit01_84"
   ],
   "micro_world_checks": {
     "section_a": [
       {
-        "question": "What problem led the club to run a listening experiment?",
+        "question": "What activities are the family not allowed to do on their “offline days”?",
         "options": [
-          "The library had banned all electronic devices.",
-          "Students wanted to replace every class with a club meeting.",
-          "Members felt disconnected despite frequent digital contact.",
-          "The group needed to test a new messaging application."
-        ],
-        "answer": 2,
-        "explanation": "The club noticed that being constantly connected did not always help people feel heard."
-      },
-      {
-        "question": "What changed by the third listening session?",
-        "options": [
-          "Pauses became useful, and listeners chose their words more carefully.",
-          "Participants stopped using online tools for planning.",
-          "Every participant agreed that phones should be banned.",
-          "The club replaced discussion with written reports."
+          "Use any electronic devices",
+          "Leave the house",
+          "Read paper books",
+          "Play chess together"
         ],
         "answer": 0,
-        "explanation": "The second world describes how participants grew more comfortable with pauses and attentive listening."
+        "explanation": "原文第1段：从周五晚到周日晚上，全家不用电子游戏、电脑和手机；看书和下棋是他们正在做的事。"
       },
       {
-        "question": "What limitation did the organizers place on their notes?",
+        "question": "According to Para. 3, to what extent are we influenced by the little devices most of us carry around?",
         "options": [
-          "They were collected before the activity began.",
-          "They measured the quality of the students' devices.",
-          "They proved that online friendships were harmful.",
-          "They described one club's experience, not a rule for everyone."
+          "They only affect how quickly we can answer messages.",
+          "They influence us mainly through the games we play.",
+          "They change not only what we do but also who we are.",
+          "They affect our health more than our relationships."
         ],
-        "answer": 3,
-        "explanation": "The passage explicitly distinguishes local observations from universal scientific proof."
+        "answer": 2,
+        "explanation": "第3段结尾：这些小设备“so powerful that they change not only what we do but also who we are”，即既改变行为也改变人本身。"
       },
       {
-        "question": "According to the final world, what does digital readiness involve?",
+        "question": "What does the author think of the idea that our little “sips” of online connection will substitute for real conversation?",
         "options": [
-          "Answering every notification as quickly as possible",
-          "Choosing technology according to the purpose of the moment",
-          "Avoiding conversation whenever a device is available",
-          "Using the same communication routine in every situation"
+          "The author agrees, because many small sips add up to a big swallow.",
+          "The author disagrees, saying sips can never substitute for real conversation.",
+          "The author thinks it depends on how valuable each sip is.",
+          "The author believes it is true only in politics and commerce."
         ],
         "answer": 1,
-        "explanation": "Readiness is framed as intentional choice: use a tool when it serves the need, and make room for conversation when it matters."
+        "explanation": "第7段明确说“No, they don’t”，并强调再多的“小口”网络联系也不能 substitute for real conversation（取代真正的交谈）。"
+      },
+      {
+        "question": "According to Para. 8, what can we do in real conversation but cannot in online connection?",
+        "options": [
+          "Gather discrete bits of information quickly.",
+          "Say “I am thinking about you” at any time.",
+          "Share viewpoints with thousands of online friends.",
+          "Understand and know one another through tones and nuances."
+        ],
+        "answer": 3,
+        "explanation": "第8段：网络“小口”联系只能传递零散信息或问候，真正的交谈才让人通过语气和细微差别相互理解、认识。"
       }
     ],
     "section_b": [
       {
-        "question": "How can an algorithm shape a student's digital feed?",
+        "question": "What is ironic about digital technology as mentioned in Para. 1?",
         "options": [
-          "It guarantees that every viewpoint appears equally often.",
-          "It decides when a student should sleep.",
-          "It removes the need to make privacy choices.",
-          "It filters posts and may repeatedly surface selected stories."
-        ],
-        "answer": 3,
-        "explanation": "The opening world explains that algorithms filter feeds, so repeated exposure should not be mistaken for a balanced view."
-      },
-      {
-        "question": "Why did students schedule set times to check messages?",
-        "options": [
-          "To avoid communicating with classmates altogether",
-          "To make it easier to return attention to the study task",
-          "To make every virtual meeting longer",
-          "To remove all notifications from their devices"
-        ],
-        "answer": 1,
-        "explanation": "The class found that opening a device between tasks made it harder to resume the original question."
-      },
-      {
-        "question": "What did the cyber safety instructor ask students to consider?",
-        "options": [
-          "Whether a link, request, or post has consequences before they act",
-          "Whether all public posts should be deleted",
-          "How to avoid using a platform for school work",
-          "Why a privacy setting makes every online choice safe"
-        ],
-        "answer": 0,
-        "explanation": "The instructor teaches deliberate choices about links, password requests, and public posts."
-      },
-      {
-        "question": "Which practice helped students restore balance?",
-        "options": [
-          "Checking each message as soon as it arrives",
-          "Joining several virtual groups at once",
-          "Keeping a device-free meal and a clear end time for study",
-          "Treating every long evening online as an addiction"
+          "It develops very fast but people can keep up with it easily.",
+          "Some population groups get addicted to it while others are fed up with it.",
+          "It has invaded everything in our lives but we are not always aware of its impact.",
+          "Many people cannot live without it but deny that it has reshaped their lives."
         ],
         "answer": 2,
-        "explanation": "Small planned routines, including offline time, helped protect attention, rest, and interaction."
+        "explanation": "第1段：数字技术对我们的影响往往是 subliminal（潜意识的），而它的强加于人又十分 bold，这种反差显得 ironic。"
+      },
+      {
+        "question": "Why may children not have to carry printed books in the future?",
+        "options": [
+          "Children may use tablets to read e-books.",
+          "Children may become used to studying at home.",
+          "Children may be provided with interactive whiteboards in the classroom.",
+          "Children may leave their books in the classroom rather than bring them home."
+        ],
+        "answer": 0,
+        "explanation": "第2段：With the advent of the age of the tablet, they are starting to use the impressive electronic devices to read e-books。"
+      },
+      {
+        "question": "Which of the following is not true about children in the digital world?",
+        "options": [
+          "They cannot survive without technology.",
+          "They are incredibly good at using electronic devices.",
+          "They can keep up with the latest technological developments.",
+          "They play games on electronic devices as often as they play outside with their friends."
+        ],
+        "answer": 3,
+        "explanation": "第3段说孩子玩电子游戏的频率 probably more often than 在户外和朋友玩，因此“一样频繁”不符原文。"
+      },
+      {
+        "question": "What changes does digital technology bring to the modern family?",
+        "options": [
+          "The modern family is much busier.",
+          "People enjoy the convenience of ready-made food.",
+          "Cooking becomes easy and enjoyable to many people.",
+          "Siblings often battle for their choices of TV programs."
+        ],
+        "answer": 2,
+        "explanation": "第4段：technology has made cooking accessible and enjoyable to all；A项是原因而非技术带来的变化，D项是过去的情况。"
       }
     ],
     "section_c": [
       {
-        "question": "What was the local health center trying to make easier?",
+        "question": "What is the passage mainly about?",
         "options": [
-          "Replacing all local staff with a remote application",
-          "Moving older residents to the coastal city",
-          "Making routine specialist advice available without an unnecessary long trip",
-          "Collecting health information for public social media"
-        ],
-        "answer": 2,
-        "explanation": "The first world introduces a local service designed to reduce avoidable travel for routine advice."
-      },
-      {
-        "question": "Who remained responsible for follow-up care?",
-        "options": [
-          "The local clinicians",
-          "The patient's distant family members alone",
-          "The makers of the telemedicine device",
-          "An automated platform without a medical team"
+          "How mobile payment has changed daily life in China",
+          "Why food stalls in Beijing attract foreign tourists",
+          "How to rent a shared bike in the capital city",
+          "Why credit cards are no longer accepted in shops"
         ],
         "answer": 0,
-        "explanation": "Remote doctors reviewed information, while local clinicians stayed responsible for follow-up."
+        "explanation": "全文主旨：作者只带手机在北京生活一天，从煎饼摊到商场都能扫码支付，说明移动支付已改变中国人的生活方式（第1、8段）。"
       },
       {
-        "question": "What limitation does the passage acknowledge about telemedicine?",
+        "question": "What did the writer buy at the food stall for six yuan?",
         "options": [
-          "It works only when every patient owns the same phone.",
-          "It removes the need to protect private information.",
-          "It makes local health professionals unnecessary.",
-          "It cannot replace every examination or suit every village."
+          "A sandwich and a cup of coffee",
+          "A box of fruit from a food stall",
+          "A local delicacy called jianbing",
+          "A coupon from a fashion boutique"
         ],
-        "answer": 3,
-        "explanation": "The third world warns that online advice is not a universal substitute for in-person examination."
+        "answer": 2,
+        "explanation": "第3段：作者在早点摊买当地小吃煎饼（jianbing），扫码转账六元给摊主。"
       },
       {
-        "question": "How does the final world define meaningful digital progress?",
+        "question": "Why do many shops encourage customers to use mobile payment?",
         "options": [
-          "By the number of screens installed in a community",
-          "By whether residents can participate safely and with dignity",
-          "By how quickly a remote platform can process every request",
-          "By replacing community services with one central system"
+          "Because it saves them the cost of paper receipts",
+          "Because it helps them engage customers better",
+          "Because credit cards are no longer accepted",
+          "Because the government requires them to do so"
         ],
         "answer": 1,
-        "explanation": "The conclusion measures progress by safe, dignified participation and shared responsibility, not by devices alone."
+        "explanation": "第6段：商家有动力推广移动支付，因为这样能更好地维护顾客关系，例如请顾客关注公众号、发放优惠券和电子会员卡。"
+      },
+      {
+        "question": "How can people rent a shared bike in Beijing according to the passage?",
+        "options": [
+          "By showing a passport at a rental office",
+          "By paying cash to the bike owner",
+          "By calling a ride-hailing service",
+          "By scanning a QR code with a phone"
+        ],
+        "answer": 3,
+        "explanation": "第5段：共享单车需用手机扫码解锁，租金很便宜；打车则是通过网约车服务，二者不要混淆。"
       }
     ]
   },
   "sections": {
     "section_a": {
-      "title": "Connection or conversation",
+      "title": "Connection or Conversation?",
       "type": "reading",
-      "passage": "A campus conversation club met each Thursday in a room that looked out over the library courtyard. Its members could send a message in seconds, yet during shared breaks some sat together without knowing how to begin. Several said they felt lonely even while their screens filled with names, photos, and alerts. The club asked a practical question: what kind of connection does this moment need? To explore it, student organizers designed a four-week listening experiment for learning, not a scientific study. At each session, members placed their devices in a basket for twenty minutes and took turns describing a small challenge. The listener had to ask one follow-up question and summarize what they had heard before replying. The rule felt awkward at first, and some participants were anxious that an urgent message might arrive. By the third session, a pause no longer seemed like a failure; it gave people time to choose words carefully. Members began noticing tone, hesitation, and the meaning behind a brief answer. They did not stop using group chats or video calls, which remained useful for planning and maintaining distant friendships. A quick digital message worked well when information was simple and time was short. A face-to-face conversation offered something different: people could revise an idea, respond to emotion, and build trust. The club's notes described its own practice, not proof that every student needed the same routine. That limit made the experiment more useful, because it invited discussion instead of imposing a universal rule. Readiness for the digital age therefore means choosing a tool with a purpose, rather than treating every notification as a command. On busy days, members used a shared calendar to protect an uninterrupted study session. On difficult days, they put phones away and asked a friend to listen before giving advice. Their goal was not less technology, but more intentional communication and a clearer sense of when to converse. Each Thursday ended with one question: did today's connection help someone feel understood?"
+      "passage": "On a quiet Saturday afternoon, Paul and his wife Maria are sitting at home reading their favorite books. Opposite to where they sit are their two sons: 15-year-old Jason and 12-year-old Jack, absorbed in playing chess. What’s the scenario here? The family calls it their “offline day”. From Friday night through Sunday evening, there are no video games, no computers, and no cell phones. In our “always on” lives, such a scenario of family convention seems gone. Are we too immersed in the brilliance of the digital world? Perhaps. We cannot seem to resist the lure of our cell phones, even when we are in the company of others. Apparently, we have sacrificed conversation for connection. At home, families sit together, texting, and reading emails. At work, executives text during board meetings. We also text when we’re on dates. Walking through a college library or the campus of a high-tech company, one sees an identical scenario: People are together, but each of them is in their own bubble, furiously connected to keyboards and tiny touch screens. The little devices most of us carry around are so powerful that they change not only what we do but also who we are. It’s true we’ve already become accustomed to a new way of being “alone together”. Technology-enabled, we are able to be with one another, and also elsewhere, connected to wherever we want to be. We’ve been used to the idea of being in a tribe of one, loyal to our own party. In the silence of connection, we are comforted by being in touch with “invisible” friends and significant others, not too close, nor too far, just right. A senior partner at a law firm describes vividly a scene in his office. Every morning, young associates would first lay out their suite of technologies: laptops, tablets, and multiple phones. Then they would put their earphones on. “Big ones. Like pilots. They have converted their desks into cockpits,” he said. With the young lawyers sitting in their cockpits, the office becomes quiet, a quiet that does not ask to be broken. They have completely plunged into their virtual world. As we can see, there is no limit to time and space in this digital world. Connection can be anytime and anywhere. Gradually, we’ve picked up a habit of deletion – wiping out rich human relationships. The move from conversation to connection, for example, is part of this. In fact, online connection is often a deceptive illusion in which we cheat ourselves, assuming we’re not alone. Worse, over time we’ll stop caring and forget there is a difference between online connection and face-to-face conversation. We are tempted to think that our little “sips” of online connection add up to a big swallow of real conversation. No, they don’t. Even though all of these sips have their places – in politics, commerce, romance, and friendship, I would claim, no matter how valuable they are, it’s impossible for them to substitute for real conversation, where people exchange ideas and share viewpoints dynamically. Yes, connecting in sips may work for gathering discrete bits of information, or for saying “I am thinking about you”, or even for saying “I love you”, but it’s far from the adequacy of communication when it comes to understanding and knowing one another. Real conversation, on the other hand, is a more informative process, in which we’re more caring and observant. We hesitate and pause and go silent, and we reveal ourselves to one another through tones and nuances. While communicating on our digital devices, we unconsciously raise our expectations as well. As we increase the volume and velocity of online connection, we start to expect acceleration – faster answers. We ask one another simpler questions; we dumb down our communication, even on the most important matters. Face-to-face conversation, by contrast, unfolds slowly, so it teaches us patience. In addition, our move from conversation means diminished opportunities to learn skills of self-reflection. These days, social media continually asks us what’s “on our mind”, but we have little motivation to say something truly self-reflective. Imagine how hard it is to do something with thousands of online friends! It is through the conversation with trusted others that we learn to converse with ourselves – to be honest with ourselves. I’m not a critic, but I am a partisan for conversation. To make room for it, I see some first steps. At home, we can create “sacred” spaces for conversation while doing domestic chores: the kitchen, the dining room. We can make our cars a place free of little devices. We can be a consultant to our children through the demonstration of the value of conversation. At work, we can do the same thing. Employees asked for casual Fridays; managers may “collaborate” and introduce conversational Thursdays. Although an “offline day” may be unbearable for tech enthusiasts who need to alter their habits, experts say it is beneficial to assess both the merit and burden of digital technology. Let’s take some time away from the beeps and rings to evaluate our relationship with technology. Try to make some changes. At the beginning, it might be hard, but after a few months when a habit forms, we’ll begin to realize we have already gained a lot from it. So, look up, look at one another, and let’s start a conversation."
     },
     "section_b": {
       "title": "Living in the digital world",
       "type": "reading",
-      "passage": "For many students, the digital world begins before breakfast, when a notification lights up a device beside the bed. A student may intend to check one message and then scroll through a platform for several minutes. An algorithm filters the feed, quietly deciding which stories appear again and which disappear. Because the stream feels personal, users can mistake repeated exposure for a balanced view of the world. That is why digital literacy starts with attention: notice what a platform asks you to do, and decide whether it deserves the next minute. A first-year class tested a simple habit plan for two weeks, keeping short notes on when they checked screens during study. They found that opening a device between tasks often made it harder to return to the original question. Trying to multitask did not remove the work; it scattered the attention needed to understand complex ideas. The students began grouping messages into set check-in times and placing one offline study block on their daily schedule. One student found virtual study groups useful, provided that members agreed on a goal before joining. Another reviewed privacy settings after learning how much information a default profile could reveal. A cyber safety instructor asked the class to treat each link, password request, and public post as a choice with consequences. The lesson was not to fear every platform but to understand how its tools filter information and shape habits. When a data leak or unwanted contact occurs, prevention is valuable; afterwards, calm reporting and account changes matter too. Students also discussed screen addiction without using the term as a casual label for every long evening online. A habit becomes concerning when it repeatedly harms sleep, learning, or relationships and a person cannot easily adjust it. Restored balance came from small changes: a mindful walk between lectures, a device-free meal, and a clear end time for study. During an offline hour, roommates noticed more interaction and solved small disagreements before they grew. These routines did not make the internet less powerful; they helped students use it more deliberately. Living well online is not a contest to stay disconnected, but a practice of protecting attention, privacy, and human presence."
+      "passage": "The technological advances that arrived in a swift fashion in the mid-1990s have reshaped the very fabric of society, and modern technologies have attracted various population groups in different areas. It is no exaggeration to say that technology has impacted upon the lives of everybody, in one way or another. However, this is often quite subliminal and somewhat ironic given the bold nature of the imposition of digital technology on our lives. It’s true that the digital world has changed our lives in almost every way possible. To start with, do you still remember the days when teachers used chalk, dusters, and blackboards? They are almost never used today. Black has turned white, in the form of interactive whiteboards. To go one step further, the days of children having to carry a bag with printed books will probably be a distant memory in the future. With the advent of the age of the tablet, they are starting to use the impressive electronic devices to read e-books. More importantly, schools now come equipped with Wi-Fi or broadband to ensure instant Internet access for study and research purposes. Likewise, how often do you see children playing games on a smartphone, laptop, or mobile game device of one kind or another? Probably more often than you see them playing outside with their friends. Children of the modern age are incredibly tech savvy, my goodness, almost from the time they learn to talk. They don’t have to learn how to use technology but are able to be informed, keeping abreast of the latest technological developments, because technology is simply a part of who they are. They grow up with it, they know it, and they cannot survive without it. Dramatic changes can also be felt at home. As the modern family is busier than in the past, hectic family life seems dominated by all-things-convenient. Luckily, cooking is now made easy and a lot quicker thanks to hundreds upon hundreds of cooking apps, online recipes, how-to-cook videos, etc. Quite literally, technology has made cooking accessible and enjoyable to all. Furthermore, the days of battling other siblings for rights of the sole TV in the living room have gone and become a thing of the past. Now, children have their own laptop on which to watch their choice of TV shows, movies, videos, etc. Then how about our workplace? Nearly a decade ago, one had to sit in the office all day long. Not so now though! Many companies, whether headquarters or affiliates, actively encourage working from home, and this is becoming more and more common as employers realize that employees do not require round-the-clock monitoring in the completion of their daily tasks. In addition, technology has led to the widespread use of online video conferences; as a result, colleagues are no longer obliged to even meet in a face-to-face environment, removing yet another element of the business arena of old. Aligned with this fashion of convenience is our leisure. In the past, holidays were invariably booked through travel agents or a dedicated provider, based upon their sales skills and packages together with brochures. Sometimes, the most unappealing destination could be made to look like a luxurious five-star resort. Now, people are a lot more discerning, thanks to the abundance of online booking sites and online reviews of every leisure facility the world over. We search the Web to find the cheapest flights and avoid extra charges. We also book accommodations based upon our requirements and check out exactly what we will do before we even arrive! In the everyday practicality, digital technology has also established its credibility in changing our old-fashioned personal life. While we used to stand in line at the bank during our lunch break, now we perform most of our banking online, mainly via our smartphones. While we formerly walked to the shop to buy the daily newspaper, now we can access news sites worldwide and download news apps at the touch of a screen. While we used to head to the video store to choose the latest release, now we can download movies online at the click of a mouse. While we used to play simple, yet wonderful, console games, now we can play them through the Internet against people from all around the world. When it comes to social life, there are now so many social platforms cropping up that it’s difficult to keep up with them. It’s somewhat funny, though, that our social life is kind of akin to “emotional blackmail”. Even those who have desperately tried to evade all things social have found it’s simply impossible to avoid. Today people are more engaged in connection than conversation. Social media has become an essential part of life and a place for people to catch up with existing friends, rekindle friendships from the past, or meet new people from overseas …, because they can. As we can see, the digital revolution has changed our lives to such an extent that the way we exist as a civilization has almost completely altered with no point in history for comparison. We concede that advanced technology is probably erasing rich human relationships, but it shows no signs of slowing down. It’ll continue to flourish and bring a lot of potential to transform the way we live in the foreseeable future. Are you ready for that?"
     },
     "section_c": {
-      "title": "Stories of China",
+      "title": "A Smartphone Is All You Need",
       "type": "stories_of_china",
-      "passage": "This original practice story is set in a fictional mountain county, where the nearest specialist clinic is several hours from some villages. A local health center wanted older residents to receive advice without turning every checkup into a long journey. It partnered with doctors in a coastal teaching hospital and used a secure telemedicine platform to review basic scans. The small team added a familiar phone and a private room so patients could ask questions with a nurse nearby. At first, the technology was only one part of a bigger plan. Local staff helped residents learn how to place the device, describe symptoms, and ask for a second explanation. When a connection failed, the center recorded questions and arranged a call-back instead of pretending the screen had solved everything. Doctors reviewed images carefully and sent written guidance to local clinicians, who remained responsible for follow-up care. A daughter living far away could join one appointment, but the patient still chose what information to share. The process respected privacy as well as distance. This fictional example does not claim that every village has the same service or that online advice can replace an examination. It shows why human communication matters when a new tool enters healthcare. The clinic kept an offline option for people who lacked a suitable phone, steady signal, or confidence using an app. Volunteers explained how the service worked, while medical staff checked whether the advice was clear and useful. Gradually, families spent less time arranging travel for routine questions and more time planning care with local professionals. The change depended on trust, accessible design, and patient choice rather than on a device alone. Stories of China can include this kind of practical innovation: people using knowledge and technology to solve a local need. Its value is measured not by how advanced a screen looks, but by whether residents can participate safely. A shared project becomes stronger when city doctors, county clinicians, families, and public services each take a clear role. In that sense, digital progress is a human achievement: it expands connection while keeping dignity, responsibility, and community in view."
+      "passage": "No cash? Your smartphone will do nicely. Chinese consumers who are used to spending their cash on technology are increasingly relying on a tech solution to pay for just about anything, from breakfast to booking a vacation. To see how far I could go in Beijing without a wallet, I spent a day armed only with my smartphone. A beautiful day started with a great breakfast. I paid for a local delicacy called jianbing at a food stall with my smartphone. By scanning a QR code, I transferred six yuan to the stall owner. I then passed a small supermarket – each checkout counter carried a sign that proclaimed: “Welcome to use mobile payment!” When it comes to transportation around the capital, you can order a cab or a private car through ride-hailing services. Mobile payment is accepted. If you don’t fancy waiting in traffic, there are also bikes for rent. You can unlock these bikes by scanning a QR code and pay a very cheap rent for the ride. Many shops have incentives to use mobile payment services because this way they can engage customers better. After I paid for a sandwich and a cup of coffee at a restaurant with my smartphone, the waitress asked me to “follow” their public account so they could send me coupons and a virtual membership card. On the door of a nearby fashion boutique, there was another sign: “Welcome to use mobile payment!” Shops also accept credit cards, but not using mobile payment may be considered backward. Mobile payment goes beyond daily purchases. You can also pay utility bills and credit card bills, or invest in money market funds. From food stalls to shopping malls, almost every place I stopped by in this corner of Beijing accepted mobile payment. When making a purchase, all I needed to do is tap on the phone, scan the QR code, and make the payment in a second or two. Mobile payment has really changed the way of life in China. Chinese shoppers nowadays do not have to carry cash around; they just need to carry their phones around. Cash really is becoming a thing of the past."
     },
     "vocabulary": {
-      "level_count": 6,
+      "level_count": 17,
       "words_per_level": 5
     },
     "reading": {
       "title": "Connection or Conversation?",
-      "passage": "A campus conversation club met each Thursday in a room that looked out over the library courtyard. Its members could send a message in seconds, yet during shared breaks some sat together without knowing how to begin. Several said they felt lonely even while their screens filled with names, photos, and alerts. The club asked a practical question: what kind of connection does this moment need? To explore it, student organizers designed a four-week listening experiment for learning, not a scientific study. At each session, members placed their devices in a basket for twenty minutes and took turns describing a small challenge. The listener had to ask one follow-up question and summarize what they had heard before replying. The rule felt awkward at first, and some participants were anxious that an urgent message might arrive. By the third session, a pause no longer seemed like a failure; it gave people time to choose words carefully. Members began noticing tone, hesitation, and the meaning behind a brief answer. They did not stop using group chats or video calls, which remained useful for planning and maintaining distant friendships. A quick digital message worked well when information was simple and time was short. A face-to-face conversation offered something different: people could revise an idea, respond to emotion, and build trust. The club's notes described its own practice, not proof that every student needed the same routine. That limit made the experiment more useful, because it invited discussion instead of imposing a universal rule. Readiness for the digital age therefore means choosing a tool with a purpose, rather than treating every notification as a command. On busy days, members used a shared calendar to protect an uninterrupted study session. On difficult days, they put phones away and asked a friend to listen before giving advice. Their goal was not less technology, but more intentional communication and a clearer sense of when to converse. Each Thursday ended with one question: did today's connection help someone feel understood?",
+      "passage": "On a quiet Saturday afternoon, Paul and his wife Maria are sitting at home reading their favorite books. Opposite to where they sit are their two sons: 15-year-old Jason and 12-year-old Jack, absorbed in playing chess. What’s the scenario here? The family calls it their “offline day”. From Friday night through Sunday evening, there are no video games, no computers, and no cell phones. In our “always on” lives, such a scenario of family convention seems gone. Are we too immersed in the brilliance of the digital world? Perhaps. We cannot seem to resist the lure of our cell phones, even when we are in the company of others. Apparently, we have sacrificed conversation for connection. At home, families sit together, texting, and reading emails. At work, executives text during board meetings. We also text when we’re on dates. Walking through a college library or the campus of a high-tech company, one sees an identical scenario: People are together, but each of them is in their own bubble, furiously connected to keyboards and tiny touch screens. The little devices most of us carry around are so powerful that they change not only what we do but also who we are. It’s true we’ve already become accustomed to a new way of being “alone together”. Technology-enabled, we are able to be with one another, and also elsewhere, connected to wherever we want to be. We’ve been used to the idea of being in a tribe of one, loyal to our own party. In the silence of connection, we are comforted by being in touch with “invisible” friends and significant others, not too close, nor too far, just right. A senior partner at a law firm describes vividly a scene in his office. Every morning, young associates would first lay out their suite of technologies: laptops, tablets, and multiple phones. Then they would put their earphones on. “Big ones. Like pilots. They have converted their desks into cockpits,” he said. With the young lawyers sitting in their cockpits, the office becomes quiet, a quiet that does not ask to be broken. They have completely plunged into their virtual world. As we can see, there is no limit to time and space in this digital world. Connection can be anytime and anywhere. Gradually, we’ve picked up a habit of deletion – wiping out rich human relationships. The move from conversation to connection, for example, is part of this. In fact, online connection is often a deceptive illusion in which we cheat ourselves, assuming we’re not alone. Worse, over time we’ll stop caring and forget there is a difference between online connection and face-to-face conversation. We are tempted to think that our little “sips” of online connection add up to a big swallow of real conversation. No, they don’t. Even though all of these sips have their places – in politics, commerce, romance, and friendship, I would claim, no matter how valuable they are, it’s impossible for them to substitute for real conversation, where people exchange ideas and share viewpoints dynamically. Yes, connecting in sips may work for gathering discrete bits of information, or for saying “I am thinking about you”, or even for saying “I love you”, but it’s far from the adequacy of communication when it comes to understanding and knowing one another. Real conversation, on the other hand, is a more informative process, in which we’re more caring and observant. We hesitate and pause and go silent, and we reveal ourselves to one another through tones and nuances. While communicating on our digital devices, we unconsciously raise our expectations as well. As we increase the volume and velocity of online connection, we start to expect acceleration – faster answers. We ask one another simpler questions; we dumb down our communication, even on the most important matters. Face-to-face conversation, by contrast, unfolds slowly, so it teaches us patience. In addition, our move from conversation means diminished opportunities to learn skills of self-reflection. These days, social media continually asks us what’s “on our mind”, but we have little motivation to say something truly self-reflective. Imagine how hard it is to do something with thousands of online friends! It is through the conversation with trusted others that we learn to converse with ourselves – to be honest with ourselves. I’m not a critic, but I am a partisan for conversation. To make room for it, I see some first steps. At home, we can create “sacred” spaces for conversation while doing domestic chores: the kitchen, the dining room. We can make our cars a place free of little devices. We can be a consultant to our children through the demonstration of the value of conversation. At work, we can do the same thing. Employees asked for casual Fridays; managers may “collaborate” and introduce conversational Thursdays. Although an “offline day” may be unbearable for tech enthusiasts who need to alter their habits, experts say it is beneficial to assess both the merit and burden of digital technology. Let’s take some time away from the beeps and rings to evaluate our relationship with technology. Try to make some changes. At the beginning, it might be hard, but after a few months when a habit forms, we’ll begin to realize we have already gained a lot from it. So, look up, look at one another, and let’s start a conversation.",
       "questions": [
         {
-          "question": "What did the listening experiment ask members to do?",
+          "question": "What can a face-to-face conversation teach us?",
           "options": [
-            "Stop using every online tool for the whole semester",
-            "Put devices away, take turns, and listen before replying",
-            "Write a scientific report about phone manufacturers",
-            "Replace face-to-face meetings with longer messages"
+            "It teaches us to expect faster answers.",
+            "It teaches us patience.",
+            "It teaches us to gather more information.",
+            "It teaches us to type more efficiently."
           ],
           "answer": 1,
-          "explanation": "The club used a short device-free session with turn-taking, a follow-up question, and a summary."
+          "explanation": "第9段：面对面交谈“unfolds slowly, so it teaches us patience”，而网络联系让人期待加速、更快的回复。"
         },
         {
-          "question": "What claim did the organizers avoid making?",
+          "question": "What can we learn from the conversation with trusted others?",
           "options": [
-            "That the club's observations created a universal rule for every student",
-            "That conversation can help people build trust",
-            "That messages can be useful for simple information",
-            "That different situations may call for different tools"
+            "To converse with ourselves and be honest with ourselves.",
+            "To keep up with the latest technological developments.",
+            "To raise our expectations of online connection.",
+            "To avoid saying anything truly self-reflective."
           ],
           "answer": 0,
-          "explanation": "The passage presents the club's notes as local observations, not universal scientific proof."
+          "explanation": "第10段：正是通过与信任的人交谈，我们学会与自己对话、对自己诚实（learn to converse with ourselves – to be honest with ourselves）。"
         },
         {
-          "question": "What is the central argument of the passage?",
+          "question": "What is the author’s attitude toward conversation?",
           "options": [
-            "All communication should move to digital platforms.",
-            "Devices are harmful and should be removed from campus.",
-            "A fast message always creates deeper understanding.",
-            "Digital readiness includes choosing a tool that fits the purpose."
+            "He is a critic who prefers online connection.",
+            "He is indifferent and sees conversation as outdated.",
+            "He is a partisan for conversation and urges us to make room for it.",
+            "He is confident that technology will replace conversation."
+          ],
+          "answer": 2,
+          "explanation": "第11段开头：I’m not a critic, but I am a partisan for conversation. To make room for it, I see some first steps. 可见作者坚定支持交谈。"
+        },
+        {
+          "question": "What is the author’s suggestion for evaluating our relationship with technology?",
+          "options": [
+            "Ban all digital devices at home and at work.",
+            "Ask experts to monitor how much time we spend online.",
+            "Replace face-to-face conversation with online connection.",
+            "Take some time away from devices to assess the merit and burden of technology."
           ],
           "answer": 3,
-          "explanation": "The argument favors intentional choice rather than rejecting technology or responding automatically to every alert."
+          "explanation": "第12段：Let’s take some time away from the beeps and rings to evaluate our relationship with technology，并权衡数字技术的 merit and burden。"
+        },
+        {
+          "question": "He entered the film industry, taking small roles and writing ______ for a famous film company.",
+          "options": [
+            "scenarios",
+            "conventions",
+            "chores",
+            "deletions"
+          ],
+          "answer": 0,
+          "explanation": "scenario 除“可能发生的情况”外，还可指电影、戏剧的“剧情梗概”；为电影公司写“剧情梗概”用复数 scenarios。"
+        },
+        {
+          "question": "In doing translation, one should not ______ the meaning of the original to suit one’s own taste.",
+          "options": [
+            "assess",
+            "immerse",
+            "alter",
+            "collaborate"
+          ],
+          "answer": 2,
+          "explanation": "alter the meaning 意为“改变原意”，与 to suit one’s own taste（迎合自己的口味）搭配。"
+        },
+        {
+          "question": "Without warning, there was a(n) ______ storm and the waves swept over the boat.",
+          "options": [
+            "observant",
+            "furious",
+            "discrete",
+            "sacred"
+          ],
+          "answer": 1,
+          "explanation": "furious 除“狂怒的”外，还可修饰 storm，表示“猛烈的、强烈的”。"
+        },
+        {
+          "question": "Doctors consider it their ______ duty to protect and save the lives of their patients.",
+          "options": [
+            "identical",
+            "continual",
+            "deceptive",
+            "sacred"
+          ],
+          "answer": 3,
+          "explanation": "sacred duty 是固定搭配，意为“神圣的职责”；sacred 在此不表示宗教意义，而指“很重要的、深受尊重的”。"
+        },
+        {
+          "question": "The question was how to maintain that kind of ______ for a vehicle that weighed considerably more than 3,300 pounds.",
+          "options": [
+            "velocity",
+            "volume",
+            "adequacy",
+            "nuance"
+          ],
+          "answer": 0,
+          "explanation": "velocity 指“速度”，与 maintain（保持）搭配，说的是重量超过3,300磅的车辆如何保持那种速度。"
+        },
+        {
+          "question": "They are able to take ______ ideas, thoughts, and generalizations and weave them into meaningful patterns.",
+          "options": [
+            "sacred",
+            "identical",
+            "discrete",
+            "observant"
+          ],
+          "answer": 2,
+          "explanation": "discrete 意为“分开的、离散的”，discrete ideas 指零散的想法，与后文 weave them into meaningful patterns 呼应。"
         }
       ]
     },
     "listening": {
       "title": "Listening: The digital age: Are we ready?",
-      "script": "In our first-year seminar, we kept a seven-day attention diary. I expected it to be a list of screen hours, but the useful question was what I had meant to do each time I picked up my device. On Monday, I opened a message during a reading task and followed a platform recommendation into several unrelated posts. The algorithm had not forced me to stay; it had made the next item easy to see. My group designed a small plan. We set two message check-in times, left urgent calls available, and used a twenty-five-minute offline block for reading. A classmate also showed us how to review privacy settings and check a link before entering account details. The plan did not remove virtual meetings or online research. It helped us choose them with a purpose. By Friday, I was still using the same phone, but I had fewer accidental interruptions and more time to finish one task before starting another. We learned that balance is not a perfect number of online and offline minutes. It is the ability to notice a habit, protect attention, and make room for real interaction when a conversation matters.",
+      "script": "The technological advances that arrived in a swift fashion in the mid-1990s have reshaped the very fabric of society, and modern technologies have attracted various population groups in different areas. It is no exaggeration to say that technology has impacted upon the lives of everybody, in one way or another. However, this is often quite subliminal and somewhat ironic given the bold nature of the imposition of digital technology on our lives. It’s true that the digital world has changed our lives in almost every way possible. To start with, do you still remember the days when teachers used chalk, dusters, and blackboards? They are almost never used today. Black has turned white, in the form of interactive whiteboards. To go one step further, the days of children having to carry a bag with printed books will probably be a distant memory in the future. With the advent of the age of the tablet, they are starting to use the impressive electronic devices to read e-books. More importantly, schools now come equipped with Wi-Fi or broadband to ensure instant Internet access for study and research purposes. Likewise, how often do you see children playing games on a smartphone, laptop, or mobile game device of one kind or another? Probably more often than you see them playing outside with their friends. Children of the modern age are incredibly tech savvy, my goodness, almost from the time they learn to talk. They don’t have to learn how to use technology but are able to be informed, keeping abreast of the latest technological developments, because technology is simply a part of who they are. They grow up with it, they know it, and they cannot survive without it. Dramatic changes can also be felt at home. As the modern family is busier than in the past, hectic family life seems dominated by all-things-convenient. Luckily, cooking is now made easy and a lot quicker thanks to hundreds upon hundreds of cooking apps, online recipes, how-to-cook videos, etc. Quite literally, technology has made cooking accessible and enjoyable to all. Furthermore, the days of battling other siblings for rights of the sole TV in the living room have gone and become a thing of the past. Now, children have their own laptop on which to watch their choice of TV shows, movies, videos, etc. Then how about our workplace? Nearly a decade ago, one had to sit in the office all day long. Not so now though! Many companies, whether headquarters or affiliates, actively encourage working from home, and this is becoming more and more common as employers realize that employees do not require round-the-clock monitoring in the completion of their daily tasks. In addition, technology has led to the widespread use of online video conferences; as a result, colleagues are no longer obliged to even meet in a face-to-face environment, removing yet another element of the business arena of old. Aligned with this fashion of convenience is our leisure. In the past, holidays were invariably booked through travel agents or a dedicated provider, based upon their sales skills and packages together with brochures. Sometimes, the most unappealing destination could be made to look like a luxurious five-star resort. Now, people are a lot more discerning, thanks to the abundance of online booking sites and online reviews of every leisure facility the world over. We search the Web to find the cheapest flights and avoid extra charges. We also book accommodations based upon our requirements and check out exactly what we will do before we even arrive! In the everyday practicality, digital technology has also established its credibility in changing our old-fashioned personal life. While we used to stand in line at the bank during our lunch break, now we perform most of our banking online, mainly via our smartphones. While we formerly walked to the shop to buy the daily newspaper, now we can access news sites worldwide and download news apps at the touch of a screen. While we used to head to the video store to choose the latest release, now we can download movies online at the click of a mouse. While we used to play simple, yet wonderful, console games, now we can play them through the Internet against people from all around the world. When it comes to social life, there are now so many social platforms cropping up that it’s difficult to keep up with them. It’s somewhat funny, though, that our social life is kind of akin to “emotional blackmail”. Even those who have desperately tried to evade all things social have found it’s simply impossible to avoid. Today people are more engaged in connection than conversation. Social media has become an essential part of life and a place for people to catch up with existing friends, rekindle friendships from the past, or meet new people from overseas …, because they can. As we can see, the digital revolution has changed our lives to such an extent that the way we exist as a civilization has almost completely altered with no point in history for comparison. We concede that advanced technology is probably erasing rich human relationships, but it shows no signs of slowing down. It’ll continue to flourish and bring a lot of potential to transform the way we live in the foreseeable future. Are you ready for that?",
       "questions": [
         {
-          "question": "What did the speaker's attention diary focus on?",
+          "question": "Why do more companies encourage working from home?",
           "options": [
-            "Only the total price of each device",
-            "How many virtual meetings the school cancelled",
-            "Which platform had the largest number of users",
-            "What the speaker intended to do when picking up the device"
-          ],
-          "answer": 3,
-          "explanation": "The speaker says the diary was useful because it recorded the intention behind each device check, not just screen hours."
-        },
-        {
-          "question": "Why did the group set message check-in times?",
-          "options": [
-            "To make it easier to protect a focused reading block",
-            "To remove all online communication from the seminar",
-            "To prevent urgent calls from reaching students",
-            "To increase the number of unrelated posts they saw"
-          ],
-          "answer": 0,
-          "explanation": "Scheduled check-ins left space for a focused offline block while still allowing urgent calls."
-        },
-        {
-          "question": "What did the classmate show the group how to do?",
-          "options": [
-            "Delete every message before reading it",
-            "Turn all virtual meetings into offline events",
-            "Review privacy settings and check links before entering account details",
-            "Change the recommendation algorithm on the platform"
-          ],
-          "answer": 2,
-          "explanation": "The safety step combined a privacy review with checking a link before sharing account details."
-        },
-        {
-          "question": "How does the speaker define balance?",
-          "options": [
-            "Using exactly equal amounts of online and offline time",
-            "Noticing habits, protecting attention, and making room for real interaction",
-            "Avoiding virtual meetings and online research",
-            "Responding to every message as soon as it arrives"
+            "It is an effective way to cut costs.",
+            "Employees don’t need constant monitoring.",
+            "Employees can work more efficiently at home.",
+            "More companies are located far from the city center."
           ],
           "answer": 1,
-          "explanation": "The conclusion defines balance as intentional attention and human connection, not a fixed time ratio."
+          "explanation": "第5段：employers realize that employees do not require round-the-clock monitoring in the completion of their daily tasks。"
+        },
+        {
+          "question": "What changes does digital technology bring to the leisure domain?",
+          "options": [
+            "People prefer going to Internet-famous places.",
+            "People prefer watching shows online to traveling.",
+            "People become more discerning when booking their holidays.",
+            "People search the Web for what to do once they arrive at their destination."
+          ],
+          "answer": 2,
+          "explanation": "第6段：Now, people are a lot more discerning, thanks to the abundance of online booking sites and online reviews。"
+        },
+        {
+          "question": "What changes does technology bring to our social life?",
+          "options": [
+            "People are more willing to make new friends.",
+            "People value face-to-face conversation more.",
+            "People have learned to keep up with so many social platforms.",
+            "People find it simply impossible to avoid social interactions."
+          ],
+          "answer": 3,
+          "explanation": "第8段：Even those who have desperately tried to evade all things social have found it’s simply impossible to avoid。"
+        },
+        {
+          "question": "According to the author, what will happen as a result of the digital revolution?",
+          "options": [
+            "The pace of life will be much faster.",
+            "Human relationships will be enriched.",
+            "Our civilization will be changed little by little.",
+            "Our lives will continue to change in the future."
+          ],
+          "answer": 3,
+          "explanation": "最后一段：技术虽在 erasing rich human relationships，但 It’ll continue to flourish and bring a lot of potential to transform the way we live in the foreseeable future。"
+        },
+        {
+          "question": "It seems that in-person connection has become less valuable than the digital one, which has es______ its cred______ in the eyes of young people.",
+          "options": [
+            "expressed its credibility",
+            "established its credibility",
+            "earned its credibility",
+            "enjoyed its credibility"
+          ],
+          "answer": 1,
+          "explanation": "原文搭配 establish its credibility：数字交流在年轻人眼中“确立了可信度”。"
+        },
+        {
+          "question": "Ironically, it is precisely our need for constant in-person interaction that plays an es______ p______ in fueling digital interaction.",
+          "options": [
+            "essential part",
+            "essential point",
+            "essential purpose",
+            "essential place"
+          ],
+          "answer": 0,
+          "explanation": "原文搭配 play an essential part in：面对面交往的需求在推动数字交往中起“重要作用”。"
+        },
+        {
+          "question": "On the other hand, we are wired to love real and physical interaction, for the joy of sh______ v______ with someone face-to-face is not a deceptive illusion in any sense.",
+          "options": [
+            "sharing victories",
+            "sharing videos",
+            "sharing voices",
+            "sharing viewpoints"
+          ],
+          "answer": 3,
+          "explanation": "原文搭配 share viewpoints：面对面“交流观点”的快乐绝不是错觉。"
+        },
+        {
+          "question": "We are wired to love real and physical interaction, for the joy of sharing viewpoints with someone face-to-face is not a de______ il______ in any sense.",
+          "options": [
+            "delicate illusion",
+            "desperate illusion",
+            "deceptive illusion",
+            "deliberate illusion"
+          ],
+          "answer": 2,
+          "explanation": "原文搭配 deceptive illusion：欺骗性的错觉，deceptive 意为“误导的、骗人的”。"
+        },
+        {
+          "question": "When faced with a choice between dropping by their office and shooting them an email, many of us may have lit______ mu______ for the former.",
+          "options": [
+            "little margin",
+            "little motivation",
+            "little momentum",
+            "little mention"
+          ],
+          "answer": 1,
+          "explanation": "原文搭配 have little motivation for：对前一种做法“没什么动力”。"
+        },
+        {
+          "question": "As a consequence, we have di______ op______ for deeper communication.",
+          "options": [
+            "diminished opportunities",
+            "distant opportunities",
+            "diverse opportunities",
+            "direct opportunities"
+          ],
+          "answer": 0,
+          "explanation": "原文搭配 diminished opportunities：进行深度交流的“机会减少”。"
         }
       ]
     },
     "translation": {
       "sentences": [
         {
-          "zh": "请将下列句子译为英文：在数字时代，真正的联结不仅取决于网速，还取决于我们是否愿意专注倾听。",
-          "en_reference": "In the digital age, genuine connection depends not only on internet speed but also on our willingness to communicate and listen attentively.",
+          "zh": "近年来，随着互联网技术的迅猛发展，互联网经济已成为一个热门话题。",
+          "en_reference": "In recent years, with the rapid development of Internet technology, the Internet economy has become a hot topic.",
           "keywords": [
-            "digital",
-            "connection"
+            "recent",
+            "years",
+            "rapid",
+            "development"
           ]
         },
         {
-          "zh": "请将下列句子译为英文：减少不必要的消息提醒有助于学生保护注意力。",
-          "en_reference": "Reducing unnecessary notifications helps students protect their attention.",
+          "zh": "以电子商务为代表的互联网经济已成为中国经济发展的重要引擎（driving force）。",
+          "en_reference": "The Internet economy, represented by e-commerce, has become an important driving force for China’s economic development.",
           "keywords": [
-            "notifications",
-            "protect",
-            "attention"
+            "Internet",
+            "economy",
+            "represented",
+            "e-commerce"
           ]
         },
         {
-          "zh": "请将下列句子译为英文：固定的消息查看时段不仅能保护整块阅读时间，也能为紧急联络留出空间。",
-          "en_reference": "Not only do scheduled message check-in times protect a focused reading block, but they also leave room for urgent contact.",
+          "zh": "我国政府提出了“互联网+”的概念，以推动互联网与医疗、交通、教育、金融、公共服务等领域的结合。",
+          "en_reference": "The Chinese government has put forward the concept of “Internet Plus” to promote the integration of the Internet with health care, transportation, education, finance, public services and other fields.",
           "keywords": [
-            "not only",
-            "but also",
-            "protect",
-            "urgent contact"
+            "Chinese",
+            "government",
+            "has",
+            "put"
           ]
         },
         {
-          "zh": "请将下列句子译为英文：多任务处理似乎节省时间，却可能使我们更难记住谈话的重点。",
-          "en_reference": "Multitasking may seem to save time, but it can make it harder for us to remember the main point of a conversation.",
+          "zh": "这将为互联网经济的发展提供更多发展机遇和更广阔的发展空间。",
+          "en_reference": "This will provide more opportunities and broader space for the development of the Internet economy.",
           "keywords": [
-            "multitasking",
-            "save time",
-            "harder",
-            "conversation"
+            "will",
+            "provide",
+            "more",
+            "opportunities"
           ]
         }
       ]
     },
     "writing": {
-      "prompt": "Respond to the question: Are we ready for the digital age? State a clear position, support it with one concrete example from student life, and explain how people can balance useful technology with focused attention and meaningful face-to-face interaction.",
+      "prompt": "Write an essay of no less than 140 words on one of the following topics: Is smart technology making us dumb? / Will AI (artificial intelligence) cause mass unemployment? / Should parents monitor their children’s use of the Internet? The first topic has an outline that you can follow.",
       "outline": [
-        "State your position: What does being ready mean beyond owning digital devices?",
-        "Develop one student-life example: Show how a notification, platform, or device helps or interrupts learning.",
-        "Explain your reasoning: Connect a deliberate habit to attention and face-to-face interaction.",
-        "Conclude with one practical principle for responsible digital use."
+        "Introduction: present the controversial argument that smart technology is damaging our cognitive abilities, then state the thesis that it is actually making us smarter.",
+        "Body: give three supporting points – smart technology helps us become more knowledgeable, helps us learn better, and helps us be more innovative.",
+        "Refutation: address the worry that smart technology is making us dumb and explain why it is not supported by scientific evidence.",
+        "Conclusion: restate the thesis that smart technology is changing our lives and benefiting us in positive ways."
       ]
     }
   }

@@ -2,9 +2,10 @@
   "unit_id": "unit04",
   "unit_number": 4,
   "edition": 4,
+  "source": "textbook-rw3",
   "title": "When work is a pleasure",
-  "title_zh": "当工作成为乐趣",
-  "theme": "work, labor, tradition, pride",
+  "title_zh": "三百六十行，行行出状元。",
+  "theme": "work, labor and leisure, pride in craftsmanship, attitude toward work",
   "word_ids": [
     "rw3_unit04_01",
     "rw3_unit04_02",
@@ -25,299 +26,510 @@
     "rw3_unit04_17",
     "rw3_unit04_18",
     "rw3_unit04_19",
-    "rw3_unit04_20"
+    "rw3_unit04_20",
+    "rw3_unit04_21",
+    "rw3_unit04_22",
+    "rw3_unit04_23",
+    "rw3_unit04_24",
+    "rw3_unit04_25",
+    "rw3_unit04_26",
+    "rw3_unit04_27",
+    "rw3_unit04_28",
+    "rw3_unit04_29",
+    "rw3_unit04_30",
+    "rw3_unit04_31",
+    "rw3_unit04_32",
+    "rw3_unit04_33",
+    "rw3_unit04_34",
+    "rw3_unit04_35",
+    "rw3_unit04_36",
+    "rw3_unit04_37",
+    "rw3_unit04_38",
+    "rw3_unit04_39",
+    "rw3_unit04_40",
+    "rw3_unit04_41",
+    "rw3_unit04_42",
+    "rw3_unit04_43",
+    "rw3_unit04_44",
+    "rw3_unit04_45",
+    "rw3_unit04_46",
+    "rw3_unit04_47",
+    "rw3_unit04_48",
+    "rw3_unit04_49",
+    "rw3_unit04_50",
+    "rw3_unit04_51",
+    "rw3_unit04_52",
+    "rw3_unit04_53",
+    "rw3_unit04_54",
+    "rw3_unit04_55",
+    "rw3_unit04_56",
+    "rw3_unit04_57",
+    "rw3_unit04_58",
+    "rw3_unit04_59",
+    "rw3_unit04_60",
+    "rw3_unit04_61",
+    "rw3_unit04_62",
+    "rw3_unit04_63",
+    "rw3_unit04_64",
+    "rw3_unit04_65",
+    "rw3_unit04_66",
+    "rw3_unit04_67",
+    "rw3_unit04_68",
+    "rw3_unit04_69",
+    "rw3_unit04_70",
+    "rw3_unit04_71",
+    "rw3_unit04_72",
+    "rw3_unit04_73",
+    "rw3_unit04_74",
+    "rw3_unit04_75",
+    "rw3_unit04_76",
+    "rw3_unit04_77",
+    "rw3_unit04_78",
+    "rw3_unit04_79"
   ],
   "micro_world_checks": {
     "section_a": [
       {
-      "question": "Why does the instructor reject ranking people by the labels worker and laborer?",
-      "options": [
-        "Because only office occupations should be discussed at a career workshop.",
-        "Because the two words always have exactly the same dictionary meaning.",
-        "Because physical and repetitive work can also require judgment, skill, and care.",
-        "Because students should choose a job before learning what it involves."
-      ],
-      "answer": 2,
-        "explanation": "The opening discussion argues that a job label does not measure a person's worth; many kinds of work require judgment and care."
-      },
-      {
-      "question": "What did the student notice while observing a routine task?",
-      "options": [
-        "A worker can notice and report a safety problem beyond the checklist.",
-        "A repeated step is useful only when a supervisor is watching.",
-          "A checklist removes the need to understand the purpose of a task.",
-          "The fastest worker always produces the most reliable result."
+        "question": "How can a person be truly happy according to the author?",
+        "options": [
+          "By earning a high salary and gaining social status",
+          "By feeling both free and important",
+          "By avoiding all forms of labor and living a life of play",
+          "By following societal expectations and conforming to them"
         ],
-      "answer": 0,
-        "explanation": "The worker notices a loose chair and reports it; she uses judgment beyond simply following the routine checklist."
+        "answer": 1,
+        "explanation": "第 1 段首句指出：To be truly happy, a person must feel both free and important.（一个人要真正幸福，必须感到既自由又重要。）"
       },
       {
-      "question": "What does the violin maker's careful measurement demonstrate?",
-      "options": [
-        "A respected craft depends on titles rather than practice.",
-        "A repair should be completed before the customer can ask questions.",
-        "Traditional tools are always more accurate than new ones.",
-        "Careful attention protects the quality of a repair and the instrument's sound."
-      ],
-      "answer": 3,
-        "explanation": "The maker's example shows that a tiny gap can alter the sound, so careful measurement protects the quality of the work."
+        "question": "How is labor different from play?",
+        "options": [
+          "Labor is paid by society, while play is never enjoyable.",
+          "Labor is done under compulsion, while play is a purely private pastime that society does not care about.",
+          "Labor requires physical strength, while play requires mental effort.",
+          "Labor is always boring, while play always requires special skills."
+        ],
+        "answer": 1,
+        "explanation": "第 2 段说明：labor 是迫于社会期待与生计而做（compelled to continue working），而 play 是 a purely private pastime，社会并不关心我们何时玩、是否玩。"
       },
       {
-      "question": "What conclusion does the workshop reach about meaningful work?",
-      "options": [
-        "Meaning comes only from work that is creative and unusual.",
-        "Respect, responsibility, and care can give many kinds of work meaning.",
-        "A high-status occupation matters more than the quality of its work.",
-        "Routine work becomes meaningful only when it is quick."
-      ],
-      "answer": 1,
-        "explanation": "The final discussion links fulfillment to responsibility for quality and respect for people, not to occupational status."
+        "question": "Why does the author make a comparison between a gardener and a well-dressed city mayor?",
+        "options": [
+          "To show that manual jobs are more valuable than mental jobs.",
+          "To prove that a gardener earns more money than a mayor.",
+          "To show that whether a job counts as labor or work depends on the individual's taste, not on income or on manual vs. mental work.",
+          "To suggest that city mayors are usually unhappy laborers."
+        ],
+        "answer": 2,
+        "explanation": "第 3 段说 labor 与 work 的区别不与 manual/mental、收入高低相关（does not correlate with…），并以满身泥土的园丁和西装革履的市长为例说明取决于做事者自己的喜好。"
+      },
+      {
+        "question": "What does leisure mean to workers and laborers respectively?",
+        "options": [
+          "To workers, the hours they need to relax and rest in order to work efficiently; to laborers, autonomy from compulsion.",
+          "To workers, complete freedom from all work; to laborers, a chance to earn extra income.",
+          "To workers, a private pastime; to laborers, a chance to work more hours.",
+          "To workers, time for family; to laborers, time for games and fashion."
+        ],
+        "answer": 0,
+        "explanation": "第 4 段：To workers, leisure means simply the hours they need to relax and rest in order to work efficiently；To laborers… leisure means autonomy from compulsion。"
       }
     ],
     "section_b": [
       {
-      "question": "Why did the master ask the apprentice to measure a violin joint twice?",
-      "options": [
-        "The customer wanted two identical instruments.",
-        "A small gap can change the sound and weaken the repair.",
-          "The apprentice had forgotten the name of the tool.",
-          "The workshop measured every object twice for no particular reason."
-        ],
-      "answer": 1,
-        "explanation": "The passage traces a small measurement error to a weaker repair and a change in the instrument's sound."
-      },
-      {
-      "question": "How does the apprentice decide whether to keep a new tool?",
-      "options": [
-        "He keeps it only if it is more expensive than the old tool.",
-        "He replaces every familiar method as soon as a new tool appears.",
-        "He lets the tool's appearance decide whether it belongs in the workshop.",
-        "He compares the readings to see whether the new method makes the result clearer."
-      ],
-      "answer": 3,
-        "explanation": "Lin compares the readings and keeps the new method when it makes the result clearer."
-      },
-      {
-        "question": "Why does Lin record the improved procedure?",
+        "question": "The author went quickly into the shop to ______.",
         "options": [
-          "So the whole team can use a method that made the result clearer.",
-          "So the customer will not ask how the repair was done.",
-          "So the workshop can stop measuring the joints.",
-          "So the older tool can be discarded without comparison."
+          "buy a pair of shoes",
+          "have her shoes repaired",
+          "learn to build a tradition",
+          "meet one of her old friends"
+        ],
+        "answer": 1,
+        "explanation": "第 1 段：I first met him in 1965, when I rushed into his little shop to have the heels of my shoes repaired. 即去修鞋跟。"
+      },
+      {
+        "question": "Why did the author become a little impatient?",
+        "options": [
+          "She was in a hurry to meet a friend.",
+          "It took a long time to have her shoes repaired.",
+          "The shoe repairer was sad and did nothing about her torn shoes.",
+          "She couldn't put up with the shoe repairer's carelessness."
         ],
         "answer": 0,
-        "explanation": "After the test shows the gauge improves clarity, Lin records the procedure for the team."
+        "explanation": "第 4 段末：I grew a little impatient, for I was rushing to meet a friend. “Please hurry,” I begged."
       },
       {
-        "question": "What does Lin's view of tradition show?",
+        "question": "How did the author feel when the shoe repairer first mentioned that he had a tradition to live up to?",
         "options": [
-          "Tradition must stay unchanged to remain valuable.",
-          "Only the oldest craftsperson should make decisions.",
-          "Useful knowledge can be preserved while weak habits are questioned.",
-          "A new tool automatically makes a craft less meaningful."
+          "Upset.",
+          "Thrilled.",
+          "Doubtful.",
+          "Confused."
         ],
         "answer": 2,
-        "explanation": "Lin treats tradition as knowledge that can be carried forward, examined, and improved when evidence supports change."
+        "explanation": "第 6 段作者心里反问：A tradition? In this modest little shop…? The thought seemed a bit absurd. 说明她当时将信将疑。"
+      },
+      {
+        "question": "What is the tradition the shoe repairer's father handed down to him?",
+        "options": [
+          "Treating all the clients with hospitality.",
+          "Finding pleasure in what a person does.",
+          "Running the shoe-repair shop personally.",
+          "Being dedicated to work and feeling proud."
+        ],
+        "answer": 3,
+        "explanation": "第 7 段引父亲的话：do the best job on every shoe… and be proud of your fine work. If you work with dedication…，即敬业并以自己的工作为荣。"
       }
     ],
     "section_c": [
       {
-      "question": "What does Mei learn about creating a flower design?",
-      "options": [
-        "The number of colors alone determines whether a pattern is accurate.",
-        "Visitors select the stitch direction before meeting the artisans.",
-        "Every flower design must be copied without changes.",
-        "A maker considers the line, its future use, and which details should remain clear."
-      ],
-      "answer": 3,
-        "explanation": "The passage states that makers consider the direction of a line, the fabric's use, and the details that need to stay clear."
+        "question": "When did Xing Lanxiang start working at the glassware factory?",
+        "options": [
+          "In 1970, when the technology department opened",
+          "In the 1980s, when the factory was at its peak",
+          "In 1950, before she entered a technical school",
+          "In 1962, after she finished school"
+        ],
+        "answer": 3,
+        "explanation": "第1段：邢兰香1962年毕业后被北京一家玻璃器皿厂录用，此前她从未听说过这门手艺。"
       },
       {
-      "question": "What helps the apprentice improve her stitching?",
-      "options": [
-        "She copies the whole pattern without looking at the thread.",
-        "Visitors choose the angle of each stitch for her.",
-        "Her mentor gives a correction and asks her to explain what changed.",
-        "She skips practice and studies only finished objects."
-      ],
-      "answer": 2,
-        "explanation": "The mentor corrects her angle and prompts her to describe the change, linking feedback to deliberate practice."
+        "question": "How long was Xing's apprenticeship under Tian Wenyuan?",
+        "options": [
+          "One year",
+          "Three years",
+          "Five years",
+          "Ten years"
+        ],
+        "answer": 1,
+        "explanation": "第2段：按传统她拜田文元为师，三年学徒期满后已非常熟练。"
       },
       {
-      "question": "Why do the makers review the exhibition design together?",
-      "options": [
-        "To remove the familiar motif from the design.",
-        "To improve visibility while ensuring the change is not imposed on the makers.",
-        "To let visitors make every decision for the workshop.",
-        "To stop teaching the craft to new apprentices."
-      ],
-      "answer": 1,
-        "explanation": "The design is resized for visibility, but the makers review the change rather than having it imposed on them."
+        "question": "How long does a complicated piece of glassware usually take to finish?",
+        "options": [
+          "A few seconds",
+          "About a dozen minutes",
+          "Half an hour to one hour",
+          "Several days"
+        ],
+        "answer": 2,
+        "explanation": "第3段：一般作品十几分钟完成，复杂作品需半小时到一小时，因此常引来外宾围观。"
       },
       {
-      "question": "In this story, what keeps embroidery heritage alive?",
-      "options": [
-        "Passing on skill through valued work while allowing thoughtful renewal.",
-        "Putting every finished piece behind glass and ending daily practice.",
-        "Making visitors responsible for preserving the craft alone.",
-        "Keeping the craft secret from younger learners."
-      ],
-      "answer": 0,
-        "explanation": "Living heritage depends on skilled people, fair livelihoods, teaching, and careful adaptation—not display alone."
+        "question": "What makes it hard to preserve the art of glassware making?",
+        "options": [
+          "Few people can master and pass on the skill",
+          "The factory no longer receives foreign visitors",
+          "The raw materials are becoming too expensive",
+          "The art is no longer protected by the state"
+        ],
+        "answer": 0,
+        "explanation": "第4段：学艺难度大，邢兰香曾有100多名徒弟，如今只剩一人留在行业里，只能把技艺传给两个儿子。"
       }
     ]
   },
   "sections": {
     "section_a": {
-      "title": "What Makes Work Meaningful?",
+      "title": "Will you be a worker or a laborer?",
       "type": "reading",
-      "passage": "At a campus career workshop, students gathered around a question that sounded simple but unsettled them: what makes work meaningful? The facilitator wrote worker and laborer on the board, then asked whether either word could measure a person's worth. One student associated laborer with strength and routine, while another imagined worker as someone who made decisions. The instructor warned that this attitude can quietly rank people before anyone understands what their jobs require. A task may be physical, repetitive, or performed behind the scenes, yet still demand close attention. The group visited a campus service team and watched a worker prepare a busy study room. She followed a routine checklist, but she also noticed a loose chair and stopped to report it. A student asked whether that extra judgment was part of the occupation or simply personal kindness. The worker explained that safety and dignity often depend on small decisions no checklist can predict. Later, a violin maker invited the class into a workshop. He asked his apprentice to compare two joints that looked almost identical. With careful precision, the apprentice measured the narrow gap that could alter the instrument's sound. The demonstration did not make one occupation more valuable than another; instead, it showed how knowledge and responsibility shape the quality of work. Back at the workshop, the students revised their first definitions and saw that skill can grow inside a routine and that craft is not limited to objects displayed in galleries. The instructor asked everyone to name one contribution they had previously overlooked. Students mentioned cleaners, repairers, cooks, and laboratory assistants. Each example required different knowledge, but each could protect another person's time, safety, or trust. The discussion ended without ranking the jobs, and the students agreed that meaningful work is not defined by a title alone. Pride becomes durable when people take responsibility for quality and treat those affected by their work with respect. That kind of fulfillment can belong to many occupations."
+      "passage": "To be truly happy, a person must feel both free and important. People are never happy if they feel compelled to do work they do not enjoy, or if what they do enjoy is ignored as having no value or importance. In a society where slavery in the strict sense has been abolished, the social indications around work, the value of work, and the salary, have degraded many laborers into modern slaves – “wage slaves”. People are considered laborers if their jobs have an adverse effect on them, yet they feel compelled to continue working by the necessity of conforming to societal expectations and earning the revenue to support themselves and their families. The polar opposite of labor is play. When we play a game, we enjoy what we are doing, but it is a purely private pastime; society does not care when or whether we play. Between labor and play stands work. People are labeled as workers if their personal interests coincide with the jobs society pays them to do; what is necessary labor from the point of view of society is voluntary play from the individual's personal point of view. Whether a job is to be designated as labor or work depends, not on the job itself, but on the tastes of the individual who undertakes it. The difference does not, for example, correlate with the difference between a manual and mental job or between jobs with low or high income; a gardener covered in dirt in a greenhouse may be a worker while a well-dressed city mayor may prove to be an unhappy laborer! Whether people are workers or laborers can be seen from their attitude toward leisure. To workers, leisure means simply the hours they need to relax and rest in order to work efficiently. Workers are therefore more likely to dedicate more time to working, taking too little leisure rather than too much. To laborers, on the other hand, leisure means autonomy from compulsion, so it is natural for them to imagine that the fewer hours they have to spend laboring, and the more hours they have free for play, the better. Besides the hours spent in leisure, workers and laborers differ in the amount of personal satisfaction they derive from their jobs. Workers who enjoy their jobs will be happier, less stressed, and generally more satisfied with their lives. They will also work with more diligence and precision because they have fostered a sense of personal pride in their jobs. On the other hand, laborers, whose sole incentive is earning their livelihood, feel that the time they spend on the daily grind is wasted and doesn't contribute to their happiness. Instead of valuing all 24 hours of their day as enjoyable and productive hours, they gauge only the time spent in leisure and play as meaningful. Laborers are commonplace in society, but still many people are in the lucky position of being workers. In recent decades, technological innovation and the division of labor have caused major economic changes by eliminating the need for special strengths or skills in many fields and have turned many paid occupations with enjoyable work into boring labor. Increasing productivity with automated machines, such as robots, has reduced the number of necessary laboring hours. It is possible to imagine an upcoming society in which the majority of the population will have almost as much leisure time as in earlier times was enjoyed by the medieval aristocracy. The medieval aristocrats had an abundance of leisure time but often wasted it in trivial pursuit of games and fashion. Likewise, modern day laborers with too much leisure time may find it difficult to refrain from the addictive and trivial pursuits of celebrity gossip, extravagant fashion, and excessive video games and TV – similar bad habits that waste valuable time. However, it's not necessary to take such a toxic attitude toward such a positive thing as leisure time. In fact, in many countries, people now use their leisure time to improve their minds and their working conditions to create a happier, more contented life. Lifelong learning can make the difference between being bored, unhappy laborers and workers who find meaning and joy in their employment and lives. “Continuing education” or “experiential learning” can offer an array of classes from pleasant diversions such as sports, art, or music, to leadership development or advanced accounting skills, to name but a few. All in all, people's attitude toward their work determines everything. Whatever the job, people who enjoy their work find time passes quickly. They hurl their passion into their work, be it physical like the work of a smith, or more mental like that of a scientist or an artist. Even purely mental work can suffice as an outlet, as aptly expressed by the phrase “sinking one's teeth into a problem”. Eventually, everyone has to find a job and earn a living. Laborers are slaving away at a job they don't enjoy for a monetary reward, waiting all day until they go home and play. But while laborers are counting down the hours, workers are energized and focused, taking optimum pleasure in the task at hand. By choosing a job that is both useful to society and personally fulfilling, workers maintain a simultaneous sense of purpose and enthusiasm that improves their whole lives. So in the end, whatever job you choose, you must contend with this essential question: Will you be a laborer or a worker?"
     },
     "section_b": {
-      "title": "A Craft Tradition, Practiced with Care",
+      "title": "The joy of a prideful tradition",
       "type": "reading",
-      "passage": "When Lin first entered the violin workshop, the master gave the apprentice a repair that seemed almost finished. A narrow joint still needed attention, although it was difficult to see without a lamp, so the master asked Lin to measure it twice and explain what the numbers meant. Lin wanted to hurry because a customer was waiting, but the master reminded him that a beautiful surface could hide a weak connection. A gap that was too wide might change the instrument's sound and shorten the repair's life. Lin repeated the measurement, adjusted the piece, and tested the fit before using glue. The routine felt slow, yet each step answered a different question about strength and balance. The master explained that precision was not perfection for its own sake; it was a promise about how the instrument would perform. Months later, Lin began to teach the same routine to a new apprentice. He kept the useful checks but also tried a digital gauge beside the workshop's older tool. Rather than accepting novelty or rejecting it, he compared the readings and asked whether the new method made the result clearer. When it did, he recorded the procedure so the whole team could use it. His dedication grew through repeated practice, and his passion became visible in how carefully he explained mistakes. A customer returned after hearing the repaired violin in a small concert. She thanked Lin not only for restoring the sound but also for describing what had been changed. That honest conversation strengthened trust between the workshop and its neighbors. Lin understood that tradition was not a command to repeat every motion forever. It was a body of knowledge carried forward, examined, and improved when evidence justified a change. The craft would remain rewarding only if young workers could learn, question, and contribute. In the final lesson of the day, the master asked Lin to name the standard he hoped to pass on. Lin answered: protect the work, respect the person who depends on it, and pursue excellence without confusing speed with skill."
+      "passage": "I first met him in 1965, when I rushed into his little shop to have the heels of my shoes repaired. He greeted me with a cheerful smile and instant hospitality. “You're new in this neighborhood, aren't you?” Indeed, I had moved into a house at the end of the street only the week before. “This is a fine neighborhood,” he said. “You'll be happy here.” I sat there with my shoes off, watching as he got ready to stitch up my shoes I'd entrusted to him. He looked sadly at the leather covering the heel. It was worn through because I had failed to have the shoes patched a month ago. I grew a little impatient, for I was rushing to meet a friend. “Please hurry,” I begged. He looked at me over his spectacles. “Now, don't worry. I won't be long. This handicraft is my specialty and I want to do a good job.” He was silent a moment. “You see, I have a tradition to live up to.” A tradition? In this modest little shop that was no different from so many other shoe-repair shops on the residential side streets of Washington? The thought seemed a bit absurd. He must have sensed my bias, for he smiled with a gleam in his eyes as he went on. “Yes, I inherited a tradition. My father always told me, ‘Son, do the best job on every shoe that comes into the shop, and be proud of your fine work. If you work with dedication, you'll always have happiness and money.’” As he handed me the finished shoes, he said, “These will last a long time. I've used good leather.” I left in a hurry, but I had a warm and grateful feeling. On my way home I passed the little shop again. There he was, sitting amongst his tools, still working. He saw me, and he waved and smiled, as cordial as could be. That was the beginning of our friendship, a fellowship that came to mean more and more to me as time passed. Thereafter, we waved to each other in a friendly greeting when I passed his shop every day. At first I went in only when I had repair work to be done. Then I found myself lingering in his store or dropping in every few days, just to chat with him for the joy he would impart. He was a tall man, bent from long years of work. What little hair he had was gray; his face was deeply lined. And, I remember best his fine dark eyes, alive with his charitable, carefree, and humorous spirit. He was the happiest man I've ever known. Often, as he stood in front of his door overseeing the street, working at a pair of shoes, he sang a beautiful melody in a high, clear voice. Neighbors nicknamed him “the singing cobbler”. The neighborhood children loved him. He'd periodically pause his work to referee arguments or give out candy. He had no patience for bullying and would insist the children play fair in front of his store. One day, I came away from my house filled with fury because of a poor job some painters had done on my house. My friend waved to me as I walked by, so I went into his shop to vent my frustration. He let me speak angrily about the poor work and carelessness of present-day workmen. “They had no pride in their work,” I said. “They just wanted to collect money for doing nothing! The undutiful attitude these days is almost a sin.” He consoled me, saying, “There's a lot of that kind around, but maybe we should not blame them too rashly. Maybe their parents had no pride in their work. That's hard on a child. It keeps a child from learning what's important.” “What can be done about it?” I asked. He pondered that for a minute before answering. Then he looked at me seriously. “There is only one way. Every man or woman who hasn't inherited a prideful tradition must start building one. In this country, each of us can make our own contribution to the fabric of society, and we must endeavor to make it a good one. No matter what sort of work a person does, if they give it their best each day, they're starting a tradition for their children to live up to. When a person amends their ways and learns to take pride in their work, a lifetime of happiness will ensue.” I traveled for a few months on business, and shortly after my return, I walked down the street, looking forward to seeing my friend again. Yet when I arrived, I found the door closed. There was a little sign: “Call for shoes at shop next door.” I went into the next shop, and what I heard pierced my heart. Yes, the old man had passed away. He was stricken with an infectious illness two weeks before and died two days later. I went away with a wretched void in my heart. I would miss him, terribly. But he had left me something, an important piece of wisdom I will invariably remember: “If you have inherited a prideful tradition, you must carry it on; if you haven't, then start building one now.”"
     },
     "section_c": {
-      "title": "Stories of China",
+      "title": "Glassware on fire",
       "type": "stories_of_china",
-      "passage": "In this original learning story, a student named Mei visits a small silk-embroidery workshop in Suzhou with her class. She expects to see finished patterns, but the guide introduces the artisans who prepare the threads and study the designs, and Mei notices that a flower is not copied by counting colors alone. Each maker considers how a line turns, where the fabric will be used, and which details must remain clear. An artisan invites the students to look closely at a sample under a lamp. Mei records the explanation and asks before taking a photograph. The group learns that respect begins by listening to the people who hold the knowledge. At the next table, an apprentice practices a short row of stitches. Her mentor corrects the angle gently and asks her to describe what changed. The repeated exercise is not empty routine; it trains the hand to control tension and the eye to notice uneven thread. The student sees that heritage is carried by people who work, teach, and make decisions today. Later, the team discusses a new design for a community exhibition. They keep a familiar motif but adjust its size so visitors can see the stitch pattern from a distance. The change is reviewed with the makers rather than imposed by the visitors. Mei asks how the workshop can make this labor sustainable. The guide explains that fair payment, credit for makers, and opportunities to teach matter as much as displaying beautiful objects. Before leaving, each student chooses one question to investigate instead of claiming to understand the whole craft in an afternoon. Mei writes that an occupation can create income and also protect a shared memory. Her class understands that dignity is not supplied by praise alone; it grows when skilled people can make choices and be recognized for them. The visit changes their idea of tradition: it is not a silent object behind glass, but living knowledge practiced with care, renewed with permission, and shared across generations. These stories of China show how meaningful work can connect personal skill, community identity, and a future that still has room to change."
+      "passage": "Xing Lanxiang was hired by a glassware factory in Beijing after graduating from school in 1962. Before that, she had never heard of the art, and even afterward never did she expect to be engaged in it for the rest of her life. Today, together with her two sons, Xing is the heir of a national intangible cultural heritage and is the only glassware artist who has received the title of master in China. In line with tradition, Xing followed a teacher, Tian Wenyuan, and after three years' apprenticeship, she was already very good at the art thanks to her diligence and passion. She always chose to tackle complicated work and soon became a leading figure in the factory. When the factory established its technology department in 1970, she became a member and studied the technology and designed new glassware products together with her co-workers. This profession brought Xing a lot of pride, particularly during the heyday of her factory in the 1970s and 1980s, when the factory received a lot of foreign visitors every year. Glassware making is an art form that requires a product to be finished very quickly. Generally, a product is completed within a dozen minutes, while complicated ones are done within half an hour or one hour. So this is a feat that was often observed by visitors. Foreign visitors tended to favor this kind of traditional task very much. However, the hardship of learning and grasping this skill makes the preservation of the art a major challenge. Xing once had more than 100 apprentices, but only one of them still remains in the sector, and now she has only her two sons to pass the skill on to. “Of course I hope the art of making glassware can be handed down from one generation to another, as it is really beautiful and represents a high level of art,” Xing said. Xing never misses any opportunity to spread glassware culture. Through various activities, Xing has made more people aware of the art. She once attended the Glass Innovation Design Contest in Hejian of China's Hebei Province, where she exchanged views with masters in the sector. This further strengthened her confidence in the art of making glassware."
     },
     "vocabulary": {
-      "level_count": 4,
+      "level_count": 16,
       "words_per_level": 5
     },
     "reading": {
-      "title": "More Than a Paycheck",
-      "passage": "A neighborhood repair cooperative was preparing for its annual open workshop. Its members included a bicycle mechanic, a seamstress, a cook, and a retired engineer. At first, visitors asked which occupation was the most skilled. The coordinator changed the question: what evidence would show that a job had been done well? The mechanic pointed to a safe brake test, while the seamstress showed how a repaired seam could bear weight without tearing. The cook described how timing and temperature protected both flavor and food safety. The engineer explained that a clear instruction sheet could prevent a costly mistake for the next person. None of these examples depended on a prestigious title. Each required knowledge, practice, and responsibility for someone who would use the result. During the workshop, a teenager helped repair a lamp. She wanted to replace a loose part quickly, but the engineer asked her to test why it had loosened. They found a worn screw and chose a stronger fitting. The teenager wrote down the steps so another volunteer could repeat the repair safely. Later, she told the group that the task felt rewarding because she understood its purpose and could see who benefited. The coordinator added that good work also needs fair conditions: reasonable time, safe tools, honest credit, and a chance to learn. The cooperative did not claim that every job was enjoyable every day. Instead, its members showed how pride can grow when a person is trusted, supported, and able to improve a result. By closing time, visitors had repaired several items and learned to ask better questions about labor. Quality was visible in the object, but meaning came from the care, judgment, and shared responsibility behind it.",
+      "title": "Will you be a worker or a laborer?",
+      "passage": "To be truly happy, a person must feel both free and important. People are never happy if they feel compelled to do work they do not enjoy, or if what they do enjoy is ignored as having no value or importance. In a society where slavery in the strict sense has been abolished, the social indications around work, the value of work, and the salary, have degraded many laborers into modern slaves – “wage slaves”. People are considered laborers if their jobs have an adverse effect on them, yet they feel compelled to continue working by the necessity of conforming to societal expectations and earning the revenue to support themselves and their families. The polar opposite of labor is play. When we play a game, we enjoy what we are doing, but it is a purely private pastime; society does not care when or whether we play. Between labor and play stands work. People are labeled as workers if their personal interests coincide with the jobs society pays them to do; what is necessary labor from the point of view of society is voluntary play from the individual's personal point of view. Whether a job is to be designated as labor or work depends, not on the job itself, but on the tastes of the individual who undertakes it. The difference does not, for example, correlate with the difference between a manual and mental job or between jobs with low or high income; a gardener covered in dirt in a greenhouse may be a worker while a well-dressed city mayor may prove to be an unhappy laborer! Whether people are workers or laborers can be seen from their attitude toward leisure. To workers, leisure means simply the hours they need to relax and rest in order to work efficiently. Workers are therefore more likely to dedicate more time to working, taking too little leisure rather than too much. To laborers, on the other hand, leisure means autonomy from compulsion, so it is natural for them to imagine that the fewer hours they have to spend laboring, and the more hours they have free for play, the better. Besides the hours spent in leisure, workers and laborers differ in the amount of personal satisfaction they derive from their jobs. Workers who enjoy their jobs will be happier, less stressed, and generally more satisfied with their lives. They will also work with more diligence and precision because they have fostered a sense of personal pride in their jobs. On the other hand, laborers, whose sole incentive is earning their livelihood, feel that the time they spend on the daily grind is wasted and doesn't contribute to their happiness. Instead of valuing all 24 hours of their day as enjoyable and productive hours, they gauge only the time spent in leisure and play as meaningful. Laborers are commonplace in society, but still many people are in the lucky position of being workers. In recent decades, technological innovation and the division of labor have caused major economic changes by eliminating the need for special strengths or skills in many fields and have turned many paid occupations with enjoyable work into boring labor. Increasing productivity with automated machines, such as robots, has reduced the number of necessary laboring hours. It is possible to imagine an upcoming society in which the majority of the population will have almost as much leisure time as in earlier times was enjoyed by the medieval aristocracy. The medieval aristocrats had an abundance of leisure time but often wasted it in trivial pursuit of games and fashion. Likewise, modern day laborers with too much leisure time may find it difficult to refrain from the addictive and trivial pursuits of celebrity gossip, extravagant fashion, and excessive video games and TV – similar bad habits that waste valuable time. However, it's not necessary to take such a toxic attitude toward such a positive thing as leisure time. In fact, in many countries, people now use their leisure time to improve their minds and their working conditions to create a happier, more contented life. Lifelong learning can make the difference between being bored, unhappy laborers and workers who find meaning and joy in their employment and lives. “Continuing education” or “experiential learning” can offer an array of classes from pleasant diversions such as sports, art, or music, to leadership development or advanced accounting skills, to name but a few. All in all, people's attitude toward their work determines everything. Whatever the job, people who enjoy their work find time passes quickly. They hurl their passion into their work, be it physical like the work of a smith, or more mental like that of a scientist or an artist. Even purely mental work can suffice as an outlet, as aptly expressed by the phrase “sinking one's teeth into a problem”. Eventually, everyone has to find a job and earn a living. Laborers are slaving away at a job they don't enjoy for a monetary reward, waiting all day until they go home and play. But while laborers are counting down the hours, workers are energized and focused, taking optimum pleasure in the task at hand. By choosing a job that is both useful to society and personally fulfilling, workers maintain a simultaneous sense of purpose and enthusiasm that improves their whole lives. So in the end, whatever job you choose, you must contend with this essential question: Will you be a laborer or a worker?",
       "questions": [
         {
-      "question": "What question does the coordinator use to replace ranking occupations?",
-      "options": [
-        "What evidence shows the job was done well?",
-        "Which job earns the most public attention?",
-        "Which worker can finish without using tools?",
-            "Which occupation should be removed from the cooperative?"
+          "question": "How do workers and laborers differ in the amount of personal satisfaction they derive from their jobs?",
+          "options": [
+            "Workers gain more satisfaction because they take pride in their work, while laborers feel their daily grind is wasted time.",
+            "Laborers gain more satisfaction because they earn more money.",
+            "Workers are less satisfied because they have to work longer hours.",
+            "There is no difference; both groups value all 24 hours of the day."
           ],
-      "answer": 0,
-          "explanation": "The coordinator redirects the group from social ranking to evidence of quality."
+          "answer": 0,
+          "explanation": "第 5 段：workers 因 fostered a sense of personal pride 而更快乐、更少压力；laborers 则认为 the time they spend on the daily grind is wasted。"
         },
         {
-      "question": "Why does the teenager test the lamp before replacing its loose part?",
-      "options": [
-        "To avoid writing down the repair steps.",
-        "To make the repair look more difficult than it is.",
-        "To identify the cause and choose a safe, durable repair.",
-        "To prove that older tools are always unreliable."
-      ],
-      "answer": 2,
-          "explanation": "Testing reveals a worn screw, so the team can address the cause rather than make a temporary fix."
+          "question": "How do technological innovation and the division of labor change the nature of work?",
+          "options": [
+            "They have made every job more creative and enjoyable.",
+            "They have eliminated the need for special strengths or skills and turned many enjoyable paid occupations into boring labor.",
+            "They have increased the number of laboring hours for most people.",
+            "They have given all workers the same leisure time as medieval aristocrats."
+          ],
+          "answer": 1,
+          "explanation": "第 6 段：技术创新与分工 by eliminating the need for special strengths or skills… have turned many paid occupations with enjoyable work into boring labor。"
         },
         {
-      "question": "What helps the teenager find the task rewarding?",
-      "options": [
-        "The coordinator promises that the task will never be repeated.",
-        "Visitors praise the object without knowing who repaired it.",
-        "She finishes before anyone can inspect the lamp.",
-        "She understands its purpose and sees who benefits from the result."
-      ],
-      "answer": 3,
-          "explanation": "She explicitly connects fulfillment to understanding the purpose and seeing the beneficiary."
+          "question": "What kind of attitude should people take toward leisure time?",
+          "options": [
+            "They should waste it in the trivial pursuit of games and fashion.",
+            "They should use it to improve their minds and working conditions and create a happier, more contented life.",
+            "They should spend it working extra hours for more money.",
+            "They should ignore it and concentrate only on their jobs."
+          ],
+          "answer": 1,
+          "explanation": "第 7 段：不必对闲暇持 toxic attitude，人们 now use their leisure time to improve their minds and their working conditions to create a happier, more contented life，如终身学习。"
         },
         {
-      "question": "Which condition does the cooperative say supports good work?",
-      "options": [
-        "Competition for the highest-status title.",
-        "Safe tools, fair time, honest credit, and opportunities to learn.",
-        "Removing every routine task from the day.",
-        "Keeping methods secret from new learners."
-      ],
-      "answer": 1,
-          "explanation": "The coordinator lists these practical conditions as support for responsible, improving work."
+          "question": "Why does the author mention “sinking one's teeth into a problem” (Para. 8)?",
+          "options": [
+            "To show that purely mental work can also serve as an outlet for one's passion.",
+            "To explain why mental work is harder than physical work.",
+            "To describe how scientists and artists relax after work.",
+            "To warn people against becoming too involved in their work."
+          ],
+          "answer": 0,
+          "explanation": "第 8 段：Even purely mental work can suffice as an outlet, as aptly expressed by the phrase “sinking one's teeth into a problem”，即纯脑力工作同样可以成为热情的宣泄出口。"
+        },
+        {
+          "question": "He is measuring the depth of the hole to ______ how much climbing line we'll need to get us down and back up again.",
+          "options": [
+            "foster",
+            "gauge",
+            "suffice",
+            "contend"
+          ],
+          "answer": 1,
+          "explanation": "gauge 意为“（根据所掌握的信息）估计、判断”，与 measuring the depth 呼应；foster 培养、suffice 足够、contend 竞争/主张均不合。"
+        },
+        {
+          "question": "He ______ for the lead in the final round, but ultimately finished in second position.",
+          "options": [
+            "conformed",
+            "fostered",
+            "contended",
+            "correlated"
+          ],
+          "answer": 2,
+          "explanation": "contend for the lead 意为“争夺领先位置”，contend for 是固定搭配；conform 遵从、foster 培养、correlate 关联均不能与 for the lead 搭配。"
+        },
+        {
+          "question": "Smartphone conversations, which are fairly ______ on commuter trains, can be annoying to fellow commuters.",
+          "options": [
+            "commonplace",
+            "adverse",
+            "upcoming",
+            "voluntary"
+          ],
+          "answer": 0,
+          "explanation": "commonplace 意为“常见的、屡见不鲜的”，修饰 on commuter trains 上普遍存在的现象；adverse 不利的、upcoming 即将来临的、voluntary 自愿的语义不符。"
+        },
+        {
+          "question": "Ask your doctor whether a low-fat diet and a daily walk will ______ to lower your high blood pressure.",
+          "options": [
+            "foster",
+            "contend",
+            "conform",
+            "suffice"
+          ],
+          "answer": 3,
+          "explanation": "suffice to do sth. 意为“足以做某事”，符合“低脂饮食加每天散步是否足以降压”的语境。"
+        },
+        {
+          "question": "According to the latest statistics, most of the company's ______ is generated through the sale of smartphones.",
+          "options": [
+            "diversion",
+            "autonomy",
+            "revenue",
+            "precision"
+          ],
+          "answer": 2,
+          "explanation": "revenue 意为“（公司或组织的）收入，收益”，与 is generated through the sale 搭配；diversion 消遣、autonomy 自主、precision 精确均不合。"
+        },
+        {
+          "question": "Scientists have learned more about the ______ effects that human activities have on the environment and climate.",
+          "options": [
+            "medieval",
+            "voluntary",
+            "upcoming",
+            "adverse"
+          ],
+          "answer": 3,
+          "explanation": "adverse effects 是固定搭配，意为“不利影响、负面影响”，与 human activities 对环境的作用相符。"
         }
       ]
     },
     "listening": {
       "title": "Listening: When work is a pleasure",
-      "script": "Welcome to the community workshop. Today we are looking at a repaired wooden chair, but the lesson is not simply about furniture. First, ask what the chair must do: support a person safely, remain stable, and last through ordinary use. The repairer checked each joint before adding a new piece of wood. She explained that a quick repair might look finished while leaving the chair weak underneath. A volunteer suggested copying the old method exactly. The repairer agreed that the older method contained useful knowledge, then showed how a new clamp made the pressure easier to control. The team tested the clamp on a sample before changing its routine. That small experiment helped them keep the sound principle and improve one step. A student asked whether this kind of work could be called creative. The repairer answered that creativity is not limited to painting or performance. It can also mean noticing a problem, selecting a method, and taking responsibility for the result. She invited the student to explain each choice aloud. When the student missed a safety check, the repairer gave immediate feedback and asked her to try again. The second attempt was slower but more accurate. At the end, the chair was tested under weight and the repair was recorded for the next volunteer. The team did not celebrate speed alone. They discussed who would use the chair, what evidence showed the repair was safe, and what they should review next week. A useful tradition, the repairer said, is knowledge that remains open to careful testing. Work becomes more satisfying when people can practice, receive feedback, and see the value their effort brings to others. Thank you for listening; after the questions, choose one example and explain the evidence that supports your answer.",
+      "script": "I first met him in 1965, when I rushed into his little shop to have the heels of my shoes repaired. He greeted me with a cheerful smile and instant hospitality. “You're new in this neighborhood, aren't you?” Indeed, I had moved into a house at the end of the street only the week before. “This is a fine neighborhood,” he said. “You'll be happy here.” I sat there with my shoes off, watching as he got ready to stitch up my shoes I'd entrusted to him. He looked sadly at the leather covering the heel. It was worn through because I had failed to have the shoes patched a month ago. I grew a little impatient, for I was rushing to meet a friend. “Please hurry,” I begged. He looked at me over his spectacles. “Now, don't worry. I won't be long. This handicraft is my specialty and I want to do a good job.” He was silent a moment. “You see, I have a tradition to live up to.” A tradition? In this modest little shop that was no different from so many other shoe-repair shops on the residential side streets of Washington? The thought seemed a bit absurd. He must have sensed my bias, for he smiled with a gleam in his eyes as he went on. “Yes, I inherited a tradition. My father always told me, ‘Son, do the best job on every shoe that comes into the shop, and be proud of your fine work. If you work with dedication, you'll always have happiness and money.’” As he handed me the finished shoes, he said, “These will last a long time. I've used good leather.” I left in a hurry, but I had a warm and grateful feeling. On my way home I passed the little shop again. There he was, sitting amongst his tools, still working. He saw me, and he waved and smiled, as cordial as could be. That was the beginning of our friendship, a fellowship that came to mean more and more to me as time passed. Thereafter, we waved to each other in a friendly greeting when I passed his shop every day. At first I went in only when I had repair work to be done. Then I found myself lingering in his store or dropping in every few days, just to chat with him for the joy he would impart. He was a tall man, bent from long years of work. What little hair he had was gray; his face was deeply lined. And, I remember best his fine dark eyes, alive with his charitable, carefree, and humorous spirit. He was the happiest man I've ever known. Often, as he stood in front of his door overseeing the street, working at a pair of shoes, he sang a beautiful melody in a high, clear voice. Neighbors nicknamed him “the singing cobbler”. The neighborhood children loved him. He'd periodically pause his work to referee arguments or give out candy. He had no patience for bullying and would insist the children play fair in front of his store. One day, I came away from my house filled with fury because of a poor job some painters had done on my house. My friend waved to me as I walked by, so I went into his shop to vent my frustration. He let me speak angrily about the poor work and carelessness of present-day workmen. “They had no pride in their work,” I said. “They just wanted to collect money for doing nothing! The undutiful attitude these days is almost a sin.” He consoled me, saying, “There's a lot of that kind around, but maybe we should not blame them too rashly. Maybe their parents had no pride in their work. That's hard on a child. It keeps a child from learning what's important.” “What can be done about it?” I asked. He pondered that for a minute before answering. Then he looked at me seriously. “There is only one way. Every man or woman who hasn't inherited a prideful tradition must start building one. In this country, each of us can make our own contribution to the fabric of society, and we must endeavor to make it a good one. No matter what sort of work a person does, if they give it their best each day, they're starting a tradition for their children to live up to. When a person amends their ways and learns to take pride in their work, a lifetime of happiness will ensue.” I traveled for a few months on business, and shortly after my return, I walked down the street, looking forward to seeing my friend again. Yet when I arrived, I found the door closed. There was a little sign: “Call for shoes at shop next door.” I went into the next shop, and what I heard pierced my heart. Yes, the old man had passed away. He was stricken with an infectious illness two weeks before and died two days later. I went away with a wretched void in my heart. I would miss him, terribly. But he had left me something, an important piece of wisdom I will invariably remember: “If you have inherited a prideful tradition, you must carry it on; if you haven't, then start building one now.”",
       "questions": [
         {
-      "question": "What does the repairer check before adding a new piece of wood?",
-      "options": [
-        "Whether the chair can be sold as an antique.",
-        "Whether the volunteer can finish without feedback.",
-        "Whether the new wood looks exactly like the old paint.",
-        "Whether each joint is stable and the chair can be used safely."
-      ],
-      "answer": 3,
-          "explanation": "The repairer checks the joints and the chair's safety before adding material."
+          "question": "Why did the author drop into the shoe-repair shop very frequently?",
+          "options": [
+            "Her shoes often needed repairing.",
+            "The shoe repairer would bring her joy.",
+            "She wanted to have someone to chat with.",
+            "She could listen to the shoe repairer's songs."
+          ],
+          "answer": 1,
+          "explanation": "第 10 段：I found myself lingering in his store or dropping in every few days, just to chat with him for the joy he would impart. 即为了他带来的快乐。"
         },
         {
-          "question": "How does the team decide whether to adopt the new clamp?",
+          "question": "What do we know about the shoe repairer?",
           "options": [
-            "They test it on a sample and compare whether it improves control.",
-            "They adopt it immediately because it is newer.",
-            "They reject it because tradition can never change.",
-            "They ask visitors to choose based on its color."
+            "He earned more money than needed.",
+            "Children regarded him as a trustworthy man.",
+            "He often sang songs to the neighborhood children.",
+            "Neighbors often had their shoes repaired in his shop."
+          ],
+          "answer": 2,
+          "explanation": "第 12 段：他边修鞋边唱歌，邻居称他“the singing cobbler”，街坊孩子喜爱他，他会停下活儿给孩子裁判争执、发糖果。"
+        },
+        {
+          "question": "The shoe repairer explained that the poor work the painters had done was owing to the painters' lack of ______.",
+          "options": [
+            "enthusiasm",
+            "responsibility",
+            "work experience",
+            "a prideful tradition"
+          ],
+          "answer": 3,
+          "explanation": "第 14 段：Maybe their parents had no pride in their work. 第 16 段进一步说要 start building a prideful tradition，即缺少引以为傲的传统。"
+        },
+        {
+          "question": "What wisdom did the shoe repairer impart to the author?",
+          "options": [
+            "It is important to be kind to people around you.",
+            "It is important to be happy with what you are doing.",
+            "It is important to be good at your own handicraft.",
+            "It is important to start, keep, and carry on a prideful tradition."
+          ],
+          "answer": 3,
+          "explanation": "全文结尾点题：If you have inherited a prideful tradition, you must carry it on; if you haven't, then start building one now."
+        },
+        {
+          "question": "Do you feel happy at work? Are you a happy worker or an ______?",
+          "options": [
+            "happy laborer",
+            "unhappy worker",
+            "unhappy laborer",
+            "happy worker"
+          ],
+          "answer": 2,
+          "explanation": "Text A 的核心对立是 happy workers 与 unhappy laborers，故与 a happy worker 对应的是 an unhappy laborer。"
+        },
+        {
+          "question": "Let me introduce Valerie, who finds her work — cleaning the ladies' toilets — ______.",
+          "options": [
+            "monetary reward",
+            "sole incentive",
+            "trivial pursuit",
+            "personal fulfillment"
+          ],
+          "answer": 3,
+          "explanation": "Text A 中 find a job personally fulfilling 意为“在工作中获得个人满足”，此处名词形式为 personal fulfillment。"
+        },
+        {
+          "question": "My point: You can always find ______ at work regardless of what you do.",
+          "options": [
+            "adverse effect",
+            "optimum pleasure",
+            "friendly greeting",
+            "high income"
+          ],
+          "answer": 1,
+          "explanation": "optimum pleasure 出自 Text A：taking optimum pleasure in the task at hand，意为“在工作中获得最大的乐趣”。"
+        },
+        {
+          "question": "Many companies get it wrong when it comes to making employees ______.",
+          "options": [
+            "truly happy",
+            "personally fulfilling",
+            "polar opposites",
+            "cheerfully smiling"
           ],
           "answer": 0,
-          "explanation": "The team tests the clamp before changing the routine, preserving evidence-based judgment."
+          "explanation": "Text A 开篇 feel truly happy 意为“真正感到快乐”，此处作 make employees truly happy（使员工真正快乐）。"
         },
         {
-      "question": "What feedback does the student receive after missing a safety check?",
-      "options": [
-        "She is told to leave the workshop.",
-        "The repairer completes the task without explaining the error.",
-        "The repairer explains the miss and invites her to try again.",
-        "She is asked to explain the safety rule but not to retry."
-      ],
-      "answer": 2,
-          "explanation": "The repairer gives immediate feedback and has the student repeat the task more accurately."
+          "question": "They try to create a happy workplace through things like ______, free gym membership, or health care.",
+          "options": [
+            "personal satisfaction",
+            "monetary rewards",
+            "special strengths",
+            "trivial pursuits"
+          ],
+          "answer": 1,
+          "explanation": "monetary reward 出自 Text A“金钱报酬”，与免费健身房、医疗保险并列为公司常用的物质手段。"
         },
         {
-      "question": "Which evidence best supports the team's final judgment that the repair is ready?",
-      "options": [
-        "The chair looks clean from across the room.",
-        "The chair was tested under weight and the repair was recorded.",
-        "The repair was completed before the other volunteers arrived.",
-        "The team agrees that the old method should never be reviewed."
-      ],
-      "answer": 1,
-          "explanation": "The chair's load test and written record provide direct evidence of safety and repeatability."
+          "question": "Working with the ______ of earning a living will not make people happy.",
+          "options": [
+            "polar opposite",
+            "special strength",
+            "cheerful smile",
+            "sole incentive"
+          ],
+          "answer": 3,
+          "explanation": "sole incentive 出自 Text A：laborers, whose sole incentive is earning their livelihood，即“唯一动机是谋生”。"
         }
       ]
     },
     "translation": {
       "sentences": [
         {
-          "zh": "从业者应为工作质量负责，而不只是完成规定的步骤。",
-          "en_reference": "Workers should take responsibility for the quality of their work rather than simply complete the required steps.",
-          "keywords": ["workers", "responsibility", "quality"]
+          "zh": "近年来，社会的发展和就业形势的变化对大学生提出了更高的要求。",
+          "en_reference": "In recent years, social development and changes in the employment situation have placed higher demands on college students.",
+          "keywords": [
+            "recent",
+            "years",
+            "social",
+            "development"
+          ]
         },
         {
-          "zh": "这位学徒请师傅检查接合处，然后自己再次测量。",
-          "en_reference": "The apprentice had the joint checked by the master before measuring it again himself.",
-          "keywords": ["apprentice", "had", "check", "measuring"]
+          "zh": "越来越多的大学生不再局限于学习书本知识，而是利用业余时间积极投身于社会实践活动。",
+          "en_reference": "More and more college students no longer confine themselves to book knowledge; instead, they devote their spare time to social practice activities.",
+          "keywords": [
+            "More",
+            "college",
+            "students",
+            "no"
+          ]
         },
         {
-          "zh": "这项传统由工匠们传承下来，同时也根据新的证据不断改进。",
-          "en_reference": "The tradition is carried forward by craftspeople and continually improved in light of new evidence.",
-          "keywords": ["tradition", "is carried forward", "improved"]
+          "zh": "通过社会实践活动，他们可以提高分析问题和解决问题的能力，更深入地了解社会，增强社会责任感。",
+          "en_reference": "Through social practice activities, they can improve their ability to analyze and solve problems, gain a deeper understanding of society, and strengthen their sense of social responsibility.",
+          "keywords": [
+            "Through",
+            "social",
+            "practice",
+            "activities"
+          ]
         },
         {
-          "zh": "当人们看到自己的技艺帮助了他人，工作就可能变得更有意义。",
-          "en_reference": "Work can become more meaningful when people see how their skill helps others.",
-          "keywords": ["meaningful", "skill", "helps"]
+          "zh": "同时，参加社会实践活动还可以帮助他们认识到自身的不足，明确未来努力的方向。",
+          "en_reference": "At the same time, participating in social practice activities can also help them recognize their own shortcomings and clarify the direction of their future efforts.",
+          "keywords": [
+            "same",
+            "time",
+            "participating",
+            "social"
+          ]
         }
       ]
     },
     "writing": {
-      "prompt": "Write 120–150 words: Describe a task that can be done well only when someone uses judgment, not just speed. Explain the skill it requires, the evidence of quality, and how responsible work can benefit another person.",
+      "prompt": "Write an essay of no less than 140 words on one of the following topics, using the point-by-point pattern of comparison and contrast developed in Text A. Topic: Continuing to study or going to work. One topic has an outline that you can follow.",
       "outline": [
-        "State your view: what makes work meaningful?",
-        "Give one concrete task and explain the skill or judgment it requires.",
-        "Describe how the worker checks quality and responds to feedback.",
-        "Explain who benefits and conclude with your own standard for good work."
+        "Introduction: state the thesis that deciding whether to continue your studies or go to work will have different and profound impacts on your future life and career.",
+        "Point 1: Your decision will influence the way you spend your time at college — continuing to study means more classes and campus life, while going to work replaces study time with office duties.",
+        "Point 2: Your decision has financial implications — continuing to study involves tuition costs and delayed earnings, whereas going to work brings in a salary at once.",
+        "Point 3: Your decision will have a great impact on your future job opportunities; conclude that you should be clear about these possible impacts before making the final decision."
       ]
     }
   }

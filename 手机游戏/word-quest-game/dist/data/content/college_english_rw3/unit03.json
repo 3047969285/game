@@ -2,9 +2,10 @@
   "unit_id": "unit03",
   "unit_number": 3,
   "edition": 4,
+  "source": "textbook-rw3",
   "title": "Let's go",
   "title_zh": "出发吧",
-  "theme": "travel, purpose, solo journey",
+  "theme": "travel, the purpose of travel, solo travel, travel and creativity",
   "word_ids": [
     "rw3_unit03_01",
     "rw3_unit03_02",
@@ -25,315 +26,489 @@
     "rw3_unit03_17",
     "rw3_unit03_18",
     "rw3_unit03_19",
-    "rw3_unit03_20"
+    "rw3_unit03_20",
+    "rw3_unit03_21",
+    "rw3_unit03_22",
+    "rw3_unit03_23",
+    "rw3_unit03_24",
+    "rw3_unit03_25",
+    "rw3_unit03_26",
+    "rw3_unit03_27",
+    "rw3_unit03_28",
+    "rw3_unit03_29",
+    "rw3_unit03_30",
+    "rw3_unit03_31",
+    "rw3_unit03_32",
+    "rw3_unit03_33",
+    "rw3_unit03_34",
+    "rw3_unit03_35",
+    "rw3_unit03_36",
+    "rw3_unit03_37",
+    "rw3_unit03_38",
+    "rw3_unit03_39",
+    "rw3_unit03_40",
+    "rw3_unit03_41",
+    "rw3_unit03_42",
+    "rw3_unit03_43",
+    "rw3_unit03_44",
+    "rw3_unit03_45",
+    "rw3_unit03_46",
+    "rw3_unit03_47",
+    "rw3_unit03_48",
+    "rw3_unit03_49",
+    "rw3_unit03_50",
+    "rw3_unit03_51",
+    "rw3_unit03_52",
+    "rw3_unit03_53",
+    "rw3_unit03_54",
+    "rw3_unit03_55",
+    "rw3_unit03_56",
+    "rw3_unit03_57",
+    "rw3_unit03_58",
+    "rw3_unit03_59",
+    "rw3_unit03_60",
+    "rw3_unit03_61",
+    "rw3_unit03_62",
+    "rw3_unit03_63",
+    "rw3_unit03_64",
+    "rw3_unit03_65",
+    "rw3_unit03_66",
+    "rw3_unit03_67",
+    "rw3_unit03_68",
+    "rw3_unit03_69",
+    "rw3_unit03_70",
+    "rw3_unit03_71",
+    "rw3_unit03_72",
+    "rw3_unit03_73",
+    "rw3_unit03_74",
+    "rw3_unit03_75",
+    "rw3_unit03_76",
+    "rw3_unit03_77",
+    "rw3_unit03_78",
+    "rw3_unit03_79",
+    "rw3_unit03_80",
+    "rw3_unit03_81",
+    "rw3_unit03_82",
+    "rw3_unit03_83",
+    "rw3_unit03_84",
+    "rw3_unit03_85",
+    "rw3_unit03_86",
+    "rw3_unit03_87",
+    "rw3_unit03_88"
   ],
   "micro_world_checks": {
     "section_a": [
       {
-      "question": "What idea did the seminar ask students to examine?",
-      "options": [
-        "Whether travelers should avoid planning or safety checks",
-        "Whether every trip must include a hostel stay",
-        "Whether famous sights alone explain the purpose of a journey",
-        "Whether photos are more important than local conversations"
+        "question": "What does the author mean by “The rest of the journey, however, can feel like a tedious lesson in the ills of modernity” (Para. 2)?",
+        "options": [
+          "The flight itself is the most tiring part of any journey.",
+          "Apart from the flight, travel is a boring parade of the drawbacks of modern life.",
+          "Modern airports make travel more educational than it used to be.",
+          "Travellers today learn very little about the modern world."
         ],
-      "answer": 2,
-      "explanation": "The seminar asks whether reaching a destination and collecting photos fully explain what a journey can change."
+        "answer": 1,
+        "explanation": "第 2 段说，飞行本身之外的路程像一堂讲“现代性弊病”的无聊课：登机前的 X 光安检、机场商店成串地卖纪念品——即现代生活的种种弊端令人厌倦。"
       },
       {
-      "question": "How did the solo traveler respond when her train connection was cancelled?",
-      "options": [
-        "She used a map to navigate nearby streets and choose another route.",
-        "She returned home without exploring the neighborhood.",
-        "She blamed the local shop owner for the delay.",
-          "She followed the original itinerary without checking it."
+        "question": "Why do we sometimes still need to travel in this digital age?",
+        "options": [
+          "Because some important moments in life still require being there in person.",
+          "Because digital devices cannot store our travel documents.",
+          "Because planes are the cheapest way to hold business meetings.",
+          "Because families refuse to celebrate festivals online."
         ],
-      "answer": 0,
-      "explanation": "Rather than treating the cancelled connection as failure, she used a map to explore a nearby neighborhood."
+        "answer": 0,
+        "explanation": "第 3 段列举：商务午餐上的握手、感恩节吃妈妈做的菜、恋爱两周年与女友相见——这些重要时刻仍需亲身到场。"
       },
       {
-      "question": "What did the rain teach the travelers in the covered-market scene?",
-      "options": [
-        "A memorable trip must follow the shortest route.",
-        "A reservation makes every unexpected change unnecessary.",
-        "A local conversation should replace all safety checks.",
-        "A flexible traveler can adapt instead of forcing an unsafe plan."
+        "question": "How do you understand the sentence “Because Paris is Paris” (Para. 4)?",
+        "options": [
+          "Paris is a city that every traveller should visit at least once.",
+          "The name of a place is reason enough for people to want to go there.",
+          "People choose Paris because it is cheaper than other cities.",
+          "Paris is only worth visiting when flights are on sale."
         ],
-      "answer": 3,
-      "explanation": "When rain blocked the footpath, the group changed plans and used the market as a safe place to pause."
+        "answer": 1,
+        "explanation": "第 4 段用一串 Because 句说明人们想去就去了：因为工作压力大、因为家里无聊、因为机票打折、因为“巴黎就是巴黎”——目的地本身的吸引力已经足够，不需要别的理由。"
       },
       {
-      "question": "How does the passage define a meaningful journey?",
-      "options": [
-        "By the number of landmarks completed on schedule",
-        "By what travelers notice and reconsider along the way",
-        "By how little luggage the traveler carries",
-          "By whether the trip ends at a famous destination"
+        "question": "What is the irony when people travel to Paris trying to leave all those problems behind?",
+        "options": [
+          "They spend the whole holiday thinking about work instead of enjoying the city.",
+          "The problems they try to escape are actually solved back at home.",
+          "Getting away from home is exactly what helps them solve the problems they meant to forget.",
+          "Paris is too noisy for them to think about anything at all."
         ],
-      "answer": 1,
-      "explanation": "The conclusion measures a journey by attention and reflection, not only by distance or attractions."
+        "answer": 2,
+        "explanation": "第 5 段说人们逃到巴黎是为了不去想烦心事，但反讽在于：恰恰是坐在左岸咖啡馆时，我们最容易解决那些最顽固的问题。"
       }
     ],
     "section_b": [
       {
-      "question": "What did Mei prepare before departure to make the journey practical?",
-      "options": [
-        "She memorized every street and refused to carry a phone.",
-        "She checked her reservation, kept the hostel address handy, and packed light luggage.",
-          "She cancelled the hostel and left without telling anyone.",
-          "She packed extra bags and avoided checking her arrival time."
-        ],
-      "answer": 1,
-      "explanation": "The opening describes her checked reservation, hostel address, arrival message, and light luggage."
-      },
-      {
-      "question": "What route advice did the desk clerk give Mei?",
-      "options": [
-        "The clerk told her to walk beside the river after dark.",
-        "The clerk asked her to cancel her hostel reservation.",
-        "The clerk recommended avoiding all local streets.",
-        "The clerk marked a route to the market and warned her about a closed riverside path."
-        ],
-      "answer": 3,
-      "explanation": "The clerk marks a simple market route and advises her to avoid the closed riverside path."
-      },
-      {
-        "question": "What did Mei learn from the rainy detour?",
+        "question": "What was people's reaction to the author's traveling alone?",
         "options": [
-          "Adapting can preserve both safety and curiosity.",
-          "A traveler should never change a planned route.",
-          "The landscape matters only when the weather is clear.",
-          "A solo traveler must refuse help from other people."
+          "They thought it boring.",
+          "They thought it rewarding.",
+          "They thought it came naturally.",
+          "They thought it hard to believe."
         ],
-      "answer": 0,
-      "explanation": "She changed the slippery route, waited under a covered stall, and still noticed the landscape around her."
+        "answer": 3,
+        "explanation": "第 5 段：熟人、旅伴特别是当地人觉得独自旅行“奇怪”，甚至被认为是 inconceivable or reckless（难以置信或鲁莽），即难以相信。"
       },
       {
-        "question": "What does Mei's final reflection say about independence?",
+        "question": "What did the author experience in China?",
         "options": [
-          "It depends on controlling every detail in advance.",
-          "It means refusing directions and avoiding conversation.",
-          "It can include preparation, curiosity, and asking for help.",
-          "It is possible only when a traveler reaches a famous place."
+          "A desk clerk offered to lend her a flat.",
+          "Two girls invited her to their hotel room.",
+          "A bilingual person picked her up at the train station.",
+          "The university listed in her booklet supplied a nice dormitory to her."
         ],
-      "answer": 2,
-      "explanation": "Mei concludes that traveling alone can combine preparation, curiosity, and trust rather than requiring isolation."
+        "answer": 2,
+        "explanation": "第 7 段：两个女孩听她说下一站是她们家乡后，安排了一位会双语的朋友到火车站接她。A、D 与第 6 段所述相反。"
+      },
+      {
+        "question": "What do we know about the author's experience in Japan?",
+        "options": [
+          "She was picked up by a girl at the airport.",
+          "It took her two hours to find her youth hostel.",
+          "A girl who stayed with her snored like a lawnmower.",
+          "A boy menaced her and refused to drop her at the right place."
+        ],
+        "answer": 2,
+        "explanation": "第 8 段：在日本她被一位不肯送她到青年旅社的年轻男子接走，结果住进四个女孩那里，“其中一个打鼾像割草机”。A、D 是印尼/日本的混淆项。"
+      },
+      {
+        "question": "Which of the following is not true during the author's solo travels?",
+        "options": [
+          "A couple from the U.S. nursed her with chocolate bars and tissues in Italy.",
+          "She spent a long afternoon in Thailand all alone in the back of a hay wagon.",
+          "For seven days she traveled in a truck with a Brit, two Aussies, and two Norwegians.",
+          "She ate ethnic food with four Chinese students on her way through eastern South Korea."
+        ],
+        "answer": 3,
+        "explanation": "第 10 段原文是 four youthful Japanese salarymen（四位年轻的日本工薪族），不是中国学生，故 D 与原文不符；A、B、C 均与原文一致。"
       }
     ],
     "section_c": [
       {
-      "question": "What did Lin's teacher ask each traveler to note before departure?",
-      "options": [
-        "A list of every shop at the destination",
-        "A promise not to speak with other passengers",
-        "A photograph of each station on the route",
-        "One expectation and one question"
-        ],
-      "answer": 3,
-      "explanation": "The travel assignment begins with one expectation and one question, giving the journey a reflective purpose."
-      },
-      {
-      "question": "How did Lin handle the retired teacher's account?",
-      "options": [
-        "She presented it as proof that every family makes the same choices.",
-        "She ignored it because it did not describe a famous destination.",
-        "She added it to her notes without treating it as a universal rule.",
-        "She replaced her teacher's assignment with a photograph."
-        ],
-      "answer": 2,
-      "explanation": "Lin listens and records the story, while explicitly avoiding a universal conclusion from one person's experience."
-      },
-      {
-        "question": "What did Lin do after the arrival track changed?",
+        "question": "What does the passage mainly focus on?",
         "options": [
-          "She left the station without checking the signs.",
-          "She checked her destination, followed directions, and helped another traveler.",
-          "She insisted that the original platform must still be correct.",
-          "She cancelled her cousin's visit and returned home."
+          "Why Chinese seniors prefer to stay with their families",
+          "How to plan a cheap trip to Europe",
+          "A retired couple's travels around the world",
+          "The most beautiful scenic spots in Yunnan"
         ],
-      "answer": 1,
-      "explanation": "Lin checks the destination information, follows the new signs, and helps someone else find the platform."
+        "answer": 2,
+        "explanation": "全文讲述退休后的张广柱、王钟津夫妇用积蓄环游世界，从虎跳峡到南极，并鼓励退休者规划晚年生活。"
       },
       {
-        "question": "Which idea best summarizes the China travel story?",
+        "question": "How long was the couple's journey to 16 European countries?",
         "options": [
-          "Infrastructure provides a route, while people give a journey meaning.",
-          "Fast transportation makes local stories less important.",
-          "Travel is valuable only when the destination is unfamiliar.",
-          "A traveler should photograph a landscape instead of asking questions."
+          "For 88 days",
+          "For 60 days",
+          "For 100 days",
+          "For six months"
         ],
-      "answer": 0,
-      "explanation": "The ending distinguishes the path offered by transport from the meaning created through curiosity and human encounters."
+        "answer": 0,
+        "explanation": "第4段：两人随后用88天游历了欧洲16个国家，第一站是希腊雅典。"
+      },
+      {
+        "question": "What made Zhang and Wang decide to travel abroad?",
+        "options": [
+          "A travel program they watched on TV",
+          "Advice from their children in Beijing",
+          "A cheap tour offered by a local agency",
+          "A foreign tourist they met in Yunnan"
+        ],
+        "answer": 3,
+        "explanation": "第3段：在云南虎跳峡山脚村庄，他们遇到一位不太会说中文的外国游客，受其生活态度启发，决定走出国门。"
+      },
+      {
+        "question": "How do the couple spend their time now?",
+        "options": [
+          "They travel all year round without returning home.",
+          "They spend half the year in Beijing and half traveling.",
+          "They live abroad and visit Beijing every few years.",
+          "They travel only in summer and stay home in winter."
+        ],
+        "answer": 1,
+        "explanation": "第5段：如今他们每年半年在北京与家人团聚，另外半年在国外旅行。"
       }
     ]
   },
   "sections": {
     "section_a": {
-      "title": "The Surprising Purpose of Travel",
+      "title": "The surprising purpose of travel",
       "type": "reading",
-      "passage": "Many students imagine a successful trip as reaching a famous destination, taking clear photos, and returning without delay. Their itinerary lists landmarks in order, while a light bag of luggage keeps every step efficient. A campus travel seminar asked whether this plan explains what a journey can change. Its learners compared three journals rather than treating one traveler as a model for everyone. They found that travel also depends on curiosity: noticing details that a hurried schedule might hide. One journal belonged to a solo traveler whose train connection was cancelled before departure. Instead of calling the day a failure, she used a map to navigate a nearby neighborhood. She chose a quieter route, asked a local bookshop owner for directions, and began to wander. That brief encounter led to a conversation about the river, old streets, and everyday work. The new landscape became memorable not because it was famous, but because she had paid attention. Another student preferred a hostel where guests shared a kitchen and could exchange practical advice. She had made a reservation for the first night, yet left the following morning open. When rain blocked the footpath, the group had to adapt rather than force the original plan. A covered market gave them shelter, a warm drink, and time to compare their expectations. Their conversation shifted perspective: unfamiliar places were not puzzles to conquer but communities to meet. The seminar did not suggest that planning or safety checks were unnecessary. It recommended a flexible itinerary, reliable contacts, and enough time to reflect after an unexpected change. Students wrote one question about what they hoped to learn before choosing a destination. Later, they described how each detour could transform their attention to ordinary life at home. Their conclusion was simple: a meaningful journey is measured by what you notice and reconsider."
+      "passage": "It's 4:15 in the morning, and my alarm clock has just stolen away a lovely dream. I almost go back to sleep before my eye catches my packed suitcase and I groan, remembering that I'm going to the airport. The taxi is late and then lost, and I'm getting increasingly nervous that I'll miss my flight. I run in when we arrive, stagger through security, and finally get to my gate. After all the trouble of this morning, my flight is canceled and I'm stuck in this terminal for the next 218 minutes, and my only consolation is a cup of complimentary airport coffee. This is traveling, a burdensome series of running and waiting, and after countless hours, finally getting there. Why do we travel? I don't mind the actual flying, the wonder of being airborne in a dense metal bird. The rest of the journey, however, can feel like a tedious lesson in the ills of modernity, from the predawn x-ray screening to the sad airport malls selling clusters of keepsakes. It's the result of a globalized world, and it sucks. Sometimes, of course, we travel because we need to. Because in this digital age, there is still something important about the handshake at a business luncheon. Or eating Mom's special food on Thanksgiving. Or seeing your girlfriend on your two-year anniversary. But most travel is decidedly optional. Only corporate travel, about 30 percent of trips over 50 miles, is truly compulsory. In most cases, we travel because we want to, because the annoyances of the airport are offset by the thrill of being someplace new. Because work is stressful and our blood pressure is too high and we need a vacation somewhere tropical. Because home is boring. Because the flights are on sale. Because Paris is Paris. Travel, in other words, is a basic human desire. But do we travel just for fun? I'm afraid not. Actually, getting away is an essential habit of effective thinking. Thanks to modern aviation, we can now move through space at an inhuman speed. For the first time in human history, we can outrun the sun and move from one hemisphere to another in a single day. Of course, it's not enough to simply get on a plane. If we want to realize the creative benefits of travel, then we have to rethink its overall purpose. Most people, after all, escape to Paris so they don't have to think about those troubles they left behind. But here's the irony: Our mind is most likely to solve our most stubborn problems while we are sitting in a Left Bank café. So, instead of contemplating that buttery dessert, we should be conscious of those domestic issues we just can't solve. The larger lesson, though, is that our thoughts are saturated with the familiar. The brain is a space of near-infinite possibility, which means that it spends a lot of time and energy choosing what not to notice. As a result, creativity is traded away for efficiency; we think in finite, literal prose, not symbolic verse. A bit of distance, however, helps loosen the cognitive chains that imprison us, making it easier to mingle the new with the old; the mundane is grasped from a slightly more abstract perspective. According to research, the experience of an exotic culture endows us with a valuable open-mindedness, making it easier to realize that even a trivial thing can have multiple meanings. Take head movement, which is commonly used to communicate positive versus negative response, as an example. In most cultures, nodding one's head denotes positivity, meaning “yes”, and shaking the head is associated with negativity, meaning “no”. In Bulgaria, however, this response pattern is reversed - that is, head shaking means “yes” and head nodding means “no”. Such cultural contrasts mean that seasoned travelers are open to ambiguity, willing to realize that there are decidedly different (and equally valid) ways of interpreting the world. This, in turn, allows them to expand the circumference of their “cognitive inputs” as they refuse to settle for their first answers and initial guesses. Of course, this mental flexibility doesn't come from mere distance, a simple change in latitude and longitude. Instead, this renaissance of creativity appears to be a side effect of difference: We need to change cultures, to experience the disorienting diversity of human traditions. The same facets of foreign travel that are so confusing (Do I tip the waiter? Where is this train taking me?) turn out to have a lasting impact, making us more creative because we're less insular. We're reminded of all that we don't know, which is nearly everything; we're surprised by the constant stream of surprises. Even in this globalized age, we can still be amazed at all the earthly things that weren't included in the guidebooks and that certainly don't exist back home. So, let's not pretend that travel doesn't have its drawbacks, or that we endure jet lag for pleasure. We don't spend 10 hours lost in the Louvre because we like it, and the view from the top of Machu Picchu probably doesn't make up for the trouble of lost luggage. (More often than not, I need a vacation after my vacation.) We travel because we need to, because distance and difference are the secret cornerstones of creativity. When we get home, home is still the same. But something in our mind has been changed, and that changes everything."
     },
     "section_b": {
-      "title": "Traveling Solo: Room to Adapt",
+      "title": "Traveling solo - a blessing overall!",
       "type": "reading",
-      "passage": "Mei had traveled with family before, but her first solo departure made a familiar station feel enormous. She checked her reservation twice, placed a small card with the hostel address in her pocket, and told her sister when she expected to arrive. Packing light luggage let her keep one hand free for her ticket and phone. She had expected confidence to arrive before the trip began, but it came in smaller decisions. At the platform, she felt nervous and reminded herself why she had chosen to go. Her itinerary named the hostel and one museum, while leaving the afternoon unplanned. After checking in, she asked the desk clerk which streets remained busy before dusk. The clerk marked a simple route to a market and advised her to avoid a closed riverside path. Mei used the map to navigate the first turns, then put it away to notice shop signs and sounds. When she missed a turning, she did not pretend to understand the route. A local bookseller showed her a safer street and asked what she hoped to see. That encounter became a memorable conversation about the neighborhood's changing shops. Mei began to wander slowly, choosing a public square rather than chasing a distant destination. A sudden rain shower made the shortest path slippery, so she adapted and waited under a covered stall. The landscape looked different from beneath the awning, and a shop owner offered tea while the rain passed. By returning to the hostel before dusk, Mei kept her trip both open and sensible. Her journal noted that independence does not require refusing help. She had once thought a fixed itinerary was the only protection from uncertainty. Now she would rather ask a respectful question than follow a confusing route alone. The journey transformed her perspective: solo travel could combine preparation, curiosity, and trust."
+      "passage": "So you're ready to travel. Pick a place, any place. Let's say you've always wanted to go to China. You've seen pictures of the Great Wall, the Forbidden City, and Tiananmen Square. You've always been fascinated by Chinese aesthetics and culture, by red, fragrant temples and venerable statues. You have a chunk of money saved and extra vacation time earned. Now is the time to go! But maybe you haven't traveled much. You've never been to an exotic place where you can't speak the language or read the signs. A place where you'll have to do all the research for yourself, find hotels, get yourself around, buy train or bus tickets, and order your own food. You must figure all of this out while looking at the unfamiliar signs which you will see wherever you look or go. So now you're ready to realize your dream to explore China, and find, for yourself, the soul of the country. Unfortunately, right from the onset, none of your friends share that dream. Your sister is pregnant and can't travel. Your best friend just got a new job and can't take time off. So what do you do? You could ask everyone you know - friends, acquaintances, co-workers. You could join a tour. Or, you could go alone. To travel alone is a difficult decision for anyone, but for me, it came naturally. I made that trip to China, and then zigzagged on a multinational tour through South Korea, Japan, Indonesia, Thailand, India, and Italy. But the reactions I've gotten, from people I know, fellow travelers, and especially, from the natives of the countries I've visited, showed me that solo traveling is strange, and even considered inconceivable or reckless. People ask me if the isolation makes me sad or even if I'm more susceptible to violent or dangerous situations. Traveling solo has been sometimes a blessing, sometimes a curse. I remember searching desperately for accommodations in China. The university listed in my booklet no longer had dormitories for travelers, and I was lucky when the desk clerk called a young woman out of a nearby office. As it turned out, she was offering to let me stay at her flat and even had a friend come and show me around the next day. Also in China, I met two girls who accompanied me to my booked hotel when I had been lost for several hours, and then invited me to a feast with their friends. When they heard my next stop was their hometown, they arranged for a bilingual friend to pick me up at the train station. But there has also been the downside because of those not-so-pleasant experiences. In Indonesia, a boy menaced me, assuming I was willing to pay for his company. In Japan, I was picked up by a young man who refused to drop me at my youth hostel; he insisted I stay with his friends. The friends turned out to be four girls. I was safe, but one snored like a lawnmower, and it took me two days to escape. I've been irritated and perplexed many times - not speaking a language, not understanding or being understood. Once, in Italy, a hotel clerk tried to overcharge me and only gave up after 10 minutes of arguing. Another time in India, a taxi driver insisted I pay more, and I was rescued by the doorman of a fancy hotel. Having a companion might have helped safeguard me from some of those problems. But it would have suppressed other opportunities - a long afternoon in Thailand all alone in the back of a hay wagon and then seven days in the back of a truck with a Brit, two Aussies, and two Norwegians! Eating ethnic food on my way through eastern South Korea with four youthful Japanese salarymen. Getting sick in Italy, and being nursed with chocolate bars and tissues by a couple from the U.S. The few times I have traveled with a companion, I haven't had the same ample opportunity to meet people. Other travelers can swap stories with you about the local folklore of the places they've been to and often have credible insights into the place you're visiting. Locals are also more likely to see you as approachable and be upfront with you when you're on your own. Of course you have to be careful not to endanger yourself by throwing caution to the wind. Watch your back, but don't presume the worst and be overly fearful. Be friendly with people, but watch out for those who are too friendly with you. Don't disregard your instincts. If you hear stories about criminals on a road, you may take the road, but don't take much cash, and don't accept drinks from strangers. The key to solo travel is to open your mind, close your eyes, and leap in! Everything that happens to you is an experience, and good, bad, or neutral, it will benefit you in some way. Take those little annoyances, those inefficiencies, and those boring bureaucrats with a laugh. If you despise something, just remember: You don't live there, you can leave anytime, and you'll never have to deal with this again! Don't ever let a lack of companionship constrain you from doing what you really want to do. Once you go solo, you'll be amazed at how sensational your travel experiences will be."
     },
     "section_c": {
-      "title": "Stories of China",
+      "title": "Touring the world after 60",
       "type": "stories_of_china",
-      "passage": "In an original practice story, Lin leaves Chengdu for Xi'an on a high-speed train to meet her cousin. She has visited stations with classmates, but never studied a route as part of a reading assignment. Before departure, her teacher asks each traveler to note one expectation and one question. Lin expects a quick arrival and plans to photograph the station architecture. She carries light luggage, a notebook, and an itinerary with an afternoon left open. Across the aisle, a retired teacher is traveling to visit an old friend. They compare the route with the places each hopes to see, without claiming one person's plan is better. Their encounter begins with a question about the landscape beyond the window. The teacher describes how moving between cities has changed the work and family routines of people she knows. Lin listens, then adds the story to her notes rather than treating it as a universal rule. As the train continues, fields, rivers, and denser neighborhoods appear in sequence. The shifting landscape helps her notice that a route connects places without making them identical. She uses a map to follow the journey and ask how people navigate changes in daily life. A station announcement changes the arrival track, and passengers adapt calmly to new directions. Lin checks her destination, follows signs, and helps another traveler locate the correct platform. Later, her cousin shows her a street market that does not appear on the short itinerary. The local vendors explain how seasonal choices shape what they sell, and Lin asks permission before taking a photo. The trip's memorable moments come from conversations as much as scenery. On returning, Lin says travel can transform perspective when curiosity is joined to respect. Her class concludes that transport infrastructure offers a path, but people give the journey meaning."
+      "passage": "Zhang Guangzhu and his wife Wang Zhongjin have set foot on every continent, even Antarctica. In their global escapades they've filled many passports with travel visas and customs stamps from dozens of countries. Travels of this sort, daunting for even the most experienced travelers, require a young heart and youthful vigor - and yet Zhang and Wang are in their 60s, retired, and making the most of their free time in their post-career life. Like other Chinese senior citizens, Zhang and Wang were committed to their families and work, and traveling was not a priority option when they were younger. After retiring, Zhang decided to capitalize on this new-found opportunity to travel. The couple used their life savings to fund their expedition around the world. The husband and wife began their experience as backpackers by hitting the trails of the Tiger Leaping Gorge, a deep and beautiful scenic valley in southwest China's Yunnan Province. In a village at the foot of a mountain, they bumped into a foreign tourist who was traveling in China but spoke little Chinese. They were inspired by their foreign friend's attitude to life and were bitten by the travel bug. “If the language barrier does not matter when people travel,” Zhang recalled saying to his wife, “why don't we go abroad?” His wife agreed. The two then took an 88-day journey to 16 European countries. Despite careful travel preparation, the couple still got lost at the airport in Athens, Greece, upon arriving at their first destination. Even so, their enthusiasm was high and they were off to travel as strangers in a strange land. Since their European escapade, the couple has taken up traveling abroad as a hobby. Each year, they spend six months with family in Beijing and the next six traveling. “My wife and I have been to many astonishing places, from the Arctic Circle to Antarctica. We have crossed the equator six times. We also climbed to the base camp of Mount Qomolangma at an altitude of 5,200 meters,” said Zhang. “A person may have a lot of dreams. But putting them into practice is the key. Even if you retire at 60, you can still expect to live another 20 to 30 years. Therefore, retired people should make a good plan to spend the rest of their lives.” The past decades have witnessed great miracles in China, and people's living standards have improved dramatically with economic and social prosperity. As most families have become better off, older people, like Zhang and Wang, are enjoying their carefree lives traveling home and abroad."
     },
     "vocabulary": {
-      "level_count": 4,
+      "level_count": 18,
       "words_per_level": 5
     },
     "reading": {
-      "title": "Why We Leave Home",
-      "passage": "Many students imagine a successful trip as reaching a famous destination, taking clear photos, and returning without delay. Their itinerary lists landmarks in order, while a light bag of luggage keeps every step efficient. A campus travel seminar asked whether this plan explains what a journey can change. Its learners compared three journals rather than treating one traveler as a model for everyone. They found that travel also depends on curiosity: noticing details that a hurried schedule might hide. One journal belonged to a solo traveler whose train connection was cancelled before departure. Instead of calling the day a failure, she used a map to navigate a nearby neighborhood. She chose a quieter route, asked a local bookshop owner for directions, and began to wander. That brief encounter led to a conversation about the river, old streets, and everyday work. The new landscape became memorable not because it was famous, but because she had paid attention. Another student preferred a hostel where guests shared a kitchen and could exchange practical advice. She had made a reservation for the first night, yet left the following morning open. When rain blocked the footpath, the group had to adapt rather than force the original plan. A covered market gave them shelter, a warm drink, and time to compare their expectations. Their conversation shifted perspective: unfamiliar places were not puzzles to conquer but communities to meet. The seminar did not suggest that planning or safety checks were unnecessary. It recommended a flexible itinerary, reliable contacts, and enough time to reflect after an unexpected change. Students wrote one question about what they hoped to learn before choosing a destination. Later, they described how each detour could transform their attention to ordinary life at home. Their conclusion was simple: a meaningful journey is measured by what you notice and reconsider.",
+      "title": "The surprising purpose of travel",
+      "passage": "It's 4:15 in the morning, and my alarm clock has just stolen away a lovely dream. I almost go back to sleep before my eye catches my packed suitcase and I groan, remembering that I'm going to the airport. The taxi is late and then lost, and I'm getting increasingly nervous that I'll miss my flight. I run in when we arrive, stagger through security, and finally get to my gate. After all the trouble of this morning, my flight is canceled and I'm stuck in this terminal for the next 218 minutes, and my only consolation is a cup of complimentary airport coffee. This is traveling, a burdensome series of running and waiting, and after countless hours, finally getting there. Why do we travel? I don't mind the actual flying, the wonder of being airborne in a dense metal bird. The rest of the journey, however, can feel like a tedious lesson in the ills of modernity, from the predawn x-ray screening to the sad airport malls selling clusters of keepsakes. It's the result of a globalized world, and it sucks. Sometimes, of course, we travel because we need to. Because in this digital age, there is still something important about the handshake at a business luncheon. Or eating Mom's special food on Thanksgiving. Or seeing your girlfriend on your two-year anniversary. But most travel is decidedly optional. Only corporate travel, about 30 percent of trips over 50 miles, is truly compulsory. In most cases, we travel because we want to, because the annoyances of the airport are offset by the thrill of being someplace new. Because work is stressful and our blood pressure is too high and we need a vacation somewhere tropical. Because home is boring. Because the flights are on sale. Because Paris is Paris. Travel, in other words, is a basic human desire. But do we travel just for fun? I'm afraid not. Actually, getting away is an essential habit of effective thinking. Thanks to modern aviation, we can now move through space at an inhuman speed. For the first time in human history, we can outrun the sun and move from one hemisphere to another in a single day. Of course, it's not enough to simply get on a plane. If we want to realize the creative benefits of travel, then we have to rethink its overall purpose. Most people, after all, escape to Paris so they don't have to think about those troubles they left behind. But here's the irony: Our mind is most likely to solve our most stubborn problems while we are sitting in a Left Bank café. So, instead of contemplating that buttery dessert, we should be conscious of those domestic issues we just can't solve. The larger lesson, though, is that our thoughts are saturated with the familiar. The brain is a space of near-infinite possibility, which means that it spends a lot of time and energy choosing what not to notice. As a result, creativity is traded away for efficiency; we think in finite, literal prose, not symbolic verse. A bit of distance, however, helps loosen the cognitive chains that imprison us, making it easier to mingle the new with the old; the mundane is grasped from a slightly more abstract perspective. According to research, the experience of an exotic culture endows us with a valuable open-mindedness, making it easier to realize that even a trivial thing can have multiple meanings. Take head movement, which is commonly used to communicate positive versus negative response, as an example. In most cultures, nodding one's head denotes positivity, meaning “yes”, and shaking the head is associated with negativity, meaning “no”. In Bulgaria, however, this response pattern is reversed - that is, head shaking means “yes” and head nodding means “no”. Such cultural contrasts mean that seasoned travelers are open to ambiguity, willing to realize that there are decidedly different (and equally valid) ways of interpreting the world. This, in turn, allows them to expand the circumference of their “cognitive inputs” as they refuse to settle for their first answers and initial guesses. Of course, this mental flexibility doesn't come from mere distance, a simple change in latitude and longitude. Instead, this renaissance of creativity appears to be a side effect of difference: We need to change cultures, to experience the disorienting diversity of human traditions. The same facets of foreign travel that are so confusing (Do I tip the waiter? Where is this train taking me?) turn out to have a lasting impact, making us more creative because we're less insular. We're reminded of all that we don't know, which is nearly everything; we're surprised by the constant stream of surprises. Even in this globalized age, we can still be amazed at all the earthly things that weren't included in the guidebooks and that certainly don't exist back home. So, let's not pretend that travel doesn't have its drawbacks, or that we endure jet lag for pleasure. We don't spend 10 hours lost in the Louvre because we like it, and the view from the top of Machu Picchu probably doesn't make up for the trouble of lost luggage. (More often than not, I need a vacation after my vacation.) We travel because we need to, because distance and difference are the secret cornerstones of creativity. When we get home, home is still the same. But something in our mind has been changed, and that changes everything.",
       "questions": [
         {
-      "question": "What idea did the seminar ask students to examine?",
-      "options": [
-        "Whether travelers should avoid planning or safety checks",
-        "Whether famous sights alone explain the purpose of a journey",
-        "Whether every trip must include a hostel stay",
-        "Whether photos are more important than local conversations"
-      ],
-      "answer": 1,
-          "explanation": "The seminar asks whether reaching a destination and collecting photos fully explain what a journey can change."
-        },
-      {
-      "question": "What did the unexpected encounter help the traveler notice?",
-      "options": [
-        "Only the landmarks listed in the original itinerary",
-        "That local people never change their routines",
-        "That the cancelled train had made the whole trip useless",
-        "Details of the neighborhood and the everyday work around her"
+          "question": "How does a bit of distance help enhance creativity according to Para. 6?",
+          "options": [
+            "It removes all the familiar things from our daily life.",
+            "It makes the brain spend less time choosing what to notice.",
+            "It lets us see ordinary things from a more abstract angle and combine the new with the old.",
+            "It proves that literal prose is more useful than symbolic verse."
           ],
-      "answer": 3,
-          "explanation": "The conversation about the river, streets, and everyday work made the local setting meaningful."
+          "answer": 2,
+          "explanation": "第 6 段：一点距离能松开禁锢我们的认知枷锁，使我们更容易把新与旧混合，并从略为抽象的角度把握平凡事物。"
         },
         {
-      "question": "What did the seminar recommend after an unexpected change?",
-      "options": [
-        "Keep a flexible plan and make time to reflect.",
-        "Ignore contacts and continue without checking safety.",
-        "Avoid all future journeys that include uncertainty.",
-            "Replace the itinerary with a list of famous photographs."
+          "question": "What are the characteristics of seasoned travelers?",
+          "options": [
+            "They are open to ambiguity and refuse to settle for their first answers.",
+            "They accept no interpretation of the world other than their own.",
+            "They prefer to travel only in countries with a similar culture.",
+            "They depend on guidebooks for every decision they make."
           ],
-      "answer": 0,
-          "explanation": "The passage supports planning and reliable contacts while leaving enough flexibility to reflect."
+          "answer": 0,
+          "explanation": "第 7 段：老练的旅行者对模糊性持开放态度，承认存在多种同样有效的理解世界的方式，并不断扩大“认知输入”的范围，不肯停留在最初的答案上。"
         },
         {
-      "question": "Which choice best expresses the passage's conclusion?",
-      "options": [
-        "A journey is meaningful only if it follows the original route.",
-        "A destination matters more than the people who live there.",
-        "A journey is measured by what travelers notice and reconsider.",
-            "Travel should be judged by how many landmarks are completed."
+          "question": "What do we need to do to trigger our creativity?",
+          "options": [
+            "Simply fly a long distance to another latitude and longitude.",
+            "Stay at home and read more guidebooks about foreign countries.",
+            "Change cultures and experience the disorienting diversity of human traditions.",
+            "Avoid all confusing situations while travelling abroad."
           ],
-      "answer": 2,
-          "explanation": "The final sentence defines a meaningful journey through attention and reconsideration."
+          "answer": 2,
+          "explanation": "第 8 段强调：这种思维灵活性并非来自单纯的距离（纬度经度的改变），而要改变文化、体验人类传统令人迷失的多样性。"
+        },
+        {
+          "question": "Why do we travel according to Para. 9?",
+          "options": [
+            "Because distance and difference are the secret cornerstones of creativity.",
+            "Because we enjoy lost luggage and jet lag.",
+            "Because we want to change the city we live in.",
+            "Because we need to prove that home is boring."
+          ],
+          "answer": 0,
+          "explanation": "第 9 段结尾：我们旅行是因为需要，因为距离与差异是创造力的秘密基石；回家后家还是原来的样子，但我们的心智已被改变。"
+        },
+        {
+          "question": "Thanks to its nine-year ______ education, China has one of the highest literacy rates in the world, which is a great achievement.",
+          "options": [
+            "compulsory",
+            "stubborn",
+            "trivial",
+            "corporate"
+          ],
+          "answer": 0,
+          "explanation": "nine-year compulsory education 是固定说法“九年义务教育”，compulsory 意为“义务的、强制的”；其余形容词与 education 搭配不通。"
+        },
+        {
+          "question": "He has been ______ leaving the studio for some time and will be moving on to “new adventures”.",
+          "options": [
+            "loosening",
+            "contemplating",
+            "globalizing",
+            "clustering"
+          ],
+          "answer": 1,
+          "explanation": "contemplate doing sth. 意为“正考虑做某事”，此处用现在完成进行时 has been contemplating。"
+        },
+        {
+          "question": "Standards should be ______ to include more people in more types of jobs to increase diversity.",
+          "options": [
+            "offset",
+            "contemplated",
+            "loosened",
+            "clustered"
+          ],
+          "answer": 2,
+          "explanation": "loosen 与 standards 搭配表示“放宽标准”，此处用被动语态 be loosened。"
+        },
+        {
+          "question": "In the 1970s, the firm was restructured to ______ the business and pursue new areas of growth.",
+          "options": [
+            "loosen",
+            "groan",
+            "contemplate",
+            "globalize"
+          ],
+          "answer": 3,
+          "explanation": "globalize the business 意为“使业务全球化”，与 pursue new areas of growth 并列。"
+        },
+        {
+          "question": "However, your current losses should soon be ______ by gains - the fund will produce a positive return of 11.6 percent over a nine-month period.",
+          "options": [
+            "offset",
+            "loosened",
+            "clustered",
+            "saturated"
+          ],
+          "answer": 0,
+          "explanation": "offset 意为“抵消、补偿”，losses be offset by gains 即“亏损被收益抵消”。"
+        },
+        {
+          "question": "She pushed herself up into a sitting position to look around but immediately ______ in pain and fell back onto the blanket.",
+          "options": [
+            "clustered",
+            "groaned",
+            "loosened",
+            "contemplated"
+          ],
+          "answer": 1,
+          "explanation": "groan in pain 意为“疼得呻吟”，此处用过去式 groaned，与 pushed、fell 时态一致。"
         }
       ]
     },
     "listening": {
       "title": "Listening: Let's go",
-      "script": "On my first solo journey, I thought successful travel meant following every point on an itinerary. I had made a reservation at a hostel and packed light luggage, so my departure felt organized. Yet a cancelled bus forced me to navigate a part of town I had not planned to see. I checked a printed route, asked a local shopkeeper for directions, and left enough time to wander safely. The detour led to a quiet garden and a memorable encounter with a woman who sold handmade paper. She explained how visitors often hurried past because they were trying to reach a famous destination before closing. Her comment changed my perspective. I began to notice the landscape, the shop signs, and the people whose routines continued around me. Later, rain made the path slippery, so I adapted and took a bus back to the hostel. I did not treat the change as a failure because I had built an alternative route into my plan. In my journal, I wrote that curiosity is not the same as ignoring safety. It means asking questions, checking directions, and staying open to a respectful conversation. Travel cannot promise that every encounter will transform us, but it can give us a reason to look more carefully. I would rather return with one new question than collect photos I never think about again.",
+      "script": "So you're ready to travel. Pick a place, any place. Let's say you've always wanted to go to China. You've seen pictures of the Great Wall, the Forbidden City, and Tiananmen Square. You've always been fascinated by Chinese aesthetics and culture, by red, fragrant temples and venerable statues. You have a chunk of money saved and extra vacation time earned. Now is the time to go! But maybe you haven't traveled much. You've never been to an exotic place where you can't speak the language or read the signs. A place where you'll have to do all the research for yourself, find hotels, get yourself around, buy train or bus tickets, and order your own food. You must figure all of this out while looking at the unfamiliar signs which you will see wherever you look or go. So now you're ready to realize your dream to explore China, and find, for yourself, the soul of the country. Unfortunately, right from the onset, none of your friends share that dream. Your sister is pregnant and can't travel. Your best friend just got a new job and can't take time off. So what do you do? You could ask everyone you know - friends, acquaintances, co-workers. You could join a tour. Or, you could go alone. To travel alone is a difficult decision for anyone, but for me, it came naturally. I made that trip to China, and then zigzagged on a multinational tour through South Korea, Japan, Indonesia, Thailand, India, and Italy. But the reactions I've gotten, from people I know, fellow travelers, and especially, from the natives of the countries I've visited, showed me that solo traveling is strange, and even considered inconceivable or reckless. People ask me if the isolation makes me sad or even if I'm more susceptible to violent or dangerous situations. Traveling solo has been sometimes a blessing, sometimes a curse. I remember searching desperately for accommodations in China. The university listed in my booklet no longer had dormitories for travelers, and I was lucky when the desk clerk called a young woman out of a nearby office. As it turned out, she was offering to let me stay at her flat and even had a friend come and show me around the next day. Also in China, I met two girls who accompanied me to my booked hotel when I had been lost for several hours, and then invited me to a feast with their friends. When they heard my next stop was their hometown, they arranged for a bilingual friend to pick me up at the train station. But there has also been the downside because of those not-so-pleasant experiences. In Indonesia, a boy menaced me, assuming I was willing to pay for his company. In Japan, I was picked up by a young man who refused to drop me at my youth hostel; he insisted I stay with his friends. The friends turned out to be four girls. I was safe, but one snored like a lawnmower, and it took me two days to escape. I've been irritated and perplexed many times - not speaking a language, not understanding or being understood. Once, in Italy, a hotel clerk tried to overcharge me and only gave up after 10 minutes of arguing. Another time in India, a taxi driver insisted I pay more, and I was rescued by the doorman of a fancy hotel. Having a companion might have helped safeguard me from some of those problems. But it would have suppressed other opportunities - a long afternoon in Thailand all alone in the back of a hay wagon and then seven days in the back of a truck with a Brit, two Aussies, and two Norwegians! Eating ethnic food on my way through eastern South Korea with four youthful Japanese salarymen. Getting sick in Italy, and being nursed with chocolate bars and tissues by a couple from the U.S. The few times I have traveled with a companion, I haven't had the same ample opportunity to meet people. Other travelers can swap stories with you about the local folklore of the places they've been to and often have credible insights into the place you're visiting. Locals are also more likely to see you as approachable and be upfront with you when you're on your own. Of course you have to be careful not to endanger yourself by throwing caution to the wind. Watch your back, but don't presume the worst and be overly fearful. Be friendly with people, but watch out for those who are too friendly with you. Don't disregard your instincts. If you hear stories about criminals on a road, you may take the road, but don't take much cash, and don't accept drinks from strangers. The key to solo travel is to open your mind, close your eyes, and leap in! Everything that happens to you is an experience, and good, bad, or neutral, it will benefit you in some way. Take those little annoyances, those inefficiencies, and those boring bureaucrats with a laugh. If you despise something, just remember: You don't live there, you can leave anytime, and you'll never have to deal with this again! Don't ever let a lack of companionship constrain you from doing what you really want to do. Once you go solo, you'll be amazed at how sensational your travel experiences will be.",
       "questions": [
-      {
-      "question": "What had the speaker arranged before departure?",
-      "options": [
-        "A fixed guide for every street and conversation",
-        "A promise to avoid asking anyone for directions",
-        "A hostel reservation and light luggage",
-        "A ticket that guaranteed the weather would stay clear"
-        ],
-      "answer": 2,
-        "explanation": "The speaker says they had made a hostel reservation and packed light luggage; the script does not mention an open afternoon."
-      },
         {
-          "question": "Why did the speaker ask the shopkeeper for directions?",
+          "question": "Which of the following is not a strategy suggested by the author to protect yourself from danger in solo travel?",
           "options": [
-            "A cancelled bus led the speaker into an unfamiliar area.",
-            "The shopkeeper had taken the speaker's itinerary.",
-            "The hostel had permanently closed before the trip.",
-            "The speaker wanted to avoid every local street."
+            "Presume the worst and be careful.",
+            "Watch out for those who are too friendly with you.",
+            "Be careful not to endanger yourself by throwing caution to the wind.",
+            "Carry less cash if you hear stories about criminals on the road."
           ],
           "answer": 0,
-          "explanation": "The cancelled bus changed the route, so the speaker checked a map and asked a local person for help."
+          "explanation": "第 12 段明确说 don't presume the worst（不要往最坏处想、不要过分恐惧），所以“假定最坏情况”不是作者建议的策略。"
         },
         {
-      "question": "What did the woman's comment help the speaker understand?",
-      "options": [
-        "A destination is valuable only when it is difficult to reach.",
-        "Local conversations should be avoided during solo travel.",
-        "A printed route is always less useful than memory.",
-        "Visitors can miss meaningful details when they hurry toward famous sights."
-          ],
-      "answer": 3,
-          "explanation": "The speaker notices that visitors may rush past local life while trying to reach an attraction."
-        },
-        {
-          "question": "How does the speaker define curiosity?",
+          "question": "What is the key to solo travel according to the author?",
           "options": [
-            "Ignoring safety so every turn becomes a surprise",
-            "Asking questions, checking directions, and remaining open to respectful conversation",
-            "Collecting photographs without thinking about the experience",
-            "Following an itinerary even when conditions change"
+            "To open your mind.",
+            "To stay away from danger.",
+            "Not to take much cash.",
+            "Not to be overly fearful."
+          ],
+          "answer": 0,
+          "explanation": "第 13 段开头：The key to solo travel is to open your mind, close your eyes, and leap in! 其余选项只是自我保护的具体做法。"
+        },
+        {
+          "question": "What do we know about the author and her solo travels?",
+          "options": [
+            "She wasn't susceptible to dangerous situations.",
+            "Only a few of her friends shared her dream of exploring China.",
+            "It was very hard for the author to make the decision to travel alone.",
+            "Her travel proved to be worthwhile despite unpleasant experiences."
+          ],
+          "answer": 3,
+          "explanation": "第 13、14 段总结：一切经历“good, bad, or neutral”终将有益，独自旅行总体是 a blessing overall，说明尽管有不快，旅行仍值得。"
+        },
+        {
+          "question": "What idea does the author intend to convey?",
+          "options": [
+            "Traveling solo is difficult.",
+            "Traveling solo in general is a blessing.",
+            "Traveling solo usually makes one irritated and perplexed.",
+            "Traveling solo is more exciting than traveling with a companion."
           ],
           "answer": 1,
-          "explanation": "The speaker links curiosity to questions, safe route-checking, and respectful openness."
+          "explanation": "标题 Traveling solo - a blessing overall 与末段“you'll be amazed at how sensational your travel experiences will be”表明作者想传达：独自旅行总体上是件好事。"
+        },
+        {
+          "question": "At that time, I was excited to find myself in ______ even if I just stayed in a guesthouse for a few days.",
+          "options": [
+            "a lovely dream",
+            "an exotic place",
+            "a foreign travel",
+            "a credible insight"
+          ],
+          "answer": 1,
+          "explanation": "exotic place 出自 Text B 第 2 段“You've never been to an exotic place”，指“充满异国风情的地方”。"
+        },
+        {
+          "question": "And I thought I had the most wonderful life - my ______.",
+          "options": [
+            "exotic place",
+            "valuable open-mindedness",
+            "lovely dream",
+            "local folklore"
+          ],
+          "answer": 2,
+          "explanation": "lovely dream 出自 Text A 第 1 段“has just stolen away a lovely dream”。"
+        },
+        {
+          "question": "Then one day, just over three years into my adventure, I realized that my ______ were really leading me nowhere.",
+          "options": [
+            "local folklores",
+            "credible insights",
+            "pleasant experiences",
+            "multinational tours"
+          ],
+          "answer": 3,
+          "explanation": "multinational tour 出自 Text B 第 4 段 zigzagged on a multinational tour，此处按复数 multinational tours 填空。"
+        },
+        {
+          "question": "Apart from having quite a few “cool” and ______, I was barely learning and barely improving myself.",
+          "options": [
+            "pleasant experiences",
+            "multinational tours",
+            "local folklore",
+            "mental flexibility"
+          ],
+          "answer": 0,
+          "explanation": "pleasant experiences 意为“愉快的经历”，与“cool”并列，说明只是玩得开心而没有长进。"
+        },
+        {
+          "question": "To make sure I still had some money left for a few more weeks of ______, I had to constantly check my bank account.",
+          "options": [
+            "multinational tours",
+            "foreign travel",
+            "local folklore",
+            "modern aviation"
+          ],
+          "answer": 1,
+          "explanation": "foreign travel 出自 Text A 第 8 段“The same facets of foreign travel”。"
+        },
+        {
+          "question": "I would go to Eastern Europe to experience the ______ of the region.",
+          "options": [
+            "valuable open-mindedness",
+            "mental flexibility",
+            "disorienting diversity",
+            "credible insights"
+          ],
+          "answer": 2,
+          "explanation": "disorienting diversity 出自 Text A 第 8 段“the disorienting diversity of human traditions”。"
         }
       ]
     },
     "translation": {
       "sentences": [
         {
-          "zh": "请将下列句子译为英文：为了给探索留出空间，Mei没有把每一分钟都写进行程表。",
-          "en_reference": "Mei left part of her itinerary open in order to make room for exploration.",
+          "zh": "丽江古城坐落在玉龙雪山（Yulong Snow Mountain）脚下，是一座风景秀丽的历史文化名城，也是我国保存完好的少数民族古城之一。随着丽江旅游业的发展，到丽江古城观光游览的中外游客日益增多。1997年12月，丽江古城申报世界文化遗产（World Cultural Heritage Site）获得成功，成为中国第一批被列入世界文化遗产名录的历史文化名城。",
+          "en_reference": "The Old Town of Lijiang lies at the foot of Yulong Snow Mountain. A historically and culturally famous city with beautiful scenery, it is also one of the best-preserved ancient towns of ethnic minorities in China. With the development of tourism in Lijiang, an increasing number of Chinese and foreign visitors come to tour the Old Town. In December 1997, the Old Town of Lijiang succeeded in its bid for the status of a World Cultural Heritage Site, becoming one of the first group of historical and cultural cities in China to be inscribed on the World Cultural Heritage list.",
           "keywords": [
-            "itinerary",
-            "in order to",
-            "exploration"
-          ]
-        },
-        {
-          "zh": "请将下列句子译为英文：她宁愿向当地人问路，也不愿假装自己知道方向。",
-          "en_reference": "She would rather ask a local for directions than pretend to know the route.",
-          "keywords": [
-            "would rather",
-            "local",
-            "route"
-          ]
-        },
-        {
-          "zh": "请将下列句子译为英文：为了安全抵达旅店，旅行者调整了路线。",
-          "en_reference": "The traveler changed the route in order to reach the hostel safely.",
-          "keywords": [
-            "route",
-            "in order to",
-            "hostel"
-          ]
-        },
-        {
-          "zh": "请将下列句子译为英文：那次旅程改变了她看待目的地和旅途的视角。",
-          "en_reference": "That journey transformed her perspective on destinations and travel.",
-          "keywords": [
-            "journey",
-            "transformed",
-            "perspective"
+            "Old",
+            "Town",
+            "Lijiang",
+            "lies"
           ]
         }
       ]
     },
     "writing": {
-      "prompt": "Write 120-150 words about a real or imagined journey that changed your perspective. Explain your purpose, one unexpected encounter, and a choice you would rather make. Distinguish evidence from assumption.",
+      "prompt": "Write a cause-and-effect essay of no less than 140 words on why reading books is important. Introduce the effect first, analyse the three causes in the body, and end with a short conclusion.",
       "outline": [
-        "State why you chose to travel and what you expected",
-        "Describe one encounter or change of route with concrete detail",
-        "Explain how you adapted and what evidence changed your view",
-        "Conclude with what the journey means beyond reaching a destination"
+        "Introduction: state the thesis that reading books is important mainly for three reasons.",
+        "Cause 1: Reading broadens our knowledge and provides experience that we can hardly have in our own life.",
+        "Cause 2: Reading exercises our brains and improves our mental health.",
+        "Cause 3: Reading increases empathy and makes communication more efficient, so reading is indispensable and we should all form the habit of reading."
       ]
     }
   }
