@@ -19,6 +19,8 @@ public:
     /** Preview-only skin display. Never writes the MHC or marks its package dirty. */
     UFUNCTION(BlueprintCallable, Category="Compare") bool UsePreviewSkin(UObject* Character);
     UFUNCTION(BlueprintCallable, Category="Compare") bool AttachPreviewGroom(AActor* Actor, UObject* Groom, bool bSkinBinding = true);
+    /** Imported CPU geometry / built radius in centimetres, for unit diagnostics. */
+    UFUNCTION(BlueprintCallable, Category="Compare") TMap<FName,double> InspectGroom(UObject* Groom);
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Compare") int32 PendingGroomBindings = 0;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Compare") int32 FailedGroomBindings = 0;
     UPROPERTY(Transient) TArray<TObjectPtr<UObject>> PreviewBindings;

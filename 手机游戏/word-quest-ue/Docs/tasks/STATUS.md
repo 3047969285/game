@@ -55,6 +55,57 @@
   - 女主 q34 显示 38.6 px，是因为 D5 我给错了参考图映射（lian6 其实是侧面，3/4 应该用 lian7），已通知 DeepSeek 修正后重跑。
   - 配角 5 人正在用同样的方法重新导出和拟合。
 
+- 2026-10-22：**MetaHuman Creator Core Data 已安装**（6.0 GB）。UE 已能加载 TextureSynthesis 模型，不再出现“Optional Content folder not found”的警告，验证脚本是 `Tools/char_check_coredata.py`。新增 `Tools/char_skin.py`：按设定集为 7 个角色在本地合成皮肤（肤色、冷暖、两颊和唇色、雀斑），正在先用男主测试。
+- 2026-10-22：**发丝满屏条纹的原因已查明**：Alembic 每个点的 radius 都是默认值 1.0（相当于每根发丝宽 1–2 米）。已改为真实半宽（头发 0.03–0.045 mm，眉毛 0.04 mm），9 份 Groom 正在重新导出。
+
+- 2026-10-22 09:15：**Groom 重新导出完成**。9 份文件已带真实宽度：Alembic radius 范围 0.01–0.045 mm，此前全部为 1.0。路径不变：`../word-quest-game/docs/hero-pipeline/export/<id>/*.abc`。Codex 可以重新导入并绑定。
+
+- 2026-10-22 09:35：**两位主角的服装已用代码建好并导出**，坐标系和各自的 `*_body.fbx` / MHC 拟合目标一致（米，脚底在 0，导入后脸朝 UE +Y）。
+  - 男主：`export/me2026/male_outfit.fbx`，白衬衫卷袖 + 黑西裤 + 黑皮鞋，约 1 万三角面，脚本 `clothes.py`。
+  - 女主：`export/lin/female_outfit.fbx`，浅蓝 A 字连衣裙（方领、细吊带、腰线 1.14 m、裙摆离地 28.6 cm）+ 黑皮绳吊坠项链，按 DeepSeek D6 的实测，脚本 `dress.py`。高跟鞋还没做。
+  - Codex：可以作为静态网格挂到 MHC 预览上验证；蒙皮和 Chaos Cloth 等 auto-rig 骨骼就绪后再做。
+- 2026-10-22：**配角调参（DeepSeek D19）已应用到 `build_cast.py`**（按角色单独设置增益），正在重新拟合和渲染：rui 已完成，其余进行中。
+- 2026-10-22：**MetaHuman 改为直接用参考照片做 conform**：`char_conform_metahuman.py` 新增 `PORTRAIT=photo` 模式，相机由 `photo_camera.py` 生成。男主 front 关键点误差 7.38 → 5.58 px，q34 14.22 → 12.77 px（clay 模式为 6.55 / 13.25 px）；女主正在跑。
+  - 查到的问题出在上游：Blender 拟合里 neck 类 target 饱和到 1.0。照片上脖子没有关键点，优化器借脖子去贴下颌线，结果脖子变粗、出现褶皱；eye-height-decr 约 0.5，把眼睛压小了。
+  - `fit_face.py` 已加 `CAPS` 上限（neck ≤ 0.15，eye-height-decr ≤ 0.15），正在重拟合到 `fit_v2/`。
+  - 肤色按 D21 的结果（ΔL +7、Δa −6、Δb −9，即参考图更亮、更少红黄），下一步把 U 调到 0、V 调到 0.45。
+- 2026-10-23 傍晚：**MetaHuman 装配、姿势、展示视频管线**
+  - 用户已登录 Epic。7 个角色全部 auto-rig 完成（`Tools/char_autorig.py`），资产从约 10 MB 增至约 50 MB。
+  - 组装蓝图用 `Tools/char_assemble.py`，配置为 Optimized + High。这台机器只有 16 GB 内存，和 Blender 同时跑时 UE 被系统杀掉了两次，所以组装改为等机器上没有 Blender 时才开始。
+  - **姿势**：
+    - `Tools/export_mh_body.py` 导出 MetaHuman 身体骨架；
+    - `Tools/props/pose_author.py` 在 Blender 里按肢体方向制作 10 个姿势（站、看、站着看手机、坐、打字、笔记本、手机、平板、阅读）；
+    - `Tools/import_poses.py` 导入为 `/Game/Memory/Characters/Poses/A_MH_*`；
+    - staging 已接上：优先用组装出的 BP，在身体上播放对应姿势。
+  - **展示视频**：
+    - `Tools/render_unit_film.py`：每个关卡单独开一个 UE 进程（在启动时 LoadLevel 会崩），每个机位做推镜。
+    - `Tools/film_narration.py`：旁白全部原创，用老人回忆的口吻，**不含教材原文**，因为视频要公开分享。
+    - `Tools/compose_unit_film.py` 合成序幕、卡片、逐词浮现的冷光字幕、记忆转场和环境音；`Tools/mux_av.swift` 用 AVFoundation 合成音视频，成片约 3.5 分钟。
+  - **D28 评审**（`Docs/qa/review-d28-claude.md`）：17 个小物件通过 1、返工 3、退回 13。**C13 证据图 25 张里 21 张全黑，不通过。** 两项都已退回 DeepSeek，并请它在组装期间暂停 Blender。
+- 2026-10-23 下午：**Codex 额度用完，任务重新分配**（`Docs/tasks/round4-reassign.md`）。Claude 负责画面、布景、人物和第 2–6 单元；DeepSeek 负责 C13 沉浸式运行时、内容、配音，以及 D28 精品小物件。
+  - **Codex 遗留代码**：修了 3 处编译错误，现在编译通过。截图修复已生效：第 1 单元 33 张 4K 截图全部落在亮度 40–170 之间，此前 28 张全黑。
+  - **C14 人物入场**：搭建器原来从未调用 `textbook_character_staging.py`，人物一直是圆柱。已接入，人物改为 MetaHuman 快照；失败的人物留下带标记的 TargetPoint，并输出 `Docs/qa/character-staging-unitNN.json`。坐姿和动作要等 auto-rig，需要用户在 UE 里登录 Epic。
+  - **kit 映射纠错**：chess_set（一个骑士棋子放大 6 倍）、reading_table（小桌放大 5.7 倍）、checkout_counter、hutong_wall、kitchen_counter、market_shelf、tv、blackboard 共 8 个错配已撤销，旧值保留在 `rejected` 字段。
+  - **精品物件**（`Tools/props/hero_*.py`）：phone、tablet、monitor、home_desk、rug、calendar、floor_lamp、bubble（记忆玻璃壳，`M_MemoryBubble`）、chess_set（车削棋子，中局摆位）、blackboard（粉笔手写板书）、kitchen_counter、tv（屏幕是 HDRI 实拍画面）、market_shelf（按货架布局生成商品和投影标签）、reading_table（银行家台灯）。其中前 8 个已入 UE，其余由后台流程烘焙和导入。
+  - **建筑**：`Tools/make_arch_materials.py` 生成世界对齐的 PBR 材质 `M_ArchWorld` / `MI_Arch_*`，配合单位盒 `SM_arch_box` 和搭建器新增的 `fit: size`。墙、街道、胡同墙、码头、发射台、舞台等 12 个 kit 已映射；草地、沙滩、月面、火星等地面 kit 等扫描材质导入后映射。
+  - **Poly Haven CC0 扫描**：经用户同意下载 22 套（191 MB），涵盖草、沙、岩、泥、月面、雪、橡木、胡桃木、枫木、亚麻等，见 `Tools/download_polyhaven_textures.py`，许可已登记。`pbr(scan=...)` 支持把扫描材质烘焙进精品物件，书桌和棋盘已换成真实木纹。
+  - **生词**：`Tools/scene_text_words.py` 让每个生词在课文所在的漂浮句子里点亮。DeepSeek 已校对词表，现在 506/506 全部覆盖。
+- 2026-10-23：**第四轮任务已下发**（`Docs/tasks/codex-round4.md`、`deepseek-round9.md`）：六个单元全部建成、教材内容全覆盖、沉浸式少 UI。
+  - **第 1 单元画面评审：全部退回**，见 `Docs/qa/review-u01-claude.md`。33 张 4K 截图中 28 张平均亮度为 0（没渲染出画面），能看的 4 张仍是白模和棋盘格材质。
+  - **新的精品物件管线（Claude）**：`Tools/props/hero_common.py`。流程是 Blender 代码建模（真实倒角）→ 程序化材质（边缘磨损、缝隙脏污、划痕、指纹）→ Cycles 烘焙 2K BaseColor / Normal / ARM → `Tools/import_hero_props.py` 导入到 `/Game/Memory/Props/Hero/SM_<kit>`（开 Nanite，母材质 `M_HeroPBR`；屏幕类用 `M_HeroScreen` 自发光贴图）。
+    - 已完成：phone（3.3 万三角面，带锁屏界面）；tablet 烘焙中。屏幕贴图由 `Tools/props/hero_screens.py` 生成，文字全部原创。
+    - 下一批：monitor、keyboard、headphones、wifi_router、home_desk、floor_lamp、rug、door、calendar。
+  - **缺失 kit 分工**（全部 6 个单元共 268 个没有最终资产）：
+    - 近景物件和设备：Claude 用上面的管线做精品物件。
+    - 建筑和地面（wall、window_wall、street、lawn、sea_water、moon_surface、mars_surface 等）：Codex 用模块化几何加 Poly Haven PBR 材质。
+    - 大型布景（火箭、船、建筑外立面）：Codex 用模块化方案搭，Fab 恢复后再替换。
+  - 男主：换上瘦颈目标并用照片重新 conform 后，front 5.72 → **3.88 px**，q34 **7.09 px（PASS）**；正在按 D21 调皮肤（U 0、V 0.45）。
+- 2026-10-22 10:05：**二维闭环精修 + q34 相机姿态修正**
+  - 新工具 `Tools/char_refine2d_prep.py` + `Tools/char_refine_2d.py`：用 MediaPipe 比对 MHC 正面渲染和目标网格渲染，得到图像平面上的位移场，再用 translate_face_landmarks 移动 MH 脸部关键点。男主跑了 3 轮，相对目标的局部形状误差 6.5 → 2.8 px，脸部纵向被压短的问题已修正（z 向缩放 1.074 → 0.98）。
+  - **修了 q34 渲染姿态的符号（改的是 Codex 的 `Tools/ue_render_compare.py` 第 28 行）**：`fit_face.view_frame` 里 pitch>0 是相机在下方、roll 绕朝向相机的轴，UE 相机架两者都相反，现在传 (yaw, −pitch, −roll)。男主 q34 12.77 → **7.74 px（PASS）**，front 5.72 px。7 个角色都已重渲，dashboard 已更新。DeepSeek 的 `render_target_like_ue.py` 如果照搬了旧 UE 约定，也要同步改。
+  - 女主改用照片做 conform 失败（刘海挡住了眉和额头，跟踪点出错）；重新 conform 也恢复不了（conform 是在当前状态上迭代的），已从 checkpoint 8413d47 恢复 `MHC_lin.uasset`。当前 dashboard：front 5.76 / q34 6.03 px。
+  - 男主的瘦颈目标 `fit_v2/male_fit_slim.blend`（fit_face.py 新增 CAPS 上限 + 颈部收窄）已做好、还没换上。
+
 ## Codex（引擎侧）
 
 - （待更新）
@@ -91,13 +142,263 @@
   - 男主首次临时 FaceMesh 皮肤绑定 180 秒超时，按失败退出 1，没有报完成或生成假截图；正在加边界日志、延长离线绑定等待并核查 CPU 热点/坐标。额外 rigid 模式只用于验证导入坐标与材质，不能冒充可变形皮肤绑定。
   - 源属性线索：当前读取的 docs/hero-pipeline/scripts/groom_strands.py 统计 is_guide/widths/COL，但创建 legacy Curve 导出时未看到把 groom_guide/groom_width/groom_root_uv/颜色写入 Alembic 的代码。UE 实测男主 102,928 curves / 10,292 guides（自动生成 10%），不是源 info.json 的 2,600 guides。请 Claude 检查当前 ABC 属性；此处只反馈，未改源发丝或作者脚本。
 
+- **2026-10-22 · 第二轮接收 / C3 等待重新导出交接**
+  - 已做：按 codex-round2.md 接续 C3→C4→C6，导入器增加 Claude 一节“Groom 重新导出完成”门槛；头发/眉毛直径显式换算和范围校验。上一轮坐标记录更正：最终有效 conversion 为 rotation=(-90,0,0)、scale=(100,100,-100)，原 +90 会倒置；正确坐标下男主 FaceMesh 临时绑定约 1 秒，上一轮最终仍因源半径导致画面条纹未验收。
+  - 验证：20/20 离线测试通过；动画资产只读清点退出 0；新增 archetype 动画预览类共享锁编译成功 15.60 秒。网页规格同步的全量测试 811+7 通过，构建通过，最终交付随 C3/C4 结果继续记录。
+  - 还缺：Claude 正在导出，尚未有交付标记，因此未提前重新导入；七人带 Groom 五视图、QA、动画实际重定向均待后续执行。没有操作 Epic 登录或修改 Content/Characters。
+
+- **2026-10-22 · C3 重新导入启动 / 皮肤保持约定**
+  - Claude 的交付标记已出现，男主 2 份 Groom 已实际重新导入成功、退出 0。其余 7 份待男主带发丝画面验证后继续。比较渲染取消 UsePreviewSkin/材质切换，保留角色保存的合成皮肤与 preview_material_type，capture.json 记录 Authored、实际材质路径及 MHC 前后 SHA256。
+  - 男主渲染当前在等共享 UE 锁，未终止 Claude 的肤色校准/拟合进程。Core Data 已安装，之前缺少 Core Data 的条目仅为历史状态。
+  - 给 QA 的接口问题：当前 report.py 的 PROFILES 只支持 me2026/lin，5 配角会 unknown id；conform_report.py 和 dashboard.py 已支持全部角色。Codex 不改 Tools/qa，计划主角执行 report，配角补 conform_report + dashboard，并记录 report 的工具限制；请 DeepSeek 后续扩展 report 的配角入口与有 Groom 的文案。
+
+- **2026-10-22 · C3 男主重新导入后实际渲染反馈（画质仍 FAIL）**
+  - 九份新源文件交付后，男主发丝/眉毛重新导入成功；MHC 两个 FaceMesh 临时绑定合计 **1.98 秒**，五视图完整生成、退出 0，保留 Authored 真实皮肤、MHC SHA256 未变。运行快照：`Saved/CompareRuns/me2026/d71249389b61439db7b2882400460159`。
+  - 目视 front 仍有斜向黑色长条和噪点，半径修复后尚未通过画面验收；人脸追踪返回 16 条曲线也不能证明发丝正常，未把渲染进程成功当成质量 PASS。接下来检查 UE 实际导入直径/相邻点长度和 triangle strip/渲染路径，结果会继续追加。其余源 Groom 正在串行全量重新导入，不修改作者数据。
+
+- **2026-10-22 · C3 渲染路径定位 / C6 配置与测试完成**
+  - C3：只切 triangle-list、保留正常 FaceMesh 绑定的对照运行 `71bc95eca95d4a08a11b5f0edea4f85d` 五视图已完成，退出 0，绑定 1.73 秒，斜向满屏长条消失；仍有噪点与发型/轮廓偏差，不能标最终质量 PASS。UE 内部男主最大直径 0.006164 cm、最长相邻线段 0.171545 cm；眉毛 0.008 / 0.098730 cm。新增 MacEngine.ini 启动级 triangle-list 配置，正在共享编译锁内接续复核。
+  - 相机噪点另查到 SceneCaptureComponent2D 构造函数默认 ShowFlags.TemporalAA=false；ConfigureViews 将对已有序列化相机显式启用 TemporalAA + AntiAliasing，保留视图历史。七人最终带 Groom 渲染和 QA 待此构建完成后继续，未更改作者材质。
+  - C6：网页角色表按 Docs/characters 同步白衬衫卷袖/黑西裤/黑皮鞋、浅蓝 A 字裙/银色 7 cm 高跟鞋/黑绳金属吊坠/酒红长直发，男主无眼镜和背包。英雄 GLB 加载及材质几何保留；衣服/首饰元数据不冒充回退身体已能生成最终裙装与鞋跟。VITEST_MAX_WORKERS=2 npm test：811 前端 + 7 数据测试通过；npm run build 通过。测试旧的卫衣/背包断言已同步新需求。尚未提交，待本轮引擎结果一起按范围整理。
+
 ### 2026-10-22 Web 客户端退役（用户最新指令）
 - 检查最新提交 f44eb78 / 81f9ef6 / 8413d47 / ff7ba78，确认以 UE5.8 为唯一客户端。删除旧 Web 入口、src、dist、Vite/npm 配置、移动壳与浏览器调试页面；教材、角色源资料及导入路径保留。删除前含未提交改动的快照在本机 ~/.local/share/wordquest-archives/。
 - 剧情先从最新工作树导出至 UE（6 单元、18 段、90 幕、98 台词），后将 data_export_acts 改为直接校验 UE JSON；本地化历史审计冻结，消除对已删除 src 和 Node 的依赖。
 - 验证：7 项剧情 QA + 22 项角色管线测试通过；63 个保留源文件哈希一致；旧入口不存在；Python 语法检查通过。说明见 Docs/web-retirement.md。
 - 尚缺：UE 各系统迁移验收继续按原计划推进；保留目录只是源资料，不代表旧 Web 仍可运行。此前 C3 发丝质量尚未通过，C4 AnimSequence.get_controller API 问题尚未解决，不因删除 Web 标记完成。
 
+### 2026-10-22 第三轮 C7 / C8 接口联调（未提交）
+- 已完整阅读 codex-round3.md、unit01.md、ue-run-rules.md。C7 搭建器已用 Claude 正式 unit01.json 建出 3 张关卡、22 个 set；C8/C9 正在编译及 PIE 联调。接口/测试方案见 Docs/engine-textbook-round3.md。
+- **待 Claude 核对数据**：当前 textbook_units.json 的 unit01/section_c passage 只有 2 个空行段落；正式场景引用第 1–9 段，u01c_s1 就引用到不存在的第 3 段。请补齐真实 Section C 段落结构，或明确 scenes 段号如何映射到 OCR 正文。Codex 不改写教材/场景数据。练习 #1-3 范围已在引擎接口补支持。
+- 编译调试曾出现保护成员和 TObjectPtr 类型错误，已修复；一次脚本在编译失败后仍被串行启动，因 dylib 缺失弹出模块提示（无并发编辑器、未发生新崩溃）。已停止这种串接调用，后续必须确认编译成功后再启动，并要求日志完成标记，避免 UE exit=0 误报成功。截图和最终验收结果随后追加。
+
+### 第三轮 · 新画质门槛已接入（联调中）
+- 已读取 quality-bar.md / round3 画质补充；kit_assets.json 映射已接入，空路径回退打 needs_final_asset；人物占位也计入 FAIL。新增 per-set PPV、LocalFogVolume、SkyAtmosphere/Cloud、Nanite、decals/clutter（固定种子）、全机位 3840×2160 截图与逐 set 的质量报告。最终资产尚空，不标视觉完成；运行时默认阻止未过最终资产门槛的粗糙关卡，仅 WQ_TEXTBOOK_ENGINE_QA=1 允许引擎内部诊断。
+- 最新数据还在变动：场景现引用 A 第 1–12 段、C 第 1–10 段，textbook_units 仍是 A=9、C=2；scene 里的 u01_b_text_b_mcq 与最新 exercises 文件的 id 不一致。请 Claude 同步正文段落结构和题目引用（Codex 只读数据）。
+- C9 首轮 12 kind 正确/错误提交与暂停恢复逻辑已过；截图复核发现旧 Slate 树没有刷新，已修为同一树内更新，正在重跑图像验收，不能只凭旧 results.json 当完成。首次 PIE 结束后退出回调漏判 world=None，自己的编辑器 pid46978 已终止释放锁，脚本已修正；未影响其他进程。
+
+### 2026-10-22 · C10 最终资产接入与 C7–C9 收尾（Codex，未提交）
+- 需求 / 接口 / 测试记录在 `Docs/engine-textbook-round3.md`。FabStaging 迁移核验为 150 个 `.uasset`；迁移时哈希一致，之后主工程为椅子、轿车、会议桌保存 Nanite 设置，故这 3 个文件现在与暂存副本不同，其余一致。编辑器已加载并映射 4 个交付项（office_chair、board_table、car、book）；Wooden Bookcases 不在暂存目录。Fab 网页停在 Cloudflare 人机验证，未尝试绕过；需要用户在 Fab 页面完成人工验证并补齐书柜、贴花等免费资产。
+- Poly Haven 导入报告 `Saved/Textbook/polyhaven-import.json`：51 个模型、9 套 PBR 贴图、6 个 TextureCube HDRI，另有 `urban_street_01` 源 HDR 以 Texture2D 导入；昼间照明映射回退至 `urban_courtyard` TextureCube。总计 0 个导入错误、1 项 HDRI 警告；8 个含透明材质模型跳过 Nanite，26 个 CC0 杂物网格已登记。kit 映射静态测试 4/4 通过。
+- 重建 `L_U01_A/B/C` 并运行 C7 质量检查：22 个 set、33 个机位，33 张 `3840×2160` PNG 已输出到 `Docs/qa/scenes/<sceneId>/`；`Docs/qa/textbook-scenes-unit01.json` 与 Markdown 逐 set 列出缺失 kit。当前 22/22 仍为 FAIL：154 个场景几何 actor 需要最终资产，208 个占位 actor（含角色胶囊），56 种 kit 缺最终映射；正式贴花为 0/10，5 个无桌面/柜台的 set 没有适配的 CC0 杂物。其余 17 个 set 已从 Poly Haven CC0 网格做确定性桌面散布。Poly Haven 资产仍须逐项完成 PBR、倒角、三角面及视觉复核，不能算最终验收。
+- C8/C9：通过 `Tools/run_ue_serial.sh` 编译成功；`Tools/test_textbook_pie.py` 同一 run `1792659124067307000` 下 12 种练习、答题暂停/恢复、全文句子推进和跨场景转场均通过，生成 21 张 fresh UI 证据。修复点：macOS 无头 PIE 不落盘 `FScreenshotRequest`，现由 UMG `FWidgetRenderer` 导出 1280×720（横竖屏测试另核 1280×720 / 450×900）；场景画面由 C7 4K SceneCapture 单独验收。转场断言现等待真实完成状态，不按固定帧数误报失败。
+- 静态验证：Python 语法检查通过；Poly Haven 4 项测试及场景契约其余 11 项通过。唯一已知失败是 Claude 场景 JSON 引用不存在的 `u01_b_text_b_mcq`（题库实际 id 为 `u01_b_understanding`）；Codex 未修改教材或场景源数据。未提交、未推送。
+- 2026-10-22 · Fab 资产补齐尝试：Epic Games Launcher 显示账号已登录；在 Safari 打开 Fab 后遇到 Cloudflare“请验证您是真人”复选框。按 `Docs/engine-textbook-round3.md` 的“不绕过登录或验证码”规则停止在此处，未点击、未绕过，也未下载新资产。待用户本人完成验证后继续；当前 33 个 `source=fab` kit 仍为空，待按搜索词逐项筛选免费且允许的许可、下载、核对路径并登记到许可清单。
+- 2026-10-22 · Fab 补齐继续尝试：用户明确要求 Codex 自行操作；已确认 Epic Games Launcher 账号处于登录态，FabStaging UE 5.8 主窗口可用且 Fab 插件已启用。编辑器 Fab 入口与 Launcher Fab 导航均未成功打开商品页；独立 Fab 页面停在“请稍候”加载/保护页面。未下载新资产、未把候选写成正式映射、未接受新许可；33 个空 Fab kit 保持原状。继续从可响应的已登录 Fab 面板逐项筛选“免费 + Personal”后获取，并在每项完成时登记作者、许可、路径、日期。
+
+### 2026-10-23 · 用户纠偏：完整开场和生活空间（未提交）
+- 独立 OpeningFlow 已挂接 GameMode，加锁编译 Result: Succeeded；读取原 prologue，Ready/等待/跳过经三秒穿梭进入第一单元。新增2090公寓搭建器，实际锁内生成进行中；PIE完整地图切换验证由 verify_opening_delivery.py 等待搭建完成后执行，只有真实通过才切换默认启动地图。
+- living_room_dressing 已接入 Unit1A builder，禁用该set旧通用杂物；5项测试通过。书籍、茶具纸笔、盆植、相框使用本地交付资产，底部与支撑对齐；尚未重建出图和视觉验收。
+- 未将已写代码当成游玩完成；天气、语音、人物坐姿、字幕中文字体和实际机位仍待实景检查。未提交、未推送。
+
+- 2026-10-23 续修：2090实际搭建失败已定位两处UE5.8属性API兼容问题（Skeleton只读/未暴露Python setter；动画编辑器更新属性不能直接写），新增受限C++ setter桥接且编译Succeeded，移除冗余动画属性直写。人物副本已实际生成身体材质、骨架和DNA，关卡重建再次执行中。修正公寓网格旋转后的pivot/接地与18本书站立摆放。9项staging和5项room单测通过；完整PIE仍未通过，默认入口未切换。
+
+- **2026-10-23 17:45 · 可玩序幕到第一单元：实际 PIE 通过，视觉继续返修（未提交）**
+  - 正常状态链：4段原始独白→等待确认→Not yet→等待返回→Ready→3秒2090/2026转场→L_U01_A；空间UI=0、完整度环=1。导航排除了天空/雾碰撞体，本轮实际W输入移动46.91cm、眼高无跳变，暂停位置不变。证据 Saved/Opening2090/playthrough.json，日志 playthrough.log 的 WQ_OPENING_PLAYTHROUGH_PASS；图 ready-1792748462734920000.png / 同名-first-room.png。
+  - 最新隔离/导航编译与原生皮肤复制编译日志均 Result: Succeeded（isolation-build.log、skin-copy-build.log）。角色源保护9项、场景契约12项、陈设5项离线测试通过。
+  - 视觉仍FAIL：旧副本脸黑、人物预览服装/发丝未达标、部分座位不足、相框背面与空架。皮肤快照改用原生完整参数复制并隔离skin_v2缓存，正重建；不修改作者MHC/脸/服装/头发。请Claude继续交付最终穿衣/发丝/自动绑定结果，当前预览体不能冒充最终角色。
+  - 运行时未齐资产改为保留WQ_VISUAL_QUALITY_FAIL日志且允许进入课文，质量checker仍按原门禁判FAIL；此前不应以不透明准备屏代替可玩流程。新正常环境（无QA变量）复测待完成；默认入口暂未切换。无提交、无推送。
+
+- **2026-10-23 17:54 · 用户要求提交推送：代码检查点**
+  - 此次提交范围：引擎Source、C7/C8/C9场景/播放/沉浸交互工具、序幕与导航、房间细节、需求/接口/测试文档；不混入人物源资产、扫描素材/场景二进制、教材作者数据、截图/视频和缓存。
+  - 实测：45项离线单测通过；最新texture-source-build.log为Result: Succeeded（10.61s），包含skin_v3持久纹理Source修复；scene-material-repair.log达到WQ_SCENE_SAMPLER_DEFAULTS_REPAIRED，修正Normal/Masks默认纹理和Nanite用法。git diff --cached --check通过。
+  - 皮肤进一步根因：MHC Editable纹理仅有动态PlatformData，直接复制后重开没有mip，不能只复制材质参数。skin_v3读取MHC已存储的SynthesizedFaceTextureDataAsync原始像素，初始化副本TextureSource，保留颜色/压缩属性，不改作者脸/头发/服装。编译已通过，skin_v3重新装配/实景重渲染仍待做，不声称视觉通过。
+  - 最新已完成首次房间更新达到WQ_FIRST_ROOM_UPDATED（skin_v2）；新增相框翻转、棋椅和书架顶部书籍的代码已纳入，但待下一轮更新和视觉核对。视觉总验收仍FAIL，默认地图没有切换。
+
 ## DeepSeek（数据 / 文档 / QA 工具）
+
+- **2026-10-22 · UE P1：PIE 截图复现（HUD 验证通过，构图仍未过）**
+  - 新增 `AWordQuestMemoryGameMode`（SpectatorPawn + WordQuestHUD）并切到 U1A；`smoke_u01a_pie.py` 可稳定 PIE + 截图。
+  - 日志确认 HUD：`[memory-hud] begin/loaded 25 lines/130 words`，HUD=WordQuestHUD；截图 `Saved/Screenshots/u01a_pie.png`。
+  - 问题：Python 的 PlayerController 无 `set_view_target`，无法切到 cam_00；当前截图被近处几何挡满，构图不可验收。下一轮用 C++ 设 ViewTarget / `take_automation_screenshot_at_camera` 再验。
+
+- **2026-10-22 · UE P1：PIE 带视口验证（第一次真实截图）**
+  - `smoke_u01a_pie.py`：PIE 启动 → 2s → 记录 world/pc/hud → 1600×900 截图 → 结束；日志确认 `[memory-hud] begin/loaded 25 lines/130 words`，HUD=WordQuestHUD。
+  - 新增 `AWordQuestMemoryGameMode`（DefaultPawn=ADefaultPawn），U1A 已切到该 GameMode，避免第三人称身体穿帮；损坏的 Source body 占位已移除。
+  - 截图：`Saved/Screenshots/u01a_pie.png`；暴露的问题：出生点/构图被墙挡满、灯光偏亮、角色/MetaHuman 未进场、字幕位置需调。
+  - 下一步：修 PlayerStart/相机构图、降低曝光、再截一张可读的垂直切片图。
+
+- **2026-10-22 · UE P1：E 收集 + PlayerStart（部分验证）**
+  - 词卡改为按 E 收集；增加 `[E] 记住` 提示；L_Unit01A 加 `PlayerStart_Memory`（-260,260,90 / yaw 180）。
+  - 编译通过；无头 `-game` 成功加载 L_Unit01A（Game class=WordQuestGameMode，进入 play），但**日志无 `[memory-hud] begin`**，HUD 未在无头模式按预期 BeginPlay；待 PIE/Automation 带视口验证，不宣称 HUD 已可用。
+
+- **2026-10-22 · UE P1：词物件 + 视线词卡（已编译）**
+  - `build_u01a_words.py` 生成 11 个 `word_<wordId>` actor（碰撞 BlockAll）；L_Unit01A 共 **59 actors**。
+  - `AWordQuestHUD` 增加视线射线（600cm）→ 词卡：英文词/音标/英文例句优先 + 弱化中文；记录已触碰词数 `MEMORY · n`。
+  - `Build.sh WordQuestUEEditor Mac Development` 编译通过；待 PIE 验证、断片/记忆匣。
+
+- **2026-10-22 · UE P1：极简回忆 HUD（Canvas，已编译）**
+  - `AWordQuestHUD` 新增 memory mode：U1A 地图不画学习面板，只画轻黑边/极淡 MEMORY 角标/底部英文字幕（自动换行、中文 0.32 alpha）/右下进度；数据运行时读 `Content/Data/Memory/scenes.json`（unit01_section_a）。
+  - U1A WorldSettings 的 GameMode 已设为 `WordQuestGameMode`（`Tools/set_u01a_gamemode.py`）。
+  - `Build.sh WordQuestUEEditor Mac Development` 编译通过；待 PIE 试玩验证、词卡/断片/触碰、UMG 化。
+
+- **2026-10-22 · UE P1：LS_Unit01A Sequencer 相机 Cut（完成）**
+  - 新增 `Tools/build_u01a_sequence.py` + `Tools/check_u01a_sequence.py`；`/Game/Memory/Sequencer/LS_Unit01A` 已生成。
+  - 实测：1 条 Camera Cut Track、3 段 cut（0–300/300–600/600–870 @30fps），3 个相机 binding 均绑定成功。
+  - 待补：句子/字幕/显形事件、运行时 playback range（默认 0–150）；随后做极简 UMG 与触碰交互。
+
+- **2026-10-22 · UE P1：U1A 角色持久占位（完成）**
+  - 确认 MHC preview actor 无法保存（transient 设计）；改用 `/Game/Characters/<id>/Source/*_body` 网格生成持久 SkeletalMesh/StaticMeshActor。
+  - `build_u01a_characters.py` 现可把 5 人（me2026/lin/mei/an/rui）摆进 L_Unit01A；检查脚本确认 **48 actors**（43 场景 + 5 角色）。
+  - 下一步：Sequencer（相机/句子/部件显形事件）；真正 MetaHuman 外观走运行时 spawn 或补 BP。
+
+- **2026-10-22 · UE P1：U1A 场景 + MetaHuman 进场验证（部分完成）**
+  - U1A 关卡已按正式尺寸/材质/灯光/相机重建（43 actors）；`Tools/build_unit01a_scene.py` 可幂等重建。
+  - 新增 `Tools/build_u01a_characters.py`：5 个 MetaHuman 在编辑器内 spawn 成功，但**引擎规定 MHC 预览 actor 不可保存进关卡**（保存后仍 43 actors）；已写入 `Docs/design/ue-scene-pipeline.md` §11。
+  - 下一步：做运行时 spawn 的 `MemorySceneDirector`，或生成持久 `BP_<id>`；随后接 Sequencer/UMG/性能。
+
+- **2026-10-22 · UE 场景管线 P1 第一步：U1A 关卡片段（完成）**
+  - 新增 `Tools/build_unit01a_scene.py` / `Tools/check_unit01a_scene.py`；生成 `/Game/Memory/Scenes/L_Unit01A`：11×8m 房间、长桌椅子/黑板/书架/灯/植物、6 个自建材质、DirectionalLight+SkyLight+RectLight+点光+雾、按 shots 的 3 台 CineCameraActor。
+  - 实测：关卡已保存，检查脚本统计 **43 actors**（32 StaticMesh / 3 CineCamera / 3 灯 + 雾）。
+  - 未完成：角色（暂无 BP_<id>）、Sequencer、UMG HUD、性能实测；截屏 API 在无头编辑器下不可用（已记录，不影响关卡）。
+  - 文档：`Docs/design/ue-scene-pipeline.md` 第 10 节。
+
+- **2026-10-22 · UE 场景管线 P0：数据导出 + 18 篇白盒关卡（已完成）**
+  - 导出：`Content/Data/Memory/scenes.json`（18 篇 stage+script 纯数据，630KB）、`stages.json`（18 舞台，64KB）。
+  - 校验：`Tools/validate_memory_scenes.py` → `validation.json`：18 scenes / 18 stages / **0 errors**。
+  - UE 导入：`Tools/import_memory_scenes.py`（白盒生成）；已通过 `run_ue_serial.sh` 实跑，生成 **18 个白盒关卡** `/Game/Memory/Whitebox/L_<unitXX_section_x>`，含 piece 白盒、CameraActor、slots/wordId/actor TargetPoint。
+  - 文档：`Docs/design/ue-scene-pipeline.md` 第 9 节记录 P0 进展。
+  - 下一步：U1A（clubRoom）正式 EnvKit + Sequencer 垂直切片；白盒 piece 位置目前仅按 target 名近似，需在切片中替换。
+
+- **2026-10-22 · 选择 B：UE 场景管线迁移方案（完成方案文档）**
+  - 产出：`Docs/design/ue-scene-pipeline.md`（目标/非目标、现有资产盘点、目标架构、数据格式、性能预算、P0–P4 阶段、风险与验收）；`Content/Data/Memory/scene-schema.sample.json`（U1A 的 StageDef/MemoryScript 简化 schema 样例）。
+  - 结论：UE 版目标为 **PC 1440p 60fps + Nanite/Lumen/VSM + Sequencer 演绎 + 极简 UMG**；不是浏览器里做《地平线》级。
+  - 现有可复用：7 个 MetaHuman、Groom、服装、6 个单元 RW3 地标网格、`L_Main`、Nanite/Lumen/VSM 配置、`acts.json`；Web 侧 18 舞台/脚本作为数据源。
+  - 工期估计：垂直切片 U1A 约 1 个月；18 篇接近发行级约 5–8 个月（1 技术美术 + 1 UE 程序）；写实资产需授权/采购。
+  - 下一步 P0：写 Web→JSON 导出器（18 篇 stage/script 纯数据）→ UE Python 导入 DataAsset/Level Instance → U1A 白盒垂直切片。
+
+- **2026-10-22 · 质量 pass 第二轮（L2 材质第一层）**
+  - 新增 `stages/microSurface.ts`：给 15 个新舞台里无贴图的纯色 `MeshStandardMaterial` 加对象空间微表面噪声（颜色/粗糙度微变化），不依赖 UV、不改基调；跳过玻璃/自发光/现有 interior 材质。
+  - `dress.ts` 增加窗口层：淡窗光 + 斜向光束（加法混合、低透明），让窗“有方向”，不是一块平光。
+  - `docs/quality-bar.md` 更新：L2 标为“部分完成（微表面+窗光）”，L3 灯光仍未做。
+  - 验证：`npx tsc --noEmit` ✅；`npx vitest run` → **874 passed**；`npx vite build` ✅。
+  - 下一轮：L3 逐场景布光（主光/补光/实用光源、灯罩发光、色调分级），再进逐篇手写重点戏。
+
+- **2026-10-22 · 质量 pass 第一轮（陈设密度 + 质量基线文档）**
+  - 新增 `stages/dress.ts`：给 15 个新舞台自动补陈设（墙面画/地图、地面箱子/行李/植物、桌面纸笔杯子、书架书脊），细节挂在部件组上随文章演绎显形；原 clubRoom/apartment2090/emptyRoom 不动以保原网格预算。
+  - 新增 `docs/quality-bar.md`：视觉 L0–L4、情节演绎、英语学习、内容正确性、学习效果五层基线；当前明确标出已完成/未完成。
+  - 验证：`npx tsc --noEmit` ✅；`npx vitest run` → **874 passed**；`npx vite build` ✅。
+  - 下一轮：L2 材质/纹理 pass（木/布/纸/金属/玻璃 + 窗景层次），再 L3 灯光。
+
+- **2026-10-22 · 学习质量基础升级（英语词卡 / 表演层 / 内容 lint）**
+  - 词卡改为**英文优先**：先显示英文例句与搭配，再以弱化样式显示中文义（`hud.ts` / `MemoryStage` 透传 `example`/`collocation`；130 词均有英文例句）。
+  - 表演层：新增 `scripts/choreography.ts`——按句子动词给 organizer/student 选动作（talk/read/write/point/listen），已接入 u01b/u01c 与单元 2–6 共 15 篇；每一幕至少有 1–2 个角色动作 cue，带单测。
+  - 内容质量 lint：新增 `scripts/lint_content.mjs`（npm `lint:content`）→ `docs/content-quality-report.md`。当前 6 单元 / 18 课文 / 130 词 / 23 阅读 / 24 听力 / 72 微检查 / 24 翻译 / 6 写作 / 24 提纲：**0 errors，0 warnings**（结构、字段、答案越界、词表引用均通过）。
+  - 验证：`npx tsc --noEmit` ✅；`npx vitest run` → **874 passed**；`npx vite build` ✅。
+  - 仍未完成（不掩盖）：三维场景仍是 blockout 级美术；逐篇手写剧情/表演、英文产出闭环、录音配音、学习效果试玩与前后测 —— 这些不是自动测试能保证的。
+
+- **2026-10-22 · 读写 3 单元 5–6 六篇舞台/脚本（18/18 全完成）**
+  - 单元 5：`moonExhibit.ts`（任务展）、`controlRoom.ts`（鹊桥控制室）、`astronautHall.ts`（航天员训练区），脚本 `scripts/u05.ts`。
+  - 单元 6：`bookstore.ts`（老港区书店）、`bookExchange.ts`（校园换书角）、`countyLibrary.ts`（云河县图书馆），脚本 `scripts/u06.ts`。
+  - 场景清单：`docs/textbook-rebuild/scenes/unit05.md`、`unit06.md`；`plan-next.md` 更新为 18 篇全部完成。
+  - 测试：18 篇均通过 `validateScript` + 全部件显形覆盖；舞台测试覆盖 18 个手写舞台（含高铁窗外动画）。
+  - 验证：`npx tsc --noEmit` 通过；`npx vitest run` → **871 passed**；`npx vite build` 成功。
+  - 进度：**读写 3 的 18 篇文章（6 单元 × Text A / Text B / Stories of China）全部有专属三维舞台与手写脚本**。
+  - 下一阶段：教材包导入后的 `passageOverride` 长文验证、把 New words / Understanding / Banked cloze / Translation / Collocation 等练习落成场景交互（PRD P3）。
+
+- **2026-10-22 · 读写 3 单元 4 三篇舞台/脚本：完成**
+  - 新增舞台：`careerWorkshop.ts`（校园职业工作坊）、`violinWorkshop.ts`（小提琴作坊）、`embroideryWorkshop.ts`（苏州绣坊），已注册。
+  - 新增脚本：`scripts/u04.ts`（三篇舞台、开场旁白、人物；保留 `passageOverride`），已注册。
+  - 高铁确认：`highSpeedTrain` 车厢 + 窗外景观动画已接入，新增单测验证 animate 移动景观、车厢本体不动。
+  - 场景清单：`docs/textbook-rebuild/scenes/unit04.md`；`plan-next.md` 已更新。
+  - 验证：`npx tsc --noEmit` 通过；`npx vitest run` → **859 passed**；`npx vite build` 成功。
+  - 进度：单元 1–4 共 12/18 篇有专属舞台；余下单元 5–6 共 6 篇。
+
+- **2026-10-22 · 读写 3 单元 3 三篇舞台/脚本：完成**
+  - 新增舞台：`word-quest-game/src/features/memory/stages/travelLounge.ts`（小城旅店前厅）、`soloStation.ts`（夜晚火车站大厅）、`highSpeedTrain.ts`（高铁车厢，窗外景观持续动画），已注册。
+  - 新增脚本：`scripts/u03.ts`（三篇的舞台、开场旁白、人物/向导；保留 `passageOverride`），已注册。
+  - 场景清单：`word-quest-game/docs/textbook-rebuild/scenes/unit03.md`；`plan-next.md` 已更新。
+  - 测试：unit3 三篇引用校验 + 全部件覆盖；舞台测试扩展到 8 个新舞台。
+  - 验证：`npx tsc --noEmit` 通过；`npx vitest run` → **852 passed**；`npx vite build` 成功。
+  - 进度：单元 1–3 各 3 篇有专属舞台（9/18 篇）；余下单元 4–6 共 9 篇。
+
+- **2026-10-22 · 回忆 UI 缩小淡化、去掉地点/篇名提示：完成**
+  - 进入回忆的过渡层（`MemoryEntryTransition`）不再显示篇名/地点：只留一枚极小的 `MEMORY RECALL` + 一条细线，标题、副标题、提示文字全部移除（CSS 同步缩小、降低不透明度）。
+  - 回忆结束的定格卡不再显示文章标题/单元名（`autoScript`、`u01a` 的 freeze caption 置空）；保留 u01a 的尾声独白。
+  - 整体 HUD 缩小/淡化：视角角标 8px/0.38 透明度、退出按钮 24px/低对比、字幕 18–27px、中文 10–12px/0.55、提示胶囊与选项按钮更小更淡、词签更小、摇杆 0.5 透明度。风格保持“科技记忆”的冷光/扫描线。
+  - 验证：`npx tsc --noEmit` 通过；`npx vitest run` → **846 passed**；`npx vite build` 成功。
+
+- **2026-10-22 · 读写 3 单元 2 三篇舞台/脚本 + 全件显形修复：完成**
+  - 新增舞台：`word-quest-game/src/features/memory/stages/archiveExhibit.ts`（校史展厅）、`hepburnGallery.ts`（Hepburn 小展厅）、`chartRoom.ts`（郑和海图室），已注册。
+  - 新增脚本：`scripts/u02.ts`（三篇各自的舞台、开场旁白、人物出场；保留 `passageOverride`），注册进 `scripts/index.ts`。
+  - 引擎修复：`autoScript.ts` 原先只把剩余舞台部件分给前 N 幕（多出的永不显形），改为按幕均分 → 所有部件都会在文章演绎里出现；新增 unit2 全件覆盖测试。
+  - 场景清单：`word-quest-game/docs/textbook-rebuild/scenes/unit02.md`；`plan-next.md` 已更新。
+  - 验证：`npx tsc --noEmit` 通过；`npx vitest run` → **846 passed**；`npx vite build` 成功。
+  - 当前进度：单元 1（3 篇）+ 单元 2（3 篇）有专属舞台；余下单元 3–6 共 12 篇。
+
+- **2026-10-22 · 读写 3 单元 1 三篇舞台（继续写代码）：完成**
+  - 新增舞台：`word-quest-game/src/features/memory/stages/bedroomDawn.ts`（宿舍清晨，22 个可显形部件）、`clinicRemote.ts`（山区诊室，21 个部件），已注册进 `stages/index.ts`；各含 bounds/slots/4 机位/环境/窗口天气。
+  - 新增手写脚本：`scripts/u01b.ts`《床头的光》→ bedroomDawn（清晨旁白 + 年轻的我坐在床沿）、`scripts/u01c.ts`《山那边的诊室》→ clinicRemote（周医生/奶奶/年轻的我），已注册；B/C 不再共用 emptyRoom。
+  - 场景清单：`word-quest-game/docs/textbook-rebuild/scenes/unit01.md`（A/B/C 地点/时间/人物/物件/光线/段落映射/机制，样板块）。
+  - 测试：`scripts.test.ts` 更新 B/C 舞台断言并校验引用；`stages.test.ts` 新增新舞台部件/摆放位/机位检查。
+  - 验证：`npx tsc --noEmit` 通过；`npx vitest run` → **840 passed**；`npx vite build` 成功。
+
+- **2026-10-22 · 游戏场景双线改造（用户方向：文章演绎 × 词造世界）：完成**
+  - 读写 3（`word-quest-game`）：文章演绎线保留（`autoScript/buildActs` 按段落逐句显形）；新增 `mem-tech` 科技记忆质感（扫描线/冷光/边缘光词签/宽银幕）；**少提示**——默认纯英文字幕（ZH 按需开）、自由触碰不弹完整词签（只留微小边缘光点）、断片才显示候选词签；HUD 维持极简。
+  - CET 4/6：新增独立「词造世界」模式 `src/features/wordworld/`（`combine.ts` 纯逻辑 + `WordWorldScreen.ts` Canvas 场景 + `wordworld.css`）：自由选 2–4 个词 → 角色（物件/动作/性质）→ 地形/天气/结构/调色配方 → 立即建造；同组词确定性生成同一世界；四级/六级切换；本机记录 `WORLDS · N`；入口在地图右下 ✦。
+  - 设计文档：`word-quest-game/docs/gdd-scene-modes.md`；`plan-next.md` 已记录。
+  - 验证：`npx tsc --noEmit` 通过；`npx vitest run` → **838 passed**（新增 wordworld 6 项）；`npx vite build` 成功。未做浏览器实机截图（可起 dev server 试玩）。
+
+- **2026-10-22 · 教材提取审查 + 接入项目（后续按教材改造）：完成**
+  - 审查：`Docs/qa/textbook-extract-audit.md`。结构检查通过（6 单元 / 12 篇 Text A/B / 6 篇 Stories / 506 词 / 270 题 / 6 段翻译）；文章页覆盖率 Text A 98–100%、Text B 90–100%（已剔除 Reading skills 说明页）。
+  - 审查中修复 10 类问题：Section C 首单元识别、Text B 正文起点裁剪、页眉/词数行混入、选择题选项续行、OCR 标题别名、词首 A 标记、重复标题合并、故事/翻译同页拆分、**55 处高置信 OCR 纠错**（正文/题目 + 中文提示）、Culture notes 截断、单词释义注释过滤。
+  - 接入：`Tools/data_textbook_bridge.py` → `Content/Data/content/textbook_units.json`（6 单元文章/单词/题目/翻译提示，`needsProofreading: true`，答案留空）+ `textbook_vocabulary.csv`（506 词，字段同 DT_Vocabulary）；约定文档 `Docs/data/textbook-integration.md`，`rw3-schema.md` 增加教材基准说明。
+  - 明确未伪造/需另编：答案与解析、听力原文、微检查、写作提纲、参考译文、可靠音标；教材原文仅在本地项目使用，公开/分发前确认授权。
+  - 验证：`pytest Tools/qa/tests -q` → **144 passed**（新增 `test_textbook_bridge.py` 3 项；教材提取 7 项）。
+
+- **2026-10-22 · 英语教材提取进项目（用户新任务）：完成**
+  - 源：用户本地 `~/Downloads/新视野大学英语（第四版）读写教程3思政智慧版.docx`（176 张页图，无文字层）；docx 解压 + 按 document.xml 还原页序 → macOS Vision OCR（zh-Hans/en-US，保留 y/x）→ 双栏排序 → 规则解析。
+  - 工具与数据：`Tools/data_textbook.py`（解析/导入/导出，幂等）、`Docs/data/textbook-rw3.md`（方法/页码映射/限制/版权提示）、`Tools/qa/tests/test_textbook_extract.py`（7 项验收）；产物在 `Content/Data/textbook/rw3/`（`textbook.json`、`words.csv`、`questions.csv`、`units/unit01–06.md`、`pages/page_001–176.txt`，共 1.6 MB）。
+  - 提取结果（已统计）：6 单元；Text A 50 段（每篇约 660–940 词）、Text B 72 段（每篇约 890–1030 词）；单词 506 条（505 条含中文释义，音标 506 条）；题目 270 道（理解/词汇/结构/写作，44 道带 A–D 选项）；Stories of China 短文 6 篇；Section C 翻译提示 25 行。
+  - 已知限制：OCR 有误读（已做标题别名/词首标记词典纠正），段落号/选项/释义偶有错位；教材答案、听力原文、二维码数字资源不在 docx 内，未伪造。
+  - 版权提示：教材原文仅存在本地项目供个人学习使用；**公开仓库/分发前需确认授权**，必要时把 `Content/Data/textbook/` 加入 `.gitignore`（已写入 `Docs/data/textbook-rw3.md` §7）。
+  - 验证：`pytest Tools/qa/tests -q` → **141 passed**。
+
+- **2026-10-22 · D21 补测（Claude 新一轮渲染后）**
+  - 男主 10:01 渲染复测：closeup **ΔE00 8.41**（ΔL +5.98 / Δa −5.29 / Δb −8.32）、front **ΔE00 8.48**（+5.25 / −4.29 / −8.06）——仍偏暗/红/黄；建议 **U↓、V↓**，目标 ΔE00 ≤5。
+  - ⚠️ 与 Claude 计划对照：`U=0` 方向正确（更亮/去红），但 **V=0.45 是升高方向**，按标定会让 a/b 再升高；建议先 `V 0.42→0.34` 复测（已写入 `Docs/qa/skin-me2026.md` 第 6 节）。
+- **2026-10-22 · D22 配角调参效果验证：完成（5 人全部复测）**
+  - 5 位配角已于 09:58–10:03 完成重建/重渲染；已为 5 人重渲 target 并生成 `{mei,an,rui,organizer,old2090}-conform-diff.md`。
+  - 结果（详细表见 `Docs/qa/cast-tuning.md` 第 6 节）：
+    - **rui**：head_aspect 2.051→**1.981**（−3.4%，仍差 1.6%）、face_lw 1.312→1.278（达标）；第二轮 `headAspect -0.45→-0.40`、`headScaleVert -0.12→-0.14`。
+    - **mei**：head_aspect 2.346→**2.221**（达标边缘）；但 eye_width_ratio 0.2015→**0.1985（反而变小）**；第二轮 `eyeSize 0.65→0.80`、gain 1.35→1.6、`headAspect -0.48→-0.45`。
+    - **old2090**：jaw_cheek 0.908→0.905（目标 ≤0.885 未达）、nose_chin_delta 0.130→0.139（更后缩）、neck_depth 0.729→0.741；第二轮 `jawWidth -0.25→-0.35`（gain 1.2→1.5）、`neck-double-incr 0.1→0.05`、`jawLength 0.20→0.30`。
+    - **an**：head_aspect 1.778、jaw_cheek 0.906 均在区间；eye_width 0.198 略低，可 `eyeSize -0.1→0.0`。
+    - **organizer**：eyes 0.198→0.204（改善）；head_aspect 2.016→**2.091（更显长）**；第二轮 `headAspect 0.10→0.16` 或 `headScaleVert -0.06`。
+  - 看板已用最新渲染刷新（7/7）：me2026 front 4.11 / q34 7.99（趋势变好）；lin 6.27/7.77（新渲染变差，待 Claude/Codex 复核）；配角均更新；发丝验收仍 N/A（等 Groom 白底渲染）。
+  - 验证：`pytest Tools/qa/tests -q` → **134 passed**。
+
+- **2026-10-22 · D21 皮肤颜色校准工具：完成（已先跑男主）**
+  - 工具：`Tools/qa/skin_color.py`（MediaPipe 468 点分区采样两颊/额头/鼻梁/下巴/颈部 + 多候选点与肤色范围/阴影过滤 + 背景白点白平衡 + CIE Lab/ΔE2000）、`Tools/qa/skin_suggest.py`（ΔL/Δa/Δb → U/V 方向与步长，标定来自 Claude 的 `me_skin` 样本）；测试 `test_skin_color.py`（Lab 已知值/ΔE2000 标准样例/白平衡/采样）、`test_skin_suggest.py`（方向/步长/标定符号）。
+  - 标定：`me_skin.png`（默认 U=0.22 V=0.42 → Lab 67.60,15.14,18.38）与 `me_skin_idx12.png`（U=0.06 V=0.30 → 70.69,13.94,18.18）⇒ **dL/dU≈−19.3**（U 降→变亮）、**da/dV≈+10.0 / db/dV≈+1.67**（V 升→更红、略黄）；idx40 提示 `face_texture_index` 也影响 b。
+  - 男主结果（`Docs/qa/skin-me2026.md` + `skin-me2026.json`，渲染 09:17、参考 lian1）：
+    - closeup 聚合 **ΔE00 8.92**（ΔL +7.37 / Δa −6.41 / Δb −9.15）；front 聚合 **ΔE00 9.07**（ΔL +5.96 / Δa −4.58 / Δb −8.80）
+    - 结论：渲染**偏暗、偏红、明显偏黄**；建议 **降低 U（更亮）**、**降低 V（更冷/去黄红）**，每轮 U −0.04~−0.06、V −0.06~−0.08，一轮估计 `U 0.22→0.16、V 0.42→0.34`；目标 `|ΔL|≤2、|Δb|≤4、ΔE00≤5`；仍偏黄则对比 face_texture_index 0/12/40。
+  - 局限已写进报告：白平衡假设中性背景、渲染/参考光照与材质差异带来 5–10 ΔE 残差、颈部在小图可能不可见。
+- **2026-10-22 · D22 配角调参效果验证：进行中（已验 rui，其余待重渲染）**
+  - 已对更新后的 rui（09:18 渲染）重测并重渲 target：`head_aspect 2.051 → 1.997`（−2.6%）、`face_lw 1.312 → 1.284`、`forehead_visible 0.482 → 0.456`、`jaw_cheek 0.891 → 0.906`、`eye_width 0.201 → 0.204` —— 调参方向正确，但 head_aspect 仍高于目标 1.95；**第二轮建议**：`headAspect -0.45→-0.38`、`headScaleVert -0.12→-0.16`（预期 1.94–1.96）。另 target→MHC front 4.93→6.38 px（已重渲 target），需 Claude 用 `rui-conform-diff.md` 复核 q34/side 拟合。
+  - 结果已写入 `Docs/qa/cast-tuning.md` 第 6 节；mei / an / organizer / old2090 的对比渲染仍是旧图（22:29–22:37），待 Claude 重渲染后按同一命令复测。
+  - 看板 `Docs/qa/dashboard.md` 已刷新：me2026 恢复正常（front 4.30 / q34 8.68 / 脸 IoU 0.960，趋势“变好”）；7/7 角色均有数据；发丝验收仍 N/A（皮肤预览 + 渐变背景，等 Groom 白底渲染）。
+  - 测试：`pytest Tools/qa/tests -q` → **134 passed**。
+
+- **2026-10-22 · D19 配角形体调参建议：完成**
+  - 工具：`Tools/qa/cast_proportions.py`（MediaPipe 468 点比例 + 剪影几何）、`Tools/qa/tests/test_cast_proportions.py`（合成关键点验证 6 项比例 + 侧面下巴突出度 + 尺度不变性）；实测数据 `Docs/qa/cast-proportions.json`；建议文档 `Docs/qa/cast-tuning.md`。
+  - 实测关键值：rui `head_aspect 2.051`（男配角最高，an 1.825，+12.4%）、`face_lw 1.312`（参考上界）；mei `eye_width_ratio 0.202`（同口径 lin 0.214，小 5.6%）、`head_aspect 2.346`；old2090 `jaw_cheek 0.908`、`nose_chin_delta 0.130`（全场最大，下巴最后缩）。
+  - 已给 `build_cast.py` 具体改法（**文件由 Claude 修改**）：
+    - rui：`headAspect -0.65→-0.45`、`foreheadHeight 0.55→0.35`、`jawWidth -0.45→-0.40`；MAP 增益 `head/head-scale-horiz 1.0→0.8`、`forehead/forehead-scale-vert 1.0→0.85`，可选新增 `head/head-scale-vert -0.12`
+    - old2090：`neck-double-incr 0.3→0.10`；新增 `face(jawWidth=-0.10, jawLength=0.15, cheekFull=-0.10)`；MAP `chin/chin-width 1.0→1.2`、`chin/chin-height 1.0→1.2`，可选新增 `neck/neck-scale-horiz -0.15`
+    - mei：`eyeSize 0.45→0.65`、`headAspect -0.55→-0.48`、`foreheadHeight 0.1→0.0`；MAP `eyes/*-eye-scale 1.0→1.35`
+    - an/organizer：基本在区间内，给可选微调（an `jawLength 0.20→0.28`；organizer `eyeSize -0.35→-0.30`）
+  - 判据已写进文档（rui head_aspect ≤1.95；mei eye_width ≥0.212；old2090 jaw_cheek ≤0.885、nose_chin_delta ≤0.115）。
+- **2026-10-22 · D20 看板刷新 + 发丝验收准备：完成**
+  - 看板已刷新为 **7/7 角色**（`Docs/qa/dashboard.md`，`history.csv` 追加）：lin 4.61/4.80/0.941；mei 4.07/3.57/0.954；an 6.18/5.19/0.953；rui 4.93/—/0.969；organizer 3.88/4.03/0.959；old2090 7.40/7.06/0.943。
+  - me2026 本次标 **N/A**：`Saved/Compare/me2026/front.png` 当前是**发丝诊断特写图**（Codex 的 groom 诊断覆盖了对比渲染，且 capture/back/closeup 缺失）；等重新渲染后自动恢复。已让看板支持 “capture.json 缺失时用现有渲染继续”，并在逐角色备注中说明。
+  - 发丝验收代码已加入 `dashboard.py`：
+    - 主角：与 `Docs/qa/ref_masks` 对比头发 IoU（含“渲染头发面积与参考差 >50% 时跳过”的保护）；
+    - 配角：`hair_acceptance` — 覆盖率（相对头部扩展框）、`top_excess`（马尾/寸头/后梳的分型阈值）、飞出头部比例；发色 vmax 按角色配置；
+    - 背景不均匀（渐变/彩边）或皮肤预览无头发时自动 N/A 并注明原因。
+  - 测试：新增 `Tools/qa/tests/test_hair_acceptance.py`（寸头贴头 PASS、高马尾超头顶 PASS、无头发 N/A、飞出头部 FAIL、capture 缺失不中断）+ 既有测试；`pytest Tools/qa/tests -q` → **123 passed**。
+  - 当前所有发丝验收均为 **N/A**：MHC 预览是无头发皮肤、且背景为渐变（不是白底），等 Codex 导入 Groom 并按白底约定重渲染后，此项才会出真实 PASS/FAIL。
 
 - **2026-10-21 · D17 补完上一轮（映射 / q34 空图 / D15-D16 补记）：完成**
   - 映射核对：`report.py` 男主 front=lian1/q34=lian3/side=lian2，女主 front=lian5/**q34=lian7**/**side=lian6**；`conform_report.py`、`run_blender_preview_report.py`、`Docs/qa/README.md` 同步。重跑 `report.py me2026` / `report.py lin`。
@@ -240,9 +541,86 @@
 
 - （待更新）
 
+- **2026-10-23 · 第九轮 D23 / D24 / D25 / D26（DeepSeek，未提交）**
+  - **D23 内容覆盖审计（完成）**：新增 `Tools/qa/content_coverage.py` + `Tools/qa/tests/test_content_coverage.py`（4 passed，覆盖未引用/越界/不存在的 id 三类合成用例），规格见 `Docs/qa/d23-content-coverage.md`。
+    - 真实数据：**段落 187/187 = 100%**；**生词 148/506 = 29.2%**；**题目 472/487 = 96.9%**；无效引用 0。
+    - 修了 unit01 的 5 处引用错误（`u01_b_text_b_mcq` → 实际 block `u01_b_understanding`），只改 id，未动布景/物件/灯光；记录在 `Docs/qa/content-coverage.md` §4。
+    - 未挂载生词 358 条 → `Docs/qa/word-placement-proposals.json`（含课文出现句、建议 set/kit/尺寸、high/medium/low 置信度），等 Claude 审核合入。注意 `words.csv` 是 OCR 原始词表，含拼写噪声（adrougnt / cevice / avia 等），建议与数据层 536 词校订表对照后再挂。
+    - unit01 仍有 15 道题没有被 set 引用（`a_pre_reading#1-2`、`a_understanding#3-8`、`a_expressions_in_use#4-8`），属于布景设计范围，未擅自加引用。
+  - **D24 答案 / 英文解析 / 翻译参考（完成）**：草稿在 `Content/Data/textbook/rw3/answers/draft_unit01–06.json`（6 个 agent 按单元撰写，逐项与 exercises 对齐）；`Tools/data_answers.py` 合并并生成 `Docs/qa/d24-answer-report.md`。
+    - 487 个 item 全部有 answer + 一句英文 `explanation`；69 个开放题补英文参考作答，标 `answer_source: "draft"` + `needs_review: true`；选择题答案保持 0–3 唯一正确。
+    - 6 个单元 `--check` 通过；合并后复查：无缺答案、无缺解析、MCQ 下标合法。
+  - **D26 场景质检（工具完成，报告部分）**：新增 `Tools/qa/scene_audit.py` + 测试（3 passed，合成黑/白/纯色/纹理图验证曝光、纯色、边缘、贴花解析）。
+    - 当前只有 `Docs/qa/textbook-scenes-unit01.json`：22 个 set、33 张截图、全部 FAIL、缺资产合计 154、占位 208；dashboard 已生成 `Docs/qa/scenes-dashboard.md`，unit02–06 明确标 N/A（等 Codex checker 报告）。
+  - **D25 课文配音（完成）**：`Tools/data_vo_textbook.py` + 测试（3 passed，含 say 超时重试）；清单 **267 行 = 187 段落 + 80 条练习指令**（887 句），声线 A=Samantha / B=Daniel / C=Flo / 指令=Reed；WAV **267 个 + 267 个逐句时间戳 JSON**，总时长 **91.5 分钟**；`--check` 通过，报告 `Docs/qa/voice-report.md`（各单元静音/异常 0）。
+  - 新增文档：`Docs/qa/d23-content-coverage.md`、`d24-answers.md`、`d25-voices.md`、`d26-scene-audit.md`（均为需求/接口/测试三件套）。
+  - **给 Codex 的 Source 交接**（DeepSeek 从本轮起不再改 `Source/`）：
+    - DeepSeek 上一轮留下、当前工作区未提交的 Source 改动：`WordQuestHUD.cpp/.h`、`WordQuestRefCameraRig.cpp/.h`（修改）；新增 `WordQuestMemoryGameMode.cpp/.h`（回忆舞台 GameMode：无第三人称身体、极简 HUD、自由视角）、`WordQuestMemoryDirector.cpp/.h`（数据驱动课文播放，练习时暂停世界）、`WordQuestExerciseWidget.cpp/.h`（练习 UI/选项按钮）、`WordQuestAnimationPreview.cpp/.h`（编辑器内动画预览）、`WordQuestRenderDiagnostics.cpp/.h`（场景截图/能力查询）。
+    - 请 Codex 接手后先编译确认这些文件状态，后续 `Source/` 归 Codex 全权维护；DeepSeek 本轮只改 Docs/Tools/Content/Data。
+
+- **2026-10-23 · D27 词表校对（完成）**
+  - `Tools/data_words_fix.py`：修正 18 条 OCR 拼写（交给 Claude 的清单全覆盖）、被大写常见词 5 条；音标统一美式为 CMUdict（490 转换 + 8 短语拼接 + 4 参考层 + 4 人工专名 = **506/506**）；中文释义 469 条用已校对参考词表覆盖，其余规则纠错。
+  - `Tools/scene_text_words.py` 匹配器修正：连字符复合词（nine-masted/self-reflection/near-infinite）、句末标点、`-ic→-ally`、`conceive→inconceivable` 派生匹配。
+  - 重跑结果：**placed 506/506, unmatched 0**；`Docs/qa/text-words-unmatched.md` 已清空；修改记录写入 `Docs/qa/textbook-extract-audit.md` §6 + `Docs/qa/words-fix-report.json`。
+  - `Tools/qa/content_coverage.py` 已改按 `text_words` 口径统计：**段落 187/187（100%）、生词 506/506（100%）、题目 472/487（96.9%）**。
+- **2026-10-23 · C13 沉浸式界面验证（进行中，Source 本轮归 DeepSeek）**
+  - 已修：开场相机按场景 JSON `shots[0]` 生成（原来 level 里的 shot 相机在 2.7 km 外，视线全打在 HDRI 天幕）、fragment 锚点按场景相机计算、句子文本 `text_words` 标亮（Fragment Widget 逐词排版，form 冷光色）、句内注视 0.6s 浮现音标+释义、长按记住并写入 `Saved/Player/Notebook.json`、`GetImmersiveState` 暴露 world_fragments/screen_ui/highlight/remember 等指标。
+  - `Tools/test_textbook_c13.py` 覆盖字幕生成/消散、注视、长按、12 类练习断片、冻结恢复、答错失真、转场/跳过、横竖屏；证据 `Docs/qa/immersive/`（25 文件 + `results.json` + `report.md`）。
+  - **PIE 已通过**：`WQ_C13_PIE_PASS run_id=1792727197852099000`，2305 帧；12/12 练习断片、`screen_ui=0`、`progress_ring=1`、每个练习 `distortion>0`、`remembered=1`、转场 `skip=True`、横竖屏尺寸校验通过。
+  - 已知限制：无头 PIE 相机 view target 切换不可靠，注视目标用 QA 注入（`ProbeGazeSentenceFragment`），之后的 0.6s 浮现/长按/Notebook 走真实运行时；详见 `Docs/qa/immersive/report.md` §3。
+
+- **2026-10-23 · C13 重跑确认（排队等 Claude UE 锁后）**
+  - `WQ_C13_PIE_PASS run_id=1792727641300587000`（3678 帧、`L_U01_A`、WQ_TEXTBOOK_ENGINE_QA=1），exit 0。
+  - `Docs/qa/immersive/`：25 条 capture + `results.json`（12/12 练习断片、每个练习 `distortion>0`、`screen_ui=0`、`progress_ring=1`、`remembered=1`、`transition skip=True`）；报告见 `Docs/qa/immersive/report.md`。
+  - `unit01.json` 的 `text_words`（75 条）在运行时按句标亮、注视 0.6s 浮现、长按写 `Saved/Player/Notebook.qa.json`。
+- **2026-10-23 · D26 场景质检刷新**
+  - Claude 新出 33 张 4K 截图 + checker `Docs/qa/textbook-scenes-unit01.json`（11:46）后重跑 `Tools/qa/scene_audit.py --unit 1`：22 个 set、33 张截图、FAIL 22/22、缺最终资产 116、占位 163；dashboard/json 已更新。
+- **2026-10-23 · D28 精品小物件（低分辨率自查完成，2K 正式烘焙进行中）**
+  - 17 个物件脚本：`Tools/props/hero_<kit>.py`（共享 `hero_u01_small.py`），批处理 `Tools/props/bake_u01_small.sh`。
+  - 每个物件已按 `HERO_RES=512 HERO_SAMPLES=2` 试烘焙并自查预览；尺寸经 `_fit()` 落地 + 三轴校准，全部 ≤2%。正式 `HERO_RES=2048` 烘焙正在跑，完成后本表会自动覆盖。
+  - 印刷图新增在 `Tools/props/hero_textures.py`：`keyboard_labels`、`qr_panel`、`payment_panel`、`coupon_face`、`recipe_cover`、`brochure_panels`（折页架改用三色卡纸+白标签）、`box_print`、`router_leds`。
+  - 预览图（`SourceArt/Props/Hero/preview/<kit>.png`）与三角面数：
+
+| kit | tris | size (m) | preview |
+|-----|------|----------|---------|
+| keyboard | 51152 | [0.44, 0.14, 0.03] | `SourceArt/Props/Hero/preview/keyboard.png` |
+| headphones | 10164 | [0.2, 0.1, 0.22] | `SourceArt/Props/Hero/preview/headphones.png` |
+| wifi_router | 11040 | [0.22, 0.15, 0.04] | `SourceArt/Props/Hero/preview/wifi_router.png` |
+| recipe_book | 3376 | [0.2, 0.26, 0.03] | `SourceArt/Props/Hero/preview/recipe_book.png` |
+| duster | 3872 | [0.14, 0.06, 0.05] | `SourceArt/Props/Hero/preview/duster.png` |
+| chalk_tray | 3984 | [3.0, 0.08, 0.05] | `SourceArt/Props/Hero/preview/chalk_tray.png` |
+| sandwich_plate | 7152 | [0.24, 0.24, 0.06] | `SourceArt/Props/Hero/preview/sandwich_plate.png` |
+| coupon_card | 912 | [0.09, 0.055, 0.003] | `SourceArt/Props/Hero/preview/coupon_card.png` |
+| qr_sign | 2704 | [0.25, 0.02, 0.32] | `SourceArt/Props/Hero/preview/qr_sign.png` |
+| payment_sign | 2848 | [0.5, 0.02, 0.35] | `SourceArt/Props/Hero/preview/payment_sign.png` |
+| device_box | 2416 | [0.3, 0.2, 0.12] | `SourceArt/Props/Hero/preview/device_box.png` |
+| school_bag | 6832 | [0.32, 0.18, 0.42] | `SourceArt/Props/Hero/preview/school_bag.png` |
+| griddle | 4208 | [0.5, 0.5, 0.05] | `SourceArt/Props/Hero/preview/griddle.png` |
+| dish_rack | 4736 | [0.45, 0.3, 0.25] | `SourceArt/Props/Hero/preview/dish_rack.png` |
+| sink | 6412 | [0.6, 0.45, 0.2] | `SourceArt/Props/Hero/preview/sink.png` |
+| brochure_rack | 10528 | [0.6, 0.3, 1.4] | `SourceArt/Props/Hero/preview/brochure_rack.png` |
+| queue_rope | 14432 | [2.4, 0.1, 0.95] | `SourceArt/Props/Hero/preview/queue_rope.png` |
+
+- **2026-10-23 15:16 · 暂停 UE/Blender（Claude 协调）**：用户要提前看第 1 单元演示/视频，机器（16 GB）由 Claude 独占约 3 小时组装 MetaHuman、重建第 1 单元、渲染视频。此期间不做编译、不跑 PIE、不烘焙；只做纯数据（D24）与 C13/D28 的代码/方案。恢复信号由 Claude 发出。
+
+- **2026-10-23 · D28 返工代码（暂停期，未烘焙）**
+  - `hero_common.py` 新增 `check_contacts(parts)`（>1 mm 报错）；`hero_u01_small.run()` 在 `finish` 前调用。
+  - 已重写：headphones（连通臂/滑轨/鼓耳垫）、duster（黑板擦木块+毛毡+粉笔灰）、dish_rack（焊框+筷子筒+接水盘）、griddle（圆形铸铁鏊+养锅面+刮板）、sandwich_plate（三角三明治+生菜边）、school_bag（拉链齿/肩带/网兜/提手）、wifi_router（天线/网口/LED/胶脚）、queue_rope、brochure_rack。
+  - 其余返工项与验收前“禁止正式烘焙”的要求见 `Docs/qa/d28-rework-plan.md`；恢复后先低分辨率预览 + 接触自查，再提交 Claude 评审。
+- **2026-10-23 · C13 证据返修代码（暂停期，未编译）**
+  - 根因与修复方案见 `Docs/qa/immersive/c13-fix-plan.md`：shot 单位 ×100；世界截图 alpha=255；SceneCapture2D 拍不到世界 Widget → 改视口截图 `CaptureScreenEvidenceIn`；转场冻结截图；像素门禁 `Tools/qa/c13_evidence_gate.py`（亮度 25–200、前后差异 >0.5%）。
+  - 待恢复后重新编译 + 跑 PIE 验证，再写验收说明。
+
+- **2026-10-23 15:46 · P0 第 1 单元演示视频（58s，2K，教材原文版）**
+  - 成片：`Docs/qa/demo/unit01_showcase_textbook_2k.mp4`（1920×1080、58s、7.3MB）。
+  - 画面：第 1 单元 A/B/C 各选机位（10 个镜头，共 600 帧 1080p），记忆调色 + 2.39:1 黑边 + 转场；字幕与旁白全部为**教材原文**（D25 段落配音按句切片）。
+  - 备注：MetaHuman 组装进程卡在角色快照（15:31 后无进展、日志刷 idevice_id 失败），已强杀并改用现有快照/占位资产渲染，部分全景里的人物仍是占位圆柱；16:00 后继续修 MetaHuman → 重建 → 重渲染替换。
+  - 生成链：`Tools/build_textbook_film_plan.py`（教材原文计划）→ `Tools/render_unit_film.py`（A/B/C）→ `Tools/compose_unit_film.py`（COMPOSE_PLAN=plan_textbook.json）。
+
 ## 需要用户处理
 
 - MetaHuman 自动绑定和装配需要在 UE 里登录 Epic 账号（云服务）。只有用户本人能登录。
-- 安装 **MetaHuman Creator Core Data**（皮肤纹理合成要用）：Epic Games Launcher → Unreal Engine → 库 → UE 5.8 启动按钮旁的下拉菜单 → 选项 → 勾选“MetaHuman Creator Core Data” → 应用。
+- ✅（2026-10-22 已完成）安装 **MetaHuman Creator Core Data**（皮肤纹理合成要用）：Epic Games Launcher → Unreal Engine → 库 → UE 5.8 启动按钮旁的下拉菜单 → 选项 → 勾选“MetaHuman Creator Core Data” → 应用。
 
 - 2026-10-21（Codex C1 实测）：UE 5.8 缺少 **MetaHuman Creator Core Data**（MetaHumanCharacter/Content/Optional、TextureSynthesis、BodyTextures）。请用户在 Epic Games Launcher 的 UE 5.8 安装选项中补装；如安装或后续云绑定要求 Epic 登录，请用户本人操作。本轮未尝试登录，未隐藏缺失警告。
+- 2026-10-22（C10 Fab 补资产）：Fab 页面停在 Cloudflare 人机验证；本轮未尝试绕过。请用户在已登录的 FabStaging 页面完成人工验证，再补齐免费 Personal 许可的 Wooden Bookcases、扫描贴花，以及 `Docs/qa/textbook-scenes-unit01.json` 中列出的未交付 kit 资产；每项补入时继续登记 `Docs/licenses/third-party-assets.md`。
