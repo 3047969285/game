@@ -142,6 +142,60 @@ export class App {
     }
     await this.renderMap();
     this.show("map");
+    // 读写 3：没有地图这一层，开局直接站在当前这一关里，一关一关往下走
+    if (this.isImmersiveCourse()) this.enterImmersiveLevel();
+  }
+
+  /** 读写 3 采用关卡式沉浸探索：隐藏全局地图 / 课程页签，只保留当前这一关的世界 */
+  private isImmersiveCourse(): boolean {
+    return this.state.save.courseId === "college_english_rw3" && this.mapNodes.length > 0;
+  }
+
+  /** 当前应进入的关卡节点：存档所在单元；若存档单元尚未解锁则取第一个未通关的已解锁单元 */
+  private currentLevelNodeId(): string {
+    const saved = this.state.save.mapNodeId.split("::")[0];
+    const node = this.mapNodes.find((n) => n.id === saved && n.unlocked);
+    if (node) return node.id;
+    const open = this.mapNodes.find((n) => n.unlocked && !n.cleared) ?? this.mapNodes.find((n) => n.unlocked) ?? this.mapNodes[0];
+    return open.id;
+  }
+
+  private enterImmersiveLevel(nodeId: string = this.currentLevelNodeId()): void {
+    if (!this.levelMap.has(nodeId)) return;
+    this.state.setMapNode(nodeId);
+    this.root.querySelector("#screen-map")?.classList.add("level-mode");
+    this.enterUnitExplore(nodeId);
+    this.updateLevelNav();
+  }
+
+  /** 过关切换：先淡出画面，再换到另一关的世界 */
+  private travelToLevel(nodeId: string): void {
+    const node = this.mapNodes.find((n) => n.id === nodeId);
+    if (!node || !node.unlocked || this.unitExplore?.unitId === nodeId.replace("rw3_", "")) return;
+    const viewport = this.root.querySelector<HTMLElement>("#world-viewport");
+    audio.play("nav");
+    viewport?.classList.add("level-fade");
+    window.setTimeout(() => {
+      this.enterImmersiveLevel(nodeId);
+      window.setTimeout(() => viewport?.classList.remove("level-fade"), 120);
+    }, 520);
+  }
+
+  /** 关卡导航：上一关 / 下一关（未解锁时灰显并提示条件） */
+  private updateLevelNav(): void {
+    const prev = this.root.querySelector<HTMLButtonElement>("#btn-prev-level");
+    const next = this.root.querySelector<HTMLButtonElement>("#btn-next-level");
+    if (!prev || !next || !this.unitExplore) return;
+    const index = this.mapNodes.findIndex((n) => n.id === `rw3_${this.unitExplore!.unitId}`);
+    const before = this.mapNodes[index - 1];
+    const after = this.mapNodes[index + 1];
+    prev.disabled = !before;
+    prev.dataset.target = before?.id ?? "";
+    next.disabled = !after || !after.unlocked;
+    next.dataset.target = after?.id ?? "";
+    next.title = !after ? "已是最后一关" : after.unlocked ? "前往下一关" : "通关本关全部记忆点后解锁";
+    const label = this.root.querySelector("#level-label");
+    if (label) label.textContent = `第 ${index + 1} / ${this.mapNodes.length} 关`;
   }
 
   /** 加载课程数据 */
@@ -320,6 +374,7 @@ export class App {
             <div id="explore-progress-hud" class="explore-progress-hud hidden">
               <div id="explore-progress-text" class="explore-progress-text"></div>
               <button type="button" class="btn-exit-explore" id="btn-exit-explore">← 返回地图</button>
+              <div class="level-nav" id="level-nav"><button type="button" id="btn-prev-level" aria-label="上一关">◀</button><span id="level-label"></span><button type="button" id="btn-next-level" aria-label="下一关">▶</button></div>
             </div>
             <canvas id="explore-minimap" class="explore-minimap" width="120" height="120" aria-label="探险小地图"></canvas>
             <button type="button" id="btn-spectator-toggle" class="btn-spectator-toggle" title="切换观赏模式">👁️ 观赏世界</button>
@@ -461,6 +516,12 @@ export class App {
       audio.play("click");
       this.exitUnitExplore();
     });
+    for (const id of ["#btn-prev-level", "#btn-next-level"]) {
+      viewport.querySelector<HTMLButtonElement>(id)?.addEventListener("click", (event) => {
+        const target = (event.currentTarget as HTMLButtonElement).dataset.target;
+        if (target) this.travelToLevel(target);
+      });
+    }
 
     viewport.querySelector("#btn-spectator-toggle")?.addEventListener("click", () => {
       this.spectatorMode = !this.spectatorMode;
@@ -1089,6 +1150,7 @@ export class App {
     const text = this.root.querySelector("#explore-progress-text");
     if (!text) return;
 
+    this.updateLevelNav();
     const total = this.unitExplore.pickups.length;
     const collected = this.unitExplore.collectedIds.size;
     const pct = total > 0 ? Math.round((collected / total) * 100) : 0;

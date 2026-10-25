@@ -2494,3 +2494,16 @@ button { -webkit-tap-highlight-color: transparent; }
   z-index: 1000;
   background: #05070c;
 }
+
+/* ── 关卡式沉浸探索（读写 3）：没有全局地图，只有当前这一关的世界 ── */
+#screen-map.level-mode #map-header,
+#screen-map.level-mode #course-tabs,
+#screen-map.level-mode #map-hint,
+#screen-map.level-mode .btn-exit-explore { display: none !important; }
+#screen-map.level-mode .world-viewport { height: 100vh; height: 100dvh; min-height: 100vh; margin: 0; border-radius: 0; border: 0; }
+.level-nav { display: inline-flex; align-items: center; gap: 8px; margin-left: 10px; padding: 4px 8px; border-radius: 999px; background: rgba(12, 22, 34, 0.55); backdrop-filter: blur(6px); color: #eaf4ff; font-size: 0.78rem; pointer-events: auto; }
+.level-nav button { width: 26px; height: 26px; border-radius: 50%; border: 0; background: rgba(255, 255, 255, 0.16); color: #fff; cursor: pointer; }
+.level-nav button:disabled { opacity: 0.32; cursor: not-allowed; }
+#screen-map:not(.level-mode) .level-nav { display: none; }
+.world-viewport::after { content: ""; position: absolute; inset: 0; background: #070d14; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; z-index: 6; }
+.world-viewport.level-fade::after { opacity: 1; }
