@@ -39,7 +39,7 @@ import type { Minimap } from "../features/world/Minimap";
 import type { World3D } from "../features/world";
 import { el, showToast } from "../shared/components";
 import { SECTION_KEYS, memoryScriptId, type SectionKey } from "../features/memory/ids";
-import { Narrator } from "../features/memory/Narrator";
+import { Narrator, getNarratorRate, setNarratorRate } from "../features/memory/Narrator";
 import { isMemoryDone, isPrologueSeen, markMemoryDone, markPrologueSeen } from "../features/memory/progress";
 import { MemoryEntryTransition } from "../features/memory/entry/MemoryEntryTransition";
 import type { MemoryResult, MemoryScript } from "../features/memory/types";
@@ -2155,39 +2155,22 @@ export class App {
       } else {
         playButton.addEventListener("click", () => {
           this.stopRw3Listening();
-          const utterance = new SpeechSynthesisUtterance(phase.script);
           const generation = this.rw3SpeechGeneration;
-          utterance.lang = "en-US";
-          utterance.rate = Number(rateSelect.value);
-          const voices = window.speechSynthesis.getVoices();
-          const englishVoice = voices.find((voice) => /^en-us\b/i.test(voice.lang)) ??
-            voices.find((voice) => /^en\b/i.test(voice.lang));
-          if (englishVoice) utterance.voice = englishVoice;
-          utterance.onstart = () => {
+          // 用带语气、停顿、疑问升调的朗读器（与记忆舞台同一套），不再是整段平读
+          const prevRate = getNarratorRate();
+          setNarratorRate(Number(rateSelect.value) || 1);
+          this.releaseListeningMusic = beginSpeech();
+          playButton.textContent = "↻ 重新播放";
+          stopButton.disabled = false;
+          status.textContent = "正在播放 · 可完整听完或停止后重新播放。";
+          void wordNarrator.speak(phase.script, "system").then(() => {
+            setNarratorRate(prevRate);
             if (generation !== this.rw3SpeechGeneration) return;
-            this.releaseListeningMusic = beginSpeech();
-            playButton.textContent = "↻ 重新播放";
-            stopButton.disabled = false;
-            status.textContent = "正在播放 · 可完整听完或停止后重新播放。";
-          };
-          utterance.onend = () => {
-            if (generation !== this.rw3SpeechGeneration) return;
-            this.activeRw3Utterance = null;
             this.releaseListeningMusic?.(); this.releaseListeningMusic = null;
             stopButton.disabled = true;
             status.textContent = "播放结束 · 可重播；需要辅助时再展开原文。";
-          };
-          utterance.onerror = () => {
-            if (generation !== this.rw3SpeechGeneration) return;
-            this.activeRw3Utterance = null;
-            this.releaseListeningMusic?.(); this.releaseListeningMusic = null;
-            stopButton.disabled = true;
-            status.textContent = "语音播放失败 · 请展开原文，使用字幕阅读模式。";
-          };
-          this.activeRw3Utterance = utterance;
-          window.speechSynthesis.speak(utterance);
-        });
-        stopButton.addEventListener("click", () => {
+          });
+        });        stopButton.addEventListener("click", () => {
           this.stopRw3Listening();
           playButton.textContent = "↻ 重新播放";
           stopButton.disabled = true;
