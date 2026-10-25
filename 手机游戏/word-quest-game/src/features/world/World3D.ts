@@ -63,6 +63,8 @@ import { windStrength } from "./foliageMaterials";
 import { foliageWindStrength, UNIT_DEFAULT_WEATHER, WeatherState, weatherTint, type WeatherKind } from "./weather";
 import { WeatherFx, WetnessTracker } from "./weatherFx";
 import { hexToRgb, LookBlender, lookFor, type Rgb } from "../memory/memoryLooks";
+import { spawnActor, type ActorHandle } from "../memory/actors";
+import type { NpcDef } from "../explore/npcs";
 import { layerWeights, layerWeightsGLSL, LAYER_ROUGHNESS, paletteFromGround, terrainNoises, terrainNoisesGLSL, type LayerPalette } from "./terrainLayers";
 import { buildTerrainTextureSet, type TerrainTextureSet } from "./terrainTextures";
 import {
@@ -85,6 +87,11 @@ import {
 
 /** 词汇光球靠近触发半径 */
 const PICKUP_RADIUS = 5;
+/** NPC 可对话半径 / 开始转头注视的半径 */
+const NPC_RADIUS = 3.6;
+const NPC_NOTICE_RADIUS = 9;
+const NPC_BLOCKER_GEO = new THREE.CylinderGeometry(0.34, 0.34, 1.8, 10);
+const NPC_BLOCKER_MAT = new THREE.MeshStandardMaterial({ colorWrite: false, depthWrite: false });
 /** 环境微粒的环绕盒尺寸（水平）与浮动高度 */
 const MOTE_BOX = 70;
 const MOTE_HEIGHT = 12;
@@ -125,6 +132,10 @@ export interface World3DOptions {
   onExploreUpdate?: (state: MinimapState) => void;
   onPickupNear?: (pickup: WordPickup | null) => void;
   onPickupCollect?: (pickupId: string) => void;
+  /** 走近 / 离开 NPC（null = 附近没有人） */
+  onNpcNear?: (npc: NpcDef | null) => void;
+  /** 与 NPC 互动（E 键 / 点击按钮） */
+  onNpcTalk?: (npc: NpcDef) => void;
 }
 
 /** 地形湿润带最多支持的湖泊数（着色器 uniform 数组长度） */
@@ -283,6 +294,12 @@ export class World3D {
   private onExploreUpdate?: (state: MinimapState) => void;
   private onPickupNear?: (pickup: WordPickup | null) => void;
   private onPickupCollect?: (pickupId: string) => void;
+  private onNpcNear?: (npc: NpcDef | null) => void;
+  private onNpcTalk?: (npc: NpcDef) => void;
+  /** 探索世界里的 NPC：真人骨骼动画角色，走近时转头看向玩家 */
+  private npcGroup?: THREE.Group;
+  private npcs: { def: NpcDef; handle: ActorHandle; x: number; z: number }[] = [];
+  private nearNpc: NpcDef | null = null;
   private waterBodies: WaterBody[] = [];
   /** 画质分级（按设备能力自适应，兼顾精细与流畅） */
   private readonly quality: QualityTier = detectQuality();
@@ -327,6 +344,8 @@ export class World3D {
     this.onExploreUpdate = options.onExploreUpdate;
     this.onPickupNear = options.onPickupNear;
     this.onPickupCollect = options.onPickupCollect;
+    this.onNpcNear = options.onNpcNear;
+    this.onNpcTalk = options.onNpcTalk;
     setFoliageQuality(this.quality === "low" ? "low" : "high"); // 植被纹理档位：必须先于任何树 / 灌木的创建
 
     const w = container.clientWidth || 360;
@@ -469,6 +488,10 @@ export class World3D {
     if (this.spectatorMode || this.paused) return false;
     if (this.nearPickup) {
       this.onPickupCollect?.(this.nearPickup.id);
+      return true;
+    }
+    if (this.nearNpc) {
+      this.onNpcTalk?.(this.nearNpc);
       return true;
     }
     if (!this.nearNode?.unlocked) return false;
@@ -877,6 +900,93 @@ export class World3D {
     }
   }
 
+  /** 在单元中心周围放置 NPC（传入空数组清除） */
+  setNpcs(defs: NpcDef[], center: { x: number; z: number }): void {
+    this.clearNpcs();
+    if (defs.length === 0) return;
+    this.npcGroup = new THREE.Group();
+    this.npcGroup.name = "npcs";
+    for (const def of defs) {
+      const x = center.x + def.dx;
+      const z = center.z + def.dz;
+      const y = sampleTerrainY(x, z, terrainHeight);
+      const handle = spawnActor(
+        { id: `npc:${def.unitId}:${def.id}`, name: def.name, look: def.look, position: { x, y, z }, rotationY: def.yaw, pose: def.pose },
+        [],
+        this.quality === "low" ? "low" : "high"
+      );
+      handle.root.traverse((o) => {
+        o.castShadow = this.quality !== "low";
+      });
+      this.npcGroup.add(handle.root);
+      // 骨骼网格不参与碰撞：放一个不渲染的圆柱挡住玩家
+      const blocker = new THREE.Mesh(NPC_BLOCKER_GEO, NPC_BLOCKER_MAT);
+      blocker.position.set(x, y + 0.9, z);
+      blocker.name = `npc-blocker:${def.id}`;
+      this.npcGroup.add(blocker);
+      this.npcs.push({ def, handle, x, z });
+    }
+    this.scene.add(this.npcGroup);
+    this.collisionDirty = true;
+  }
+
+  /** 让指定 NPC 开口 / 闭口（对话时同步嘴型与手势） */
+  setNpcSpeaking(npcId: string, on: boolean): void {
+    const npc = this.npcs.find((n) => n.def.id === npcId);
+    if (!npc) return;
+    npc.handle.setSpeaking(on);
+    if (on) npc.handle.setPose("talk");
+  }
+
+  /** 对话中的 NPC 注视玩家 */
+  setNpcEngaged(npcId: string | null): void {
+    this.engagedNpc = npcId;
+  }
+
+  private engagedNpc: string | null = null;
+
+  private clearNpcs(): void {
+    for (const npc of this.npcs) npc.handle.dispose();
+    this.npcs = [];
+    if (this.npcGroup) this.scene.remove(this.npcGroup);
+    this.npcGroup = undefined;
+    if (this.nearNpc) {
+      this.nearNpc = null;
+      this.onNpcNear?.(null);
+    }
+  }
+
+  private updateNpcs(dt: number, t: number): void {
+    if (this.npcs.length === 0) return;
+    const px = this.player.position.x;
+    const pz = this.player.position.z;
+    let nearest: NpcDef | null = null;
+    let best = NPC_RADIUS;
+    const eye = this.npcEye.set(px, this.player.position.y + 1.55, pz);
+    for (const npc of this.npcs) {
+      const d = Math.hypot(px - npc.x, pz - npc.z);
+      npc.handle.setDistance(d);
+      const engaged = this.engagedNpc === npc.def.id;
+      if (d < NPC_NOTICE_RADIUS || engaged) {
+        npc.handle.attend(eye);
+        npc.handle.setListening(false);
+      } else {
+        npc.handle.attend(null);
+      }
+      if (d < best) {
+        best = d;
+        nearest = npc.def;
+      }
+      if (d < 70 || engaged) npc.handle.update(dt, t);
+    }
+    if (nearest?.id !== this.nearNpc?.id) {
+      this.nearNpc = nearest;
+      this.onNpcNear?.(nearest);
+    }
+  }
+
+  private readonly npcEye = new THREE.Vector3();
+
   /** 主动触发拾取最近的光球 */
   tryCollectPickup(): boolean {
     if (!this.nearPickup) return false;
@@ -903,6 +1013,7 @@ export class World3D {
     this.vegetation = undefined;
     this.nearScatter?.dispose();
     this.nearScatter = undefined;
+    this.clearNpcs();
     this.player.dispose();
 
     removeGroup(this.scene, this.pathGroup);
@@ -2450,7 +2561,7 @@ export class World3D {
     if (this.mixer) this.mixer.update(dt);
 
     if(this.collisionDirty){
-      this.collisions.rebuild([...this.nodeGroups.values(),...[this.unitLandscape,this.decorGroup].filter((root):root is THREE.Group=>!!root)]);
+      this.collisions.rebuild([...this.nodeGroups.values(),...[this.unitLandscape,this.decorGroup,this.npcGroup].filter((root):root is THREE.Group=>!!root)]);
       this.collisionDirty=false;
     }
     // Move first, then follow the same displayed position; no one-frame camera lag.
@@ -2543,6 +2654,7 @@ export class World3D {
 
     this.updateProximity();
     this.updatePickupProximity();
+    this.updateNpcs(dt, t);
     this.updateDust(dt);
     this.tickScene(t, dt);
     const updateNow = performance.now();
