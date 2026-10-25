@@ -129,6 +129,7 @@ export class App {
 
   constructor(root: HTMLElement) {
     this.root = root;
+    if (import.meta.env.DEV) (window as unknown as { __app?: App }).__app = this;
   }
 
   /** 启动应用 */
@@ -193,7 +194,8 @@ export class App {
     prev.dataset.target = before?.id ?? "";
     next.disabled = !after || !after.unlocked;
     next.dataset.target = after?.id ?? "";
-    next.title = !after ? "已是最后一关" : after.unlocked ? "前往下一关" : "通关本关全部记忆点后解锁";
+    next.title = !after ? "已是最后一关" : after.unlocked ? "前往下一关" : "点亮本关全部记忆点后解锁";
+    next.classList.toggle("pulse", Boolean(after?.unlocked && this.state.save.levelProgress[`rw3_${this.unitExplore.unitId}`]?.cleared));
     const label = this.root.querySelector("#level-label");
     if (label) label.textContent = `第 ${index + 1} / ${this.mapNodes.length} 关`;
   }
@@ -1071,6 +1073,7 @@ export class App {
     if (result?.completed) {
       markMemoryDone(script.id, result.wordsSeen);
       showToast("这段记忆被点亮了 ✦");
+      this.completeLevelByMemories(zone.id);
     }
     // 回到地图，单元探索上下文保留；重新展开单元入口，让玩家看到点亮的记忆点
     this.show("map");
@@ -1154,10 +1157,34 @@ export class App {
     const total = this.unitExplore.pickups.length;
     const collected = this.unitExplore.collectedIds.size;
     const pct = total > 0 ? Math.round((collected / total) * 100) : 0;
+    // 关卡任务追踪：词球 → 记忆点 → 通关，并给出下一步
+    const unitId = this.unitExplore.unitId;
+    const rw3Unit = this.rw3Units.get(unitId);
+    const memoryKeys = SECTION_KEYS.filter((key) => rw3Unit?.sections[key]?.passage);
+    const memoryDone = memoryKeys.filter((key) => isMemoryDone(memoryScriptId(unitId, key))).length;
+    const levelCleared = Boolean(this.state.save.levelProgress[`rw3_${unitId}`]?.cleared);
+    const nextMemory = memoryKeys.find((key) => !isMemoryDone(memoryScriptId(unitId, key)));
+    const wordsLeft = total - collected;
+    const next = levelCleared
+      ? "本关已通关，点右上 ▶ 前往下一关"
+      : wordsLeft > 0 && collected < Math.ceil(total * 0.5)
+        ? "在场景里拾取发光词球，边走边学"
+        : nextMemory
+          ? `前往中央枢纽，潜入记忆点 ${"ABC"[memoryKeys.indexOf(nextMemory)]}`
+          : wordsLeft > 0
+            ? `还差 ${wordsLeft} 个词球`
+            : "继续探索";
+    const done = (ok: boolean) => (ok ? "✓" : "○");
     text.innerHTML = `
       <span class="explore-unit-label">${this.unitExplore.unitLabel}</span>
       <span class="explore-pickup-count">词汇收集 ${collected}/${total}</span>
       <div class="explore-pickup-bar"><div class="explore-pickup-fill" style="width:${pct}%"></div></div>
+      <ul class="quest-list">
+        <li class="${total > 0 && wordsLeft === 0 ? "done" : ""}">${done(total > 0 && wordsLeft === 0)} 收集本关词球 ${collected}/${total}</li>
+        <li class="${memoryKeys.length > 0 && memoryDone === memoryKeys.length ? "done" : ""}">${done(memoryKeys.length > 0 && memoryDone === memoryKeys.length)} 点亮记忆点 ${memoryDone}/${memoryKeys.length}</li>
+        <li class="${levelCleared ? "done" : ""}">${done(levelCleared)} 通关，解锁下一关</li>
+      </ul>
+      <div class="quest-next">▶ ${next}</div>
     `;
   }
 
@@ -1205,6 +1232,52 @@ export class App {
     this.showWordPickupCard(pickup);
 
     audio.play("win");
+    // 拾取即学习：先读单词，再读例句（例句带语气与停顿），收集和听音在同一个动作里完成
+    const example = this.wordMap.get(pickup.id)?.example;
+    void wordNarrator.speak(pickup.word, "system").then(() => {
+      if (example && this.unitExplore) return wordNarrator.speak(example, "system");
+      return undefined;
+    });
+    this.maybeAnnounceLevelGoal();
+  }
+
+  /** 词球全部收齐时提示下一步目标 */
+  private maybeAnnounceLevelGoal(): void {
+    if (!this.unitExplore) return;
+    const { pickups } = this.unitExplore;
+    if (pickups.length > 0 && pickups.every((p) => p.collected)) {
+      showToast("本关词球已收齐 ✦ 前往中央枢纽，潜入记忆点吧");
+    }
+  }
+
+  /** 把存档里的通关状态同步到关卡节点（解锁下一关） */
+  private refreshLevelNodes(): void {
+    if (!this.template) return;
+    const cleared = new Set(
+      Object.entries(this.state.save.levelProgress)
+        .filter(([, p]) => p.cleared)
+        .map(([id]) => id)
+    );
+    this.mapNodes = buildExploreMap(this.template, cleared);
+    this.annotateDueCounts();
+  }
+
+  /** 记忆点全部点亮 → 本关通关，解锁下一关 */
+  private completeLevelByMemories(unitNodeId: string): void {
+    const unitId = unitNodeId.replace("rw3_", "");
+    const rw3Unit = this.rw3Units.get(unitId);
+    if (!rw3Unit) return;
+    const keys = SECTION_KEYS.filter((key) => rw3Unit.sections[key]?.passage);
+    if (keys.length === 0 || !keys.every((key) => isMemoryDone(memoryScriptId(unitId, key)))) return;
+    if (this.state.save.levelProgress[unitNodeId]?.cleared) return;
+    this.state.completeLevel(unitNodeId);
+    const rewardGranted = this.state.grantReward(`unit-complete:${unitNodeId}`, 100);
+    this.refreshLevelNodes();
+    const index = this.mapNodes.findIndex((n) => n.id === unitNodeId);
+    const next = this.mapNodes[index + 1];
+    showToast(next ? `第 ${index + 1} 关通关${rewardGranted ? " · +100 XP" : ""} · 下一关「${next.name}」已解锁 ▶` : `全部关卡通关${rewardGranted ? " · +100 XP" : ""}`);
+    this.updateLevelNav();
+    this.root.querySelector("#btn-next-level")?.classList.add("pulse");
   }
 
   private showWordPickupCard(pickup: WordPickup): void {

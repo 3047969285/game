@@ -2507,3 +2507,10 @@ button { -webkit-tap-highlight-color: transparent; }
 #screen-map:not(.level-mode) .level-nav { display: none; }
 .world-viewport::after { content: ""; position: absolute; inset: 0; background: #070d14; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; z-index: 6; }
 .world-viewport.level-fade::after { opacity: 1; }
+
+/* 关卡任务追踪 */
+.quest-list { list-style: none; margin: 6px 0 2px; padding: 0; display: grid; gap: 2px; font-size: 0.76rem; color: #dbe9f7; }
+.quest-list li.done { color: #8ff0b8; text-decoration: line-through; text-decoration-thickness: 1px; opacity: 0.85; }
+.quest-next { margin-top: 4px; font-size: 0.78rem; color: #ffe08a; }
+.level-nav button.pulse:not(:disabled) { animation: level-pulse 1.1s ease-in-out infinite; background: #4fd18a; color: #08331c; }
+@keyframes level-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(79, 209, 138, 0.7); } 50% { box-shadow: 0 0 0 9px rgba(79, 209, 138, 0); } }
