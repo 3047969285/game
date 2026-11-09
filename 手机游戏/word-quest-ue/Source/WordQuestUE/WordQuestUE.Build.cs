@@ -11,7 +11,7 @@ public class WordQuestUE : ModuleRules
 		});
 		if (Target.bBuildEditor)
 		{
-			PrivateDependencyModuleNames.AddRange(new string[] { "UnrealEd", "MetaHumanCharacter", "MetaHumanCharacterEditor", "HairStrandsCore" });
+			PrivateDependencyModuleNames.AddRange(new string[] { "UnrealEd", "MetaHumanCharacter", "MetaHumanCharacterEditor", "MetaHumanSDKRuntime", "ImageCore", "HairStrandsCore", "AssetRegistry" });
 		}
 	}
 }

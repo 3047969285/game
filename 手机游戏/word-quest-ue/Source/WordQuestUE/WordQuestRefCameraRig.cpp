@@ -44,6 +44,9 @@ void AWordQuestRefCameraRig::ConfigureViews()
 {
     for(int32 I=0;I<Views.Num();++I){
         auto* C=Views[I].Get();const float Yaw=I==1?Q34Pose.X:I==2?90:I==3?180:0;
+        // SceneCapture2D defaults TemporalAA to false. Hair coverage needs history
+        // accumulation, including on existing serialized lookdev capture components.
+        C->ShowFlags.SetAntiAliasing(true);C->ShowFlags.SetTemporalAA(true);
         const float Pitch=I==1?Q34Pose.Y:0;const float Roll=I==1?Q34Pose.Z:0;
         const FVector Target=GetActorLocation()+HeadCenterCm;
         const float Distance=I==4?200:400;
@@ -111,6 +114,27 @@ bool AWordQuestRefCameraRig::UsePreviewSkin(UObject* Object)
 }
 
 
+TMap<FName,double> AWordQuestRefCameraRig::InspectGroom(UObject* Object)
+{
+    TMap<FName,double> Result;
+#if WITH_EDITOR
+    auto* Groom=Cast<UGroomAsset>(Object);if(!Groom)return Result;
+    double MaxDiameter=0,MaxSegment=0;int64 Points=0,Curves=0;
+    for(const auto& Group:Groom->GetHairGroupsPlatformData())MaxDiameter=FMath::Max(MaxDiameter,double(Group.Strands.BulkData.GetMaxRadius())*2);
+    for(const auto& Group:Groom->GetHairDescriptionGroups().HairGroups){
+        const auto& Data=Group.Strands;Points+=Data.GetNumPoints();Curves+=Data.GetNumCurves();
+        for(int32 C=0;C<Data.StrandsCurves.CurvesCount.Num();++C){
+            const uint32 Offset=Data.StrandsCurves.CurvesOffset[C],Count=Data.StrandsCurves.CurvesCount[C];
+            for(uint32 P=1;P<Count;++P)
+                MaxSegment=FMath::Max(MaxSegment,double(FVector3f::Distance(Data.StrandsPoints.PointsPosition[Offset+P],Data.StrandsPoints.PointsPosition[Offset+P-1])));
+        }
+    }
+    Result.Add(TEXT("max_diameter_cm"),MaxDiameter);Result.Add(TEXT("max_segment_cm"),MaxSegment);
+    Result.Add(TEXT("point_count"),double(Points));Result.Add(TEXT("curve_count"),double(Curves));
+#endif
+    return Result;
+}
+
 bool AWordQuestRefCameraRig::AttachPreviewGroom(AActor* Actor,UObject* Object,bool bSkinBinding)
 {
 #if WITH_EDITOR
@@ -131,7 +155,7 @@ bool AWordQuestRefCameraRig::AttachPreviewGroom(AActor* Actor,UObject* Object,bo
     if(!bSkinBinding){
         auto* Component=NewObject<UGroomComponent>(Actor,NAME_None,RF_Transient);
         Actor->AddInstanceComponent(Component);Component->SetupAttachment(Face);
-        Component->SetGroomAsset(Groom);Component->RegisterComponent();
+        Component->SetGroomAsset(Groom);Component->RegisterComponent();Component->SetForcedLOD(0);
         UE_LOG(LogTemp,Display,TEXT("WQ_GROOM_RIGID_PREVIEW %s"),*Groom->GetName());
         return true;
     }
@@ -149,7 +173,7 @@ bool AWordQuestRefCameraRig::AttachPreviewGroom(AActor* Actor,UObject* Object,bo
             }
             auto* Component=NewObject<UGroomComponent>(WeakActor.Get(),NAME_None,RF_Transient);
             WeakActor->AddInstanceComponent(Component);Component->SetupAttachment(WeakFace.Get());
-            Component->SetGroomAsset(Groom,Built,false);Component->RegisterComponent();
+            Component->SetGroomAsset(Groom,Built,false);Component->RegisterComponent();Component->SetForcedLOD(0);
             UE_LOG(LogTemp,Display,TEXT("WQ_GROOM_BOUND %s -> %s"),*Groom->GetName(),*WeakFace->GetName());
         }));
     return true;

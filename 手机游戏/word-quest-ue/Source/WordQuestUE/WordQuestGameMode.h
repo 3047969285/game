@@ -11,4 +11,7 @@ class WORDQUESTUE_API AWordQuestGameMode : public AGameModeBase
 
 public:
 	AWordQuestGameMode();
+	virtual void InitGame(const FString& MapName,const FString& Options,FString& ErrorMessage) override;
+private:
+	UPROPERTY() TObjectPtr<class UWordQuestOpeningFlow> OpeningFlow;
 };

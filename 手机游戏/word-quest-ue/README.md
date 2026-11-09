@@ -4,16 +4,14 @@
 
 ## 状态
 
-工程骨架（2026-10-21 建立）：`.uproject` + Config + 导入/引导脚本。引擎安装完成后：
+当前唯一客户端是本 UE5.8 工程；旧 Web 客户端已退役。数据、剧情、角色与场景迁移持续推进，任务进度见 `Docs/tasks/STATUS.md`。
+
+所有编辑器启动、导入、渲染及 C++ 编译必须遵守 `Docs/tasks/ue-run-rules.md`，通过共享锁运行。例如：
 
 ```bash
-# 1. 打开工程（第一次会编译 shader）
-open "WordQuestUE.uproject"
-
-# 2. 或先跑无头引导脚本（建 L_Main、导入英雄 GLB）
-"/Users/Shared/Epic Games/UE_5.8/Engine/Binaries/Mac/UnrealEditor-Cmd" \
-  "$PWD/WordQuestUE.uproject" -run=pythonscript \
-  -script="$PWD/Tools/bootstrap_project.py" -unattended -nosplash -nullrhi
+UE_LOCK_WHO=codex Tools/run_ue_serial.sh \
+  "/Users/Shared/Epic Games/UE_5.8/Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor" \
+  "$PWD/WordQuestUE.uproject"
 ```
 
 ## 目录
@@ -27,4 +25,6 @@ open "WordQuestUE.uproject"
 
 学习数据仍由 `手机游戏/word-quest`（Python 数据工程）与
 `手机游戏/word-quest-game/public/data` 生成；UE5 端通过 `Tools/import_data.py`
-把 JSON 导入为 DataTable（下一里程碑）。
+把 JSON 导入 UE。旧目录仅为源资料，已移除 Web 入口和运行环境。剧情权威数据为 `Content/Data/memory/acts.json`；`python3 Tools/data_export_acts.py --check` 无需 Node 即可校验。
+
+退役范围和验证见 `Docs/web-retirement.md`。

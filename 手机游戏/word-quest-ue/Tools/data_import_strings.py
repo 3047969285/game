@@ -1,6 +1,6 @@
 """D14：UI 本地化字符串表 → Content/Data/loc/ui_strings.csv，并导入 UE StringTable `/Game/Data/ST_UI`。
 
-来源：D12 学习界面清单 + `../word-quest-game/src` 里的界面中文。
+来源：D12 学习界面清单；旧 Web 界面中文审计已冻结到 SourceAssets/Migration/web-ui-audit.json。
 注意：按 Docs/tasks/ue-run-rules.md，所有 UE 进程必须通过 Tools/run_ue_serial.sh 串行启动；
 StringTable 资产导入必须用完整编辑器 -ExecutePythonScript，不能在 commandlet + -nullrhi 下做
 （2026-10-21 曾在 UAssetToolsImpl::ImportAssetsInternal 触发 SharedPointer.h:1133 断言崩溃）。
@@ -14,7 +14,7 @@ import re
 from pathlib import Path
 
 PROJECT = Path(__file__).resolve().parents[1]
-GAME_SRC = PROJECT.parent / "word-quest-game" / "src"
+SOURCE_AUDIT = PROJECT / "SourceAssets" / "Migration" / "web-ui-audit.json"
 OUT_DIR = PROJECT / "Content" / "Data" / "loc"
 OUT_CSV = OUT_DIR / "ui_strings.csv"
 AUDIT = OUT_DIR / "ui_strings_audit.json"
@@ -113,20 +113,9 @@ CURATED: list[tuple[str, str, str]] = [
 
 
 def collect_source_strings() -> dict:
-    """审计：扫描 src 里含中文的字符串字面量（不自动加入表，避免机器翻译）。"""
-    cjk = re.compile(r"[\u4e00-\u9fff]")
-    found: set[str] = set()
-    files = [p for p in GAME_SRC.rglob("*.ts") if ".test." not in p.name]
-    for p in files:
-        txt = p.read_text(encoding="utf-8", errors="ignore")
-        for m in re.finditer(r'"([^"\n]{1,160})"|\'([^\'\n]{1,160})\'|`([^`\n]{1,160})`', txt):
-            s = m.group(1) or m.group(2) or m.group(3)
-            if s and cjk.search(s):
-                found.add(s.strip())
-    zh_in_curated = {zh for _, zh, _ in CURATED}
-    covered = sum(1 for s in found if any(zh in s or s in zh for zh in zh_in_curated))
-    return {"sourceCjkStrings": len(found), "coveredByCurated": covered,
-            "files": len(files), "examples": sorted(found)[:10]}
+    """返回退役前的历史界面审计；UE 新增字符串由 CURATED 维护。"""
+    result = json.loads(SOURCE_AUDIT.read_text(encoding="utf-8"))
+    return {**result, "sourceStatus": "archived-web-client"}
 
 
 def write_csv(rows) -> Path:
