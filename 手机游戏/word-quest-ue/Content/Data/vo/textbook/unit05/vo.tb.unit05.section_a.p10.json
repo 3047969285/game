@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit05.section_a.p10",
+ "unit": 5,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Jing Haipeng, who has taken part in several space missions, was awarded the August 1 Medal, the highest honor given to individual members of the Chinese PLA. Jing was both pleased and modest when he received the medal. For him, the honor and glory belong not only to the astronauts but also to tens of thousands of scientists, engineers, and workers who have played a role in the nation's manned space programs and contributed to sending the astronauts into space.",
+ "rate": 165,
+ "duration": 26.181,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 9.688,
+   "text": "Jing Haipeng, who has taken part in several space missions, was awarded the August 1 Medal, the highest honor given to individual members of the Chinese PLA."
+  },
+  {
+   "i": 1,
+   "start": 9.688,
+   "end": 12.677,
+   "text": "Jing was both pleased and modest when he received the medal."
+  },
+  {
+   "i": 2,
+   "start": 12.677,
+   "end": 26.181,
+   "text": "For him, the honor and glory belong not only to the astronauts but also to tens of thousands of scientists, engineers, and workers who have played a role in the nation's manned space programs and contributed to sending the astronauts into space."
+  }
+ ]
+}

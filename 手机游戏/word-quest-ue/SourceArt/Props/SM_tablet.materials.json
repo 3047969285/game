@@ -1,0 +1,46 @@
+{
+ "kit": "tablet",
+ "dims_m": [
+  0.18,
+  0.25,
+  0.008
+ ],
+ "materials": {
+  "M_tablet_frame": {
+   "color": "#8E949C",
+   "roughness": 0.3,
+   "metallic": 1.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_tablet_screen": {
+   "color": "#0A0E14",
+   "roughness": 0.15,
+   "metallic": 0.0,
+   "emission": "#9FC4E8",
+   "emission_strength": 0.6,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_tablet_ui": {
+   "color": "#0A0E14",
+   "roughness": 0.15,
+   "metallic": 0.0,
+   "emission": "#9FC4E8",
+   "emission_strength": 1.8,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_tablet_lens": {
+   "color": "#111418",
+   "roughness": 0.2,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

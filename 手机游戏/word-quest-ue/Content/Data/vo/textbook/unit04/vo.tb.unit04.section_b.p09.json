@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit04.section_b.p09",
+ "unit": 4,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "I left in a hurry, but I had a warm and grateful feeling. On my way home I passed the little shop again. There he was, sitting amongst his tools, still working. He saw me, and he waved and smiled, as cordial as could be. That was the beginning of our friendship, a fellowship that came to mean more and more to me as time passed.",
+ "rate": 165,
+ "duration": 20.195,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 3.5,
+   "text": "I left in a hurry, but I had a warm and grateful feeling."
+  },
+  {
+   "i": 1,
+   "start": 3.5,
+   "end": 6.289,
+   "text": "On my way home I passed the little shop again."
+  },
+  {
+   "i": 2,
+   "start": 6.289,
+   "end": 10.098,
+   "text": "There he was, sitting amongst his tools, still working."
+  },
+  {
+   "i": 3,
+   "start": 10.098,
+   "end": 14.23,
+   "text": "He saw me, and he waved and smiled, as cordial as could be."
+  },
+  {
+   "i": 4,
+   "start": 14.23,
+   "end": 20.195,
+   "text": "That was the beginning of our friendship, a fellowship that came to mean more and more to me as time passed."
+  }
+ ]
+}

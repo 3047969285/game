@@ -1,0 +1,4891 @@
+{
+ "schema": "wordquest.textbook_scenes/1",
+ "unit": 3,
+ "note": "Scene design for the real Unit 3 texts (Docs/scenes/unit03.md). Coordinates: metres, UE axes X right / Y forward / Z up, relative to each scene origin. word = lowercase headword of this unit's New words. Paragraph numbers follow textbook.json paragraphs (Text A has 6, Text B 13, Section C story split into 5 natural paragraphs).",
+ "articles": [
+  {
+   "section": "section_a",
+   "level": "L_U03_A",
+   "title": "The surprising purpose of travel",
+   "scenes": [
+    {
+     "id": "u03a_s1",
+     "title": "Why we go",
+     "paragraphs": [
+      1
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.1,
+       0.3,
+       -0.9
+      ],
+      "color": "#FFCF9A",
+      "intensity": 3.0,
+      "sky": "#1B1A22",
+      "fill": 0.4
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "window_wall",
+       "pos": [
+        -3.0,
+        0.5,
+        0.0
+       ],
+       "yaw": 90,
+       "scale": 1.0,
+       "size": [
+        5.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "rug",
+       "pos": [
+        0.0,
+        0.3,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.6,
+        1.8,
+        0.01
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bookshelf",
+       "pos": [
+        2.2,
+        2.7,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        0.35,
+        2.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "calendar",
+       "pos": [
+        -1.4,
+        2.86,
+        1.5
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.3,
+        0.02,
+        0.4
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "resort_poster",
+       "pos": [
+        0.6,
+        2.86,
+        1.3
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.7,
+        0.03,
+        1.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "floor_lamp",
+       "pos": [
+        -2.3,
+        1.6,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.35,
+        0.35,
+        1.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "coffee_table",
+       "pos": [
+        0.0,
+        0.3,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.1,
+        0.6,
+        0.42
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "flyer",
+       "pos": [
+        0.0,
+        0.3,
+        0.42
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.21,
+        0.3,
+        0.005
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "armchair",
+       "pos": [
+        -1.3,
+        -0.4,
+        0.0
+       ],
+       "yaw": 35,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.9,
+        1.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "armchair",
+       "pos": [
+        1.3,
+        -0.4,
+        0.0
+       ],
+       "yaw": -35,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.9,
+        1.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "suitcase",
+       "pos": [
+        2.4,
+        -1.6,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.4,
+        0.25
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "door",
+       "pos": [
+        3.0,
+        -0.5,
+        0.0
+       ],
+       "yaw": 90,
+       "scale": 1.0,
+       "size": [
+        1.0,
+        0.1,
+        2.1
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "traveler_a",
+       "pos": [
+        -1.3,
+        -0.4,
+        0.0
+       ],
+       "yaw": 35,
+       "pose": "sit_stressed",
+       "layer": "always"
+      },
+      {
+       "role": "traveler_b",
+       "pos": [
+        2.4,
+        -1.0,
+        0.0
+       ],
+       "yaw": 180,
+       "pose": "stand_pack",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "wide",
+       "pos": [
+        0.0,
+        -5.5,
+        1.7
+       ],
+       "look": [
+        0.0,
+        0.4,
+        0.8
+       ],
+       "fov": 40
+      },
+      {
+       "name": "flyer",
+       "pos": [
+        0.0,
+        -1.6,
+        1.1
+       ],
+       "look": [
+        0.0,
+        0.3,
+        0.45
+       ],
+       "fov": 30
+      }
+     ],
+     "exercises": [
+      "u03_a_pre_reading",
+      "u03_a_understanding#3"
+     ],
+     "origin": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "groan",
+       "form": "groan",
+       "paragraph": 1,
+       "sentence": 2
+      },
+      {
+       "word": "terminal",
+       "form": "terminal",
+       "paragraph": 1,
+       "sentence": 5
+      },
+      {
+       "word": "burdensome",
+       "form": "burdensome",
+       "paragraph": 1,
+       "sentence": 6
+      }
+     ]
+    },
+    {
+     "id": "u03a_s2",
+     "title": "Outrunning the sun",
+     "paragraphs": [
+      2
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.3,
+       0.45,
+       -0.84
+      ],
+      "color": "#FFF1DC",
+      "intensity": 9.0,
+      "sky": "#7FA6C9",
+      "fill": 0.8
+     },
+     "props": [
+      {
+       "kit": "terminal_hall",
+       "pos": [
+        0.0,
+        8.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        14.0,
+        6.0,
+        5.0
+       ],
+       "layer": "always",
+       "word": "terminal"
+      },
+      {
+       "kit": "departure_board",
+       "pos": [
+        -2.5,
+        4.85,
+        2.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.1,
+        1.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "window_wall",
+       "pos": [
+        -6.5,
+        0.5,
+        0.0
+       ],
+       "yaw": 90,
+       "scale": 1.0,
+       "size": [
+        5.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bench",
+       "pos": [
+        -0.8,
+        1.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        0.5,
+        0.45
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "travel_counter",
+       "pos": [
+        2.0,
+        2.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.2,
+        0.7,
+        1.05
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "suitcase",
+       "pos": [
+        1.0,
+        -0.3,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.4,
+        0.25
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "globe",
+       "pos": [
+        3.0,
+        -0.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.45,
+        0.9
+       ],
+       "layer": "always",
+       "word": "hemisphere"
+      }
+     ],
+     "people": [
+      {
+       "role": "passenger_a",
+       "pos": [
+        -0.8,
+        1.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_wait",
+       "layer": "always"
+      },
+      {
+       "role": "passenger_b",
+       "pos": [
+        3.0,
+        -1.6,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      },
+      {
+       "role": "agent",
+       "pos": [
+        2.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 180,
+       "pose": "stand_point",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "concourse",
+       "pos": [
+        0.0,
+        -6.0,
+        1.7
+       ],
+       "look": [
+        0.0,
+        5.0,
+        1.0
+       ],
+       "fov": 45
+      },
+      {
+       "name": "globe",
+       "pos": [
+        2.0,
+        -2.0,
+        1.2
+       ],
+       "look": [
+        3.0,
+        -0.5,
+        0.7
+       ],
+       "fov": 30
+      }
+     ],
+     "exercises": [
+      "u03_a_understanding#1",
+      "u03_a_expressions_in_use#1-4"
+     ],
+     "origin": [
+      60.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "airborne",
+       "form": "airborne",
+       "paragraph": 2,
+       "sentence": 2
+      },
+      {
+       "word": "cluster",
+       "form": "clusters",
+       "paragraph": 2,
+       "sentence": 3
+      },
+      {
+       "word": "keepsake",
+       "form": "keepsakes",
+       "paragraph": 2,
+       "sentence": 3
+      },
+      {
+       "word": "globalize",
+       "form": "globalized",
+       "paragraph": 2,
+       "sentence": 4
+      }
+     ]
+    },
+    {
+     "id": "u03a_s3",
+     "title": "Left Bank cafe",
+     "paragraphs": [
+      3,
+      4
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.45,
+       0.35,
+       -0.82
+      ],
+      "color": "#FFCF9A",
+      "intensity": 6.5,
+      "sky": "#1B2230",
+      "fill": 0.55
+     },
+     "props": [
+      {
+       "kit": "bistro_facade",
+       "pos": [
+        0.0,
+        5.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        12.0,
+        0.4,
+        4.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "cafe_table",
+       "pos": [
+        0.0,
+        0.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.7,
+        0.7,
+        0.74
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        -0.7,
+        0.5,
+        0.0
+       ],
+       "yaw": 90,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        0.7,
+        0.5,
+        0.0
+       ],
+       "yaw": -90,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "dessert_plate",
+       "pos": [
+        0.1,
+        0.5,
+        0.74
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.22,
+        0.22,
+        0.06
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "notebook",
+       "pos": [
+        -0.2,
+        0.6,
+        0.74
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.18,
+        0.24,
+        0.015
+       ],
+       "layer": "always",
+       "word": "contemplate"
+      },
+      {
+       "kit": "coffee_cup",
+       "pos": [
+        0.25,
+        0.2,
+        0.74
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.09,
+        0.09,
+        0.1
+       ],
+       "layer": "always",
+       "word": "mundane"
+      }
+     ],
+     "people": [
+      {
+       "role": "traveler",
+       "pos": [
+        -0.7,
+        0.5,
+        0.0
+       ],
+       "yaw": 90,
+       "pose": "sit_contemplate",
+       "layer": "always"
+      },
+      {
+       "role": "waiter",
+       "pos": [
+        1.4,
+        -0.2,
+        0.0
+       ],
+       "yaw": 180,
+       "pose": "stand_wait",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "table",
+       "pos": [
+        0.0,
+        -2.6,
+        1.4
+       ],
+       "look": [
+        0.0,
+        0.5,
+        0.9
+       ],
+       "fov": 38
+      },
+      {
+       "name": "notebook",
+       "pos": [
+        -0.6,
+        -1.0,
+        1.25
+       ],
+       "look": [
+        -0.2,
+        0.6,
+        0.78
+       ],
+       "fov": 26
+      }
+     ],
+     "exercises": [
+      "u03_a_understanding#4",
+      "u03_a_words_in_use#1-5"
+     ],
+     "origin": [
+      120.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "decidedly",
+       "form": "decidedly",
+       "paragraph": 4,
+       "sentence": 1
+      },
+      {
+       "word": "corporate",
+       "form": "corporate",
+       "paragraph": 4,
+       "sentence": 2
+      },
+      {
+       "word": "compulsory",
+       "form": "compulsory",
+       "paragraph": 4,
+       "sentence": 2
+      },
+      {
+       "word": "offset",
+       "form": "offset",
+       "paragraph": 4,
+       "sentence": 3
+      },
+      {
+       "word": "tropical",
+       "form": "tropical",
+       "paragraph": 4,
+       "sentence": 4
+      }
+     ]
+    },
+    {
+     "id": "u03a_s4",
+     "title": "Yes that means no",
+     "paragraphs": [
+      7,
+      8
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.0,
+       0.5,
+       -0.85
+      ],
+      "color": "#F2F5FF",
+      "intensity": 4.5,
+      "sky": "#141A24",
+      "fill": 0.6
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "yes_no_chart",
+       "pos": [
+        0.0,
+        2.86,
+        1.4
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        0.03,
+        1.0
+       ],
+       "layer": "always",
+       "word": "versus"
+      },
+      {
+       "kit": "cafe_table",
+       "pos": [
+        0.0,
+        0.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.7,
+        0.7,
+        0.74
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        -0.7,
+        0.5,
+        0.0
+       ],
+       "yaw": 90,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        0.7,
+        0.5,
+        0.0
+       ],
+       "yaw": -90,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "coffee_cup",
+       "pos": [
+        0.0,
+        0.5,
+        0.74
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.09,
+        0.09,
+        0.1
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "local_a",
+       "pos": [
+        -0.7,
+        0.5,
+        0.0
+       ],
+       "yaw": 90,
+       "pose": "nod",
+       "layer": "always"
+      },
+      {
+       "role": "local_b",
+       "pos": [
+        0.7,
+        0.5,
+        0.0
+       ],
+       "yaw": -90,
+       "pose": "shake_head",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "nod_shake",
+       "pos": [
+        0.0,
+        -2.4,
+        1.25
+       ],
+       "look": [
+        0.0,
+        0.5,
+        1.0
+       ],
+       "fov": 35
+      },
+      {
+       "name": "chart",
+       "pos": [
+        0.0,
+        -1.2,
+        1.5
+       ],
+       "look": [
+        0.0,
+        2.86,
+        1.9
+       ],
+       "fov": 30
+      }
+     ],
+     "exercises": [
+      "u03_a_understanding#5",
+      "u03_a_understanding#6"
+     ],
+     "origin": [
+      180.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "circumference",
+       "form": "circumference",
+       "paragraph": 7,
+       "sentence": 2
+      },
+      {
+       "word": "latitude",
+       "form": "latitude",
+       "paragraph": 8,
+       "sentence": 1
+      },
+      {
+       "word": "longitude",
+       "form": "longitude",
+       "paragraph": 8,
+       "sentence": 1
+      },
+      {
+       "word": "renaissance",
+       "form": "renaissance",
+       "paragraph": 8,
+       "sentence": 2
+      },
+      {
+       "word": "diversity",
+       "form": "diversity",
+       "paragraph": 8,
+       "sentence": 2
+      },
+      {
+       "word": "facet",
+       "form": "facets",
+       "paragraph": 8,
+       "sentence": 3
+      },
+      {
+       "word": "insular",
+       "form": "insular",
+       "paragraph": 8,
+       "sentence": 4
+      }
+     ]
+    },
+    {
+     "id": "u03a_s5",
+     "title": "Unfamiliar signs",
+     "paragraphs": [
+      5,
+      6
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.0,
+       0.5,
+       -0.85
+      ],
+      "color": "#F2F5FF",
+      "intensity": 4.5,
+      "sky": "#141A24",
+      "fill": 0.6
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "multilingual_sign",
+       "pos": [
+        -1.4,
+        2.86,
+        1.6
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.4,
+        0.05,
+        1.2
+       ],
+       "layer": "always",
+       "word": "diversity"
+      },
+      {
+       "kit": "world_map",
+       "pos": [
+        1.8,
+        2.86,
+        1.2
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.03,
+        1.4
+       ],
+       "layer": "always",
+       "word": "latitude"
+      },
+      {
+       "kit": "travel_counter",
+       "pos": [
+        -0.8,
+        1.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.2,
+        0.7,
+        1.05
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bench",
+       "pos": [
+        2.2,
+        0.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        0.5,
+        0.45
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "suitcase",
+       "pos": [
+        -2.6,
+        0.1,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.4,
+        0.25
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "clerk",
+       "pos": [
+        -0.8,
+        1.9,
+        0.0
+       ],
+       "yaw": 180,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "me",
+       "pos": [
+        -0.8,
+        -0.5,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      },
+      {
+       "role": "passenger",
+       "pos": [
+        2.2,
+        0.5,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_wait",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "hall",
+       "pos": [
+        0.0,
+        -5.5,
+        1.7
+       ],
+       "look": [
+        0.0,
+        1.2,
+        1.0
+       ],
+       "fov": 45
+      },
+      {
+       "name": "sign",
+       "pos": [
+        -0.8,
+        -2.2,
+        1.5
+       ],
+       "look": [
+        -1.2,
+        2.86,
+        1.9
+       ],
+       "fov": 32
+      }
+     ],
+     "exercises": [
+      "u03_a_understanding#7",
+      "u03_a_word_building"
+     ],
+     "origin": [
+      240.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "aviation",
+       "form": "aviation",
+       "paragraph": 5,
+       "sentence": 5
+      },
+      {
+       "word": "hemisphere",
+       "form": "hemisphere",
+       "paragraph": 5,
+       "sentence": 6
+      },
+      {
+       "word": "solve",
+       "form": "solve",
+       "paragraph": 5,
+       "sentence": 10
+      },
+      {
+       "word": "stubborn",
+       "form": "stubborn",
+       "paragraph": 5,
+       "sentence": 10
+      },
+      {
+       "word": "contemplate",
+       "form": "contemplating",
+       "paragraph": 5,
+       "sentence": 11
+      },
+      {
+       "word": "saturate",
+       "form": "saturated",
+       "paragraph": 6,
+       "sentence": 1
+      },
+      {
+       "word": "infinite",
+       "form": "infinite",
+       "paragraph": 6,
+       "sentence": 2
+      },
+      {
+       "word": "finite",
+       "form": "finite",
+       "paragraph": 6,
+       "sentence": 3
+      },
+      {
+       "word": "prose",
+       "form": "prose",
+       "paragraph": 6,
+       "sentence": 3
+      },
+      {
+       "word": "verse",
+       "form": "verse",
+       "paragraph": 6,
+       "sentence": 3
+      },
+      {
+       "word": "loosen",
+       "form": "loosen",
+       "paragraph": 6,
+       "sentence": 4
+      },
+      {
+       "word": "cognitive",
+       "form": "cognitive",
+       "paragraph": 6,
+       "sentence": 4
+      },
+      {
+       "word": "imprison",
+       "form": "imprison",
+       "paragraph": 6,
+       "sentence": 4
+      },
+      {
+       "word": "mingle",
+       "form": "mingle",
+       "paragraph": 6,
+       "sentence": 4
+      },
+      {
+       "word": "mundane",
+       "form": "mundane",
+       "paragraph": 6,
+       "sentence": 4
+      },
+      {
+       "word": "endow",
+       "form": "endows",
+       "paragraph": 6,
+       "sentence": 5
+      },
+      {
+       "word": "trivial",
+       "form": "trivial",
+       "paragraph": 6,
+       "sentence": 5
+      },
+      {
+       "word": "versus",
+       "form": "versus",
+       "paragraph": 6,
+       "sentence": 6
+      },
+      {
+       "word": "denote",
+       "form": "denotes",
+       "paragraph": 6,
+       "sentence": 7
+      },
+      {
+       "word": "Bulgaria",
+       "form": "Bulgaria",
+       "paragraph": 6,
+       "sentence": 8
+      }
+     ]
+    },
+    {
+     "id": "u03a_s6",
+     "title": "Lost luggage and the view",
+     "paragraphs": [
+      9
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.3,
+       0.45,
+       -0.84
+      ],
+      "color": "#FFF1DC",
+      "intensity": 9.0,
+      "sky": "#7FA6C9",
+      "fill": 0.8
+     },
+     "props": [
+      {
+       "kit": "mountain_mural",
+       "pos": [
+        0.0,
+        8.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        14.0,
+        0.4,
+        6.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "luggage_carousel",
+       "pos": [
+        -1.0,
+        1.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        4.0,
+        1.2,
+        0.9
+       ],
+       "layer": "always",
+       "word": "drawback"
+      },
+      {
+       "kit": "travel_counter",
+       "pos": [
+        2.8,
+        2.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.2,
+        0.7,
+        1.05
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "museum_plaque",
+       "pos": [
+        -4.0,
+        0.8,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.5,
+        0.05,
+        0.8
+       ],
+       "layer": "always",
+       "word": "louvre"
+      },
+      {
+       "kit": "suitcase",
+       "pos": [
+        2.0,
+        -0.8,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.4,
+        0.25
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "passenger_a",
+       "pos": [
+        -1.0,
+        -0.8,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_wait",
+       "layer": "always"
+      },
+      {
+       "role": "agent",
+       "pos": [
+        2.8,
+        2.95,
+        0.0
+       ],
+       "yaw": 180,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "me",
+       "pos": [
+        0.6,
+        -1.8,
+        0.0
+       ],
+       "yaw": 20,
+       "pose": "stand_look",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "carousel",
+       "pos": [
+        0.0,
+        -4.5,
+        1.6
+       ],
+       "look": [
+        0.0,
+        0.5,
+        0.8
+       ],
+       "fov": 40
+      },
+      {
+       "name": "mural",
+       "pos": [
+        -1.0,
+        -3.0,
+        1.5
+       ],
+       "look": [
+        0.0,
+        8.0,
+        2.0
+       ],
+       "fov": 45
+      }
+     ],
+     "exercises": [
+      "u03_a_understanding#2",
+      "u03_a_understanding#8",
+      "u03_a_expressions_in_use#5-8"
+     ],
+     "origin": [
+      300.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "drawback",
+       "form": "drawbacks",
+       "paragraph": 9,
+       "sentence": 1
+      },
+      {
+       "word": "Louvre",
+       "form": "Louvre",
+       "paragraph": 9,
+       "sentence": 2
+      },
+      {
+       "word": "Machu Picchu",
+       "form": "Machu Picchu",
+       "paragraph": 9,
+       "sentence": 2
+      }
+     ]
+    },
+    {
+     "id": "u03a_s7",
+     "title": "Home is still the same",
+     "paragraphs": [
+      9
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.1,
+       0.3,
+       -0.9
+      ],
+      "color": "#FFD9A8",
+      "intensity": 2.0,
+      "sky": "#05070C",
+      "fill": 0.25
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "window_wall",
+       "pos": [
+        -3.0,
+        0.5,
+        0.0
+       ],
+       "yaw": 90,
+       "scale": 1.0,
+       "size": [
+        5.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "rug",
+       "pos": [
+        0.0,
+        0.3,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.6,
+        1.8,
+        0.01
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bookshelf",
+       "pos": [
+        2.2,
+        2.7,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        0.35,
+        2.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "keepsake_box",
+       "pos": [
+        2.3,
+        2.7,
+        2.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.3,
+        0.2,
+        0.18
+       ],
+       "layer": "always",
+       "word": "keepsake"
+      },
+      {
+       "kit": "sofa",
+       "pos": [
+        0.0,
+        -0.6,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.9,
+        0.85
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "coffee_table",
+       "pos": [
+        0.0,
+        0.3,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.1,
+        0.6,
+        0.42
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "suitcase",
+       "pos": [
+        -2.0,
+        -0.9,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.4,
+        0.25
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "floor_lamp",
+       "pos": [
+        -2.3,
+        1.6,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.35,
+        0.35,
+        1.6
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "me",
+       "pos": [
+        -0.5,
+        -0.6,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_read",
+       "layer": "always"
+      },
+      {
+       "role": "parent",
+       "pos": [
+        0.5,
+        -0.6,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_talk",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "room",
+       "pos": [
+        0.0,
+        -5.0,
+        1.6
+       ],
+       "look": [
+        0.0,
+        -0.3,
+        0.9
+       ],
+       "fov": 40
+      },
+      {
+       "name": "keepsake",
+       "pos": [
+        0.5,
+        -2.2,
+        1.4
+       ],
+       "look": [
+        2.3,
+        2.7,
+        2.1
+       ],
+       "fov": 30
+      }
+     ],
+     "exercises": [
+      "u03_a_words_in_use#6-10",
+      "u03_a_banked_cloze",
+      "u03_a_critical",
+      "u03_a_structure_writing"
+     ],
+     "origin": [
+      360.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    }
+   ]
+  },
+  {
+   "section": "section_b",
+   "level": "L_U03_B",
+   "title": "Traveling solo",
+   "scenes": [
+    {
+     "id": "u03b_s1",
+     "title": "Ready to go",
+     "paragraphs": [
+      1
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.1,
+       0.3,
+       -0.9
+      ],
+      "color": "#FFD9A8",
+      "intensity": 1.8,
+      "sky": "#05070C",
+      "fill": 0.2
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "wall_poster",
+       "pos": [
+        -1.2,
+        2.86,
+        1.2
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.4,
+        0.03,
+        1.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bookshelf",
+       "pos": [
+        2.2,
+        2.7,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        0.35,
+        2.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "statue_figure",
+       "pos": [
+        2.3,
+        2.7,
+        2.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.3,
+        0.3,
+        0.5
+       ],
+       "layer": "always",
+       "word": "venerable"
+      },
+      {
+       "kit": "home_desk",
+       "pos": [
+        0.0,
+        0.6,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        0.6,
+        0.75
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "desk_lamp",
+       "pos": [
+        0.45,
+        0.6,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.2,
+        0.2,
+        0.45
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "laptop",
+       "pos": [
+        -0.2,
+        0.5,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.32,
+        0.22,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        0.0,
+        -0.1,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "suitcase",
+       "pos": [
+        -1.6,
+        -0.6,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.4,
+        0.25
+       ],
+       "layer": "always",
+       "word": "solo"
+      }
+     ],
+     "people": [
+      {
+       "role": "me",
+       "pos": [
+        0.0,
+        -0.1,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_type",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "room",
+       "pos": [
+        0.0,
+        -4.8,
+        1.6
+       ],
+       "look": [
+        0.0,
+        1.0,
+        1.0
+       ],
+       "fov": 45
+      },
+      {
+       "name": "statue",
+       "pos": [
+        0.6,
+        -1.6,
+        1.4
+       ],
+       "look": [
+        2.3,
+        2.7,
+        2.1
+       ],
+       "fov": 28
+      }
+     ],
+     "exercises": [
+      "u03_b_reading_skills#1"
+     ],
+     "origin": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "aesthetics",
+       "form": "aesthetics",
+       "paragraph": 1,
+       "sentence": 5
+      },
+      {
+       "word": "venerable",
+       "form": "venerable",
+       "paragraph": 1,
+       "sentence": 5
+      },
+      {
+       "word": "statue",
+       "form": "statues",
+       "paragraph": 1,
+       "sentence": 5
+      },
+      {
+       "word": "chunk",
+       "form": "chunk",
+       "paragraph": 1,
+       "sentence": 6
+      }
+     ]
+    },
+    {
+     "id": "u03b_s2",
+     "title": "Nobody else can come",
+     "paragraphs": [
+      2,
+      3
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.2,
+       0.5,
+       -0.85
+      ],
+      "color": "#CFE3FF",
+      "intensity": 3.2,
+      "sky": "#0B1220",
+      "fill": 0.35
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "window_wall",
+       "pos": [
+        -3.0,
+        0.5,
+        0.0
+       ],
+       "yaw": 90,
+       "scale": 1.0,
+       "size": [
+        5.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "rug",
+       "pos": [
+        0.0,
+        0.3,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.6,
+        1.8,
+        0.01
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "sofa",
+       "pos": [
+        0.0,
+        2.2,
+        0.0
+       ],
+       "yaw": 180,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.9,
+        0.85
+       ],
+       "layer": "always",
+       "word": "pregnant"
+      },
+      {
+       "kit": "calendar",
+       "pos": [
+        -1.4,
+        2.86,
+        1.5
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.3,
+        0.02,
+        0.4
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "coffee_table",
+       "pos": [
+        0.0,
+        0.3,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.1,
+        0.6,
+        0.42
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "phone",
+       "pos": [
+        0.3,
+        0.3,
+        0.42
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.075,
+        0.155,
+        0.009
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "armchair",
+       "pos": [
+        -1.3,
+        -0.4,
+        0.0
+       ],
+       "yaw": 35,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.9,
+        1.0
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "sister",
+       "pos": [
+        -0.5,
+        2.2,
+        0.0
+       ],
+       "yaw": 180,
+       "pose": "sit_pregnant",
+       "layer": "always"
+      },
+      {
+       "role": "me",
+       "pos": [
+        -1.3,
+        -0.4,
+        0.0
+       ],
+       "yaw": 35,
+       "pose": "sit_talk",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "room",
+       "pos": [
+        0.0,
+        -5.0,
+        1.7
+       ],
+       "look": [
+        0.0,
+        0.8,
+        0.9
+       ],
+       "fov": 42
+      },
+      {
+       "name": "sister",
+       "pos": [
+        -1.0,
+        -1.6,
+        1.3
+       ],
+       "look": [
+        -0.5,
+        2.2,
+        0.9
+       ],
+       "fov": 32
+      }
+     ],
+     "exercises": [
+      "u03_b_reading_skills#2",
+      "u03_b_collocation#1-2"
+     ],
+     "origin": [
+      60.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "onset",
+       "form": "onset",
+       "paragraph": 3,
+       "sentence": 2
+      },
+      {
+       "word": "pregnant",
+       "form": "pregnant",
+       "paragraph": 3,
+       "sentence": 3
+      }
+     ]
+    },
+    {
+     "id": "u03b_s3",
+     "title": "Zigzag route",
+     "paragraphs": [
+      4,
+      5
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.0,
+       0.5,
+       -0.85
+      ],
+      "color": "#FFD9A8",
+      "intensity": 3.0,
+      "sky": "#141A24",
+      "fill": 0.45
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "world_map",
+       "pos": [
+        0.0,
+        2.86,
+        1.2
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.03,
+        1.4
+       ],
+       "layer": "always",
+       "word": "zigzag"
+      },
+      {
+       "kit": "dining_table",
+       "pos": [
+        0.0,
+        0.8,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.8,
+        0.95,
+        0.75
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        -0.5,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        0.5,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        0.0,
+        1.6,
+        0.0
+       ],
+       "yaw": 180,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "coffee_cup",
+       "pos": [
+        -0.3,
+        0.8,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.09,
+        0.09,
+        0.1
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "speech_bubble",
+       "pos": [
+        0.5,
+        -0.2,
+        1.7
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.5,
+        0.03,
+        0.3
+       ],
+       "layer": "always",
+       "word": "inconceivable"
+      }
+     ],
+     "people": [
+      {
+       "role": "friend_a",
+       "pos": [
+        -0.5,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_talk",
+       "layer": "always"
+      },
+      {
+       "role": "friend_b",
+       "pos": [
+        0.5,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_listen",
+       "layer": "always"
+      },
+      {
+       "role": "me",
+       "pos": [
+        0.0,
+        1.6,
+        0.0
+       ],
+       "yaw": 180,
+       "pose": "sit_talk",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "table",
+       "pos": [
+        0.0,
+        -3.8,
+        1.6
+       ],
+       "look": [
+        0.0,
+        1.0,
+        1.0
+       ],
+       "fov": 40
+      },
+      {
+       "name": "map",
+       "pos": [
+        0.0,
+        -2.4,
+        1.5
+       ],
+       "look": [
+        0.0,
+        2.86,
+        1.9
+       ],
+       "fov": 35
+      }
+     ],
+     "exercises": [
+      "u03_b_understanding#1",
+      "u03_b_collocation#3"
+     ],
+     "origin": [
+      120.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "solo",
+       "form": "solo",
+       "paragraph": 5,
+       "sentence": 1
+      },
+      {
+       "word": "zigzag",
+       "form": "zigzagged",
+       "paragraph": 4,
+       "sentence": 2
+      },
+      {
+       "word": "conceive",
+       "form": "inconceivable",
+       "paragraph": 5,
+       "sentence": 1
+      },
+      {
+       "word": "inconceivable",
+       "form": "inconceivable",
+       "paragraph": 5,
+       "sentence": 1
+      },
+      {
+       "word": "reckless",
+       "form": "reckless",
+       "paragraph": 5,
+       "sentence": 1
+      },
+      {
+       "word": "isolation",
+       "form": "isolation",
+       "paragraph": 5,
+       "sentence": 2
+      },
+      {
+       "word": "susceptible",
+       "form": "susceptible",
+       "paragraph": 5,
+       "sentence": 2
+      }
+     ]
+    },
+    {
+     "id": "u03b_s4",
+     "title": "Hostel desk and a feast",
+     "paragraphs": [
+      6,
+      7
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.0,
+       0.5,
+       -0.85
+      ],
+      "color": "#FFD9A8",
+      "intensity": 3.0,
+      "sky": "#141A24",
+      "fill": 0.45
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "reception_desk",
+       "pos": [
+        -1.0,
+        2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.2,
+        0.7,
+        1.05
+       ],
+       "layer": "always",
+       "word": "bilingual"
+      },
+      {
+       "kit": "door",
+       "pos": [
+        2.4,
+        2.85,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.0,
+        0.1,
+        2.1
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "dining_table",
+       "pos": [
+        0.5,
+        0.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.8,
+        0.95,
+        0.75
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        -0.2,
+        -0.7,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        0.3,
+        -0.7,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        1.1,
+        -0.7,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        0.5,
+        1.1,
+        0.0
+       ],
+       "yaw": 180,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "coffee_cup",
+       "pos": [
+        0.3,
+        0.2,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.09,
+        0.09,
+        0.1
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "desk_clerk",
+       "pos": [
+        -1.0,
+        2.6,
+        0.0
+       ],
+       "yaw": 180,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "young_woman",
+       "pos": [
+        2.4,
+        2.2,
+        0.0
+       ],
+       "yaw": -90,
+       "pose": "walk_out",
+       "layer": "always"
+      },
+      {
+       "role": "me",
+       "pos": [
+        -1.0,
+        0.9,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_wait",
+       "layer": "always"
+      },
+      {
+       "role": "friend_c",
+       "pos": [
+        -0.2,
+        -0.7,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_talk",
+       "layer": "always"
+      },
+      {
+       "role": "friend_d",
+       "pos": [
+        1.1,
+        -0.7,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_talk",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "desk",
+       "pos": [
+        -1.0,
+        -3.4,
+        1.6
+       ],
+       "look": [
+        -0.8,
+        2.2,
+        1.0
+       ],
+       "fov": 42
+      },
+      {
+       "name": "feast",
+       "pos": [
+        0.5,
+        -3.8,
+        1.6
+       ],
+       "look": [
+        0.5,
+        0.2,
+        0.9
+       ],
+       "fov": 40
+      }
+     ],
+     "exercises": [
+      "u03_b_understanding#2",
+      "u03_b_collocation#5-6"
+     ],
+     "origin": [
+      180.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "feast",
+       "form": "feast",
+       "paragraph": 7,
+       "sentence": 1
+      },
+      {
+       "word": "bilingual",
+       "form": "bilingual",
+       "paragraph": 7,
+       "sentence": 2
+      }
+     ]
+    },
+    {
+     "id": "u03b_s5",
+     "title": "Four girls and one snore",
+     "paragraphs": [
+      8
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.1,
+       0.3,
+       -0.9
+      ],
+      "color": "#FFD9A8",
+      "intensity": 2.0,
+      "sky": "#05070C",
+      "fill": 0.25
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "window_wall",
+       "pos": [
+        -3.0,
+        0.5,
+        0.0
+       ],
+       "yaw": 90,
+       "scale": 1.0,
+       "size": [
+        5.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "futon",
+       "pos": [
+        -1.2,
+        0.4,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.9,
+        0.9,
+        0.12
+       ],
+       "layer": "always",
+       "word": "snore"
+      },
+      {
+       "kit": "futon",
+       "pos": [
+        1.0,
+        0.4,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.9,
+        0.9,
+        0.12
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "futon",
+       "pos": [
+        -1.2,
+        -1.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.9,
+        0.9,
+        0.12
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "futon",
+       "pos": [
+        1.0,
+        -1.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.9,
+        0.9,
+        0.12
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "coffee_table",
+       "pos": [
+        2.6,
+        0.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.1,
+        0.6,
+        0.42
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "girl_snorer",
+       "pos": [
+        -1.2,
+        0.4,
+        0.12
+       ],
+       "yaw": 0,
+       "pose": "lie_sleep",
+       "layer": "always"
+      },
+      {
+       "role": "girl_2",
+       "pos": [
+        1.0,
+        0.4,
+        0.12
+       ],
+       "yaw": 0,
+       "pose": "lie_read",
+       "layer": "always"
+      },
+      {
+       "role": "girl_3",
+       "pos": [
+        -1.2,
+        -1.0,
+        0.12
+       ],
+       "yaw": 0,
+       "pose": "sit_talk",
+       "layer": "always"
+      },
+      {
+       "role": "girl_4",
+       "pos": [
+        1.0,
+        -1.0,
+        0.12
+       ],
+       "yaw": 0,
+       "pose": "lie_sleep",
+       "layer": "always"
+      },
+      {
+       "role": "me",
+       "pos": [
+        2.6,
+        -0.1,
+        0.0
+       ],
+       "yaw": -90,
+       "pose": "sit_talk",
+       "layer": "always"
+      },
+      {
+       "role": "flashback_boy",
+       "pos": [
+        2.5,
+        2.2,
+        0.0
+       ],
+       "yaw": -90,
+       "pose": "stand_menace",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "room",
+       "pos": [
+        0.0,
+        -5.0,
+        2.0
+       ],
+       "look": [
+        0.0,
+        0.0,
+        0.7
+       ],
+       "fov": 45
+      },
+      {
+       "name": "snore",
+       "pos": [
+        -0.8,
+        -2.4,
+        1.2
+       ],
+       "look": [
+        -1.2,
+        0.4,
+        0.3
+       ],
+       "fov": 30
+      }
+     ],
+     "exercises": [
+      "u03_b_understanding#3",
+      "u03_b_reading_skills#3",
+      "u03_b_collocation#4"
+     ],
+     "origin": [
+      240.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "downside",
+       "form": "downside",
+       "paragraph": 8,
+       "sentence": 1
+      },
+      {
+       "word": "menace",
+       "form": "menaced",
+       "paragraph": 8,
+       "sentence": 2
+      },
+      {
+       "word": "youth hostel",
+       "form": "youth hostel",
+       "paragraph": 8,
+       "sentence": 3
+      },
+      {
+       "word": "snore",
+       "form": "snored",
+       "paragraph": 8,
+       "sentence": 5
+      },
+      {
+       "word": "lawnmower",
+       "form": "lawnmower",
+       "paragraph": 8,
+       "sentence": 5
+      }
+     ]
+    },
+    {
+     "id": "u03b_s6",
+     "title": "Overcharged in Italy",
+     "paragraphs": [
+      9
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.0,
+       0.5,
+       -0.85
+      ],
+      "color": "#F2F5FF",
+      "intensity": 4.5,
+      "sky": "#141A24",
+      "fill": 0.6
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "wall_clock",
+       "pos": [
+        -1.5,
+        2.86,
+        1.8
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.4,
+        0.05,
+        0.4
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "wall_poster",
+       "pos": [
+        2.0,
+        2.86,
+        1.2
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.4,
+        0.03,
+        1.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "reception_desk",
+       "pos": [
+        0.0,
+        2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.2,
+        0.7,
+        1.05
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bill_slip",
+       "pos": [
+        0.4,
+        1.8,
+        1.05
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.2,
+        0.14,
+        0.005
+       ],
+       "layer": "always",
+       "word": "irritated"
+      }
+     ],
+     "people": [
+      {
+       "role": "clerk",
+       "pos": [
+        0.0,
+        2.6,
+        0.0
+       ],
+       "yaw": 180,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "me",
+       "pos": [
+        0.0,
+        0.9,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_argue",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "lobby",
+       "pos": [
+        0.0,
+        -4.6,
+        1.6
+       ],
+       "look": [
+        0.0,
+        2.2,
+        1.0
+       ],
+       "fov": 42
+      },
+      {
+       "name": "bill",
+       "pos": [
+        0.6,
+        -1.4,
+        1.4
+       ],
+       "look": [
+        0.4,
+        1.8,
+        1.05
+       ],
+       "fov": 28
+      }
+     ],
+     "exercises": [
+      "u03_b_collocation#9-10"
+     ],
+     "origin": [
+      300.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "irritate",
+       "form": "irritated",
+       "paragraph": 9,
+       "sentence": 1
+      },
+      {
+       "word": "irritated",
+       "form": "irritated",
+       "paragraph": 9,
+       "sentence": 1
+      },
+      {
+       "word": "perplex",
+       "form": "perplexed",
+       "paragraph": 9,
+       "sentence": 1
+      },
+      {
+       "word": "perplexed",
+       "form": "perplexed",
+       "paragraph": 9,
+       "sentence": 1
+      }
+     ]
+    },
+    {
+     "id": "u03b_s7",
+     "title": "Behind a hay wagon",
+     "paragraphs": [
+      10,
+      11
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.3,
+       0.45,
+       -0.84
+      ],
+      "color": "#FFF1DC",
+      "intensity": 9.0,
+      "sky": "#7FA6C9",
+      "fill": 0.8
+     },
+     "props": [
+      {
+       "kit": "street",
+       "pos": [
+        0.0,
+        2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        24.0,
+        8.0,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "hay_wagon",
+       "pos": [
+        -1.0,
+        0.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.0,
+        1.6,
+        1.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "hay_bale",
+       "pos": [
+        1.6,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.5,
+        0.4
+       ],
+       "layer": "always",
+       "word": "hay"
+      },
+      {
+       "kit": "hay_bale",
+       "pos": [
+        1.6,
+        -0.8,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.5,
+        0.4
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "truck_bed",
+       "pos": [
+        2.8,
+        2.8,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        4.5,
+        2.2,
+        0.9
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "me",
+       "pos": [
+        -1.0,
+        0.5,
+        1.0
+       ],
+       "yaw": 0,
+       "pose": "sit_hay",
+       "layer": "always"
+      },
+      {
+       "role": "brit",
+       "pos": [
+        1.2,
+        2.8,
+        0.9
+       ],
+       "yaw": 0,
+       "pose": "sit_truck",
+       "layer": "always"
+      },
+      {
+       "role": "aussie_1",
+       "pos": [
+        2.0,
+        2.8,
+        0.9
+       ],
+       "yaw": 0,
+       "pose": "sit_truck",
+       "layer": "always"
+      },
+      {
+       "role": "aussie_2",
+       "pos": [
+        2.8,
+        2.8,
+        0.9
+       ],
+       "yaw": 0,
+       "pose": "sit_truck",
+       "layer": "always"
+      },
+      {
+       "role": "norwegian_1",
+       "pos": [
+        3.6,
+        2.8,
+        0.9
+       ],
+       "yaw": 0,
+       "pose": "sit_truck",
+       "layer": "always"
+      },
+      {
+       "role": "norwegian_2",
+       "pos": [
+        4.4,
+        2.8,
+        0.9
+       ],
+       "yaw": 0,
+       "pose": "sit_truck",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "road",
+       "pos": [
+        0.0,
+        -6.0,
+        1.8
+       ],
+       "look": [
+        0.0,
+        2.0,
+        0.9
+       ],
+       "fov": 45
+      },
+      {
+       "name": "hay",
+       "pos": [
+        -1.0,
+        -2.6,
+        1.4
+       ],
+       "look": [
+        -1.0,
+        0.5,
+        0.8
+       ],
+       "fov": 35
+      }
+     ],
+     "exercises": [
+      "u03_b_understanding#4",
+      "u03_b_collocation#7-8"
+     ],
+     "origin": [
+      360.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "safeguard",
+       "form": "safeguard",
+       "paragraph": 10,
+       "sentence": 1
+      },
+      {
+       "word": "suppress",
+       "form": "suppressed",
+       "paragraph": 10,
+       "sentence": 2
+      },
+      {
+       "word": "hay",
+       "form": "hay",
+       "paragraph": 10,
+       "sentence": 2
+      },
+      {
+       "word": "wagon",
+       "form": "wagon",
+       "paragraph": 10,
+       "sentence": 2
+      },
+      {
+       "word": "Brit",
+       "form": "Brit",
+       "paragraph": 10,
+       "sentence": 2
+      },
+      {
+       "word": "Aussie",
+       "form": "Aussies",
+       "paragraph": 10,
+       "sentence": 2
+      },
+      {
+       "word": "Norwegian",
+       "form": "Norwegians",
+       "paragraph": 10,
+       "sentence": 2
+      },
+      {
+       "word": "tissue",
+       "form": "tissues",
+       "paragraph": 10,
+       "sentence": 4
+      },
+      {
+       "word": "ample",
+       "form": "ample",
+       "paragraph": 11,
+       "sentence": 1
+      },
+      {
+       "word": "swap",
+       "form": "swap",
+       "paragraph": 11,
+       "sentence": 2
+      },
+      {
+       "word": "folklore",
+       "form": "folklore",
+       "paragraph": 11,
+       "sentence": 2
+      },
+      {
+       "word": "upfront",
+       "form": "upfront",
+       "paragraph": 11,
+       "sentence": 3
+      }
+     ]
+    },
+    {
+     "id": "u03b_s8",
+     "title": "Leap in",
+     "paragraphs": [
+      12,
+      13,
+      14
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.45,
+       0.35,
+       -0.82
+      ],
+      "color": "#FFCF9A",
+      "intensity": 6.5,
+      "sky": "#1B2230",
+      "fill": 0.55
+     },
+     "props": [
+      {
+       "kit": "city_skyline",
+       "pos": [
+        0.0,
+        14.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        40.0,
+        6.0,
+        18.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "street",
+       "pos": [
+        0.0,
+        2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        24.0,
+        8.0,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "road_sign",
+       "pos": [
+        1.4,
+        0.0,
+        1.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.03,
+        0.6
+       ],
+       "layer": "always",
+       "word": "caution"
+      },
+      {
+       "kit": "backpack",
+       "pos": [
+        -1.0,
+        -0.6,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.35,
+        0.25,
+        0.5
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "me",
+       "pos": [
+        -0.2,
+        -0.4,
+        0.0
+       ],
+       "yaw": 20,
+       "pose": "stand_ready",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "leap",
+       "pos": [
+        0.0,
+        -4.4,
+        1.5
+       ],
+       "look": [
+        0.0,
+        1.0,
+        1.0
+       ],
+       "fov": 45
+      },
+      {
+       "name": "sign",
+       "pos": [
+        0.2,
+        -1.6,
+        1.4
+       ],
+       "look": [
+        1.4,
+        0.0,
+        1.3
+       ],
+       "fov": 30
+      }
+     ],
+     "exercises": [
+      "u03_b_understanding#5-8",
+      "u03_b_critical",
+      "u03_b_collocation#11-13"
+     ],
+     "origin": [
+      420.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "caution",
+       "form": "caution",
+       "paragraph": 12,
+       "sentence": 1
+      },
+      {
+       "word": "presume",
+       "form": "presume",
+       "paragraph": 12,
+       "sentence": 2
+      },
+      {
+       "word": "disregard",
+       "form": "disregard",
+       "paragraph": 12,
+       "sentence": 4
+      },
+      {
+       "word": "leap",
+       "form": "leap",
+       "paragraph": 13,
+       "sentence": 1
+      },
+      {
+       "word": "neutral",
+       "form": "neutral",
+       "paragraph": 13,
+       "sentence": 2
+      },
+      {
+       "word": "bureaucrat",
+       "form": "bureaucrats",
+       "paragraph": 13,
+       "sentence": 3
+      },
+      {
+       "word": "despise",
+       "form": "despise",
+       "paragraph": 13,
+       "sentence": 4
+      },
+      {
+       "word": "constrain",
+       "form": "constrain",
+       "paragraph": 14,
+       "sentence": 1
+      },
+      {
+       "word": "sensational",
+       "form": "sensational",
+       "paragraph": 14,
+       "sentence": 2
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "section": "section_c",
+   "level": "L_U03_C",
+   "title": "Touring the world",
+   "scenes": [
+    {
+     "id": "u03c_s1",
+     "title": "Passports",
+     "paragraphs": [
+      1
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.2,
+       0.5,
+       -0.85
+      ],
+      "color": "#CFE3FF",
+      "intensity": 3.2,
+      "sky": "#0B1220",
+      "fill": 0.35
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "world_map",
+       "pos": [
+        -1.4,
+        2.86,
+        1.3
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.03,
+        1.4
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "home_desk",
+       "pos": [
+        0.8,
+        0.6,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        0.6,
+        0.75
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "passport_stack",
+       "pos": [
+        0.5,
+        0.5,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.12,
+        0.09,
+        0.05
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "passport_stack",
+       "pos": [
+        0.95,
+        0.6,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.12,
+        0.09,
+        0.05
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "passport_stack",
+       "pos": [
+        1.2,
+        0.45,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.12,
+        0.09,
+        0.05
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        0.5,
+        -0.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        1.1,
+        -0.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "backpack",
+       "pos": [
+        -1.6,
+        -0.6,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.35,
+        0.25,
+        0.5
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "zhang",
+       "pos": [
+        0.5,
+        -0.2,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_read",
+       "layer": "always"
+      },
+      {
+       "role": "wang",
+       "pos": [
+        1.1,
+        -0.2,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_map",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "desk",
+       "pos": [
+        0.0,
+        -4.2,
+        1.6
+       ],
+       "look": [
+        0.8,
+        0.6,
+        0.9
+       ],
+       "fov": 40
+      },
+      {
+       "name": "map",
+       "pos": [
+        -1.2,
+        -2.4,
+        1.5
+       ],
+       "look": [
+        -1.4,
+        2.86,
+        1.8
+       ],
+       "fov": 32
+      }
+     ],
+     "exercises": [],
+     "origin": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    },
+    {
+     "id": "u03c_s2",
+     "title": "Then and now",
+     "paragraphs": [
+      2
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.0,
+       0.5,
+       -0.85
+      ],
+      "color": "#F2F5FF",
+      "intensity": 4.5,
+      "sky": "#141A24",
+      "fill": 0.6
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "window_wall",
+       "pos": [
+        -3.0,
+        0.5,
+        0.0
+       ],
+       "yaw": 90,
+       "scale": 1.0,
+       "size": [
+        5.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "office_desk",
+       "pos": [
+        0.0,
+        0.6,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.4,
+        0.75,
+        0.75
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "document_stack",
+       "pos": [
+        -0.3,
+        0.6,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.22,
+        0.3,
+        0.04
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "phone",
+       "pos": [
+        0.3,
+        0.6,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.075,
+        0.155,
+        0.009
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        0.0,
+        -0.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "dining_table",
+       "pos": [
+        0.0,
+        0.6,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.8,
+        0.95,
+        0.75
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "passbook",
+       "pos": [
+        -0.3,
+        0.6,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.12,
+        0.17,
+        0.02
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "backpack",
+       "pos": [
+        0.3,
+        0.6,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.35,
+        0.25,
+        0.5
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        0.0,
+        -0.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "now"
+      }
+     ],
+     "people": [
+      {
+       "role": "zhang",
+       "pos": [
+        0.0,
+        -0.2,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_type",
+       "layer": "then"
+      },
+      {
+       "role": "zhang",
+       "pos": [
+        0.0,
+        -0.2,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_talk",
+       "layer": "now"
+      },
+      {
+       "role": "wang",
+       "pos": [
+        0.9,
+        -0.4,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_talk",
+       "layer": "now"
+      }
+     ],
+     "shots": [
+      {
+       "name": "wide",
+       "pos": [
+        0.0,
+        -4.5,
+        1.6
+       ],
+       "look": [
+        0.0,
+        0.6,
+        0.9
+       ],
+       "fov": 40
+      }
+     ],
+     "exercises": [],
+     "origin": [
+      60.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    },
+    {
+     "id": "u03c_s3",
+     "title": "Tiger Leaping Gorge",
+     "paragraphs": [
+      3
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.3,
+       0.45,
+       -0.84
+      ],
+      "color": "#FFF1DC",
+      "intensity": 9.0,
+      "sky": "#7FA6C9",
+      "fill": 0.8
+     },
+     "props": [
+      {
+       "kit": "gorge_valley",
+       "pos": [
+        0.0,
+        9.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        24.0,
+        4.0,
+        10.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "village_house",
+       "pos": [
+        -2.5,
+        4.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.0,
+        2.0,
+        2.5
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "trail_path",
+       "pos": [
+        0.0,
+        1.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        12.0,
+        3.0,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "trail_sign",
+       "pos": [
+        1.6,
+        0.0,
+        0.9
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.05,
+        0.5
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "backpack",
+       "pos": [
+        -1.2,
+        -0.8,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.35,
+        0.25,
+        0.5
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "zhang",
+       "pos": [
+        0.0,
+        -0.4,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_talk",
+       "layer": "always"
+      },
+      {
+       "role": "wang",
+       "pos": [
+        0.7,
+        -0.4,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_talk",
+       "layer": "always"
+      },
+      {
+       "role": "foreign_tourist",
+       "pos": [
+        -0.8,
+        0.2,
+        0.0
+       ],
+       "yaw": 90,
+       "pose": "stand_talk",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "gorge",
+       "pos": [
+        0.0,
+        -7.0,
+        2.0
+       ],
+       "look": [
+        0.0,
+        8.0,
+        4.0
+       ],
+       "fov": 50
+      },
+      {
+       "name": "talk",
+       "pos": [
+        0.6,
+        -2.6,
+        1.6
+       ],
+       "look": [
+        0.0,
+        0.0,
+        1.2
+       ],
+       "fov": 35
+      }
+     ],
+     "exercises": [],
+     "origin": [
+      120.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    },
+    {
+     "id": "u03c_s4",
+     "title": "Lost at the airport",
+     "paragraphs": [
+      4
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.0,
+       0.5,
+       -0.85
+      ],
+      "color": "#F2F5FF",
+      "intensity": 4.5,
+      "sky": "#141A24",
+      "fill": 0.6
+     },
+     "props": [
+      {
+       "kit": "terminal_hall",
+       "pos": [
+        0.0,
+        8.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        14.0,
+        6.0,
+        5.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "departure_board",
+       "pos": [
+        1.5,
+        4.85,
+        1.8
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.1,
+        1.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "luggage_trolley",
+       "pos": [
+        -1.5,
+        0.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.5,
+        1.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "suitcase",
+       "pos": [
+        -0.6,
+        0.3,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.4,
+        0.25
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bench",
+       "pos": [
+        2.5,
+        0.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        0.5,
+        0.45
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "zhang",
+       "pos": [
+        -0.2,
+        -1.2,
+        0.0
+       ],
+       "yaw": 20,
+       "pose": "stand_look",
+       "layer": "always"
+      },
+      {
+       "role": "wang",
+       "pos": [
+        0.6,
+        -0.8,
+        0.0
+       ],
+       "yaw": -30,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "staff",
+       "pos": [
+        1.5,
+        3.0,
+        0.0
+       ],
+       "yaw": 180,
+       "pose": "stand_point",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "hall",
+       "pos": [
+        0.0,
+        -6.0,
+        1.7
+       ],
+       "look": [
+        0.0,
+        4.0,
+        1.5
+       ],
+       "fov": 45
+      },
+      {
+       "name": "board",
+       "pos": [
+        0.2,
+        -2.8,
+        1.5
+       ],
+       "look": [
+        1.5,
+        4.85,
+        1.8
+       ],
+       "fov": 32
+      }
+     ],
+     "exercises": [],
+     "origin": [
+      180.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    },
+    {
+     "id": "u03c_s5",
+     "title": "Base camp at 5,200 m",
+     "paragraphs": [
+      5
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.3,
+       0.45,
+       -0.84
+      ],
+      "color": "#FFF1DC",
+      "intensity": 9.0,
+      "sky": "#7FA6C9",
+      "fill": 0.8
+     },
+     "props": [
+      {
+       "kit": "snow_peak",
+       "pos": [
+        0.0,
+        10.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        24.0,
+        4.0,
+        8.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "base_camp_tent",
+       "pos": [
+        -1.0,
+        2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.4,
+        2.0,
+        1.4
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "equator_line",
+       "pos": [
+        0.0,
+        -0.8,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        12.0,
+        0.05,
+        0.01
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "zhang",
+       "pos": [
+        0.6,
+        0.2,
+        0.0
+       ],
+       "yaw": -30,
+       "pose": "stand_talk",
+       "layer": "always"
+      },
+      {
+       "role": "wang",
+       "pos": [
+        1.3,
+        0.4,
+        0.0
+       ],
+       "yaw": -30,
+       "pose": "stand_look",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "camp",
+       "pos": [
+        0.0,
+        -6.0,
+        1.8
+       ],
+       "look": [
+        0.0,
+        6.0,
+        2.0
+       ],
+       "fov": 50
+      },
+      {
+       "name": "equator",
+       "pos": [
+        2.0,
+        -3.0,
+        1.2
+       ],
+       "look": [
+        0.0,
+        0.0,
+        0.5
+       ],
+       "fov": 38
+      }
+     ],
+     "exercises": [],
+     "origin": [
+      240.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    },
+    {
+     "id": "u03c_s6",
+     "title": "Lijiang on the desk",
+     "paragraphs": [
+      5,
+      6
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.1,
+       0.3,
+       -0.9
+      ],
+      "color": "#FFD9A8",
+      "intensity": 1.8,
+      "sky": "#05070C",
+      "fill": 0.2
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "home_desk",
+       "pos": [
+        0.0,
+        0.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        0.6,
+        0.75
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "desk_lamp",
+       "pos": [
+        0.45,
+        0.6,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.2,
+        0.2,
+        0.45
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "laptop",
+       "pos": [
+        0.0,
+        0.45,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.32,
+        0.22,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "postcard",
+       "pos": [
+        -0.45,
+        0.6,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.15,
+        0.1,
+        0.005
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "notebook",
+       "pos": [
+        0.25,
+        0.35,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.18,
+        0.24,
+        0.015
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        0.0,
+        -0.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "me",
+       "pos": [
+        0.0,
+        -0.1,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_type",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "desk",
+       "pos": [
+        0.0,
+        -2.4,
+        1.4
+       ],
+       "look": [
+        0.0,
+        0.6,
+        0.9
+       ],
+       "fov": 38
+      },
+      {
+       "name": "postcard",
+       "pos": [
+        -0.6,
+        -1.2,
+        1.2
+       ],
+       "look": [
+        -0.45,
+        0.6,
+        0.75
+       ],
+       "fov": 28
+      }
+     ],
+     "exercises": [
+      "u03_c_translation"
+     ],
+     "origin": [
+      300.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    }
+   ]
+  }
+ ],
+ "paragraph_source": "Content/Data/textbook/rw3/articles/unit03.json"
+}

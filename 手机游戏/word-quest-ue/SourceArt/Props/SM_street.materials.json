@@ -1,0 +1,46 @@
+{
+ "kit": "street",
+ "dims_m": [
+  24.0,
+  8.0,
+  0.021
+ ],
+ "materials": {
+  "M_asphalt": {
+   "color": "#2E3136",
+   "roughness": 0.9,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.2
+  },
+  "M_pavement": {
+   "color": "#B7B2A8",
+   "roughness": 0.8,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.1
+  },
+  "M_kerb": {
+   "color": "#D3CFC6",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_paint": {
+   "color": "#F2F2EE",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

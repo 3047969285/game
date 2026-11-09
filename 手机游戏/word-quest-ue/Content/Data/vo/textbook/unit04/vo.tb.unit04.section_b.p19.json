@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit04.section_b.p19",
+ "unit": 4,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "I went away with a wretched void in my heart. I would miss him, terribly. But he had left me something, an important piece of wisdom I will invariably remember: “If you have inherited a prideful tradition, you must carry it on; if you haven't, then start building one now.”",
+ "rate": 165,
+ "duration": 16.488,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 2.687,
+   "text": "I went away with a wretched void in my heart."
+  },
+  {
+   "i": 1,
+   "start": 2.687,
+   "end": 4.702,
+   "text": "I would miss him, terribly."
+  },
+  {
+   "i": 2,
+   "start": 4.702,
+   "end": 16.488,
+   "text": "But he had left me something, an important piece of wisdom I will invariably remember: “If you have inherited a prideful tradition, you must carry it on; if you haven't, then start building one now.”"
+  }
+ ]
+}

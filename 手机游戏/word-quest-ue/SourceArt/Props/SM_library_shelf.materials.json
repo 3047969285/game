@@ -1,0 +1,64 @@
+{
+ "kit": "library_shelf",
+ "dims_m": [
+  3.0,
+  0.45,
+  2.2
+ ],
+ "materials": {
+  "M_shelf_wood": {
+   "color": "#6E4B2E",
+   "roughness": 0.55,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.15
+  },
+  "M_book0": {
+   "color": "#8E2C2C",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_book4": {
+   "color": "#E3DCCB",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_book1": {
+   "color": "#2E4E7A",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_book2": {
+   "color": "#3D6B3A",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_book3": {
+   "color": "#B8862E",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

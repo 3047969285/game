@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit01.section_a.p04",
+ "unit": 1,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "It's true we've already become accustomed to a new way of being “alone together”. Technology-enabled, we are able to be with one another, and also elsewhere, connected to wherever we want to be. We've been used to the idea of being in a tribe of one, loyal to our own party. In the silence of connection, we are comforted by being in touch with “invisible” friends and significant others, not too close, nor too far, just right.",
+ "rate": 165,
+ "duration": 24.435,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 3.967,
+   "text": "It's true we've already become accustomed to a new way of being “alone together”."
+  },
+  {
+   "i": 1,
+   "start": 3.967,
+   "end": 10.84,
+   "text": "Technology-enabled, we are able to be with one another, and also elsewhere, connected to wherever we want to be."
+  },
+  {
+   "i": 2,
+   "start": 10.84,
+   "end": 15.382,
+   "text": "We've been used to the idea of being in a tribe of one, loyal to our own party."
+  },
+  {
+   "i": 3,
+   "start": 15.382,
+   "end": 24.435,
+   "text": "In the silence of connection, we are comforted by being in touch with “invisible” friends and significant others, not too close, nor too far, just right."
+  }
+ ]
+}

@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit03.ex.u03_b_understanding",
+ "unit": 3,
+ "section": "B",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Understanding the text. Choose the best answer to each of the following questions.",
+ "rate": 165,
+ "duration": 6.998,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 2.276,
+   "text": "Understanding the text."
+  },
+  {
+   "i": 1,
+   "start": 2.276,
+   "end": 6.998,
+   "text": "Choose the best answer to each of the following questions."
+  }
+ ]
+}

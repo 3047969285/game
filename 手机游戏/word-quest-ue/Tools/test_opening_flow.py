@@ -9,6 +9,7 @@ def editor_main(u):
  evidence=ROOT/'Saved/Opening2090'/('ready-'+str(time.time_ns())+'.png')
  room_evidence=evidence.with_name(evidence.stem+'-first-room.png')
  state={'phase':'start','records':[],'started':time.monotonic()}
+ handle=[]
  def tick(dt):
   try:
    if time.monotonic()-state['started']>600:raise RuntimeError('Opening-to-article timeout')
@@ -61,12 +62,14 @@ def editor_main(u):
      state['records'].append({'capture':str(evidence),'waiting_confirmed':True});flow.wait_before_recall();state['phase']='wait'
    elif 'phase=waiting' in info and state['phase']=='wait':flow.confirm_recall();state['phase']='travel'
   except Exception:
-   import traceback;traceback.print_exc();sys.stderr.flush();os._exit(1)
- u.register_slate_post_tick_callback(tick)
+   import traceback;traceback.print_exc();sys.stderr.flush()
+   if handle:u.unregister_slate_post_tick_callback(handle[0])
+   os._exit(1)
+ handle.append(u.register_slate_post_tick_callback(tick))
 if __name__=='__main__':
  try:import unreal
  except ImportError:
   sys.path.insert(0,str(ROOT/'Tools'));from ue_character_common import run_locked_editor
-  log=ROOT/'Saved/Opening2090/playthrough.log';r=run_locked_editor(__file__,{},log)
+  log=ROOT/'Saved/Opening2090/playthrough.log';r=run_locked_editor(__file__,{},log,level='/Game/Maps/L_Opening2090',total_timeout=750)
   if r.returncode or 'WQ_OPENING_PLAYTHROUGH_PASS' not in log.read_text(errors='replace'):raise SystemExit('Opening playthrough failed: '+str(log))
  else:editor_main(unreal)

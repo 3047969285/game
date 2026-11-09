@@ -1,0 +1,33 @@
+{
+ "image": "female_photo.png",
+ "image_size": [
+  1254,
+  1254
+ ],
+ "ue_location_cm": [
+  -0.15834692497499483,
+  5016.323522991548,
+  153.67571101125887
+ ],
+ "ue_rotation": {
+  "pitch": 0.0,
+  "yaw": -90.0,
+  "roll": 0.0
+ },
+ "ue_fov_deg_horizontal": 0.42463093902120497,
+ "projection": "perspective",
+ "note": "near-orthographic camera reproducing the fit's photo alignment (photo_camera.py)",
+ "fit": {
+  "sf": 3784.821136330314,
+  "tf": [
+   632.3585362943312,
+   5827.460153568633
+  ],
+  "K": 1.1184300256625712,
+  "offset": [
+   -1.1275702593849246e-17,
+   -5.551115123125783e-17,
+   2.3110924285418832e-09
+  ]
+ }
+}

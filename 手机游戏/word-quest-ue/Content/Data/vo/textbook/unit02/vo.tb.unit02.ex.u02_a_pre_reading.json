@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit02.ex.u02_a_pre_reading",
+ "unit": 2,
+ "section": "section_a",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Pre-reading activities. 1 Match the names and descriptions of the people with the pictures below. 2 Work in pairs and discuss which of the above people you admire most and what you can learn from him.",
+ "rate": 165,
+ "duration": 15.918,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 2.236,
+   "text": "Pre-reading activities."
+  },
+  {
+   "i": 1,
+   "start": 2.236,
+   "end": 8.085,
+   "text": "1 Match the names and descriptions of the people with the pictures below."
+  },
+  {
+   "i": 2,
+   "start": 8.085,
+   "end": 15.918,
+   "text": "2 Work in pairs and discuss which of the above people you admire most and what you can learn from him."
+  }
+ ]
+}

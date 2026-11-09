@@ -1,0 +1,61 @@
+{
+ "kit": "floor_lamp",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_floor_lamp.fbx",
+ "triangles": 15456,
+ "size_m": [
+  0.343,
+  0.343,
+  1.604
+ ],
+ "dims_target_m": [
+  0.35,
+  0.35,
+  1.6
+ ],
+ "slots": [
+  {
+   "slot": "base",
+   "material": "M_base",
+   "BaseColor": "T_floor_lamp_base_BaseColor.png",
+   "Normal": "T_floor_lamp_base_Normal.png",
+   "ARM": "T_floor_lamp_base_ARM.png"
+  },
+  {
+   "slot": "felt",
+   "material": "M_felt",
+   "BaseColor": "T_floor_lamp_felt_BaseColor.png",
+   "Normal": "T_floor_lamp_felt_Normal.png",
+   "ARM": "T_floor_lamp_felt_ARM.png"
+  },
+  {
+   "slot": "brass",
+   "material": "M_brass",
+   "BaseColor": "T_floor_lamp_brass_BaseColor.png",
+   "Normal": "T_floor_lamp_brass_Normal.png",
+   "ARM": "T_floor_lamp_brass_ARM.png"
+  },
+  {
+   "slot": "switch",
+   "material": "M_switch",
+   "BaseColor": "T_floor_lamp_switch_BaseColor.png",
+   "Normal": "T_floor_lamp_switch_Normal.png",
+   "ARM": "T_floor_lamp_switch_ARM.png"
+  },
+  {
+   "slot": "linen",
+   "material": "M_linen",
+   "BaseColor": "T_floor_lamp_linen_BaseColor.png",
+   "Normal": "T_floor_lamp_linen_Normal.png",
+   "ARM": "T_floor_lamp_linen_ARM.png"
+  },
+  {
+   "slot": "diffuser",
+   "material": "M_diffuser",
+   "Emissive": "lamp_glow.png",
+   "strength": 3.0
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "lit diffuser is emissive; light actor does the lighting"
+}

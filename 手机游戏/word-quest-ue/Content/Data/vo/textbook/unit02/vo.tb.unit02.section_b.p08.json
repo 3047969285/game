@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit02.section_b.p08",
+ "unit": 2,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Although she became very wealthy, she owned only one home in Switzerland. For Audrey it was a paradise where she could hide from the world with her beloved family, work in her garden, and take long walks in nature.",
+ "rate": 165,
+ "duration": 12.192,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.38,
+   "text": "Although she became very wealthy, she owned only one home in Switzerland."
+  },
+  {
+   "i": 1,
+   "start": 4.38,
+   "end": 12.192,
+   "text": "For Audrey it was a paradise where she could hide from the world with her beloved family, work in her garden, and take long walks in nature."
+  }
+ ]
+}

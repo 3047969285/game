@@ -1,0 +1,929 @@
+{
+ "unit": 2,
+ "exercises": [
+  {
+   "id": "u02_a_pre_reading",
+   "section": "section_a",
+   "kind": "pre_reading",
+   "instructions": "Pre-reading activities. 1 Match the names and descriptions of the people with the pictures below. 2 Work in pairs and discuss which of the above people you admire most and what you can learn from him.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Match the people with the pictures: 1 Confucius (philosopher and educator in the Spring and Autumn Period); 2 Zhang Qian (diplomat and explorer in the Western Han Dynasty); 3 Zheng He (diplomat and explorer in the Ming Dynasty); 4 Li Shizhen (physician and medical scholar in the Ming Dynasty).",
+     "answer": "Match each picture by era and profession: Confucius goes with the Spring and Autumn philosopher and educator, Zhang Qian with the Western Han diplomat and explorer, Zheng He with the Ming diplomat and explorer, and Li Shizhen with the Ming physician and medical scholar. The clues in each caption are the dynasty and the occupation, so reading them first makes the pairing straightforward.",
+     "answer_source": "draft",
+     "explanation": "Each name should be matched by era and role: philosopher-educator of the Spring and Autumn Period, Western Han diplomat, Ming diplomat, and Ming physician.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "Work in pairs and discuss which of the above people you admire most and what you can learn from him.",
+     "answer": "I admire Zheng He most, because he turned a childhood curiosity about distant places into seven voyages that reached Arabia and East Africa. He had been trained at court and appointed to command a fleet of more than 200 junks, yet what strikes me is his patience in negotiating trade pacts instead of simply showing force. From him I learn that curiosity, preparation and respect for other peoples can make one person a bridge between cultures.",
+     "answer_source": "draft",
+     "explanation": "A personal response is expected; support your choice with one or two concrete deeds of the person you admire.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u02_a_understanding",
+   "section": "section_a",
+   "kind": "understanding",
+   "instructions": "Understanding the text. Answer the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "What did the elderly men on Pate tell the American journalist?",
+     "answer": "They said they were descendants of Chinese sailors whose boat was shipwrecked on Pate several centuries ago.",
+     "answer_source": "derived",
+     "explanation_zh": "第1段：老人们说自己是数百年前在帕泰岛遇难的中国水手的后代。",
+     "explanation": "Para. 1: the elderly men told the journalist they were descendants of Chinese sailors whose boat was shipwrecked on Pate centuries earlier."
+    },
+    {
+     "n": 2,
+     "prompt": "What can be inferred from the comparison between the scale of Zheng He's fleet and that of Columbus'?",
+     "answer": "Zheng He's fleet was far larger and more advanced than Columbus', so early Chinese seafaring was extremely impressive.",
+     "answer_source": "derived",
+     "explanation_zh": "第2段用船员人数（27,000对1,500）和最大船只对比，可推断郑和船队的规模远超哥伦布船队。",
+     "explanation": "Para. 2 compares 27,000 crew with Columbus' 1,500 and much larger junks, implying Zheng He's fleet far outclassed Columbus'."
+    },
+    {
+     "n": 3,
+     "prompt": "Why does the author use quotation marks around the word \"discovered\" (Para. 3)?",
+     "answer": "Because the Indian Ocean was already known and visited by other peoples, so Zheng He did not truly discover it.",
+     "answer_source": "derived",
+     "explanation_zh": "作者给discovered加引号，表示对“发现”一词的保留，因为印度洋早已为他国所知。",
+     "explanation": "The quotation marks signal reservation: the Indian Ocean was already known and visited by other peoples, so 'discovered' is not literally true."
+    },
+    {
+     "n": 4,
+     "prompt": "What kind of books did Zheng He start reading from a young age?",
+     "answer": "Books by great scholars, such as Confucius and Mencius.",
+     "answer_source": "derived",
+     "explanation_zh": "第4段：郑和从小就读孔子、孟子等大学者的书。",
+     "explanation": "Para. 4: from a young age he read books by great scholars such as Confucius and Mencius."
+    },
+    {
+     "n": 5,
+     "prompt": "What order did Zheng He receive when he was appointed to head the massive fleet in 1405?",
+     "answer": "A royal order to establish ties with rulers all around the Indian Ocean.",
+     "answer_source": "derived",
+     "explanation_zh": "第6段：1405年皇帝下旨，要他与印度洋周边各国统治者建立联系。",
+     "explanation": "Para. 6: in 1405 the emperor appointed him with a royal order to establish ties with rulers all around the Indian Ocean."
+    },
+    {
+     "n": 6,
+     "prompt": "How did Zheng He impress the rulers he encountered?",
+     "answer": "He impressed them with his diplomatic skills and the elaborate gifts he brought them.",
+     "answer_source": "derived",
+     "explanation_zh": "第7段：各国统治者被他的外交技巧和精美礼物所打动。",
+     "explanation": "Para. 7: rulers were impressed by his diplomatic skills and the elaborate gifts he brought, and agreed to send ambassadors to the Ming court."
+    },
+    {
+     "n": 7,
+     "prompt": "Why did the royal court draw military investment away from the maintenance of the Treasure Fleet?",
+     "answer": "Because the war in the north required military investment, so less money went to keeping the fleet in good condition.",
+     "answer_source": "derived",
+     "explanation_zh": "第9段：北方战事需要军费，宫廷便把投入从维护船队转向长城等。",
+     "explanation": "Para. 9: the war in the north drew military investment away from fleet maintenance, and the court turned to building and expanding the Great Wall."
+    },
+    {
+     "n": 8,
+     "prompt": "What is the influence of Zheng He's seven expeditions on maritime exploration according to Para. 10?",
+     "answer": "They pushed the limits of ships' size, complexity and long-distance capacity, and helped spread gunpowder and the compass.",
+     "answer_source": "derived",
+     "explanation_zh": "第10段：七次远航拓展了航海能力极限，并促进了火药和指南针的传播。",
+     "explanation": "Para. 10: the voyages pushed the limits of ships' size, complexity and range, and helped spread gunpowder and the compass."
+    }
+   ]
+  },
+  {
+   "id": "u02_a_critical",
+   "section": "section_a",
+   "kind": "critical",
+   "instructions": "Critical thinking. Work in pairs and discuss the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "What do you think are the profound impacts of Zheng He's expeditions on international communication?",
+     "answer": "Zheng He's voyages opened sea routes linking China with Southeast Asia, Arabia and East Africa, and they built ties through trade pacts and exchanged envoys rather than through conquest. Because his fleet brought silk, porcelain and elaborate gifts and returned with ambassadors, later travelers inherited a model of communication based on mutual respect. The expeditions also carried Chinese technologies such as the compass and gunpowder outward, changing how distant societies navigated and traded.",
+     "answer_source": "draft",
+     "explanation": "Support your view with the text's evidence: trade pacts, ambassadors, and the spread of gunpowder and the compass.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "What can you do as a college student to prepare yourself for the cultural communication between China and the world?",
+     "answer": "I can begin by knowing my own culture well enough to explain it, reading classics such as Confucius and Mencius just as Zheng He did. Learning foreign languages and histories would let me speak to others in terms they understand, and joining exchange or volunteer programs would give me real practice. Above all, I should stay curious about other cultures and respectful of differences, as Zheng He was with the rulers he met.",
+     "answer_source": "draft",
+     "explanation": "Anchor your answer in concrete steps such as language study, cultural knowledge and real exchange experience.",
+     "needs_review": true
+    },
+    {
+     "n": 3,
+     "prompt": "What implications does the story of Zheng He have for your understanding of the meaning of life?",
+     "answer": "Zheng He's story suggests that a life gains meaning through curiosity and service rather than through possessions. He spent nearly thirty years at sea and used his voyages to build friendships between peoples, not merely to collect treasures. For me this means choosing work that connects people and leaving behind something that outlasts my own career.",
+     "answer_source": "draft",
+     "explanation": "Relate the meaning of life to the text's themes of curiosity, service and lasting contribution.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u02_a_words_in_use",
+   "section": "section_a",
+   "kind": "words_in_use",
+   "instructions": "Words in use. Fill in the blanks with the words given below. Change the form where necessary. Each word can be used only once.",
+   "bank": [
+    "dense",
+    "appoint",
+    "complexity",
+    "expansion",
+    "frail",
+    "maintenance",
+    "escort",
+    "patrol",
+    "realm",
+    "vague"
+   ],
+   "items": [
+    {
+     "n": 1,
+     "prompt": "The eastern area is three times bigger than the western area, featuring ____ tropical rain forests and giant waterfalls.",
+     "answer": "dense",
+     "answer_source": "derived",
+     "explanation_zh": "dense修饰forests，意为茂密的。",
+     "explanation": "Dense collocates with forests to mean thickly grown, matching 'tropical rain forests and giant waterfalls'."
+    },
+    {
+     "n": 2,
+     "prompt": "In the meeting, a new manager was ____ to take charge of the project which was in financial difficulties.",
+     "answer": "appointed",
+     "answer_source": "derived",
+     "explanation_zh": "be appointed to do sth.（被任命做某事），用过去分词。",
+     "explanation": "'Be appointed to do sth.' takes the past participle: a new manager was appointed to take charge of the project."
+    },
+    {
+     "n": 3,
+     "prompt": "Services such as cooking, cleaning, and ____ the elderly to hospitals are in high demand.",
+     "answer": "escorting",
+     "answer_source": "derived",
+     "explanation_zh": "并列于动名词cooking, cleaning，故用escorting。",
+     "explanation": "The blank is the third item in the gerund series 'cooking, cleaning, and ...', so 'escorting' (escort sb to a place)."
+    },
+    {
+     "n": 4,
+     "prompt": "A high-tech police car capable of immediately detecting stolen cars, disqualified drivers, and other offenses is ____ the roads.",
+     "answer": "patrolling",
+     "answer_source": "derived",
+     "explanation_zh": "is后接现在分词表示正在巡逻。",
+     "explanation": "'Is patrolling the roads' uses the present continuous for an ongoing action; patrol takes a direct object."
+    },
+    {
+     "n": 5,
+     "prompt": "Around 300 workers and engineers are working hard for the timely delivery of the project despite its ____.",
+     "answer": "complexity",
+     "answer_source": "derived",
+     "explanation_zh": "despite its complexity（尽管项目复杂），名词。",
+     "explanation": "'Despite its complexity' needs a noun after the possessive; complexity means the state of being complicated."
+    },
+    {
+     "n": 6,
+     "prompt": "A researcher said China's fast economic ____ in recent years has made great contributions to world economic growth.",
+     "answer": "expansion",
+     "answer_source": "derived",
+     "explanation_zh": "economic expansion（经济扩张/增长）。",
+     "explanation": "'Economic expansion' is the fixed collocation for growth in the size of an economy."
+    },
+    {
+     "n": 7,
+     "prompt": "That visit was hard work because he spoke no Chinese and had only a(n) ____ plan of action.",
+     "answer": "vague",
+     "answer_source": "derived",
+     "explanation_zh": "vague plan（模糊的计划）作定语。",
+     "explanation": "'A vague plan of action' means an unclear, imprecise plan; vague is the adjective modifying plan."
+    },
+    {
+     "n": 8,
+     "prompt": "China's first domestically built polar icebreaker Xuelong 2 has completed its ____ period and will soon set out on a new mission again.",
+     "answer": "maintenance",
+     "answer_source": "derived",
+     "explanation_zh": "maintenance period（维护期）。",
+     "explanation": "'Maintenance period' is the routine servicing period a ship completes before setting out on a new mission."
+    },
+    {
+     "n": 9,
+     "prompt": "A number of people believe that genuine friendships can develop in both the digital and physical ____, with the boundaries between the two continuing to blur.",
+     "answer": "realms",
+     "answer_source": "derived",
+     "explanation_zh": "both the digital and physical realms，需复数。",
+     "explanation": "'In both the digital and physical realms' - the 'both ... and' structure requires the plural realms."
+    },
+    {
+     "n": 10,
+     "prompt": "She had to take care of the whole family, two children and two ____ elderly people, all by herself.",
+     "answer": "frail",
+     "answer_source": "derived",
+     "explanation_zh": "frail elderly people（体弱的老人）。",
+     "explanation": "'Frail elderly people' means weak, physically delicate old people; frail modifies people, parallel to 'two children'."
+    }
+   ]
+  },
+  {
+   "id": "u02_a_word_building",
+   "section": "section_a",
+   "kind": "word_building",
+   "instructions": "Word building. Fill in the blanks with the words given below. Change the form where necessary. Each word can be used only once.",
+   "bank": [
+    "dictator",
+    "familiarize",
+    "investigator",
+    "normalize",
+    "privatize",
+    "publicize",
+    "standardize",
+    "summarize"
+   ],
+   "items": [
+    {
+     "n": 1,
+     "prompt": "I think it'll be worthwhile to see what she did to overcome those problems and ____ the relations between the two countries, ending years of hostility.",
+     "answer": "normalize",
+     "answer_source": "derived",
+     "explanation_zh": "normalize the relations（使关系正常化）。",
+     "explanation": "'Normalize the relations between the two countries' means bring relations back to normal, ending years of hostility."
+    },
+    {
+     "n": 2,
+     "prompt": "We are constantly acquiring new skills as we engage in activities or ____ ourselves with new devices.",
+     "answer": "familiarize",
+     "answer_source": "derived",
+     "explanation_zh": "familiarize oneself with sth.（熟悉某物）。",
+     "explanation": "'Familiarize ourselves with new devices' is the reflexive collocation meaning to get to know something."
+    },
+    {
+     "n": 3,
+     "prompt": "He described his boss as a(n) ____ who did not want to listen to other people's advice.",
+     "answer": "dictator",
+     "answer_source": "derived",
+     "explanation_zh": "a(n)后接名词，表示“独裁者”。",
+     "explanation": "'A(n) dictator' needs a noun after the article; a dictator refuses to listen to other people's advice."
+    },
+    {
+     "n": 4,
+     "prompt": "In their opinion, the production of things fundamental to life and human survival should not be ____.",
+     "answer": "privatized",
+     "answer_source": "derived",
+     "explanation_zh": "should not be privatized，被动语态，用过去分词。",
+     "explanation": "The passive 'should not be privatized' requires the past participle of privatize."
+    },
+    {
+     "n": 5,
+     "prompt": "The insurance company sent a(n) ____ to look into the cause of the fire to see if it really was an accident.",
+     "answer": "investigator",
+     "answer_source": "derived",
+     "explanation_zh": "a(n)后接名词，表示“调查员”。",
+     "explanation": "'A(n) investigator' is the person noun from investigate, the one sent to look into the cause of the fire."
+    },
+    {
+     "n": 6,
+     "prompt": "One of the keys to the success of that company is its ability to ____ its services, which reduces the quality variance.",
+     "answer": "standardize",
+     "answer_source": "derived",
+     "explanation_zh": "ability to do sth.，动词原形，表示使服务标准化。",
+     "explanation": "'Ability to standardize its services' takes the base verb after to; standardize means make uniform in quality."
+    },
+    {
+     "n": 7,
+     "prompt": "His accomplishments as a composer have been recognized and widely ____ in the media.",
+     "answer": "publicized",
+     "answer_source": "derived",
+     "explanation_zh": "have been ...，被动语态，用过去分词。",
+     "explanation": "'Have been widely publicized' is present perfect passive, so the past participle of publicize is required."
+    },
+    {
+     "n": 8,
+     "prompt": "Now we will ____ what we have learned and make a plan to improve our learning in the next semester or two.",
+     "answer": "summarize",
+     "answer_source": "derived",
+     "explanation_zh": "will后接动词原形，表示总结。",
+     "explanation": "'Now we will summarize what we have learned' - modal will takes the base form; summarize means give a brief account."
+    }
+   ]
+  },
+  {
+   "id": "u02_a_banked_cloze",
+   "section": "section_a",
+   "kind": "banked_cloze",
+   "instructions": "Banked cloze. Fill in the blanks by selecting suitable words from the word bank. You may not use any of the words more than once.",
+   "bank": [
+    "ambassadors",
+    "appealed",
+    "appointed",
+    "dense",
+    "diplomacy",
+    "epic",
+    "exotic",
+    "expansion",
+    "foresaw",
+    "forged",
+    "trail",
+    "innovation",
+    "navigation",
+    "pacts",
+    "realms"
+   ],
+   "passage": "Zheng He was a Chinese explorer who led seven great voyages on behalf of the emperor of the Ming Dynasty. His voyages, which aimed to promote trade and {{1}} with other states, lasted from 1405 to 1433.\n\nZheng He was born around 1371 in Yunnan, southwestern China. He was talented in many {{2}}, especially in ship construction. In 1403, the emperor ordered the construction of the Treasure Fleet and {{3}} Zheng He as the commander of this fleet. This began Zheng He's voyages, some of the most impressive {{4}} exploration journeys in history.\n\nZheng He's first voyage began in July 1405. His fleet traveled to present-day Vietnam, Indonesia, Malaysia, and then crossed the Indian Ocean and sailed west to today's India. They traded with the local people for spices, ivory, {{5}} animals, and other goods.\n\nDuring the next six expeditions, Zheng He made trade {{6}} with the rulers of different states, brought back gifts, and established friendly relationships with them. He even brought back with him {{7}} of various states to meet with the emperor of the Ming Dynasty.\n\nZheng He's seven great voyages promoted the {{8}} of China's cultural and economic influence in the world. He {{9}} new, friendly ties with many states on the Asian and African continents, while developing the trade relations with them. Zheng He's feat was unprecedented in the history of ocean {{10}}. He is still remembered today as one of the world's greatest navigators and is a source of pride for the whole Chinese nation.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Blank 1 (Para. 1)",
+     "answer": "diplomacy",
+     "answer_source": "derived",
+     "explanation_zh": "promote trade and diplomacy，意为促进贸易与外交。",
+     "explanation": "'Promote trade and diplomacy with other states' - diplomacy is the parallel noun to trade in interstate relations."
+    },
+    {
+     "n": 2,
+     "prompt": "Blank 2 (Para. 2)",
+     "answer": "realms",
+     "answer_source": "derived",
+     "explanation_zh": "talented in many realms（精通多个领域），需复数。",
+     "explanation": "'Talented in many realms' - plural realms after 'many', meaning fields or areas of ability."
+    },
+    {
+     "n": 3,
+     "prompt": "Blank 3 (Para. 2)",
+     "answer": "appointed",
+     "answer_source": "derived",
+     "explanation_zh": "appointed Zheng He as the commander（任命郑和为指挥官）。",
+     "explanation": "'Appointed Zheng He as the commander' - appoint sb as sth, in the past tense for the year 1403."
+    },
+    {
+     "n": 4,
+     "prompt": "Blank 4 (Para. 2)",
+     "answer": "epic",
+     "answer_source": "derived",
+     "explanation_zh": "epic exploration journeys（史诗般的探索航程）。",
+     "explanation": "'Epic exploration journeys' - epic as an adjective meaning grand and heroic in scale."
+    },
+    {
+     "n": 5,
+     "prompt": "Blank 5 (Para. 3)",
+     "answer": "exotic",
+     "answer_source": "derived",
+     "explanation_zh": "exotic animals（异国动物），与spices, ivory并列。",
+     "explanation": "The list 'spices, ivory, ... animals, and other goods' needs an adjective; exotic means foreign and unusual."
+    },
+    {
+     "n": 6,
+     "prompt": "Blank 6 (Para. 4)",
+     "answer": "pacts",
+     "answer_source": "derived",
+     "explanation_zh": "trade pacts（贸易协定），与rulers签订协议。",
+     "explanation": "'Made trade pacts with the rulers' - pacts collocates with trade and with made, meaning formal agreements."
+    },
+    {
+     "n": 7,
+     "prompt": "Blank 7 (Para. 4)",
+     "answer": "ambassadors",
+     "answer_source": "derived",
+     "explanation_zh": "brought back ambassadors of various states（带回各国使节）。",
+     "explanation": "'Brought back ambassadors of various states' - the envoys sent to meet the Ming emperor."
+    },
+    {
+     "n": 8,
+     "prompt": "Blank 8 (Para. 5)",
+     "answer": "expansion",
+     "answer_source": "derived",
+     "explanation_zh": "promoted the expansion of influence（扩大影响）。",
+     "explanation": "'Promoted the expansion of China's cultural and economic influence' - expansion is the noun from expand."
+    },
+    {
+     "n": 9,
+     "prompt": "Blank 9 (Para. 5)",
+     "answer": "forged",
+     "answer_source": "derived",
+     "explanation_zh": "forged new, friendly ties（建立新的友好关系）。",
+     "explanation": "'Forged new, friendly ties' - past tense, and forge ties is the fixed collocation for building relationships."
+    },
+    {
+     "n": 10,
+     "prompt": "Blank 10 (Para. 5)",
+     "answer": "navigation",
+     "answer_source": "derived",
+     "explanation_zh": "history of ocean navigation（海洋航行史）。",
+     "explanation": "'The history of ocean navigation' - navigation names the skill of planning and directing a ship's course."
+    }
+   ]
+  },
+  {
+   "id": "u02_a_expressions_in_use",
+   "section": "section_a",
+   "kind": "expressions_in_use",
+   "instructions": "Expressions in use. Fill in the blanks with the expressions given below. Change the form where necessary. Each expression can be used only once.",
+   "bank": [
+    "along with",
+    "curious about",
+    "set off",
+    "in charge of",
+    "loaded with",
+    "take place",
+    "trade with",
+    "view ... as"
+   ],
+   "items": [
+    {
+     "n": 1,
+     "prompt": "We can enable our students to be ____ their own learning by creating interesting, open-ended tasks which they can finish by themselves.",
+     "answer": "in charge of",
+     "answer_source": "derived",
+     "explanation_zh": "be in charge of（负责，掌管）。",
+     "explanation": "'Be in charge of their own learning' means take responsibility for directing it themselves."
+    },
+    {
+     "n": 2,
+     "prompt": "The festival, which falls on the ninth day of the ninth month on the lunar calendar, is ____ an occasion to pay respect to the elderly.",
+     "answer": "viewed as",
+     "answer_source": "derived",
+     "explanation_zh": "view ... as（把……视为），被动语态。",
+     "explanation": "The passive 'is viewed as an occasion' uses view ... as, with the past participle after is."
+    },
+    {
+     "n": 3,
+     "prompt": "The Belt and Road Initiative raises the level of connectivity and cooperation among dozens of nations that have ____ China for years.",
+     "answer": "traded with",
+     "answer_source": "derived",
+     "explanation_zh": "trade with（与……贸易），现在完成时用过去分词traded。",
+     "explanation": "'Nations that have traded with China for years' - the present perfect needs the past participle traded."
+    },
+    {
+     "n": 4,
+     "prompt": "From the smallest birthday party to the largest concert, special events ____ every day in these parks.",
+     "answer": "take place",
+     "answer_source": "derived",
+     "explanation_zh": "主语为复数events，动词用原形take place。",
+     "explanation": "'Special events take place every day' - the plural subject takes the base form; take place means happen."
+    },
+    {
+     "n": 5,
+     "prompt": "The train was fully ____ 50 containers of goods including glass bottles, canned food, and medical supplies.",
+     "answer": "loaded with",
+     "answer_source": "derived",
+     "explanation_zh": "be loaded with（装载了……）。",
+     "explanation": "'Was fully loaded with 50 containers of goods' - be loaded with means be filled with cargo."
+    },
+    {
+     "n": 6,
+     "prompt": "Last month, the polar icebreaker ____ from the port for its new scientific expedition to the Antarctic.",
+     "answer": "set off",
+     "answer_source": "derived",
+     "explanation_zh": "set off（出发）。",
+     "explanation": "'Last month, the polar icebreaker set off from the port' - past tense of set off, meaning start a journey."
+    },
+    {
+     "n": 7,
+     "prompt": "We have long been ____ what really goes on inside the space station, and the video satisfied our curiosity.",
+     "answer": "curious about",
+     "answer_source": "derived",
+     "explanation_zh": "be curious about（对……好奇）。",
+     "explanation": "'Have long been curious about what goes on inside the space station' - be curious about means eager to know."
+    },
+    {
+     "n": 8,
+     "prompt": "This is a double room and you can stay here ____ your friend.",
+     "answer": "along with",
+     "answer_source": "derived",
+     "explanation_zh": "along with（与……一起）。",
+     "explanation": "'You can stay here along with your friend' - along with means together with."
+    }
+   ]
+  },
+  {
+   "id": "u02_a_structure_analysis",
+   "section": "section_a",
+   "kind": "structure_writing",
+   "instructions": "Structure analysis: Developing a biographical narrative essay. Study how Text A (Paras. 4-8) presents Zheng He's life in chronological order, using time order signals, and then apply the five steps to develop your own biographical narrative essay.",
+   "sample": "Time order signals in Text A (Paras. 4-8): As a child / Later, when he served in the royal court / In 1403 / In 1405 / During the next six expeditions / In 1431 / Toward the end of this voyage in 1433. Steps: 1 choose a person; 2 search for details; 3 outline the details in order of occurrence and select the most relevant; 4 write a rough draft using time order signals such as when, during and later; 5 revise and proofread for coherence.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Read Paras. 4-8 of Text A and identify the time order signals used to connect the events of Zheng He's life. Then arrange the events in chronological order.",
+     "answer": "The signals are 'As a child', 'Later when he served in the royal court', 'In 1403', 'In 1405', 'During the next six expeditions', 'In 1431' and 'Toward the end of this voyage in 1433'. Arranged in order: Zheng He was born in Yunnan around 1371 and was curious about the world; he read books by Confucius and Mencius, then received military training at court; in 1403 the emperor ordered the Treasure Fleet; in 1405 he was appointed to command it; over the next six expeditions he made trade pacts and brought back ambassadors; in 1431 he sailed on the seventh voyage; and in 1433 he died of disease.",
+     "answer_source": "draft",
+     "explanation": "Paras. 4-8 open each stage with a time signal; list them in reading order and the events already fall into chronological order.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u02_a_structured_writing",
+   "section": "section_a",
+   "kind": "structure_writing",
+   "instructions": "Structured writing. Read the sample essay on O. Henry and see how it develops in chronological order. Then write an essay of no less than 140 words on one of the following topics, following the outline.",
+   "sample": "Topic: An influential Chinese explorer. Introduction: thesis statement about the explorer's significance. Body: (1) when and where the explorer was born; (2) how the explorer started his or her career; (3) what the explorer has achieved; (4) what contribution he or she has made to China and the world. Conclusion: the significance of the explorer to China and the world. Other topics: a man or woman who changed the world; a great sportsman or sportswoman.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Write an essay of no less than 140 words on an influential Chinese explorer, following the outline (or choose one of the more topics).",
+     "answer": "Zheng He, born around 1371 in Yunnan, is the Chinese explorer I admire most. As a child he questioned his father and grandfather about their travels and read Confucius and Mencius, and after military training at court he was appointed in 1405 to command a fleet of more than 200 junks. His seven voyages reached Ceylon, Arabia and East Africa, opening trade pacts and diplomatic ties and spreading gunpowder and the compass. His story shows that China's spirit of exploration helped build the modern world, and it still stands among the great wonders of ocean navigation.",
+     "answer_source": "draft",
+     "explanation": "Follow the outline: introduction with a thesis, four body points in time order, and a closing statement on significance.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u02_b_reading_skills",
+   "section": "section_b",
+   "kind": "reading_skills",
+   "instructions": "Reading skills: Distinguishing between facts and opinions. Look at the following statements from Text B and decide which are facts (F) and which are opinions (O).",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "One day, Audrey was grabbed off the street by the Nazis and placed in line to be sent to a work camp.",
+     "answer": 0,
+     "answer_source": "derived",
+     "explanation_zh": "对“被纳粹抓走”的客观叙述，属于事实。",
+     "options": [
+      "Fact (F)",
+      "Opinion (O)"
+     ],
+     "explanation": "Fact: a specific, checkable event in Para. 3 - Audrey was seized and put in line for a work camp."
+    },
+    {
+     "n": 2,
+     "prompt": "After the war, Audrey and her mother left the Netherlands and arrived in the U.K.",
+     "answer": 0,
+     "answer_source": "derived",
+     "explanation_zh": "迁居英国是可以核实的事件，属于事实。",
+     "options": [
+      "Fact (F)",
+      "Opinion (O)"
+     ],
+     "explanation": "Fact: a verifiable move recorded in Para. 5, after the war ended."
+    },
+    {
+     "n": 3,
+     "prompt": "Audrey walked beautifully; she spoke beautifully.",
+     "answer": 1,
+     "answer_source": "derived",
+     "explanation_zh": "“走路优雅、说话优雅”是评价性判断，属于观点。",
+     "options": [
+      "Fact (F)",
+      "Opinion (O)"
+     ],
+     "explanation": "Opinion: 'beautifully' is director Billy Wilder's aesthetic judgment, not something that can be verified."
+    },
+    {
+     "n": 4,
+     "prompt": "Becoming famous never changed Audrey's generous and compassionate character.",
+     "answer": 1,
+     "answer_source": "derived",
+     "explanation_zh": "“性格未因成名改变”是对品格的评价，属于观点。",
+     "options": [
+      "Fact (F)",
+      "Opinion (O)"
+     ],
+     "explanation": "Opinion: an evaluative claim about her character in Para. 7, which cannot be measured or checked."
+    },
+    {
+     "n": 5,
+     "prompt": "Friends said Audrey had a complete lack of ego and accepted and appreciated others as they were.",
+     "answer": 1,
+     "answer_source": "derived",
+     "explanation_zh": "“缺乏自我意识”是朋友的评价，属于观点。",
+     "options": [
+      "Fact (F)",
+      "Opinion (O)"
+     ],
+     "explanation": "Opinion: reported praise from friends - an assessment of personality rather than an observable fact."
+    },
+    {
+     "n": 6,
+     "prompt": "In 1988, Audrey was appointed a Goodwill Ambassador for UNICEF designed to provide emergency food and health care to children suffering as a result of war or other catastrophes.",
+     "answer": 0,
+     "answer_source": "derived",
+     "explanation_zh": "1988年被任命为联合国儿童基金会亲善大使，属于事实。",
+     "options": [
+      "Fact (F)",
+      "Opinion (O)"
+     ],
+     "explanation": "Fact: a dated appointment in 1988 that can be documented, from Para. 9."
+    },
+    {
+     "n": 7,
+     "prompt": "She, Robby, and her two sons returned to their home in Switzerland for their last Christmas together.",
+     "answer": 0,
+     "answer_source": "derived",
+     "explanation_zh": "回瑞士与家人共度圣诞是具体事件，属于事实。",
+     "options": [
+      "Fact (F)",
+      "Opinion (O)"
+     ],
+     "explanation": "Fact: a specific family event recorded in Para. 12, with named people and an occasion."
+    },
+    {
+     "n": 8,
+     "prompt": "Even as her life ended at 63 years of age, she remained a gracious woman who perpetually signified simplicity, charity, charm, and kindness.",
+     "answer": 1,
+     "answer_source": "derived",
+     "explanation_zh": "“优雅、仁慈”等是主观评价，属于观点。",
+     "options": [
+      "Fact (F)",
+      "Opinion (O)"
+     ],
+     "explanation": "Opinion: value-laden words such as 'gracious', 'charm' and 'kindness' express praise, not verifiable fact."
+    }
+   ]
+  },
+  {
+   "id": "u02_b_understanding_mcq",
+   "section": "section_b",
+   "kind": "text_b_mcq",
+   "instructions": "Understanding the text. Choose the best answer to each of the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Which of the following did Audrey Hepburn prefer most?",
+     "answer": 1,
+     "answer_source": "derived",
+     "explanation_zh": "第3段/第6段：她最看重的是人道主义工作。",
+     "options": [
+      "Becoming a prime dancer.",
+      "Carrying out humanitarian work.",
+      "Starring in as many films as possible.",
+      "Thrilling audiences with starring roles."
+     ],
+     "explanation": "Paras. 2 and 6: she felt her most significant work was humanitarian work for UNICEF, not her film roles."
+    },
+    {
+     "n": 2,
+     "prompt": "Which of the following is true regarding Audrey Hepburn's life during the Nazi occupation of the Netherlands?",
+     "answer": 0,
+     "answer_source": "derived",
+     "explanation_zh": "第3段：家庭因入侵而破产，故A正确；B、C、D与原文不符。",
+     "options": [
+      "Her family was bankrupted.",
+      "Her mom managed to get her enough food.",
+      "She lived in a basement full of rats.",
+      "She failed to escape from the guards."
+     ],
+     "explanation": "Para. 3 says 'her family was bankrupted as a result of the invasion'; the other options contradict the text."
+    },
+    {
+     "n": 3,
+     "prompt": "What do we learn about Audrey Hepburn who experienced life's horrors and fragility as a child?",
+     "answer": 1,
+     "answer_source": "derived",
+     "explanation_zh": "第4段：她没有被困境压垮，而是超越了挑战。",
+     "options": [
+      "She tried to forget the terrible experiences.",
+      "She was determined to overcome the challenges.",
+      "She lost hope at first but soon pulled herself together.",
+      "She did not admit that the desperate reality had an effect on her."
+     ],
+     "explanation": "Para. 4: she refused to let her spirit be afflicted and 'transcended those challenges' instead of giving in."
+    },
+    {
+     "n": 4,
+     "prompt": "What happened to Audrey Hepburn after she moved to the U.K.?",
+     "answer": 3,
+     "answer_source": "derived",
+     "explanation_zh": "第5段：她在英国后得到了电影《罗马假日》的角色。",
+     "options": [
+      "She enrolled in a famous film school.",
+      "She met her soul mate Gregory Peck.",
+      "She wrote a biography of Billy Wilder.",
+      "She got a role in the film Roman Holiday."
+     ],
+     "explanation": "Para. 5: after arriving in the U.K. she was spotted by a producer and landed a role in Roman Holiday."
+    },
+    {
+     "n": 5,
+     "prompt": "What do we learn about Audrey Hepburn's home in Switzerland?",
+     "answer": 3,
+     "answer_source": "derived",
+     "explanation_zh": "第8段：瑞士的家是她与家人远离尘嚣的乐园。",
+     "options": [
+      "It was one of the several homes she owned.",
+      "It was very modern and life was comfortable there.",
+      "It was the place where she wrote her autobiography.",
+      "It was a place where she could stay with her family undisturbed."
+     ],
+     "explanation": "Para. 8: the Swiss home was 'a paradise where she could hide from the world with her beloved family'."
+    },
+    {
+     "n": 6,
+     "prompt": "Why does the author say Audrey's missions were \"physically dangerous\"?",
+     "answer": 1,
+     "answer_source": "derived",
+     "explanation_zh": "第10段：她前往战乱、贫困地区执行任务，因此危险。",
+     "options": [
+      "She went to remote places alone.",
+      "She visited places which were at war.",
+      "She had little time to rest during her missions.",
+      "She often encountered people hostile to foreigners."
+     ],
+     "explanation": "Para. 10: she made missions into bleak, war-torn destinations such as Somalia, Sudan and Vietnam."
+    },
+    {
+     "n": 7,
+     "prompt": "What is the ideology Audrey Hepburn deeply believed in?",
+     "answer": 1,
+     "answer_source": "derived",
+     "explanation_zh": "第11段：她深信所有人都应分担照顾需要帮助者的责任。",
+     "options": [
+      "When you deny childhood, you deny life.",
+      "All people share in the duty to care for those in need.",
+      "Anyone who doesn't believe in miracles is not a realist.",
+      "If you ever need a helping hand, it's at the end of your arm."
+     ],
+     "explanation": "Para. 11: 'she believed deeply in the ideology that all people share in the duty to care for those in need'."
+    },
+    {
+     "n": 8,
+     "prompt": "According to the text, which of the following words could best describe Audrey Hepburn?",
+     "answer": 3,
+     "answer_source": "derived",
+     "explanation_zh": "全文多处体现她的善良与仁爱，“Kind-hearted”最贴切。",
+     "options": [
+      "Frank.",
+      "Creative.",
+      "Energetic.",
+      "Kind-hearted."
+     ],
+     "explanation": "Her generosity, compassion and UNICEF service run through the whole text, so 'kind-hearted' fits best."
+    }
+   ]
+  },
+  {
+   "id": "u02_b_critical",
+   "section": "section_b",
+   "kind": "critical",
+   "instructions": "Critical thinking. Work in pairs and discuss the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "What do you think is the most important thing for a person to succeed in the film industry?",
+     "answer": "I think talent matters, but a willingness to work relentlessly matters more. Audrey Hepburn kept a rigorous schedule at a famous ballet school before a producer spotted her, and she went on improving her craft long after she became famous. Beyond skill, a sense of purpose beyond fame gave her career its durability, which is why she valued her humanitarian work above her film roles.",
+     "answer_source": "draft",
+     "explanation": "Draw on Audrey Hepburn's career in the text: rigorous training, being spotted, and purpose beyond fame.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "Why do you think successful people have a passion for serving those in need?",
+     "answer": "People who have suffered themselves often remember how it felt, and that memory turns into sympathy for others. Audrey Hepburn was malnourished and nearly sent to a work camp, so she understood what the children she later visited needed. Success also gives people money, fame and influence that can be turned into help, as she did by accepting one dollar a year as a UNICEF ambassador.",
+     "answer_source": "draft",
+     "explanation": "Use the text's explanation of Audrey's motive: remembered suffering plus the influence success brings.",
+     "needs_review": true
+    },
+    {
+     "n": 3,
+     "prompt": "In your opinion, who can represent the spirit of charity in Chinese history? Why?",
+     "answer": "I would name Mencius, who taught that one should extend the care given to one's own elders and children to the elders and children of others. That idea is the root of charity in Chinese thought: kindness is not a favor to strangers but a duty we all share. It matches Audrey Hepburn's belief that all people share in the duty to care for those in need.",
+     "answer_source": "draft",
+     "explanation": "Name one figure and give a concrete deed or idea, then link it to the charity theme of Text B.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u02_b_collocation",
+   "section": "section_b",
+   "kind": "collocation",
+   "instructions": "Collocation. Complete the following paragraphs by choosing appropriate words from the boxes. Change the form where necessary. Each word can be used only once.",
+   "bank": [
+    "physically",
+    "retain",
+    "vast",
+    "elaborate",
+    "spread",
+    "surprising",
+    "overwhelming",
+    "desperate",
+    "jeopardize",
+    "long",
+    "emotionally",
+    "perpetually"
+   ],
+   "passage": "In spite of many hardships and {{1}} dangerous situations along the way, he kept on traveling and left detailed and extensive records of his travels. His writing, which {{2}} an echo of his love of nature, records numerous phenomena in the {{3}} realm of nature and is widely admired for its high literary quality.\n\nThe vast trade network of the Silk Road carried more than just precious commodities. In fact, the constant movement and mixing of populations {{4}} different cultures and beliefs, which had a profound impact on the history and civilizations of the Eurasian peoples. Today travelers along the Silk Road are attracted not only by {{5}} gifts or local specialties, but also by {{6}} encounters with places with a mysterious past.\n\nCharlie Chaplin may be one of the world's most famous rags-to-riches actors. He lived in {{7}} misery when he was little. Because of the {{8}} reality of poverty, he started to work when he was still a child. However, no hardship could {{9}} his hope, and he managed to overcome the obstacles and made a career out of making people laugh.\n\nLife does not discriminate among people when it comes to personal setbacks and obstacles. Struggles and hardships happen to everyone in the {{10}} voyage of life, ordinary people and celebrities alike. It is most important to get through the {{11}} draining periods in life by looking forward, drawing courage to face the odds, and hoping for the best. As a result, fears can never destroy your hope and determination. Finally you will achieve success which {{12}} signifies your devotion, efforts, and perseverance.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Blank 1",
+     "answer": "physically",
+     "answer_source": "derived",
+     "explanation_zh": "{{1}} modifies dangerous situations (physically dangerous).",
+     "explanation": "'Physically dangerous situations' - the adverb modifies the adjective dangerous, parallel to 'emotionally draining'."
+    },
+    {
+     "n": 2,
+     "prompt": "Blank 2",
+     "answer": "retains",
+     "answer_source": "derived",
+     "explanation_zh": "which retains an echo（保留了……的回响），第三人称单数。",
+     "explanation": "'His writing, which retains an echo of his love of nature' - third-person singular verb agrees with writing."
+    },
+    {
+     "n": 3,
+     "prompt": "Blank 3",
+     "answer": "vast",
+     "answer_source": "derived",
+     "explanation_zh": "the vast realm of nature（广阔的自然领域）。",
+     "explanation": "'The vast realm of nature' - vast means immense in extent, fitting 'realm'."
+    },
+    {
+     "n": 4,
+     "prompt": "Blank 4",
+     "answer": "spread",
+     "answer_source": "derived",
+     "explanation_zh": "populations spread different cultures（人口流动传播不同文化）。",
+     "explanation": "'The movement and mixing of populations spread different cultures' - past tense; spread is invariable in form."
+    },
+    {
+     "n": 5,
+     "prompt": "Blank 5",
+     "answer": "elaborate",
+     "answer_source": "derived",
+     "explanation_zh": "elaborate gifts（精致的礼物）。",
+     "explanation": "'Elaborate gifts or local specialties' - elaborate means carefully made with much detail."
+    },
+    {
+     "n": 6,
+     "prompt": "Blank 6",
+     "answer": "surprising",
+     "answer_source": "derived",
+     "explanation_zh": "surprising encounters（令人惊讶的邂逅）。",
+     "explanation": "'Surprising encounters with places with a mysterious past' - present participle used as an adjective."
+    },
+    {
+     "n": 7,
+     "prompt": "Blank 7",
+     "answer": "overwhelming",
+     "answer_source": "derived",
+     "explanation_zh": "lived in overwhelming misery（生活在沉重的苦难中）。",
+     "explanation": "'He lived in overwhelming misery' - overwhelming intensifies the noun misery, meaning crushing hardship."
+    },
+    {
+     "n": 8,
+     "prompt": "Blank 8",
+     "answer": "desperate",
+     "answer_source": "derived",
+     "explanation_zh": "desperate reality（残酷的现实）。",
+     "explanation": "'The desperate reality of poverty' - desperate means hopeless and extremely serious."
+    },
+    {
+     "n": 9,
+     "prompt": "Blank 9",
+     "answer": "jeopardize",
+     "answer_source": "derived",
+     "explanation_zh": "could jeopardize his hope（危及希望），情态动词后用原形。",
+     "explanation": "'No hardship could jeopardize his hope' - the modal could takes the base form jeopardize."
+    },
+    {
+     "n": 10,
+     "prompt": "Blank 10",
+     "answer": "long",
+     "answer_source": "derived",
+     "explanation_zh": "long voyage of life（人生的漫长旅程）。",
+     "explanation": "'The long voyage of life' - long is the adjective describing the duration of the voyage."
+    },
+    {
+     "n": 11,
+     "prompt": "Blank 11",
+     "answer": "emotionally",
+     "answer_source": "derived",
+     "explanation_zh": "emotionally draining periods（情感上令人精疲力竭的时期）。",
+     "explanation": "'Emotionally draining periods' - the adverb modifies the participle draining, parallel to 'physically dangerous'."
+    },
+    {
+     "n": 12,
+     "prompt": "Blank 12",
+     "answer": "perpetually",
+     "answer_source": "derived",
+     "explanation_zh": "perpetually signifies（持续象征），副词修饰动词。",
+     "explanation": "'Success which perpetually signifies your devotion' - the adverb of frequency sits before the verb it modifies."
+    }
+   ]
+  },
+  {
+   "id": "u02_c_translation",
+   "section": "section_c",
+   "kind": "translation",
+   "instructions": "Translation. Translate the following paragraph into English.",
+   "sample": "中央电视台春节联欢晚会（Spring Festival Gala）自1983年举办以来，已成为中国人生活中不可缺少的文化消费品和一个重要的文化符号。虽然众口难调，但必须承认的是，“春晚”已成为一项“新民俗”。它不仅是一台晚会，更是一种仪式与象征，一种文化与标签，一种情感与寄托。随着新媒体的出现，“春晚”也在与时俱进，以满足大众日渐多样化的需求。",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "中央电视台春节联欢晚会（Spring Festival Gala）自1983年举办以来，已成为中国人生活中不可缺少的文化消费品和一个重要的文化符号。虽然众口难调，但必须承认的是，“春晚”已成为一项“新民俗”。它不仅是一台晚会，更是一种仪式与象征，一种文化与标签，一种情感与寄托。随着新媒体的出现，“春晚”也在与时俱进，以满足大众日渐多样化的需求。",
+     "answer": "Since its first broadcast in 1983, the Spring Festival Gala of China Central Television has become an indispensable cultural product in Chinese people's lives and an important cultural symbol. Although it is hard to please everyone, it must be acknowledged that the Spring Festival Gala has become a \"new folk custom\". It is not only a show, but also a ritual and a symbol, a culture and a label, and an emotional attachment and source of hope. With the emergence of new media, the Spring Festival Gala is also keeping pace with the times to meet the increasingly diverse needs of the public.",
+     "answer_source": "derived",
+     "explanation_zh": "译文按原意处理“新民俗”“仪式与象征”等概念，并保留专有名词Spring Festival Gala。",
+     "explanation": "Key renderings: 不可缺少的 as 'indispensable', 众口难调 as 'hard to please everyone', 与时俱进 as 'keeping pace with the times'."
+    }
+   ]
+  }
+ ]
+}

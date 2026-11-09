@@ -1,0 +1,28 @@
+{
+ "kit": "reading_table",
+ "dims_m": [
+  2.4,
+  1.0,
+  0.76
+ ],
+ "materials": {
+  "M_rt_walnut": {
+   "color": "#5A3E2B",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.2
+  },
+  "M_rt_brass": {
+   "color": "#B08D57",
+   "roughness": 0.3,
+   "metallic": 1.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

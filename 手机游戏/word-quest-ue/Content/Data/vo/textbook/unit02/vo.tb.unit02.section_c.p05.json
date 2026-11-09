@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit02.section_c.p05",
+ "unit": 2,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "Mei was renowned for his efforts in modernizing Peking Opera in terms of plays, stage design, lighting, makeup, and costume design. Mei also made great contributions to the spread of Peking Opera to foreign countries by participating in cultural exchanges with Japan, the United States, and other countries. He toured the world, forming friendships with his Western contemporaries, including Charlie Chaplin.",
+ "rate": 165,
+ "duration": 32.532,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 10.971,
+   "text": "Mei was renowned for his efforts in modernizing Peking Opera in terms of plays, stage design, lighting, makeup, and costume design."
+  },
+  {
+   "i": 1,
+   "start": 10.971,
+   "end": 25.203,
+   "text": "Mei also made great contributions to the spread of Peking Opera to foreign countries by participating in cultural exchanges with Japan, the United States, and other countries."
+  },
+  {
+   "i": 2,
+   "start": 25.203,
+   "end": 32.532,
+   "text": "He toured the world, forming friendships with his Western contemporaries, including Charlie Chaplin."
+  }
+ ]
+}

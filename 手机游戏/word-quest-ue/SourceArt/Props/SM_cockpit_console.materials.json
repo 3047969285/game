@@ -1,0 +1,64 @@
+{
+ "kit": "cockpit_console",
+ "dims_m": [
+  1.396,
+  0.518,
+  0.346
+ ],
+ "materials": {
+  "M_console_body": {
+   "color": "#262C36",
+   "roughness": 0.45,
+   "metallic": 0.2,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_console_screen": {
+   "color": "#0A0E14",
+   "roughness": 0.15,
+   "metallic": 0.0,
+   "emission": "#9FC4E8",
+   "emission_strength": 2.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_console_strip": {
+   "color": "#0A0E14",
+   "roughness": 0.15,
+   "metallic": 0.0,
+   "emission": "#9FC4E8",
+   "emission_strength": 4.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_console_metal": {
+   "color": "#9AA1AB",
+   "roughness": 0.3,
+   "metallic": 1.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_console_ring": {
+   "color": "#0A0E14",
+   "roughness": 0.2,
+   "metallic": 0.0,
+   "emission": "#9FC4E8",
+   "emission_strength": 3.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_console_grip": {
+   "color": "#14171C",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

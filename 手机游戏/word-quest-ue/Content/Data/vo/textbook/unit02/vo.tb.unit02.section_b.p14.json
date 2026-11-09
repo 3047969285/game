@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit02.section_b.p14",
+ "unit": 2,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Audrey Hepburn's passion for service was enduring. Even as her life ended at 63 years of age, she remained a gracious woman who perpetually signified simplicity, charity, charm, and kindness.",
+ "rate": 165,
+ "duration": 12.993,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 2.965,
+   "text": "Audrey Hepburn's passion for service was enduring."
+  },
+  {
+   "i": 1,
+   "start": 2.965,
+   "end": 12.993,
+   "text": "Even as her life ended at 63 years of age, she remained a gracious woman who perpetually signified simplicity, charity, charm, and kindness."
+  }
+ ]
+}

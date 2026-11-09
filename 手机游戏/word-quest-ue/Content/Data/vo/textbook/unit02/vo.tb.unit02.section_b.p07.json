@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit02.section_b.p07",
+ "unit": 2,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Becoming famous never changed Audrey's generous and compassionate character. She felt a deep sense of responsibility to alleviate the suffering of those in need, especially children. Friends said Audrey had a complete lack of ego and accepted and appreciated others as they were.",
+ "rate": 165,
+ "duration": 15.592,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.275,
+   "text": "Becoming famous never changed Audrey's generous and compassionate character."
+  },
+  {
+   "i": 1,
+   "start": 4.275,
+   "end": 10.416,
+   "text": "She felt a deep sense of responsibility to alleviate the suffering of those in need, especially children."
+  },
+  {
+   "i": 2,
+   "start": 10.416,
+   "end": 15.592,
+   "text": "Friends said Audrey had a complete lack of ego and accepted and appreciated others as they were."
+  }
+ ]
+}

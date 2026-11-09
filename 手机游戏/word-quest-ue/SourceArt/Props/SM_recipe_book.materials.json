@@ -1,0 +1,37 @@
+{
+ "kit": "recipe_book",
+ "dims_m": [
+  0.2,
+  0.26,
+  0.031
+ ],
+ "materials": {
+  "M_recipe_cover": {
+   "color": "#B5472F",
+   "roughness": 0.55,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_recipe_spine": {
+   "color": "#7A2E1E",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_recipe_label": {
+   "color": "#F4EBD0",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

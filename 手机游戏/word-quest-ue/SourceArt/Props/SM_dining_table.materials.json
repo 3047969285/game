@@ -1,0 +1,37 @@
+{
+ "kit": "dining_table",
+ "dims_m": [
+  1.8,
+  0.95,
+  0.754
+ ],
+ "materials": {
+  "M_oak": {
+   "color": "#7B4E2D",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.25
+  },
+  "M_oak_dark": {
+   "color": "#5C3A22",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.2
+  },
+  "M_runner": {
+   "color": "#8E3B33",
+   "roughness": 0.95,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

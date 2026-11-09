@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit06.section_a.p03",
+ "unit": 6,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "She wound up at a motel, putting down the $260 she had managed to scrape together from friends and from selling her living room set. It was all the money Sue had after her unemployment benefits had expired. She faced life as a migrant, a previously unimaginable situation for a woman who, not that long before, had held a corporate job in a metropolitan city and had been enrolled in a graduate business school.",
+ "rate": 165,
+ "duration": 24.003,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 8.009,
+   "text": "She wound up at a motel, putting down the $260 she had managed to scrape together from friends and from selling her living room set."
+  },
+  {
+   "i": 1,
+   "start": 8.009,
+   "end": 12.162,
+   "text": "It was all the money Sue had after her unemployment benefits had expired."
+  },
+  {
+   "i": 2,
+   "start": 12.162,
+   "end": 24.003,
+   "text": "She faced life as a migrant, a previously unimaginable situation for a woman who, not that long before, had held a corporate job in a metropolitan city and had been enrolled in a graduate business school."
+  }
+ ]
+}

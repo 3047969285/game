@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit04.section_a.p03",
+ "unit": 4,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Between labor and play stands work. People are labeled as workers if their personal interests coincide with the jobs society pays them to do. What is necessary labor from the point of view of society is voluntary play from the individual's personal point of view. Whether a job is to be designated as labor or work depends, not on the job itself, but on the tastes of the individual who undertakes it. The difference does not, for example, correlate with the difference between a manual and mental job or between jobs with low or high income; a gardener covered in dirt in a greenhouse may be a worker while a well-dressed city mayor may prove to be an unhappy laborer!",
+ "rate": 165,
+ "duration": 36.416,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 2.14,
+   "text": "Between labor and play stands work."
+  },
+  {
+   "i": 1,
+   "start": 2.14,
+   "end": 7.816,
+   "text": "People are labeled as workers if their personal interests coincide with the jobs society pays them to do."
+  },
+  {
+   "i": 2,
+   "start": 7.816,
+   "end": 14.355,
+   "text": "What is necessary labor from the point of view of society is voluntary play from the individual's personal point of view."
+  },
+  {
+   "i": 3,
+   "start": 14.355,
+   "end": 22.228,
+   "text": "Whether a job is to be designated as labor or work depends, not on the job itself, but on the tastes of the individual who undertakes it."
+  },
+  {
+   "i": 4,
+   "start": 22.228,
+   "end": 36.416,
+   "text": "The difference does not, for example, correlate with the difference between a manual and mental job or between jobs with low or high income; a gardener covered in dirt in a greenhouse may be a worker while a well-dressed city mayor may prove to be an unhappy laborer!"
+  }
+ ]
+}

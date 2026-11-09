@@ -1,0 +1,67 @@
+{
+ "line_id": "vo.tb.unit06.section_b.p02",
+ "unit": 6,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Speculators risk money in such investments because they hope that the price of an asset they purchase will quickly increase. Since most speculators are nervous about where they invest their money, bubbles are by no means the norm. After all, every investment entails the risk that it is overpriced. Speculators also know that rising prices will encourage either greater production of a commodity or greater willingness of current owners to sell. Either of these conditions can serve as a “negative feedback” mechanism that adjusts prices downward. As an analogy, think of negative economic feedback like your eyes. As the light gets brighter, your pupils get smaller and let in less light. But what if, instead, your eyes worked as a “positive feedback” mechanism? In sunlight, your pupils would open wide and damage your eyes.",
+ "rate": 165,
+ "duration": 47.396,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.722,
+   "text": "Speculators risk money in such investments because they hope that the price of an asset they purchase will quickly increase."
+  },
+  {
+   "i": 1,
+   "start": 6.722,
+   "end": 12.632,
+   "text": "Since most speculators are nervous about where they invest their money, bubbles are by no means the norm."
+  },
+  {
+   "i": 2,
+   "start": 12.632,
+   "end": 16.926,
+   "text": "After all, every investment entails the risk that it is overpriced."
+  },
+  {
+   "i": 3,
+   "start": 16.926,
+   "end": 24.682,
+   "text": "Speculators also know that rising prices will encourage either greater production of a commodity or greater willingness of current owners to sell."
+  },
+  {
+   "i": 4,
+   "start": 24.682,
+   "end": 30.283,
+   "text": "Either of these conditions can serve as a “negative feedback” mechanism that adjusts prices downward."
+  },
+  {
+   "i": 5,
+   "start": 30.283,
+   "end": 34.535,
+   "text": "As an analogy, think of negative economic feedback like your eyes."
+  },
+  {
+   "i": 6,
+   "start": 34.535,
+   "end": 38.915,
+   "text": "As the light gets brighter, your pupils get smaller and let in less light."
+  },
+  {
+   "i": 7,
+   "start": 38.915,
+   "end": 43.539,
+   "text": "But what if, instead, your eyes worked as a “positive feedback” mechanism?"
+  },
+  {
+   "i": 8,
+   "start": 43.539,
+   "end": 47.396,
+   "text": "In sunlight, your pupils would open wide and damage your eyes."
+  }
+ ]
+}

@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit03.section_b.p05",
+ "unit": 3,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "But the reactions I’ve gotten, from people I know, fellow travelers, and especially, from the natives of the countries I’ve visited, showed me that solo traveling is strange, and even considered inconceivable or reckless. People ask me if the isolation makes me sad or even if I’m more susceptible to violent or dangerous situations.",
+ "rate": 165,
+ "duration": 19.96,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 13.296,
+   "text": "But the reactions I’ve gotten, from people I know, fellow travelers, and especially, from the natives of the countries I’ve visited, showed me that solo traveling is strange, and even considered inconceivable or reckless."
+  },
+  {
+   "i": 1,
+   "start": 13.296,
+   "end": 19.96,
+   "text": "People ask me if the isolation makes me sad or even if I’m more susceptible to violent or dangerous situations."
+  }
+ ]
+}

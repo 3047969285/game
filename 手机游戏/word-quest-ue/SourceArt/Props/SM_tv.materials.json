@@ -1,0 +1,37 @@
+{
+ "kit": "tv",
+ "dims_m": [
+  1.1,
+  0.08,
+  0.65
+ ],
+ "materials": {
+  "M_tv_body": {
+   "color": "#202428",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_tv_glass": {
+   "color": "#0F1419",
+   "roughness": 0.1,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_tv_foot": {
+   "color": "#2A2D31",
+   "roughness": 0.45,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

@@ -1,0 +1,61 @@
+{
+ "line_id": "vo.tb.unit03.section_a.p06",
+ "unit": 3,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "The larger lesson, though, is that our thoughts are saturated with the familiar. The brain is a space of near-infinite possibility, which means that it spends a lot of time and energy choosing what not to notice. As a result, creativity is traded away for efficiency; we think in finite, literal prose, not symbolic verse. A bit of distance, however, helps loosen the cognitive chains that imprison us, making it easier to mingle the new with the old; the mundane is grasped from a slightly more abstract perspective. According to research, the experience of an exotic culture endows us with a valuable open-mindedness, making it easier to realize that even a trivial thing can have multiple meanings. Take head movement, which is commonly used to communicate positive versus negative response, as an example. In most cultures, nodding one’s head denotes positivity, meaning “yes”, and shaking the head is associated with negativity, meaning “no”. In Bulgaria, however, this response pattern is reversed - that is, head shaking means “yes” and head nodding means “no”.",
+ "rate": 165,
+ "duration": 62.76,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.447,
+   "text": "The larger lesson, though, is that our thoughts are saturated with the familiar."
+  },
+  {
+   "i": 1,
+   "start": 4.447,
+   "end": 11.344,
+   "text": "The brain is a space of near-infinite possibility, which means that it spends a lot of time and energy choosing what not to notice."
+  },
+  {
+   "i": 2,
+   "start": 11.344,
+   "end": 18.98,
+   "text": "As a result, creativity is traded away for efficiency; we think in finite, literal prose, not symbolic verse."
+  },
+  {
+   "i": 3,
+   "start": 18.98,
+   "end": 30.064,
+   "text": "A bit of distance, however, helps loosen the cognitive chains that imprison us, making it easier to mingle the new with the old; the mundane is grasped from a slightly more abstract perspective."
+  },
+  {
+   "i": 4,
+   "start": 30.064,
+   "end": 40.545,
+   "text": "According to research, the experience of an exotic culture endows us with a valuable open-mindedness, making it easier to realize that even a trivial thing can have multiple meanings."
+  },
+  {
+   "i": 5,
+   "start": 40.545,
+   "end": 47.151,
+   "text": "Take head movement, which is commonly used to communicate positive versus negative response, as an example."
+  },
+  {
+   "i": 6,
+   "start": 47.151,
+   "end": 55.506,
+   "text": "In most cultures, nodding one’s head denotes positivity, meaning “yes”, and shaking the head is associated with negativity, meaning “no”."
+  },
+  {
+   "i": 7,
+   "start": 55.506,
+   "end": 62.76,
+   "text": "In Bulgaria, however, this response pattern is reversed - that is, head shaking means “yes” and head nodding means “no”."
+  }
+ ]
+}

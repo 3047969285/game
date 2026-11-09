@@ -1,0 +1,28 @@
+{
+ "kit": "blinds",
+ "dims_m": [
+  3.0,
+  0.05,
+  2.2
+ ],
+ "materials": {
+  "M_blind_frame": {
+   "color": "#F2F1EE",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_blind_slat": {
+   "color": "#D9DCE0",
+   "roughness": 0.35,
+   "metallic": 0.7,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

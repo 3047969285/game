@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit05.section_b.p04",
+ "unit": 5,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Nobody had ever seen the moon's far side before the Soviet Union launched the Luna 3 probe in 1959. It was the first-ever mission to photograph the far side. The United States Apollo 8 mission sent three astronauts around the moon in 1968, the first time humans saw the moon's far side with their own eyes. Now China sent the first-ever probe to soft-land and rove on the far side, which has deepened our understanding of the moon, the earth, and the universe.",
+ "rate": 165,
+ "duration": 28.474,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.806,
+   "text": "Nobody had ever seen the moon's far side before the Soviet Union launched the Luna 3 probe in 1959."
+  },
+  {
+   "i": 1,
+   "start": 6.806,
+   "end": 10.13,
+   "text": "It was the first-ever mission to photograph the far side."
+  },
+  {
+   "i": 2,
+   "start": 10.13,
+   "end": 19.369,
+   "text": "The United States Apollo 8 mission sent three astronauts around the moon in 1968, the first time humans saw the moon's far side with their own eyes."
+  },
+  {
+   "i": 3,
+   "start": 19.369,
+   "end": 28.474,
+   "text": "Now China sent the first-ever probe to soft-land and rove on the far side, which has deepened our understanding of the moon, the earth, and the universe."
+  }
+ ]
+}

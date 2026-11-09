@@ -1,0 +1,64 @@
+{
+ "kit": "travel_counter",
+ "dims_m": [
+  2.2,
+  0.7,
+  1.05
+ ],
+ "materials": {
+  "M_counter_body": {
+   "color": "#2B4C7E",
+   "roughness": 0.55,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_counter_top": {
+   "color": "#E8E2D0",
+   "roughness": 0.4,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_paper_yellow": {
+   "color": "#F2A900",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_monitor_screen": {
+   "color": "#1B3A5C",
+   "roughness": 0.2,
+   "metallic": 0.0,
+   "emission": "#6FB7FF",
+   "emission_strength": 0.6,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_paper_red": {
+   "color": "#D9413A",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_paper_green": {
+   "color": "#3DA35D",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

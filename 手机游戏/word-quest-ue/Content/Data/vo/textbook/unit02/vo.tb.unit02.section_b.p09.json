@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit02.section_b.p09",
+ "unit": 2,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "In 1988, Audrey was appointed a Goodwill Ambassador for UNICEF designed to provide emergency food and health care to children suffering as a result of war or other catastrophes. In that role, her lifelong passion for helping those in need found its greatest calling.",
+ "rate": 165,
+ "duration": 15.68,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 10.626,
+   "text": "In 1988, Audrey was appointed a Goodwill Ambassador for UNICEF designed to provide emergency food and health care to children suffering as a result of war or other catastrophes."
+  },
+  {
+   "i": 1,
+   "start": 10.626,
+   "end": 15.68,
+   "text": "In that role, her lifelong passion for helping those in need found its greatest calling."
+  }
+ ]
+}

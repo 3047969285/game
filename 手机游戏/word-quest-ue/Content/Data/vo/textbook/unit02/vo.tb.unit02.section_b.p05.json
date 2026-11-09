@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit02.section_b.p05",
+ "unit": 2,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "After the war, Audrey and her mother left the Netherlands and arrived in the U.K. Her dream of becoming a prime dancer drove her into a rigorous schedule at a famous ballet school. Later, she was spotted by a producer and eventually landed a role in the film Roman Holiday starring Gregory Peck, one of Hollywood's top leading men.",
+ "rate": 165,
+ "duration": 18.607,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.562,
+   "text": "After the war, Audrey and her mother left the Netherlands and arrived in the U.K."
+  },
+  {
+   "i": 1,
+   "start": 4.562,
+   "end": 9.804,
+   "text": "Her dream of becoming a prime dancer drove her into a rigorous schedule at a famous ballet school."
+  },
+  {
+   "i": 2,
+   "start": 9.804,
+   "end": 18.607,
+   "text": "Later, she was spotted by a producer and eventually landed a role in the film Roman Holiday starring Gregory Peck, one of Hollywood's top leading men."
+  }
+ ]
+}

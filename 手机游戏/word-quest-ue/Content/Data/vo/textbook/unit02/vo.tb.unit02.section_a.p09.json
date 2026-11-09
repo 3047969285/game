@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit02.section_a.p09",
+ "unit": 2,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Zheng He had helped spread the culture and influence of China over a vast realm. But the war in the north then drew military investment away from the maintenance of the fleet and the royal court turned its focus to the construction and expansion of the Great Wall. Inevitably, the navy shrank and all the larger classes of ships were destroyed. This contributed to the end of the epic time of the Ming Dynasty sea voyages.",
+ "rate": 165,
+ "duration": 21.727,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.208,
+   "text": "Zheng He had helped spread the culture and influence of China over a vast realm."
+  },
+  {
+   "i": 1,
+   "start": 4.208,
+   "end": 13.001,
+   "text": "But the war in the north then drew military investment away from the maintenance of the fleet and the royal court turned its focus to the construction and expansion of the Great Wall."
+  },
+  {
+   "i": 2,
+   "start": 13.001,
+   "end": 17.48,
+   "text": "Inevitably, the navy shrank and all the larger classes of ships were destroyed."
+  },
+  {
+   "i": 3,
+   "start": 17.48,
+   "end": 21.727,
+   "text": "This contributed to the end of the epic time of the Ming Dynasty sea voyages."
+  }
+ ]
+}

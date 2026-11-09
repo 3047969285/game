@@ -1,0 +1,55 @@
+{
+ "line_id": "vo.tb.unit06.section_b.p03",
+ "unit": 6,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Economic bubbles occur when prices trending sharply upward spur positive, rather than negative, feedback. For whatever reason (fear of shortages, greed, an excessively optimistic attitude toward the future, or flaws in the analysis of an asset's underlying value), buyers believe that the value of the asset will continue to rise. If the price rises, overly enthusiastic speculators buy more, or those who missed out on the lower price flock to buy before the price rises any higher. The foremost explanation is the “greater fool theory”: Buyers justify their purchases by assuring themselves they will find “a greater fool” who will pay even more. Buyer enthusiasm infects other buyers, amplifying the effect even further. Under the right conditions, prices can reach dizzying heights before falling. One famous example is the tulip-buying bubble which happened in the Netherlands in the 1630s when a single tulip bulb could cost a year's salary.",
+ "rate": 165,
+ "duration": 55.848,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.766,
+   "text": "Economic bubbles occur when prices trending sharply upward spur positive, rather than negative, feedback."
+  },
+  {
+   "i": 1,
+   "start": 6.766,
+   "end": 19.906,
+   "text": "For whatever reason (fear of shortages, greed, an excessively optimistic attitude toward the future, or flaws in the analysis of an asset's underlying value), buyers believe that the value of the asset will continue to rise."
+  },
+  {
+   "i": 2,
+   "start": 19.906,
+   "end": 28.803,
+   "text": "If the price rises, overly enthusiastic speculators buy more, or those who missed out on the lower price flock to buy before the price rises any higher."
+  },
+  {
+   "i": 3,
+   "start": 28.803,
+   "end": 37.845,
+   "text": "The foremost explanation is the “greater fool theory”: Buyers justify their purchases by assuring themselves they will find “a greater fool” who will pay even more."
+  },
+  {
+   "i": 4,
+   "start": 37.845,
+   "end": 42.828,
+   "text": "Buyer enthusiasm infects other buyers, amplifying the effect even further."
+  },
+  {
+   "i": 5,
+   "start": 42.828,
+   "end": 47.603,
+   "text": "Under the right conditions, prices can reach dizzying heights before falling."
+  },
+  {
+   "i": 6,
+   "start": 47.603,
+   "end": 55.848,
+   "text": "One famous example is the tulip-buying bubble which happened in the Netherlands in the 1630s when a single tulip bulb could cost a year's salary."
+  }
+ ]
+}

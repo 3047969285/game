@@ -1,0 +1,64 @@
+{
+ "kit": "bookshelf",
+ "dims_m": [
+  1.2,
+  0.35,
+  2.0
+ ],
+ "materials": {
+  "M_oak": {
+   "color": "#6A4A33",
+   "roughness": 0.55,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.15
+  },
+  "M_plinth": {
+   "color": "#2E2118",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_spine_teal": {
+   "color": "#2F4A5A",
+   "roughness": 0.7,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_spine_olive": {
+   "color": "#5C6B4A",
+   "roughness": 0.7,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_spine_cream": {
+   "color": "#B9AE98",
+   "roughness": 0.8,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_spine_brick": {
+   "color": "#7A3B2E",
+   "roughness": 0.7,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "kit": "headphones",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_headphones.fbx",
+ "triangles": 10164,
+ "size_m": [
+  0.2,
+  0.1,
+  0.22
+ ],
+ "dims_target_m": [
+  0.2,
+  0.1,
+  0.22
+ ],
+ "slots": [
+  {
+   "slot": "band",
+   "material": "M_band",
+   "BaseColor": "T_headphones_band_BaseColor.png",
+   "Normal": "T_headphones_band_Normal.png",
+   "ARM": "T_headphones_band_ARM.png"
+  },
+  {
+   "slot": "metal",
+   "material": "M_metal",
+   "BaseColor": "T_headphones_metal_BaseColor.png",
+   "Normal": "T_headphones_metal_Normal.png",
+   "ARM": "T_headphones_metal_ARM.png"
+  },
+  {
+   "slot": "dark",
+   "material": "M_dark",
+   "BaseColor": "T_headphones_dark_BaseColor.png",
+   "Normal": "T_headphones_dark_Normal.png",
+   "ARM": "T_headphones_dark_ARM.png"
+  },
+  {
+   "slot": "leather",
+   "material": "M_leather",
+   "BaseColor": "T_headphones_leather_BaseColor.png",
+   "Normal": "T_headphones_leather_Normal.png",
+   "ARM": "T_headphones_leather_ARM.png"
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "over-ear headphones; sliding yokes, leather cushions, front toward +Y"
+}

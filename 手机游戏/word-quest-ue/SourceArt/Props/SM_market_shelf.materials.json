@@ -1,0 +1,64 @@
+{
+ "kit": "market_shelf",
+ "dims_m": [
+  2.0,
+  0.5,
+  1.8
+ ],
+ "materials": {
+  "M_gondola_frame": {
+   "color": "#9AA3AD",
+   "roughness": 0.35,
+   "metallic": 0.8,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_gondola_shelf": {
+   "color": "#E9E4DA",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_prod_green": {
+   "color": "#27AE60",
+   "roughness": 0.45,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_prod_red": {
+   "color": "#D35400",
+   "roughness": 0.45,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_prod_bottle": {
+   "color": "#F4D03F",
+   "roughness": 0.12,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_prod_blue": {
+   "color": "#2E86C1",
+   "roughness": 0.45,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

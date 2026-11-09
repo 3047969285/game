@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit02.section_c.p03",
+ "unit": 2,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "The early 1900s are widely considered the golden age of Peking Opera in China. Competition was fierce as opera troupes led by renowned stars toured all over China. Meanwhile, critics were ever ready to fire off their assessments of the quality of each troupe's performance.",
+ "rate": 165,
+ "duration": 22.589,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 7.393,
+   "text": "The early 1900s are widely considered the golden age of Peking Opera in China."
+  },
+  {
+   "i": 1,
+   "start": 7.393,
+   "end": 13.895,
+   "text": "Competition was fierce as opera troupes led by renowned stars toured all over China."
+  },
+  {
+   "i": 2,
+   "start": 13.895,
+   "end": 22.589,
+   "text": "Meanwhile, critics were ever ready to fire off their assessments of the quality of each troupe's performance."
+  }
+ ]
+}

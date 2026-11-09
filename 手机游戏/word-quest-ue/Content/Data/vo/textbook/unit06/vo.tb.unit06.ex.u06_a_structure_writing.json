@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit06.ex.u06_a_structure_writing",
+ "unit": 6,
+ "section": "section_a",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Structure analysis: in Text A, the effects of the economic crisis on Sue are developed from everyday life to a psychological consequence. Structured writing: write an essay of no less than 140 words on one of the following topics, following the outline if you wish.",
+ "rate": 165,
+ "duration": 23.111,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 12.139,
+   "text": "Structure analysis: in Text A, the effects of the economic crisis on Sue are developed from everyday life to a psychological consequence."
+  },
+  {
+   "i": 1,
+   "start": 12.139,
+   "end": 23.111,
+   "text": "Structured writing: write an essay of no less than 140 words on one of the following topics, following the outline if you wish."
+  }
+ ]
+}

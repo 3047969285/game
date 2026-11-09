@@ -1,0 +1,46 @@
+{
+ "kit": "payment_sign",
+ "dims_m": [
+  0.48,
+  0.021,
+  0.356
+ ],
+ "materials": {
+  "M_sign_card": {
+   "color": "#F7F4EC",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_easel_wood": {
+   "color": "#8A6A4F",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_qr_white": {
+   "color": "#FAFAFA",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_qr_black": {
+   "color": "#111111",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

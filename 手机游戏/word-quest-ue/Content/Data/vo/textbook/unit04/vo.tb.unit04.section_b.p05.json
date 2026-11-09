@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit04.section_b.p05",
+ "unit": 4,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "He looked at me over his spectacles. “Now, don't worry. I won't be long. This handicraft is my specialty and I want to do a good job.” He was silent a moment. “You see, I have a tradition to live up to.”",
+ "rate": 165,
+ "duration": 13.155,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 2.275,
+   "text": "He looked at me over his spectacles."
+  },
+  {
+   "i": 1,
+   "start": 2.275,
+   "end": 3.826,
+   "text": "“Now, don't worry."
+  },
+  {
+   "i": 2,
+   "start": 3.826,
+   "end": 5.109,
+   "text": "I won't be long."
+  },
+  {
+   "i": 3,
+   "start": 5.109,
+   "end": 10.262,
+   "text": "This handicraft is my specialty and I want to do a good job.” He was silent a moment."
+  },
+  {
+   "i": 4,
+   "start": 10.262,
+   "end": 13.155,
+   "text": "“You see, I have a tradition to live up to.”"
+  }
+ ]
+}

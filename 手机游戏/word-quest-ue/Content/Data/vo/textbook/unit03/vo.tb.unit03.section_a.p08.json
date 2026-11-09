@@ -1,0 +1,55 @@
+{
+ "line_id": "vo.tb.unit03.section_a.p08",
+ "unit": 3,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Of course, this mental flexibility doesn’t come from mere distance, a simple change in latitude and longitude. Instead, this renaissance of creativity appears to be a side effect of difference: We need to change cultures, to experience the disorienting diversity of human traditions. The same facets of foreign travel that are so confusing (Do I tip the waiter? Where is this train taking me?) turn out to have a lasting impact, making us more creative because we’re less insular. We’re reminded of all that we don’t know, which is nearly everything; we’re surprised by the constant stream of surprises. Even in this globalized age, we can still be amazed at all the earthly things that weren’t included in the guidebooks and that certainly don’t exist back home.",
+ "rate": 165,
+ "duration": 42.975,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.591,
+   "text": "Of course, this mental flexibility doesn’t come from mere distance, a simple change in latitude and longitude."
+  },
+  {
+   "i": 1,
+   "start": 6.591,
+   "end": 16.863,
+   "text": "Instead, this renaissance of creativity appears to be a side effect of difference: We need to change cultures, to experience the disorienting diversity of human traditions."
+  },
+  {
+   "i": 2,
+   "start": 16.863,
+   "end": 21.496,
+   "text": "The same facets of foreign travel that are so confusing (Do I tip the waiter?"
+  },
+  {
+   "i": 3,
+   "start": 21.496,
+   "end": 23.309,
+   "text": "Where is this train taking me?"
+  },
+  {
+   "i": 4,
+   "start": 23.309,
+   "end": 28.081,
+   "text": "turn out to have a lasting impact, making us more creative because we’re less insular."
+  },
+  {
+   "i": 5,
+   "start": 28.081,
+   "end": 34.874,
+   "text": "We’re reminded of all that we don’t know, which is nearly everything; we’re surprised by the constant stream of surprises."
+  },
+  {
+   "i": 6,
+   "start": 34.874,
+   "end": 42.975,
+   "text": "Even in this globalized age, we can still be amazed at all the earthly things that weren’t included in the guidebooks and that certainly don’t exist back home."
+  }
+ ]
+}

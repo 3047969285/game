@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit02.section_b.p15",
+ "unit": 2,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "The majesty of Audrey Hepburn's spirit of social responsibility and dedication lives on in her words: “Remember, if you ever need a helping hand, it's at the end of your arm. As you get older, remember you have another hand: The first is to help yourself, the second is to help others.” And “For beautiful eyes, look for the good in others; for beautiful lips, speak only words of kindness; and for poise, walk with the knowledge that you are never alone.”",
+ "rate": 165,
+ "duration": 27.162,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 10.31,
+   "text": "The majesty of Audrey Hepburn's spirit of social responsibility and dedication lives on in her words: “Remember, if you ever need a helping hand, it's at the end of your arm."
+  },
+  {
+   "i": 1,
+   "start": 10.31,
+   "end": 27.162,
+   "text": "As you get older, remember you have another hand: The first is to help yourself, the second is to help others.” And “For beautiful eyes, look for the good in others; for beautiful lips, speak only words of kindness; and for poise, walk with the knowledge that you are never alone.”"
+  }
+ ]
+}

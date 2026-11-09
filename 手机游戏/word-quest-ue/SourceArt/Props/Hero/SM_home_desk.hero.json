@@ -1,0 +1,62 @@
+{
+ "kit": "home_desk",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_home_desk.fbx",
+ "triangles": 43536,
+ "size_m": [
+  1.2,
+  0.602,
+  0.7517
+ ],
+ "dims_target_m": [
+  1.2,
+  0.6,
+  0.75
+ ],
+ "slots": [
+  {
+   "slot": "oak",
+   "material": "M_oak",
+   "BaseColor": "T_home_desk_oak_BaseColor.png",
+   "Normal": "T_home_desk_oak_Normal.png",
+   "ARM": "T_home_desk_oak_ARM.png"
+  },
+  {
+   "slot": "handle",
+   "material": "M_handle",
+   "BaseColor": "T_home_desk_handle_BaseColor.png",
+   "Normal": "T_home_desk_handle_Normal.png",
+   "ARM": "T_home_desk_handle_ARM.png"
+  },
+  {
+   "slot": "shadowgap",
+   "material": "M_shadowgap",
+   "BaseColor": "T_home_desk_shadowgap_BaseColor.png",
+   "Normal": "T_home_desk_shadowgap_Normal.png",
+   "ARM": "T_home_desk_shadowgap_ARM.png"
+  },
+  {
+   "slot": "oakside",
+   "material": "M_oakside",
+   "BaseColor": "T_home_desk_oakside_BaseColor.png",
+   "Normal": "T_home_desk_oakside_Normal.png",
+   "ARM": "T_home_desk_oakside_ARM.png"
+  },
+  {
+   "slot": "feet",
+   "material": "M_feet",
+   "BaseColor": "T_home_desk_feet_BaseColor.png",
+   "Normal": "T_home_desk_feet_Normal.png",
+   "ARM": "T_home_desk_feet_ARM.png"
+  },
+  {
+   "slot": "legs",
+   "material": "M_legs",
+   "BaseColor": "T_home_desk_legs_BaseColor.png",
+   "Normal": "T_home_desk_legs_Normal.png",
+   "ARM": "T_home_desk_legs_ARM.png"
+  }
+ ],
+ "texture_res": 4096,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "front (user side) toward +Y; pedestal on the right"
+}

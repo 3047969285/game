@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit06.section_c.p04",
+ "unit": 6,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "“It doesn't matter if books are sold or shared; as long as they are read, they benefit society. Culture can be delivered in different forms,” said a woman who is a book lover and likes the sharing of books. “Compared with borrowing books from libraries, the large bookstores update their shelves more frequently, so readers can enjoy their favorite books more easily.”",
+ "rate": 165,
+ "duration": 28.034,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 7.607,
+   "text": "“It doesn't matter if books are sold or shared; as long as they are read, they benefit society."
+  },
+  {
+   "i": 1,
+   "start": 7.607,
+   "end": 16.236,
+   "text": "Culture can be delivered in different forms,” said a woman who is a book lover and likes the sharing of books."
+  },
+  {
+   "i": 2,
+   "start": 16.236,
+   "end": 28.034,
+   "text": "“Compared with borrowing books from libraries, the large bookstores update their shelves more frequently, so readers can enjoy their favorite books more easily.”"
+  }
+ ]
+}

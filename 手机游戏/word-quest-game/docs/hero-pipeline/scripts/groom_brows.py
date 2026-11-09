@@ -15,7 +15,7 @@ from mathutils.bvhtree import BVHTree
 a = sys.argv[sys.argv.index("--") + 1:]
 WHO, FIT, EXP = a[0], a[1], a[2]
 rng = np.random.default_rng(5)
-H_REAL = {"male": 1.84, "female": 1.68}[WHO]
+H_REAL = float(os.environ.get("HEIGHT_M") or {"male": 1.84, "female": 1.68}.get(WHO, 1.75))
 DENS = {"male": 1.0, "female": 0.7}[WHO]          # male lead: thick, dark, fairly straight brows
 
 body = bpy.data.objects["Human"]
@@ -93,6 +93,7 @@ cu = bpy.data.curves.new(f"{WHO}_brows", "CURVE"); cu.dimensions = "3D"
 for P in strands:
     sp = cu.splines.new("POLY"); sp.points.add(len(P) - 1)
     sp.points.foreach_set("co", np.c_[P, np.ones(len(P))].ravel().tolist())
+    sp.points.foreach_set("radius", (0.5 * 0.00008 * np.linspace(1.0, 0.3, len(P))).tolist())   # 80 um brow hair
 ob = bpy.data.objects.new(f"{WHO}_brows", cu)
 bpy.context.scene.collection.objects.link(ob)
 for o in bpy.data.objects:

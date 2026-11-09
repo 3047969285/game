@@ -70,9 +70,15 @@ def collect(acts: dict) -> list[dict]:
             for i, line in enumerate(sec["lines"]):
                 if line["kind"] in ("touch", "gap"):
                     continue  # 这些是提示/答案，不做配音
-                speaker = line.get("speaker") or ("narrator" if line["kind"] in ("narrate", "freeze") else "system")
-                rows.append(make_row(f"vo.script.{sid}.l{i:03d}", speaker, line["text"],
-                                     f"{sid} · {line['kind']} · pov={line.get('pov')} · zh: {line.get('zh', '')}",
+                epilogue = line.get("epilogue") or {}
+                text = (line.get("text") or epilogue.get("text") or "").strip()
+                if line["kind"] == "freeze" and not text:
+                    continue  # A silent visual transition has no voice line.
+                speaker = line.get("speaker") or ("old2090" if epilogue.get("voice") == "old" else
+                           "narrator" if line["kind"] in ("narrate", "freeze") else "system")
+                zh = line.get("zh") or epilogue.get("zh", "")
+                rows.append(make_row(f"vo.script.{sid}.l{i:03d}", speaker, text,
+                                     f"{sid} · {line['kind']} · pov={line.get('pov')} · zh: {zh}",
                                      EMOTION.get(line["kind"], "calm"), f"acts.json:{sid}:line{i}"))
     return rows
 

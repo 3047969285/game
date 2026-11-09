@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit04.section_a.p09",
+ "unit": 4,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Eventually, everyone has to find a job and earn a living. Laborers are slaving away at a job they don't enjoy for a monetary reward, waiting all day until they go home and play. But while laborers are counting down the hours, workers are energized and focused, taking optimum pleasure in the task at hand. By choosing a job that is both useful to society and personally fulfilling, workers maintain a simultaneous sense of purpose and enthusiasm that improves their whole lives. So in the end, whatever job you choose, you must contend with this essential question: Will you be a laborer or a worker?",
+ "rate": 165,
+ "duration": 34.017,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 3.421,
+   "text": "Eventually, everyone has to find a job and earn a living."
+  },
+  {
+   "i": 1,
+   "start": 3.421,
+   "end": 10.252,
+   "text": "Laborers are slaving away at a job they don't enjoy for a monetary reward, waiting all day until they go home and play."
+  },
+  {
+   "i": 2,
+   "start": 10.252,
+   "end": 17.489,
+   "text": "But while laborers are counting down the hours, workers are energized and focused, taking optimum pleasure in the task at hand."
+  },
+  {
+   "i": 3,
+   "start": 17.489,
+   "end": 27.06,
+   "text": "By choosing a job that is both useful to society and personally fulfilling, workers maintain a simultaneous sense of purpose and enthusiasm that improves their whole lives."
+  },
+  {
+   "i": 4,
+   "start": 27.06,
+   "end": 34.017,
+   "text": "So in the end, whatever job you choose, you must contend with this essential question: Will you be a laborer or a worker?"
+  }
+ ]
+}

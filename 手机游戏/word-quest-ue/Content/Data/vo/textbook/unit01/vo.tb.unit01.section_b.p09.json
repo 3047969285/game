@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit01.section_b.p09",
+ "unit": 1,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "As we can see, the digital revolution has changed our lives to such an extent that the way we exist as a civilization has almost completely altered with no point in history for comparison. We concede that advanced technology is probably erasing rich human relationships, but it shows no signs of slowing down. It'll continue to flourish and bring a lot of potential to transform the way we live in the foreseeable future. Are you ready for that?",
+ "rate": 165,
+ "duration": 25.633,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 10.951,
+   "text": "As we can see, the digital revolution has changed our lives to such an extent that the way we exist as a civilization has almost completely altered with no point in history for comparison."
+  },
+  {
+   "i": 1,
+   "start": 10.951,
+   "end": 18.419,
+   "text": "We concede that advanced technology is probably erasing rich human relationships, but it shows no signs of slowing down."
+  },
+  {
+   "i": 2,
+   "start": 18.419,
+   "end": 24.332,
+   "text": "It'll continue to flourish and bring a lot of potential to transform the way we live in the foreseeable future."
+  },
+  {
+   "i": 3,
+   "start": 24.332,
+   "end": 25.633,
+   "text": "Are you ready for that?"
+  }
+ ]
+}

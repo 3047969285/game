@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit04.section_b.p08",
+ "unit": 4,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "As he handed me the finished shoes, he said, “These will last a long time. I've used good leather.”",
+ "rate": 165,
+ "duration": 5.951,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.636,
+   "text": "As he handed me the finished shoes, he said, “These will last a long time."
+  },
+  {
+   "i": 1,
+   "start": 4.636,
+   "end": 5.951,
+   "text": "I've used good leather.”"
+  }
+ ]
+}

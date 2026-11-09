@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit05.section_c.p01",
+ "unit": 5,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "Over the past few years, China has made great achievements and experienced a number of breakthroughs pertaining to outer space. The Chang'e-5 mission successfully brought back samples of lunar rock. The core module of Tiangong, the space station, was launched and astronauts were sent up there. China also became just the second nation to land a rover on Mars with the Tianwen-1 mission and Zhurong probe. Furthermore, China and Russia have released a joint road map for building the International Lunar Research Station, which will be the first structures built on the moon, by 2035.",
+ "rate": 165,
+ "duration": 47.653,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 9.931,
+   "text": "Over the past few years, China has made great achievements and experienced a number of breakthroughs pertaining to outer space."
+  },
+  {
+   "i": 1,
+   "start": 9.931,
+   "end": 15.682,
+   "text": "The Chang'e-5 mission successfully brought back samples of lunar rock."
+  },
+  {
+   "i": 2,
+   "start": 15.682,
+   "end": 23.236,
+   "text": "The core module of Tiangong, the space station, was launched and astronauts were sent up there."
+  },
+  {
+   "i": 3,
+   "start": 23.236,
+   "end": 32.369,
+   "text": "China also became just the second nation to land a rover on Mars with the Tianwen-1 mission and Zhurong probe."
+  },
+  {
+   "i": 4,
+   "start": 32.369,
+   "end": 47.653,
+   "text": "Furthermore, China and Russia have released a joint road map for building the International Lunar Research Station, which will be the first structures built on the moon, by 2035."
+  }
+ ]
+}

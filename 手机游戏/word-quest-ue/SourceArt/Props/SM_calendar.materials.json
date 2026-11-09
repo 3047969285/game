@@ -1,0 +1,55 @@
+{
+ "kit": "calendar",
+ "dims_m": [
+  0.3,
+  0.019,
+  0.395
+ ],
+ "materials": {
+  "M_card": {
+   "color": "#D8D0BE",
+   "roughness": 0.9,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_paper": {
+   "color": "#EDE6D6",
+   "roughness": 0.9,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_photo": {
+   "color": "#5E7C84",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.2
+  },
+  "M_ink": {
+   "color": "#7A7466",
+   "roughness": 0.8,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_wire": {
+   "color": "#8E8F92",
+   "roughness": 0.35,
+   "metallic": 0.8,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

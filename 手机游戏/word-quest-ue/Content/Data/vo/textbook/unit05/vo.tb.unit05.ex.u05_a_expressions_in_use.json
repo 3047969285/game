@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit05.ex.u05_a_expressions_in_use",
+ "unit": 5,
+ "section": "section_a",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "6 Fill in the blanks with the expressions given below. Change the form where necessary. Each expression can be used only once.",
+ "rate": 165,
+ "duration": 10.292,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.393,
+   "text": "6 Fill in the blanks with the expressions given below."
+  },
+  {
+   "i": 1,
+   "start": 4.393,
+   "end": 6.929,
+   "text": "Change the form where necessary."
+  },
+  {
+   "i": 2,
+   "start": 6.929,
+   "end": 10.292,
+   "text": "Each expression can be used only once."
+  }
+ ]
+}

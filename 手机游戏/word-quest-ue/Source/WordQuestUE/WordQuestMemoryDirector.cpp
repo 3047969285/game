@@ -1,4 +1,7 @@
 #include "WordQuestMemoryDirector.h"
+#include "UObject/UObjectIterator.h"
+#include "WordQuestFirstPersonCharacter.h"
+#include "WordQuestNpcDirector.h"
 #include "WordQuestExerciseWidget.h"
 #include "WordQuestMemoryFragment.h"
 #include "Blueprint/UserWidget.h"
@@ -149,7 +152,7 @@ void UWordQuestMemoryDirector::EnterScene()
   AActor* Actor=*It;bool HasSet=false;
   for(FName Tag:Actor->Tags)if(Tag.ToString().StartsWith(TEXT("set:")))HasSet=true;
   if(!HasSet)continue;
-  const bool Active=Actor->ActorHasTag(Set);Actor->SetActorHiddenInGame(!Active);Actor->SetActorEnableCollision(Active);
+  const bool Active=Actor->ActorHasTag(Set);Actor->SetActorHiddenInGame(!Active);Actor->SetActorEnableCollision(Active&&!Actor->ActorHasTag(TEXT("environment:sky"))&&!Actor->ActorHasTag(TEXT("environment:fog")));
   // Hidden actors alone do not isolate global atmosphere and light proxies.
   // Mirror the checker: only the current set contributes sky/fog/light rendering.
   if(auto* Root=Actor->GetRootComponent())Root->SetVisibility(Active,true);
@@ -171,15 +174,19 @@ void UWordQuestMemoryDirector::EnterScene()
     const FVector Look(SetOffsetX+(*L)[0]->AsNumber()*100.0,(*L)[1]->AsNumber()*100.0,(*L)[2]->AsNumber()*100.0);
     const FRotator Rot=(Look-Pos).Rotation();
     if(ViewCamera){ViewCamera->Destroy();ViewCamera=nullptr;}
-    ViewCamera=GetWorld()->SpawnActor<ACameraActor>(Pos,Rot);
-    if(ViewCamera)
+    auto* Human=Cast<AWordQuestFirstPersonCharacter>(PC->GetPawn());
+    if(!Human)
     {
-     const float Fov=ShotObj->HasField(TEXT("fov"))?ShotObj->GetNumberField(TEXT("fov")):60.f;
-     if(auto* Cam=ViewCamera->GetCameraComponent()){Cam->SetFieldOfView(Fov>1?Fov:60.f);Cam->SetConstraintAspectRatio(false);}
-     if(PC->PlayerCameraManager)PC->PlayerCameraManager->SetFOV(Fov>1?Fov:60.f);
-     if(APawn* Pawn=PC->GetPawn()){Pawn->TeleportTo(Pos,Rot);PC->SetControlRotation(Rot);}
-     PC->SetViewTargetWithBlend(ViewCamera,.65f);LastPlayerPosition=Pos;
-     UE_LOG(LogTemp,Display,TEXT("[C13] view camera %s pos=%.0f,%.0f,%.0f"),*Id,Pos.X,Pos.Y,Pos.Z);
+     Human=GetWorld()->SpawnActor<AWordQuestFirstPersonCharacter>();
+     if(Human)PC->Possess(Human);
+    }
+    if(Human)
+    {
+     Human->PlaceView(FVector(Pos.X,Pos.Y,Pos.Z-(*P)[2]->AsNumber()*100.0+172.f),Rot);
+     Human->SetHorizontalFov(80.f);
+     if(PC->PlayerCameraManager)PC->PlayerCameraManager->UnlockFOV();
+     PC->SetViewTargetWithBlend(Human,0.f);LastPlayerPosition=Human->GetActorLocation();
+     UE_LOG(LogTemp,Display,TEXT("WQ_FIRST_PERSON_ENTER %s %s"),*Id,*Human->GetFirstPersonState());
     }
    }
   }
@@ -226,6 +233,7 @@ void UWordQuestMemoryDirector::UpdateLayers(float Reveal)
 void UWordQuestMemoryDirector::TickComponent(float Delta,ELevelTick Tick,FActorComponentTickFunction* Function)
 {
  Super::TickComponent(Delta,Tick,Function);if(!UI)return;
+ if(auto* Npc=GetOwner()->FindComponentByClass<UWordQuestNpcDirector>())if(Npc->IsInputActive())return;
  const float Real=FMath::Min(float(FApp::GetDeltaTime()),.1f);
  TickWorldInteraction(Real);
  if(!FadingFragments.IsEmpty())
@@ -352,6 +360,7 @@ bool UWordQuestMemoryDirector::AimAtWordTag(const FString& Word)
    Candidate.ReplaceInline(TEXT("_"),TEXT(" "));
    if(!Candidate.Equals(Word,ESearchCase::IgnoreCase)&&!Candidate.Contains(Word,ESearchCase::IgnoreCase))continue;
    FVector Origin,Extent;It->GetActorBounds(false,Origin,Extent);
+   if(auto* Human=Cast<AWordQuestFirstPersonCharacter>(PC->GetPawn())){PC->SetControlRotation((Origin-Human->GetEyeWorldLocation()).Rotation());return true;}
    if(ViewCamera){ViewCamera->SetActorRotation((Origin-ViewCamera->GetActorLocation()).Rotation());PC->SetViewTargetWithBlend(ViewCamera,0.1f);return true;}
    PC->SetControlRotation((Origin-PC->PlayerCameraManager->GetCameraLocation()).Rotation());
    return true;

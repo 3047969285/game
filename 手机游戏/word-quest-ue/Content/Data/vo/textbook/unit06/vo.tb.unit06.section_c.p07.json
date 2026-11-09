@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit06.section_c.p07",
+ "unit": 6,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "Some experts claim that some “book sharing” is just a gimmick, the same stuff with a new label. From a business perspective, they think that today's “book sharing” is no different from the book-lending services some small bookstores have long offered. This is not real sharing as long as the book-sharing services require a deposit or impose a fine.",
+ "rate": 165,
+ "duration": 26.584,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 7.133,
+   "text": "Some experts claim that some “book sharing” is just a gimmick, the same stuff with a new label."
+  },
+  {
+   "i": 1,
+   "start": 7.133,
+   "end": 18.601,
+   "text": "From a business perspective, they think that today's “book sharing” is no different from the book-lending services some small bookstores have long offered."
+  },
+  {
+   "i": 2,
+   "start": 18.601,
+   "end": 26.584,
+   "text": "This is not real sharing as long as the book-sharing services require a deposit or impose a fine."
+  }
+ ]
+}

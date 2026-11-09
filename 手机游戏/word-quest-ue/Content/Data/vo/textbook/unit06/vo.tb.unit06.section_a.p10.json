@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit06.section_a.p10",
+ "unit": 6,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Sue should have been evicted from her two-bedroom apartment for non-payment several months before she was, but, thankfully, the process was delayed by paperwork and bureaucracy. Eventually, the bureaucracy caught up with her, and she was given 10 days to leave her apartment for good. She had no choice but to comply.",
+ "rate": 165,
+ "duration": 18.051,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 10.011,
+   "text": "Sue should have been evicted from her two-bedroom apartment for non-payment several months before she was, but, thankfully, the process was delayed by paperwork and bureaucracy."
+  },
+  {
+   "i": 1,
+   "start": 10.011,
+   "end": 15.928,
+   "text": "Eventually, the bureaucracy caught up with her, and she was given 10 days to leave her apartment for good."
+  },
+  {
+   "i": 2,
+   "start": 15.928,
+   "end": 18.051,
+   "text": "She had no choice but to comply."
+  }
+ ]
+}

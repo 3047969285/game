@@ -1,4 +1,5 @@
 #include "WordQuestExerciseWidget.h"
+#include "TextureResource.h"
 #include "WordQuestMemoryDirector.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/VerticalBox.h"

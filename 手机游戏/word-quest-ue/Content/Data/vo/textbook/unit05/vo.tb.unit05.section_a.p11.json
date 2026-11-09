@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit05.section_a.p11",
+ "unit": 5,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "The accomplishments of China's space exploration have become a source of pride and growing confidence in the nation, in addition to sparking patriotic sentiments in Chinese communities across the world. Wang Yaping, the female astronaut who delivered the science lecture from space, felt overwhelmed by the number of boys and girls who wrote to her upon her return. She had never imagined that her teaching could trigger off so many dreams and aspirations. Yang Liwei recalled that during a visit to New York, a Chinese-American held his hands and tearfully told him that the nation's achievements in space reflected the fact that “our motherland has risen”, which gave Chinese people living overseas more courage and strength.",
+ "rate": 165,
+ "duration": 38.711,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 10.889,
+   "text": "The accomplishments of China's space exploration have become a source of pride and growing confidence in the nation, in addition to sparking patriotic sentiments in Chinese communities across the world."
+  },
+  {
+   "i": 1,
+   "start": 10.889,
+   "end": 19.738,
+   "text": "Wang Yaping, the female astronaut who delivered the science lecture from space, felt overwhelmed by the number of boys and girls who wrote to her upon her return."
+  },
+  {
+   "i": 2,
+   "start": 19.738,
+   "end": 24.461,
+   "text": "She had never imagined that her teaching could trigger off so many dreams and aspirations."
+  },
+  {
+   "i": 3,
+   "start": 24.461,
+   "end": 38.711,
+   "text": "Yang Liwei recalled that during a visit to New York, a Chinese-American held his hands and tearfully told him that the nation's achievements in space reflected the fact that “our motherland has risen”, which gave Chinese people living overseas more courage and strength."
+  }
+ ]
+}

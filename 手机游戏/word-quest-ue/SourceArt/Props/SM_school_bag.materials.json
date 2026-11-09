@@ -1,0 +1,37 @@
+{
+ "kit": "school_bag",
+ "dims_m": [
+  0.34,
+  0.19,
+  0.42
+ ],
+ "materials": {
+  "M_bag_fabric": {
+   "color": "#2F7D6D",
+   "roughness": 0.8,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_bag_strap": {
+   "color": "#2B2F36",
+   "roughness": 0.7,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_bag_zip": {
+   "color": "#B8BEC6",
+   "roughness": 0.3,
+   "metallic": 1.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

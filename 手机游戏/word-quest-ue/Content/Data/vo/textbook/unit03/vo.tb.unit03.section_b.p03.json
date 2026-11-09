@@ -1,0 +1,61 @@
+{
+ "line_id": "vo.tb.unit03.section_b.p03",
+ "unit": 3,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "So now you’re ready to realize your dream to explore China, and find, for yourself, the soul of the country. Unfortunately, right from the onset, none of your friends share that dream. Your sister is pregnant and can’t travel. Your best friend just got a new job and can’t take time off. So what do you do? You could ask everyone you know - friends, acquaintances, co-workers. You could join a tour. Or, you could go alone.",
+ "rate": 165,
+ "duration": 27.451,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.885,
+   "text": "So now you’re ready to realize your dream to explore China, and find, for yourself, the soul of the country."
+  },
+  {
+   "i": 1,
+   "start": 6.885,
+   "end": 11.579,
+   "text": "Unfortunately, right from the onset, none of your friends share that dream."
+  },
+  {
+   "i": 2,
+   "start": 11.579,
+   "end": 14.042,
+   "text": "Your sister is pregnant and can’t travel."
+  },
+  {
+   "i": 3,
+   "start": 14.042,
+   "end": 17.69,
+   "text": "Your best friend just got a new job and can’t take time off."
+  },
+  {
+   "i": 4,
+   "start": 17.69,
+   "end": 19.119,
+   "text": "So what do you do?"
+  },
+  {
+   "i": 5,
+   "start": 19.119,
+   "end": 24.311,
+   "text": "You could ask everyone you know - friends, acquaintances, co-workers."
+  },
+  {
+   "i": 6,
+   "start": 24.311,
+   "end": 25.66,
+   "text": "You could join a tour."
+  },
+  {
+   "i": 7,
+   "start": 25.66,
+   "end": 27.451,
+   "text": "Or, you could go alone."
+  }
+ ]
+}

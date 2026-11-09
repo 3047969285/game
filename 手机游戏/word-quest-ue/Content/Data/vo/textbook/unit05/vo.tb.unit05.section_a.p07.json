@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit05.section_a.p07",
+ "unit": 5,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "During training, to simulate weightlessness, astronauts have to wear suits that weigh 160 kg and stay underwater for about four hours. They lose an average of 2 kg during each training session, and after a session they would be too exhausted to hold chopsticks. When conducting centrifuge training, astronauts must endure a force as much as eight times their own weight so that they will be able to resist the g-forces that severely restrict the ability to breathe during lift-off. None of the astronauts has pressed the emergency button to halt the program.",
+ "rate": 165,
+ "duration": 31.407,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 8.715,
+   "text": "During training, to simulate weightlessness, astronauts have to wear suits that weigh 160 kg and stay underwater for about four hours."
+  },
+  {
+   "i": 1,
+   "start": 8.715,
+   "end": 16.004,
+   "text": "They lose an average of 2 kg during each training session, and after a session they would be too exhausted to hold chopsticks."
+  },
+  {
+   "i": 2,
+   "start": 16.004,
+   "end": 27.268,
+   "text": "When conducting centrifuge training, astronauts must endure a force as much as eight times their own weight so that they will be able to resist the g-forces that severely restrict the ability to breathe during lift-off."
+  },
+  {
+   "i": 3,
+   "start": 27.268,
+   "end": 31.407,
+   "text": "None of the astronauts has pressed the emergency button to halt the program."
+  }
+ ]
+}

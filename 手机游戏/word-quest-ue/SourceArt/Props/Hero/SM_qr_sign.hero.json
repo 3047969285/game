@@ -1,0 +1,41 @@
+{
+ "kit": "qr_sign",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_qr_sign.fbx",
+ "triangles": 2704,
+ "size_m": [
+  0.25,
+  0.02,
+  0.32
+ ],
+ "dims_target_m": [
+  0.25,
+  0.02,
+  0.32
+ ],
+ "slots": [
+  {
+   "slot": "acrylic",
+   "material": "M_acrylic",
+   "BaseColor": "T_qr_sign_acrylic_BaseColor.png",
+   "Normal": "T_qr_sign_acrylic_Normal.png",
+   "ARM": "T_qr_sign_acrylic_ARM.png"
+  },
+  {
+   "slot": "qr",
+   "material": "M_qr",
+   "BaseColor": "T_qr_sign_qr_BaseColor.png",
+   "Normal": "T_qr_sign_qr_Normal.png",
+   "ARM": "T_qr_sign_qr_ARM.png"
+  },
+  {
+   "slot": "metal",
+   "material": "M_metal",
+   "BaseColor": "T_qr_sign_metal_BaseColor.png",
+   "Normal": "T_qr_sign_metal_Normal.png",
+   "ARM": "T_qr_sign_metal_ARM.png"
+  }
+ ],
+ "texture_res": 512,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "table QR sign; printed face +Y"
+}

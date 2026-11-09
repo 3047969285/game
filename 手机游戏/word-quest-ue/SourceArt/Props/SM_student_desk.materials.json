@@ -1,0 +1,46 @@
+{
+ "kit": "student_desk",
+ "dims_m": [
+  1.2,
+  0.5,
+  0.75
+ ],
+ "materials": {
+  "M_beech": {
+   "color": "#B98A5E",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.2
+  },
+  "M_book_red": {
+   "color": "#A33B2E",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_book_blue": {
+   "color": "#2F4F7A",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_steel": {
+   "color": "#7F8A93",
+   "roughness": 0.35,
+   "metallic": 0.9,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

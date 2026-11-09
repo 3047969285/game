@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit05.section_b.p01",
+ "unit": 5,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "No wind blows and no rain falls there. Only crashing meteorites occasionally disrupt the stillness. The desolate landscape on the moon's far side has waited billions of years to see the first-ever soft landing of a visitor from the earth—Chang'e-4 from China.",
+ "rate": 165,
+ "duration": 14.704,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 2.325,
+   "text": "No wind blows and no rain falls there."
+  },
+  {
+   "i": 1,
+   "start": 2.325,
+   "end": 5.904,
+   "text": "Only crashing meteorites occasionally disrupt the stillness."
+  },
+  {
+   "i": 2,
+   "start": 5.904,
+   "end": 14.704,
+   "text": "The desolate landscape on the moon's far side has waited billions of years to see the first-ever soft landing of a visitor from the earth—Chang'e-4 from China."
+  }
+ ]
+}

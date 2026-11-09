@@ -1,0 +1,31 @@
+{
+ "garments": [
+  {
+   "name": "male_shirt",
+   "verts": 1737,
+   "faces": 1608,
+   "materials": [
+    "male_shirt_fabric",
+    "male_shirt_button"
+   ]
+  },
+  {
+   "name": "male_shoes",
+   "verts": 1722,
+   "faces": 1660,
+   "materials": [
+    "male_shoe_leather"
+   ]
+  },
+  {
+   "name": "male_trousers",
+   "verts": 1965,
+   "faces": 1787,
+   "materials": [
+    "male_trouser_fabric"
+   ]
+  }
+ ],
+ "height_m": 1.84,
+ "frame": "same as <who>_body.fbx (metres, feet at 0, face -Y)"
+}

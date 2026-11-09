@@ -19,8 +19,8 @@ class CharacterStagingTests(unittest.TestCase):
 
     def test_real_hero_alias_is_distinct_from_story_standin(self):
         self.assertEqual(resolve_cast({'role': 'me'}), ('me2026', False))
-        self.assertEqual(resolve_cast({'role': 'paul'}), ('me2026', True))
-        self.assertEqual(resolve_cast({'role': 'maria'}), ('lin', True))
+        self.assertEqual(resolve_cast({'role': 'paul'}), ('paul', False))
+        self.assertEqual(resolve_cast({'role': 'maria'}), ('maria', False))
 
     def test_unknown_role_is_deterministic_and_disclosed(self):
         first = resolve_cast({'role': 'worker_17'})

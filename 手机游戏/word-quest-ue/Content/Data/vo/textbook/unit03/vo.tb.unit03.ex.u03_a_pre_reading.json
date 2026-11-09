@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit03.ex.u03_a_pre_reading",
+ "unit": 3,
+ "section": "A",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Pre-reading activities. 1 Listen to a talk about travel and fill in the blanks with what you hear. 2 Talk about a memorable travel experience and its effect on you.",
+ "rate": 165,
+ "duration": 13.57,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 2.236,
+   "text": "Pre-reading activities."
+  },
+  {
+   "i": 1,
+   "start": 2.236,
+   "end": 7.923,
+   "text": "1 Listen to a talk about travel and fill in the blanks with what you hear."
+  },
+  {
+   "i": 2,
+   "start": 7.923,
+   "end": 13.57,
+   "text": "2 Talk about a memorable travel experience and its effect on you."
+  }
+ ]
+}

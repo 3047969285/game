@@ -1,0 +1,19 @@
+{
+ "line_id": "vo.tb.unit01.section_c.p07",
+ "unit": 1,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "Shops also accept credit cards, but not using mobile payment may be considered backward.",
+ "rate": 165,
+ "duration": 7.329,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 7.329,
+   "text": "Shops also accept credit cards, but not using mobile payment may be considered backward."
+  }
+ ]
+}

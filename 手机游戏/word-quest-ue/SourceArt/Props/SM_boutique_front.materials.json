@@ -1,0 +1,55 @@
+{
+ "kit": "boutique_front",
+ "dims_m": [
+  6.0,
+  0.41,
+  4.0
+ ],
+ "materials": {
+  "M_stone": {
+   "color": "#E8E1D6",
+   "roughness": 0.7,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.08
+  },
+  "M_awning": {
+   "color": "#1E3B33",
+   "roughness": 0.8,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_glass": {
+   "color": "#BFD9E6",
+   "roughness": 0.05,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 0.25,
+   "noise": 0.0
+  },
+  "M_frame": {
+   "color": "#1B1E22",
+   "roughness": 0.35,
+   "metallic": 0.5,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_brass": {
+   "color": "#C9A45C",
+   "roughness": 0.25,
+   "metallic": 0.9,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

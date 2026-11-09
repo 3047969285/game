@@ -1,0 +1,49 @@
+{
+ "line_id": "vo.tb.unit02.section_a.p04",
+ "unit": 2,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Zheng He was born around 1371 in Yunnan, southwestern China. As a child, he was very curious about the world. He often asked his father and grandfather, who had been to distant places, questions about their journey, along with the people and places they encountered. From a young age, he started reading books by great scholars, such as Confucius and Mencius. Later when he served in the royal court, he received military training and became a trusted assistant and adviser to the emperor. He was also in charge of palace construction and repairs, learned more about weapons, and became more knowledgeable in ship construction.",
+ "rate": 165,
+ "duration": 36.896,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.591,
+   "text": "Zheng He was born around 1371 in Yunnan, southwestern China."
+  },
+  {
+   "i": 1,
+   "start": 4.591,
+   "end": 7.758,
+   "text": "As a child, he was very curious about the world."
+  },
+  {
+   "i": 2,
+   "start": 7.758,
+   "end": 16.403,
+   "text": "He often asked his father and grandfather, who had been to distant places, questions about their journey, along with the people and places they encountered."
+  },
+  {
+   "i": 3,
+   "start": 16.403,
+   "end": 22.082,
+   "text": "From a young age, he started reading books by great scholars, such as Confucius and Mencius."
+  },
+  {
+   "i": 4,
+   "start": 22.082,
+   "end": 29.26,
+   "text": "Later when he served in the royal court, he received military training and became a trusted assistant and adviser to the emperor."
+  },
+  {
+   "i": 5,
+   "start": 29.26,
+   "end": 36.896,
+   "text": "He was also in charge of palace construction and repairs, learned more about weapons, and became more knowledgeable in ship construction."
+  }
+ ]
+}

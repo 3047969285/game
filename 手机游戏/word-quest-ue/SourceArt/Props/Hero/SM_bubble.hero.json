@@ -1,0 +1,25 @@
+{
+ "kit": "bubble",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_bubble.fbx",
+ "triangles": 32256,
+ "size_m": [
+  1.4,
+  1.4,
+  1.8
+ ],
+ "dims_target_m": [
+  1.4,
+  1.4,
+  1.8
+ ],
+ "slots": [
+  {
+   "slot": "bubble",
+   "material": "M_bubble",
+   "Material": "/Game/Memory/Materials/FX/M_MemoryBubble"
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "memory FX shell; external translucent material"
+}

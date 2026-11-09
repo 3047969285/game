@@ -1,0 +1,55 @@
+{
+ "kit": "mall_atrium",
+ "dims_m": [
+  14.0,
+  10.024,
+  9.01
+ ],
+ "materials": {
+  "M_concrete": {
+   "color": "#D8D4CC",
+   "roughness": 0.8,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.08
+  },
+  "M_floor": {
+   "color": "#B08A5E",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.1
+  },
+  "M_rail": {
+   "color": "#2A2F36",
+   "roughness": 0.4,
+   "metallic": 0.7,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_steel": {
+   "color": "#3A4048",
+   "roughness": 0.45,
+   "metallic": 0.6,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_glass": {
+   "color": "#CFE8F0",
+   "roughness": 0.05,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 0.25,
+   "noise": 0.0
+  }
+ }
+}

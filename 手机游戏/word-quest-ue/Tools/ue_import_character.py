@@ -4,11 +4,26 @@ Run the matching renderer with --grooms to build transient MHC preview bindings.
 """
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import sys
 sys.path.insert(0,str(Path(__file__).parent))
 from ue_character_common import ROOT,character_id,character_profile,export_dir,run_locked_editor
+
+def require_groom_redelivery(status_path=None):
+    text=(Path(status_path) if status_path else ROOT/'Docs/tasks/STATUS.md').read_text()
+    claude=text.split('## Claude（人物三维）',1)[1].split('## Codex',1)[0]
+    if 'Groom 重新导出完成' not in claude:
+        raise RuntimeError('Waiting for Claude: Groom 重新导出完成; do not import files being exported')
+
+def strand_width_cm(sidecar, asset):
+    # Source radius is now authored per point. A small, explicit UE diameter
+    # override provides a reproducible check, rather than trusting unit inference.
+    widths=[.00008] if asset.endswith('_brows') else sidecar.get('strand_width_m',[.00006,.00009])
+    if not widths or not all(type(w) in (int,float) and math.isfinite(w) and .00002<=w<=.0002 for w in widths):
+        raise ValueError('Implausible strand diameter in metres')
+    return sum(widths)/len(widths)*100
 
 def import_plan(cid):
     profile=character_profile(cid);who=profile['who'];folder=export_dir(cid)
@@ -22,6 +37,16 @@ def import_plan(cid):
         'conversion':{'rotation':[-90,0,0],'scale':[100,100,-100]},
         'missing_clothes':not (folder/(who+'_clothes.fbx')).exists(),
         'binding':'transient MHC preview; never persist references to transient FaceMesh'}
+
+def imports_current(cid):
+    plan=import_plan(cid)
+    for source in plan['files']:
+        stamp=ROOT/'Saved/CharacterEngine'/cid/(source['asset']+'-import.json')
+        package=ROOT/'Content'/plan['destination'].removeprefix('/Game/')/(source['asset']+'.uasset')
+        if not stamp.exists() or not package.exists():return False
+        old=json.loads(stamp.read_text())
+        if old.get('sha256')!=source['sha256'] or old.get('conversion')!=plan['conversion']:return False
+    return True
 
 def editor_import_character(unreal,cid):
     plan=import_plan(cid);assets=[]
@@ -56,11 +81,10 @@ def editor_import_character(unreal,cid):
                 lods.append(lod)
             group.set_editor_property('LODs',lods)
         groom.set_editor_property('hair_groups_lod',groups)
-        # Alembic has no authored widths/colors: apply the author's sidecar in UE units.
+        # Redelivery includes tapered point radii. Keep a checked UE diameter override.
         info_path=export_dir(cid)/(plan['profile']['who']+'_groom_info.json')
         sidecar=json.loads(info_path.read_text()) if info_path.exists() else {}
-        width_m=sidecar.get('strand_width_m',[.00006,.00009])
-        width_cm=sum(width_m)/len(width_m)*100
+        width_cm=strand_width_cm(sidecar,source['asset'])
         rendering=groom.get_editor_property('hair_groups_rendering')
         for group in rendering:
             geometry=group.get_editor_property('geometry_settings')
@@ -98,6 +122,7 @@ def editor_import_character(unreal,cid):
     return plan
 
 def editor_main(unreal):
+    require_groom_redelivery()
     cid=character_id(os.environ['WQ_CHARACTER_ID'])
     ids=['me2026','lin','mei','an','rui','organizer','old2090'] if cid=='all' else [cid]
     for item in ids:
@@ -112,6 +137,7 @@ def cli():
     if args.plan:
         ids=['me2026','lin','mei','an','rui','organizer','old2090'] if cid=='all' else [cid]
         print(json.dumps([import_plan(x) for x in ids],indent=2));return
+    require_groom_redelivery()
     binary=Path(args.engine)/'Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor'
     log=ROOT/'Saved/CharacterEngine'/cid/('import-'+uuid.uuid4().hex+'.log');log.parent.mkdir(parents=True,exist_ok=True)
     result=run_locked_editor(__file__,{'WQ_CHARACTER_ID':cid},log,args.engine)

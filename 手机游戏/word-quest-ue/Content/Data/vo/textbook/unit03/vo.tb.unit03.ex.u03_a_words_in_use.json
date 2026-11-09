@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit03.ex.u03_a_words_in_use",
+ "unit": 3,
+ "section": "A",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Words in use. Fill in the blanks with the words given below. Change the form where necessary. Each word can be used only once.",
+ "rate": 165,
+ "duration": 10.14,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 1.351,
+   "text": "Words in use."
+  },
+  {
+   "i": 1,
+   "start": 1.351,
+   "end": 4.807,
+   "text": "Fill in the blanks with the words given below."
+  },
+  {
+   "i": 2,
+   "start": 4.807,
+   "end": 7.344,
+   "text": "Change the form where necessary."
+  },
+  {
+   "i": 3,
+   "start": 7.344,
+   "end": 10.14,
+   "text": "Each word can be used only once."
+  }
+ ]
+}

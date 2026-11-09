@@ -1,0 +1,49 @@
+{
+ "line_id": "vo.tb.unit01.section_b.p06",
+ "unit": 1,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Aligned with this fashion of convenience is our leisure. In the past, holidays were invariably booked through travel agents or a dedicated provider, based upon their sales skills and packages together with brochures. Sometimes, the most unappealing destination could be made to look like a luxurious five-star resort. Now, people are a lot more discerning, thanks to the abundance of online booking sites and online reviews of every leisure facility the world over. We search the Web to find the cheapest flights and avoid extra charges. We also book accommodations based upon our requirements and check out exactly what we will do before we even arrive!",
+ "rate": 165,
+ "duration": 37.762,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 2.999,
+   "text": "Aligned with this fashion of convenience is our leisure."
+  },
+  {
+   "i": 1,
+   "start": 2.999,
+   "end": 12.232,
+   "text": "In the past, holidays were invariably booked through travel agents or a dedicated provider, based upon their sales skills and packages together with brochures."
+  },
+  {
+   "i": 2,
+   "start": 12.232,
+   "end": 18.479,
+   "text": "Sometimes, the most unappealing destination could be made to look like a luxurious five-star resort."
+  },
+  {
+   "i": 3,
+   "start": 18.479,
+   "end": 27.053,
+   "text": "Now, people are a lot more discerning, thanks to the abundance of online booking sites and online reviews of every leisure facility the world over."
+  },
+  {
+   "i": 4,
+   "start": 27.053,
+   "end": 31.235,
+   "text": "We search the Web to find the cheapest flights and avoid extra charges."
+  },
+  {
+   "i": 5,
+   "start": 31.235,
+   "end": 37.762,
+   "text": "We also book accommodations based upon our requirements and check out exactly what we will do before we even arrive!"
+  }
+ ]
+}

@@ -1,0 +1,484 @@
+[
+  {
+    "unit": 1,
+    "status": "PASS",
+    "errors": [],
+    "coverage": [
+      {
+        "section": "section_a",
+        "paragraphs": 12,
+        "covered_paragraphs": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "unplaced_paragraphs": [],
+        "referenced_exercises": [
+          "u01_a_banked_cloze",
+          "u01_a_critical",
+          "u01_a_expressions_in_use",
+          "u01_a_structure_writing",
+          "u01_a_understanding",
+          "u01_a_word_building",
+          "u01_a_words_in_use"
+        ]
+      },
+      {
+        "section": "section_b",
+        "paragraphs": 9,
+        "covered_paragraphs": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "unplaced_paragraphs": [],
+        "referenced_exercises": [
+          "u01_b_collocation",
+          "u01_b_critical",
+          "u01_b_reading_skills",
+          "u01_b_understanding"
+        ]
+      },
+      {
+        "section": "section_c",
+        "paragraphs": 10,
+        "covered_paragraphs": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "unplaced_paragraphs": [],
+        "referenced_exercises": [
+          "u01_c_translation"
+        ]
+      }
+    ],
+    "new_scene_fields": [],
+    "new_prop_fields": []
+  },
+  {
+    "unit": 2,
+    "status": "PASS",
+    "errors": [],
+    "coverage": [
+      {
+        "section": "section_a",
+        "paragraphs": 11,
+        "covered_paragraphs": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "unplaced_paragraphs": [],
+        "referenced_exercises": [
+          "u02_a_banked_cloze",
+          "u02_a_critical",
+          "u02_a_expressions_in_use",
+          "u02_a_pre_reading",
+          "u02_a_structure_analysis",
+          "u02_a_structured_writing",
+          "u02_a_understanding",
+          "u02_a_word_building",
+          "u02_a_words_in_use"
+        ]
+      },
+      {
+        "section": "section_b",
+        "paragraphs": 15,
+        "covered_paragraphs": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "unplaced_paragraphs": [],
+        "referenced_exercises": [
+          "u02_b_collocation",
+          "u02_b_critical",
+          "u02_b_reading_skills",
+          "u02_b_understanding_mcq"
+        ]
+      },
+      {
+        "section": "section_c",
+        "paragraphs": 6,
+        "covered_paragraphs": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "unplaced_paragraphs": [],
+        "referenced_exercises": [
+          "u02_c_translation"
+        ]
+      }
+    ],
+    "new_scene_fields": [],
+    "new_prop_fields": []
+  },
+  {
+    "unit": 3,
+    "status": "PASS",
+    "errors": [],
+    "coverage": [
+      {
+        "section": "section_a",
+        "paragraphs": 9,
+        "covered_paragraphs": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "unplaced_paragraphs": [],
+        "referenced_exercises": [
+          "u03_a_banked_cloze",
+          "u03_a_critical",
+          "u03_a_expressions_in_use",
+          "u03_a_pre_reading",
+          "u03_a_structure_writing",
+          "u03_a_understanding",
+          "u03_a_word_building",
+          "u03_a_words_in_use"
+        ]
+      },
+      {
+        "section": "section_b",
+        "paragraphs": 14,
+        "covered_paragraphs": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "unplaced_paragraphs": [],
+        "referenced_exercises": [
+          "u03_b_collocation",
+          "u03_b_critical",
+          "u03_b_reading_skills",
+          "u03_b_understanding"
+        ]
+      },
+      {
+        "section": "section_c",
+        "paragraphs": 6,
+        "covered_paragraphs": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "unplaced_paragraphs": [],
+        "referenced_exercises": [
+          "u03_c_translation"
+        ]
+      }
+    ],
+    "new_scene_fields": [],
+    "new_prop_fields": []
+  },
+  {
+    "unit": 4,
+    "status": "PASS",
+    "errors": [],
+    "coverage": [
+      {
+        "section": "section_a",
+        "paragraphs": 9,
+        "covered_paragraphs": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "unplaced_paragraphs": [],
+        "referenced_exercises": [
+          "u04_a_banked_cloze",
+          "u04_a_critical",
+          "u04_a_expressions_in_use",
+          "u04_a_pre_reading",
+          "u04_a_structure_writing",
+          "u04_a_understanding",
+          "u04_a_word_building",
+          "u04_a_words_in_use"
+        ]
+      },
+      {
+        "section": "section_b",
+        "paragraphs": 19,
+        "covered_paragraphs": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        "unplaced_paragraphs": [],
+        "referenced_exercises": [
+          "u04_b_collocation",
+          "u04_b_critical",
+          "u04_b_reading_skills",
+          "u04_b_understanding"
+        ]
+      },
+      {
+        "section": "section_c",
+        "paragraphs": 5,
+        "covered_paragraphs": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "unplaced_paragraphs": [],
+        "referenced_exercises": [
+          "u04_c_translation"
+        ]
+      }
+    ],
+    "new_scene_fields": [],
+    "new_prop_fields": []
+  },
+  {
+    "unit": 5,
+    "status": "PASS",
+    "errors": [],
+    "coverage": [
+      {
+        "section": "section_a",
+        "paragraphs": 12,
+        "covered_paragraphs": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "unplaced_paragraphs": [],
+        "referenced_exercises": [
+          "u05_a_banked_cloze",
+          "u05_a_critical",
+          "u05_a_expressions_in_use",
+          "u05_a_pre_reading",
+          "u05_a_structure_analysis",
+          "u05_a_structured_writing",
+          "u05_a_understanding",
+          "u05_a_word_building",
+          "u05_a_words_in_use"
+        ]
+      },
+      {
+        "section": "section_b",
+        "paragraphs": 12,
+        "covered_paragraphs": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "unplaced_paragraphs": [],
+        "referenced_exercises": [
+          "u05_b_collocation",
+          "u05_b_critical",
+          "u05_b_reading_skills",
+          "u05_b_understanding"
+        ]
+      },
+      {
+        "section": "section_c",
+        "paragraphs": 6,
+        "covered_paragraphs": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "unplaced_paragraphs": [],
+        "referenced_exercises": [
+          "u05_c_translation"
+        ]
+      }
+    ],
+    "new_scene_fields": [],
+    "new_prop_fields": []
+  },
+  {
+    "unit": 6,
+    "status": "PASS",
+    "errors": [],
+    "coverage": [
+      {
+        "section": "section_a",
+        "paragraphs": 17,
+        "covered_paragraphs": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "unplaced_paragraphs": [],
+        "referenced_exercises": [
+          "u06_a_banked_cloze",
+          "u06_a_critical",
+          "u06_a_expressions_in_use",
+          "u06_a_pre_reading",
+          "u06_a_structure_writing",
+          "u06_a_understanding",
+          "u06_a_word_building",
+          "u06_a_words_in_use"
+        ]
+      },
+      {
+        "section": "section_b",
+        "paragraphs": 8,
+        "covered_paragraphs": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "unplaced_paragraphs": [],
+        "referenced_exercises": [
+          "u06_b_collocation",
+          "u06_b_critical",
+          "u06_b_mcq",
+          "u06_b_reading_skills"
+        ]
+      },
+      {
+        "section": "section_c",
+        "paragraphs": 7,
+        "covered_paragraphs": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "unplaced_paragraphs": [],
+        "referenced_exercises": [
+          "u06_c_translation"
+        ]
+      }
+    ],
+    "new_scene_fields": [],
+    "new_prop_fields": []
+  }
+]

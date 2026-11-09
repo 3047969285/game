@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit04.section_a.p07",
+ "unit": 4,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "However, it's not necessary to take such a toxic attitude toward such a positive thing as leisure time. In fact, in many countries, people now use their leisure time to improve their minds and their working conditions to create a happier, more contented life. Lifelong learning can make the difference between being bored, unhappy laborers and workers who find meaning and joy in their employment and lives. “Continuing education” or “experiential learning” can offer an array of classes from pleasant diversions such as sports, art, or music, to leadership development or advanced accounting skills, to name but a few.",
+ "rate": 165,
+ "duration": 34.955,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.127,
+   "text": "However, it's not necessary to take such a toxic attitude toward such a positive thing as leisure time."
+  },
+  {
+   "i": 1,
+   "start": 6.127,
+   "end": 14.97,
+   "text": "In fact, in many countries, people now use their leisure time to improve their minds and their working conditions to create a happier, more contented life."
+  },
+  {
+   "i": 2,
+   "start": 14.97,
+   "end": 22.625,
+   "text": "Lifelong learning can make the difference between being bored, unhappy laborers and workers who find meaning and joy in their employment and lives."
+  },
+  {
+   "i": 3,
+   "start": 22.625,
+   "end": 34.955,
+   "text": "“Continuing education” or “experiential learning” can offer an array of classes from pleasant diversions such as sports, art, or music, to leadership development or advanced accounting skills, to name but a few."
+  }
+ ]
+}

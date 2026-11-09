@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit05.ex.u05_b_reading_skills",
+ "unit": 5,
+ "section": "section_b",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "1 Read Text B and identify the sequence of events displayed in the text. Make a timeline of China's scientific endeavors in lunar exploration.",
+ "rate": 165,
+ "duration": 12.126,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.196,
+   "text": "1 Read Text B and identify the sequence of events displayed in the text."
+  },
+  {
+   "i": 1,
+   "start": 6.196,
+   "end": 12.126,
+   "text": "Make a timeline of China's scientific endeavors in lunar exploration."
+  }
+ ]
+}

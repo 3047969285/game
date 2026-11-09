@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit04.section_b.p11",
+ "unit": 4,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "He was a tall man, bent from long years of work. What little hair he had was gray; his face was deeply lined. And, I remember best his fine dark eyes, alive with his charitable, carefree, and humorous spirit.",
+ "rate": 165,
+ "duration": 13.844,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 3.204,
+   "text": "He was a tall man, bent from long years of work."
+  },
+  {
+   "i": 1,
+   "start": 3.204,
+   "end": 7.061,
+   "text": "What little hair he had was gray; his face was deeply lined."
+  },
+  {
+   "i": 2,
+   "start": 7.061,
+   "end": 13.844,
+   "text": "And, I remember best his fine dark eyes, alive with his charitable, carefree, and humorous spirit."
+  }
+ ]
+}

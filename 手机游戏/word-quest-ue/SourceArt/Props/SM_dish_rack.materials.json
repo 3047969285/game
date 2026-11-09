@@ -1,0 +1,28 @@
+{
+ "kit": "dish_rack",
+ "dims_m": [
+  0.448,
+  0.288,
+  0.253
+ ],
+ "materials": {
+  "M_wire": {
+   "color": "#8F979E",
+   "roughness": 0.35,
+   "metallic": 0.9,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_plate": {
+   "color": "#EFEFE9",
+   "roughness": 0.2,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

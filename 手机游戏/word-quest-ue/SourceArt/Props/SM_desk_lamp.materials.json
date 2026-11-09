@@ -1,0 +1,37 @@
+{
+ "kit": "desk_lamp",
+ "dims_m": [
+  0.2,
+  0.2,
+  0.445
+ ],
+ "materials": {
+  "M_lamp_metal": {
+   "color": "#3C4048",
+   "roughness": 0.35,
+   "metallic": 0.6,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_lamp_shade": {
+   "color": "#E9E4D8",
+   "roughness": 0.7,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_lamp_bulb": {
+   "color": "#FFF1D6",
+   "roughness": 0.4,
+   "metallic": 0.0,
+   "emission": "#FFD59A",
+   "emission_strength": 8.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

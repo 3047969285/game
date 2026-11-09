@@ -1,0 +1,49 @@
+{
+ "line_id": "vo.tb.unit06.section_a.p01",
+ "unit": 6,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "The economic slump that so many people suffered through originated in the United States, with a regulatory failure of mortgages rated less risky than they turned out to be. As large numbers of homeowners proved unable to repay their loans, the companies that owned the loans (as well as their subsidiaries and shareholders) lost sizable amounts of money. The effects of these drastic losses soon spiraled into the U.S. job market as lay-offs and terminations. The rebound was slow in coming. Many people experienced long months of financial difficulties just like the character in this story.",
+ "rate": 165,
+ "duration": 32.883,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 9.449,
+   "text": "The economic slump that so many people suffered through originated in the United States, with a regulatory failure of mortgages rated less risky than they turned out to be."
+  },
+  {
+   "i": 1,
+   "start": 9.449,
+   "end": 19.627,
+   "text": "As large numbers of homeowners proved unable to repay their loans, the companies that owned the loans (as well as their subsidiaries and shareholders) lost sizable amounts of money."
+  },
+  {
+   "i": 2,
+   "start": 19.627,
+   "end": 23.318,
+   "text": "The effects of these drastic losses soon spiraled into the U.S."
+  },
+  {
+   "i": 3,
+   "start": 23.318,
+   "end": 25.657,
+   "text": "job market as lay-offs and terminations."
+  },
+  {
+   "i": 4,
+   "start": 25.657,
+   "end": 27.352,
+   "text": "The rebound was slow in coming."
+  },
+  {
+   "i": 5,
+   "start": 27.352,
+   "end": 32.883,
+   "text": "Many people experienced long months of financial difficulties just like the character in this story."
+  }
+ ]
+}

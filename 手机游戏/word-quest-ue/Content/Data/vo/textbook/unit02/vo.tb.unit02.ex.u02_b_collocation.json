@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit02.ex.u02_b_collocation",
+ "unit": 2,
+ "section": "section_b",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Collocation. Complete the following paragraphs by choosing appropriate words from the boxes. Change the form where necessary. Each word can be used only once.",
+ "rate": 165,
+ "duration": 12.672,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 1.473,
+   "text": "Collocation."
+  },
+  {
+   "i": 1,
+   "start": 1.473,
+   "end": 7.339,
+   "text": "Complete the following paragraphs by choosing appropriate words from the boxes."
+  },
+  {
+   "i": 2,
+   "start": 7.339,
+   "end": 9.875,
+   "text": "Change the form where necessary."
+  },
+  {
+   "i": 3,
+   "start": 9.875,
+   "end": 12.672,
+   "text": "Each word can be used only once."
+  }
+ ]
+}

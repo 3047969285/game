@@ -1,0 +1,28 @@
+{
+ "kit": "document_stack",
+ "dims_m": [
+  0.221,
+  0.3,
+  0.04
+ ],
+ "materials": {
+  "M_doc_folder": {
+   "color": "#D7B56D",
+   "roughness": 0.8,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_doc_paper": {
+   "color": "#F4F1EA",
+   "roughness": 0.85,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

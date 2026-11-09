@@ -1,0 +1,37 @@
+{
+ "kit": "book",
+ "dims_m": [
+  0.16,
+  0.24,
+  0.031
+ ],
+ "materials": {
+  "M_cover_teal": {
+   "color": "#2F4A5A",
+   "roughness": 0.7,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_pages": {
+   "color": "#D9CFBA",
+   "roughness": 0.85,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_ribbon": {
+   "color": "#8A3B32",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

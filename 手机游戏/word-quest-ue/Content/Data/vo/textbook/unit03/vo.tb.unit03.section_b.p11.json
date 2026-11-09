@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit03.section_b.p11",
+ "unit": 3,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "The few times I have traveled with a companion, I haven’t had the same ample opportunity to meet people. Other travelers can swap stories with you about the local folklore of the places they’ve been to and often have credible insights into the place you’re visiting. Locals are also more likely to see you as approachable and be upfront with you when you’re on your own.",
+ "rate": 165,
+ "duration": 19.415,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.919,
+   "text": "The few times I have traveled with a companion, I haven’t had the same ample opportunity to meet people."
+  },
+  {
+   "i": 1,
+   "start": 5.919,
+   "end": 14.049,
+   "text": "Other travelers can swap stories with you about the local folklore of the places they’ve been to and often have credible insights into the place you’re visiting."
+  },
+  {
+   "i": 2,
+   "start": 14.049,
+   "end": 19.415,
+   "text": "Locals are also more likely to see you as approachable and be upfront with you when you’re on your own."
+  }
+ ]
+}

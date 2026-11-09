@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit05.section_b.p08",
+ "unit": 5,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "After Chang'e-3's accomplishment, Chinese space experts aimed high to make the Chang'e-4 mission more innovative and challenging: to realize the first-ever soft-landing on the far side of the moon. In order to achieve that goal, China launched a relay satellite, named Queqiao (Magpie Bridge) after an ancient legend, to set up a communication link between the earth and the moon's far side. Chinese space experts also overcame difficulties with the rugged terrain on the far side, making the probe land on the moon with high precision.",
+ "rate": 165,
+ "duration": 31.321,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 11.35,
+   "text": "After Chang'e-3's accomplishment, Chinese space experts aimed high to make the Chang'e-4 mission more innovative and challenging: to realize the first-ever soft-landing on the far side of the moon."
+  },
+  {
+   "i": 1,
+   "start": 11.35,
+   "end": 23.254,
+   "text": "In order to achieve that goal, China launched a relay satellite, named Queqiao (Magpie Bridge) after an ancient legend, to set up a communication link between the earth and the moon's far side."
+  },
+  {
+   "i": 2,
+   "start": 23.254,
+   "end": 31.321,
+   "text": "Chinese space experts also overcame difficulties with the rugged terrain on the far side, making the probe land on the moon with high precision."
+  }
+ ]
+}

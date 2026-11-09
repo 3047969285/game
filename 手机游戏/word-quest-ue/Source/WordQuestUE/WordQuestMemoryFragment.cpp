@@ -21,7 +21,7 @@ void UWordQuestMemoryFragmentWidget::Setup(UWordQuestExerciseWidget* Controller,
  WidgetTree=NewObject<UWidgetTree>(this,TEXT("WorldMemoryTree"));
  auto* Root=WidgetTree->ConstructWidget<UBorder>();Root->SetBrushColor(FLinearColor::Transparent);Root->SetPadding(FMargin(18,12));WidgetTree->RootWidget=Root;
  const FLinearColor Ink(.925f,.929f,.898f,.94f);
- FSlateFontInfo Font(FPaths::EngineContentDir()/TEXT("Slate/Fonts/DroidSansMono.ttf"),Element.FontSize);
+ FSlateFontInfo Font(FPaths::EngineContentDir()/TEXT("Slate/Fonts/DroidSansFallback.ttf"),Element.FontSize);
  if(Element.bInput)
  {
   Editor=WidgetTree->ConstructWidget<UEditableTextBox>();Editor->SetText(FText::FromString(Element.Text));Editor->SetForegroundColor(Ink);

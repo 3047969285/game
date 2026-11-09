@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit03.section_a.p07",
+ "unit": 3,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Such cultural contrasts mean that seasoned travelers are open to ambiguity, willing to realize that there are decidedly different (and equally valid) ways of interpreting the world. This, in turn, allows them to expand the circumference of their “cognitive inputs” as they refuse to settle for their first answers and initial guesses.",
+ "rate": 165,
+ "duration": 18.298,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 10.208,
+   "text": "Such cultural contrasts mean that seasoned travelers are open to ambiguity, willing to realize that there are decidedly different (and equally valid) ways of interpreting the world."
+  },
+  {
+   "i": 1,
+   "start": 10.208,
+   "end": 18.298,
+   "text": "This, in turn, allows them to expand the circumference of their “cognitive inputs” as they refuse to settle for their first answers and initial guesses."
+  }
+ ]
+}

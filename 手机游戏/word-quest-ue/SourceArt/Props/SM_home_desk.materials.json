@@ -1,0 +1,28 @@
+{
+ "kit": "home_desk",
+ "dims_m": [
+  1.2,
+  0.62,
+  0.75
+ ],
+ "materials": {
+  "M_home_wood": {
+   "color": "#D9B98C",
+   "roughness": 0.55,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.15
+  },
+  "M_home_metal": {
+   "color": "#4A4F57",
+   "roughness": 0.4,
+   "metallic": 0.6,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

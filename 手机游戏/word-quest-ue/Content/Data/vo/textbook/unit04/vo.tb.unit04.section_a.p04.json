@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit04.section_a.p04",
+ "unit": 4,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Whether people are workers or laborers can be seen from their attitude toward leisure. To workers, leisure means simply the hours they need to relax and rest in order to work efficiently. Workers are therefore more likely to dedicate more time to working, taking too little leisure rather than too much. To laborers, on the other hand, leisure means autonomy from compulsion, so it is natural for them to imagine that the fewer hours they have to spend laboring, and the more hours they have free for play, the better.",
+ "rate": 165,
+ "duration": 27.81,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.333,
+   "text": "Whether people are workers or laborers can be seen from their attitude toward leisure."
+  },
+  {
+   "i": 1,
+   "start": 4.333,
+   "end": 9.754,
+   "text": "To workers, leisure means simply the hours they need to relax and rest in order to work efficiently."
+  },
+  {
+   "i": 2,
+   "start": 9.754,
+   "end": 16.002,
+   "text": "Workers are therefore more likely to dedicate more time to working, taking too little leisure rather than too much."
+  },
+  {
+   "i": 3,
+   "start": 16.002,
+   "end": 27.81,
+   "text": "To laborers, on the other hand, leisure means autonomy from compulsion, so it is natural for them to imagine that the fewer hours they have to spend laboring, and the more hours they have free for play, the better."
+  }
+ ]
+}

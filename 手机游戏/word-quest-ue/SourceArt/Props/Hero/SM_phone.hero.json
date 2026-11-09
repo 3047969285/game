@@ -1,0 +1,75 @@
+{
+ "kit": "phone",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_phone.fbx",
+ "triangles": 33350,
+ "size_m": [
+  0.0736,
+  0.1477,
+  0.0138
+ ],
+ "dims_target_m": [
+  0.075,
+  0.155,
+  0.009
+ ],
+ "slots": [
+  {
+   "slot": "backglass",
+   "material": "M_backglass",
+   "BaseColor": "T_phone_backglass_BaseColor.png",
+   "Normal": "T_phone_backglass_Normal.png",
+   "ARM": "T_phone_backglass_ARM.png"
+  },
+  {
+   "slot": "frame",
+   "material": "M_frame",
+   "BaseColor": "T_phone_frame_BaseColor.png",
+   "Normal": "T_phone_frame_Normal.png",
+   "ARM": "T_phone_frame_ARM.png"
+  },
+  {
+   "slot": "frontglass",
+   "material": "M_frontglass",
+   "BaseColor": "T_phone_frontglass_BaseColor.png",
+   "Normal": "T_phone_frontglass_Normal.png",
+   "ARM": "T_phone_frontglass_ARM.png"
+  },
+  {
+   "slot": "screen",
+   "material": "M_screen",
+   "Emissive": "phone_lock.png",
+   "strength": 1.6
+  },
+  {
+   "slot": "antenna",
+   "material": "M_antenna",
+   "BaseColor": "T_phone_antenna_BaseColor.png",
+   "Normal": "T_phone_antenna_Normal.png",
+   "ARM": "T_phone_antenna_ARM.png"
+  },
+  {
+   "slot": "port",
+   "material": "M_port",
+   "BaseColor": "T_phone_port_BaseColor.png",
+   "Normal": "T_phone_port_Normal.png",
+   "ARM": "T_phone_port_ARM.png"
+  },
+  {
+   "slot": "lensring",
+   "material": "M_lensring",
+   "BaseColor": "T_phone_lensring_BaseColor.png",
+   "Normal": "T_phone_lensring_Normal.png",
+   "ARM": "T_phone_lensring_ARM.png"
+  },
+  {
+   "slot": "lens",
+   "material": "M_lens",
+   "BaseColor": "T_phone_lens_BaseColor.png",
+   "Normal": "T_phone_lens_Normal.png",
+   "ARM": "T_phone_lens_ARM.png"
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "lying screen-up, tilted onto the camera plateau"
+}

@@ -1,0 +1,28 @@
+{
+ "kit": "office_desk",
+ "dims_m": [
+  1.4,
+  0.755,
+  0.75
+ ],
+ "materials": {
+  "M_desk_wood": {
+   "color": "#8C6A4C",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.2
+  },
+  "M_desk_metal": {
+   "color": "#7D8390",
+   "roughness": 0.35,
+   "metallic": 1.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

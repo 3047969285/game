@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit01.section_c.p01",
+ "unit": 1,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "No cash? Your smartphone will do nicely. Chinese consumers who are used to spending their cash on technology are increasingly relying on a tech solution to pay for just about anything, from breakfast to booking a vacation.",
+ "rate": 165,
+ "duration": 17.871,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 1.085,
+   "text": "No cash?"
+  },
+  {
+   "i": 1,
+   "start": 1.085,
+   "end": 3.535,
+   "text": "Your smartphone will do nicely."
+  },
+  {
+   "i": 2,
+   "start": 3.535,
+   "end": 17.871,
+   "text": "Chinese consumers who are used to spending their cash on technology are increasingly relying on a tech solution to pay for just about anything, from breakfast to booking a vacation."
+  }
+ ]
+}

@@ -1,0 +1,19 @@
+{
+ "line_id": "vo.tb.unit06.section_a.p02",
+ "unit": 6,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Facing tenant eviction after several months of unpaid rent, Sue Johnson packed up whatever she could fit into her two-door automobile and drove out of town.",
+ "rate": 165,
+ "duration": 8.454,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 8.454,
+   "text": "Facing tenant eviction after several months of unpaid rent, Sue Johnson packed up whatever she could fit into her two-door automobile and drove out of town."
+  }
+ ]
+}

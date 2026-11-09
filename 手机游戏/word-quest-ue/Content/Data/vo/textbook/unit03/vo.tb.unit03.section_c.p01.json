@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit03.section_c.p01",
+ "unit": 3,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "Zhang Guangzhu and his wife Wang Zhongjin have set foot on every continent, even Antarctica. In their global escapades (adventures), they’ve filled many passports with travel visas and customs stamps from dozens of countries. Travels of this sort, daunting (intimidating) for even the most experienced travelers, require a young heart and youthful vigor - and yet Zhang and Wang are in their 60s, retired, and making the most of their free time in their post-career life.",
+ "rate": 165,
+ "duration": 37.25,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 7.243,
+   "text": "Zhang Guangzhu and his wife Wang Zhongjin have set foot on every continent, even Antarctica."
+  },
+  {
+   "i": 1,
+   "start": 7.243,
+   "end": 17.601,
+   "text": "In their global escapades (adventures), they’ve filled many passports with travel visas and customs stamps from dozens of countries."
+  },
+  {
+   "i": 2,
+   "start": 17.601,
+   "end": 37.25,
+   "text": "Travels of this sort, daunting (intimidating) for even the most experienced travelers, require a young heart and youthful vigor - and yet Zhang and Wang are in their 60s, retired, and making the most of their free time in their post-career life."
+  }
+ ]
+}

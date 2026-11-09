@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit03.section_b.p10",
+ "unit": 3,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Having a companion might have helped safeguard me from some of those problems. But it would have suppressed other opportunities - a long afternoon in Thailand all alone in the back of a hay wagon and then seven days in the back of a truck with a Brit, two Aussies, and two Norwegians! Eating ethnic food on my way through eastern South Korea with four youthful Japanese salarymen. Getting sick in Italy, and being nursed with chocolate bars and tissues by a couple from the U.S.",
+ "rate": 165,
+ "duration": 25.611,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.22,
+   "text": "Having a companion might have helped safeguard me from some of those problems."
+  },
+  {
+   "i": 1,
+   "start": 4.22,
+   "end": 14.81,
+   "text": "But it would have suppressed other opportunities - a long afternoon in Thailand all alone in the back of a hay wagon and then seven days in the back of a truck with a Brit, two Aussies, and two Norwegians!"
+  },
+  {
+   "i": 2,
+   "start": 14.81,
+   "end": 20.071,
+   "text": "Eating ethnic food on my way through eastern South Korea with four youthful Japanese salarymen."
+  },
+  {
+   "i": 3,
+   "start": 20.071,
+   "end": 25.611,
+   "text": "Getting sick in Italy, and being nursed with chocolate bars and tissues by a couple from the U.S."
+  }
+ ]
+}

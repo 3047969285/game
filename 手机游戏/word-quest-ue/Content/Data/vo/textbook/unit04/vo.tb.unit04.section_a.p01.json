@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit04.section_a.p01",
+ "unit": 4,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "To be truly happy a person must feel both free and important. People are never happy if they feel compelled to do work they do not enjoy, or if what they do enjoy is ignored as having no value or importance. In a society where slavery in the strict sense has been abolished, the social implications around work, the value of work, and the salary, have degraded many laborers into modern slaves - “wage slaves”.",
+ "rate": 165,
+ "duration": 23.679,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 3.576,
+   "text": "To be truly happy a person must feel both free and important."
+  },
+  {
+   "i": 1,
+   "start": 3.576,
+   "end": 11.596,
+   "text": "People are never happy if they feel compelled to do work they do not enjoy, or if what they do enjoy is ignored as having no value or importance."
+  },
+  {
+   "i": 2,
+   "start": 11.596,
+   "end": 23.679,
+   "text": "In a society where slavery in the strict sense has been abolished, the social implications around work, the value of work, and the salary, have degraded many laborers into modern slaves - “wage slaves”."
+  }
+ ]
+}

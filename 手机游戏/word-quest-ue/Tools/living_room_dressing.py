@@ -65,7 +65,19 @@ def derive_room_dressing(scene, mapping_doc):
         if any(math.hypot(x-p['pos'][0],y-p['pos'][1])<.35 for p in existing_chairs): continue
         add('seat_'+person['role'],kits.get('chair',{}).get('asset'),
             [x,y,0],.8,yaw=person.get('yaw',0))
-    # Fill the actual shelf TOP now; interior levels remain unresolved until traced.
+    # Shelf-board heights are measured from the delivered Poly Haven glTF mesh,
+    # in metres above its base. Keep books inside the actual shelf footprint.
+    for row, height in enumerate((.11, .39, .67, .96, 1.28, 1.66)):
+        for group, start_x in enumerate((-.48, .12)):
+            for index in range(5):
+                name = f'shelf_inside_{row}_{group}_{index}'
+                book = 1 + (row * 10 + group * 5 + index) % 20
+                add(name, _mesh('book_encyclopedia_set_01',
+                    f'book_encyclopedia_set_01_book{book:02d}'),
+                    [start_x + index * .038, -.08, .003], .20 if row == 0 else .23,
+                    yaw=0, support=f'shelf_level_{row}')
+                result['items'][-1]['shelf_relative'] = True
+    # Fill the actual shelf top separately.
     for n in range(6):
         add(f'shelf_top_book_{n}',_mesh('book_encyclopedia_set_01',
             f'book_encyclopedia_set_01_book{n+1:02d}'),
@@ -73,7 +85,6 @@ def derive_room_dressing(scene, mapping_doc):
     result['missing'].extend([
         {'id':'curtains','reason':'No delivered complete curtain asset; do not substitute a slab'},
         {'id':'family_photographs','reason':'Frames available; authored family image inserts still needed'},
-        {'id':'shelf_interior_books','reason':'Shelf board support heights require mesh inspection before placing books'},
     ])
     return result
 
@@ -87,7 +98,7 @@ def bottom_aligned_location(pos_cm, origin, extent, scale, yaw):
             pos_cm[2]-(origin[2]-extent[2])*scale]
 
 
-def spawn_room_dressing(u, spawn, scene, mapping_doc):
+def spawn_room_dressing(u, spawn, scene, mapping_doc, only_ids=None):
     """spawn(cls,label,world_cm,tags) -> actor; result includes real delivery failures.
 
     All component pieces share assembly transform; parents' measured bounds top
@@ -96,15 +107,23 @@ def spawn_room_dressing(u, spawn, scene, mapping_doc):
     plan=derive_room_dressing(scene,mapping_doc)
     result={'spawned':[], 'missing':list(plan['missing'])}
     supports={}
+    shelf=None
     if scene.get('id')=='u01a_s1':
         eas=u.get_editor_subsystem(u.EditorActorSubsystem)
         shelves=[a for a in eas.get_all_level_actors()
                  if a.actor_has_tag('set:'+scene['id']) and a.actor_has_tag('kit:bookshelf')]
         if len(shelves)==1:
-            centre,extent=shelves[0].get_actor_bounds(False)
+            shelf=shelves[0]
+            centre,extent=shelf.get_actor_bounds(False)
             supports['existing_bookshelf']=float(centre.z+extent.z)
+            base=shelf.get_actor_location().z
+            scale=shelf.get_actor_scale3d().z
+            for index,height in enumerate((.11, .39, .67, .96, 1.28, 1.66)):
+                supports[f'shelf_level_{index}']=float(base+height*100*scale)
     origin=scene.get('origin',[0,0,0])
     for item in plan['items']:
+        if only_ids is not None and item['id'] not in only_ids:
+            continue
         meshes=[u.load_asset(path) for path in item['parts']]
         if any(m is None for m in meshes):
             result['missing'].append({'id':item['id'],'reason':'one or more final assembly meshes not loadable'})
@@ -122,6 +141,14 @@ def spawn_room_dressing(u, spawn, scene, mapping_doc):
             continue
         scale=item['target_max_m']*100/(2*max(extent))
         loc=[(a+b)*100 for a,b in zip(origin,item['pos'])]
+        if item.get('shelf_relative'):
+            if shelf is None:
+                result['missing'].append({'id':item['id'],'reason':'shelf unavailable'})
+                continue
+            point=u.MathLibrary.transform_location(shelf.get_actor_transform(),
+                u.Vector(item['pos'][0]*100,item['pos'][1]*100,0))
+            loc[0],loc[1]=point.x,point.y
+            item['yaw']+=shelf.get_actor_rotation().yaw
         if item['support']:
             loc[2]=supports[item['support']]+item['pos'][2]*100
         loc=bottom_aligned_location(loc,centre,extent,scale,item['yaw'])

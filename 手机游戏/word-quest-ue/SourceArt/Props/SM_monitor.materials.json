@@ -1,0 +1,46 @@
+{
+ "kit": "monitor",
+ "dims_m": [
+  0.55,
+  0.2,
+  0.45
+ ],
+ "materials": {
+  "M_monitor_stand": {
+   "color": "#2E333B",
+   "roughness": 0.45,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_monitor_bezel": {
+   "color": "#1E2228",
+   "roughness": 0.4,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_monitor_screen_glass": {
+   "color": "#0A0E14",
+   "roughness": 0.15,
+   "metallic": 0.0,
+   "emission": "#9FC4E8",
+   "emission_strength": 0.6,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_monitor_ui": {
+   "color": "#0A0E14",
+   "roughness": 0.15,
+   "metallic": 0.0,
+   "emission": "#9FC4E8",
+   "emission_strength": 1.8,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

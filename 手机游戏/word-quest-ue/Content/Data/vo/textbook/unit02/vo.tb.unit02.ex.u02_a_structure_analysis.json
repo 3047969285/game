@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit02.ex.u02_a_structure_analysis",
+ "unit": 2,
+ "section": "section_a",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Structure analysis: Developing a biographical narrative essay. Study how Text A (Paras. 4-8) presents Zheng He's life in chronological order, using time order signals, and then apply the five steps to develop your own biographical narrative essay.",
+ "rate": 165,
+ "duration": 21.364,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.537,
+   "text": "Structure analysis: Developing a biographical narrative essay."
+  },
+  {
+   "i": 1,
+   "start": 5.537,
+   "end": 8.08,
+   "text": "Study how Text A (Paras."
+  },
+  {
+   "i": 2,
+   "start": 8.08,
+   "end": 21.364,
+   "text": "4-8) presents Zheng He's life in chronological order, using time order signals, and then apply the five steps to develop your own biographical narrative essay."
+  }
+ ]
+}

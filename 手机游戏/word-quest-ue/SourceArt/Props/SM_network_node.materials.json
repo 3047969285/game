@@ -1,0 +1,19 @@
+{
+ "kit": "network_node",
+ "dims_m": [
+  0.272,
+  0.312,
+  0.303
+ ],
+ "materials": {
+  "M_node": {
+   "color": "#0B1418",
+   "roughness": 0.3,
+   "metallic": 0.0,
+   "emission": "#B8D1D5",
+   "emission_strength": 3.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

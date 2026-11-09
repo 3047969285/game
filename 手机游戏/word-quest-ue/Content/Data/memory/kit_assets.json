@@ -1,0 +1,1020 @@
+{
+ "schema": "wordquest.kit_assets/1",
+ "note": "kit -> final asset. source: fab = Megascans/Fab scanned asset (fill 'asset' after download); surface = code geometry with Fab scanned surface materials; code = code-built final (Docs/quality-bar.md §2 applies). Until 'asset' is set, the builder falls back to /Game/Memory/Props/SM_<kit> and tags needs_final_asset.",
+ "kits": {
+  "arcade_cabinet": {
+   "source": "fab",
+   "search": "arcade machine",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "armchair": {
+   "source": "polyhaven",
+   "search": "armchair fabric",
+   "asset": "/Game/PolyHaven/Models/modern_arm_chair_01/modern_arm_chair_01_2k/StaticMeshes/modern_arm_chair_01_2k",
+   "scale": 0.977659,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "modern_arm_chair_01",
+   "scale_base": 1.0
+  },
+  "bank_counter": {
+   "source": "fab",
+   "search": "bank counter teller",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "bench": {
+   "source": "polyhaven",
+   "search": "park bench",
+   "asset": "/Game/PolyHaven/Models/painted_wooden_bench/painted_wooden_bench_2k/StaticMeshes/painted_wooden_bench_2k",
+   "scale": 1.373457,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "painted_wooden_bench",
+   "scale_base": 1.0
+  },
+  "bike_rack": {
+   "source": "fab",
+   "search": "bike rack",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "blackboard": {
+   "source": "code_hero",
+   "search": "blackboard chalkboard",
+   "asset": "/Game/Memory/Props/Hero/SM_blackboard",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "standing_chalkboard_01",
+   "scale_base": 1.0,
+   "rejected": {
+    "asset": "/Game/PolyHaven/Models/standing_chalkboard_01/standing_chalkboard_01_2k/StaticMeshes/standing_chalkboard_01_2k",
+    "scale": 2.385635,
+    "by": "Claude 2026-10-23",
+    "why": "semantic mismatch or absurd scale; worse than a placeholder"
+   },
+   "quality_verified": false,
+   "note": "Claude hero prop (Tools/props/hero_blackboard.py), baked PBR"
+  },
+  "blinds": {
+   "source": "fab",
+   "search": "window blinds",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "board_table": {
+   "source": "fab",
+   "search": "conference table",
+   "asset": "/Game/Fab/Conference_Meeting_Table_and_Chairs/conference_meeting_table_and_chairs/StaticMeshes/conference_meeting_table_and_chairs",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "book": {
+   "source": "fab",
+   "search": "book closed",
+   "asset": "/Game/PolyHaven/Models/decorative_book_set_01/book_softcover_01_cover611",
+   "scale": 1.053405,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "decorative_book_set_01",
+   "scale_base": 1.0
+  },
+  "bookshelf": {
+   "source": "polyhaven",
+   "search": "bookshelf books",
+   "asset": "/Game/PolyHaven/Models/wooden_bookshelf_worn/wooden_bookshelf_worn_2k/StaticMeshes/wooden_bookshelf_worn_2k",
+   "scale": 0.969254,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "wooden_bookshelf_worn",
+   "scale_base": 1.0
+  },
+  "boutique_front": {
+   "source": "fab",
+   "search": "boutique storefront",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "brochure_rack": {
+   "source": "fab",
+   "search": "brochure stand",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "bubble": {
+   "source": "code_hero",
+   "search": "fx",
+   "asset": "/Game/Memory/Props/Hero/SM_bubble",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {},
+   "quality_verified": false,
+   "note": "Claude memory FX shell (Tools/props/hero_bubble.py) + M_MemoryBubble"
+  },
+  "cafe_table": {
+   "source": "polyhaven",
+   "search": "cafe table round",
+   "asset": "/Game/PolyHaven/Models/round_wooden_table_01/round_wooden_table_01_2k/StaticMeshes/round_wooden_table_01",
+   "scale": 0.528817,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "round_wooden_table_01",
+   "scale_base": 1.0
+  },
+  "calendar": {
+   "source": "code_hero",
+   "search": "paper surface",
+   "asset": "/Game/Memory/Props/Hero/SM_calendar",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {},
+   "quality_verified": false,
+   "note": "Claude hero prop (Tools/props/hero_calendar.py), baked PBR"
+  },
+  "car": {
+   "source": "fab",
+   "search": "sedan car",
+   "asset": "/Game/Fab/Generic_Sedan_Car/generic_sedan_car/StaticMeshes/generic_sedan_car",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "car_interior": {
+   "source": "fab",
+   "search": "car interior",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "chair": {
+   "source": "polyhaven",
+   "search": "wooden chair",
+   "asset": "/Game/PolyHaven/Models/WoodenChair_01/WoodenChair_01_2k/StaticMeshes/WoodenChair_01_2k",
+   "scale": 0.395863,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "WoodenChair_01",
+   "scale_base": 1.0
+  },
+  "chalk_tray": {
+   "source": "fab",
+   "search": "chalk",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "checkout_counter": {
+   "source": "polyhaven",
+   "search": "checkout counter supermarket",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "CashRegister_01",
+   "scale_base": 1.0,
+   "rejected": {
+    "asset": "/Game/PolyHaven/Models/CashRegister_01/CashRegister_01_2k/StaticMeshes/CashRegister_01_body",
+    "scale": 2.896891,
+    "by": "Claude 2026-10-23",
+    "why": "semantic mismatch or absurd scale; worse than a placeholder"
+   }
+  },
+  "chess_set": {
+   "source": "code_hero",
+   "search": "chess board pieces",
+   "asset": "/Game/Memory/Props/Hero/SM_chess_set",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "chess_set",
+   "scale_base": 1.0,
+   "rejected": {
+    "asset": "/Game/PolyHaven/Models/chess_set/chess_set_2k/StaticMeshes/piece_knight_white_01",
+    "scale": 6.000113,
+    "by": "Claude 2026-10-23",
+    "why": "semantic mismatch or absurd scale; worse than a placeholder"
+   },
+   "quality_verified": false,
+   "note": "Claude hero prop (Tools/props/hero_chess_set.py), baked PBR"
+  },
+  "city_skyline": {
+   "source": "code_hero",
+   "search": "city buildings",
+   "asset": "/Game/Memory/Props/Hero/SM_city_skyline",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {},
+   "quality_verified": false,
+   "note": "Claude hero prop (forced-perspective skyline)"
+  },
+  "cockpit_console": {
+   "source": "code",
+   "search": "sci-fi console",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "coffee_cup": {
+   "source": "polyhaven",
+   "search": "coffee mug",
+   "asset": "/Game/PolyHaven/Models/tea_set_01/tea_set_01_2k/StaticMeshes/tea_set_01_teapot_01",
+   "scale": 0.373421,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "tea_set_01",
+   "scale_base": 1.0
+  },
+  "coffee_table": {
+   "source": "polyhaven",
+   "search": "coffee table wood",
+   "asset": "/Game/PolyHaven/Models/modern_coffee_table_01/modern_coffee_table_01_2k/StaticMeshes/modern_coffee_table_01_2k",
+   "scale": 0.915271,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "modern_coffee_table_01",
+   "scale_base": 1.0
+  },
+  "coupon_card": {
+   "source": "code",
+   "search": "paper card",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "cubicle": {
+   "source": "fab",
+   "search": "office cubicle partition",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "dashboard_screen": {
+   "source": "code",
+   "search": "screen",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "desk_lamp": {
+   "source": "polyhaven",
+   "search": "desk lamp",
+   "asset": "/Game/PolyHaven/Models/desk_lamp_arm_01/desk_lamp_arm_01_2k/StaticMeshes/desk_lamp_arm_01_2k",
+   "scale": 0.504139,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "desk_lamp_arm_01",
+   "scale_base": 1.0
+  },
+  "device_box": {
+   "source": "fab",
+   "search": "wooden box small",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "dining_table": {
+   "source": "polyhaven",
+   "search": "dining table wood",
+   "asset": "/Game/PolyHaven/Models/dining_table/dining_table_2k/StaticMeshes/dining_table_cloth",
+   "scale": 0.797909,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "dining_table",
+   "scale_base": 1.0
+  },
+  "dish_rack": {
+   "source": "fab",
+   "search": "dish rack plates",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "document_stack": {
+   "source": "polyhaven",
+   "search": "paper stack documents",
+   "asset": "/Game/PolyHaven/Models/office_notepads/office_notepads_2k/StaticMeshes/office_notepads_yellow_sheet",
+   "scale": 0.976118,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "office_notepads",
+   "scale_base": 1.0
+  },
+  "door": {
+   "source": "fab",
+   "search": "interior door",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "duster": {
+   "source": "fab",
+   "search": "chalkboard eraser",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "floor_lamp": {
+   "source": "code_hero",
+   "search": "floor lamp",
+   "asset": "/Game/Memory/Props/Hero/SM_floor_lamp",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {},
+   "quality_verified": false,
+   "note": "Claude hero prop (Tools/props/hero_floor_lamp.py), baked PBR"
+  },
+  "game_console": {
+   "source": "polyhaven",
+   "search": "handheld console",
+   "asset": "/Game/PolyHaven/Models/gaming_console/gaming_console_2k/StaticMeshes/gaming_console",
+   "scale": 0.492292,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "gaming_console",
+   "scale_base": 1.0
+  },
+  "glass_building": {
+   "source": "fab",
+   "search": "modern office building",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "griddle": {
+   "source": "fab",
+   "search": "griddle iron",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "headphones": {
+   "source": "fab",
+   "search": "headphones over ear",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "home_desk": {
+   "source": "code_hero",
+   "search": "desk wooden",
+   "asset": "/Game/Memory/Props/Hero/SM_home_desk",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {},
+   "quality_verified": false,
+   "note": "Claude hero prop (Tools/props/hero_home_desk.py), baked PBR"
+  },
+  "hutong_wall": {
+   "source": "code_arch",
+   "polyhaven": "modular_urban_apartments_facade",
+   "search": "grey brick wall chinese",
+   "asset": "/Game/Memory/Props/Hero/SM_arch_box",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {
+    "0": "/Game/Memory/Materials/Arch/MI_Arch_brick_grey"
+   },
+   "scale_base": 1.0,
+   "rejected": {
+    "asset": "/Game/PolyHaven/Models/modular_urban_apartments_facade/modular_urban_apartments_facade_2k/StaticMeshes/crown_standard_corner_large_01",
+    "scale": 2.402401,
+    "by": "Claude 2026-10-23",
+    "why": "semantic mismatch or absurd scale; worse than a placeholder"
+   },
+   "fit": "size",
+   "quality_verified": false,
+   "note": "world-aligned brick_grey on the unit box (Tools/make_arch_materials.py)"
+  },
+  "interactive_board": {
+   "source": "code",
+   "search": "interactive whiteboard",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "jar": {
+   "source": "polyhaven",
+   "search": "glass jar",
+   "asset": "/Game/PolyHaven/Models/jug_01/jug_01_2k/StaticMeshes/jug_01_2k",
+   "scale": 0.653781,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "jug_01",
+   "scale_base": 1.0
+  },
+  "jianbing_cart": {
+   "source": "code",
+   "search": "food cart",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "keyboard": {
+   "source": "fab",
+   "search": "computer keyboard",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "kitchen_counter": {
+   "source": "code_hero",
+   "search": "kitchen counter cabinets",
+   "asset": "/Game/Memory/Props/Hero/SM_kitchen_counter",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "modern_wooden_cabinet",
+   "scale_base": 1.0,
+   "rejected": {
+    "asset": "/Game/PolyHaven/Models/modern_wooden_cabinet/modern_wooden_cabinet_2k/StaticMeshes/modern_wooden_cabinet_door_l",
+    "scale": 2.017287,
+    "by": "Claude 2026-10-23",
+    "why": "semantic mismatch or absurd scale; worse than a placeholder"
+   },
+   "quality_verified": false,
+   "note": "Claude hero prop (Tools/props/hero_kitchen_counter.py), baked PBR"
+  },
+  "laptop": {
+   "source": "polyhaven",
+   "search": "laptop",
+   "asset": "/Game/PolyHaven/Models/classic_laptop/classic_laptop_2k/StaticMeshes/classic_laptop",
+   "scale": 0.490847,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "classic_laptop",
+   "scale_base": 1.0
+  },
+  "lawn": {
+   "source": "code_arch",
+   "search": "grass lawn",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {},
+   "quality_verified": false,
+   "note": "world-aligned CC0 scan grass",
+   "pending": {
+    "asset": "/Game/Memory/Props/Hero/SM_arch_box",
+    "materials": {
+     "0": "/Game/Memory/Materials/Arch/MI_Arch_grass"
+    },
+    "why": "scan textures not imported yet (ph_import failed 15:17)"
+   }
+  },
+  "library_shelf": {
+   "source": "polyhaven",
+   "polyhaven": "wooden_bookshelf_worn",
+   "search": "library bookshelf",
+   "asset": "/Game/PolyHaven/Models/wooden_bookshelf_worn/wooden_bookshelf_worn_2k/StaticMeshes/wooden_bookshelf_worn_2k",
+   "scale": 1.453881,
+   "yaw_offset": 0,
+   "materials": {},
+   "scale_base": 1.0
+  },
+  "mall_atrium": {
+   "source": "surface",
+   "search": "polished floor tiles mall",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {
+    "0": "/Game/PolyHaven/Materials/marble_01/MI_marble_01"
+   }
+  },
+  "market_shelf": {
+   "source": "code_hero",
+   "search": "supermarket shelf products",
+   "asset": "/Game/Memory/Props/Hero/SM_market_shelf",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "steel_frame_shelves_01",
+   "scale_base": 1.0,
+   "rejected": {
+    "asset": "/Game/PolyHaven/Models/steel_frame_shelves_01/steel_frame_shelves_01_2k/StaticMeshes/steel_frame_shelves_01_2k",
+    "scale": 0.093436,
+    "by": "Claude 2026-10-23",
+    "why": "semantic mismatch or absurd scale; worse than a placeholder"
+   },
+   "quality_verified": false,
+   "note": "Claude hero prop (Tools/props/hero_market_shelf.py), baked PBR"
+  },
+  "message_drop": {
+   "source": "code",
+   "search": "fx",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "monitor": {
+   "source": "code_hero",
+   "search": "computer monitor",
+   "asset": "/Game/Memory/Props/Hero/SM_monitor",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {},
+   "quality_verified": false,
+   "note": "Claude hero prop (Tools/props/hero_monitor.py), baked PBR"
+  },
+  "network_node": {
+   "source": "code",
+   "search": "fx",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "newsstand": {
+   "source": "fab",
+   "search": "newsstand kiosk",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "notebook": {
+   "source": "polyhaven",
+   "search": "spiral notebook",
+   "asset": "/Game/PolyHaven/Models/office_notepads/office_notepads_2k/StaticMeshes/office_notepads_yellow_sheet",
+   "scale": 0.780894,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "office_notepads",
+   "scale_base": 1.0
+  },
+  "office_chair": {
+   "source": "fab",
+   "search": "office chair",
+   "asset": "/Game/Fab/Executive_Office_Chair/executive_office_chair1",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "office_desk": {
+   "source": "polyhaven",
+   "search": "office desk",
+   "asset": "/Game/PolyHaven/Models/metal_office_desk/metal_office_desk_2k/StaticMeshes/metal_office_desk",
+   "scale": 0.7,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "metal_office_desk",
+   "scale_base": 1.0
+  },
+  "payment_sign": {
+   "source": "code",
+   "search": "QR payment sign",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "phone": {
+   "source": "code_hero",
+   "search": "smartphone",
+   "asset": "/Game/Memory/Props/Hero/SM_phone",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {},
+   "quality_verified": false,
+   "note": "Claude hero prop (Tools/props/hero_phone.py), baked 2K PBR"
+  },
+  "phone_basket": {
+   "source": "polyhaven",
+   "search": "wicker basket small",
+   "asset": "/Game/PolyHaven/Models/wicker_basket_01/wicker_basket_01_2k/StaticMeshes/wicker_basket_01_2k",
+   "scale": 0.913303,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "wicker_basket_01",
+   "scale_base": 1.0
+  },
+  "photo_album": {
+   "source": "polyhaven",
+   "search": "photo album book",
+   "asset": "/Game/PolyHaven/Models/decorative_book_set_01/book_softcover_01_cover611",
+   "scale": 1.316756,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "decorative_book_set_01",
+   "scale_base": 1.0
+  },
+  "playground": {
+   "source": "fab",
+   "search": "playground slide",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "projector_screen": {
+   "source": "polyhaven",
+   "search": "projector screen",
+   "asset": "/Game/PolyHaven/Models/projector_screen/projector_screen_2k/StaticMeshes/projector_screen",
+   "scale": 2.184021,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "projector_screen",
+   "scale_base": 1.0
+  },
+  "qr_sign": {
+   "source": "code",
+   "search": "QR code stand",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "queue_rope": {
+   "source": "fab",
+   "search": "queue barrier stanchion",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "reading_table": {
+   "source": "code_hero",
+   "search": "library table",
+   "asset": "/Game/Memory/Props/Hero/SM_reading_table",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "WoodenTable_02",
+   "scale_base": 1.0,
+   "rejected": {
+    "asset": "/Game/PolyHaven/Models/WoodenTable_02/WoodenTable_02_2k/StaticMeshes/WoodenTable_02_2k",
+    "scale": 5.746341,
+    "by": "Claude 2026-10-23",
+    "why": "semantic mismatch or absurd scale; worse than a placeholder"
+   },
+   "quality_verified": false,
+   "note": "Claude hero prop (Tools/props/hero_reading_table.py), baked PBR"
+  },
+  "recipe_book": {
+   "source": "fab",
+   "search": "cookbook book",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "resort_poster": {
+   "source": "code",
+   "search": "framed poster",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "review_panel": {
+   "source": "code",
+   "search": "holographic panel",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "rug": {
+   "source": "code_hero",
+   "search": "fabric rug carpet",
+   "asset": "/Game/Memory/Props/Hero/SM_rug",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {
+    "0": "/Game/PolyHaven/Materials/dirty_carpet/MI_dirty_carpet"
+   },
+   "quality_verified": false,
+   "note": "Claude hero prop (Tools/props/hero_rug.py), baked PBR"
+  },
+  "sandwich_plate": {
+   "source": "fab",
+   "search": "sandwich plate food",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "school_bag": {
+   "source": "fab",
+   "search": "backpack school",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "shared_bike": {
+   "source": "code",
+   "search": "shared bicycle",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "side_table": {
+   "source": "polyhaven",
+   "search": "side table wood",
+   "asset": "/Game/PolyHaven/Models/side_table_01/side_table_01_2k/StaticMeshes/side_table_01_2k",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "side_table_01"
+  },
+  "sink": {
+   "source": "fab",
+   "search": "kitchen sink",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "sofa": {
+   "source": "polyhaven",
+   "search": "sofa fabric modern",
+   "asset": "/Game/PolyHaven/Models/sofa_02/sofa_02_2k/StaticMeshes/sofa_02_Base",
+   "scale": 1.106704,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "sofa_02",
+   "scale_base": 1.0
+  },
+  "storefront": {
+   "source": "polyhaven",
+   "search": "shop storefront",
+   "asset": "/Game/PolyHaven/Models/modular_urban_apartments_facade/modular_urban_apartments_facade_2k/StaticMeshes/crown_standard_corner_large_01",
+   "scale": 1.501501,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "modular_urban_apartments_facade",
+   "scale_base": 1.0
+  },
+  "street": {
+   "source": "code_arch",
+   "search": "asphalt road",
+   "asset": "/Game/Memory/Props/Hero/SM_arch_box",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {
+    "0": "/Game/Memory/Materials/Arch/MI_Arch_asphalt"
+   },
+   "fit": "size",
+   "quality_verified": false,
+   "note": "world-aligned asphalt on the unit box (Tools/make_arch_materials.py)"
+  },
+  "student_desk": {
+   "source": "polyhaven",
+   "search": "school desk",
+   "asset": "/Game/PolyHaven/Models/SchoolDesk_01/SchoolDesk_01_2k/StaticMeshes/SchoolDesk_01_2k",
+   "scale": 1.359573,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "SchoolDesk_01",
+   "scale_base": 1.0
+  },
+  "swing": {
+   "source": "fab",
+   "search": "swing set",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "tablet": {
+   "source": "code_hero",
+   "search": "tablet",
+   "asset": "/Game/Memory/Props/Hero/SM_tablet",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {},
+   "quality_verified": false,
+   "note": "Claude hero prop (Tools/props/hero_tablet.py), baked 2K PBR"
+  },
+  "textbook_stack": {
+   "source": "polyhaven",
+   "search": "stack of books",
+   "asset": "/Game/PolyHaven/Models/book_encyclopedia_set_01/book_encyclopedia_set_01_2k/StaticMeshes/book_encyclopedia_set_01_book04",
+   "scale": 1.263593,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "book_encyclopedia_set_01",
+   "scale_base": 1.0
+  },
+  "tone_ripple": {
+   "source": "code",
+   "search": "fx",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "travel_counter": {
+   "source": "fab",
+   "search": "reception counter",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "tv": {
+   "source": "code_hero",
+   "search": "flat screen tv",
+   "asset": "/Game/Memory/Props/Hero/SM_tv",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "television_02",
+   "scale_base": 1.0,
+   "rejected": {
+    "asset": "/Game/PolyHaven/Models/television_02/television_02_2k/StaticMeshes/television_02_2k",
+    "scale": 2.673701,
+    "by": "Claude 2026-10-23",
+    "why": "semantic mismatch or absurd scale; worse than a placeholder"
+   },
+   "quality_verified": false,
+   "note": "Claude hero prop (Tools/props/hero_tv.py), baked PBR"
+  },
+  "tv_stand": {
+   "source": "polyhaven",
+   "search": "tv stand cabinet",
+   "asset": "/Game/PolyHaven/Models/modern_wooden_cabinet/modern_wooden_cabinet_2k/StaticMeshes/modern_wooden_cabinet_door_l",
+   "scale": 1.176751,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "modern_wooden_cabinet",
+   "scale_base": 1.0
+  },
+  "video_grid": {
+   "source": "code",
+   "search": "display wall",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "video_shelf": {
+   "source": "polyhaven",
+   "search": "shelf store",
+   "asset": "/Game/PolyHaven/Models/wooden_display_shelves_01/wooden_display_shelves_01_2k/StaticMeshes/wooden_display_shelves_01",
+   "scale": 1.285195,
+   "yaw_offset": 0,
+   "materials": {},
+   "polyhaven": "wooden_display_shelves_01",
+   "scale_base": 1.0
+  },
+  "wall": {
+   "source": "code_arch",
+   "search": "painted plaster wall",
+   "asset": "/Game/Memory/Props/Hero/SM_arch_box",
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {
+    "0": "/Game/Memory/Materials/Arch/MI_Arch_plaster"
+   },
+   "fit": "size",
+   "quality_verified": false,
+   "note": "world-aligned plaster on the unit box (Tools/make_arch_materials.py)"
+  },
+  "whiteboard": {
+   "source": "fab",
+   "search": "whiteboard",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "wifi_router": {
+   "source": "fab",
+   "search": "wifi router",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {}
+  },
+  "window_wall": {
+   "source": "surface",
+   "search": "plaster wall window frame",
+   "asset": null,
+   "scale": 1.0,
+   "yaw_offset": 0,
+   "materials": {
+    "0": "/Game/PolyHaven/Materials/painted_plaster_wall/MI_painted_plaster_wall"
+   }
+  }
+ },
+ "clutter_polyhaven": [
+  "potted_plant_01",
+  "potted_plant_02",
+  "potted_plant_04",
+  "wall_clock",
+  "hanging_picture_frame_01",
+  "hanging_picture_frame_02",
+  "standing_picture_frame_01",
+  "throw_pillows_01",
+  "modern_ceiling_lamp_01",
+  "stationery_supplies",
+  "office_notepads",
+  "book_encyclopedia_set_01",
+  "tea_set_01",
+  "jug_01",
+  "chess_set",
+  "alarm_clock_01",
+  "ceramic_vase_01",
+  "street_lamp_01",
+  "fire_hydrant",
+  "metal_trash_can",
+  "modular_street_seating",
+  "planter_box_01",
+  "cardboard_box_01",
+  "plastic_crate_01",
+  "tree_small_02",
+  "shrub_01"
+ ],
+ "textures_polyhaven": {
+  "wood_floor": "wood_floor_worn",
+  "plaster": "painted_plaster_wall",
+  "asphalt": "asphalt_02",
+  "brick": "brick_4",
+  "concrete": "concrete_floor_02",
+  "leather": "fabric_leather_01",
+  "carpet": "dirty_carpet",
+  "pavement": "checkered_pavement_tiles",
+  "marble": "marble_01"
+ },
+ "hdris_polyhaven": {
+  "warm_afternoon": "suburban_garden",
+  "day": "urban_street_01",
+  "dusk": "kiara_9_dusk",
+  "night_city": "modern_evening_street",
+  "overcast": "kloofendal_overcast",
+  "morning": "kiara_3_morning",
+  "office": "urban_courtyard"
+ },
+ "hdris_imported": {
+  "kiara_3_morning": "/Game/PolyHaven/HDRI/kiara_3_morning_4k",
+  "kiara_9_dusk": "/Game/PolyHaven/HDRI/kiara_9_dusk_4k",
+  "kloofendal_overcast": "/Game/PolyHaven/HDRI/kloofendal_overcast_4k",
+  "modern_evening_street": "/Game/PolyHaven/HDRI/modern_evening_street_4k",
+  "suburban_garden": "/Game/PolyHaven/HDRI/suburban_garden_4k",
+  "urban_courtyard": "/Game/PolyHaven/HDRI/urban_courtyard_4k",
+  "urban_street_01": "/Game/PolyHaven/HDRI/urban_courtyard_4k"
+ },
+ "clutter_imported": {
+  "potted_plant_01": "/Game/PolyHaven/Models/potted_plant_01/potted_plant_01_2k/StaticMeshes/potted_plant_01_pebbles",
+  "potted_plant_02": "/Game/PolyHaven/Models/potted_plant_02/potted_plant_02_2k/StaticMeshes/potted_plant_02_dirt",
+  "potted_plant_04": "/Game/PolyHaven/Models/potted_plant_04/potted_plant_04_2k/StaticMeshes/potted_plant_04_plant",
+  "wall_clock": "/Game/PolyHaven/Models/wall_clock/wall_clock_2k/StaticMeshes/wall_clock",
+  "hanging_picture_frame_01": "/Game/PolyHaven/Models/hanging_picture_frame_01/hanging_picture_frame_01_2k/StaticMeshes/hanging_picture_frame_01_2k",
+  "hanging_picture_frame_02": "/Game/PolyHaven/Models/hanging_picture_frame_02/hanging_picture_frame_02_2k/StaticMeshes/hanging_picture_frame_02_2k",
+  "standing_picture_frame_01": "/Game/PolyHaven/Models/standing_picture_frame_01/standing_picture_frame_01_2k/StaticMeshes/standing_picture_frame_01_2k",
+  "throw_pillows_01": "/Game/PolyHaven/Models/throw_pillows_01/throw_pillows_01_2k/StaticMeshes/throw_pillows_01_pillow02",
+  "modern_ceiling_lamp_01": "/Game/PolyHaven/Models/modern_ceiling_lamp_01/modern_ceiling_lamp_01_2k/StaticMeshes/modern_ceiling_lamp_01_2k",
+  "stationery_supplies": "/Game/PolyHaven/Models/stationery_supplies/stationery_supplies_2k/StaticMeshes/stationery_supplies_pen_fancy",
+  "office_notepads": "/Game/PolyHaven/Models/office_notepads/office_notepads_2k/StaticMeshes/office_notepads_yellow_sheet",
+  "book_encyclopedia_set_01": "/Game/PolyHaven/Models/book_encyclopedia_set_01/book_encyclopedia_set_01_2k/StaticMeshes/book_encyclopedia_set_01_book04",
+  "tea_set_01": "/Game/PolyHaven/Models/tea_set_01/tea_set_01_2k/StaticMeshes/tea_set_01_teapot_01",
+  "jug_01": "/Game/PolyHaven/Models/jug_01/jug_01_2k/StaticMeshes/jug_01_2k",
+  "chess_set": "/Game/PolyHaven/Models/chess_set/chess_set_2k/StaticMeshes/piece_knight_white_01",
+  "alarm_clock_01": "/Game/PolyHaven/Models/alarm_clock_01/alarm_clock_01_2k/StaticMeshes/alarm_clock_01",
+  "ceramic_vase_01": "/Game/PolyHaven/Models/ceramic_vase_01/ceramic_vase_01_2k/StaticMeshes/ceramic_vase_01_2k",
+  "street_lamp_01": "/Game/PolyHaven/Models/street_lamp_01/street_lamp_01_2k/StaticMeshes/street_lamp_01_2k",
+  "fire_hydrant": "/Game/PolyHaven/Models/fire_hydrant/fire_hydrant_2k/StaticMeshes/fire_hydrant_chain_aged",
+  "metal_trash_can": "/Game/PolyHaven/Models/metal_trash_can/metal_trash_can_2k/StaticMeshes/metal_trash_can_rust",
+  "modular_street_seating": "/Game/PolyHaven/Models/modular_street_seating/modular_street_seating_2k/StaticMeshes/suspended_support_02",
+  "planter_box_01": "/Game/PolyHaven/Models/planter_box_01/planter_box_01_2k/StaticMeshes/planter_box_01_2k",
+  "cardboard_box_01": "/Game/PolyHaven/Models/cardboard_box_01/cardboard_box_01_2k/StaticMeshes/cardboard_box_01_2k",
+  "plastic_crate_01": "/Game/PolyHaven/Models/plastic_crate_01/plastic_crate_01_2k/StaticMeshes/plastic_crate_01_2k",
+  "tree_small_02": "/Game/PolyHaven/Models/tree_small_02/tree_small_02_2k/StaticMeshes/tree_small_02_2k",
+  "shrub_01": "/Game/PolyHaven/Models/shrub_01/shrub_01_2k/StaticMeshes/shrub_01_2k"
+ }
+}

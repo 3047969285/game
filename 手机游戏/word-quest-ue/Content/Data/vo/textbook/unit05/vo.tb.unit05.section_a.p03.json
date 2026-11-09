@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit05.section_a.p03",
+ "unit": 5,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "On October 15, 2003, Yang Liwei became the first Chinese person to go into space in the Shenzhou-5 manned mission, making China the third country to send a man into space. During his 600,000 km expedition, Yang simultaneously displayed the Chinese and UN flags to hundreds of millions of Chinese who were witnessing his feat on television, and said, “Make use of outer space peacefully and for the benefit of all humankind.”",
+ "rate": 165,
+ "duration": 26.74,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 11.477,
+   "text": "On October 15, 2003, Yang Liwei became the first Chinese person to go into space in the Shenzhou-5 manned mission, making China the third country to send a man into space."
+  },
+  {
+   "i": 1,
+   "start": 11.477,
+   "end": 26.74,
+   "text": "During his 600,000 km expedition, Yang simultaneously displayed the Chinese and UN flags to hundreds of millions of Chinese who were witnessing his feat on television, and said, “Make use of outer space peacefully and for the benefit of all humankind.”"
+  }
+ ]
+}

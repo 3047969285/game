@@ -1,0 +1,49 @@
+{
+ "line_id": "vo.tb.unit05.section_a.p08",
+ "unit": 5,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "The astronauts have also overcome hardships and difficulties during missions. Yang Liwei recalled that when Shenzhou-5 ascended toward the sky, a low-frequency oscillation made his internal organs vibrate violently, inflicting almost unbearable pain. He gritted his teeth and endured the pain because he was about to realize the nation's long-lasting dream of flying in space. During the Shenzhou-7 mission, Zhai Zhigang and Liu Boming discovered they were unable to open the spaceship's exit hatch. They decided to use a tool to force the hatch open despite the obvious safety risk. “We both knew what the other one was thinking at that very moment: We had to accomplish our mission and wave the Chinese flag in space, even though we realized that there would probably be no return trip for us,” Zhai said.",
+ "rate": 165,
+ "duration": 44.078,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.317,
+   "text": "The astronauts have also overcome hardships and difficulties during missions."
+  },
+  {
+   "i": 1,
+   "start": 4.317,
+   "end": 14.538,
+   "text": "Yang Liwei recalled that when Shenzhou-5 ascended toward the sky, a low-frequency oscillation made his internal organs vibrate violently, inflicting almost unbearable pain."
+  },
+  {
+   "i": 2,
+   "start": 14.538,
+   "end": 20.804,
+   "text": "He gritted his teeth and endured the pain because he was about to realize the nation's long-lasting dream of flying in space."
+  },
+  {
+   "i": 3,
+   "start": 20.804,
+   "end": 27.661,
+   "text": "During the Shenzhou-7 mission, Zhai Zhigang and Liu Boming discovered they were unable to open the spaceship's exit hatch."
+  },
+  {
+   "i": 4,
+   "start": 27.661,
+   "end": 32.385,
+   "text": "They decided to use a tool to force the hatch open despite the obvious safety risk."
+  },
+  {
+   "i": 5,
+   "start": 32.385,
+   "end": 44.078,
+   "text": "“We both knew what the other one was thinking at that very moment: We had to accomplish our mission and wave the Chinese flag in space, even though we realized that there would probably be no return trip for us,” Zhai said."
+  }
+ ]
+}

@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit04.section_a.p08",
+ "unit": 4,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "All in all, people's attitude toward their work determines everything. Whatever the job, people who enjoy their work find time passes quickly. They hurl their passion into their work, be it physical like the work of a smith, or more mental like that of a scientist or an artist. Even purely mental work can suffice as an outlet, as aptly expressed by the phrase “sinking one's teeth into a problem”.",
+ "rate": 165,
+ "duration": 21.978,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 3.927,
+   "text": "All in all, people's attitude toward their work determines everything."
+  },
+  {
+   "i": 1,
+   "start": 3.927,
+   "end": 8.109,
+   "text": "Whatever the job, people who enjoy their work find time passes quickly."
+  },
+  {
+   "i": 2,
+   "start": 8.109,
+   "end": 15.154,
+   "text": "They hurl their passion into their work, be it physical like the work of a smith, or more mental like that of a scientist or an artist."
+  },
+  {
+   "i": 3,
+   "start": 15.154,
+   "end": 21.978,
+   "text": "Even purely mental work can suffice as an outlet, as aptly expressed by the phrase “sinking one's teeth into a problem”."
+  }
+ ]
+}

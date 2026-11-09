@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit03.section_b.p02",
+ "unit": 3,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "But maybe you haven’t traveled much. You’ve never been to an exotic place where you can’t speak the language or read the signs. A place where you’ll have to do all the research for yourself, find hotels, get yourself around, buy train or bus tickets, and order your own food. You must figure all of this out while looking at the unfamiliar signs which you will see wherever you look or go.",
+ "rate": 165,
+ "duration": 22.335,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 2.162,
+   "text": "But maybe you haven’t traveled much."
+  },
+  {
+   "i": 1,
+   "start": 2.162,
+   "end": 7.085,
+   "text": "You’ve never been to an exotic place where you can’t speak the language or read the signs."
+  },
+  {
+   "i": 2,
+   "start": 7.085,
+   "end": 16.609,
+   "text": "A place where you’ll have to do all the research for yourself, find hotels, get yourself around, buy train or bus tickets, and order your own food."
+  },
+  {
+   "i": 3,
+   "start": 16.609,
+   "end": 22.335,
+   "text": "You must figure all of this out while looking at the unfamiliar signs which you will see wherever you look or go."
+  }
+ ]
+}

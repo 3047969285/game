@@ -1,0 +1,49 @@
+{
+ "line_id": "vo.tb.unit01.section_a.p06",
+ "unit": 1,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "As we can see, there is no limit to time and space in this digital world. Connection can be anytime and anywhere. Gradually, we've picked up a habit of deletion - wiping out rich human relationships. The move from conversation to connection, for example, is part of this. In fact, online connection is often a deceptive illusion in which we cheat ourselves, assuming we're not alone. Worse, over time we'll stop caring and forget there is a difference between online connection and face-to-face conversation.",
+ "rate": 165,
+ "duration": 29.527,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.234,
+   "text": "As we can see, there is no limit to time and space in this digital world."
+  },
+  {
+   "i": 1,
+   "start": 4.234,
+   "end": 6.475,
+   "text": "Connection can be anytime and anywhere."
+  },
+  {
+   "i": 2,
+   "start": 6.475,
+   "end": 11.718,
+   "text": "Gradually, we've picked up a habit of deletion - wiping out rich human relationships."
+  },
+  {
+   "i": 3,
+   "start": 11.718,
+   "end": 16.165,
+   "text": "The move from conversation to connection, for example, is part of this."
+  },
+  {
+   "i": 4,
+   "start": 16.165,
+   "end": 22.687,
+   "text": "In fact, online connection is often a deceptive illusion in which we cheat ourselves, assuming we're not alone."
+  },
+  {
+   "i": 5,
+   "start": 22.687,
+   "end": 29.527,
+   "text": "Worse, over time we'll stop caring and forget there is a difference between online connection and face-to-face conversation."
+  }
+ ]
+}

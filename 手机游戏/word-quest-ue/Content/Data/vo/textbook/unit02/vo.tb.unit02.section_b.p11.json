@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit02.section_b.p11",
+ "unit": 2,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Audrey felt it was wicked that billions of children were deprived of simple joys and drowned in overwhelming misery. She believed deeply in the ideology that all people share in the duty to care for those in need. Audrey was always ready to lead by example. She said, “When you deny childhood, you deny life.” She saw UNICEF's work as an integral, sacred force in people's lives and said of UNICEF's results, “Anyone who doesn't believe in miracles is not a realist.”",
+ "rate": 165,
+ "duration": 26.745,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.971,
+   "text": "Audrey felt it was wicked that billions of children were deprived of simple joys and drowned in overwhelming misery."
+  },
+  {
+   "i": 1,
+   "start": 5.971,
+   "end": 11.079,
+   "text": "She believed deeply in the ideology that all people share in the duty to care for those in need."
+  },
+  {
+   "i": 2,
+   "start": 11.079,
+   "end": 13.741,
+   "text": "Audrey was always ready to lead by example."
+  },
+  {
+   "i": 3,
+   "start": 13.741,
+   "end": 26.745,
+   "text": "She said, “When you deny childhood, you deny life.” She saw UNICEF's work as an integral, sacred force in people's lives and said of UNICEF's results, “Anyone who doesn't believe in miracles is not a realist.”"
+  }
+ ]
+}

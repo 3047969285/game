@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit02.section_a.p05",
+ "unit": 2,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "In 1403, the emperor commanded the construction of the Treasure Fleet. Both the treasure ships and the support vessels - battleships and boats carrying grain and horses - featured divided hulls with several watertight compartments. This engineering innovation had roots in early Chinese seafaring. It allowed mariners to take unprecedented amounts of drinking water on long voyages, while also adding much-needed ballast, balance, and stability.",
+ "rate": 165,
+ "duration": 25.294,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.583,
+   "text": "In 1403, the emperor commanded the construction of the Treasure Fleet."
+  },
+  {
+   "i": 1,
+   "start": 4.583,
+   "end": 13.004,
+   "text": "Both the treasure ships and the support vessels - battleships and boats carrying grain and horses - featured divided hulls with several watertight compartments."
+  },
+  {
+   "i": 2,
+   "start": 13.004,
+   "end": 16.59,
+   "text": "This engineering innovation had roots in early Chinese seafaring."
+  },
+  {
+   "i": 3,
+   "start": 16.59,
+   "end": 25.294,
+   "text": "It allowed mariners to take unprecedented amounts of drinking water on long voyages, while also adding much-needed ballast, balance, and stability."
+  }
+ ]
+}

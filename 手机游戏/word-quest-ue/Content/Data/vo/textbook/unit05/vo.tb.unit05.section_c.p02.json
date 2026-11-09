@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit05.section_c.p02",
+ "unit": 5,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "Long before the modern era, Chinese culture and tradition attached great importance to the heavens and the moon, and from here emerged many of the world's earliest astronomers and cosmologists. China's vision for the exploration of outer space should be understood through the lens of its economic strategy for “peaceful development” and “a global community of shared future” for the good of humankind. China has a nonmilitary view of space exploration and sees advances in science as a means for accelerating global prosperity and economic development.",
+ "rate": 165,
+ "duration": 42.546,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 14.96,
+   "text": "Long before the modern era, Chinese culture and tradition attached great importance to the heavens and the moon, and from here emerged many of the world's earliest astronomers and cosmologists."
+  },
+  {
+   "i": 1,
+   "start": 14.96,
+   "end": 30.534,
+   "text": "China's vision for the exploration of outer space should be understood through the lens of its economic strategy for “peaceful development” and “a global community of shared future” for the good of humankind."
+  },
+  {
+   "i": 2,
+   "start": 30.534,
+   "end": 42.546,
+   "text": "China has a nonmilitary view of space exploration and sees advances in science as a means for accelerating global prosperity and economic development."
+  }
+ ]
+}

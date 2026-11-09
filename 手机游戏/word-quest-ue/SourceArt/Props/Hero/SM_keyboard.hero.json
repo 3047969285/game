@@ -1,0 +1,41 @@
+{
+ "kit": "keyboard",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_keyboard.fbx",
+ "triangles": 51152,
+ "size_m": [
+  0.44,
+  0.14,
+  0.03
+ ],
+ "dims_target_m": [
+  0.44,
+  0.14,
+  0.03
+ ],
+ "slots": [
+  {
+   "slot": "body",
+   "material": "M_body",
+   "BaseColor": "T_keyboard_body_BaseColor.png",
+   "Normal": "T_keyboard_body_Normal.png",
+   "ARM": "T_keyboard_body_ARM.png"
+  },
+  {
+   "slot": "keys",
+   "material": "M_keys",
+   "BaseColor": "T_keyboard_keys_BaseColor.png",
+   "Normal": "T_keyboard_keys_Normal.png",
+   "ARM": "T_keyboard_keys_ARM.png"
+  },
+  {
+   "slot": "legend",
+   "material": "M_legend",
+   "BaseColor": "T_keyboard_legend_BaseColor.png",
+   "Normal": "T_keyboard_legend_Normal.png",
+   "ARM": "T_keyboard_legend_ARM.png"
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "keycaps carry a projected legend atlas (keyboard_labels.png); front toward +Y"
+}

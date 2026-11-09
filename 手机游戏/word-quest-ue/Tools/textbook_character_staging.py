@@ -10,10 +10,11 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CAST = ('me2026', 'lin', 'mei', 'an', 'rui', 'organizer', 'old2090')
+# Claude 2026-11-02: the Offline-day family has its own faces (Tools/char_v2.py cast specs) — the leads are
+# the player and his classmate and must never double as story NPCs.
+CAST = ('me2026', 'lin', 'mei', 'an', 'rui', 'organizer', 'old2090', 'paul', 'maria', 'jason', 'jack')
 WHO = {'me2026': 'male', 'lin': 'female'}
-ALIASES = {'me': 'me2026', 'male': 'me2026', 'female': 'lin', 'paul': 'me2026',
-           'maria': 'lin', 'jason': 'an', 'jack': 'rui'}
+ALIASES = {'me': 'me2026', 'male': 'me2026', 'female': 'lin'}
 SNAPSHOT_VERSION = "skin_v3"
 _TEMPLATES = {}
 
@@ -331,9 +332,10 @@ def stage_people(u, eas, scene, world_cm, tags=None, strict=True):
         record = {'role': person['role'], 'character': cid, 'source': source,
                   'standin': standin, 'requested_pose': person.get('pose', 'stand'),
                   'needs_rig': cls is None, 'source_asset': bp, 'snapshot_assets': [], 'grooms': []}
+        root = None
         try:
             if cls:
-                root = eas.spawn_actor_from_class(cls, u.Vector())
+                root = eas.spawn_actor_from_class(cls, u.Vector(*world_cm(scene, person['pos'])))
                 _set_tags(u, root, base_tags, tags)
             else:
                 owned, digest = source_signature(cid)
@@ -365,6 +367,10 @@ def stage_people(u, eas, scene, world_cm, tags=None, strict=True):
             error = f"{scene['id']}/{person['role']}: {exc}"
             record.update(status='FAIL', error=error)
             report['errors'].append(error)
+            if root is not None:
+                # never leave a half-staged person behind: failed BPs used to pile up at the set origin
+                # (two heads / four arms in the 11-02 review)
+                eas.destroy_actor(root)
             marker = eas.spawn_actor_from_class(u.TargetPoint, u.Vector(*world_cm(scene, person['pos'])))
             marker.set_actor_label(f"MISSING_PERSON_{scene['id']}_{index:02d}_{person['role']}")
             _set_tags(u, marker, base_tags + ['needs_final_character', 'character_staging_failed'], tags)

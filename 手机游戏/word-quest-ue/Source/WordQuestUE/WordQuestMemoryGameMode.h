@@ -4,7 +4,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "WordQuestMemoryGameMode.generated.h"
 
-/** 回忆舞台用：无第三人称身体、只保留极简 HUD 与自由视角。 */
+/** 回忆舞台用：人眼第一人称，世界空间交互。 */
 UCLASS()
 class WORDQUESTUE_API AWordQuestMemoryGameMode : public AGameModeBase
 {
@@ -13,5 +13,7 @@ class WORDQUESTUE_API AWordQuestMemoryGameMode : public AGameModeBase
 public:
 	UPROPERTY(VisibleAnywhere) TObjectPtr<class UWordQuestMemoryDirector> MemoryDirector;
 	UPROPERTY(VisibleAnywhere) TObjectPtr<class UWordQuestMemoryNavigation> MemoryNavigation;
+	UPROPERTY(VisibleAnywhere) TObjectPtr<class UWordQuestWorldInteraction> WorldInteraction;
+	UPROPERTY(VisibleAnywhere) TObjectPtr<class UWordQuestNpcDirector> NpcDirector;
 	AWordQuestMemoryGameMode();
 };

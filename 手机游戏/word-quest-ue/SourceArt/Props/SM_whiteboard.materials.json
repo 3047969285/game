@@ -1,0 +1,46 @@
+{
+ "kit": "whiteboard",
+ "dims_m": [
+  1.8,
+  0.055,
+  1.1
+ ],
+ "materials": {
+  "M_wb_alu": {
+   "color": "#C5CAD1",
+   "roughness": 0.35,
+   "metallic": 0.9,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_wb_face": {
+   "color": "#F5F6F4",
+   "roughness": 0.25,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_wb_marker": {
+   "color": "#D2453A",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_wb_steel": {
+   "color": "#4C525B",
+   "roughness": 0.4,
+   "metallic": 0.7,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

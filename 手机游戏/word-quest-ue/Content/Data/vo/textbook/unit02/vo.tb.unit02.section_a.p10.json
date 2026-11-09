@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit02.section_a.p10",
+ "unit": 2,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Zheng He spent years at sea sailing between China and the east coast of Africa, setting up diplomatic relationships that would reshape Asian life. His seven expeditions challenged what humans could do at sea, pushing the limits of their boats' size, complexity, and capacity for long-distance travel. They were also essential to the spread of two Chinese technologies that helped build our modern world: gunpowder and the compass.",
+ "rate": 165,
+ "duration": 23.661,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 8.144,
+   "text": "Zheng He spent years at sea sailing between China and the east coast of Africa, setting up diplomatic relationships that would reshape Asian life."
+  },
+  {
+   "i": 1,
+   "start": 8.144,
+   "end": 16.894,
+   "text": "His seven expeditions challenged what humans could do at sea, pushing the limits of their boats' size, complexity, and capacity for long-distance travel."
+  },
+  {
+   "i": 2,
+   "start": 16.894,
+   "end": 23.661,
+   "text": "They were also essential to the spread of two Chinese technologies that helped build our modern world: gunpowder and the compass."
+  }
+ ]
+}

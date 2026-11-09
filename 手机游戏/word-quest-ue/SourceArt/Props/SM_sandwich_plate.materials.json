@@ -1,0 +1,37 @@
+{
+ "kit": "sandwich_plate",
+ "dims_m": [
+  0.24,
+  0.24,
+  0.062
+ ],
+ "materials": {
+  "M_plate_ceramic": {
+   "color": "#F7F5F0",
+   "roughness": 0.2,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_sandwich_bread": {
+   "color": "#E7B76A",
+   "roughness": 0.7,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_sandwich_filling": {
+   "color": "#7FB36A",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

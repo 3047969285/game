@@ -1,0 +1,61 @@
+{
+ "kit": "monitor",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_monitor.fbx",
+ "triangles": 30690,
+ "size_m": [
+  0.548,
+  0.17,
+  0.35
+ ],
+ "dims_target_m": [
+  0.55,
+  0.2,
+  0.35
+ ],
+ "slots": [
+  {
+   "slot": "shell",
+   "material": "M_shell",
+   "BaseColor": "T_monitor_shell_BaseColor.png",
+   "Normal": "T_monitor_shell_Normal.png",
+   "ARM": "T_monitor_shell_ARM.png"
+  },
+  {
+   "slot": "bezel",
+   "material": "M_bezel",
+   "BaseColor": "T_monitor_bezel_BaseColor.png",
+   "Normal": "T_monitor_bezel_Normal.png",
+   "ARM": "T_monitor_bezel_ARM.png"
+  },
+  {
+   "slot": "screen",
+   "material": "M_screen",
+   "Emissive": "monitor_desk.png",
+   "strength": 1.4
+  },
+  {
+   "slot": "led",
+   "material": "M_led",
+   "BaseColor": "T_monitor_led_BaseColor.png",
+   "Normal": "T_monitor_led_Normal.png",
+   "ARM": "T_monitor_led_ARM.png"
+  },
+  {
+   "slot": "rubber",
+   "material": "M_rubber",
+   "BaseColor": "T_monitor_rubber_BaseColor.png",
+   "Normal": "T_monitor_rubber_Normal.png",
+   "ARM": "T_monitor_rubber_ARM.png"
+  },
+  {
+   "slot": "stand",
+   "material": "M_stand",
+   "BaseColor": "T_monitor_stand_BaseColor.png",
+   "Normal": "T_monitor_stand_Normal.png",
+   "ARM": "T_monitor_stand_ARM.png"
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "front toward +Y, base on z = 0"
+}

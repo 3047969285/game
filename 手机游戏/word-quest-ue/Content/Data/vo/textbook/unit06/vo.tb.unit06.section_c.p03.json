@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit06.section_c.p03",
+ "unit": 6,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "In addition, banks are also involved in the sharing economy, offering book-lending services. Users can borrow books after registering through the official account on social media and paying the deposit.",
+ "rate": 165,
+ "duration": 15.491,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 7.41,
+   "text": "In addition, banks are also involved in the sharing economy, offering book-lending services."
+  },
+  {
+   "i": 1,
+   "start": 7.41,
+   "end": 15.491,
+   "text": "Users can borrow books after registering through the official account on social media and paying the deposit."
+  }
+ ]
+}

@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit04.section_c.p03",
+ "unit": 4,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "This profession brought Xing a lot of pride, particularly during the heyday of her factory in the 1970s and 1980s, when the factory received a lot of foreign visitors every year. Glassware making is an art form that requires a product to be finished very quickly. Generally, a product is completed within a dozen minutes, while complicated ones are done within half an hour or one hour. So this is a feat that was often observed by visitors. Foreign visitors tended to favor this kind of traditional task very much.",
+ "rate": 165,
+ "duration": 44.975,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 17.522,
+   "text": "This profession brought Xing a lot of pride, particularly during the heyday of her factory in the 1970s and 1980s, when the factory received a lot of foreign visitors every year."
+  },
+  {
+   "i": 1,
+   "start": 17.522,
+   "end": 24.353,
+   "text": "Glassware making is an art form that requires a product to be finished very quickly."
+  },
+  {
+   "i": 2,
+   "start": 24.353,
+   "end": 34.225,
+   "text": "Generally, a product is completed within a dozen minutes, while complicated ones are done within half an hour or one hour."
+  },
+  {
+   "i": 3,
+   "start": 34.225,
+   "end": 38.837,
+   "text": "So this is a feat that was often observed by visitors."
+  },
+  {
+   "i": 4,
+   "start": 38.837,
+   "end": 44.975,
+   "text": "Foreign visitors tended to favor this kind of traditional task very much."
+  }
+ ]
+}

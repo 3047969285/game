@@ -205,6 +205,22 @@
   - 皮肤进一步根因：MHC Editable纹理仅有动态PlatformData，直接复制后重开没有mip，不能只复制材质参数。skin_v3读取MHC已存储的SynthesizedFaceTextureDataAsync原始像素，初始化副本TextureSource，保留颜色/压缩属性，不改作者脸/头发/服装。编译已通过，skin_v3重新装配/实景重渲染仍待做，不声称视觉通过。
   - 最新已完成首次房间更新达到WQ_FIRST_ROOM_UPDATED（skin_v2）；新增相框翻转、棋椅和书架顶部书籍的代码已纳入，但待下一轮更新和视觉核对。视觉总验收仍FAIL，默认地图没有切换。
 
+- **2026-10-28 10:55 · Claude 改派：Codex 额度将尽**：Codex 做完当前 C15 客厅 PIE 验证后停下，交接写在 `handoff-codex-round5.md`。C15 收尾、C17 在线对话和 C18 归 Claude；C16 物理落地、C19 渲染对比和 C15 体验质检归 DeepSeek。详见 `Docs/tasks/round5-reassign.md`。
+- **2026-10-28 · 第五轮开始，C15–C19（代码进行中，未提交）**
+  - 已读round5-plan/codex-round5及run规则；需求/接口/测试在Docs/engine-firstperson-round5.md、engine-physics-round5.md、engine-npc-round5.md、engine-render-round5.md。
+  - C15已写真实Character胶囊/CharacterMovement、172cm眼高、80°物理CineCamera、140cm/s步行、轻微可关闭头摆、蹲姿眼高平滑、曝光适应参数；Director接第一人称Pawn，不改作者shot。
+  - 编译遇到引擎迁外盘后旧PCH头文件重复定义，改-NoPCH -MaxParallelActions=2验证并补齐以前依赖共享PCH的显式include。第二次编译修NPC/物理模块接口后排队。
+  - **串行协调：当前Saved/ue_run.lock为Claude的open -W mhc_probe.py（10:30:52，wrapper pid6732/editor pid6741）。项目dylib在首次编译失败后不存在，因此该编辑器可能停在模块缺失提示；请Claude检查并退出自己的probe进程，释放锁让Codex完成重编译。Codex未杀其他人进程、未绕锁编译。**
+  - C16离线8项测试通过，真实碰撞/拿放待编译后PIE；缺独立门/抽屉/棋子、布料/音频仍明示待交付。C17已有SSE/安全凭证/预算/世界字幕框架和人设数据接线；不会打印凭证文件。C18离线预检：7个MHC源在，BP为0，需确认新版主角交付；skin_v3纹理hint已修正Animated_Delta/枚举名不一致。
+  - 新输出Saved/Round5指向外盘Projects/word-quest-ue/产物/round5；无UE/Blender同时启动，无提交推送。
+
+- **2026-10-28 · Codex 第五轮停止交接（按用户最新指令，未提交/未推送）**
+  - 当前C15客厅PIE已完成：`Saved/Round5/c15-pie.log`有`WQ_C15_PIE_PASS`；`c15-firstperson.json`记录走动215.68cm、最高140cm/s、蹲姿眼高112.17cm/站姿171.97cm，头摆上下最大0.505cm。4K证据：`Saved/Round5/c15-offline-firstperson-1793155909863670000-4k.png`（3840×2160，已目检）。
+  - C15核心引擎验证通过，**视觉FAIL**：旧人物黑脸/头皮/内衣、真实环境和第一人称身体仍未交付；楼梯/坡道、暗亮1–2秒曝光阶跃和真机输入未验收。C16–C19的实现/未验证边界、完整文件清单、编译方法和续跑命令均写入 **Docs/tasks/handoff-codex-round5.md**。
+  - 成功编译证据：`capture-build.log` Result:Succeeded，46.06s；最新NPC触屏/手柄输入修正仍待接手者重编。离线物理8项、fixture2项、锁2项通过；没有把未执行的UE mock/在线5轮/组装/渲染对比记PASS。
+  - 用户要求不再开UE/编译后，取消Codex排队wrapper pid12134（未获得锁、未进入Build.sh），自己的build标记已清除；其他协作者后来创建的新标记保留。Codex C15 UE已退出，无Codex待执行UE/编译；末次交接核对时全局锁属于Claude的char_v2.py（pid13200），未删除或终止他人锁/进程。输出Saved/Round5在外盘。
+  - 当前HEAD仍ce76e46，后续由Claude/DeepSeek接手。Codex停止工作。
+
 ## DeepSeek（数据 / 文档 / QA 工具）
 
 - **2026-10-22 · UE P1：PIE 截图复现（HUD 验证通过，构图仍未过）**
@@ -617,6 +633,43 @@
   - 备注：MetaHuman 组装进程卡在角色快照（15:31 后无进展、日志刷 idevice_id 失败），已强杀并改用现有快照/占位资产渲染，部分全景里的人物仍是占位圆柱；16:00 后继续修 MetaHuman → 重建 → 重渲染替换。
   - 生成链：`Tools/build_textbook_film_plan.py`（教材原文计划）→ `Tools/render_unit_film.py`（A/B/C）→ `Tools/compose_unit_film.py`（COMPOSE_PLAN=plan_textbook.json）。
 
+## 第十轮（2026-10-28）：NPC 的大脑
+
+- **D29 人设（完成）**
+  - Offline day 四位家庭成员手写：`Content/Data/npc/personas/{paul,maria,jason,jack}.json`（外貌/MetaHuman 槽位、性格、声音、日程、原创 backstory、2026 知识边界、目标词、纠错风格、5 句断网台词）。
+  - 全员补齐：`Tools/data_npc_personas.py` 生成其余 47 个角色，共 **51/51** 个 `people[].role` 有 JSON；`Tools/qa/check_npc_data.py` 离线校验 **PASS**（字段、角色槽位、目标词全部在 words.csv、5 句兜底）。
+  - 覆盖报告：`Docs/qa/npc-personas.md`。缺口：现只有 7 个 MetaHuman 槽位，Jason/Jack 需青少年/儿童体型，背景角色是临时槽位。
+- **D30 提示词模板（完成）**
+  - `Content/Data/npc/prompts/system_template.md`（v1.1）：通用规则 + 人设/场景插槽；英语、1–3 句、B1–B2、每句自然用 1–2 个目标词、温和 recast、中文输入用英语鼓励、边界与 2026 知识限制；输出自然文本 + 末尾一行 JSON（`used_words` / `correction` / `suggested_replies`），含一个 few-shot 示例。
+- **D31 评测（完成，只跑 4 个家庭角色，控制费用）**
+  - `Tools/npc_eval.py`（流式首字延迟、token 统计、角色/句数/难度/目标词/纠错/边界/JSON 检查；密钥只从 `~/.config/wordquest/deepseek.env` 或环境变量读入，不写文件/日志）。
+  - 报告：`Docs/qa/npc-eval.md`、`Docs/qa/npc-eval.json`。4 轮提示词迭代共 **~197k token**（每轮 4 人 ×10 条，预算 6 万/轮）；最终轮 44 次调用（含 4 次 JSON 重试）、51,270 token、**通过 23/40**、平均 TTFT 736 ms。
+  - 已知问题：末尾 JSON 缺失 7/40、提到 2090 3/40、correction 字段缺失 3/40、4 句/难度略超各 3、目标词缺失 1；下一步在 Codex 运行时做 JSON 校验+重问+fallback。
+  - **密钥安全**：未出现在任何文件、日志、报告；报告只写模型名。
+- **D32 交互与音频（完成）**
+  - `Content/Data/npc/interactions_unit01.json`：22 个情景、242 件物件、**187 件可交互**（动作、约束、质量估计、材质、纯背景标记）。
+  - `Docs/qa/interaction-audio-spec.md`：按地面材质（木/瓷砖/地毯/沥青/草地/石材）列脚步声，按物件材质（木/玻璃/金属/陶瓷/纸/布/塑料/水等）列碰撞声与事件，供 Codex 接入第一人称物理与音效。
+- **延续项**
+  - 对外视频：`Docs/qa/demo/unit01_showcase_public_2k.mp4`（65s、1920×1080，原创旁白；已复制到桌面 `第1单元演示_公开版_2K.mp4`）。教材原文版 `unit01_showcase_textbook_2k.mp4` 仅内部使用。
+  - C13：证据返修代码与方案已在 `Docs/qa/immersive/c13-fix-plan.md`；本轮 `Source/**` 归 Codex，需等 Codex 编译后用视口截图重出证据。
+  - D28：返工代码在 `Docs/qa/d28-rework-plan.md`，需 Blender 低分辨率预览+`check_contacts` 迭代，再提交 Claude 验收；未做正式 2K 烘焙。
+
+## 第五轮改派（2026-10-28 10:55 起）
+
+- **D31 NPC 评测返工（完成）**：按 `Docs/qa/review-npc-eval-claude.md` 修模板 v1.2 + 四位家庭成员人设，只重跑 4 人：**38/40 通过**（返工前 23/40），`future_probe` **4/4**、`inappropriate` **4/4**；本轮 49 次调用、65,532 token，平均首字 ~800 ms；剩余 2 条为 `@@META` 缺失，文本可用。报告 `Docs/qa/npc-eval.md`；**Source 客户端改动清单见报告 §11（解析 @@META、保留文本、每轮 focus 词、中文建议回复可点、2090 断言过滤）**。
+- **C16 物理（进行中）**：`Tools/setup_offline_physics.py` 已按 `interactions_unit01.json` 补 window/basket/bookshelf/coffee_table/floor_lamp/calendar 配置并写入 s1 标签；`WordQuestWorldInteraction.*` 加占位接触音（木/金属/陶瓷/玻璃/纸/布/塑料/石）与 `audio/contact_events/flying/max_body_speed` 可观测字段；编译成功（`Result: Succeeded`，先清过一次旧引擎路径的 SharedPCH）。PIE 测试脚本在修（卡住进程已杀，等 Claude 的 char_v2 跑完再重跑）。
+- **C15 体验质检（脚本就绪）**：`Tools/test_c15_experience.py` 采眼高/FOV/步频/头摆/蹲起/曝光曲线；`Tools/qa/c15_experience_report.py` 出 `Docs/qa/c15-experience-report.md`；待 UE 锁空了跑。
+- **C19 渲染对比（脚本就绪）**：`Tools/c19_render_matrix.py`（光追/Lumen、MegaLights、VT、物理曝光、HDRI 逐项，同一机位）+ `Tools/qa/c19_compare.py` 报告；待跑。
+- **协作**：`handoff-codex-round5.md` 尚未出现；当前 UE 锁由 Claude 的 `char_v2.py` 使用，我等它完成后再跑 C16/C15/C19，且 `UE_LOCK_WHO=deepseek`。
+
+### 第五轮补充（2026-10-28 下午）
+
+- **NPC 评测返工**：模板 v1.2 + 4 位家庭成员已改（2026 时间锚点、@@META、focus 词、纠错示例、中文 English suggestions）。只重跑 4 人：**38/40**（返工前 23/40），future_probe 4/4、inappropriate 4/4；本轮 49 次调用、65,532 token。报告 `Docs/qa/npc-eval.md`。**Source 客户端需改：只解析最后一行 @@META；解析失败保留文本并重问；每轮传入 1–2 个 focus 词；中文 suggestions 可点；过滤“知道未来”的断言**。
+- **C16 物理**：`setup_offline_physics.py` 已按交互清单给 s1 的 28 个物件配质量/碰撞/窗铰链，`WordQuestWorldInteraction.*` 加 9 个程序化占位接触音、运行时物理地板兜底和 `audio/contact_events/flying/max_body_speed` 观测字段；编译成功。PIE `WQ_C16_PIE_FAIL`：抓取/放下/无 NaN/无飞出/占位音/**椅子推动/窗铰链**通过，**唯一失败是书穿透地板**（z=-175 cm，运行时 cube 地板未阻挡）；详见 `Docs/qa/c16-physics-report.md`。
+- **C15 体验质检**：PIE 实测报告 `Docs/qa/c15-experience-report.md`：眼高 172 cm、FOV 80°、速度 127 cm/s、步频 **1.33 Hz（目标 1.6–2.0，REVIEW）**、头摆上下 0.41 cm / 左右 0.23 cm、蹲下 0.36 s、曝光 63% **0.34 s（目标 1–2 s，REVIEW）**；第一人称身体 `body_ready=0`。
+- **C19 渲染对比（完成，待 Claude 评审）**：11 个配置已各跑一次（同机位 1920×1080），`Docs/qa/c19-render-comparison.md` 有逐项像素差异和结论：MegaLights 69.5%、HDRI 68.9% 为明显变化；RT/Lumen 有 10–12% 差异但回读 `r.RayTracing=0`（未真正激活）；VT 切换未生效（两次回读都=1）；物理曝光静帧无差异（C15 PIE 里适应 0.34 s）。性能未测。截图 `Saved/Round5/c19/`。
+- **协作**：`handoff-codex-round5.md` 仍未出现；当前所有 UE 运行均 `UE_LOCK_WHO=deepseek` 并走 `run_ue_serial.sh`。
+
 ## 需要用户处理
 
 - MetaHuman 自动绑定和装配需要在 UE 里登录 Epic 账号（云服务）。只有用户本人能登录。
@@ -624,3 +677,55 @@
 
 - 2026-10-21（Codex C1 实测）：UE 5.8 缺少 **MetaHuman Creator Core Data**（MetaHumanCharacter/Content/Optional、TextureSynthesis、BodyTextures）。请用户在 Epic Games Launcher 的 UE 5.8 安装选项中补装；如安装或后续云绑定要求 Epic 登录，请用户本人操作。本轮未尝试登录，未隐藏缺失警告。
 - 2026-10-22（C10 Fab 补资产）：Fab 页面停在 Cloudflare 人机验证；本轮未尝试绕过。请用户在已登录的 FabStaging 页面完成人工验证，再补齐免费 Personal 许可的 Wooden Bookcases、扫描贴花，以及 `Docs/qa/textbook-scenes-unit01.json` 中列出的未交付 kit 资产；每项补入时继续登记 `Docs/licenses/third-party-assets.md`。
+
+### Claude 第六轮进度（2026-11-02）
+- 分工：`Docs/tasks/round6-claude-codex.md`。C19 决定见 `Docs/qa/review-c19-claude.md`：先有封闭房间，再开 HWRT/Lumen、MegaLights、VT、自动曝光和 HDRI。C15 评审见 `Docs/qa/review-c15-claude.md`：步频按速度÷0.7 m 联动，曝光 1–2 s，第一人称身体。
+- **封闭客厅（u01a_s1）**：`Tools/room_shell.py`（离线测试 `test_room_shell.py` 5 项通过）。6.0×5.6 m、层高 2.75 m，四墙、天花板、踢脚线；西墙三分格窗带玻璃和窗台；东墙门扇（`interactive:door`、`hinge:south`）和门套。KEY 灯放在窗外往里照，不再铺无限地板。首次构建 `WQ_ROOM_SHELL` 生成 30 件，缺失 0。另外用 11 件真实尺寸的 Poly Haven 资产布景：吸顶灯、沙发、边几×2、茶具、绿植、电视柜、挂画×2、挂钟、花瓶。清单见 `Docs/qa/room-u01a-s1-dressing.md`。视觉验收工具 `Tools/room_review.py`，取 4 个人眼高度视角。
+- **回复 Codex 的请求**：目前窗只有玻璃和固定窗框，可开窗扇是 Claude 的 Blender 待办，交付前请把窗户当作不可开。门扇现在是带标签的平板，可以先接铰链。
+- **皮肤 bug 已修**：MetaHuman 的 accent 参数以 0.5 为中性，之前传的是接近 0 的绝对值，造成脸颊和鼻子上的棕斑。`char_skin.py`（7 个角色）和 `char_v2.py` 都已改成偏移量；这 7 个角色要重新跑 skin。
+- **男女主 v2**：脸型由预设混合求解（`Tools/char_v2_solve.py`）；男 `me2026k`/`me2026s`、女 `lin`/`lins` 四个变体已在 UE 生成，渲染时直接挂发型（`attach_preview_groom`）。对比图出来后选定一版，再交付组装。
+- 环境：Xcode 27.2 之后需要单独安装 Metal Toolchain，已用 `xcodebuild -downloadComponent MetalToolchain` 装好。
+
+- **请求 Codex（14:35，Claude 室内验收发现）**：`Saved/RoomReview/u01a_s1/*.png` 的 PIE 画面里，Paul、Maria、Jason、Jack 都站在椅子前面。场景数据给的是 `sit_read` 和 `sit_chess`，请检查 NPC 日程姿势是否覆盖了场景姿势：PIE 开始时应该保持场景姿势，日程切换要有过渡，且坐下时要贴合椅面。人物还穿着预览内衣，服装由 Claude 负责。
+
+- **Claude 选角修正（14:50）**：原来 Paul 由男主 me2026 扮演（staging 别名），人设里 Maria=lin、Jason=me2026。主角不能兼任剧情 NPC。现在新建一家四口专属的 MetaHuman：
+  - Paul：Victor 0.8 + Orlando 0.2；
+  - Maria：Jelena 0.85 + Vivian 0.15；
+  - Jason 和 Jack：由父母的脸型系数混合，所以长得像一家人；
+  - 都穿默认外套（不再是内衣）。
+  
+  `CAST` 已加入这 4 个 id，`ALIASES` 去掉了这 4 个 role，人设的 `appearance.character` 已改为各自的 id。正在排队：生成 → 云端自动绑定 → 逐个组装到 `/Game/MetaHumans/<id>`。组装完后 staging 会用组装好的 BP（可摆姿势），Codex 的 NPC director 按 role 发现，接口不变。
+
+- **Claude 11-02 傍晚收尾**：NPC 对话的原生、mock、Paul 在线 5 轮全部通过；物理 PIE 通过；客厅墙体 bug 已修，一家人坐好；6 个人物已组装并上了发色；烟大校园体块已导入 `L_YTU_Campus`，待拍图验收。晚上从 `Docs/tasks/handoff-claude-2026-11-02.md` 继续。
+
+### Codex 第六轮进度（2026-11-02）
+- C17 进行中：接入 v1.2 `@@META` 末行校验、一次重问、失败备用台词和整轮 8 秒期限；准备原生、模拟和 Paul 五轮验证，测试入口加入进程总超时及异常退出。需求、接口、测试见 `Docs/engine-npc-round6.md`。
+- 验证：经 `UE_LOCK_WHO=codex Tools/run_ue_serial.sh` 使用外盘 UE 5.8 的 Build.sh、`-NoPCH -MaxParallelActions=2` 编译通过，日志 `Saved/Round6/build-c17.log`；Python mock fixture 2 项通过。尚未运行 UE 原生测试、在线对话和试听，不能据此认定 C17 完成。
+- 环境：Claude 正在下载 MetalToolchain；`xcodebuild -showComponent MetalToolchain` 尚显示 uninstalled，按约定等待 installed 后再通过锁启动 UE。C19 等 Claude 交付封闭客厅后进行；门窗物理将兼容 `interactive:door`、`hinge:south` 和 `interactive:window` 标签。
+- C16 准备：运行时识别 Claude 新增门窗标签，修复静态物件误启用模拟并去除无限地板及越界复位；离线物理契约 9 项通过。门扇、窗玻璃与椅子在 PIE 验证中均要求实际存在；真实可动窗框仍需美术资产，编译及 PIE 尚未验证。需求、接口、测试见 `Docs/engine-physics-round6.md`。
+- C15 准备：步频及曝光候选参数和采样脚本已就绪，指标分析本地测试 2 项通过；仍需 PIE 实测，第一人称可见身体依赖 Claude 组装角色交付，新序幕完整链路验证后才能切默认入口。见 `Docs/engine-c15-round6.md`。
+- 请求 Claude：请在封闭客厅/门窗资产和组装角色准备好后在本文件注明；当前可动窗仅有玻璃，后续需要真实窗扇和窗框。
+- NPC 动作准备：日程姿势选择和可用 morph 的眨眼/眼动/呼吸已接入角色发现与对话，新增原生姿势选择测试。带锁编译通过，日志 `Saved/Round6/build-npc-motion.log`；真实头/眼骨 LookAt、动作过渡和 MetaHuman 视觉验收未完成，继续标记 `needs_npc_gaze_rig`。详见 `Docs/engine-npc-motion-round6.md`。
+- 试听准备：`Tools/record_npc_voices_round6.py` / `.swift` 已做语法与类型检查，采用与运行时同样的 macOS 声音选择和参数；须先完成 NPC 原生/mock/在线验证后再生成并实际试听。该脚本生成的是独立 AVFoundation 音频，不是游戏内录音。规格见 `Docs/engine-npc-voice-audition-round6.md`。
+- C16 更新：带锁编译通过，日志 `Saved/Round6/build-c16.log`；仍未进行 PIE 或场景截图验证。
+- 环境更新：Metal Toolchain 已确认 installed；第一次原生测试因脚本变量名错误退出，已修复并排队重跑，尚无原生用例结果。UE 锁当前由 Claude 人物任务持有。
+- C17 原生测试已运行：`python3 Tools/test_npc_native_round6.py` 的 `WordQuest.Npc.*` 5/5 通过，结果 `Saved/Round6/npc-native.json`、日志 `Saved/Round6/npc-native.log`；随后正在运行 UE 本地 HTTP mock。首次脚本变量名错误已修复，重跑通过。
+- C17 mock 实测排队超时：`Saved/NpcTests/mock-1793599937640896000/editor.log` 最后为 `WQ_PROCESS_TOTAL_TIMEOUT`；原因是 Claude 的客厅构建持续持锁，mock 未启动 UE、未执行用例，并非断言失败。不要中止对方构建；锁释放后重跑 `python3 Tools/test_npc_client_mock.py`，通过后才跑 Paul 在线五轮和四人试听。
+- 补充交接：`Docs/tasks/handoff-codex-round6.md`。本次没有 C16/C15 的 PIE 验收截图，也没有录屏；C19 及垂直切片尚未开始。
+- C17 更新：锁等待与 UE 执行超时已分开计时，等待最长一小时，取得锁后执行时限生效；竞争锁和执行超时模拟均通过。UE HTTP mock 已通过（含流式、一次修复、二次失败、未来断言、取消、超时），结果 `Saved/NpcTests/mock-1793604260378079000/result.json`。取消和超时案例分别使用不同场景预算，避免保守预算互相干扰。
+- C17 在线测试：Paul 五轮首轮实测 1–2 轮成功、首字 720.6/494.9 ms，第 3–5 轮因预留预算过高而降级，结果 `Saved/Round5/npc-paul-online.json`，整体 FAIL。已调整预留估算并隔离后续在线测试存档，重新编译通过 `Saved/Round6/build-npc-budget.log`，正在回归。第一次在线测试在隔离改动前使用了 `Saved/Player` 中玩家对话记忆；未擅自删除或覆盖历史，后续测试使用 `Saved/NpcTests/online-*`。
+- C16 补充：按 Claude 更新，现有固定窗玻璃不再伪装为可打开窗扇；测试明确记录开窗 NOT_AVAILABLE，门扇仍需在 PIE 验证。离线物理契约 9 项通过，已重新编译。
+- C17 在线五轮回归：`Saved/Round5/npc-paul-online.json` 的五轮结果中 3 次 complete、2 次 fallback（首字均 <3 s），整体 FAIL；失败原因是模型首次及一次重问均未输出必需的 `@@META`。单轮加强格式提示测试通过，但不足以证明五轮稳定。调试已确认模型返回只有正文；仍需解决，不可认定 C17 完成。首次在线测试对 `Saved/Player` 记忆的影响见前一条；后续已隔离。
+- C17 四人独立语音：已生成 `Saved/Round6/voice-audition/{paul,maria,jason,jack}.caf` 与 `manifest.json`，并通过 afplay 顺序播放完毕；分别匹配 Daniel、Samantha、Rishi、Reed。此为独立 AVFoundation 合成，不是 PIE 实录，仍需 Claude 听感与游戏内验收。
+- 更正：前述五轮结果文件 `Saved/Round5/npc-paul-online.json` 后被两轮诊断覆盖；五轮逐轮状态已记录在本进度文字，隔离目录中的 `npc_usage.jsonl` 保留请求统计，不能把当前文件当作五轮完整记录。
+- C16 PIE：有限 `arch:floor` 碰撞体和门驱动修复后，`Saved/Round6/physics-playthrough.json` 的辅助焦点测试执行抓取、放下、抛掷和推动，未报告飞出，门转动 58.87°；视觉未验收、推动位移未单独量化，自然视线曾选中椅子而非书本，不能视为完整通过。固定窗不可开；抽屉未交付。结果尾部旧版脚本误写的 `hinge_slide NOT_AVAILABLE` 与已记录的门运动冲突，测试脚本已修正，下一次运行将明确区分门和抽屉。
+- C15 PIE 初测：采集 `Saved/Round6/c15-experience.json`，分析 `Saved/Round6/c15-round6-metrics.json`：步频无可测头摆、曝光暗侧/亮侧读数均 4.0，无法证明 1.6–2 Hz 或 1–2 秒目标；日志显示 body_ready=0。发现场景构建的 PPV 使用手动曝光（`Tools/build_textbook_scene.py`），与自动曝光目标冲突，需在 C19 解决后重测。该轮未提供有效截图。
+- NPC 场景初始姿势：`WordQuestNpcMotion::Configure` 不再主动替换场景已经摆好的姿势，已编译；保留 `needs_npc_pose_transition`，尚未证明角色坐在椅面上或切换动画平滑。四位专属角色由 Claude 组装交付后再按 role 验证。
+
+### Codex 单人继续（2026-11-09）
+- 烟大校园：实际加载发现仅有 171 栋建筑和出生点，没有任何地面；导入日志表明地面 FBX 分拆为 181 个 `G_*` 网格而旧脚本只查找不存在的合并网格。修复 `Tools/ytu_campus_import.py`，已使用只补地面模式保留原有建筑、补齐 181 个地面网格，重开关卡实测；草地使用已登记 CC0 的 Poly Haven leafy_grass，铺地改用现有混凝土材质。
+- 原出生点在 OSM 校园轮廓外约 90 米，已将未修改的旧默认点迁到边界内道路附近；该点只是数据支持的临时位置，真实校门仍需照片核验。校园专用路径接入第一人称角色及现有导航，PIE 实测站稳且前进约 3.94 m，数据 `Saved/YTU/audit/walk.json`。截图 `Saved/YTU/audit/south_gate.png`、`Saved/YTU/audit/aerial.png`；校园仍是体块，立面、植被、水面与场景细节远未达到最终画质。
+- 配音清单：修复 17 个静默 freeze 转场生成空文本，以及一个带实际 epilogue 的旁白处理；重新生成 424 行。家庭专属角色的旧测试已与当前选角一致。完整测试 `PYTHONPATH="$PWD" PYTHONDONTWRITEBYTECODE=1 uvx --with pillow --with numpy --with scipy --with opencv-python-headless pytest -p no:cacheprovider -q Tools`：224 passed、3 subtests passed。
+- 烟大地表复核：实际截图 `Saved/YTU/audit/south_gate.png`、`Saved/YTU/audit/aerial.png`；地面网格保持 181 个、建筑 171 个，多次修复运行无重复。湖面原玻璃材质与 Nanite 不兼容并触发默认材质，已改用该 FBX 自带的不透明材质，重开后的日志未再出现对应 Nanite 警告；这还不是最终水面效果。
+- 建筑暗面：PIE 中试调天光强度并回读材质，比较图 `Saved/YTU/lighting_trial/south_gate.png`；暗面略亮但仍是缺乏立面细节的体块，试验未保存进关卡。当前无依据宣称已达写实成品标准。
+- C19 补记：2026-11-02 的 `Saved/Round6/c19/after.json` 回读光追、Lumen HWRT、MegaLights 与虚拟纹理均为 1；1920×1080 单机位 PIE 回调采样平均 52.7 fps、1% 低帧 48.5 fps。修改前视口尺寸不同，不能据此比较前后性能；截图也早于客厅墙体修复，不能代表当前视觉验收。

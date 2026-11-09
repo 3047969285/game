@@ -1,0 +1,33 @@
+{
+ "image": "male_photo.png",
+ "image_size": [
+  1254,
+  1254
+ ],
+ "ue_location_cm": [
+  -0.051358668261593764,
+  5016.961548574972,
+  168.33040080963326
+ ],
+ "ue_rotation": {
+  "pitch": 0.0,
+  "yaw": -90.0,
+  "roll": 0.0
+ },
+ "ue_fov_deg_horizontal": 0.4157772228317538,
+ "projection": "perspective",
+ "note": "near-orthographic camera reproducing the fit's photo alignment (photo_camera.py)",
+ "fit": {
+  "sf": 3073.7749772282564,
+  "tf": [
+   628.7750121026505,
+   6444.683915959654
+  ],
+  "K": 0.8893741576777054,
+  "offset": [
+   2.168404344971009e-19,
+   5.551115123125783e-17,
+   2.2001562793860785e-09
+  ]
+ }
+}

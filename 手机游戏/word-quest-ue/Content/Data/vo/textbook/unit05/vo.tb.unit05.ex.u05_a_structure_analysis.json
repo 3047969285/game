@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit05.ex.u05_a_structure_analysis",
+ "unit": 5,
+ "section": "section_a",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Structure analysis: Developing an exemplification essay. Take Paras. 9-11 of Text A and see how examples are used to support the point.",
+ "rate": 165,
+ "duration": 13.079,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.982,
+   "text": "Structure analysis: Developing an exemplification essay."
+  },
+  {
+   "i": 1,
+   "start": 4.982,
+   "end": 6.467,
+   "text": "Take Paras."
+  },
+  {
+   "i": 2,
+   "start": 6.467,
+   "end": 13.079,
+   "text": "9-11 of Text A and see how examples are used to support the point."
+  }
+ ]
+}

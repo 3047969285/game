@@ -1,0 +1,28 @@
+{
+ "kit": "door",
+ "dims_m": [
+  1.0,
+  0.115,
+  2.1
+ ],
+ "materials": {
+  "M_door_wood": {
+   "color": "#8A5A36",
+   "roughness": 0.55,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.2
+  },
+  "M_door_metal": {
+   "color": "#C0C4CA",
+   "roughness": 0.3,
+   "metallic": 1.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

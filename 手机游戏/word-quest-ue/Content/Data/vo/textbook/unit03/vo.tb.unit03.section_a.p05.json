@@ -1,0 +1,79 @@
+{
+ "line_id": "vo.tb.unit03.section_a.p05",
+ "unit": 3,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Travel, in other words, is a basic human desire. But do we travel just for fun? I’m afraid not. Actually, getting away is an essential habit of effective thinking. Thanks to modern aviation, we can now move through space at an inhuman speed. For the first time in human history, we can outrun the sun and move from one hemisphere to another in a single day. Of course, it’s not enough to simply get on a plane. If we want to realize the creative benefits of travel, then we have to rethink its overall purpose. Most people, after all, escape to Paris so they don’t have to think about those troubles they left behind. But here’s the irony: Our mind is most likely to solve our most stubborn problems while we are sitting in a Left Bank cafe. So, instead of contemplating that buttery dessert, we should be conscious of those domestic issues we just can’t solve.",
+ "rate": 165,
+ "duration": 49.985,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 3.483,
+   "text": "Travel, in other words, is a basic human desire."
+  },
+  {
+   "i": 1,
+   "start": 3.483,
+   "end": 5.508,
+   "text": "But do we travel just for fun?"
+  },
+  {
+   "i": 2,
+   "start": 5.508,
+   "end": 6.665,
+   "text": "I’m afraid not."
+  },
+  {
+   "i": 3,
+   "start": 6.665,
+   "end": 10.539,
+   "text": "Actually, getting away is an essential habit of effective thinking."
+  },
+  {
+   "i": 4,
+   "start": 10.539,
+   "end": 15.161,
+   "text": "Thanks to modern aviation, we can now move through space at an inhuman speed."
+  },
+  {
+   "i": 5,
+   "start": 15.161,
+   "end": 21.304,
+   "text": "For the first time in human history, we can outrun the sun and move from one hemisphere to another in a single day."
+  },
+  {
+   "i": 6,
+   "start": 21.304,
+   "end": 24.471,
+   "text": "Of course, it’s not enough to simply get on a plane."
+  },
+  {
+   "i": 7,
+   "start": 24.471,
+   "end": 30.121,
+   "text": "If we want to realize the creative benefits of travel, then we have to rethink its overall purpose."
+  },
+  {
+   "i": 8,
+   "start": 30.121,
+   "end": 36.337,
+   "text": "Most people, after all, escape to Paris so they don’t have to think about those troubles they left behind."
+  },
+  {
+   "i": 9,
+   "start": 36.337,
+   "end": 43.168,
+   "text": "But here’s the irony: Our mind is most likely to solve our most stubborn problems while we are sitting in a Left Bank cafe."
+  },
+  {
+   "i": 10,
+   "start": 43.168,
+   "end": 49.985,
+   "text": "So, instead of contemplating that buttery dessert, we should be conscious of those domestic issues we just can’t solve."
+  }
+ ]
+}

@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit04.section_c.p04",
+ "unit": 4,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "Xing never misses any opportunity to spread glassware culture. Through various activities, Xing has made more people aware of the art. She once attended the Glass Innovation Design Contest in Hejian of China's Hebei Province, where she exchanged views with masters in the sector. This further strengthened her confidence in the art of making glassware.",
+ "rate": 165,
+ "duration": 26.952,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.08,
+   "text": "Xing never misses any opportunity to spread glassware culture."
+  },
+  {
+   "i": 1,
+   "start": 5.08,
+   "end": 10.981,
+   "text": "Through various activities, Xing has made more people aware of the art."
+  },
+  {
+   "i": 2,
+   "start": 10.981,
+   "end": 21.328,
+   "text": "She once attended the Glass Innovation Design Contest in Hejian of China's Hebei Province, where she exchanged views with masters in the sector."
+  },
+  {
+   "i": 3,
+   "start": 21.328,
+   "end": 26.952,
+   "text": "This further strengthened her confidence in the art of making glassware."
+  }
+ ]
+}

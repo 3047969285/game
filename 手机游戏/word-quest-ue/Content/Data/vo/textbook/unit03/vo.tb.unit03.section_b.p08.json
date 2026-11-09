@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit03.section_b.p08",
+ "unit": 3,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "But there has also been the downside because of those not-so-pleasant experiences. In Indonesia, a boy menaced me, assuming I was willing to pay for his company. In Japan, I was picked up by a young man who refused to drop me at my youth hostel; he insisted I stay with his friends. The friends turned out to be four girls. I was safe, but one snored like a lawnmower, and it took me two days to escape.",
+ "rate": 165,
+ "duration": 25.218,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.878,
+   "text": "But there has also been the downside because of those not-so-pleasant experiences."
+  },
+  {
+   "i": 1,
+   "start": 4.878,
+   "end": 10.06,
+   "text": "In Indonesia, a boy menaced me, assuming I was willing to pay for his company."
+  },
+  {
+   "i": 2,
+   "start": 10.06,
+   "end": 17.783,
+   "text": "In Japan, I was picked up by a young man who refused to drop me at my youth hostel; he insisted I stay with his friends."
+  },
+  {
+   "i": 3,
+   "start": 17.783,
+   "end": 20.231,
+   "text": "The friends turned out to be four girls."
+  },
+  {
+   "i": 4,
+   "start": 20.231,
+   "end": 25.218,
+   "text": "I was safe, but one snored like a lawnmower, and it took me two days to escape."
+  }
+ ]
+}

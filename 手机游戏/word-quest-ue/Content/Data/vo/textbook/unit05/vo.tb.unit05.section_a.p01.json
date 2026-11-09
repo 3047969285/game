@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit05.section_a.p01",
+ "unit": 5,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "China's space exploration had reached a new milestone by 2021, when three astronauts of Shenzhou-12 crew successfully docked at the Tiangong space station, worked there for months, and then safely returned to the earth. The three—Nie Haisheng, Liu Boming, and Tang Hongbo—were selected rigorously from the current active, qualified Chinese astronauts. All these astronauts have been training for one of the most spectacular endeavors of China's space exploration: building and operating China's first space station.",
+ "rate": 165,
+ "duration": 30.899,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 13.35,
+   "text": "China's space exploration had reached a new milestone by 2021, when three astronauts of Shenzhou-12 crew successfully docked at the Tiangong space station, worked there for months, and then safely returned to the earth."
+  },
+  {
+   "i": 1,
+   "start": 13.35,
+   "end": 21.864,
+   "text": "The three—Nie Haisheng, Liu Boming, and Tang Hongbo—were selected rigorously from the current active, qualified Chinese astronauts."
+  },
+  {
+   "i": 2,
+   "start": 21.864,
+   "end": 30.899,
+   "text": "All these astronauts have been training for one of the most spectacular endeavors of China's space exploration: building and operating China's first space station."
+  }
+ ]
+}

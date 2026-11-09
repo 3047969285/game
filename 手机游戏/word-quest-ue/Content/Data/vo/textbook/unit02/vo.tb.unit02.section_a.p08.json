@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit02.section_a.p08",
+ "unit": 2,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "In 1431, Zheng He set out with his fleet for the seventh expedition around the Indian Ocean, sailing all the way to Malindi on Kenya's east coast and stopping at trading ports along the way. Toward the end of this voyage in 1433, Zheng He died of disease.",
+ "rate": 165,
+ "duration": 15.415,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 11.003,
+   "text": "In 1431, Zheng He set out with his fleet for the seventh expedition around the Indian Ocean, sailing all the way to Malindi on Kenya's east coast and stopping at trading ports along the way."
+  },
+  {
+   "i": 1,
+   "start": 11.003,
+   "end": 15.415,
+   "text": "Toward the end of this voyage in 1433, Zheng He died of disease."
+  }
+ ]
+}

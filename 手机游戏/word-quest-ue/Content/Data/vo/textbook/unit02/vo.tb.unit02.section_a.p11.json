@@ -1,0 +1,19 @@
+{
+ "line_id": "vo.tb.unit02.section_a.p11",
+ "unit": 2,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Today, whether people view Zheng He as an emblem of Chinese diplomacy or as a symbol of the country's spirit of adventure and bravery, one thing is for certain: Zheng He remains one of the greatest explorers in world history, and the voyages he led stand among the great wonders in the history of ocean navigation, contributing significantly to the progress of human civilization.",
+ "rate": 165,
+ "duration": 20.793,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 20.793,
+   "text": "Today, whether people view Zheng He as an emblem of Chinese diplomacy or as a symbol of the country's spirit of adventure and bravery, one thing is for certain: Zheng He remains one of the greatest explorers in world history, and the voyages he led stand among the great wonders in the history of ocean navigation, contributing significantly to the progress of human civilization."
+  }
+ ]
+}

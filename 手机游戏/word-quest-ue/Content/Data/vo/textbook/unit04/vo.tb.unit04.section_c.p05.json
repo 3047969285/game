@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit04.section_c.p05",
+ "unit": 4,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "However, the hardship of learning and grasping this skill makes the preservation of the art a major challenge. Xing once had more than 100 apprentices, but only one of them still remains in the sector, and now she has only her two sons to pass the skill on to. “Of course I hope the art of making glassware can be handed down from one generation to another, as it is really beautiful and represents a high level of art,” Xing said.",
+ "rate": 165,
+ "duration": 34.006,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 8.532,
+   "text": "However, the hardship of learning and grasping this skill makes the preservation of the art a major challenge."
+  },
+  {
+   "i": 1,
+   "start": 8.532,
+   "end": 20.561,
+   "text": "Xing once had more than 100 apprentices, but only one of them still remains in the sector, and now she has only her two sons to pass the skill on to."
+  },
+  {
+   "i": 2,
+   "start": 20.561,
+   "end": 34.006,
+   "text": "“Of course I hope the art of making glassware can be handed down from one generation to another, as it is really beautiful and represents a high level of art,” Xing said."
+  }
+ ]
+}

@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit02.section_b.p03",
+ "unit": 2,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "As a young girl during the Nazi occupation of the Netherlands, Audrey Hepburn was aware of the brutality, death, and destruction of war. She was malnourished, as her family was bankrupted as a result of the invasion. One day, Audrey was grabbed off the street by the Nazis and placed in line to be sent to a work camp. When the guards glanced away she darted off, barely escaping, and huddled in a cold, foul basement full of rats.",
+ "rate": 165,
+ "duration": 26.862,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 8.653,
+   "text": "As a young girl during the Nazi occupation of the Netherlands, Audrey Hepburn was aware of the brutality, death, and destruction of war."
+  },
+  {
+   "i": 1,
+   "start": 8.653,
+   "end": 13.46,
+   "text": "She was malnourished, as her family was bankrupted as a result of the invasion."
+  },
+  {
+   "i": 2,
+   "start": 13.46,
+   "end": 19.499,
+   "text": "One day, Audrey was grabbed off the street by the Nazis and placed in line to be sent to a work camp."
+  },
+  {
+   "i": 3,
+   "start": 19.499,
+   "end": 26.862,
+   "text": "When the guards glanced away she darted off, barely escaping, and huddled in a cold, foul basement full of rats."
+  }
+ ]
+}

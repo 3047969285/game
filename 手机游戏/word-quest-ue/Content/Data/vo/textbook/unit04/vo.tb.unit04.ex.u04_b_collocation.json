@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit04.ex.u04_b_collocation",
+ "unit": 4,
+ "section": "B",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Complete the following passage by filling in the blanks with appropriate collocations from the texts. You are provided with the first letter(s) for each of the collocations. Change the form where necessary.",
+ "rate": 165,
+ "duration": 16.264,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 7.462,
+   "text": "Complete the following passage by filling in the blanks with appropriate collocations from the texts."
+  },
+  {
+   "i": 1,
+   "start": 7.462,
+   "end": 13.727,
+   "text": "You are provided with the first letter(s) for each of the collocations."
+  },
+  {
+   "i": 2,
+   "start": 13.727,
+   "end": 16.264,
+   "text": "Change the form where necessary."
+  }
+ ]
+}

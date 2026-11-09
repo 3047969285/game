@@ -1,0 +1,28 @@
+{
+ "kit": "message_drop",
+ "dims_m": [
+  0.142,
+  0.033,
+  0.114
+ ],
+ "materials": {
+  "M_message": {
+   "color": "#0B1418",
+   "roughness": 0.3,
+   "metallic": 0.0,
+   "emission": "#B8D1D5",
+   "emission_strength": 4.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_message_dot": {
+   "color": "#0B1418",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

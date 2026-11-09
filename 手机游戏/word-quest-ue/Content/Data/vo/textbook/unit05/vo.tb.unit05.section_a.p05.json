@@ -1,0 +1,19 @@
+{
+ "line_id": "vo.tb.unit05.section_a.p05",
+ "unit": 5,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "To achieve these accomplishments, though, the astronauts have endured countless rounds of training, tests, and drills, shedding sweat and owing an enormous debt to their families for their thorough understanding and continuous support.",
+ "rate": 165,
+ "duration": 12.841,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 12.841,
+   "text": "To achieve these accomplishments, though, the astronauts have endured countless rounds of training, tests, and drills, shedding sweat and owing an enormous debt to their families for their thorough understanding and continuous support."
+  }
+ ]
+}

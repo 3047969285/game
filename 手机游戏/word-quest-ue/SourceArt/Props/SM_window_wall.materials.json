@@ -1,0 +1,37 @@
+{
+ "kit": "window_wall",
+ "dims_m": [
+  5.0,
+  0.2,
+  3.0
+ ],
+ "materials": {
+  "M_plaster": {
+   "color": "#EEE6D8",
+   "roughness": 0.92,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.12
+  },
+  "M_glass": {
+   "color": "#CFE6F0",
+   "roughness": 0.05,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 0.25,
+   "noise": 0.0
+  },
+  "M_frame": {
+   "color": "#F4F1EA",
+   "roughness": 0.4,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

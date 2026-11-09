@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit04.section_b.p17",
+ "unit": 4,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "I traveled for a few months on business, and shortly after my return, I walked down the street, looking forward to seeing my friend again. Yet when I arrived, I found the door closed. There was a little sign: “Call for shoes at shop next door.”",
+ "rate": 165,
+ "duration": 15.484,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 8.643,
+   "text": "I traveled for a few months on business, and shortly after my return, I walked down the street, looking forward to seeing my friend again."
+  },
+  {
+   "i": 1,
+   "start": 8.643,
+   "end": 11.675,
+   "text": "Yet when I arrived, I found the door closed."
+  },
+  {
+   "i": 2,
+   "start": 11.675,
+   "end": 15.484,
+   "text": "There was a little sign: “Call for shoes at shop next door.”"
+  }
+ ]
+}

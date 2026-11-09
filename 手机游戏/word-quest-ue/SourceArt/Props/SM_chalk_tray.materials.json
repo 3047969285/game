@@ -1,0 +1,28 @@
+{
+ "kit": "chalk_tray",
+ "dims_m": [
+  3.0,
+  0.08,
+  0.05
+ ],
+ "materials": {
+  "M_wood": {
+   "color": "#8A5A33",
+   "roughness": 0.55,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.2
+  },
+  "M_chalk": {
+   "color": "#F2EFE6",
+   "roughness": 0.9,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

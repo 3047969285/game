@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit03.section_c.p03",
+ "unit": 3,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "The husband and wife began their experience as backpackers (背包客) by hitting the trails of the Tiger Leaping Gorge, a deep and beautiful scenic valley in southwest China’s Yunnan Province. In a village at the foot of a mountain, they bumped into a foreign tourist who was traveling in China but spoke little Chinese. They were inspired by their foreign friend’s attitude to life and were bitten by the travel bug (迷上旅行). “If the language barrier does not matter when people travel,” Zhang recalled saying to his wife, “why don’t we go abroad?” His wife agreed.",
+ "rate": 165,
+ "duration": 40.729,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 13.232,
+   "text": "The husband and wife began their experience as backpackers (背包客) by hitting the trails of the Tiger Leaping Gorge, a deep and beautiful scenic valley in southwest China’s Yunnan Province."
+  },
+  {
+   "i": 1,
+   "start": 13.232,
+   "end": 22.7,
+   "text": "In a village at the foot of a mountain, they bumped into a foreign tourist who was traveling in China but spoke little Chinese."
+  },
+  {
+   "i": 2,
+   "start": 22.7,
+   "end": 29.792,
+   "text": "They were inspired by their foreign friend’s attitude to life and were bitten by the travel bug (迷上旅行)."
+  },
+  {
+   "i": 3,
+   "start": 29.792,
+   "end": 40.729,
+   "text": "“If the language barrier does not matter when people travel,” Zhang recalled saying to his wife, “why don’t we go abroad?” His wife agreed."
+  }
+ ]
+}

@@ -19,8 +19,10 @@ WHO, FIT, EXP = a[0], a[1], a[2]
 DENS = float(a[3]) if len(a) > 3 else 28.0           # strands per real cm of clump width
 os.makedirs(EXP, exist_ok=True)
 rng = np.random.default_rng(11)
-H_REAL = {"male": 1.84, "female": 1.68}[WHO]
-COL = {"male": (0.012, 0.010, 0.010), "female": (0.20, 0.035, 0.04)}[WHO]
+H_REAL = float(os.environ.get("HEIGHT_M") or {"male": 1.84, "female": 1.68}.get(WHO, 1.75))
+COL = {"male": (0.012, 0.010, 0.010), "female": (0.20, 0.035, 0.04), "mei": (0.006, 0.005, 0.005),
+       "an": (0.024, 0.012, 0.006), "rui": (0.25, 0.14, 0.065), "organizer": (0.042, 0.024, 0.014),
+       "old2090": (0.60, 0.61, 0.64)}.get(WHO, (0.03, 0.025, 0.02))
 NPTS = 16
 
 d = pickle.load(open(os.path.join(FIT, f"{WHO}_guides.pkl"), "rb"))
@@ -79,9 +81,13 @@ for o in list(bpy.data.objects):
         o.hide_render = True
 cu = bpy.data.curves.new(f"{WHO}_groom", "CURVE"); cu.dimensions = "3D"
 cu.bevel_depth = 0.0
-for P in strands:
+# per-point radius = half the strand width (Alembic "width" -> UE groom width). Blender's default
+# radius of 1.0 m made UE draw 1-2 m wide strands (full-screen streaks, Codex C3 report 2026-10-22).
+taper = np.linspace(1.0, 0.35, NPTS)
+for P, w_ in zip(strands, widths):
     sp = cu.splines.new("POLY"); sp.points.add(NPTS - 1)
     sp.points.foreach_set("co", np.c_[P, np.ones(NPTS)].ravel().tolist())
+    sp.points.foreach_set("radius", (0.5 * w_ * taper).tolist())
 groom = bpy.data.objects.new(f"{WHO}_groom", cu)
 bpy.context.scene.collection.objects.link(groom)
 for o in bpy.data.objects:
@@ -104,7 +110,7 @@ for o in bpy.data.objects:
     if o.type == "MESH" and o.name.endswith("high-poly") and o.parent is None:
         o.scale = tuple(s_ * K for s_ in o.scale)
         o.location = (o.location[0] * K, o.location[1] * K, (o.location[2] - zmin) * K)
-cu.bevel_depth = 0.00004; cu.bevel_resolution = 0
+cu.bevel_depth = 1.0; cu.bevel_resolution = 0     # point radius already carries the width
 mat = bpy.data.materials.new("groom"); mat.use_nodes = True
 nt = mat.node_tree
 for n_ in list(nt.nodes):
@@ -126,6 +132,8 @@ try:
 except Exception:  # noqa: BLE001
     pass
 sc.render.resolution_x = sc.render.resolution_y = 900
+if sc.camera is None:
+    _cd = bpy.data.cameras.new("cam"); _co = bpy.data.objects.new("cam", _cd); sc.collection.objects.link(_co); sc.camera = _co
 sc.render.film_transparent = True
 cam = sc.camera
 cam.data.type = "ORTHO"; cam.data.ortho_scale = 0.40

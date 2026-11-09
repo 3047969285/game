@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit02.section_c.p04",
+ "unit": 2,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "In a survey in 1927, the public voted for their favorite new play of the most famous Peking Opera performers of female roles. Such a role is known as dan. Among the performers were Mei Lanfang, Cheng Yanqiu, Shang Xiaoyun, and Xun Huisheng. Later, the four artists became widely known as the Four Great Dans of Peking Opera, and each went on to develop their own disciplines which have been studied and followed by generations of Peking Opera singers.",
+ "rate": 165,
+ "duration": 37.607,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 11.781,
+   "text": "In a survey in 1927, the public voted for their favorite new play of the most famous Peking Opera performers of female roles."
+  },
+  {
+   "i": 1,
+   "start": 11.781,
+   "end": 14.566,
+   "text": "Such a role is known as dan."
+  },
+  {
+   "i": 2,
+   "start": 14.566,
+   "end": 21.571,
+   "text": "Among the performers were Mei Lanfang, Cheng Yanqiu, Shang Xiaoyun, and Xun Huisheng."
+  },
+  {
+   "i": 3,
+   "start": 21.571,
+   "end": 37.607,
+   "text": "Later, the four artists became widely known as the Four Great Dans of Peking Opera, and each went on to develop their own disciplines which have been studied and followed by generations of Peking Opera singers."
+  }
+ ]
+}

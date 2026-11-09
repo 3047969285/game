@@ -1,0 +1,28 @@
+{
+ "kit": "board_table",
+ "dims_m": [
+  5.0,
+  1.4,
+  0.76
+ ],
+ "materials": {
+  "M_walnut": {
+   "color": "#5E4330",
+   "roughness": 0.45,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.2
+  },
+  "M_steel": {
+   "color": "#2A2D33",
+   "roughness": 0.4,
+   "metallic": 0.8,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

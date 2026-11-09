@@ -1,0 +1,34 @@
+{
+ "kit": "rug",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_rug.fbx",
+ "triangles": 28096,
+ "size_m": [
+  2.734,
+  1.8,
+  0.009
+ ],
+ "dims_target_m": [
+  2.6,
+  1.8,
+  0.01
+ ],
+ "slots": [
+  {
+   "slot": "wool",
+   "material": "M_wool",
+   "BaseColor": "T_rug_wool_BaseColor.png",
+   "Normal": "T_rug_wool_Normal.png",
+   "ARM": "T_rug_wool_ARM.png"
+  },
+  {
+   "slot": "fringe",
+   "material": "M_fringe",
+   "BaseColor": "T_rug_fringe_BaseColor.png",
+   "Normal": "T_rug_fringe_Normal.png",
+   "ARM": "T_rug_fringe_ARM.png"
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "design projected from designs/rug_indigo.png"
+}

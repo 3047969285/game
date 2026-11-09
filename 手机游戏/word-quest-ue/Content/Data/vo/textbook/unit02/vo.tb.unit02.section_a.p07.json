@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit02.section_a.p07",
+ "unit": 2,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "During his career as a naval commander, Zheng He negotiated trade pacts, fought pirates, and brought back gifts to China. He and his crew traveled and traded not only with the cities in what are now Indonesia, Malaysia, Thailand, and India, but also with the Arabian ports of modern-day Yemen and Saudi Arabia. The rulers he encountered there were impressed by his diplomatic skills and the elaborate gifts he brought them. They agreed to send ambassadors to the Ming court.",
+ "rate": 165,
+ "duration": 26.125,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 7.345,
+   "text": "During his career as a naval commander, Zheng He negotiated trade pacts, fought pirates, and brought back gifts to China."
+  },
+  {
+   "i": 1,
+   "start": 7.345,
+   "end": 18.126,
+   "text": "He and his crew traveled and traded not only with the cities in what are now Indonesia, Malaysia, Thailand, and India, but also with the Arabian ports of modern-day Yemen and Saudi Arabia."
+  },
+  {
+   "i": 2,
+   "start": 18.126,
+   "end": 23.525,
+   "text": "The rulers he encountered there were impressed by his diplomatic skills and the elaborate gifts he brought them."
+  },
+  {
+   "i": 3,
+   "start": 23.525,
+   "end": 26.125,
+   "text": "They agreed to send ambassadors to the Ming court."
+  }
+ ]
+}

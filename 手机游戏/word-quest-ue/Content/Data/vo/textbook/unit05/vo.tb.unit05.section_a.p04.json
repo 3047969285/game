@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit05.section_a.p04",
+ "unit": 5,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Since Yang's momentous journey, China has made a gigantic progress in space exploration, and more astronauts have been sent into orbit. The astronauts have performed scientific experiments and technological tests, undertaken extravehicular activities, and even delivered a science lecture watched by tens of millions of students.",
+ "rate": 165,
+ "duration": 19.75,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 8.083,
+   "text": "Since Yang's momentous journey, China has made a gigantic progress in space exploration, and more astronauts have been sent into orbit."
+  },
+  {
+   "i": 1,
+   "start": 8.083,
+   "end": 19.75,
+   "text": "The astronauts have performed scientific experiments and technological tests, undertaken extravehicular activities, and even delivered a science lecture watched by tens of millions of students."
+  }
+ ]
+}

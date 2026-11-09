@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit01.section_a.p03",
+ "unit": 1,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "At home, families sit together, texting, and reading emails. At work, executives text during board meetings. We also text when we're on dates. Walking through a college library or the campus of a high-tech company, one sees an identical scenario: People are together, but each of them is in their own bubble, furiously connected to keyboards and tiny touch screens. The little devices most of us carry around are so powerful that they change not only what we do but also who we are.",
+ "rate": 165,
+ "duration": 28.524,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.385,
+   "text": "At home, families sit together, texting, and reading emails."
+  },
+  {
+   "i": 1,
+   "start": 4.385,
+   "end": 7.528,
+   "text": "At work, executives text during board meetings."
+  },
+  {
+   "i": 2,
+   "start": 7.528,
+   "end": 9.713,
+   "text": "We also text when we're on dates."
+  },
+  {
+   "i": 3,
+   "start": 9.713,
+   "end": 22.243,
+   "text": "Walking through a college library or the campus of a high-tech company, one sees an identical scenario: People are together, but each of them is in their own bubble, furiously connected to keyboards and tiny touch screens."
+  },
+  {
+   "i": 4,
+   "start": 22.243,
+   "end": 28.524,
+   "text": "The little devices most of us carry around are so powerful that they change not only what we do but also who we are."
+  }
+ ]
+}

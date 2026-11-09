@@ -1,0 +1,49 @@
+{
+ "line_id": "vo.tb.unit06.section_b.p05",
+ "unit": 6,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "But equity is not revenue. The market holds long enough for you to spend the money. Then it crashes and the value of your home falls to $325,000. Now you have negative equity and owe the bank $400,000. So you default on your loan and give your house, car, and vacation home to the bank. If this situation is widespread, it can culminate in the failure of those banks and a severe blow to the lending needed to grow the economy.",
+ "rate": 165,
+ "duration": 26.895,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 1.86,
+   "text": "But equity is not revenue."
+  },
+  {
+   "i": 1,
+   "start": 1.86,
+   "end": 4.841,
+   "text": "The market holds long enough for you to spend the money."
+  },
+  {
+   "i": 2,
+   "start": 4.841,
+   "end": 9.973,
+   "text": "Then it crashes and the value of your home falls to $325,000."
+  },
+  {
+   "i": 3,
+   "start": 9.973,
+   "end": 13.981,
+   "text": "Now you have negative equity and owe the bank $400,000."
+  },
+  {
+   "i": 4,
+   "start": 13.981,
+   "end": 19.415,
+   "text": "So you default on your loan and give your house, car, and vacation home to the bank."
+  },
+  {
+   "i": 5,
+   "start": 19.415,
+   "end": 26.895,
+   "text": "If this situation is widespread, it can culminate in the failure of those banks and a severe blow to the lending needed to grow the economy."
+  }
+ ]
+}

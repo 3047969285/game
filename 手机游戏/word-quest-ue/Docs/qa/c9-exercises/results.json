@@ -1,0 +1,198 @@
+[
+  {
+    "capture": "Docs/qa/c9-exercises/c8-memory-playback.png",
+    "run_id": "1792659124067307000"
+  },
+  {
+    "test": "C8 sentence advance",
+    "pass": true,
+    "before": "unit=1 section=section_a scene=0 sentence=0 paused=0 transition=0 error=",
+    "after": "unit=1 section=section_a scene=0 sentence=1 paused=0 transition=0 error="
+  },
+  {
+    "kind": "pre_reading",
+    "pass": true,
+    "feedback": "SAVED TO NOTEBOOK · Compare and reflect",
+    "paused": true
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/pre_reading.png",
+    "run_id": "1792659124067307000"
+  },
+  {
+    "kind": "understanding",
+    "pass": true,
+    "feedback": "SAVED TO NOTEBOOK · Compare and reflect\nREFERENCE: They are not allowed to play video games, use computers, or use cell phones from Friday night through Sunday evening.",
+    "paused": true
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/understanding.png",
+    "run_id": "1792659124067307000"
+  },
+  {
+    "kind": "critical",
+    "pass": true,
+    "feedback": "SAVED TO NOTEBOOK · Compare and reflect",
+    "paused": true
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/critical.png",
+    "run_id": "1792659124067307000"
+  },
+  {
+    "kind": "words_in_use",
+    "pass": true,
+    "feedback": "RESTORED · Correct\nscenario 指电影的剧情梗概，此处为复数形式。",
+    "paused": true
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/words_in_use.png",
+    "run_id": "1792659124067307000"
+  },
+  {
+    "kind": "word_building",
+    "pass": true,
+    "feedback": "RESTORED · Correct\ndominance（主导地位）是 dominate 的名词形式，作主语。",
+    "paused": true
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/word_building.png",
+    "run_id": "1792659124067307000"
+  },
+  {
+    "kind": "banked_cloze",
+    "pass": true,
+    "feedback": "RESTORED · Correct\nallow sb. to maintain contact 意为保持联系。",
+    "paused": true
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/banked_cloze-portrait.png",
+    "run_id": "1792659124067307000",
+    "resolution": [
+      450,
+      900
+    ]
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/banked_cloze-landscape.png",
+    "run_id": "1792659124067307000",
+    "resolution": [
+      1280,
+      720
+    ]
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/banked_cloze.png",
+    "run_id": "1792659124067307000"
+  },
+  {
+    "kind": "expressions_in_use",
+    "pass": true,
+    "feedback": "RESTORED · Correct\nplunge into 意为投身于，句子为过去时。",
+    "paused": true
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/expressions_in_use.png",
+    "run_id": "1792659124067307000"
+  },
+  {
+    "kind": "structure_writing",
+    "pass": true,
+    "feedback": "SAVED TO NOTEBOOK · Compare and reflect\nTopic: Is smart technology making us dumb?\nIntroduction: Controversial argument: Smart technology is damaging our cognitive abilities and making us dumb. Thesis statement: Smart technology is actually making us smarter.\nBody: Supporting point 1: Smart technology helps us become more knowledgeable. Supporting point 2: Smart technology helps us learn better. Supporting point 3: Smart technology helps us be more innovative. Refutation/Opposition: People worry that smart technology is making us dumb, but this is not true and not supported by scientific evidence.\nConclusion: Smart technology is changing our lives and benefiting us in positive ways.\nMore topics: Will AI (artificial intelligence) cause mass unemployment? Should parents monitor their children’s use of the Internet?",
+    "paused": true
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/structure_writing.png",
+    "run_id": "1792659124067307000"
+  },
+  {
+    "kind": "reading_skills",
+    "pass": true,
+    "feedback": "SAVED TO NOTEBOOK · Compare and reflect",
+    "paused": true
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/reading_skills.png",
+    "run_id": "1792659124067307000"
+  },
+  {
+    "kind": "text_b_mcq",
+    "pass": true,
+    "feedback": "RESTORED · Correct\n第1段指出技术已渗入生活的方方面面，但人们往往意识不到其影响，这正是讽刺之处。",
+    "paused": true
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/text_b_mcq-portrait.png",
+    "run_id": "1792659124067307000",
+    "resolution": [
+      450,
+      900
+    ]
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/text_b_mcq-landscape.png",
+    "run_id": "1792659124067307000",
+    "resolution": [
+      1280,
+      720
+    ]
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/text_b_mcq.png",
+    "run_id": "1792659124067307000"
+  },
+  {
+    "kind": "collocation",
+    "pass": true,
+    "feedback": "RESTORED · Correct\nestablish credibility 意为建立信誉，与 which has 搭配用现在完成时。",
+    "paused": true
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/collocation-portrait.png",
+    "run_id": "1792659124067307000",
+    "resolution": [
+      450,
+      900
+    ]
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/collocation-landscape.png",
+    "run_id": "1792659124067307000",
+    "resolution": [
+      1280,
+      720
+    ]
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/collocation.png",
+    "run_id": "1792659124067307000"
+  },
+  {
+    "kind": "translation",
+    "pass": true,
+    "feedback": "SAVED TO NOTEBOOK · Compare and reflect\nREFERENCE: In recent years, with the rapid development of Internet technology, the Internet economy has become a hot topic. Represented by e-commerce, the Internet economy has become an important driving force for China’s economic development. The Chinese government has put forward the concept of “Internet Plus” to promote the integration of the Internet with healthcare, transportation, education, finance, public services and other fields. This will provide more development opportunities and broader room for the development of the Internet economy.\n近年来，随着互联网技术的迅猛发展，互联网经济已成为一个热门话题。以电子商务为代表的互联网经济已成为中国经济发展的重要引擎（driving force）。我国政府提出了“互联网+”的概念，以推动互联网与医疗、交通、教育、金融、公共服务等领域的结合。这将为互联网经济的发展提供更多发展机遇和更广阔的发展空间。",
+    "paused": true
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/translation.png",
+    "run_id": "1792659124067307000"
+  },
+  {
+    "test": "C8 exercise resume",
+    "pass": true,
+    "state": "unit=1 section=section_a scene=0 sentence=1 paused=0 transition=1 error="
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/c8-memory-dissolve.png",
+    "run_id": "1792659124067307000"
+  },
+  {
+    "test": "C8 dissolve and next camera",
+    "pass": true,
+    "state": "unit=1 section=section_a scene=1 sentence=0 paused=0 transition=0 error="
+  },
+  {
+    "capture": "Docs/qa/c9-exercises/c8-next-set.png",
+    "run_id": "1792659124067307000"
+  }
+]

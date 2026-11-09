@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit02.ex.u02_a_critical",
+ "unit": 2,
+ "section": "section_a",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Critical thinking. Work in pairs and discuss the following questions.",
+ "rate": 165,
+ "duration": 5.669,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 1.831,
+   "text": "Critical thinking."
+  },
+  {
+   "i": 1,
+   "start": 1.831,
+   "end": 5.669,
+   "text": "Work in pairs and discuss the following questions."
+  }
+ ]
+}

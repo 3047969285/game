@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit06.section_b.p08",
+ "unit": 6,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Bubbles are not limited to the arena of real estate or “get-rich” stock offerings. In the 1990s, a series of stuffed animal toys became such a fad that speculators bought up large quantities, assuming that their value as collectibles would continue to rise. Did anyone make money on that fad? If you check out their prices on an online auction site, you can decide whether any of these sellers have struck it rich.",
+ "rate": 165,
+ "duration": 24.497,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.6,
+   "text": "Bubbles are not limited to the arena of real estate or “get-rich” stock offerings."
+  },
+  {
+   "i": 1,
+   "start": 4.6,
+   "end": 15.76,
+   "text": "In the 1990s, a series of stuffed animal toys became such a fad that speculators bought up large quantities, assuming that their value as collectibles would continue to rise."
+  },
+  {
+   "i": 2,
+   "start": 15.76,
+   "end": 17.876,
+   "text": "Did anyone make money on that fad?"
+  },
+  {
+   "i": 3,
+   "start": 17.876,
+   "end": 24.497,
+   "text": "If you check out their prices on an online auction site, you can decide whether any of these sellers have struck it rich."
+  }
+ ]
+}

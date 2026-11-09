@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit06.section_b.p06",
+ "unit": 6,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "There are also stock market bubbles. In a normal market, investors buy stock in a company because they anticipate that future profits will become dividends and they believe the value of the company's assets will increase. Sometimes, though, a “herd mentality” sets in and too many brokers rush to buy, driving prices like mercury up a thermometer to levels that prove unrealistic. Eventually, it becomes clear that further increases are not forthcoming and price deterioration develops, followed by a swift drop. When this happens to too many companies in aggregate, it is called a stock market crash.",
+ "rate": 165,
+ "duration": 35.803,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 2.345,
+   "text": "There are also stock market bubbles."
+  },
+  {
+   "i": 1,
+   "start": 2.345,
+   "end": 12.263,
+   "text": "In a normal market, investors buy stock in a company because they anticipate that future profits will become dividends and they believe the value of the company's assets will increase."
+  },
+  {
+   "i": 2,
+   "start": 12.263,
+   "end": 22.33,
+   "text": "Sometimes, though, a “herd mentality” sets in and too many brokers rush to buy, driving prices like mercury up a thermometer to levels that prove unrealistic."
+  },
+  {
+   "i": 3,
+   "start": 22.33,
+   "end": 30.495,
+   "text": "Eventually, it becomes clear that further increases are not forthcoming and price deterioration develops, followed by a swift drop."
+  },
+  {
+   "i": 4,
+   "start": 30.495,
+   "end": 35.803,
+   "text": "When this happens to too many companies in aggregate, it is called a stock market crash."
+  }
+ ]
+}

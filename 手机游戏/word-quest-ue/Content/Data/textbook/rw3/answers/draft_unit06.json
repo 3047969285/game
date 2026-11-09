@@ -1,0 +1,579 @@
+{
+  "unit": 6,
+  "items": [
+    {
+      "block": "u06_a_pre_reading",
+      "n": 1,
+      "explanation_en": "The pictures preview Text A's casualties of the slump: laid-off workers, an evicted tenant and families living on modest benefits.",
+      "draft_answer": "The pictures seem to show people caught in an economic downturn: workers who have just been laid off, a woman loading her car after an eviction, and a family cutting back on everyday spending. Their faces suggest anxiety about rent, bills and an uncertain future, very much like the Americans described in Text A.",
+      "needs_review": true
+    },
+    {
+      "block": "u06_a_pre_reading",
+      "n": 2,
+      "explanation_en": "Text A answers this directly: lost income costs people housing, transport and dignity, as Sue's fall from $56,000 a year shows.",
+      "draft_answer": "They first lose income, and then the everyday markers of a normal life: the apartment, the car, holidays and savings. Long unemployment also damages health, family ties and self-respect, as Sue's move into a motel and her diet of rice and bread show. Children may be pulled out of school, and the fear of falling often outlasts the crisis itself.",
+      "needs_review": true
+    },
+    {
+      "block": "u06_a_pre_reading",
+      "n": 3,
+      "explanation_en": "The causes named in both texts, reckless mortgage lending and speculation, point to tighter regulation plus a stronger safety net.",
+      "draft_answer": "Governments should supervise lending and speculative trading more strictly, so that asset prices cannot race far beyond real value. A stronger safety net, with longer unemployment insurance and retraining programs, would cushion the shock for ordinary families. Financial education for borrowers and small investors would also keep them from chasing bubbles.",
+      "needs_review": true
+    },
+    {
+      "block": "u06_a_understanding",
+      "n": 1,
+      "explanation_en": "Para. 1: the loan-owning companies lost \"sizable amounts of money\", and the losses \"spiraled into the U.S. job market as lay-offs and terminations\".",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_understanding",
+      "n": 2,
+      "explanation_en": "Para. 4 explains the name: they had \"exhausted the maximum 99 weeks of unemployment insurance benefits\" they could claim.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_understanding",
+      "n": 3,
+      "explanation_en": "Para. 5 calls the payments \"a lifeline\" that kept \"a roof over their heads\" and paid for gas, electric and phone bills.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_understanding",
+      "n": 4,
+      "explanation_en": "Para. 7 gives the simile: \"Each day, like a ping pong ball, Sue went back and forth between resolve and despair.\"",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_understanding",
+      "n": 5,
+      "explanation_en": "Para. 13: after a church donated gas cards, she \"figured the health-care safety net there was better, as well as the job market\".",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_understanding",
+      "n": 6,
+      "explanation_en": "Paras. 13-14: welfare required young children, the shelter had a waiting list, her sons could not help, and she refused to be \"a parasite\".",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_understanding",
+      "n": 7,
+      "explanation_en": "Para. 16: she had no address to put on applications and feared her cell phone would be \"cut off for non-payment\", leaving employers unable to reach her.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_understanding",
+      "n": 8,
+      "explanation_en": "The narrative follows one woman from a corporate post to a motel room, showing what the jobless statistics hide: lost livelihood, dignity and hope.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_critical",
+      "n": 1,
+      "explanation_en": "Argue from Para. 5: benefits kept demand and normal life going, so they stopped one family's collapse from spreading.",
+      "draft_answer": "A social security system keeps demand alive during a downturn: the benefits called \"a lifeline\" in Paragraph 5 let people keep paying rent, fuel and phone bills. By cushioning the fall, it stops a slump from spiraling into the job market and the wider economy. It also preserves skills and social stability, which any recovery depends on.",
+      "needs_review": true
+    },
+    {
+      "block": "u06_a_critical",
+      "n": 2,
+      "explanation_en": "Base proposals on Sue's specific failures: benefits expiring, eviction, car repossession and a phone cut off for non-payment.",
+      "draft_answer": "The government could extend unemployment insurance beyond 99 weeks and fund retraining and job placement, so that the long-term jobless are not left to exhaust their benefits. Rent support and faster shelter placement would keep families out of their cars, and rules on debt collection would stop the kind of harassment Sue suffered over her car loan. A public jobs program in depressed regions would also help.",
+      "needs_review": true
+    },
+    {
+      "block": "u06_a_critical",
+      "n": 3,
+      "explanation_en": "Use Para. 1: a \"regulatory failure of mortgages\" caused the crisis, while competition drives the efficiency markets need.",
+      "draft_answer": "Regulation and free competition are complementary rather than opposed. Competition drives efficiency and innovation, but the \"regulatory failure of mortgages\" in Paragraph 1 shows what happens when risk is mispriced and nobody supervises it. Sensible rules on disclosure, leverage and lending standards keep competition fair and stop speculation from endangering the whole economy.",
+      "needs_review": true
+    },
+    {
+      "block": "u06_a_words_in_use",
+      "n": 1,
+      "explanation_en": "\"When you ____ clothes\" needs a verb taking a direct object; \"donate\" collocates with clothes given to people in need.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_words_in_use",
+      "n": 2,
+      "explanation_en": "\"watch sb. do sth.\" takes the bare infinitive, and \"spiral downward\" is the usual collocation for collapsing finances.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_words_in_use",
+      "n": 3,
+      "explanation_en": "The possessive \"your\" requires a noun, and \"resolve to achieve your goals\" means determination.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_words_in_use",
+      "n": 4,
+      "explanation_en": "\"the ____ of thousands of employees\" needs a noun; \"lay-off\" means making workers redundant.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_words_in_use",
+      "n": 5,
+      "explanation_en": "\"subsistence wages\" is a fixed collocation for pay that covers only the bare necessities of life.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_words_in_use",
+      "n": 6,
+      "explanation_en": "The preposition \"from\" needs a noun object; \"harassment or unwanted contact\" names repeated unwanted approaches.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_words_in_use",
+      "n": 7,
+      "explanation_en": "\"comply with\" is the intransitive verb-plus-preposition pattern meaning to obey rules or requests.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_words_in_use",
+      "n": 8,
+      "explanation_en": "The past tense is required by \"last year\"; \"reclaim the title\" means win back what was lost.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_words_in_use",
+      "n": 9,
+      "explanation_en": "The relative clause \"that ____ in China\" needs a past-tense verb; \"originate in\" means begin in a place.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_words_in_use",
+      "n": 10,
+      "explanation_en": "Present tense is used after \"before\" for a future event, and \"expire\" is the verb for licences running out.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_word_building",
+      "n": 1,
+      "explanation_en": "\"the ____ of experience and knowledge\" needs the noun from \"accumulate\", formed with the suffix -ation.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_word_building",
+      "n": 2,
+      "explanation_en": "\"the ____ against him\" is the noun from \"accuse\"; \"an accusation against sb.\" is the standard collocation.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_word_building",
+      "n": 3,
+      "explanation_en": "\"grow to ____\" needs a noun; \"manhood\" (man + -hood) is the state of being an adult man.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_word_building",
+      "n": 4,
+      "explanation_en": "\"some ____\" takes a plural noun, and \"make calculations\" is the collocation from the verb \"calculate\".",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_word_building",
+      "n": 5,
+      "explanation_en": "\"days of hunger and ____\" pairs two nouns; \"exhaustion\" from \"exhaust\" means extreme tiredness.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_word_building",
+      "n": 6,
+      "explanation_en": "\"the ____ of the president\" needs the noun from \"assassinate\", formed with the suffix -ation.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_word_building",
+      "n": 7,
+      "explanation_en": "\"the distinction between truth and ____\" needs a parallel noun: \"falsehood\" (false + -hood) means a lie.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_banked_cloze",
+      "n": 1,
+      "explanation_en": "\"refuse to ____ with the traditional wisdom\" requires \"comply with\", meaning to obey or follow.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_banked_cloze",
+      "n": 2,
+      "explanation_en": "The present perfect \"has ____\" plus the report of a falling savings rate points to \"tumbled\", meaning dropped sharply.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_banked_cloze",
+      "n": 3,
+      "explanation_en": "\"fitness ____\" collocates with \"sessions\", meaning classes or periods of exercise at a gym.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_banked_cloze",
+      "n": 4,
+      "explanation_en": "\"used to ____ loans\" needs a verb, and \"repay loans\" is the fixed verb-object collocation.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_banked_cloze",
+      "n": 5,
+      "explanation_en": "\"Unlike ____, they don't require guarantees\" contrasts unsecured consumer credit with mortgages, which are secured on property.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_banked_cloze",
+      "n": 6,
+      "explanation_en": "\"willing to ____ new technology\" collocates with \"embrace\", meaning accept something enthusiastically.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_banked_cloze",
+      "n": 7,
+      "explanation_en": "\"can be ____ to\" needs an adjective with \"to\"; \"beneficial to\" means helpful to the financial and retail sectors.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_banked_cloze",
+      "n": 8,
+      "explanation_en": "\"____ economic growth\" is a verb-object collocation: \"boost\" means stimulate or increase growth.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_banked_cloze",
+      "n": 9,
+      "explanation_en": "\"____ debts\" needs an adjective for debt that is heavy to carry: \"burdensome\".",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_banked_cloze",
+      "n": 10,
+      "explanation_en": "\"easily ____ by compulsive buying\" fits \"be tempted by\", meaning attracted into doing something one should resist.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_expressions_in_use",
+      "n": 1,
+      "explanation_en": "The parallel list \"food in your refrigerator, clothes on your back\" points to shelter, i.e. \"a roof over one's head\".",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_expressions_in_use",
+      "n": 2,
+      "explanation_en": "The past event and \"in fifth place\" need \"wind up\" in the past form \"wound up\", meaning ended up.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_expressions_in_use",
+      "n": 3,
+      "explanation_en": "After the preposition \"by\" the gerund is needed; \"scrape together\" means collect money with difficulty.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_expressions_in_use",
+      "n": 4,
+      "explanation_en": "\"____ extinction\" takes \"on the verge of\", meaning very close to a particular state.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_expressions_in_use",
+      "n": 5,
+      "explanation_en": "\"disappeared ____\" needs an adverb of time meaning permanently: \"for good\".",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_expressions_in_use",
+      "n": 6,
+      "explanation_en": "Past tense is required by \"last year\", and \"account for 62 percent of revenue\" means make up that share.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_expressions_in_use",
+      "n": 7,
+      "explanation_en": "The plural subject \"his friends\" needs \"come\", and \"come to sb.'s aid\" means help somebody in trouble.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_expressions_in_use",
+      "n": 8,
+      "explanation_en": "The passive \"must be ____\" needs a past participle; \"pack up\" means tie waste into packages for removal.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_structure_writing",
+      "n": 1,
+      "explanation_en": "The structure note moves from material losses (income, home, education) to the psychological one, losing \"belief and confidence\".",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_a_structure_writing",
+      "n": 2,
+      "explanation_en": "Follow the sample outline: thesis, three effects arranged in one direction, and a conclusion that restates the thesis.",
+      "draft_answer": "Thesis: staying up late harms us mainly in three aspects. Physically, the body repairs itself during sleep, so late nights leave us tired, weaken our immune system and make us more likely to fall ill. Mentally and academically, a student who studies past midnight remembers less and concentrates poorly the next morning, so efficiency falls instead of rising, while irregular sleep is also linked to anxiety and low mood. Since it damages health, efficiency and emotional well-being at the same time, staying up late is by no means a good choice for us.",
+      "needs_review": true
+    },
+    {
+      "block": "u06_b_reading_skills",
+      "n": 1,
+      "explanation_en": "Para. 1 defines bubbles by cause (excessive investment pushing prices beyond \"intrinsic value\") and result (\"a crash or bust\").",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_reading_skills",
+      "n": 2,
+      "explanation_en": "Para. 2 explains it by analogy: higher prices bring more production or selling, which \"adjusts prices downward\", like pupils shrinking in bright light.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_reading_skills",
+      "n": 3,
+      "explanation_en": "Para. 3: buyers \"justify their purchases\" by expecting \"a greater fool\" to pay more, as in the 1630s Dutch tulip bubble.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_reading_skills",
+      "n": 4,
+      "explanation_en": "Para. 6: under herd mentality \"too many brokers rush to buy, driving prices ... to levels that prove unrealistic\".",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_reading_skills",
+      "n": 5,
+      "explanation_en": "Para. 6 defines it as \"price deterioration\" plus \"a swift drop\" occurring \"to too many companies in aggregate\".",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_reading_skills",
+      "n": 6,
+      "explanation_en": "Para. 7 illustrates it with Internet \"buzz\" funding too many dot-coms and the index peaking at 5,132.52 on March 10, 2000.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_mcq",
+      "n": 1,
+      "explanation_en": "Para. 1: \"The inevitable result of this boom in price is a crash or bust\", when \"the price falls sharply\".",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_mcq",
+      "n": 2,
+      "explanation_en": "Para. 2: \"most speculators are nervous about where they invest their money\", so \"bubbles are by no means the norm\".",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_mcq",
+      "n": 3,
+      "explanation_en": "Para. 3: \"If the price rises, overly enthusiastic speculators buy more\" - positive feedback breeds greed, not selling.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_mcq",
+      "n": 4,
+      "explanation_en": "Para. 3 links the theory to prices: because a \"greater fool\" is expected, \"prices can reach dizzying heights\".",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_mcq",
+      "n": 5,
+      "explanation_en": "Para. 5: when negative equity is \"widespread\", it can \"culminate in the failure of those banks\".",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_mcq",
+      "n": 6,
+      "explanation_en": "Para. 6: herd mentality makes brokers \"rush to buy, driving prices ... to levels that prove unrealistic\".",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_mcq",
+      "n": 7,
+      "explanation_en": "Para. 7: \"Most had blundered into awful financial difficulties, selling off their assets to healthier companies.\" D misdates the low point.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_mcq",
+      "n": 8,
+      "explanation_en": "The text explains bubbles through mechanisms such as feedback, herd mentality and the greater fool theory, i.e. economic laws.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_critical",
+      "n": 1,
+      "explanation_en": "Use the greater fool theory and herd mentality from Para. 3 and Para. 6 to show greed amplifying, not creating, the mechanism.",
+      "draft_answer": "Greed is the fuel rather than the original cause: the greater fool theory and the herd mentality describe buyers who purchase only because they expect prices to keep rising. The tulip and dot-com cases in Text B suggest that once everyone assumes a bigger fool will follow, prices detach from intrinsic value and a crash becomes inevitable. Greed does not create the mechanism, but it makes bubbles larger and the bursting more painful.",
+      "needs_review": true
+    },
+    {
+      "block": "u06_b_critical",
+      "n": 2,
+      "explanation_en": "Draw on the text's own remedies: regulation of lending, disclosure and the \"elastic market\" that averts small bubbles.",
+      "draft_answer": "Regulators could raise margin requirements and tax short-term transactions so that speculation becomes costly. They should also tighten lending standards, since much speculation is financed by credit, and require transparency about who holds which assets. Central banks can watch credit growth and asset prices, not just consumer prices, and act before a bubble becomes \"cumulative\".",
+      "needs_review": true
+    },
+    {
+      "block": "u06_b_critical",
+      "n": 3,
+      "explanation_en": "Argue from Text B's point that bubbles affect jobs, rents and pensions, so the vocabulary matters to every citizen.",
+      "draft_answer": "Yes. Text B shows that bubbles and crashes affect everyone - jobs, rents, pensions - yet most people only learn the vocabulary after the damage is done. A basic course on supply and demand, interest, inflation and risk would help students read the news and resist the \"greater fool\" temptation. It should be practical rather than mathematical, and taught in the last years of high school.",
+      "needs_review": true
+    },
+    {
+      "block": "u06_b_collocation",
+      "n": 1,
+      "explanation_en": "The gap needs a participle phrase after \"incomes are\"; the text's \"incomes falling sharply\" describes the squeeze on earnings.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_collocation",
+      "n": 2,
+      "explanation_en": "\"in an ____\" needs a noun phrase singular; Text A's \"unsure futures\" gives \"an unsure future\" here.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_collocation",
+      "n": 3,
+      "explanation_en": "\"Because of the ____\" needs a noun; the unit's opening refers to \"the economic slump\" that squeezed poor people's incomes.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_collocation",
+      "n": 4,
+      "explanation_en": "\"facing ____ due to their inability to pay their rent\" matches \"tenant eviction\", being forced out for unpaid rent.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_collocation",
+      "n": 5,
+      "explanation_en": "\"the erosion of ____\" takes \"purchasing power\", Text B's phrase for what money can actually buy.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_collocation",
+      "n": 6,
+      "explanation_en": "\"a ____ in the price of basic commodities\" needs a noun phrase; \"a further increase\" fits the comparative sense.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_collocation",
+      "n": 7,
+      "explanation_en": "The subject is \"long-term unemployment\", so \"rise in\" follows the definite article: \"the rise in long-term unemployment\".",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_collocation",
+      "n": 8,
+      "explanation_en": "\"leads to ____ of social labor\" needs \"a waste\", the collocation for labour that goes unused.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_collocation",
+      "n": 9,
+      "explanation_en": "\"across the ____\" takes \"employment spectrum\", Text A's phrase for the full range of jobs from minimum wage to director.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_collocation",
+      "n": 10,
+      "explanation_en": "\"the worst social impacts of ____\" needs a definite noun phrase; \"the economic crisis\" is what the passage discusses.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_collocation",
+      "n": 11,
+      "explanation_en": "The list needs \"a loss\" before \"of confidence\", mirroring \"a loss of confidence and aspiration\" in the passage.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_collocation",
+      "n": 12,
+      "explanation_en": "\"the ____ of housing insecurity\" needs a noun; \"deterioration of\" is the collocation meaning a worsening.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_b_collocation",
+      "n": 13,
+      "explanation_en": "The list of impacts ends with \"negative equity\", Text B's term for owing more on a home than it is worth.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u06_c_translation",
+      "n": 1,
+      "explanation_en": "Key renderings: \"更加积极主动的开放战略\" as \"a more proactive and dynamic opening-up strategy\", \"自由贸易试验区\" as \"pilot free trade zones\", \"贸易强国\" as \"a major trading power\".",
+      "draft_answer": null,
+      "needs_review": false
+    }
+  ]
+}

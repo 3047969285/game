@@ -1,0 +1,55 @@
+{
+ "kit": "video_shelf",
+ "dims_m": [
+  2.0,
+  0.4,
+  1.9
+ ],
+ "materials": {
+  "M_shelf_wood": {
+   "color": "#7A5A3A",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_vhs_yellow": {
+   "color": "#F1C40F",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_vhs_red": {
+   "color": "#C0392B",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_vhs_blue": {
+   "color": "#2E86C1",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_vhs_black": {
+   "color": "#1E1E1E",
+   "roughness": 0.4,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

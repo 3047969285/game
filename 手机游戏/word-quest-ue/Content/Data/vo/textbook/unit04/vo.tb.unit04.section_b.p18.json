@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit04.section_b.p18",
+ "unit": 4,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "I went into the next shop, and what I heard pierced my heart. Yes, the old man had passed away. He was stricken with an infectious illness two weeks before and died two days later.",
+ "rate": 165,
+ "duration": 11.083,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 3.883,
+   "text": "I went into the next shop, and what I heard pierced my heart."
+  },
+  {
+   "i": 1,
+   "start": 3.883,
+   "end": 6.556,
+   "text": "Yes, the old man had passed away."
+  },
+  {
+   "i": 2,
+   "start": 6.556,
+   "end": 11.083,
+   "text": "He was stricken with an infectious illness two weeks before and died two days later."
+  }
+ ]
+}

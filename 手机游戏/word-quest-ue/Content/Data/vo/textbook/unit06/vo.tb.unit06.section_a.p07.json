@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit06.section_a.p07",
+ "unit": 6,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "When Sue received her last unemployment check, she felt a wave of profound grief. With no income to deposit, Sue's checking account went into a negative balance. Her car was on the verge of being repossessed. And, the constant harassment of the financing company for her car loan added to her daily stress. Each day, like a ping pong ball, Sue went back and forth between resolve and despair.",
+ "rate": 165,
+ "duration": 22.481,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.924,
+   "text": "When Sue received her last unemployment check, she felt a wave of profound grief."
+  },
+  {
+   "i": 1,
+   "start": 4.924,
+   "end": 9.559,
+   "text": "With no income to deposit, Sue's checking account went into a negative balance."
+  },
+  {
+   "i": 2,
+   "start": 9.559,
+   "end": 12.027,
+   "text": "Her car was on the verge of being repossessed."
+  },
+  {
+   "i": 3,
+   "start": 12.027,
+   "end": 17.386,
+   "text": "And, the constant harassment of the financing company for her car loan added to her daily stress."
+  },
+  {
+   "i": 4,
+   "start": 17.386,
+   "end": 22.481,
+   "text": "Each day, like a ping pong ball, Sue went back and forth between resolve and despair."
+  }
+ ]
+}

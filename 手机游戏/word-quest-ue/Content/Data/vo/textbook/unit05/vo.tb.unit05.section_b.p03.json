@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit05.section_b.p03",
+ "unit": 5,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "The moon and the earth share a similar “childhood”, yet traces of the remote past on earth have been erased by geological activities. Exploration of the moon might provide some insights into the early history of the earth. But due to the tidal locking effect, we only get to see one side of the moon from the earth, and the far side remains a mystery. It's also called the dark side, although it's not darker than the near side. The word dark only shows how we feel about the unknown.",
+ "rate": 165,
+ "duration": 27.032,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 7.37,
+   "text": "The moon and the earth share a similar “childhood”, yet traces of the remote past on earth have been erased by geological activities."
+  },
+  {
+   "i": 1,
+   "start": 7.37,
+   "end": 12.017,
+   "text": "Exploration of the moon might provide some insights into the early history of the earth."
+  },
+  {
+   "i": 2,
+   "start": 12.017,
+   "end": 19.403,
+   "text": "But due to the tidal locking effect, we only get to see one side of the moon from the earth, and the far side remains a mystery."
+  },
+  {
+   "i": 3,
+   "start": 19.403,
+   "end": 23.725,
+   "text": "It's also called the dark side, although it's not darker than the near side."
+  },
+  {
+   "i": 4,
+   "start": 23.725,
+   "end": 27.032,
+   "text": "The word dark only shows how we feel about the unknown."
+  }
+ ]
+}

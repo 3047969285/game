@@ -1,0 +1,28 @@
+{
+ "kit": "rug",
+ "dims_m": [
+  2.6,
+  1.8,
+  0.01
+ ],
+ "materials": {
+  "M_wool_base": {
+   "color": "#7B6A56",
+   "roughness": 0.95,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.2
+  },
+  "M_wool_panel": {
+   "color": "#4F5B52",
+   "roughness": 0.95,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

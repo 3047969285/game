@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit03.ex.u03_a_understanding",
+ "unit": 3,
+ "section": "A",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Understanding the text. Answer the following questions.",
+ "rate": 165,
+ "duration": 4.888,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 2.276,
+   "text": "Understanding the text."
+  },
+  {
+   "i": 1,
+   "start": 2.276,
+   "end": 4.888,
+   "text": "Answer the following questions."
+  }
+ ]
+}

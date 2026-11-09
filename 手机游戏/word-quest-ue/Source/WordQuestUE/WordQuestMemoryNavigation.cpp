@@ -1,5 +1,9 @@
 #include "WordQuestMemoryNavigation.h"
 #include "WordQuestMemoryDirector.h"
+#include "WordQuestFirstPersonCharacter.h"
+#include "WordQuestNpcDirector.h"
+#include "WordQuestWorldInteraction.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Camera/CameraActor.h"
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
@@ -19,7 +23,7 @@ void UWordQuestMemoryNavigation::TickComponent(float Dt,ELevelTick TickType,FAct
 {
  Super::TickComponent(Dt,TickType,Fn);
  auto* World=GetWorld();auto* PC=UGameplayStatics::GetPlayerController(this,0);
- auto Stop=[this](const TCHAR* Reason){Gate=Reason;Velocity=FVector::ZeroVector;bNavigating=false;bTouchDown=false;bTouchLooking=false;};
+ auto Stop=[this,PC](const TCHAR* Reason){if(PC)if(auto* H=Cast<AWordQuestFirstPersonCharacter>(PC->GetPawn()))H->GetCharacterMovement()->StopMovementImmediately();Gate=Reason;Velocity=FVector::ZeroVector;bNavigating=false;bTouchDown=false;bTouchLooking=false;};
  if(!World||!PC||!bEnabled){Stop(TEXT("disabled"));return;}
  if(UGameplayStatics::IsGamePaused(this)){Stop(TEXT("paused"));return;}
  if(auto* Director=GetOwner()->FindComponentByClass<UWordQuestMemoryDirector>())
@@ -29,9 +33,12 @@ void UWordQuestMemoryNavigation::TickComponent(float Dt,ELevelTick TickType,FAct
   if(State.Contains(TEXT("world_input=1"))){Stop(TEXT("editing"));return;}
   FString Before,Error;if(State.Split(TEXT(" error="),&Before,&Error)&&!Error.IsEmpty()){Stop(TEXT("error"));return;}
  }
+ if(auto* Npc=GetOwner()->FindComponentByClass<UWordQuestNpcDirector>())
+  if(Npc->IsInputActive()){Stop(TEXT("npc_input"));return;}
  AActor* View=PC->GetViewTarget();
+ auto* Human=Cast<AWordQuestFirstPersonCharacter>(View);
  // Director spawns a new CameraActor; reject authored shot cameras and serialized actors.
- if(!IsValid(View)||!View->IsA<ACameraActor>()||View->HasAnyFlags(RF_WasLoaded)) {Stop(TEXT("waiting_runtime_camera"));return;}
+ if(!IsValid(View)||(!View->IsA<ACameraActor>()&&!Human)||View->HasAnyFlags(RF_WasLoaded)) {Stop(TEXT("waiting_runtime_camera"));return;}
  for(const FName Tag:View->Tags)if(Tag.ToString().StartsWith(TEXT("shot:"))){Stop(TEXT("authored_camera"));return;}
  FCollisionQueryParams Query(SCENE_QUERY_STAT(MemoryNavigation),false);
  Query.AddIgnoredActor(View);if(PC->GetPawn())Query.AddIgnoredActor(PC->GetPawn());
@@ -44,9 +51,9 @@ void UWordQuestMemoryNavigation::TickComponent(float Dt,ELevelTick TickType,FAct
  for(const auto& Environment:NonSolidEnvironment)if(Environment.IsValid())Query.AddIgnoredActor(Environment.Get());
  if(ActiveView.Get()!=View)
  {
-  ActiveView=View;DesiredRotation=LastAppliedRotation=View->GetActorRotation();Velocity=FVector::ZeroVector;
+  ActiveView=View;DesiredRotation=LastAppliedRotation=Human?PC->GetControlRotation():View->GetActorRotation();Velocity=FVector::ZeroVector;
   bTouchDown=false;bTouchLooking=false;ViewChanges++;
-  FHitResult Floor;const FVector P=View->GetActorLocation();
+  FHitResult Floor;const FVector P=Human?Human->GetEyeWorldLocation():View->GetActorLocation();
   EyeAboveFloor=World->LineTraceSingleByChannel(Floor,P,P-FVector(0,0,350),ECC_WorldStatic,Query)?P.Z-Floor.ImpactPoint.Z:160.f;
   EyeAboveFloor=FMath::Clamp(EyeAboveFloor,50.f,250.f);
  }
@@ -61,6 +68,8 @@ void UWordQuestMemoryNavigation::TickComponent(float Dt,ELevelTick TickType,FAct
  Look+=FVector2D(Dead(PC->GetInputAnalogKeyState(EKeys::Gamepad_RightX))*100.f*Dt,-Dead(PC->GetInputAnalogKeyState(EKeys::Gamepad_RightY))*80.f*Dt);
  float X=0,Y=0,X2=0,Y2=0;bool Down=false,Down2=false;
  PC->GetInputTouchState(ETouchIndex::Touch1,X,Y,Down);PC->GetInputTouchState(ETouchIndex::Touch2,X2,Y2,Down2);
+ auto* Physical=GetOwner()->FindComponentByClass<UWordQuestWorldInteraction>();
+ if(Physical&&Physical->IsInspecting())Look=FVector2D::ZeroVector;
  if(Down)
  {
   Look=FVector2D::ZeroVector; // Touch may emulate mouse motion; never apply both.
@@ -68,6 +77,7 @@ void UWordQuestMemoryNavigation::TickComponent(float Dt,ELevelTick TickType,FAct
   if(!bTouchDown){TouchOrigin=LastTouch=Touch;bTouchLooking=false;}
   if(Down2)
   {
+   if(Physical&&Physical->IsHolding()){bTouchDown=Down;LastTouch=Touch;return;}
    // Two-finger drag is a virtual walking pad with no screen widgets.
    const FVector2D Drag=(Touch-TouchOrigin)/100.f;Move+=FVector2D(Drag.X,-Drag.Y);
    bTouchLooking=false;
@@ -81,12 +91,21 @@ void UWordQuestMemoryNavigation::TickComponent(float Dt,ELevelTick TickType,FAct
  }
  bTouchDown=Down;if(!Down)bTouchLooking=false;
  // Respect deliberate external aim/probe changes rather than springing back.
- if(!View->GetActorRotation().Equals(LastAppliedRotation,.01f))DesiredRotation=View->GetActorRotation();
+ const FRotator Current=Human?PC->GetControlRotation():View->GetActorRotation();
+ if(!Current.Equals(LastAppliedRotation,.01f))DesiredRotation=Current;
  DesiredRotation.Yaw=FRotator::NormalizeAxis(DesiredRotation.Yaw+Look.X);
  DesiredRotation.Pitch=FMath::Clamp(FRotator::NormalizeAxis(DesiredRotation.Pitch+Look.Y),-75.f,75.f);DesiredRotation.Roll=0;
- const FRotator Rotation=FMath::RInterpTo(View->GetActorRotation(),DesiredRotation,Dt,18.f);
- View->SetActorRotation(Rotation);LastAppliedRotation=Rotation;PC->SetControlRotation(Rotation);
+ const FRotator Rotation=FMath::RInterpTo(Current,DesiredRotation,Dt,18.f);
+ if(!Human)View->SetActorRotation(Rotation);LastAppliedRotation=Rotation;PC->SetControlRotation(Rotation);
  const FRotator Flat(0,Rotation.Yaw,0);
+ if(Human)
+ {
+  Move=Move.GetClampedToMaxSize(1.f);
+  Human->AddMovementInput(Flat.Vector(),Move.Y);
+  Human->AddMovementInput(FRotationMatrix(Flat).GetUnitAxis(EAxis::Y),Move.X);
+  Human->SetCrouching(PC->IsInputKeyDown(EKeys::LeftControl)||PC->IsInputKeyDown(EKeys::C)||PC->IsInputKeyDown(EKeys::Gamepad_RightThumbstick));
+  Velocity=Human->GetVelocity();bBlocked=false;Gate=TEXT("character_movement");return;
+ }
  const FVector TargetVelocity=(Flat.Vector()*Move.Y+FRotationMatrix(Flat).GetUnitAxis(EAxis::Y)*Move.X).GetClampedToMaxSize(1.f)*WalkSpeed;
  Velocity=FMath::VInterpTo(Velocity,TargetVelocity,Dt,12.f);
  const FVector Start=View->GetActorLocation();FVector Delta=Velocity*Dt;bBlocked=false;

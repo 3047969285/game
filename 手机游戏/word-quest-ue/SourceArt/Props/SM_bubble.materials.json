@@ -1,0 +1,28 @@
+{
+ "kit": "bubble",
+ "dims_m": [
+  1.43,
+  1.43,
+  1.815
+ ],
+ "materials": {
+  "M_bubble_glass": {
+   "color": "#8FB8C4",
+   "roughness": 0.05,
+   "metallic": 0.0,
+   "emission": "#B8D1D5",
+   "emission_strength": 0.4,
+   "alpha": 0.12,
+   "noise": 0.0
+  },
+  "M_bubble_ring": {
+   "color": "#0B1418",
+   "roughness": 0.3,
+   "metallic": 0.0,
+   "emission": "#B8D1D5",
+   "emission_strength": 3.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

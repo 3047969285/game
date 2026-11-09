@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit05.section_c.p03",
+ "unit": 5,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "Since the 20th century, outer space has been the newest frontier of humankind, and understanding it and knowing how to use it productively are crucial for humanity. The advancement of space-related activities has the potential to overcome many problems on earth, including shortages of energy and resources as well as pollution. As a consequence, progress made in space is ultimately progress in the name of all, and serves to benefit all.",
+ "rate": 165,
+ "duration": 36.423,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 14.371,
+   "text": "Since the 20th century, outer space has been the newest frontier of humankind, and understanding it and knowing how to use it productively are crucial for humanity."
+  },
+  {
+   "i": 1,
+   "start": 14.371,
+   "end": 27.672,
+   "text": "The advancement of space-related activities has the potential to overcome many problems on earth, including shortages of energy and resources as well as pollution."
+  },
+  {
+   "i": 2,
+   "start": 27.672,
+   "end": 36.423,
+   "text": "As a consequence, progress made in space is ultimately progress in the name of all, and serves to benefit all."
+  }
+ ]
+}

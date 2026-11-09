@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit03.section_b.p06",
+ "unit": 3,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Traveling solo has been sometimes a blessing, sometimes a curse. I remember searching desperately for accommodations in China. The university listed in my booklet no longer had dormitories for travelers, and I was lucky when the desk clerk called a young woman out of a nearby office. As it turned out, she was offering to let me stay at her flat and even had a friend come and show me around the next day. It was a blessing overall!",
+ "rate": 165,
+ "duration": 25.026,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.259,
+   "text": "Traveling solo has been sometimes a blessing, sometimes a curse."
+  },
+  {
+   "i": 1,
+   "start": 4.259,
+   "end": 7.828,
+   "text": "I remember searching desperately for accommodations in China."
+  },
+  {
+   "i": 2,
+   "start": 7.828,
+   "end": 16.626,
+   "text": "The university listed in my booklet no longer had dormitories for travelers, and I was lucky when the desk clerk called a young woman out of a nearby office."
+  },
+  {
+   "i": 3,
+   "start": 16.626,
+   "end": 23.328,
+   "text": "As it turned out, she was offering to let me stay at her flat and even had a friend come and show me around the next day."
+  },
+  {
+   "i": 4,
+   "start": 23.328,
+   "end": 25.026,
+   "text": "It was a blessing overall!"
+  }
+ ]
+}

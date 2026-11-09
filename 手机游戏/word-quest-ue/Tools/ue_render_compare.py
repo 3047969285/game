@@ -24,15 +24,20 @@ def editor_main(unreal):
     pose,fit,fit_hash=fit_pose(cid,os.environ.get('WQ_COMPARE_FIT_JSON'))
     les=unreal.get_editor_subsystem(unreal.LevelEditorSubsystem);les.load_level('/Game/Maps/L_CharacterLookdev')
     eas=unreal.get_editor_subsystem(unreal.EditorActorSubsystem)
+    for existing in eas.get_all_level_actors():
+        if existing.get_actor_label()=='WQ_me2026_ArchetypeAnimationPreview':
+            existing.set_actor_hidden_in_game(True)
     rig=next(a for a in eas.get_all_level_actors() if a.get_actor_label()=='WQ_Lookdev_RefCameraRig')
-    rig.set_editor_property('q34_pose',unreal.Vector(*pose));rig.set_editor_property('character_height_cm',profile['height_cm'])
+    rig.set_editor_property('q34_pose',unreal.Vector(pose[0],-pose[1],-pose[2]));rig.set_editor_property('character_height_cm',profile['height_cm'])  # fit_face.view_frame: pitch>0 = camera below, roll about the toward-camera axis; the UE rig is the opposite for both
     bp=f'/Game/Blueprints/Characters/BP_{cid}'
+    bp_class=unreal.load_class(None,bp+f'.BP_{cid}_C') if unreal.EditorAssetLibrary.does_asset_exist(bp) else None
+    archetype_bp=bp_class is not None and isinstance(unreal.get_default_object(bp_class),unreal.WordQuestAnimationPreview)
     source=None;source_asset=None;edited=None;mh=None
     mh_path=f'/Game/Characters/{cid}/MHC_{cid}'
     owned_asset=ROOT/'Content/Characters'/cid/f'MHC_{cid}.uasset'
     asset_hash=hashlib.sha256(owned_asset.read_bytes()).hexdigest() if owned_asset.is_file() else None
-    if os.environ.get('WQ_COMPARE_REQUIRE_MHC')!='1' and unreal.EditorAssetLibrary.does_asset_exist(bp):
-        actor=eas.spawn_actor_from_class(unreal.load_class(None,bp+f'.BP_{cid}_C'),unreal.Vector(0,0,96));source='BP';source_asset=bp
+    if os.environ.get('WQ_COMPARE_REQUIRE_MHC')!='1' and bp_class is not None and not archetype_bp:
+        actor=eas.spawn_actor_from_class(bp_class,unreal.Vector(0,0,96));source='BP';source_asset=bp
     elif unreal.EditorAssetLibrary.does_asset_exist(mh_path):
         mh=unreal.get_editor_subsystem(unreal.MetaHumanCharacterEditorSubsystem)
         edited=unreal.load_asset(mh_path)
@@ -57,8 +62,20 @@ def editor_main(unreal):
         if edited is not None:mh.remove_object_to_edit(edited)
         else:eas.destroy_actor(actor)
     actor.set_actor_label('WQ_Compare_'+cid)
-    if edited is not None and not rig.use_preview_skin(edited):raise RuntimeError('Cannot enable transient MHC skin preview')
+    # Preserve authored skin settings and all already-selected skin materials.
+    # DEFAULT is the coloured topology diagnostic, not a skin material. With Core
+    # Data installed, Editable displays the character's existing synthesized skin;
+    # this display-only change never commits skin settings or saves the MHC.
+    authored_skin_mode=str(edited.get_editor_property('preview_material_type')) if edited is not None else None
+    topology_display_replaced=False
+    if edited is not None and edited.get_editor_property('preview_material_type')==unreal.MetaHumanCharacterSkinPreviewMaterial.DEFAULT:
+        if not rig.use_preview_skin(edited):raise RuntimeError('Cannot display authored skin instead of topology')
+        topology_display_replaced=True
+    skin_materials={str(c.get_name()):[str(m.get_path_name()) if m else None for m in c.get_materials()]
+                    for c in actor.get_components_by_class(unreal.SkeletalMeshComponent)}
     groom_assets=[]
+    groom_geometry={}
+    binding_started=time.monotonic()
     if os.environ.get('WQ_COMPARE_GROOMS')=='1':
         base=f'/Game/Blueprints/Characters/Imported/{cid}/'
         for kind in ('groom','brows'):
@@ -67,6 +84,18 @@ def editor_main(unreal):
                 if kind=='groom':raise RuntimeError('Imported Groom missing: '+path)
                 continue
             groom=unreal.load_asset(path)
+            stamp=ROOT/'Saved/CharacterEngine'/cid/(profile['who']+'_'+kind+'-import.json')
+            imported=json.loads(stamp.read_text())
+            if hashlib.sha256(Path(imported['file']).read_bytes()).hexdigest()!=imported['sha256']:
+                raise RuntimeError('Groom source changed since import: '+path)
+            if hasattr(rig,'inspect_groom'):
+                stats={str(k):v for k,v in rig.inspect_groom(groom).items()}
+                groom_geometry[path]=stats
+                unreal.log('WQ_GROOM_CPU_STATS '+json.dumps(stats))
+                # 16-CV long hair legitimately has multi-centimetre segments;
+                # this catches gross metre/cm errors, not a short-hair density rule.
+                if stats['max_diameter_cm']>.03 or stats['max_segment_cm']>20:
+                    raise RuntimeError('Imported Groom has invalid physical size: '+str(stats))
             if not rig.attach_preview_groom(actor,groom,os.environ.get('WQ_GROOM_ATTACHMENT','skin')=='skin'):raise RuntimeError('Cannot bind preview Groom: '+path)
             groom_assets.append(path)
     head=unreal.Vector(0,0,(profile['height_cm'])*.91)
@@ -77,7 +106,12 @@ def editor_main(unreal):
     for component in rig.get_editor_property('views'):
         pp=component.get_editor_property('post_process_settings');pp.set_editor_property('auto_exposure_bias',-9.5);component.set_editor_property('post_process_settings',pp)
     state={'frame':0,'view':0,'started':time.monotonic(),'bindings_ready':False};out=ROOT/'Saved/Compare'/cid;out.mkdir(parents=True,exist_ok=True)
-    report={'run_id':run_id,'status':'complete','character':cid,'character_profile':profile,'source':source,'source_asset':source_asset,'source_preview':source=='Source','unrigged_preview':source=='MHC','preview_material':'Skin' if source=='MHC' else 'asset','groom_assets':groom_assets,'groom_binding':os.environ.get('WQ_GROOM_ATTACHMENT','skin')+' transient FaceMesh' if groom_assets else None,'fit_json':fit,'fit_sha256':fit_hash,'q34_pose':pose,'resolution':[1024,1024],'projection':'orthographic','exposure_ev100_equivalent':9.5,'head_center_cm':str(head),'views':{}}
+    report={'run_id':run_id,'status':'complete','character':cid,'character_profile':profile,'source':source,'source_asset':source_asset,'source_preview':source=='Source','unrigged_preview':source=='MHC','preview_material':'Authored' if source=='MHC' else 'asset','authored_skin_mode':authored_skin_mode,'skin_materials':skin_materials,'groom_assets':groom_assets,'groom_binding':os.environ.get('WQ_GROOM_ATTACHMENT','skin')+' transient FaceMesh' if groom_assets else None,'fit_json':fit,'fit_sha256':fit_hash,'q34_pose':pose,'resolution':[1024,1024],'projection':'orthographic','exposure_ev100_equivalent':9.5,'head_center_cm':str(head),'views':{}}
+    report['groom_geometry']=groom_geometry
+    report['topology_display_replaced']=topology_display_replaced
+    report['hair_triangle_strips']=unreal.SystemLibrary.get_console_variable_int_value('r.HairStrands.Strands.UseTriangleStrips')
+    report['quality_issues']=[]
+    report['groom_lod']=0 if groom_assets else None
     def tick(dt):
         try:
             if rig.get_editor_property('failed_groom_bindings'):raise RuntimeError('Groom binding failed')
@@ -85,6 +119,7 @@ def editor_main(unreal):
                 if time.monotonic()-state['started']>600:raise RuntimeError('Groom binding timeout')
                 return
             if not state['bindings_ready']:
+                report['groom_binding_seconds']=time.monotonic()-binding_started if groom_assets else None
                 state['bindings_ready']=True;state['started']=time.monotonic()
             index=state['view'];rig.warm_view(index);state['frame']+=1
             if state['frame']<48 or time.monotonic()-state['started']<5:return
@@ -93,8 +128,9 @@ def editor_main(unreal):
                 image_size,pixels=unreal.PromotedFrameUtils.get_promoted_frame_as_pixel_array_from_disk(str(run/'front.png'))
                 contours=mh.track_face_landmarks_from_image(pixels,image_size.x,image_size.y)
                 if isinstance(contours,tuple) and len(contours)==1:contours=contours[0]
-                if not contours:raise RuntimeError('Groom render invalid: no visible front face; comparison output preserved')
-                report['front_face_contours']=len(contours)
+                report['front_face_contours']=len(contours) if contours else 0
+                if not contours:
+                    report['quality_issues'].append('No face landmarks in front render; possible Groom occlusion. Quality FAIL; all five views retained for diagnosis.')
             component=rig.get_editor_property('views')[index]
             report['views'][VIEWS[index]]={'location':str(component.get_world_location()),'rotation':str(component.get_world_rotation()),'ortho_width':component.get_editor_property('ortho_width')}
             unreal.log('WQ_COMPARE_VIEW '+VIEWS[index]);state['frame']=0;state['view']+=1;state['started']=time.monotonic()
@@ -139,7 +175,7 @@ def validate_capture(folder, require_mhc=False):
 
 def cli():
     import argparse,subprocess,struct
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('id');parser.add_argument('--fit-json');parser.add_argument('--grooms',action='store_true');parser.add_argument('--groom-attachment',choices=['skin','rigid'],default='skin');parser.add_argument('--require-mhc',action='store_true');parser.add_argument('--engine',default='/Users/Shared/Epic Games/UE_5.8');args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('id');parser.add_argument('--fit-json');parser.add_argument('--grooms',action='store_true');parser.add_argument('--triangle-list',action='store_true',help='Diagnostic startup override for Metal hair strip artifacts');parser.add_argument('--groom-attachment',choices=['skin','rigid'],default='skin');parser.add_argument('--require-mhc',action='store_true');parser.add_argument('--engine',default='/Users/Shared/Epic Games/UE_5.8');args=parser.parse_args()
     cid=character_id(args.id);env=dict(os.environ,WQ_CHARACTER_ID=cid,UE_LOCK_WHO='codex')
     if args.require_mhc:env['WQ_COMPARE_REQUIRE_MHC']='1'
     if args.grooms:env['WQ_COMPARE_GROOMS']='1';env['WQ_GROOM_ATTACHMENT']=args.groom_attachment
@@ -163,7 +199,8 @@ def cli():
         if not owners:break
         if waited%60==0:print('Waiting for existing project UE processes: '+', '.join(owners),flush=True)
         time.sleep(5);waited+=5
-    result=run_locked_editor(__file__,env,log_path,args.engine,'/Game/Maps/L_CharacterLookdev')
+    extra=['-ini:Engine:[ConsoleVariables]:r.HairStrands.Strands.UseTriangleStrips=0'] if args.triangle_list else []
+    result=run_locked_editor(__file__,env,log_path,args.engine,'/Game/Maps/L_CharacterLookdev',extra_args=extra)
     if result.returncode or 'WQ_C2_RENDER_PASS' not in log_path.read_text(errors='replace'):raise RuntimeError(f'Render failed (exit={result.returncode}); inspect '+str(log_path))
     capture=validate_capture(run,args.require_mhc)
     if capture['run_id']!=run_id:raise RuntimeError('Capture run id mismatch')

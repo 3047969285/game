@@ -1,0 +1,37 @@
+{
+ "kit": "queue_rope",
+ "dims_m": [
+  2.56,
+  0.1,
+  0.95
+ ],
+ "materials": {
+  "M_stanchion_base": {
+   "color": "#222326",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_chrome": {
+   "color": "#D7DCE2",
+   "roughness": 0.15,
+   "metallic": 1.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_velvet_rope": {
+   "color": "#7A1620",
+   "roughness": 0.9,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

@@ -1,0 +1,46 @@
+{
+ "kit": "video_grid",
+ "dims_m": [
+  1.6,
+  0.054,
+  0.9
+ ],
+ "materials": {
+  "M_video_bezel": {
+   "color": "#15181D",
+   "roughness": 0.4,
+   "metallic": 0.3,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_video_tile0": {
+   "color": "#4FC3F7",
+   "roughness": 0.3,
+   "metallic": 0.0,
+   "emission": "#4FC3F7",
+   "emission_strength": 4.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_video_tile1": {
+   "color": "#81C784",
+   "roughness": 0.3,
+   "metallic": 0.0,
+   "emission": "#81C784",
+   "emission_strength": 4.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_video_tile2": {
+   "color": "#FFB74D",
+   "roughness": 0.3,
+   "metallic": 0.0,
+   "emission": "#FFB74D",
+   "emission_strength": 4.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

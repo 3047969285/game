@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit05.section_b.p11",
+ "unit": 5,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "From robotic to manned missions, from short- to long-term, China's lunar exploration will go deeper. The Chinese will leave their footprints on the surface of the moon in the foreseeable future.",
+ "rate": 165,
+ "duration": 10.683,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.227,
+   "text": "From robotic to manned missions, from short- to long-term, China's lunar exploration will go deeper."
+  },
+  {
+   "i": 1,
+   "start": 6.227,
+   "end": 10.683,
+   "text": "The Chinese will leave their footprints on the surface of the moon in the foreseeable future."
+  }
+ ]
+}

@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit03.section_b.p07",
+ "unit": 3,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Also in China, I met two girls who accompanied me to my booked hotel when I had been lost for several hours, and then invited me to a feast with their friends. When they heard my next stop was their hometown, they arranged for a bilingual friend to pick me up at the train station.",
+ "rate": 165,
+ "duration": 16.375,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 9.558,
+   "text": "Also in China, I met two girls who accompanied me to my booked hotel when I had been lost for several hours, and then invited me to a feast with their friends."
+  },
+  {
+   "i": 1,
+   "start": 9.558,
+   "end": 16.375,
+   "text": "When they heard my next stop was their hometown, they arranged for a bilingual friend to pick me up at the train station."
+  }
+ ]
+}

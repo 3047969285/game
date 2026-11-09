@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit04.section_b.p06",
+ "unit": 4,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "A tradition? In this modest little shop that was no different from so many other shoe-repair shops on the residential side streets of Washington? The thought seemed a bit absurd.",
+ "rate": 165,
+ "duration": 9.931,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 0.874,
+   "text": "A tradition?"
+  },
+  {
+   "i": 1,
+   "start": 0.874,
+   "end": 8.099,
+   "text": "In this modest little shop that was no different from so many other shoe-repair shops on the residential side streets of Washington?"
+  },
+  {
+   "i": 2,
+   "start": 8.099,
+   "end": 9.931,
+   "text": "The thought seemed a bit absurd."
+  }
+ ]
+}

@@ -1,0 +1,6 @@
+{
+ "generated_at": "2026-10-23T03:19:29+00:00",
+ "total_missing": 0,
+ "instructions": "Claude 审核后把采信项合入 textbook_scenes/*.json 的 props[].word；新增物件需遵守 kit_assets.json 的 kit 与 scale。",
+ "proposals": []
+}

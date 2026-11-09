@@ -1,0 +1,875 @@
+{
+ "unit": 3,
+ "exercises": [
+  {
+   "id": "u03_a_pre_reading",
+   "section": "A",
+   "kind": "pre_reading",
+   "instructions": "Pre-reading activities. 1 Listen to a talk about travel and fill in the blanks with what you hear. 2 Talk about a memorable travel experience and its effect on you.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Reading and traveling are two ____ for young people to better understand the world.",
+     "answer": "The missing word is probably 'ways' or 'means', giving 'two ways for young people to better understand the world'. Reading offers knowledge gathered by others, while traveling offers first-hand experience of other cultures. The talk then contrasts these two routes to the same goal.",
+     "answer_source": "draft",
+     "explanation": "The blank needs a plural noun meaning 'methods' after 'two', since the sentence sets reading and traveling side by side as routes to the same goal.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "Reading gives us off-the-shelf knowledge that is gathered from their ____ practices; traveling makes us experience the diversity of the real world and multiple cultures.",
+     "answer": "The blank calls for an adjective such as 'everyday' or 'daily' before 'practices'. Reading hands us ready-made knowledge that other people have gathered from their daily practice. Traveling, by contrast, lets us meet the diversity of the real world and multiple cultures in person.",
+     "answer_source": "draft",
+     "explanation": "An adjective before 'practices' is required, contrasting second-hand knowledge taken from others' everyday habits with the diversity met by traveling.",
+     "needs_review": true
+    },
+    {
+     "n": 3,
+     "prompt": "Traveling teaches me how other people live, ____ my tolerance of different cultures as I ____ myself in their ways of life.",
+     "answer": "The first blank is likely 'broadening' or 'expanding', and the second is 'immerse', giving 'immerse myself in their ways of life'. The sentence says travel both teaches us how others live and widens our tolerance of difference. That tolerance grows through contact rather than through observation.",
+     "answer_source": "draft",
+     "explanation": "Two gaps: a participle clause after the comma ('broadening'/'expanding') and a verb in 'as I ____ myself in', where the collocation is 'immerse oneself in'.",
+     "needs_review": true
+    },
+    {
+     "n": 4,
+     "prompt": "And when I travel, I feel my ____ is the accumulation of many ____.",
+     "answer": "The pattern 'my ____ is the accumulation of many ____' suggests a singular noun such as 'life' or 'worldview' followed by a plural such as 'journeys' or 'trips'. The speaker's point is that a person's outlook is built up trip by trip. Exact wording depends on the recording.",
+     "answer_source": "draft",
+     "explanation": "The frame needs a singular noun for what travel builds over time ('life', 'worldview') plus a plural noun after 'many' ('journeys', 'trips').",
+     "needs_review": true
+    },
+    {
+     "n": 5,
+     "prompt": "Talk about a memorable travel experience and its effect on you.",
+     "answer": "Two years ago I spent a week hiking in Yunnan with no phone signal, and I had to ask strangers for directions in broken Mandarin. At first the helplessness frightened me, but by the end I was calmer about not knowing what came next. That trip showed me the distance the text describes, and I came home less afraid of uncertainty.",
+     "answer_source": "draft",
+     "explanation": "This is a speaking prompt rather than a blank: answer with one specific trip, what happened, and how it changed your thinking.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u03_a_understanding",
+   "section": "A",
+   "kind": "understanding",
+   "instructions": "Understanding the text. Answer the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "What does the author mean by \"The rest of the journey, however, can feel like a tedious lesson in the ills of modernity\" (Para. 2)?",
+     "answer": "Apart from the flight itself, the rest of the trip (airport security, crowded terminals, commercial malls) is tedious and reveals the problems of modern life.",
+     "answer_source": "derived",
+     "explanation_zh": "第2段：作者指飞行之外的环节（安检、机场商业区等）琐碎乏味，暴露了现代生活的弊端。",
+     "explanation": "Para. 2 lists the 'ills of modernity' - predawn x-ray screening and sad airport malls - so the 'tedious lesson' covers everything after the flight, not the flight itself."
+    },
+    {
+     "n": 2,
+     "prompt": "Why do we sometimes still need to travel in this digital age?",
+     "answer": "Some things cannot be replaced online, such as a face-to-face handshake at a business luncheon, a family meal, or seeing a loved one.",
+     "answer_source": "derived",
+     "explanation_zh": "第3段：数字时代仍有必须面对面完成的事，如商务握手、家人的饭菜、与爱人相聚。",
+     "explanation": "Para. 3 answers with three things that still require presence: the handshake at a business luncheon, Mom's Thanksgiving food, and seeing your girlfriend on your anniversary."
+    },
+    {
+     "n": 3,
+     "prompt": "How do you understand the sentence \"Because Paris is Paris\" (Para. 4)?",
+     "answer": "Paris is so famous and attractive that no further reason is needed; people simply go there because it is Paris.",
+     "answer_source": "derived",
+     "explanation_zh": "第4段的排比句，意为巴黎本身就足以吸引人，无需其他理由。",
+     "explanation": "Para. 4 ends a chain of 'Because...' clauses with 'Because Paris is Paris', meaning the city's fame alone is reason enough to go."
+    },
+    {
+     "n": 4,
+     "prompt": "What is the irony when people travel to Paris trying to leave all those problems behind?",
+     "answer": "Their minds often solve their most stubborn problems while they relax in a Left Bank cafe, so they end up thinking about the troubles they wanted to escape.",
+     "answer_source": "derived",
+     "explanation_zh": "第4段：人们去巴黎是为了逃避烦恼，却恰恰在咖啡馆里放松时最易解决难题，这就是讽刺之处。",
+     "explanation": "Para. 4 states the irony outright: people escape to Paris to forget their troubles, yet the mind solves 'stubborn problems' in a Left Bank cafe."
+    },
+    {
+     "n": 5,
+     "prompt": "How does a bit of distance help enhance creativity according to Para. 6?",
+     "answer": "Distance loosens the cognitive chains of familiar thinking, so we can mix the new with the old and see the mundane from a more abstract perspective.",
+     "answer_source": "derived",
+     "explanation_zh": "第6段：一点距离能打破熟悉事物的思维束缚，让人以更抽象的视角看待平凡事物，从而激发创造力。",
+     "explanation": "Para. 6 says distance 'loosen[s] the cognitive chains', letting us 'mingle the new with the old' and grasp the mundane from a more abstract angle."
+    },
+    {
+     "n": 6,
+     "prompt": "What are the characteristics of seasoned travelers?",
+     "answer": "They are open to ambiguity, accept that different and equally valid ways of interpreting the world exist, and do not settle for their first answers or guesses.",
+     "answer_source": "derived",
+     "explanation_zh": "第7段：经验丰富的旅行者能接受模糊性，承认多种同样有效的世界解读，不满足于第一印象和初步猜测。",
+     "explanation": "Para. 7 calls them 'open to ambiguity': they accept different but 'equally valid' readings of the world and 'refuse to settle for their first answers'."
+    },
+    {
+     "n": 7,
+     "prompt": "What do we need to do to trigger our creativity?",
+     "answer": "We need to change cultures and experience the disorienting diversity of human traditions, not merely travel a short distance.",
+     "answer_source": "derived",
+     "explanation_zh": "第8段：创造力来自真正接触不同文化带来的困惑与多样性，而非单纯的地理距离。",
+     "explanation": "Para. 8 argues creativity is a 'side effect of difference', so we must 'change cultures' and face the 'disorienting diversity of human traditions', not just fly far."
+    },
+    {
+     "n": 8,
+     "prompt": "Why do we travel according to Para. 9?",
+     "answer": "We travel because we need to: distance and difference are the cornerstones of creativity, and travel changes our minds even though home stays the same.",
+     "answer_source": "derived",
+     "explanation_zh": "第9段：旅行是因为我们需要它，距离与差异是创造力的基石，旅行改变的是我们的心智。",
+     "explanation": "Para. 9 concludes 'We travel because we need to', since 'distance and difference are the secret cornerstones of creativity', and the change happens in our minds."
+    }
+   ]
+  },
+  {
+   "id": "u03_a_critical",
+   "section": "A",
+   "kind": "critical",
+   "instructions": "Critical thinking. Work in pairs and discuss the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "What other benefits can travel offer in addition to those mentioned in the text?",
+     "answer": "Travel also builds practical skills such as reading maps, bargaining, and coping when plans collapse. It can strengthen friendships, because shared difficulties create memories that ordinary weeks never produce. It also holds up a mirror: seeing how others live makes us notice what we take for granted at home. For me the biggest bonus is confidence in unfamiliar situations.",
+     "answer_source": "draft",
+     "explanation": "The model answer goes beyond the text's creativity claim (Paras. 5-9) by naming practical skills, friendship and confidence, each backed by one concrete example.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "Do you agree that cultural differences are a big barrier to travel? Why or why not?",
+     "answer": "I partly disagree, because language and money are usually bigger barriers than culture itself. Cultural difference can be uncomfortable at first, but the text shows it is exactly what makes travel valuable, since seasoned travelers learn to live with ambiguity. In my experience a smile and a few local phrases dissolve most of the distance.",
+     "answer_source": "draft",
+     "explanation": "The model answer takes a middle position, using Para. 7's 'open to ambiguity' to argue that culture is learnable rather than a fixed barrier.",
+     "needs_review": true
+    },
+    {
+     "n": 3,
+     "prompt": "Do you think travel has an effect on our personalities? Why or why not?",
+     "answer": "Yes, I think it does, though slowly. Traveling forces you to make decisions alone, so you become more patient and more comfortable with uncertainty. The text's 'open to ambiguity' describes exactly the change I noticed in myself after a month abroad. Of course family and education also shape personality, so travel is only one influence.",
+     "answer_source": "draft",
+     "explanation": "The model answer says yes, citing Para. 7's 'open to ambiguity' and adding that family and schooling also shape personality.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u03_a_words_in_use",
+   "section": "A",
+   "kind": "words_in_use",
+   "instructions": "Words in use. Fill in the blanks with the words given below. Change the form where necessary. Each word can be used only once.",
+   "bank": [
+    "ambiguity",
+    "cluster",
+    "compulsory",
+    "contemplate",
+    "drawback",
+    "globalize",
+    "groan",
+    "loosen",
+    "offset",
+    "stubborn"
+   ],
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Thanks to its nine-year ____ education, China has one of the highest literacy rates in the world, which is a great achievement.",
+     "answer": "compulsory",
+     "answer_source": "derived",
+     "explanation_zh": "compulsory education（义务教育）是固定搭配，形容词修饰 education。",
+     "explanation": "'Compulsory education' is the fixed term for the nine-year schooling every Chinese child receives; only this adjective collocates with 'education' here."
+    },
+    {
+     "n": 2,
+     "prompt": "He has been ____ leaving the studio for some time and will be moving on to \"new adventures\".",
+     "answer": "contemplating",
+     "answer_source": "derived",
+     "explanation_zh": "has been 后接现在分词，contemplate doing sth. 意为考虑做某事。",
+     "explanation": "'Has been' takes the present participle, and 'contemplate doing sth.' requires a gerund, so the sense is 'has been considering leaving the studio'."
+    },
+    {
+     "n": 3,
+     "prompt": "Standards should be ____ to include more people in more types of jobs to increase diversity.",
+     "answer": "loosened",
+     "answer_source": "derived",
+     "explanation_zh": "should be 后接过去分词构成被动，loosen 意为放宽标准。",
+     "explanation": "'Should be' plus a past participle forms the passive, and 'loosen standards' is the collocation for making rules less strict."
+    },
+    {
+     "n": 4,
+     "prompt": "In the 1970s, the firm was restructured to ____ the business and pursue new areas of growth.",
+     "answer": "globalize",
+     "answer_source": "derived",
+     "explanation_zh": "to 后接动词原形，globalize the business 意为使业务全球化。",
+     "explanation": "The infinitive after 'to' needs the base form, and 'globalize the business' means to expand it worldwide, matching 'new areas of growth'."
+    },
+    {
+     "n": 5,
+     "prompt": "However, your current losses should soon be ____ by gains - the fund will produce a positive return of 11.6 percent over a nine-month period.",
+     "answer": "offset",
+     "answer_source": "derived",
+     "explanation_zh": "be offset by 意为被……抵消，是被动结构。",
+     "explanation": "'Be offset by' means be balanced or cancelled by; the passive fits 'should soon be', and 'losses ... gains' signals the contrast."
+    },
+    {
+     "n": 6,
+     "prompt": "She pushed herself up into a sitting position to look around but immediately ____ in pain and fell back onto the blanket.",
+     "answer": "groaned",
+     "answer_source": "derived",
+     "explanation_zh": "immediately 之后用过去时叙述动作，groan in pain 意为因疼痛呻吟。",
+     "explanation": "The past tense is required by the narrative sequence 'pushed ... fell', and 'groan in pain' is the fixed collocation."
+    },
+    {
+     "n": 7,
+     "prompt": "My mom was very ____ and unwilling to accept advice, but she became softer and nicer after reading this book.",
+     "answer": "stubborn",
+     "answer_source": "derived",
+     "explanation_zh": "very 后接形容词，stubborn 与 unwilling 并列作表语。",
+     "explanation": "An adjective is needed after 'very' as a subject complement, parallel with 'unwilling to accept advice', so 'stubborn' fits."
+    },
+    {
+     "n": 8,
+     "prompt": "On weekends, the school parking lot is almost empty except that a few cars ____ near the entrance.",
+     "answer": "cluster",
+     "answer_source": "derived",
+     "explanation_zh": "主语 cars 为复数，句子为一般现在时，cluster 意为聚集。",
+     "explanation": "The plural subject 'a few cars' takes the base form in the simple present, and 'cluster near' means gather in a small group."
+    },
+    {
+     "n": 9,
+     "prompt": "In the photographer's finest pictures there is also a degree of ____, which allows them to be interpreted in a variety of ways.",
+     "answer": "ambiguity",
+     "answer_source": "derived",
+     "explanation_zh": "a degree of 后接名词，ambiguity 意为模糊性。",
+     "explanation": "'A degree of' takes an abstract noun, and 'ambiguity' explains why the pictures allow 'a variety of' interpretations."
+    },
+    {
+     "n": 10,
+     "prompt": "The chief ____ to farming in these districts is the considerable proportion of stony ground.",
+     "answer": "drawback",
+     "answer_source": "derived",
+     "explanation_zh": "the chief drawback to 为固定搭配，意为……的主要缺点。",
+     "explanation": "'The chief drawback to (doing) sth.' is the fixed pattern for the main disadvantage; the stony ground is that disadvantage."
+    }
+   ]
+  },
+  {
+   "id": "u03_a_word_building",
+   "section": "A",
+   "kind": "word_building",
+   "instructions": "Word building. Fill in the blanks with the words given below. Change the form where necessary. Each word can be used only once.",
+   "bank": [
+    "attributable",
+    "distinguishable",
+    "memorize",
+    "negotiable",
+    "profitable",
+    "respectable",
+    "stabilize",
+    "victimize",
+    "visualize"
+   ],
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Despite the tougher trading conditions I am pleased to report that our company has yet again had a(n) ____ year.",
+     "answer": "profitable",
+     "answer_source": "derived",
+     "explanation_zh": "a(n) 后接形容词加名词，profitable year 意为盈利的一年。",
+     "explanation": "'A(n) ____ year' needs an adjective before the noun; 'profitable year' means a year that made a profit, despite 'tougher trading conditions'."
+    },
+    {
+     "n": 2,
+     "prompt": "We must take a deeper look at life and never ____ ourselves by undeserving guilt.",
+     "answer": "victimize",
+     "answer_source": "derived",
+     "explanation_zh": "never 之后接动词原形，victimize 意为使……成为受害者。",
+     "explanation": "'Never' is followed by the base form, and 'victimize oneself by guilt' means to treat oneself as a victim."
+    },
+    {
+     "n": 3,
+     "prompt": "The company may be reluctant to deviate too far from the basic terms of this agreement, but there are a number of things which are ____.",
+     "answer": "negotiable",
+     "answer_source": "derived",
+     "explanation_zh": "which are 后接形容词作表语，negotiable 意为可协商的。",
+     "explanation": "An adjective after 'are' describes 'things', and 'negotiable' means open to discussion, contrasting with the 'basic terms'."
+    },
+    {
+     "n": 4,
+     "prompt": "Close your eyes and try to ____ an object in your mind, seeing it in precisely the same detail as before.",
+     "answer": "visualize",
+     "answer_source": "derived",
+     "explanation_zh": "try to 后接动词原形，visualize 意为在脑中形成画面。",
+     "explanation": "'Try to' takes the base form, and 'visualize an object in your mind' means to form a mental picture of it."
+    },
+    {
+     "n": 5,
+     "prompt": "It is not possible to determine from raw data just how many accidents were directly ____ to excessive speed.",
+     "answer": "attributable",
+     "answer_source": "derived",
+     "explanation_zh": "be attributable to 意为归因于，是被动结构。",
+     "explanation": "'Be attributable to' is the fixed phrase meaning 'can be attributed to', and 'directly' modifies the adjective."
+    },
+    {
+     "n": 6,
+     "prompt": "If you continue to be hard-working and honest in word and deed, you will become ____ members of society.",
+     "answer": "respectable",
+     "answer_source": "derived",
+     "explanation_zh": "become 后接形容词作补语，respectable 意为受人尊敬的。",
+     "explanation": "An adjective is needed as the object complement after 'become'; 'respectable members of society' means members deserving respect."
+    },
+    {
+     "n": 7,
+     "prompt": "China will take more active measures to ____ the country's economic and social development.",
+     "answer": "stabilize",
+     "answer_source": "derived",
+     "explanation_zh": "to 后接动词原形，stabilize development 意为稳定发展。",
+     "explanation": "The infinitive after 'to' takes the base form, and 'stabilize development' means to make it steady."
+    },
+    {
+     "n": 8,
+     "prompt": "These towns will hang up ____ new welcome signs in the hope of capturing the attention of visitors, giving them a reason to stop and explore the district.",
+     "answer": "distinguishable",
+     "answer_source": "derived",
+     "explanation_zh": "形容词修饰名词 signs，distinguishable 意为易于区分、醒目的。",
+     "explanation": "An adjective modifies 'signs', and 'distinguishable' means easy to recognize, which suits the aim of 'capturing the attention of visitors'."
+    },
+    {
+     "n": 9,
+     "prompt": "The director pushed the actors and actresses to have all their lines ____ within one week.",
+     "answer": "memorized",
+     "answer_source": "derived",
+     "explanation_zh": "have + 宾语 + 过去分词表示让台词被记住，memorize 为及物动词。",
+     "explanation": "'Have something done' takes the past participle; the lines are memorized by the actors, so 'memorized' is the required passive form."
+    }
+   ]
+  },
+  {
+   "id": "u03_a_banked_cloze",
+   "section": "A",
+   "kind": "banked_cloze",
+   "instructions": "Banked cloze. Fill in the blanks by selecting suitable words from the word bank. You may not use any of the words more than once.",
+   "bank": [
+    "annoyances",
+    "cognitive",
+    "console",
+    "denoting",
+    "embracing",
+    "endows",
+    "immerse",
+    "loosen",
+    "luncheon",
+    "nuances",
+    "offsets",
+    "positivity",
+    "recipe",
+    "trivial",
+    "tropical"
+   ],
+   "passage": "The benefits of travel go beyond making memories and meeting new people. Staying away from the {{1}} things of daily life and exploring a new place can have a remarkably positive impact on your emotional well-being and your {{2}} powers.\n\nTravel can improve your emotional well-being in two aspects. First, changing your daily routine, for example, taking a trip to a nearby town on a weekend day, can help {{3}} your mind and deal with the daily {{4}}. Second, physical exercise is known to improve emotional well-being and travel offers plenty of opportunities to get active. Getting to know a new destination by {{5}} the great outdoors can boost energy levels and improve your mood.\n\nTravel can also improve your cognitive powers due to the exposure to different cultures. Whether you venture abroad or simply to the next town over, a trip away from home can help enhance your {{6}} and reveal a world of possibilities beyond your daily perspective. Something as simple as learning a new {{7}} or changing the way you spend your downtime can have a dramatic effect on your well-being. It's been proven that new experiences - particularly ones that allow you to {{8}} yourself in a different culture - improve the performance of your brain, {{9}} the restrictions, and increase creativity.\n\nEvidently, travel itself {{10}} you with the freedom to do what you love, to rest, and to try something new. For many people, travel is not simply an enjoyable recreation, but an essential part of maintaining a positive mentality and improving cognitive abilities.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Blank 1",
+     "answer": "trivial",
+     "answer_source": "derived",
+     "explanation_zh": "Staying away from the trivial things of daily life 指远离琐碎的日常事务，trivial 意为琐碎的。",
+     "explanation": "'Trivial things of daily life' contrasts with the 'remarkably positive impact' that follows, so only 'trivial' fits the sense."
+    },
+    {
+     "n": 2,
+     "prompt": "Blank 2",
+     "answer": "cognitive",
+     "answer_source": "derived",
+     "explanation_zh": "your cognitive powers 指认知能力，与后文 cognitive abilities 呼应。",
+     "explanation": "'Your ____ powers' is completed by 'cognitive', which the passage repeats later as 'cognitive abilities'."
+    },
+    {
+     "n": 3,
+     "prompt": "Blank 3",
+     "answer": "loosen",
+     "answer_source": "derived",
+     "explanation_zh": "loosen your mind 意为放松思绪，与上下文的放松调整相符。",
+     "explanation": "The base form follows 'help', and 'loosen your mind' echoes Paragraph 6 of Text A, 'loosen the cognitive chains'."
+    },
+    {
+     "n": 4,
+     "prompt": "Blank 4",
+     "answer": "annoyances",
+     "answer_source": "derived",
+     "explanation_zh": "the daily annoyances 指日常烦恼，annoyances 为复数名词。",
+     "explanation": "A plural noun is needed after 'the daily', and 'annoyances' matches the passage's contrast between routine irritation and relaxation."
+    },
+    {
+     "n": 5,
+     "prompt": "Blank 5",
+     "answer": "embracing",
+     "answer_source": "derived",
+     "explanation_zh": "embracing the great outdoors 意为拥抱大自然，embracing 直接接宾语，符合语境。",
+     "explanation": "The preposition 'by' requires a gerund, and 'embrace the great outdoors' means to get active outside."
+    },
+    {
+     "n": 6,
+     "prompt": "Blank 6",
+     "answer": "nuances",
+     "answer_source": "derived",
+     "explanation_zh": "enhance your nuances 意为提升对细微差别的感知，nuances 为复数名词。",
+     "explanation": "'Your ____' needs a plural noun, and 'nuances' (subtle differences) fits 'a world of possibilities beyond your daily perspective'."
+    },
+    {
+     "n": 7,
+     "prompt": "Blank 7",
+     "answer": "recipe",
+     "answer_source": "derived",
+     "explanation_zh": "learning a new recipe 指学习一种新菜谱，与 downtime 的生活方式相符。",
+     "explanation": "'Learning a new ____' needs a concrete noun, and 'recipe' fits cooking as well as the mention of changing your downtime."
+    },
+    {
+     "n": 8,
+     "prompt": "Blank 8",
+     "answer": "immerse",
+     "answer_source": "derived",
+     "explanation_zh": "allow you to immerse yourself in a different culture 意为让你沉浸于不同文化，immerse 后接反身代词。",
+     "explanation": "'Allow you to' takes the base form, and 'immerse yourself in a culture' is the fixed reflexive collocation."
+    },
+    {
+     "n": 9,
+     "prompt": "Blank 9",
+     "answer": "offsetting",
+     "answer_source": "derived",
+     "explanation_zh": "offset 意为抵消，此处 offsets 需改为现在分词 offsetting 作伴随状语，表示抵消限制。",
+     "explanation": "A present participle is needed to parallel 'improve' and 'increase' in the same series, so 'offsets' becomes 'offsetting'."
+    },
+    {
+     "n": 10,
+     "prompt": "Blank 10",
+     "answer": "endows",
+     "answer_source": "derived",
+     "explanation_zh": "travel itself endows you with 意为旅行赋予你……，主语为第三人称单数，故用 endows。",
+     "explanation": "The subject 'travel itself' is third-person singular, so 'endows'; the pattern is 'endow sb. with sth.'."
+    }
+   ]
+  },
+  {
+   "id": "u03_a_expressions_in_use",
+   "section": "A",
+   "kind": "expressions_in_use",
+   "instructions": "Expressions in use. Fill in the blanks with the expressions given below. Change the form where necessary. Each expression can be used only once.",
+   "bank": [
+    "be open to",
+    "endow ... with",
+    "make up for",
+    "mingle with",
+    "more often than not",
+    "on sale",
+    "settle for",
+    "trade ... for"
+   ],
+   "items": [
+    {
+     "n": 1,
+     "prompt": "They should be more patient, and willing to ____ something less than their dream job at first.",
+     "answer": "settle for",
+     "answer_source": "derived",
+     "explanation_zh": "settle for 意为勉强接受，符合句意。",
+     "explanation": "'Settle for' means to accept something less than you wanted, which the clause 'something less than their dream job' signals."
+    },
+    {
+     "n": 2,
+     "prompt": "The situations these explorers face are various, sometimes unpredictable, and ____ challenging.",
+     "answer": "more often than not",
+     "answer_source": "derived",
+     "explanation_zh": "more often than not 意为通常，修饰形容词 challenging。",
+     "explanation": "The adverbial 'more often than not' means 'usually' and modifies the predicate, sitting before the adjective 'challenging'."
+    },
+    {
+     "n": 3,
+     "prompt": "As the voyage progressed, the soft, sweet tropical air ____ the fresh smell of the sea and gave the crew a delightful experience of ocean travel.",
+     "answer": "mingled with",
+     "answer_source": "derived",
+     "explanation_zh": "mingle with 意为与……混合，主语 air 为单数，动词用过去式。",
+     "explanation": "The past tense fits 'as the voyage progressed', and 'mingle with' means to mix with, with 'air' as a singular subject."
+    },
+    {
+     "n": 4,
+     "prompt": "I bought too much milk so I ____ my extra gallons ____ her bread.",
+     "answer": "trade ... for",
+     "answer_source": "derived",
+     "explanation_zh": "trade sth. for sth. 意为用……换取……，两空分别填 trade 与 for。",
+     "explanation": "'Trade sth. for sth.' means to exchange one thing for another; the base form follows 'I', and 'for' fills the second gap."
+    },
+    {
+     "n": 5,
+     "prompt": "You should learn to time your purchases so that you can buy the products when they're ____ and save money.",
+     "answer": "on sale",
+     "answer_source": "derived",
+     "explanation_zh": "on sale 意为廉价出售，与 when they're 搭配。",
+     "explanation": "'On sale' means being sold at a reduced price, which explains 'save money' and fits 'when they're'."
+    },
+    {
+     "n": 6,
+     "prompt": "You need to let them know that you ____ their ideas and that you will do what it takes to get things done.",
+     "answer": "are open to",
+     "answer_source": "derived",
+     "explanation_zh": "be open to 意为愿意考虑或接受，主语 you 用 are。",
+     "explanation": "'Be open to ideas' means to be willing to consider them, and the subject 'you' requires 'are'."
+    },
+    {
+     "n": 7,
+     "prompt": "Herbs have been used for centuries to ____ a whole range of foods with subtle flavors.",
+     "answer": "endow ... with",
+     "answer_source": "derived",
+     "explanation_zh": "endow sb./sth. with sth. 意为赋予……某种特质，不定式 to 后接原形。",
+     "explanation": "'Endow sth. with sth.' means to give a quality to something, and the base form follows 'to'."
+    },
+    {
+     "n": 8,
+     "prompt": "The new research indicates that doing enough exercise could ____ some of the unhealthy impacts of bad sleep.",
+     "answer": "make up for",
+     "answer_source": "derived",
+     "explanation_zh": "make up for 意为弥补、抵消，符合句意。",
+     "explanation": "'Make up for' means to compensate for, and the base form follows the modal 'could'."
+    }
+   ]
+  },
+  {
+   "id": "u03_a_structure_writing",
+   "section": "A",
+   "kind": "structure_writing",
+   "instructions": "Structure analysis and structured writing. 1 Analyze the structure of Text A as a causal analysis essay (opening, thesis question, three causes, conclusion), then read the sample essay on why people learn Chinese and see how the causes are developed. 2 Write an essay of no less than 140 words on \"Why reading books is important?\" following the outline: thesis statement, Cause 1 (broaden knowledge and provide experience), Cause 2 (exercise our brains and improve mental health), Cause 3 (increase empathy and make communication more efficient), and a conclusion.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Structure analysis: analyze the structure of Text A (opening, thesis question, three causes and conclusion).",
+     "answer": "Text A opens with the chaotic airport morning, then poses the thesis question 'Why do we travel?'. The body gives three causes: we travel because we need to, because most travel is optional and driven by desire, and because getting away is 'an essential habit of effective thinking'. Paragraphs 6-8 develop the third cause through cognitive distance and cultural difference, and Paragraph 9 concludes that travel changes our minds while home stays the same.",
+     "answer_source": "draft",
+     "explanation": "The model answer follows the causal frame: airport opening (Para. 1), thesis question (Para. 5), three causes (Paras. 3-8) and conclusion (Para. 9).",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "Write an essay of no less than 140 words on \"Why reading books is important?\" following the given outline.",
+     "answer": "Reading books is important first because it broadens our knowledge and provides experience that no single life could contain, carrying us into places, periods and minds we would never otherwise enter, and letting us test ideas without risk. It also exercises our brains and improves mental health, since following a long argument trains concentration, and a familiar story can lower stress at the end of a demanding day, when screens have scattered our attention. Most importantly, reading increases empathy and makes communication more efficient, because living inside another character's mind teaches us to imagine what others feel and mean, which is why good readers often make better listeners and colleagues. Reading is therefore not a luxury but a habit worth protecting, one that shapes our thinking, steadies our mood, deepens our relationships with other people, and repays every hour it takes.",
+     "answer_source": "draft",
+     "explanation": "The model answer keeps the assigned outline - thesis, three causes from the prompt, and conclusion - with a signal word opening each cause.",
+     "needs_review": true
+    }
+   ],
+   "sample": "According to a survey, over 180 countries have conducted Chinese-language teaching programs and more than 4,000 foreign universities have established Chinese-language departments, majors, and courses. Why are more and more foreigners beginning to learn the Chinese language? I think there are mainly three reasons for the widespread interest in Chinese. One of the reasons is that China's ancient culture has attracted many people from all over the world to learn Chinese. For example, many people are interested in Chinese poetry. To appreciate its rhythm and content, one needs to learn the Chinese language. Another reason is that China's rapid economic growth has attracted many people to learn Chinese. China is enjoying a fast economic growth which provides a lot of opportunities to people around the world. To do business conveniently with Chinese people, they want to learn the Chinese language. However, perhaps the primary reason to learn Chinese is that the Chinese language itself has charm in its characters and pronunciation. The Chinese characters can arouse a sense of beauty and are considered attractive. The pronunciation of Mandarin (普通话) is so beautiful and musical that it has attracted many foreigners to learn Chinese. Many people believe that the Chinese language is sure to spread more widely as China opens up further to the outside world."
+  },
+  {
+   "id": "u03_b_reading_skills",
+   "section": "B",
+   "kind": "reading_skills",
+   "instructions": "Reading skills. Read Paras. 1, 2, and 8 of Text B and answer the following questions with your background knowledge.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Have you ever had an experience similar to that described in Para. 1? What do you think the author is arriving at?",
+     "answer": "Yes. Like the author, I once had a country in mind for years, saved money for it, and still kept postponing the trip. Paragraph 1 moves from the dream to the pictures and then to the money and vacation time already in hand, so the author is arriving at a simple conclusion: the moment to go is now. The 'but maybe you haven't traveled much' of the next paragraph then turns that excitement into a problem.",
+     "answer_source": "draft",
+     "explanation": "The model answer begins with a personal postponement, then traces Paragraph 1's build-up to 'Now is the time to go!'",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "What does the description in Para. 2 remind you of concerning your own experience when you prepared for a journey to an unfamiliar place? What do you think the author really wants to tell us?",
+     "answer": "The list reminds me of the week before my first trip abroad, when I kept checking ticket prices and writing down addresses I could not pronounce. Paragraph 2 piles up tasks - research, hotels, tickets, food - and adds the unfamiliar signs, so the author wants us to feel how much a beginner must handle alone. This sets up the question of whether such a trip is worth attempting without a companion.",
+     "answer_source": "draft",
+     "explanation": "The model answer recalls pre-trip nerves and reads Paragraph 2's pile of tasks as the setup for the solo-travel problem.",
+     "needs_review": true
+    },
+    {
+     "n": 3,
+     "prompt": "Has anything like what is depicted in Para. 8 ever happened to you when you traveled around? What do you think the author intends to express in this paragraph?",
+     "answer": "Something similar happened to me in Bangkok, where a driver took me to the wrong guesthouse and I had to walk back in the dark. Paragraph 8 presents the 'downside' in the same calm tone as the blessings earlier, because the young man who refused to take her to the hostel turned out to be harmless. The paragraph shows that solo travel mixes real discomfort with unexpected kindness, which is exactly the author's point.",
+     "answer_source": "draft",
+     "explanation": "The model answer offers a comparable mishap and reads Paragraph 8's harmless ending as the essay's point that discomfort and kindness mix.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u03_b_understanding",
+   "section": "B",
+   "kind": "text_b_mcq",
+   "instructions": "Understanding the text. Choose the best answer to each of the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "What was people's reaction to the author's traveling alone?",
+     "answer": 3,
+     "answer_source": "derived",
+     "options": [
+      "They thought it boring.",
+      "They thought it rewarding.",
+      "They thought it came naturally.",
+      "They thought it hard to believe."
+     ],
+     "explanation_zh": "第5段提到人们认为独自旅行奇怪，甚至难以置信（inconceivable），选 D。",
+     "explanation": "Para. 5 says the reactions showed solo travel was 'strange, and even considered inconceivable or reckless', so people found it hard to believe - option D."
+    },
+    {
+     "n": 2,
+     "prompt": "What did the author experience in China?",
+     "answer": 2,
+     "answer_source": "derived",
+     "options": [
+      "A desk clerk offered to lend her a flat.",
+      "Two girls invited her to their hotel room.",
+      "A bilingual person picked her up at the train station.",
+      "The university listed in her booklet supplied a nice dormitory to her."
+     ],
+     "explanation_zh": "第7段提到她被安排由一位双语朋友在火车站接站，选 C。",
+     "explanation": "Para. 7 says the two girls 'arranged for a bilingual friend to pick me up at the train station', which is option C."
+    },
+    {
+     "n": 3,
+     "prompt": "What do we know about the author's experience in Japan?",
+     "answer": 2,
+     "answer_source": "derived",
+     "options": [
+      "She was picked up by a girl at the airport.",
+      "It took her two hours to find her youth hostel.",
+      "A girl who stayed with her snored like a lawnmower.",
+      "A boy menaced her and refused to drop her at the right place."
+     ],
+     "explanation_zh": "第8段：在日本被年轻人带去朋友家，住在一起的一个女孩打鼾像割草机，选 C。",
+     "explanation": "Para. 8: in Japan she stayed with four girls, one of whom 'snored like a lawnmower', and it took two days to escape - option C."
+    },
+    {
+     "n": 4,
+     "prompt": "Which of the following is not true during the author's solo travels?",
+     "answer": 3,
+     "answer_source": "derived",
+     "options": [
+      "A couple from the U.S. nursed her with chocolate bars and tissues in Italy.",
+      "She spent a long afternoon in Thailand all alone in the back of a hay wagon.",
+      "For seven days she traveled in a truck with a Brit, two Aussies, and two Norwegians.",
+      "She ate ethnic food with four Chinese students on her way through eastern South Korea."
+     ],
+     "explanation_zh": "第10段：与她一起吃饭的是四位年轻的日本上班族，不是中国学生，故 D 不符。",
+     "explanation": "Para. 10 says she ate ethnic food 'with four youthful Japanese salarymen', not Chinese students, so option D is the untrue statement."
+    },
+    {
+     "n": 5,
+     "prompt": "Which of the following is not a strategy suggested by the author to protect yourself from danger in solo travel?",
+     "answer": 0,
+     "answer_source": "derived",
+     "options": [
+      "Presume the worst and be careful.",
+      "Watch out for those who are too friendly with you.",
+      "Be careful not to endanger yourself by throwing caution to the wind.",
+      "Carry less cash if you hear stories about criminals on the road."
+     ],
+     "explanation_zh": "第12段作者建议不要“presume the worst”（往最坏处想）而过度恐惧，故 A 不是建议。",
+     "explanation": "Para. 12 warns 'don't presume the worst and be overly fearful', so presuming the worst is what the author advises against, making A the exception."
+    },
+    {
+     "n": 6,
+     "prompt": "What is the key to solo travel according to the author?",
+     "answer": 0,
+     "answer_source": "derived",
+     "options": [
+      "To open your mind.",
+      "To stay away from danger.",
+      "Not to take much cash.",
+      "Not to be overly fearful."
+     ],
+     "explanation_zh": "第13段：独自旅行的关键是敞开心扉（open your mind），选 A。",
+     "explanation": "Para. 13 begins 'The key to solo travel is to open your mind, close your eyes, and leap in', which is option A."
+    },
+    {
+     "n": 7,
+     "prompt": "What do we know about the author and her solo travels?",
+     "answer": 3,
+     "answer_source": "derived",
+     "options": [
+      "She wasn't susceptible to dangerous situations.",
+      "Only a few of her friends shared her dream of exploring China.",
+      "It was very hard for the author to make the decision to travel alone.",
+      "Her travel proved to be worthwhile despite unpleasant experiences."
+     ],
+     "explanation_zh": "作者称独自旅行对她而言“自然而然”，且尽管有不愉快经历仍然值得，选 D。",
+     "explanation": "Para. 4 says going alone 'came naturally' to her, and Para. 13 ends with how 'sensational' the experience was, so option D is right."
+    },
+    {
+     "n": 8,
+     "prompt": "What idea does the author intend to convey?",
+     "answer": 1,
+     "answer_source": "derived",
+     "options": [
+      "Traveling solo is difficult.",
+      "Traveling solo in general is a blessing.",
+      "Traveling solo usually makes one irritated and perplexed.",
+      "Traveling solo is more exciting than traveling with a companion."
+     ],
+     "explanation_zh": "全文标题 Traveling Solo 及结尾“令人惊喜”的论述表明作者认为独自旅行总体是一种福气，选 B。",
+     "explanation": "The title and the closing promise that you will be 'amazed at how sensational' solo travel is present it overall as a blessing - option B."
+    }
+   ]
+  },
+  {
+   "id": "u03_b_critical",
+   "section": "B",
+   "kind": "critical",
+   "instructions": "Critical thinking. Work in pairs and discuss the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "What are the differences between traveling solo and traveling with a companion?",
+     "answer": "Traveling solo means complete freedom: you can change plans at noon and stay somewhere an extra day. Traveling with a companion offers company, shared costs, and someone to watch your bag, but every decision becomes a negotiation. The text also suggests solo travelers meet more people, because locals see them as approachable. I enjoy both, but for different reasons.",
+     "answer_source": "draft",
+     "explanation": "The model answer compares the two modes on freedom, company, cost and contact with locals, drawing on Para. 11's claim about companions.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "Apart from what is mentioned in the text, can you think of any other strategies to protect yourself from danger in solo travel?",
+     "answer": "I would send my itinerary to a family member and share my live location each evening. Booking the first night's accommodation in advance and arriving in daylight also removes the riskiest hours. Learning a few phrases of the local language and photographing my hotel's address help when I get lost. None of this costs much money, only a little planning.",
+     "answer_source": "draft",
+     "explanation": "The model answer adds pre-trip measures - itinerary, location sharing, daylight arrival, local phrases - none of which Para. 12 mentions.",
+     "needs_review": true
+    },
+    {
+     "n": 3,
+     "prompt": "Will you constrain yourself from doing what you really want to do because of a lack of companionship? Why or why not?",
+     "answer": "No, I would not. The last line of Text B makes the point clearly: a lack of companionship should never stop you from doing what you really want. I once ate alone in a strange city and joined a walking tour, and the evening turned out better than it would have with a reluctant friend. Waiting for the perfect companion often means never going at all.",
+     "answer_source": "draft",
+     "explanation": "The model answer says no and quotes Text B's closing advice that a lack of companionship should never constrain you.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u03_b_collocation",
+   "section": "B",
+   "kind": "collocation",
+   "instructions": "Collocation. Complete the following passage by filling in the blanks with appropriate collocations from the texts. You are provided with the first letter(s) for each of the collocations. Change the form where necessary.",
+   "passage": "I recall my first few years of wandering, a period of time that saw me in a constant vacation mode as I hopped between countries. At that time, I was excited to find myself in {{1}} even if I just stayed in a guesthouse for a few days. And I thought I had the most wonderful life - my {{2}}. Then one day, just over three years into my adventure, I realized that my {{3}} were really leading me nowhere. Apart from having quite a few \"cool\" and {{4}}, I was barely learning and barely improving myself. To make sure I still had some money left for a few more weeks of {{5}}, I had to constantly check my bank account.\n\nSo, I decided to change the way I traveled. For example, I would go to India to seek opportunities for volunteer work, to South America to practice my Spanish, to Eastern Europe to experience the {{6}} of the region, and to Australia to create my first source of online income while learning the {{7}} of the city I love. More recently, I lived in Mexico in order to learn how to ride waves. Now, I'm in Thailand in order to {{8}} with other travelers.\n\nEverything has a purpose. No more aimlessness for me. I really believe that for anyone interested in travel made possible by {{9}}, having goals is vital. Traveling with a sense of purpose can help you gain {{10}}, maximize personal growth, endow you with a {{11}} toward cultural diversity, and develop your {{12}} to prepare you for new challenges in this increasingly {{13}}. This will prove useful at some point in your life.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Blank 1",
+     "answer": "exotic place",
+     "answer_source": "derived",
+     "explanation_zh": "B3U3B 短语 exotic place（异国他乡），提示首字母 e。",
+     "explanation": "'Even if I just stayed in a guesthouse' points to a place, and Text B's 'an exotic place where you can't speak the language' gives the collocation with initial e."
+    },
+    {
+     "n": 2,
+     "prompt": "Blank 2",
+     "answer": "lovely dream",
+     "answer_source": "derived",
+     "explanation_zh": "B3U3A 短语 the lovely dream（美好的梦想），提示 lo。",
+     "explanation": "Text A Paragraph 1's 'stolen away a lovely dream' supplies 'lovely dream', which the writer calls his wandering life, initial lo."
+    },
+    {
+     "n": 3,
+     "prompt": "Blank 3",
+     "answer": "multinational tours",
+     "answer_source": "derived",
+     "explanation_zh": "B3U3B 短语 multinational tours（跨国旅行团），提示 mul。",
+     "explanation": "Text B Paragraph 4 mentions 'a multinational tour', and the plural 'multinational tours' fits 'my ____ were leading me nowhere', initial mul."
+    },
+    {
+     "n": 4,
+     "prompt": "Blank 4",
+     "answer": "pleasant experiences",
+     "answer_source": "derived",
+     "explanation_zh": "B3U3B 短语 pleasant experiences（愉快的经历），提示 pl。",
+     "explanation": "Text B Paragraph 8 refers to 'those not-so-pleasant experiences', so 'pleasant experiences' follows 'quite a few', initial pl."
+    },
+    {
+     "n": 5,
+     "prompt": "Blank 5",
+     "answer": "foreign travel",
+     "answer_source": "derived",
+     "explanation_zh": "B3U3A 短语 foreign travel（出国旅行），提示 for（即 foreign 前三个字母）。",
+     "explanation": "Text A Paragraph 8 has 'the same facets of foreign travel', and the money context ('some money left') fits 'weeks of foreign travel', initial for."
+    },
+    {
+     "n": 6,
+     "prompt": "Blank 6",
+     "answer": "disorienting diversity",
+     "answer_source": "derived",
+     "explanation_zh": "B3U3A 短语 disorienting diversity（令人迷失方向的多样性），提示 dis。",
+     "explanation": "Text A Paragraph 8's 'disorienting diversity of human traditions' gives the collocation for experiencing a region, with initial dis."
+    },
+    {
+     "n": 7,
+     "prompt": "Blank 7",
+     "answer": "local folklore",
+     "answer_source": "derived",
+     "explanation_zh": "B3U3B 短语 local folklore（当地民俗），提示 lo。",
+     "explanation": "Text B Paragraph 11 mentions 'the local folklore of the places they've been to', so 'the local folklore of the city' fits, initial lo."
+    },
+    {
+     "n": 8,
+     "prompt": "Blank 8",
+     "answer": "swap stories",
+     "answer_source": "derived",
+     "explanation_zh": "B3U3B 短语 swap stories（交换故事），提示 s。",
+     "explanation": "Text B Paragraph 11's 'swap stories with you about the local folklore' gives 'swap stories', and 'in order to' takes the base form, initial s."
+    },
+    {
+     "n": 9,
+     "prompt": "Blank 9",
+     "answer": "modern aviation",
+     "answer_source": "derived",
+     "explanation_zh": "B3U3A 短语 modern aviation（现代航空），提示 m。",
+     "explanation": "Text A Paragraph 5 credits 'modern aviation' for moving through space so fast, so 'travel made possible by modern aviation' fits, initial m."
+    },
+    {
+     "n": 10,
+     "prompt": "Blank 10",
+     "answer": "creative insights",
+     "answer_source": "derived",
+     "explanation_zh": "B3U3B 短语 creative insights（创造性的见解），提示 cr。",
+     "explanation": "Text B Paragraph 11's 'credible insights into the place' supplies 'insights'; 'gain creative insights' matches the plural and initial cr."
+    },
+    {
+     "n": 11,
+     "prompt": "Blank 11",
+     "answer": "valuable open-mindedness",
+     "answer_source": "derived",
+     "explanation_zh": "B3U3A 短语 valuable open-mindedness（宝贵的开放心态），提示 va 与 op。",
+     "explanation": "Text A Paragraph 6 says an exotic culture 'endows us with a valuable open-mindedness', which fits 'a ____ toward cultural diversity', initials va and op."
+    },
+    {
+     "n": 12,
+     "prompt": "Blank 12",
+     "answer": "mental flexibility",
+     "answer_source": "derived",
+     "explanation_zh": "B3U3A 短语 mental flexibility（思维灵活性），提示 m 与 fl。",
+     "explanation": "Text A Paragraph 8's 'this mental flexibility' supplies the collocation for 'develop your ____', initials m and fl."
+    },
+    {
+     "n": 13,
+     "prompt": "Blank 13",
+     "answer": "globalized world",
+     "answer_source": "derived",
+     "explanation_zh": "B3U3A 短语 globalized world（全球化的世界），提示 glo。",
+     "explanation": "Text A's 'in this globalized age' (Para. 8) and 'the result of a globalized world' (Para. 2) give 'globalized world', modified by 'increasingly', initial glo."
+    }
+   ]
+  },
+  {
+   "id": "u03_c_translation",
+   "section": "C",
+   "kind": "translation",
+   "instructions": "Translate the following paragraph into English.",
+   "sample": "丽江古城坐落在玉龙雪山（Yulong Snow Mountain）脚下，是一座风景秀丽的历史文化名城，也是我国保存完好的少数民族古城之一。随着丽江旅游业的发展，到丽江古城观光游览的中外游客日益增多。1997年12月，丽江古城申报世界文化遗产（World Cultural Heritage Site）获得成功，成为中国第一批被列入世界文化遗产名录的历史文化名城。",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "丽江古城坐落在玉龙雪山（Yulong Snow Mountain）脚下，是一座风景秀丽的历史文化名城，也是我国保存完好的少数民族古城之一。随着丽江旅游业的发展，到丽江古城观光游览的中外游客日益增多。1997年12月，丽江古城申报世界文化遗产（World Cultural Heritage Site）获得成功，成为中国第一批被列入世界文化遗产名录的历史文化名城。",
+     "answer": "Lijiang Ancient Town lies at the foot of the Yulong Snow Mountain. It is a historic and cultural city with beautiful scenery, and it is also one of the best-preserved ancient towns of ethnic minorities in China. With the development of tourism in Lijiang, more and more domestic and foreign tourists visit the ancient town. In December 1997, Lijiang Ancient Town successfully applied to be listed as a World Cultural Heritage Site, becoming the first historic and cultural city in China to be included in the World Heritage List.",
+     "answer_source": "derived",
+     "explanation_zh": "译文要点：玉龙雪山脚下、少数民族古城、旅游业发展带来的游客增长，以及1997年成功申报世界文化遗产。",
+     "explanation": "'Lies at the foot of' handles the location, 'best-preserved' the state of the town, and 'successfully applied to be listed' the 1997 World Heritage bid."
+    }
+   ]
+  }
+ ]
+}

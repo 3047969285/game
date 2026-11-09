@@ -1,0 +1,55 @@
+{
+ "line_id": "vo.tb.unit04.section_b.p16",
+ "unit": 4,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "He pondered that for a minute before answering. Then he looked at me seriously. “There is only one way. Every man or woman who hasn't inherited a prideful tradition must start building one. In this country, each of us can make our own contribution to the fabric of society, and we must endeavor to make it a good one. No matter what sort of work a person does, if they give it their best each day, they're starting a tradition for their children to live up to. When a person amends their ways and learns to take pride in their work, a lifetime of happiness will ensue.”",
+ "rate": 165,
+ "duration": 32.4,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 2.6,
+   "text": "He pondered that for a minute before answering."
+  },
+  {
+   "i": 1,
+   "start": 2.6,
+   "end": 4.609,
+   "text": "Then he looked at me seriously."
+  },
+  {
+   "i": 2,
+   "start": 4.609,
+   "end": 6.127,
+   "text": "“There is only one way."
+  },
+  {
+   "i": 3,
+   "start": 6.127,
+   "end": 11.018,
+   "text": "Every man or woman who hasn't inherited a prideful tradition must start building one."
+  },
+  {
+   "i": 4,
+   "start": 11.018,
+   "end": 18.614,
+   "text": "In this country, each of us can make our own contribution to the fabric of society, and we must endeavor to make it a good one."
+  },
+  {
+   "i": 5,
+   "start": 18.614,
+   "end": 26.442,
+   "text": "No matter what sort of work a person does, if they give it their best each day, they're starting a tradition for their children to live up to."
+  },
+  {
+   "i": 6,
+   "start": 26.442,
+   "end": 32.4,
+   "text": "When a person amends their ways and learns to take pride in their work, a lifetime of happiness will ensue.”"
+  }
+ ]
+}

@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit04.section_b.p10",
+ "unit": 4,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Thereafter, we waved to each other in a friendly greeting when I passed his shop every day. At first I went in only when I had repair work to be done. Then I found myself lingering in his store or dropping in every few days, just to chat with him for the joy he would impart.",
+ "rate": 165,
+ "duration": 15.779,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.338,
+   "text": "Thereafter, we waved to each other in a friendly greeting when I passed his shop every day."
+  },
+  {
+   "i": 1,
+   "start": 5.338,
+   "end": 8.801,
+   "text": "At first I went in only when I had repair work to be done."
+  },
+  {
+   "i": 2,
+   "start": 8.801,
+   "end": 15.779,
+   "text": "Then I found myself lingering in his store or dropping in every few days, just to chat with him for the joy he would impart."
+  }
+ ]
+}

@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit01.section_a.p07",
+ "unit": 1,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "We are tempted to think that our little “sips” of online connection add up to a big swallow of real conversation. No, they don't. Even though all of these sips have their places - in politics, commerce, romance, and friendship, I would claim, no matter how valuable they are, it's impossible for them to substitute for real conversation, where people exchange ideas and share viewpoints dynamically.",
+ "rate": 165,
+ "duration": 23.319,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.831,
+   "text": "We are tempted to think that our little “sips” of online connection add up to a big swallow of real conversation."
+  },
+  {
+   "i": 1,
+   "start": 5.831,
+   "end": 7.161,
+   "text": "No, they don't."
+  },
+  {
+   "i": 2,
+   "start": 7.161,
+   "end": 23.319,
+   "text": "Even though all of these sips have their places - in politics, commerce, romance, and friendship, I would claim, no matter how valuable they are, it's impossible for them to substitute for real conversation, where people exchange ideas and share viewpoints dynamically."
+  }
+ ]
+}

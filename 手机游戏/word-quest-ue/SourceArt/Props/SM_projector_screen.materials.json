@@ -1,0 +1,37 @@
+{
+ "kit": "projector_screen",
+ "dims_m": [
+  2.42,
+  0.05,
+  1.5
+ ],
+ "materials": {
+  "M_screen_case": {
+   "color": "#D9DCE1",
+   "roughness": 0.3,
+   "metallic": 0.3,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_screen_surface": {
+   "color": "#F3F5F7",
+   "roughness": 0.85,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_screen_frame": {
+   "color": "#2A2D33",
+   "roughness": 0.5,
+   "metallic": 0.5,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

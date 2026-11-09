@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit05.section_b.p05",
+ "unit": 5,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Between the 1950s and 1970s, the United States and the Soviet Union raced against each other in early lunar exploration. After a lull, new interest was triggered in the 1990s when scientists found there might be water on the moon. Since the turn of the millennium, more countries such as China, Japan, and India have joined the lunar exploration club. To date, the world has launched over 100 manned or unmanned missions to the moon.",
+ "rate": 165,
+ "duration": 27.205,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 8.431,
+   "text": "Between the 1950s and 1970s, the United States and the Soviet Union raced against each other in early lunar exploration."
+  },
+  {
+   "i": 1,
+   "start": 8.431,
+   "end": 14.955,
+   "text": "After a lull, new interest was triggered in the 1990s when scientists found there might be water on the moon."
+  },
+  {
+   "i": 2,
+   "start": 14.955,
+   "end": 22.374,
+   "text": "Since the turn of the millennium, more countries such as China, Japan, and India have joined the lunar exploration club."
+  },
+  {
+   "i": 3,
+   "start": 22.374,
+   "end": 27.205,
+   "text": "To date, the world has launched over 100 manned or unmanned missions to the moon."
+  }
+ ]
+}

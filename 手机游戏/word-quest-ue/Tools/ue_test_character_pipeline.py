@@ -46,6 +46,40 @@ class CaptureContract(unittest.TestCase):
         from ue_import_character import import_plan
         with patch('ue_import_character.export_dir',return_value=self.folder):
             with self.assertRaises(FileNotFoundError):import_plan('me2026')
+    def test_redelivery_gate_only_accepts_claude_section(self):
+        from ue_import_character import require_groom_redelivery
+        p=self.folder/'STATUS.md'
+        p.write_text('## Claude（人物三维）\nexporting\n## Codex\nGroom 重新导出完成')
+        with self.assertRaises(RuntimeError):require_groom_redelivery(p)
+        p.write_text('## Claude（人物三维）\nGroom 重新导出完成\n## Codex\n')
+        require_groom_redelivery(p)
+    def test_strand_diameter_units_and_invalid_source(self):
+        from ue_import_character import strand_width_cm
+        self.assertAlmostEqual(strand_width_cm({'strand_width_m':[.00006,.00009]},'male_groom'),.0075)
+        self.assertAlmostEqual(strand_width_cm({},'female_brows'),.008)
+        for value in ([],[1.0],[float('nan')],[-.00007]):
+            with self.assertRaises(ValueError):strand_width_cm({'strand_width_m':value},'male_groom')
+    def test_animation_preview_requires_real_manifest_actions(self):
+        from ue_retarget_character import manifest_actions
+        self.assertEqual(manifest_actions(),{'idle':'me2026_idle_stand','walk':'me2026_walk','sit':'me2026_idle_sit'})
+        p=self.folder/'anim.csv'
+        p.write_text('anim_id,character,loop\nme2026_walk,me2026,true\n')
+        with self.assertRaises(ValueError):manifest_actions(p)
+    def test_changed_alembic_or_missing_package_invalidates_import_cache(self):
+        from unittest.mock import patch
+        from ue_import_character import import_plan,imports_current
+        (self.folder/'male_groom.abc').write_bytes(b'version one')
+        with patch('ue_import_character.ROOT',self.folder),patch('ue_import_character.export_dir',return_value=self.folder):
+            plan=import_plan('me2026')
+            stamp=self.folder/'Saved/CharacterEngine/me2026/male_groom-import.json'
+            stamp.parent.mkdir(parents=True)
+            stamp.write_text(json.dumps(dict(plan['files'][0],conversion=plan['conversion'])))
+            self.assertFalse(imports_current('me2026'))
+            package=self.folder/'Content/Blueprints/Characters/Imported/me2026/male_groom.uasset'
+            package.parent.mkdir(parents=True);package.write_bytes(b'asset')
+            self.assertTrue(imports_current('me2026'))
+            (self.folder/'male_groom.abc').write_bytes(b'version two')
+            self.assertFalse(imports_current('me2026'))
     def test_build_and_editor_commands_share_lock(self):
         from unittest.mock import patch
         from ue_character_common import run_locked_command

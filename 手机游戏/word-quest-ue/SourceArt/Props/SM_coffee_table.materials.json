@@ -1,0 +1,46 @@
+{
+ "kit": "coffee_table",
+ "dims_m": [
+  1.1,
+  0.6,
+  0.42
+ ],
+ "materials": {
+  "M_oak_top": {
+   "color": "#6B4A32",
+   "roughness": 0.35,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.1
+  },
+  "M_oak_leg": {
+   "color": "#4D3524",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_magazine_a": {
+   "color": "#8C7A62",
+   "roughness": 0.75,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_magazine_b": {
+   "color": "#4F5E63",
+   "roughness": 0.75,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

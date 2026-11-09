@@ -1,0 +1,864 @@
+{
+ "unit": 6,
+ "exercises": [
+  {
+   "id": "u06_a_pre_reading",
+   "section": "section_a",
+   "kind": "pre_reading",
+   "instructions": "Look at the pictures and answer the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "What situations are the people in the pictures likely to be in?",
+     "answer": "The pictures seem to show people caught in an economic downturn: workers who have just been laid off, a woman loading her car after an eviction, and a family cutting back on everyday spending. Their faces suggest anxiety about rent, bills and an uncertain future, very much like the Americans described in Text A.",
+     "answer_source": "draft",
+     "explanation": "The pictures preview Text A's casualties of the slump: laid-off workers, an evicted tenant and families living on modest benefits.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "How will these situations affect ordinary people?",
+     "answer": "They first lose income, and then the everyday markers of a normal life: the apartment, the car, holidays and savings. Long unemployment also damages health, family ties and self-respect, as Sue's move into a motel and her diet of rice and bread show. Children may be pulled out of school, and the fear of falling often outlasts the crisis itself.",
+     "answer_source": "draft",
+     "explanation": "Text A answers this directly: lost income costs people housing, transport and dignity, as Sue's fall from $56,000 a year shows.",
+     "needs_review": true
+    },
+    {
+     "n": 3,
+     "prompt": "What suggestions do you have to help prevent economic crises?",
+     "answer": "Governments should supervise lending and speculative trading more strictly, so that asset prices cannot race far beyond real value. A stronger safety net, with longer unemployment insurance and retraining programs, would cushion the shock for ordinary families. Financial education for borrowers and small investors would also keep them from chasing bubbles.",
+     "answer_source": "draft",
+     "explanation": "The causes named in both texts, reckless mortgage lending and speculation, point to tighter regulation plus a stronger safety net.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u06_a_understanding",
+   "section": "section_a",
+   "kind": "understanding",
+   "instructions": "Answer the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "What was the consequence when large numbers of homeowners failed to repay their loans?",
+     "answer": "The companies that owned the loans (and their subsidiaries and shareholders) lost sizable amounts of money, and the losses spiraled into the U.S. job market as lay-offs and terminations.",
+     "answer_source": "derived",
+     "explanation_zh": "见原文第1段：贷款违约导致放贷公司巨额亏损，并蔓延到就业市场。",
+     "explanation": "Para. 1: the loan-owning companies lost \"sizable amounts of money\", and the losses \"spiraled into the U.S. job market as lay-offs and terminations\"."
+    },
+    {
+     "n": 2,
+     "prompt": "Who were the \"99ers\"?",
+     "answer": "They were a hard-luck group of jobless people who had exhausted the maximum 99 weeks of unemployment insurance benefits they could claim.",
+     "answer_source": "derived",
+     "explanation_zh": "见原文第4段对\"99ers\"的解释。",
+     "explanation": "Para. 4 explains the name: they had \"exhausted the maximum 99 weeks of unemployment insurance benefits\" they could claim."
+    },
+    {
+     "n": 3,
+     "prompt": "What did the unemployment benefits mean to the jobless people?",
+     "answer": "They were a lifeline: modest payments that let jobless people keep at least an appearance of normalcy, such as keeping a roof over their heads and paying for gas and bills.",
+     "answer_source": "derived",
+     "explanation_zh": "见原文第5段，救济金是失业者维持基本生活的生命线。",
+     "explanation": "Para. 5 calls the payments \"a lifeline\" that kept \"a roof over their heads\" and paid for gas, electric and phone bills."
+    },
+    {
+     "n": 4,
+     "prompt": "Why does the author say Sue spent each day like a ping pong ball?",
+     "answer": "Because she swung back and forth between determination to resolve her problems and despair every day.",
+     "answer_source": "derived",
+     "explanation_zh": "见原文第7段，\"back and forth between resolve and despair\"。",
+     "explanation": "Para. 7 gives the simile: \"Each day, like a ping pong ball, Sue went back and forth between resolve and despair.\""
+    },
+    {
+     "n": 5,
+     "prompt": "Why did Sue decide to return to her hometown?",
+     "answer": "She thought the health-care safety net and the job market there were better.",
+     "answer_source": "derived",
+     "explanation_zh": "见原文第13段。",
+     "explanation": "Para. 13: after a church donated gas cards, she \"figured the health-care safety net there was better, as well as the job market\"."
+    },
+    {
+     "n": 6,
+     "prompt": "Why did Sue think the only help she was going to get was from herself?",
+     "answer": "Welfare was not an option since she had no young children, the local shelter had a waiting list, her adult sons could not help, and she did not want to be seen as a parasite.",
+     "answer_source": "derived",
+     "explanation_zh": "见原文第13至14段。",
+     "explanation": "Paras. 13-14: welfare required young children, the shelter had a waiting list, her sons could not help, and she refused to be \"a parasite\"."
+    },
+    {
+     "n": 7,
+     "prompt": "What new problems and obstacles did Sue have to face when she applied for a job?",
+     "answer": "She had no fixed address to put on job applications, and she worried that her cell phone would be cut off for non-payment, so employers could not reach her.",
+     "answer_source": "derived",
+     "explanation_zh": "见原文第16段。",
+     "explanation": "Para. 16: she had no address to put on applications and feared her cell phone would be \"cut off for non-payment\", leaving employers unable to reach her."
+    },
+    {
+     "n": 8,
+     "prompt": "What does the author intend to tell us by Sue's story?",
+     "answer": "That the economic crisis deeply affected ordinary people's lives, and that long-term unemployment can strip people of their livelihood, dignity and hope behind the economic statistics.",
+     "answer_source": "derived",
+     "explanation_zh": "概括全文主旨：经济危机对普通人生活的冲击。",
+     "explanation": "The narrative follows one woman from a corporate post to a motel room, showing what the jobless statistics hide: lost livelihood, dignity and hope."
+    }
+   ]
+  },
+  {
+   "id": "u06_a_critical",
+   "section": "section_a",
+   "kind": "critical",
+   "instructions": "Work in pairs and discuss the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "In what sense is the establishment of a social security system important to economic development?",
+     "answer": "A social security system keeps demand alive during a downturn: the benefits called \"a lifeline\" in Paragraph 5 let people keep paying rent, fuel and phone bills. By cushioning the fall, it stops a slump from spiraling into the job market and the wider economy. It also preserves skills and social stability, which any recovery depends on.",
+     "answer_source": "draft",
+     "explanation": "Argue from Para. 5: benefits kept demand and normal life going, so they stopped one family's collapse from spreading.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "What initiatives can the government undertake to save people like Sue from economic crises?",
+     "answer": "The government could extend unemployment insurance beyond 99 weeks and fund retraining and job placement, so that the long-term jobless are not left to exhaust their benefits. Rent support and faster shelter placement would keep families out of their cars, and rules on debt collection would stop the kind of harassment Sue suffered over her car loan. A public jobs program in depressed regions would also help.",
+     "answer_source": "draft",
+     "explanation": "Base proposals on Sue's specific failures: benefits expiring, eviction, car repossession and a phone cut off for non-payment.",
+     "needs_review": true
+    },
+    {
+     "n": 3,
+     "prompt": "What role do you think economic regulation and free competition play in the market?",
+     "answer": "Regulation and free competition are complementary rather than opposed. Competition drives efficiency and innovation, but the \"regulatory failure of mortgages\" in Paragraph 1 shows what happens when risk is mispriced and nobody supervises it. Sensible rules on disclosure, leverage and lending standards keep competition fair and stop speculation from endangering the whole economy.",
+     "answer_source": "draft",
+     "explanation": "Use Para. 1: a \"regulatory failure of mortgages\" caused the crisis, while competition drives the efficiency markets need.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u06_a_words_in_use",
+   "section": "section_a",
+   "kind": "words_in_use",
+   "instructions": "Fill in the blanks with the words given below. Change the form where necessary. Each word can be used only once.",
+   "bank": [
+    "comply",
+    "donate",
+    "expire",
+    "harassment",
+    "lay-off",
+    "originate",
+    "reclaim",
+    "resolve",
+    "spiral",
+    "subsistence"
+   ],
+   "items": [
+    {
+     "n": 1,
+     "prompt": "When you ____ clothes, you not only free up room in your closet but also help people in need.",
+     "answer": "donate",
+     "answer_source": "derived",
+     "explanation_zh": "\"donate\" 作动词，与 When you 搭配。",
+     "explanation": "\"When you ____ clothes\" needs a verb taking a direct object; \"donate\" collocates with clothes given to people in need."
+    },
+    {
+     "n": 2,
+     "prompt": "The young man watched his financial life ____ downward just when he thought he had overcome the obstacles which had dominated his past.",
+     "answer": "spiral",
+     "answer_source": "derived",
+     "explanation_zh": "watch sb. do sth. 接动词原形，spiral 表示螺旋式恶化。",
+     "explanation": "\"watch sb. do sth.\" takes the bare infinitive, and \"spiral downward\" is the usual collocation for collapsing finances."
+    },
+    {
+     "n": 3,
+     "prompt": "Setbacks are the things in life that test your ____ to achieve your goals.",
+     "answer": "resolve",
+     "answer_source": "derived",
+     "explanation_zh": "your 之后用名词 resolve，表示决心。",
+     "explanation": "The possessive \"your\" requires a noun, and \"resolve to achieve your goals\" means determination."
+    },
+    {
+     "n": 4,
+     "prompt": "The company was reportedly going bankrupt and this would result in the ____ of thousands of employees.",
+     "answer": "lay-off",
+     "answer_source": "derived",
+     "explanation_zh": "of 前需要名词，lay-off 指裁员。",
+     "explanation": "\"the ____ of thousands of employees\" needs a noun; \"lay-off\" means making workers redundant."
+    },
+    {
+     "n": 5,
+     "prompt": "She has always lived a life of wealth and doesn't understand that many things she is used to are unimaginable luxuries to people on ____ wages.",
+     "answer": "subsistence",
+     "answer_source": "derived",
+     "explanation_zh": "subsistence wages 指仅够维持生存的工资。",
+     "explanation": "\"subsistence wages\" is a fixed collocation for pay that covers only the bare necessities of life."
+    },
+    {
+     "n": 6,
+     "prompt": "The social media giant has announced that it is to roll out new tools to protect its users from ____ or unwanted contact from other people.",
+     "answer": "harassment",
+     "answer_source": "derived",
+     "explanation_zh": "from 之后需名词，harassment 指骚扰。",
+     "explanation": "The preposition \"from\" needs a noun object; \"harassment or unwanted contact\" names repeated unwanted approaches."
+    },
+    {
+     "n": 7,
+     "prompt": "Our practices should ____ with the local rules so that we can better adapt to the local community.",
+     "answer": "comply",
+     "answer_source": "derived",
+     "explanation_zh": "comply with 意为遵守，不及物动词。",
+     "explanation": "\"comply with\" is the intransitive verb-plus-preposition pattern meaning to obey rules or requests."
+    },
+    {
+     "n": 8,
+     "prompt": "Though she lost the title of female world swimming champion last year, she ____ it this year when she gave it all she could.",
+     "answer": "reclaimed",
+     "answer_source": "derived",
+     "explanation_zh": "时态为过去时，reclaim 意为夺回。",
+     "explanation": "The past tense is required by \"last year\"; \"reclaim the title\" means win back what was lost."
+    },
+    {
+     "n": 9,
+     "prompt": "As a healthy drink that ____ in China and has become popular around the world, tea serves as a cultural ambassador for the nation.",
+     "answer": "originated",
+     "answer_source": "derived",
+     "explanation_zh": "定语从句的谓语，过去时 originated，意为起源于。",
+     "explanation": "The relative clause \"that ____ in China\" needs a past-tense verb; \"originate in\" means begin in a place."
+    },
+    {
+     "n": 10,
+     "prompt": "Drivers do not need to apply to renew their license until they receive a reminder before their license ____.",
+     "answer": "expires",
+     "answer_source": "derived",
+     "explanation_zh": "原文此处 OCR 残缺，按语境补为 expire 的第三人称单数形式 expires。",
+     "explanation": "Present tense is used after \"before\" for a future event, and \"expire\" is the verb for licences running out."
+    }
+   ]
+  },
+  {
+   "id": "u06_a_word_building",
+   "section": "section_a",
+   "kind": "word_building",
+   "instructions": "Fill in the blanks with the words given below. Change the form where necessary. Each word can be used only once.",
+   "bank": [
+    "accumulation",
+    "accusation",
+    "assassination",
+    "calculation",
+    "manhood",
+    "exhaustion",
+    "falsehood"
+   ],
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Through years of service, the ____ of experience and knowledge was invaluable to the agency.",
+     "answer": "accumulation",
+     "answer_source": "derived",
+     "explanation_zh": "由 accumulate 派生的名词，-ation 后缀。",
+     "explanation": "\"the ____ of experience and knowledge\" needs the noun from \"accumulate\", formed with the suffix -ation."
+    },
+    {
+     "n": 2,
+     "prompt": "The village was divided into two groups: those who wanted him cleared of the crime and those who wanted the ____ against him proven to be true.",
+     "answer": "accusation",
+     "answer_source": "derived",
+     "explanation_zh": "由 accuse 派生，表示指控。",
+     "explanation": "\"the ____ against him\" is the noun from \"accuse\"; \"an accusation against sb.\" is the standard collocation."
+    },
+    {
+     "n": 3,
+     "prompt": "As the boys grow to ____, they are encouraged to learn important lessons about each other, their fathers, and themselves.",
+     "answer": "manhood",
+     "answer_source": "derived",
+     "explanation_zh": "由 man 加 -hood 构成，表示成年时期。",
+     "explanation": "\"grow to ____\" needs a noun; \"manhood\" (man + -hood) is the state of being an adult man."
+    },
+    {
+     "n": 4,
+     "prompt": "We have made some ____ within our own organization and found the method was not really a practical way of recovering the heat energy.",
+     "answer": "calculations",
+     "answer_source": "derived",
+     "explanation_zh": "some 之后用复数名词，由 calculate 派生。",
+     "explanation": "\"some ____\" takes a plural noun, and \"make calculations\" is the collocation from the verb \"calculate\"."
+    },
+    {
+     "n": 5,
+     "prompt": "After days of hunger and ____, the two puppies found one of our feeding stations and made it their new home.",
+     "answer": "exhaustion",
+     "answer_source": "derived",
+     "explanation_zh": "由 exhaust 派生，表示筋疲力尽。",
+     "explanation": "\"days of hunger and ____\" pairs two nouns; \"exhaustion\" from \"exhaust\" means extreme tiredness."
+    },
+    {
+     "n": 6,
+     "prompt": "The proposed plan is designed to support the crackdown against drug dealers, which was launched by the government after the ____ of the president.",
+     "answer": "assassination",
+     "answer_source": "derived",
+     "explanation_zh": "由 assassinate 派生，表示暗杀。",
+     "explanation": "\"the ____ of the president\" needs the noun from \"assassinate\", formed with the suffix -ation."
+    },
+    {
+     "n": 7,
+     "prompt": "It is difficult to imagine a world without common sense and the distinction between truth and ____.",
+     "answer": "falsehood",
+     "answer_source": "derived",
+     "explanation_zh": "由 false 加 -hood 构成，表示谎言、虚假。",
+     "explanation": "\"the distinction between truth and ____\" needs a parallel noun: \"falsehood\" (false + -hood) means a lie."
+    }
+   ]
+  },
+  {
+   "id": "u06_a_banked_cloze",
+   "section": "section_a",
+   "kind": "banked_cloze",
+   "instructions": "Fill in the blanks by selecting suitable words from the word bank. You may not use any of the words more than once.",
+   "bank": [
+    "confessions",
+    "relay",
+    "artificial",
+    "embody",
+    "beneficial",
+    "repay",
+    "embrace",
+    "sessions",
+    "boost",
+    "tempted",
+    "burdensome",
+    "mortgages",
+    "tumbled",
+    "comply",
+    "postage"
+   ],
+   "passage": "While older people in China typically believe that saving is a virtue, their children might have other ideas. Many young people refuse to {{1}} with the traditional wisdom. They prefer to spend their money, buy now, and worry about paying later. According to a recent report, China's household savings rate has {{2}} in recent years.\n\nThe younger generation is more willing to spend money on fine food, tourism, gymnasium and fitness {{3}} and high-tech products. Some of them spend all their salary by the end of each month, with part of the salary used to {{4}} loans.\n\nIn recent years, Chinese banks and finance companies have launched various kinds of consumer credit services to encourage consumption. Unlike {{5}}, they don't require guarantees. The services have quickly become popular with the younger generation, who are also the main force for mobile payment, and are willing to {{6}} new technology and financial products. Generally, consumption on credit can be {{7}} to the development of the financial and retail sectors, and will eventually {{8}} economic growth.\n\nHowever, to ensure the healthy development of consumer finance, it is important for financial institutions to manage the default risks, especially for people who have {{9}} debts and may have difficulty in repaying their loans.\n\nIt is also important to educate young people about the importance of maintaining a good credit record, especially for those easily {{10}} by compulsive buying. They need to know a good credit record is important for their financial well-being.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Blank 1",
+     "answer": "comply",
+     "answer_source": "derived",
+     "explanation_zh": "comply with 意为遵守，refuse to comply with 表示拒绝遵守传统观念。",
+     "explanation": "\"refuse to ____ with the traditional wisdom\" requires \"comply with\", meaning to obey or follow."
+    },
+    {
+     "n": 2,
+     "prompt": "Blank 2",
+     "answer": "tumbled",
+     "answer_source": "derived",
+     "explanation_zh": "储蓄率近年来大幅下降，用 tumbled（骤降）。",
+     "explanation": "The present perfect \"has ____\" plus the report of a falling savings rate points to \"tumbled\", meaning dropped sharply."
+    },
+    {
+     "n": 3,
+     "prompt": "Blank 3",
+     "answer": "sessions",
+     "answer_source": "derived",
+     "explanation_zh": "gymnasium and fitness sessions 指健身课程。",
+     "explanation": "\"fitness ____\" collocates with \"sessions\", meaning classes or periods of exercise at a gym."
+    },
+    {
+     "n": 4,
+     "prompt": "Blank 4",
+     "answer": "repay",
+     "answer_source": "derived",
+     "explanation_zh": "用部分工资偿还贷款，repay loans。",
+     "explanation": "\"used to ____ loans\" needs a verb, and \"repay loans\" is the fixed verb-object collocation."
+    },
+    {
+     "n": 5,
+     "prompt": "Blank 5",
+     "answer": "mortgages",
+     "answer_source": "derived",
+     "explanation_zh": "与抵押贷款相比，消费信贷不需要抵押品。",
+     "explanation": "\"Unlike ____, they don't require guarantees\" contrasts unsecured consumer credit with mortgages, which are secured on property."
+    },
+    {
+     "n": 6,
+     "prompt": "Blank 6",
+     "answer": "embrace",
+     "answer_source": "derived",
+     "explanation_zh": "embrace 意为欣然接受、拥抱（新技术）。",
+     "explanation": "\"willing to ____ new technology\" collocates with \"embrace\", meaning accept something enthusiastically."
+    },
+    {
+     "n": 7,
+     "prompt": "Blank 7",
+     "answer": "beneficial",
+     "answer_source": "derived",
+     "explanation_zh": "can be beneficial to 表示对……有益。",
+     "explanation": "\"can be ____ to\" needs an adjective with \"to\"; \"beneficial to\" means helpful to the financial and retail sectors."
+    },
+    {
+     "n": 8,
+     "prompt": "Blank 8",
+     "answer": "boost",
+     "answer_source": "derived",
+     "explanation_zh": "boost economic growth 意为促进经济增长。",
+     "explanation": "\"____ economic growth\" is a verb-object collocation: \"boost\" means stimulate or increase growth."
+    },
+    {
+     "n": 9,
+     "prompt": "Blank 9",
+     "answer": "burdensome",
+     "answer_source": "derived",
+     "explanation_zh": "burdensome debts 指沉重的债务。",
+     "explanation": "\"____ debts\" needs an adjective for debt that is heavy to carry: \"burdensome\"."
+    },
+    {
+     "n": 10,
+     "prompt": "Blank 10",
+     "answer": "tempted",
+     "answer_source": "derived",
+     "explanation_zh": "be tempted by 意为被……诱惑。原文第10空 OCR 残缺，此处依语境定为 tempted。",
+     "explanation": "\"easily ____ by compulsive buying\" fits \"be tempted by\", meaning attracted into doing something one should resist."
+    }
+   ]
+  },
+  {
+   "id": "u06_a_expressions_in_use",
+   "section": "section_a",
+   "kind": "expressions_in_use",
+   "instructions": "Fill in the blanks with the expressions given below. Change the form where necessary. Each expression can be used only once.",
+   "bank": [
+    "a roof over one's head",
+    "account for",
+    "come to sb.'s aid",
+    "for good",
+    "on the verge of",
+    "scrape ... together",
+    "wind up",
+    "pack ... up"
+   ],
+   "items": [
+    {
+     "n": 1,
+     "prompt": "If you have ____, food in your refrigerator, and clothes on your back, you are richer than many people in this world.",
+     "answer": "a roof over one's head",
+     "answer_source": "derived",
+     "explanation_zh": "a roof over one's head 意为住所。",
+     "explanation": "The parallel list \"food in your refrigerator, clothes on your back\" points to shelter, i.e. \"a roof over one's head\"."
+    },
+    {
+     "n": 2,
+     "prompt": "The team ____ in fifth place at the most recent Asian Games, failing to earn a medal for the first time in 48 years.",
+     "answer": "wound up",
+     "answer_source": "derived",
+     "explanation_zh": "wind up 意为以……告终，过去时为 wound up。",
+     "explanation": "The past event and \"in fifth place\" need \"wind up\" in the past form \"wound up\", meaning ended up."
+    },
+    {
+     "n": 3,
+     "prompt": "He and four classmates formed the company by ____ a combined start-up sum of 40,000 yuan.",
+     "answer": "scraping together",
+     "answer_source": "derived",
+     "explanation_zh": "scrape ... together 意为凑集（钱款），此处用动名词。",
+     "explanation": "After the preposition \"by\" the gerund is needed; \"scrape together\" means collect money with difficulty."
+    },
+    {
+     "n": 4,
+     "prompt": "They shoulder the task of conducting research on the protection of rare plants ____ extinction.",
+     "answer": "on the verge of",
+     "answer_source": "derived",
+     "explanation_zh": "on the verge of 意为濒临。",
+     "explanation": "\"____ extinction\" takes \"on the verge of\", meaning very close to a particular state."
+    },
+    {
+     "n": 5,
+     "prompt": "The treatment was completely successful and the pain disappeared ____.",
+     "answer": "for good",
+     "answer_source": "derived",
+     "explanation_zh": "for good 意为永远。",
+     "explanation": "\"disappeared ____\" needs an adverb of time meaning permanently: \"for good\"."
+    },
+    {
+     "n": 6,
+     "prompt": "According to a report, Asian market ____ 62 percent of the company's revenue last year.",
+     "answer": "accounted for",
+     "answer_source": "derived",
+     "explanation_zh": "account for 意为占（比例），主语为单数时用过去时 accounted for。",
+     "explanation": "Past tense is required by \"last year\", and \"account for 62 percent of revenue\" means make up that share."
+    },
+    {
+     "n": 7,
+     "prompt": "When he is in a difficult situation, his friends ____, giving emotional and material support.",
+     "answer": "come to his aid",
+     "answer_source": "derived",
+     "explanation_zh": "come to sb.'s aid 意为帮助某人。",
+     "explanation": "The plural subject \"his friends\" needs \"come\", and \"come to sb.'s aid\" means help somebody in trouble."
+    },
+    {
+     "n": 8,
+     "prompt": "Any construction waste and household waste generated during construction must be ____ and taken away.",
+     "answer": "packed up",
+     "answer_source": "derived",
+     "explanation_zh": "pack sth. up 意为打包，被动语态用 packed up。",
+     "explanation": "The passive \"must be ____\" needs a past participle; \"pack up\" means tie waste into packages for removal."
+    }
+   ]
+  },
+  {
+   "id": "u06_a_structure_writing",
+   "section": "section_a",
+   "kind": "structure_writing",
+   "instructions": "Structure analysis: in Text A, the effects of the economic crisis on Sue are developed from everyday life to a psychological consequence. Structured writing: write an essay of no less than 140 words on one of the following topics, following the outline if you wish.",
+   "sample": "Topic: The negative effects of staying up late. Thesis statement: Staying up late can do severe harm to us mainly in three aspects. Effect 1: Staying up late can have negative impacts on our physical health. Effect 2: Staying up late can lower our work efficiency. Effect 3: Staying up late can bring about mental stress. Conclusion: Staying up late is by no means a good choice for us. More topics: The effects of peer pressure; The effects of excessive packaging.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "According to the structure analysis, how are the effects of the crisis on Sue arranged?",
+     "answer": "From effects on everyday life (loss of income, loss of a high standard of living, loss of an opportunity for education, loss of shelter) to the psychological consequence (loss of belief and confidence in life).",
+     "answer_source": "derived",
+     "explanation_zh": "结构分析指出效果由日常生活层面逐步过渡到心理层面。",
+     "explanation": "The structure note moves from material losses (income, home, education) to the psychological one, losing \"belief and confidence\"."
+    },
+    {
+     "n": 2,
+     "prompt": "Write an essay of no less than 140 words on one of the following topics: the negative effects of staying up late, the effects of peer pressure, or the effects of excessive packaging.",
+     "answer": "Thesis: staying up late harms us mainly in three aspects. Physically, the body repairs itself during sleep, so late nights leave us tired, weaken our immune system and make us more likely to fall ill. Mentally and academically, a student who studies past midnight remembers less and concentrates poorly the next morning, so efficiency falls instead of rising, while irregular sleep is also linked to anxiety and low mood. Since it damages health, efficiency and emotional well-being at the same time, staying up late is by no means a good choice for us.",
+     "answer_source": "draft",
+     "explanation": "Follow the sample outline: thesis, three effects arranged in one direction, and a conclusion that restates the thesis.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u06_b_reading_skills",
+   "section": "section_b",
+   "kind": "reading_skills",
+   "instructions": "Read Text B and answer the questions between the paragraphs. Then try to identify how the definitions of the terms are developed in the context.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "What are \"economic bubbles\"?",
+     "answer": "Economic bubbles occur when excessive investment in commodities, securities, real estate or collectibles drives prices well beyond their intrinsic value, and prices then fall sharply in a crash or bust.",
+     "answer_source": "derived",
+     "explanation_zh": "原文第1段开头给出定义，随后用因果叙述展开。",
+     "explanation": "Para. 1 defines bubbles by cause (excessive investment pushing prices beyond \"intrinsic value\") and result (\"a crash or bust\")."
+    },
+    {
+     "n": 2,
+     "prompt": "What is the \"negative feedback mechanism\" of the economy?",
+     "answer": "Rising prices encourage more production or make current owners more willing to sell, which pushes prices back down.",
+     "answer_source": "derived",
+     "explanation_zh": "原文第2段以用眼睛瞳孔打比方的类比方式解释。",
+     "explanation": "Para. 2 explains it by analogy: higher prices bring more production or selling, which \"adjusts prices downward\", like pupils shrinking in bright light."
+    },
+    {
+     "n": 3,
+     "prompt": "What is the \"greater fool theory\"?",
+     "answer": "Buyers justify their purchases by assuring themselves that they will find a greater fool who will pay even more.",
+     "answer_source": "derived",
+     "explanation_zh": "原文第3段先给出概念，再以郁金香泡沫为例说明。",
+     "explanation": "Para. 3: buyers \"justify their purchases\" by expecting \"a greater fool\" to pay more, as in the 1630s Dutch tulip bubble."
+    },
+    {
+     "n": 4,
+     "prompt": "How is \"herd mentality\" defined here?",
+     "answer": "Too many brokers rush to buy stock together, driving prices up to unrealistic levels.",
+     "answer_source": "derived",
+     "explanation_zh": "原文第6段用\"成群结队\"的描述给出定义。",
+     "explanation": "Para. 6: under herd mentality \"too many brokers rush to buy, driving prices ... to levels that prove unrealistic\"."
+    },
+    {
+     "n": 5,
+     "prompt": "What is a \"stock market crash\"?",
+     "answer": "When price deterioration and a swift drop happen to too many companies in aggregate, it is called a stock market crash.",
+     "answer_source": "derived",
+     "explanation_zh": "原文第6段以\"aggregate\"（总体）结尾给出定义。",
+     "explanation": "Para. 6 defines it as \"price deterioration\" plus \"a swift drop\" occurring \"to too many companies in aggregate\"."
+    },
+    {
+     "n": 6,
+     "prompt": "What is the \"dot-com bubble\"?",
+     "answer": "A stock market bubble in which too many dot-com companies were funded on the buzz about the Internet; the stock index peaked on March 10, 2000 and then dropped sharply.",
+     "answer_source": "derived",
+     "explanation_zh": "原文第7段通过具体事件（2000年股指见顶）举例说明。",
+     "explanation": "Para. 7 illustrates it with Internet \"buzz\" funding too many dot-coms and the index peaking at 5,132.52 on March 10, 2000."
+    }
+   ]
+  },
+  {
+   "id": "u06_b_mcq",
+   "section": "section_b",
+   "kind": "text_b_mcq",
+   "instructions": "Choose the best answer to each of the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Which of the following is the consequence of economic bubbles?",
+     "options": [
+      "Panic buying.",
+      "A crash in price.",
+      "Excessive investment.",
+      "Raised purchasing power."
+     ],
+     "answer": 1,
+     "answer_source": "derived",
+     "explanation_zh": "原文第1段：泡沫的结果是价格暴跌（a crash or bust）。",
+     "explanation": "Para. 1: \"The inevitable result of this boom in price is a crash or bust\", when \"the price falls sharply\"."
+    },
+    {
+     "n": 2,
+     "prompt": "Why are economic bubbles by no means the norm?",
+     "options": [
+      "Speculators are nervous about their investment.",
+      "People usually know the intrinsic value of an asset.",
+      "Manufacturers are reluctant to expand production for fear of risk.",
+      "Overpriced products are beyond the purchasing power of customers."
+     ],
+     "answer": 0,
+     "answer_source": "derived",
+     "explanation_zh": "原文第2段：多数投机者对投资心存顾虑，所以泡沫并非常态。",
+     "explanation": "Para. 2: \"most speculators are nervous about where they invest their money\", so \"bubbles are by no means the norm\"."
+    },
+    {
+     "n": 3,
+     "prompt": "In a positive feedback system, what would happen when prices increase sharply?",
+     "options": [
+      "Speculators know the prices will fall in the near future.",
+      "Speculators are eager to sell their assets to make a profit.",
+      "Speculators become greedier and buy more assets.",
+      "Speculators become more united to get the best prices."
+     ],
+     "answer": 2,
+     "answer_source": "derived",
+     "explanation_zh": "原文第3段：价格急涨时，正反馈使投机者更多买入。",
+     "explanation": "Para. 3: \"If the price rises, overly enthusiastic speculators buy more\" - positive feedback breeds greed, not selling."
+    },
+    {
+     "n": 4,
+     "prompt": "The \"greater fool theory\" explains",
+     "options": [
+      "how prices reach dizzying heights",
+      "how people's foolishness can be avoided",
+      "why buyers buy more than necessary",
+      "why speculators do not flock to the market"
+     ],
+     "answer": 0,
+     "answer_source": "derived",
+     "explanation_zh": "原文第3段：买家总以为能找到更傻的买家，价格因此被推向高位。",
+     "explanation": "Para. 3 links the theory to prices: because a \"greater fool\" is expected, \"prices can reach dizzying heights\"."
+    },
+    {
+     "n": 5,
+     "prompt": "What will happen when big economic bubbles occur?",
+     "options": [
+      "The involved banks may fail.",
+      "You will be economical with your purchases.",
+      "The market can easily assimilate the bubbles.",
+      "The market can help the winners earn wisdom."
+     ],
+     "answer": 0,
+     "answer_source": "derived",
+     "explanation_zh": "原文第5段：若泡沫普遍，相关银行可能倒闭。",
+     "explanation": "Para. 5: when negative equity is \"widespread\", it can \"culminate in the failure of those banks\"."
+    },
+    {
+     "n": 6,
+     "prompt": "The \"herd mentality\" explains",
+     "options": [
+      "how the stock market goes bust",
+      "what happens to a company in economic crises",
+      "how brokers drive the stock prices to unrealistic heights",
+      "how investors buy stock in a company in a reasonable way"
+     ],
+     "answer": 2,
+     "answer_source": "derived",
+     "explanation_zh": "原文第6段：经纪人扎堆买入，把股价推向不切实际的高度。",
+     "explanation": "Para. 6: herd mentality makes brokers \"rush to buy, driving prices ... to levels that prove unrealistic\"."
+    },
+    {
+     "n": 7,
+     "prompt": "What do we know about the \"dot-com\" bubble?",
+     "options": [
+      "The stock index dropped by about 40 percent in 2002.",
+      "Many companies ended up selling off their assets to other companies.",
+      "The investors were provided with false information about the business.",
+      "The stock index dropped to 1,108.49 right after the boom reached its peak."
+     ],
+     "answer": 1,
+     "answer_source": "derived",
+     "explanation_zh": "原文第7段：许多公司陷入困境，将资产卖给更健康的公司。D 项的低点出现在两年半之后，并非紧接峰值。",
+     "explanation": "Para. 7: \"Most had blundered into awful financial difficulties, selling off their assets to healthier companies.\" D misdates the low point."
+    },
+    {
+     "n": 8,
+     "prompt": "What can we learn from the text?",
+     "options": [
+      "Economic bubbles reflect the laws of economics.",
+      "Economic bubbles often occur in the stock market.",
+      "Economic bubbles mostly result in very bad consequences.",
+      "Economic bubbles first appeared at the turn of the 21st century."
+     ],
+     "answer": 0,
+     "answer_source": "derived",
+     "explanation_zh": "全文以反馈机制等经济规律解释泡沫，故选 A；C 与原文\"多数泡沫可被化解\"相悖。",
+     "explanation": "The text explains bubbles through mechanisms such as feedback, herd mentality and the greater fool theory, i.e. economic laws."
+    }
+   ]
+  },
+  {
+   "id": "u06_b_critical",
+   "section": "section_b",
+   "kind": "critical",
+   "instructions": "Work in pairs and discuss the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "How do you understand the relationship between people's greed and economic bubbles?",
+     "answer": "Greed is the fuel rather than the original cause: the greater fool theory and the herd mentality describe buyers who purchase only because they expect prices to keep rising. The tulip and dot-com cases in Text B suggest that once everyone assumes a bigger fool will follow, prices detach from intrinsic value and a crash becomes inevitable. Greed does not create the mechanism, but it makes bubbles larger and the bursting more painful.",
+     "answer_source": "draft",
+     "explanation": "Use the greater fool theory and herd mentality from Para. 3 and Para. 6 to show greed amplifying, not creating, the mechanism.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "What measures should be taken to curb speculation in economic activities?",
+     "answer": "Regulators could raise margin requirements and tax short-term transactions so that speculation becomes costly. They should also tighten lending standards, since much speculation is financed by credit, and require transparency about who holds which assets. Central banks can watch credit growth and asset prices, not just consumer prices, and act before a bubble becomes \"cumulative\".",
+     "answer_source": "draft",
+     "explanation": "Draw on the text's own remedies: regulation of lending, disclosure and the \"elastic market\" that averts small bubbles.",
+     "needs_review": true
+    },
+    {
+     "n": 3,
+     "prompt": "Should basic economics be part of the required school curriculum? Why or why not?",
+     "answer": "Yes. Text B shows that bubbles and crashes affect everyone - jobs, rents, pensions - yet most people only learn the vocabulary after the damage is done. A basic course on supply and demand, interest, inflation and risk would help students read the news and resist the \"greater fool\" temptation. It should be practical rather than mathematical, and taught in the last years of high school.",
+     "answer_source": "draft",
+     "explanation": "Argue from Text B's point that bubbles affect jobs, rents and pensions, so the vocabulary matters to every citizen.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u06_b_collocation",
+   "section": "section_b",
+   "kind": "collocation",
+   "instructions": "Complete the following passage by filling in the blanks with appropriate collocations from the texts. Change the form where necessary.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "While it is undoubtedly true that there are many people whose incomes are ____, those who have been worst hit come from distinctly vulnerable groups.",
+     "answer": "falling sharply",
+     "answer_source": "derived",
+     "explanation_zh": "对应 personal income falling sharply（B3U6B）。",
+     "explanation": "The gap needs a participle phrase after \"incomes are\"; the text's \"incomes falling sharply\" describes the squeeze on earnings."
+    },
+    {
+     "n": 2,
+     "prompt": "They are now in an ____, particularly people who were already experiencing poverty before the crisis.",
+     "answer": "unsure future",
+     "answer_source": "derived",
+     "explanation_zh": "对应 unsure futures（B3U6A）。",
+     "explanation": "\"in an ____\" needs a noun phrase singular; Text A's \"unsure futures\" gives \"an unsure future\" here."
+    },
+    {
+     "n": 3,
+     "prompt": "Because of the ____, the incomes of poor people have been squeezed.",
+     "answer": "economic slump",
+     "answer_source": "derived",
+     "explanation_zh": "对应 The economic slump（B3U6 导语）。",
+     "explanation": "\"Because of the ____\" needs a noun; the unit's opening refers to \"the economic slump\" that squeezed poor people's incomes."
+    },
+    {
+     "n": 4,
+     "prompt": "Many people are facing ____ due to their inability to pay their rent.",
+     "answer": "tenant eviction",
+     "answer_source": "derived",
+     "explanation_zh": "对应 tenant eviction（B3U6A）。",
+     "explanation": "\"facing ____ due to their inability to pay their rent\" matches \"tenant eviction\", being forced out for unpaid rent."
+    },
+    {
+     "n": 5,
+     "prompt": "Furthermore, the erosion of ____ is increasingly seen as a major threat.",
+     "answer": "purchasing power",
+     "answer_source": "derived",
+     "explanation_zh": "对应 gained more purchasing power（B3U6B）。",
+     "explanation": "\"the erosion of ____\" takes \"purchasing power\", Text B's phrase for what money can actually buy."
+    },
+    {
+     "n": 6,
+     "prompt": "It is an inevitable result of a ____ in the price of basic commodities.",
+     "answer": "further increase",
+     "answer_source": "derived",
+     "explanation_zh": "对应 a further increase（B3U6B）。",
+     "explanation": "\"a ____ in the price of basic commodities\" needs a noun phrase; \"a further increase\" fits the comparative sense."
+    },
+    {
+     "n": 7,
+     "prompt": "The ____ long-term unemployment, especially youth unemployment, is a serious problem.",
+     "answer": "rise in",
+     "answer_source": "derived",
+     "explanation_zh": "原文 OCR 残缺，据语境推断为 rise in long-term unemployment。",
+     "explanation": "The subject is \"long-term unemployment\", so \"rise in\" follows the definite article: \"the rise in long-term unemployment\"."
+    },
+    {
+     "n": 8,
+     "prompt": "Youth unemployment often leads to ____ of social labor.",
+     "answer": "a waste",
+     "answer_source": "derived",
+     "explanation_zh": "原文 OCR 残缺，据语境推断为 leads to a waste of social labor。",
+     "explanation": "\"leads to ____ of social labor\" needs \"a waste\", the collocation for labour that goes unused."
+    },
+    {
+     "n": 9,
+     "prompt": "As the situation gets worse across the ____, men's unemployment rises first.",
+     "answer": "employment spectrum",
+     "answer_source": "derived",
+     "explanation_zh": "对应 across the employment spectrum（B3U6A）。",
+     "explanation": "\"across the ____\" takes \"employment spectrum\", Text A's phrase for the full range of jobs from minimum wage to director."
+    },
+    {
+     "n": 10,
+     "prompt": "Moreover, many of the worst social impacts of ____ are not readily apparent.",
+     "answer": "the economic crisis",
+     "answer_source": "derived",
+     "explanation_zh": "原文 OCR 残缺，此空按语境推断，需人工核对。",
+     "explanation": "\"the worst social impacts of ____\" needs a definite noun phrase; \"the economic crisis\" is what the passage discusses."
+    },
+    {
+     "n": 11,
+     "prompt": "Such impacts include hidden unemployment, family tensions, risks of violence, ____ of confidence and aspiration among children.",
+     "answer": "a loss",
+     "answer_source": "derived",
+     "explanation_zh": "对应 a loss of confidence（语境）。",
+     "explanation": "The list needs \"a loss\" before \"of confidence\", mirroring \"a loss of confidence and aspiration\" in the passage."
+    },
+    {
+     "n": 12,
+     "prompt": "...as well as the ____ of housing insecurity, declining living standards.",
+     "answer": "deterioration",
+     "answer_source": "derived",
+     "explanation_zh": "原文 OCR 残缺，据语境推断，需人工核对。",
+     "explanation": "\"the ____ of housing insecurity\" needs a noun; \"deterioration of\" is the collocation meaning a worsening."
+    },
+    {
+     "n": 13,
+     "prompt": "...declining living standards, and ____.",
+     "answer": "negative equity",
+     "answer_source": "derived",
+     "explanation_zh": "对应 negative equity（B3U6B）。",
+     "explanation": "The list of impacts ends with \"negative equity\", Text B's term for owing more on a home than it is worth."
+    }
+   ]
+  },
+  {
+   "id": "u06_c_translation",
+   "section": "section_c",
+   "kind": "translation",
+   "instructions": "Translate the following paragraph into English.",
+   "sample": "当前，中国实行更加积极主动的开放战略，构建面向全球的高标准自由贸易区网络，加快推进自由贸易试验区、海南自由贸易港建设。中国已成为140多个国家和地区的主要贸易伙伴，吸引外资和对外投资（outbound investment）居世界前列。未来，中国将不断推进高水平对外开放，提升贸易投资合作质量和水平，加快建设贸易强国。",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "当前，中国实行更加积极主动的开放战略，构建面向全球的高标准自由贸易区网络，加快推进自由贸易试验区、海南自由贸易港建设。中国已成为140多个国家和地区的主要贸易伙伴，吸引外资和对外投资（outbound investment）居世界前列。未来，中国将不断推进高水平对外开放，提升贸易投资合作质量和水平，加快建设贸易强国。",
+     "answer": "China is now pursuing a more proactive and dynamic opening-up strategy, building a network of high-standard free trade areas covering the globe and speeding up the development of pilot free trade zones and the Hainan Free Trade Port. China has become a major trading partner of more than 140 countries and regions, and ranks among the world's leaders in attracting foreign investment and in outbound investment. In the future, China will continue to promote high-level opening up, improve the quality and level of trade and investment cooperation, and accelerate its efforts to become a major trading power.",
+     "answer_source": "derived",
+     "explanation_zh": "参考译文，译法可自拟；注意\"自由贸易试验区\"译为 pilot free trade zones，\"贸易强国\"译为 trading power。",
+     "explanation": "Key renderings: \"更加积极主动的开放战略\" as \"a more proactive and dynamic opening-up strategy\", \"自由贸易试验区\" as \"pilot free trade zones\", \"贸易强国\" as \"a major trading power\"."
+    }
+   ]
+  }
+ ]
+}

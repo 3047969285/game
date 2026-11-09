@@ -1,0 +1,37 @@
+{
+ "kit": "wifi_router",
+ "dims_m": [
+  0.22,
+  0.14,
+  0.044
+ ],
+ "materials": {
+  "M_router_body": {
+   "color": "#EDEFF2",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_router_antenna": {
+   "color": "#1F2329",
+   "roughness": 0.4,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_router_led": {
+   "color": "#7CFFB2",
+   "roughness": 0.3,
+   "metallic": 0.0,
+   "emission": "#7CFFB2",
+   "emission_strength": 2.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

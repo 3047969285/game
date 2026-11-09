@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit01.section_a.p01",
+ "unit": 1,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "On a quiet Saturday afternoon, Paul and his wife Maria are sitting at home reading their favorite books. Opposite to where they sit are their two sons: 15-year-old Jason and 12-year-old Jack, absorbed in playing chess. What's the scenario here? The family calls it their “offline day”. From Friday night through Sunday evening, there are no video games, no computers, and no cell phones.",
+ "rate": 165,
+ "duration": 22.447,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.66,
+   "text": "On a quiet Saturday afternoon, Paul and his wife Maria are sitting at home reading their favorite books."
+  },
+  {
+   "i": 1,
+   "start": 5.66,
+   "end": 12.493,
+   "text": "Opposite to where they sit are their two sons: 15-year-old Jason and 12-year-old Jack, absorbed in playing chess."
+  },
+  {
+   "i": 2,
+   "start": 12.493,
+   "end": 13.981,
+   "text": "What's the scenario here?"
+  },
+  {
+   "i": 3,
+   "start": 13.981,
+   "end": 16.292,
+   "text": "The family calls it their “offline day”."
+  },
+  {
+   "i": 4,
+   "start": 16.292,
+   "end": 22.447,
+   "text": "From Friday night through Sunday evening, there are no video games, no computers, and no cell phones."
+  }
+ ]
+}

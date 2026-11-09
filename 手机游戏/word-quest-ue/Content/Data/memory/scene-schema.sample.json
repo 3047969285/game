@@ -1,0 +1,54 @@
+{
+  "schema": "wordquest.memory.scene/1",
+  "sceneId": "unit01_section_a",
+  "title": "Thursday's Silence",
+  "source": "web:src/features/memory/stages/clubRoom.ts + scripts/u01a.ts",
+  "stage": {
+    "name": "clubRoom",
+    "bounds": { "minX": -5.5, "maxX": 5.5, "minZ": -4, "maxZ": 4 },
+    "spawn": { "x": 0, "y": 0, "z": 2.3, "yaw": 3.14159 },
+    "environment": {
+      "fogColor": "#131b2a", "fogDensity": 0.045,
+      "skyTop": "#3a4a68", "skyMid": "#7d8aa0", "skyBot": "#2a2c34",
+      "sunColor": "#f2f6ff", "sunDir": [0.35, 0.62, -0.7], "sunIntensity": 1.9,
+      "hemiSky": "#b6c6de", "hemiGround": "#4a505a", "hemiIntensity": 1.1,
+      "envIntensity": 1.0, "shadowRadius": 9,
+      "weather": { "default": "clear", "mode": "window" }
+    },
+    "pieces": [
+      { "id": "floor", "style": "rise" },
+      { "id": "wall_back", "style": "rise" },
+      { "id": "window", "style": "fade" },
+      { "id": "table", "style": "rise" },
+      { "id": "chairs", "style": "rise" },
+      { "id": "board", "style": "rise" },
+      { "id": "shelf", "style": "rise" },
+      { "id": "plants", "style": "grow" }
+    ],
+    "slots": {
+      "table": [
+        { "x": -1.05, "y": 0.77, "z": -0.55 },
+        { "x": -0.5, "y": 0.77, "z": -1.05 },
+        { "x": 0.05, "y": 0.77, "z": -0.55 }
+      ],
+      "hover": [{ "x": -2.4, "y": 1.2, "z": 0.6 }],
+      "floor": [{ "x": -2.2, "y": 0, "z": 1.8 }]
+    },
+    "shots": [
+      { "from": { "x": 0, "y": 2.0, "z": 3.7 }, "to": { "x": 0.7, "y": 1.85, "z": 3.0 }, "look": { "x": 0, "y": 1.1, "z": -1.5 }, "duration": 9, "move": "dolly" }
+    ]
+  },
+  "words": [
+    { "wordId": "rw3_unit01_04", "archetype": "phone", "slot": "table", "slotIndex": 0 }
+  ],
+  "actors": [
+    { "id": "me2026", "look": "me2026", "position": { "x": 2.8, "y": 0, "z": -0.25 }, "rotationY": -1.5708, "pose": "stand" },
+    { "id": "lin", "look": "lin", "position": { "x": 0.9, "y": 0, "z": -1.1 }, "rotationY": 0, "pose": "listen" }
+  ],
+  "beats": [
+    { "kind": "narrate", "pov": "you", "text": "You remember a Thursday…", "voice": "system", "build": ["floor", "wall_back"] },
+    { "kind": "touch", "prompt": "Reach out. Touch what you remember.", "wordIds": ["rw3_unit01_04"] },
+    { "kind": "acts", "acts": ["act01", "act02"] },
+    { "kind": "freeze", "caption": "", "epilogue": { "text": "We were so young.", "voice": "old" } }
+  ]
+}

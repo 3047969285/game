@@ -1,4 +1,5 @@
 #include "WordQuestRenderDiagnostics.h"
+#include "TextureResource.h"
 #include "RHI.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "RenderUtils.h"
@@ -17,6 +18,35 @@
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 #include "HAL/FileManager.h"
+#include "SceneView.h"
+#include "Engine/LocalPlayer.h"
+#include "Engine/GameViewportClient.h"
+#include "Slate/SceneViewport.h"
+bool UWordQuestRenderDiagnostics::SetTestViewportSize(UObject* Context,int32 Width,int32 Height)
+{
+#if WITH_EDITOR
+ auto* PC=UGameplayStatics::GetPlayerController(Context,0);auto* Player=PC?PC->GetLocalPlayer():nullptr;
+ auto* Client=Player?Player->ViewportClient.Get():nullptr;auto* Viewport=Client?Client->GetGameViewport():nullptr;
+ if(!Viewport||Width<320||Height<240||Width>3840||Height>2160)return false;
+ Viewport->SetFixedViewportSize(uint32(Width),uint32(Height));return true;
+#else
+ return false;
+#endif
+}
+TMap<FString,float> UWordQuestRenderDiagnostics::ViewExposure(UObject* Context)
+{
+ TMap<FString,float> Result;Result.Add(TEXT("available"),0.f);
+ auto* PC=UGameplayStatics::GetPlayerController(Context,0);auto* Player=PC?PC->GetLocalPlayer():nullptr;
+ auto* Viewport=Player?Player->ViewportClient.Get():nullptr;auto* World=Context?Context->GetWorld():nullptr;
+ if(!Viewport||!Viewport->Viewport||!World)return Result;
+ FSceneViewFamilyContext Family(FSceneViewFamily::ConstructionValues(Viewport->Viewport,World->Scene,Viewport->EngineShowFlags).SetRealtimeUpdate(true));
+ FVector Position;FRotator Rotation;auto* View=Player->CalcSceneView(&Family,Position,Rotation,Viewport->Viewport);
+ if(!View)return Result;
+ const float Exposure=View->GetLastEyeAdaptationExposure();
+ Result.Add(TEXT("available"),Exposure>0.f?1.f:0.f);Result.Add(TEXT("exposure_scale"),Exposure);Result.Add(TEXT("average_luminance"),View->GetLastAverageSceneLuminance());
+ return Result;
+}
+
 TMap<FString,FString> UWordQuestRenderDiagnostics::Capabilities(){
  TMap<FString,FString> R;R.Add(TEXT("GPU"),GRHIAdapterName);R.Add(TEXT("RHIHardwareRayTracing"),GRHISupportsRayTracing?TEXT("true"):TEXT("false"));R.Add(TEXT("RHIInlineRayTracing"),GRHISupportsInlineRayTracing?TEXT("true"):TEXT("false"));
  for(const TCHAR* Name:{TEXT("r.RayTracing"),TEXT("r.Lumen.HardwareRayTracing"),TEXT("r.MegaLights.Supported"),TEXT("r.MegaLights.EnableForProject"),TEXT("r.MegaLights.Allowed"),TEXT("r.MegaLights.HardwareRayTracing"),TEXT("r.DynamicGlobalIlluminationMethod"),TEXT("r.ReflectionMethod"),TEXT("r.Shadow.Virtual.Enable")}){auto* V=IConsoleManager::Get().FindConsoleVariable(Name);R.Add(Name,V?V->GetString():TEXT("unavailable"));}return R;
@@ -29,7 +59,7 @@ bool UWordQuestRenderDiagnostics::InjectNavigationKey(UObject* Context,FName Nam
 #if WITH_EDITOR
  auto* PC=UGameplayStatics::GetPlayerController(Context,0);if(!PC)return false;
  const FString Key=Name.ToString();const bool Axis=Key==TEXT("MouseX")||Key==TEXT("MouseY");
- if(!Axis&&Key!=TEXT("W")&&Key!=TEXT("A")&&Key!=TEXT("S")&&Key!=TEXT("D"))return false;
+ if(!Axis&&Key!=TEXT("W")&&Key!=TEXT("A")&&Key!=TEXT("S")&&Key!=TEXT("D")&&Key!=TEXT("C")&&Key!=TEXT("LeftControl"))return false;
  PC->InputKey(FInputKeyParams(FKey(Name),Axis?IE_Axis:(Pressed?IE_Pressed:IE_Released),double(Amount)));return true;
 #else
  return false;
@@ -60,7 +90,9 @@ bool UWordQuestRenderDiagnostics::RequestWorldCapture(UObject* WorldContext,int3
  {
   auto* Live=WeakActor.Get();if(!Live||!Live->GetWorld())return false;
   auto* C=Live->GetCaptureComponent2D();C->CaptureScene();++Frames;
-  if(Frames<96||FPlatformTime::Seconds()-Started<3.)return true;
+  // 32 stable temporal samples plus >=3 seconds avoid doubling the full
+  // viewport + 4K capture cost for 96 frames on the 16 GB lookdev host.
+  if(Frames<32||FPlatformTime::Seconds()-Started<3.)return true;
   FlushRenderingCommands();TArray<FColor> Pixels;
   if(C->TextureTarget->GameThread_GetRenderTargetResource()->ReadPixels(Pixels)&&Pixels.Num()==Width*Height)
   {

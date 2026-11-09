@@ -1,0 +1,41 @@
+{
+ "kit": "griddle",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_griddle.fbx",
+ "triangles": 4208,
+ "size_m": [
+  0.5,
+  0.5,
+  0.05
+ ],
+ "dims_target_m": [
+  0.5,
+  0.5,
+  0.05
+ ],
+ "slots": [
+  {
+   "slot": "steel",
+   "material": "M_steel",
+   "BaseColor": "T_griddle_steel_BaseColor.png",
+   "Normal": "T_griddle_steel_Normal.png",
+   "ARM": "T_griddle_steel_ARM.png"
+  },
+  {
+   "slot": "oil",
+   "material": "M_oil",
+   "BaseColor": "T_griddle_oil_BaseColor.png",
+   "Normal": "T_griddle_oil_Normal.png",
+   "ARM": "T_griddle_oil_ARM.png"
+  },
+  {
+   "slot": "handle",
+   "material": "M_handle",
+   "BaseColor": "T_griddle_handle_BaseColor.png",
+   "Normal": "T_griddle_handle_Normal.png",
+   "ARM": "T_griddle_handle_ARM.png"
+  }
+ ],
+ "texture_res": 512,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "flat-top griddle, oiled cooking surface; front toward +Y"
+}

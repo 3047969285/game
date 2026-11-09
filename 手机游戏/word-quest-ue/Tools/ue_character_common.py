@@ -49,23 +49,54 @@ def inherited_lock(lock_pid, parents, current_pid):
         seen.add(current_pid);current_pid=parents.get(current_pid,0)
     return False
 
-def run_locked_command(command, env, log_path):
+def run_locked_command(command, env, log_path, total_timeout=None):
     """One lock for UBT, imports, MetaHuman and rendering; safely inherit ancestor lock."""
-    import os,subprocess
+    import os,subprocess,time
     rows=subprocess.check_output(['ps','-ax','-o','pid=,ppid='],text=True)
     parents={int(a):int(b) for a,b in (row.split() for row in rows.splitlines())}
     try:pid=int((ROOT/'Saved/ue_run.lock/pid').read_text())
     except (FileNotFoundError,ValueError):pid=0
-    if not pid or not inherited_lock(pid,parents,os.getpid()):
+    inherited=bool(pid and inherited_lock(pid,parents,os.getpid()))
+    if not inherited:
         command=['bash',str(ROOT/'Tools/run_ue_serial.sh')]+command
     else:print('Reusing ancestor run_ue_serial.sh lock '+str(pid),flush=True)
     log_path=Path(log_path);log_path.parent.mkdir(parents=True,exist_ok=True)
     with log_path.open('w') as output:
-        return subprocess.run(command,env={**os.environ,**env,'UE_LOCK_WHO':'codex'},stdout=output,stderr=subprocess.STDOUT)
+        # A timeout must stop the whole private process group, not just its lock
+        # wrapper, or a stranded editor can keep consuming all 16 GB of RAM.
+        import signal
+        child_env={**os.environ,**env}
+        child_env.setdefault('UE_LOCK_WHO','codex')
+        process=subprocess.Popen(command,env=child_env,stdout=output,stderr=subprocess.STDOUT,start_new_session=True)
+        try:
+            # Waiting for another owner's UE is a separate bounded phase. The
+            # execution deadline starts only when our wrapper acquires the lock.
+            if total_timeout is not None and not inherited:
+                waiting_started=time.monotonic()
+                while process.poll() is None:
+                    with log_path.open('r',errors='replace') as reader:
+                        if 'WQ_LOCK_ACQUIRED '+str(process.pid) in reader.read():break
+                    if time.monotonic()-waiting_started>3600:
+                        raise subprocess.TimeoutExpired(command,3600)
+                    time.sleep(.1)
+            code=process.wait(timeout=total_timeout)
+        except subprocess.TimeoutExpired:
+            output.write('\nWQ_PROCESS_TOTAL_TIMEOUT\n');output.flush()
+            try:os.killpg(process.pid,signal.SIGTERM)
+            except ProcessLookupError:pass
+            try:process.wait(timeout=10)
+            except subprocess.TimeoutExpired:pass
+            try:os.killpg(process.pid,signal.SIGKILL)
+            except ProcessLookupError:pass
+            process.wait();code=124
+        return subprocess.CompletedProcess(command,code)
 
-def run_locked_editor(script, env, log_path, engine='/Users/Shared/Epic Games/UE_5.8', level=None):
-    binary=Path(engine)/'Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor'
+def run_locked_editor(script, env, log_path, engine='/Users/Shared/Epic Games/UE_5.8', level=None, extra_args=None, total_timeout=None):
+    # macOS derives UE's relative root from the executable; a symlinked engine
+    # path after an external-drive move resolves project descriptors incorrectly.
+    binary=Path(engine).resolve()/'Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor'
     command=[str(binary),str(ROOT/'WordQuestUE.uproject')]
     if level:command.append(level)
     command += [f'-ExecutePythonScript={Path(script).resolve()}','-RenderOffscreen','-culture=en','-language=en','-unattended','-nosplash','-nosound','-NoEpicPortal','-stdout','-FullStdOutLogOutput']
-    return run_locked_command(command,env,log_path)
+    command += list(extra_args or [])
+    return run_locked_command(command,env,log_path,total_timeout=total_timeout)

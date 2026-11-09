@@ -1,0 +1,48 @@
+{
+ "kit": "calendar",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_calendar.fbx",
+ "triangles": 14112,
+ "size_m": [
+  0.3,
+  0.0092,
+  0.423
+ ],
+ "dims_target_m": [
+  0.3,
+  0.02,
+  0.4
+ ],
+ "slots": [
+  {
+   "slot": "board",
+   "material": "M_board",
+   "BaseColor": "T_calendar_board_BaseColor.png",
+   "Normal": "T_calendar_board_Normal.png",
+   "ARM": "T_calendar_board_ARM.png"
+  },
+  {
+   "slot": "paperstack",
+   "material": "M_paperstack",
+   "BaseColor": "T_calendar_paperstack_BaseColor.png",
+   "Normal": "T_calendar_paperstack_Normal.png",
+   "ARM": "T_calendar_paperstack_ARM.png"
+  },
+  {
+   "slot": "page",
+   "material": "M_page",
+   "BaseColor": "T_calendar_page_BaseColor.png",
+   "Normal": "T_calendar_page_Normal.png",
+   "ARM": "T_calendar_page_ARM.png"
+  },
+  {
+   "slot": "wire",
+   "material": "M_wire",
+   "BaseColor": "T_calendar_wire_BaseColor.png",
+   "Normal": "T_calendar_wire_Normal.png",
+   "ARM": "T_calendar_wire_ARM.png"
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "front toward +Y, back on the wall at y = 0, bottom at z = 0"
+}

@@ -1,0 +1,55 @@
+{
+ "kit": "brochure_rack",
+ "dims_m": [
+  0.6,
+  0.287,
+  1.4
+ ],
+ "materials": {
+  "M_wire_metal": {
+   "color": "#B8BEC6",
+   "roughness": 0.3,
+   "metallic": 0.9,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_brochure_red": {
+   "color": "#E0523B",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_brochure_yellow": {
+   "color": "#F2B33D",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_brochure_teal": {
+   "color": "#3B8EA5",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_brochure_green": {
+   "color": "#7BB662",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

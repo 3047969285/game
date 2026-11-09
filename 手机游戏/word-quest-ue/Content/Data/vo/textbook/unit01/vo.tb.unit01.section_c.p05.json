@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit01.section_c.p05",
+ "unit": 1,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "When it comes to transportation around the capital, you can order a cab or a private car through ride-hailing services. Mobile payment is accepted. If you don't fancy waiting in traffic, there are also bikes for rent. You can unlock these bikes by scanning a QR code and pay a very cheap rent for the ride.",
+ "rate": 165,
+ "duration": 24.761,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 9.41,
+   "text": "When it comes to transportation around the capital, you can order a cab or a private car through ride-hailing services."
+  },
+  {
+   "i": 1,
+   "start": 9.41,
+   "end": 12.172,
+   "text": "Mobile payment is accepted."
+  },
+  {
+   "i": 2,
+   "start": 12.172,
+   "end": 17.594,
+   "text": "If you don't fancy waiting in traffic, there are also bikes for rent."
+  },
+  {
+   "i": 3,
+   "start": 17.594,
+   "end": 24.761,
+   "text": "You can unlock these bikes by scanning a QR code and pay a very cheap rent for the ride."
+  }
+ ]
+}

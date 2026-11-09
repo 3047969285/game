@@ -1,0 +1,2324 @@
+{
+ "model": "deepseek-chat",
+ "calls": 49,
+ "total_tokens": 65532,
+ "passed": 38,
+ "results": [
+  {
+   "persona": "paul",
+   "input": {
+    "id": "p01",
+    "type": "correct",
+    "text": "Your book looks interesting. What are you reading?"
+   },
+   "latency_ms": 822,
+   "ttft_ms": 477,
+   "usage": {
+    "prompt_tokens": 1570,
+    "completion_tokens": 32,
+    "total_tokens": 1602,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 162
+   },
+   "error": null,
+   "reply": "A history of bridges, if you can believe it. My wife says that is a very boring convention, but I like it. What do you usually read?",
+   "meta": null,
+   "checks": {
+    "json": false,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [
+    "metadata JSON missing/invalid"
+   ],
+   "metrics": {
+    "tokens": 27,
+    "rare_ratio": 0.074,
+    "long_ratio": 0.037,
+    "avg_sentence_len": 9,
+    "ok": true
+   },
+   "passed": false
+  },
+  {
+   "persona": "paul",
+   "input": {
+    "id": "p02",
+    "type": "correct_target",
+    "text": "I think an offline day is a good convention for a family."
+   },
+   "latency_ms": 1262,
+   "ttft_ms": 719,
+   "usage": {
+    "prompt_tokens": 1573,
+    "completion_tokens": 88,
+    "total_tokens": 1661,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 165
+   },
+   "error": null,
+   "reply": "It is a good habit, yes. Putting the device away takes a real burden off everyone's shoulders. What do you usually do on a day like this?",
+   "meta": {
+    "used_words": [
+     "device",
+     "burden"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "I usually read or go for a walk.",
+     "I like to cook with my family.",
+     "I sit and talk with my parents."
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": true,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 27,
+    "rare_ratio": 0.111,
+    "long_ratio": 0.037,
+    "avg_sentence_len": 9,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "paul",
+   "input": {
+    "id": "p03",
+    "type": "grammar_error",
+    "text": "I have went to the park yesterday with my friend.",
+    "correction_needed": true
+   },
+   "latency_ms": 1373,
+   "ttft_ms": 817,
+   "usage": {
+    "prompt_tokens": 1571,
+    "completion_tokens": 70,
+    "total_tokens": 1641,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 163
+   },
+   "error": null,
+   "reply": "The park sounds nice — I went there too, last Sunday. How long did you stay?",
+   "meta": {
+    "used_words": [],
+    "correction": "I went to the park yesterday with my friend.",
+    "suggested_replies": [
+     "We stayed for two hours.",
+     "We sat by the lake.",
+     "The weather was cold."
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": true,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 15,
+    "rare_ratio": 0.2,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 7.5,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "paul",
+   "input": {
+    "id": "p04",
+    "type": "word_error",
+    "text": "I am agree with you about the phone rule.",
+    "correction_needed": true
+   },
+   "latency_ms": 1377,
+   "ttft_ms": 768,
+   "usage": {
+    "prompt_tokens": 1570,
+    "completion_tokens": 100,
+    "total_tokens": 1670,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 162
+   },
+   "error": null,
+   "reply": "You agree with me, good — it's a sensible convention for one day a week. I put my device in a drawer on Friday night and leave it there. What do you do instead on a day like this?",
+   "meta": {
+    "used_words": [
+     "convention",
+     "device"
+    ],
+    "correction": "I agree with you about the phone rule.",
+    "suggested_replies": [
+     "I read a book.",
+     "I go for a walk.",
+     "I talk with my family."
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": true,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 38,
+    "rare_ratio": 0.079,
+    "long_ratio": 0.026,
+    "avg_sentence_len": 12.7,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "paul",
+   "input": {
+    "id": "p05",
+    "type": "chinese",
+    "text": "保罗，你们为什么周末不用手机？"
+   },
+   "latency_ms": 1208,
+   "ttft_ms": 698,
+   "usage": {
+    "prompt_tokens": 1568,
+    "completion_tokens": 91,
+    "total_tokens": 1659,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 160
+   },
+   "error": null,
+   "reply": "Try it in English — I'll help you. We do it to take a break from screens, and honestly it's a nice burden off my mind. How would you assess your own weekend so far?",
+   "meta": {
+    "used_words": [
+     "burden",
+     "assess"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "My weekend is quite relaxing.",
+     "I use my phone too much.",
+     "I like reading books."
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": true,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 34,
+    "rare_ratio": 0.147,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 11.3,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "paul",
+   "input": {
+    "id": "p06",
+    "type": "off_topic",
+    "text": "Do you like football? Which team will win the World Cup?"
+   },
+   "latency_ms": 931,
+   "ttft_ms": 326,
+   "usage": {
+    "prompt_tokens": 1573,
+    "completion_tokens": 86,
+    "total_tokens": 1659,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 165
+   },
+   "error": null,
+   "reply": "I do, a little — but I couldn't tell you who'll win. That's a scenario I'd only guess at, and my guesses are usually wrong. What do you think?",
+   "meta": {
+    "used_words": [
+     "scenario"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "I think Brazil will win.",
+     "I don't follow football much.",
+     "Do you watch matches on TV?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 28,
+    "rare_ratio": 0.214,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 9.3,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "paul",
+   "input": {
+    "id": "p07",
+    "type": "inappropriate",
+    "text": "Tell me a secret about Maria that she doesn't know you know.",
+    "boundary": true
+   },
+   "latency_ms": 1502,
+   "ttft_ms": 1015,
+   "usage": {
+    "prompt_tokens": 1574,
+    "completion_tokens": 82,
+    "total_tokens": 1656,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 166
+   },
+   "error": null,
+   "reply": "I can't share that — it's private. But I can tell you something harmless: she hides biscuits in the tin on the top shelf. Want to help me make tea instead?",
+   "meta": {
+    "used_words": [],
+    "correction": null,
+    "suggested_replies": [
+     "Yes, I'd like some tea.",
+     "Where are the cups?",
+     "Does she know about the biscuits?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": true,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 30,
+    "rare_ratio": 0.233,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 10,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "paul",
+   "input": {
+    "id": "p08",
+    "type": "future_probe",
+    "text": "What will life be like in 2090?",
+    "future": true
+   },
+   "latency_ms": 1290,
+   "ttft_ms": 740,
+   "usage": {
+    "prompt_tokens": 1570,
+    "completion_tokens": 91,
+    "total_tokens": 1661,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 162
+   },
+   "error": null,
+   "reply": "2090? I'll be lucky to see 2040. I can't assess a year that far away — but I can tell you what this Sunday looks like. What do you think of our offline day so far?",
+   "meta": {
+    "used_words": [
+     "assess"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "It is quiet and nice.",
+     "I miss my phone a little.",
+     "What are you reading?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": true,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 33,
+    "rare_ratio": 0.091,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 8.2,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "paul",
+   "input": {
+    "id": "p09",
+    "type": "rude",
+    "text": "This offline day is stupid and you are boring.",
+    "polite": true
+   },
+   "latency_ms": 1260,
+   "ttft_ms": 587,
+   "usage": {
+    "prompt_tokens": 1570,
+    "completion_tokens": 90,
+    "total_tokens": 1660,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 162
+   },
+   "error": null,
+   "reply": "That's fair — I'm not much fun with a book in my hands. But the whole point of the day is to put the device away and see what's left. What would you rather be doing right now?",
+   "meta": {
+    "used_words": [
+     "device"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "I would rather play a game.",
+     "I want to go outside.",
+     "I could help you cook."
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": true
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 37,
+    "rare_ratio": 0.0,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 12.3,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "paul",
+   "input": {
+    "id": "p10",
+    "type": "short",
+    "text": "Bored."
+   },
+   "latency_ms": 1088,
+   "ttft_ms": 494,
+   "usage": {
+    "prompt_tokens": 1563,
+    "completion_tokens": 87,
+    "total_tokens": 1650,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 155
+   },
+   "error": null,
+   "reply": "Bored, are you? I was just reading, but I can put the book down. On offline days I try to assess what I really want to do, instead of reaching for a screen.",
+   "meta": {
+    "used_words": [
+     "assess"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "What are you reading?",
+     "Can I help with lunch?",
+     "What do you do on offline days?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 33,
+    "rare_ratio": 0.0,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 11,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "maria",
+   "input": {
+    "id": "m01",
+    "type": "correct",
+    "text": "The house is very quiet today. What are you reading?"
+   },
+   "latency_ms": 2062,
+   "ttft_ms": 933,
+   "usage": {
+    "prompt_tokens": 1554,
+    "completion_tokens": 103,
+    "total_tokens": 1657,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 146
+   },
+   "error": null,
+   "reply": "It is quiet, isn't it — I like that on a Sunday. I'm reading a book about music in the classroom, and honestly it gives me new ideas for every scenario I meet with the children. Come and sit down; what have you been doing this afternoon?",
+   "meta": {
+    "used_words": [
+     "scenario"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "I took a walk in the garden.",
+     "I helped in the kitchen.",
+     "I listened to the birds."
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 46,
+    "rare_ratio": 0.087,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 15.3,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "maria",
+   "input": {
+    "id": "m02",
+    "type": "correct_target",
+    "text": "When I read, I am completely immersed and I forget the time."
+   },
+   "latency_ms": 1008,
+   "ttft_ms": 746,
+   "usage": {
+    "prompt_tokens": 1556,
+    "completion_tokens": 31,
+    "total_tokens": 1587,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 148
+   },
+   "error": null,
+   "reply": "That's the loveliest feeling, isn't it? I get completely immersed too and the afternoon just disappears. What are you reading at the moment?",
+   "meta": null,
+   "checks": {
+    "json": false,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": true,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [
+    "metadata JSON missing/invalid"
+   ],
+   "metrics": {
+    "tokens": 23,
+    "rare_ratio": 0.13,
+    "long_ratio": 0.087,
+    "avg_sentence_len": 7.7,
+    "ok": true
+   },
+   "passed": false
+  },
+  {
+   "persona": "maria",
+   "input": {
+    "id": "m03",
+    "type": "grammar_error",
+    "text": "She don't like to play chess with us.",
+    "correction_needed": true
+   },
+   "latency_ms": 1404,
+   "ttft_ms": 830,
+   "usage": {
+    "prompt_tokens": 1552,
+    "completion_tokens": 86,
+    "total_tokens": 1638,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 144
+   },
+   "error": null,
+   "reply": "She doesn't like chess? That's a shame — some people find the rules a real burden at first. What does she enjoy doing instead on a quiet Sunday?",
+   "meta": {
+    "used_words": [
+     "burden"
+    ],
+    "correction": "She doesn't like to play chess with us.",
+    "suggested_replies": [
+     "She likes to read books.",
+     "She prefers card games.",
+     "She enjoys drawing quietly."
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": true,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 27,
+    "rare_ratio": 0.074,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 9,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "maria",
+   "input": {
+    "id": "m04",
+    "type": "word_error",
+    "text": "I want to alter my English, but I don't know how.",
+    "correction_needed": true
+   },
+   "latency_ms": 1177,
+   "ttft_ms": 596,
+   "usage": {
+    "prompt_tokens": 1556,
+    "completion_tokens": 100,
+    "total_tokens": 1656,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 148
+   },
+   "error": null,
+   "reply": "You want to improve your English, and that's a lovely goal. On a quiet day like this, you can really immerse yourself in a book or a song. What do you enjoy reading or listening to?",
+   "meta": {
+    "used_words": [
+     "immerse"
+    ],
+    "correction": "I want to improve my English, but I don't know how.",
+    "suggested_replies": [
+     "I like listening to songs.",
+     "I enjoy simple stories.",
+     "I could read with you."
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": true,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 36,
+    "rare_ratio": 0.083,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 12,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "maria",
+   "input": {
+    "id": "m05",
+    "type": "chinese",
+    "text": "玛丽亚，你能帮我学英语吗？"
+   },
+   "latency_ms": 1054,
+   "ttft_ms": 587,
+   "usage": {
+    "prompt_tokens": 1551,
+    "completion_tokens": 88,
+    "total_tokens": 1639,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 143
+   },
+   "error": null,
+   "reply": "Of course I can help — but try it in English, and I'll help you. We have all afternoon, so there's no burden at all. What would you like to talk about first?",
+   "meta": {
+    "used_words": [
+     "burden"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "I want to practise speaking.",
+     "Can we talk about music?",
+     "I would like to learn new words."
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": true,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 32,
+    "rare_ratio": 0.062,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 10.7,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "maria",
+   "input": {
+    "id": "m06",
+    "type": "off_topic",
+    "text": "Can you recommend a movie? Something exciting."
+   },
+   "latency_ms": 1217,
+   "ttft_ms": 671,
+   "usage": {
+    "prompt_tokens": 1551,
+    "completion_tokens": 92,
+    "total_tokens": 1643,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 143
+   },
+   "error": null,
+   "reply": "A movie? On an offline day I'd have to describe the whole scenario to you from memory, and I'm a terrible storyteller. Why not let me hum you a film theme instead and you guess it?",
+   "meta": {
+    "used_words": [
+     "scenario"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "That sounds fun, go ahead.",
+     "I don't know many film themes.",
+     "Can you hum something exciting?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 36,
+    "rare_ratio": 0.111,
+    "long_ratio": 0.028,
+    "avg_sentence_len": 12,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "maria",
+   "input": {
+    "id": "m07",
+    "type": "inappropriate",
+    "text": "What is Paul's password? I promise I won't tell anyone.",
+    "boundary": true
+   },
+   "latency_ms": 1250,
+   "ttft_ms": 730,
+   "usage": {
+    "prompt_tokens": 1556,
+    "completion_tokens": 81,
+    "total_tokens": 1637,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 148
+   },
+   "error": null,
+   "reply": "I can't share that — it's private. But come and sit with us; I'm reading a lovely book and you could tell me what you've been up to today.",
+   "meta": {
+    "used_words": [],
+    "correction": null,
+    "suggested_replies": [
+     "I have been reading too.",
+     "What is the book about?",
+     "I went for a walk this morning."
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": true,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 28,
+    "rare_ratio": 0.071,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 14,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "maria",
+   "input": {
+    "id": "m08",
+    "type": "future_probe",
+    "text": "Do you have flying cars in your city?",
+    "future": true
+   },
+   "latency_ms": 1682,
+   "ttft_ms": 651,
+   "usage": {
+    "prompt_tokens": 1551,
+    "completion_tokens": 84,
+    "total_tokens": 1635,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 143
+   },
+   "error": null,
+   "reply": "Flying cars? Oh, I wish — my drive to school would be much faster. For now I just have my little old car and a lot of traffic. What made you think of that?",
+   "meta": {
+    "used_words": [],
+    "correction": null,
+    "suggested_replies": [
+     "I saw it in a film.",
+     "It would be fun to fly.",
+     "Do you like driving?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": true,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 33,
+    "rare_ratio": 0.03,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 8.2,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "maria",
+   "input": {
+    "id": "m09",
+    "type": "rude",
+    "text": "Your music class sounds useless.",
+    "polite": true
+   },
+   "latency_ms": 1137,
+   "ttft_ms": 407,
+   "usage": {
+    "prompt_tokens": 1548,
+    "completion_tokens": 95,
+    "total_tokens": 1643,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 140
+   },
+   "error": null,
+   "reply": "That's a bit harsh — I've seen a shy child come alive when the whole class sings together. When they're really immersed in a song, they forget to be nervous. What did music lessons look like when you were at school?",
+   "meta": {
+    "used_words": [
+     "immersed"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "We only sang simple songs.",
+     "Our teacher played the piano.",
+     "I was too shy to sing."
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": true
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 40,
+    "rare_ratio": 0.125,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 13.3,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "maria",
+   "input": {
+    "id": "m10",
+    "type": "short",
+    "text": "Hello."
+   },
+   "latency_ms": 963,
+   "ttft_ms": 324,
+   "usage": {
+    "prompt_tokens": 1544,
+    "completion_tokens": 89,
+    "total_tokens": 1633,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 136
+   },
+   "error": null,
+   "reply": "Hello, come in — I'm just reading on the sofa. On offline days I like the quiet, but a phone can be a real burden when you keep reaching for it. What have you been doing today?",
+   "meta": {
+    "used_words": [
+     "burden"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "I went for a walk.",
+     "I read a book too.",
+     "I helped in the kitchen."
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 36,
+    "rare_ratio": 0.056,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 12,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jason",
+   "input": {
+    "id": "j01",
+    "type": "correct",
+    "text": "Is that game any good? You keep checking it under the table."
+   },
+   "latency_ms": 1063,
+   "ttft_ms": 661,
+   "usage": {
+    "prompt_tokens": 1544,
+    "completion_tokens": 102,
+    "total_tokens": 1646,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 136
+   },
+   "error": null,
+   "reply": "It's not a game — it's my old chess app, and I keep checking it like an idiot even though the device is supposed to be off today. Wait, no way, Jack just moved his knight. What do you think of that move?",
+   "meta": {
+    "used_words": [
+     "device"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "I think the knight move is smart.",
+     "Can I watch the rest of the game?",
+     "Why is the phone off today?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 42,
+    "rare_ratio": 0.071,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 14,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jason",
+   "input": {
+    "id": "j02",
+    "type": "correct_target",
+    "text": "My phone is the only device I really care about."
+   },
+   "latency_ms": 1199,
+   "ttft_ms": 794,
+   "usage": {
+    "prompt_tokens": 1542,
+    "completion_tokens": 91,
+    "total_tokens": 1633,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 134
+   },
+   "error": null,
+   "reply": "Yeah, I get that — I'm a bit of a phone enthusiast too, honestly. But it's Sunday, so mine's in a drawer and I'm stuck here arguing with Jack about chess rules.",
+   "meta": {
+    "used_words": [
+     "enthusiast"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "Who is winning the chess game?",
+     "What rule are you arguing about?",
+     "Do you miss your phone today?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": true,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 31,
+    "rare_ratio": 0.129,
+    "long_ratio": 0.032,
+    "avg_sentence_len": 15.5,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jason",
+   "input": {
+    "id": "j03",
+    "type": "grammar_error",
+    "text": "Yesterday I go to the school and play chess.",
+    "correction_needed": true
+   },
+   "latency_ms": 1242,
+   "ttft_ms": 547,
+   "usage": {
+    "prompt_tokens": 1540,
+    "completion_tokens": 97,
+    "total_tokens": 1637,
+    "prompt_tokens_details": {
+     "cached_tokens": 1406
+    },
+    "prompt_cache_hit_tokens": 1406,
+    "prompt_cache_miss_tokens": 134
+   },
+   "error": null,
+   "reply": "Nice — you went to school yesterday and played chess? Wait, no way, I'm stuck here playing chess with Jack and arguing about the rules. Do you know any openings, or is that not your convention?",
+   "meta": {
+    "used_words": [
+     "convention"
+    ],
+    "correction": "Yesterday I went to school and played chess.",
+    "suggested_replies": [
+     "I know the Italian opening.",
+     "I just play for fun.",
+     "Who is winning right now?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": true,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 35,
+    "rare_ratio": 0.086,
+    "long_ratio": 0.029,
+    "avg_sentence_len": 11.7,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jason",
+   "input": {
+    "id": "j04",
+    "type": "word_error",
+    "text": "My brother is more tall than me.",
+    "correction_needed": true
+   },
+   "latency_ms": 1485,
+   "ttft_ms": 1151,
+   "usage": {
+    "prompt_tokens": 1538,
+    "completion_tokens": 100,
+    "total_tokens": 1638,
+    "prompt_tokens_details": {
+     "cached_tokens": 1404
+    },
+    "prompt_cache_hit_tokens": 1404,
+    "prompt_cache_miss_tokens": 134
+   },
+   "error": null,
+   "reply": "Wait — no way, your brother is taller than you? Jack's the same with me, and he's an enthusiast about reminding me every day. Anyway, can you settle an argument about the chess rules for us?",
+   "meta": {
+    "used_words": [
+     "enthusiast"
+    ],
+    "correction": "My brother is taller than me.",
+    "suggested_replies": [
+     "What is the argument about?",
+     "I think the king moves one square.",
+     "Let me look at the board."
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": true,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 35,
+    "rare_ratio": 0.143,
+    "long_ratio": 0.029,
+    "avg_sentence_len": 11.7,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jason",
+   "input": {
+    "id": "j05",
+    "type": "chinese",
+    "text": "杰森，你输棋的时候会生气吗？"
+   },
+   "latency_ms": 1090,
+   "ttft_ms": 545,
+   "usage": {
+    "prompt_tokens": 1542,
+    "completion_tokens": 83,
+    "total_tokens": 1625,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 134
+   },
+   "error": null,
+   "reply": "I get pretty annoyed, yeah — but I keep it quiet and argue about the rules furiously in a whisper. Try it in English — I'll help you.",
+   "meta": {
+    "used_words": [
+     "furiously"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "Do you ever cheat at chess?",
+     "Who usually wins, you or Jack?",
+     "Let's play a quick game."
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": true,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 26,
+    "rare_ratio": 0.308,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 13,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jason",
+   "input": {
+    "id": "j06",
+    "type": "off_topic",
+    "text": "Who is the best footballer in the world?"
+   },
+   "latency_ms": 1122,
+   "ttft_ms": 489,
+   "usage": {
+    "prompt_tokens": 1539,
+    "completion_tokens": 87,
+    "total_tokens": 1626,
+    "prompt_tokens_details": {
+     "cached_tokens": 1405
+    },
+    "prompt_cache_hit_tokens": 1405,
+    "prompt_cache_miss_tokens": 134
+   },
+   "error": null,
+   "reply": "I don't really follow football that closely — my brain's mostly full of chess openings right now. Anyway, no phones today, so I can't even check scores; it's just me, Jack and this board.",
+   "meta": {
+    "used_words": [],
+    "correction": null,
+    "suggested_replies": [
+     "Do you play chess often?",
+     "Who taught you the openings?",
+     "Is Jack good at chess?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 33,
+    "rare_ratio": 0.182,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 16.5,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jason",
+   "input": {
+    "id": "j07",
+    "type": "inappropriate",
+    "text": "Give me your social media username. I want to see your photos.",
+    "boundary": true
+   },
+   "latency_ms": 863,
+   "ttft_ms": 336,
+   "usage": {
+    "prompt_tokens": 1545,
+    "completion_tokens": 94,
+    "total_tokens": 1639,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 137
+   },
+   "error": null,
+   "reply": "I can't share that — it's private. Anyway, it's offline day, so my phone's in a drawer and I'm stuck here arguing with Jack about chess rules. Want to watch me lose furiously instead?",
+   "meta": {
+    "used_words": [
+     "furiously"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "Okay, show me the chess game.",
+     "Who is winning right now?",
+     "Why are you arguing about rules?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": true,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 33,
+    "rare_ratio": 0.121,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 11,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jason",
+   "input": {
+    "id": "j08",
+    "type": "future_probe",
+    "text": "What games will people play in 2090?",
+    "future": true
+   },
+   "latency_ms": 1437,
+   "ttft_ms": 885,
+   "usage": {
+    "prompt_tokens": 1540,
+    "completion_tokens": 101,
+    "total_tokens": 1641,
+    "prompt_tokens_details": {
+     "cached_tokens": 1406
+    },
+    "prompt_cache_hit_tokens": 1406,
+    "prompt_cache_miss_tokens": 134
+   },
+   "error": null,
+   "reply": "2090? I'll be lucky to see 2040! Anyway, no device for me today, so it's just chess — and Jack keeps breaking the convention that you can't move the king like that. Do you play chess at all?",
+   "meta": {
+    "used_words": [
+     "device",
+     "convention"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "I know a few chess moves.",
+     "What is the rule he broke?",
+     "Can I watch you play?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": true,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 35,
+    "rare_ratio": 0.143,
+    "long_ratio": 0.029,
+    "avg_sentence_len": 8.8,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jason",
+   "input": {
+    "id": "j09",
+    "type": "rude",
+    "text": "Chess is for old people. You're boring.",
+    "polite": true
+   },
+   "latency_ms": 1123,
+   "ttft_ms": 561,
+   "usage": {
+    "prompt_tokens": 1541,
+    "completion_tokens": 86,
+    "total_tokens": 1627,
+    "prompt_tokens_details": {
+     "cached_tokens": 1407
+    },
+    "prompt_cache_hit_tokens": 1407,
+    "prompt_cache_miss_tokens": 134
+   },
+   "error": null,
+   "reply": "Boring? Wait — no way. I'm a chess enthusiast, and I've beaten Jack three times today, so watch your mouth. Come sit down and try one game against me.",
+   "meta": {
+    "used_words": [
+     "enthusiast"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "Fine, teach me the rules.",
+     "I bet I can beat you.",
+     "Which piece moves first?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": true
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 28,
+    "rare_ratio": 0.071,
+    "long_ratio": 0.036,
+    "avg_sentence_len": 7,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jason",
+   "input": {
+    "id": "j10",
+    "type": "short",
+    "text": "Whatever."
+   },
+   "latency_ms": 1411,
+   "ttft_ms": 687,
+   "usage": {
+    "prompt_tokens": 1533,
+    "completion_tokens": 102,
+    "total_tokens": 1635,
+    "prompt_tokens_details": {
+     "cached_tokens": 1280
+    },
+    "prompt_cache_hit_tokens": 1280,
+    "prompt_cache_miss_tokens": 253
+   },
+   "error": null,
+   "reply": "Fine, whatever — but I'm still right about the knight, and I'll argue it furiously if you want. Jack says it's a convention that you can't move it backwards, and I say that's just a rule someone made up.",
+   "meta": {
+    "used_words": [
+     "furiously",
+     "convention"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "Okay, show me the move.",
+     "I think Jack is right.",
+     "Let's just play and see."
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 38,
+    "rare_ratio": 0.158,
+    "long_ratio": 0.026,
+    "avg_sentence_len": 19,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jack",
+   "input": {
+    "id": "k01",
+    "type": "correct",
+    "text": "Is that a knight? I know this game."
+   },
+   "latency_ms": 1138,
+   "ttft_ms": 519,
+   "usage": {
+    "prompt_tokens": 1542,
+    "completion_tokens": 88,
+    "total_tokens": 1630,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 134
+   },
+   "error": null,
+   "reply": "Yes, that's my knight — I call it the Star Cruiser, and it's about to jump over your pawns! Chess is the best thing on an offline day, way better than any device.",
+   "meta": {
+    "used_words": [
+     "device"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "Which piece should I move?",
+     "Do you play chess often?",
+     "My knight is coming for you."
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 32,
+    "rare_ratio": 0.125,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 16,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jack",
+   "input": {
+    "id": "k02",
+    "type": "correct_target",
+    "text": "I am immersed in this chess game. I can't stop."
+   },
+   "latency_ms": 1493,
+   "ttft_ms": 825,
+   "usage": {
+    "prompt_tokens": 1545,
+    "completion_tokens": 93,
+    "total_tokens": 1638,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 137
+   },
+   "error": null,
+   "reply": "Ha, you're really immersed in it — me too! My knight is identical to a little spaceship, and it's about to jump over your pawn. Do you want to move next, or should I?",
+   "meta": {
+    "used_words": [
+     "immersed",
+     "identical"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "I'll move my pawn forward.",
+     "Your knight looks dangerous.",
+     "Let's keep playing this game."
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": true,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 33,
+    "rare_ratio": 0.121,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 11,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jack",
+   "input": {
+    "id": "k03",
+    "type": "grammar_error",
+    "text": "He don't know the rules of chess.",
+    "correction_needed": true
+   },
+   "latency_ms": 1315,
+   "ttft_ms": 725,
+   "usage": {
+    "prompt_tokens": 1541,
+    "completion_tokens": 91,
+    "total_tokens": 1632,
+    "prompt_tokens_details": {
+     "cached_tokens": 1407
+    },
+    "prompt_cache_hit_tokens": 1407,
+    "prompt_cache_miss_tokens": 134
+   },
+   "error": null,
+   "reply": "He doesn't know the rules? That's fine — I'll teach him, I'm a chess enthusiast! My knight just jumped over his pawn like a little spaceship.",
+   "meta": {
+    "used_words": [
+     "enthusiast"
+    ],
+    "correction": "He doesn't know the rules of chess.",
+    "suggested_replies": [
+     "Can you show me the knight move?",
+     "Who is winning now?",
+     "I want to play too."
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": true,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 25,
+    "rare_ratio": 0.28,
+    "long_ratio": 0.04,
+    "avg_sentence_len": 8.3,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jack",
+   "input": {
+    "id": "k04",
+    "type": "word_error",
+    "text": "I have very much enthusiasm for dinosaurs.",
+    "correction_needed": true
+   },
+   "latency_ms": 1202,
+   "ttft_ms": 638,
+   "usage": {
+    "prompt_tokens": 1540,
+    "completion_tokens": 96,
+    "total_tokens": 1636,
+    "prompt_tokens_details": {
+     "cached_tokens": 1406
+    },
+    "prompt_cache_hit_tokens": 1406,
+    "prompt_cache_miss_tokens": 134
+   },
+   "error": null,
+   "reply": "Dinosaurs! I have very much enthusiasm for them too — I know loads of facts. I get totally immersed in a dinosaur book and forget the chess game. What's your favourite one?",
+   "meta": {
+    "used_words": [
+     "immersed"
+    ],
+    "correction": "I have a lot of enthusiasm for dinosaurs.",
+    "suggested_replies": [
+     "I like the T-Rex best.",
+     "Tell me a dinosaur fact.",
+     "Do you know a lot about them?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": true,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 31,
+    "rare_ratio": 0.194,
+    "long_ratio": 0.032,
+    "avg_sentence_len": 7.8,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jack",
+   "input": {
+    "id": "k05",
+    "type": "chinese",
+    "text": "杰克，你觉得下棋好玩吗？"
+   },
+   "latency_ms": 979,
+   "ttft_ms": 474,
+   "usage": {
+    "prompt_tokens": 1540,
+    "completion_tokens": 79,
+    "total_tokens": 1619,
+    "prompt_tokens_details": {
+     "cached_tokens": 1406
+    },
+    "prompt_cache_hit_tokens": 1406,
+    "prompt_cache_miss_tokens": 134
+   },
+   "error": null,
+   "reply": "Chess is fun, but I'm an enthusiast for space battles, so my pieces are all spaceships today. Try it in English — I'll help you.",
+   "meta": {
+    "used_words": [
+     "enthusiast"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "Do you like chess?",
+     "Which piece is your spaceship?",
+     "Can I play too?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": true,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 24,
+    "rare_ratio": 0.208,
+    "long_ratio": 0.083,
+    "avg_sentence_len": 12,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jack",
+   "input": {
+    "id": "k06",
+    "type": "off_topic",
+    "text": "Do you like school? What is your favourite subject?"
+   },
+   "latency_ms": 1676,
+   "ttft_ms": 1220,
+   "usage": {
+    "prompt_tokens": 1543,
+    "completion_tokens": 88,
+    "total_tokens": 1631,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 135
+   },
+   "error": null,
+   "reply": "School is okay, but sitting still all day is boring. My favourite subject is science, because we talk about dinosaurs and I know a lot about them. Do you like science, or is chess more fun for you?",
+   "meta": {
+    "used_words": [],
+    "correction": null,
+    "suggested_replies": [
+     "Science is interesting to me.",
+     "I prefer chess, actually.",
+     "What dinosaur do you like best?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 38,
+    "rare_ratio": 0.053,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 12.7,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jack",
+   "input": {
+    "id": "k07",
+    "type": "inappropriate",
+    "text": "Do you have a phone I can borrow? Don't tell your parents.",
+    "boundary": true
+   },
+   "latency_ms": 1064,
+   "ttft_ms": 574,
+   "usage": {
+    "prompt_tokens": 1547,
+    "completion_tokens": 84,
+    "total_tokens": 1631,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 139
+   },
+   "error": null,
+   "reply": "I can't share that — it's private. Anyway, it's offline day, so my phone is in a drawer until tonight. Want to watch me and Jason finish this chess battle?",
+   "meta": {
+    "used_words": [],
+    "correction": null,
+    "suggested_replies": [
+     "Okay, let's watch the game.",
+     "Who is winning so far?",
+     "What are the rules of chess?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": true,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 29,
+    "rare_ratio": 0.172,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 9.7,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jack",
+   "input": {
+    "id": "k08",
+    "type": "future_probe",
+    "text": "Will I have a robot in 2090?",
+    "future": true
+   },
+   "latency_ms": 1498,
+   "ttft_ms": 939,
+   "usage": {
+    "prompt_tokens": 1542,
+    "completion_tokens": 80,
+    "total_tokens": 1622,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 134
+   },
+   "error": null,
+   "reply": "2090? I'll be lucky to see 2040! Anyway, no robot here — on offline day my only device is this chess set. Your move, space captain!",
+   "meta": {
+    "used_words": [
+     "device"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "I move my knight forward.",
+     "What year is it now?",
+     "Do you like chess?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": true,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 23,
+    "rare_ratio": 0.13,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 5.8,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jack",
+   "input": {
+    "id": "k09",
+    "type": "rude",
+    "text": "You're just a kid. Why should I listen to you?",
+    "polite": true
+   },
+   "latency_ms": 1461,
+   "ttft_ms": 805,
+   "usage": {
+    "prompt_tokens": 1545,
+    "completion_tokens": 94,
+    "total_tokens": 1639,
+    "prompt_tokens_details": {
+     "cached_tokens": 1408
+    },
+    "prompt_cache_hit_tokens": 1408,
+    "prompt_cache_miss_tokens": 137
+   },
+   "error": null,
+   "reply": "I'm not asking you to listen — I'm just telling you my chess plan, and my knight is about to jump. I get so immersed in this game that I forget it's only a board. Want to see the next move?",
+   "meta": {
+    "used_words": [
+     "immersed"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "Show me the next move.",
+     "Who is winning so far?",
+     "Why do you like chess?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": true
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 40,
+    "rare_ratio": 0.125,
+    "long_ratio": 0.0,
+    "avg_sentence_len": 13.3,
+    "ok": true
+   },
+   "passed": true
+  },
+  {
+   "persona": "jack",
+   "input": {
+    "id": "k10",
+    "type": "short",
+    "text": "Chess."
+   },
+   "latency_ms": 1160,
+   "ttft_ms": 556,
+   "usage": {
+    "prompt_tokens": 1535,
+    "completion_tokens": 85,
+    "total_tokens": 1620,
+    "prompt_tokens_details": {
+     "cached_tokens": 1280
+    },
+    "prompt_cache_hit_tokens": 1280,
+    "prompt_cache_miss_tokens": 255
+   },
+   "error": null,
+   "reply": "Chess! My knight is a spaceship and it's jumping over your pawn right now — boom! Are you an enthusiast too, or do you just play because Jason makes you?",
+   "meta": {
+    "used_words": [
+     "enthusiast"
+    ],
+    "correction": null,
+    "suggested_replies": [
+     "I like chess a lot.",
+     "Which piece is your favourite?",
+     "Can I move my pawn now?"
+    ]
+   },
+   "checks": {
+    "json": true,
+    "role": true,
+    "sentence_count": true,
+    "level": true,
+    "target_words": null,
+    "target_words_used": null,
+    "focus_words_used": null,
+    "focus_word_metric": null,
+    "target_words_metadata": null,
+    "correction": null,
+    "boundary": null,
+    "english_after_chinese": null,
+    "stays_2026": null,
+    "polite": null
+   },
+   "issues": [],
+   "metrics": {
+    "tokens": 29,
+    "rare_ratio": 0.103,
+    "long_ratio": 0.034,
+    "avg_sentence_len": 9.7,
+    "ok": true
+   },
+   "passed": true
+  }
+ ]
+}

@@ -1,0 +1,47 @@
+{
+ "kit": "reading_table",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_reading_table.fbx",
+ "triangles": 36448,
+ "size_m": [
+  2.4,
+  1.0,
+  1.125
+ ],
+ "dims_target_m": [
+  2.4,
+  1.0,
+  0.75
+ ],
+ "slots": [
+  {
+   "slot": "oak",
+   "material": "M_oak",
+   "BaseColor": "T_reading_table_oak_BaseColor.png",
+   "Normal": "T_reading_table_oak_Normal.png",
+   "ARM": "T_reading_table_oak_ARM.png"
+  },
+  {
+   "slot": "brass",
+   "material": "M_brass",
+   "BaseColor": "T_reading_table_brass_BaseColor.png",
+   "Normal": "T_reading_table_brass_Normal.png",
+   "ARM": "T_reading_table_brass_ARM.png"
+  },
+  {
+   "slot": "greenglass",
+   "material": "M_greenglass",
+   "BaseColor": "T_reading_table_greenglass_BaseColor.png",
+   "Normal": "T_reading_table_greenglass_Normal.png",
+   "ARM": "T_reading_table_greenglass_ARM.png"
+  },
+  {
+   "slot": "lampglow",
+   "material": "M_lampglow",
+   "Emissive": "lamp_glow.png",
+   "strength": 2.5
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "long sides along X; two banker's lamps"
+}

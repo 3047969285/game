@@ -1,0 +1,82 @@
+{
+ "kit": "car_interior",
+ "dims_m": [
+  1.81,
+  2.4,
+  1.245
+ ],
+ "materials": {
+  "M_dash_plastic": {
+   "color": "#25262B",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_centre_screen": {
+   "color": "#0A0E14",
+   "roughness": 0.15,
+   "metallic": 0.0,
+   "emission": "#9FC4E8",
+   "emission_strength": 0.8,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_chrome": {
+   "color": "#9AA3AA",
+   "roughness": 0.3,
+   "metallic": 0.9,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_dial_glow": {
+   "color": "#0A0E14",
+   "roughness": 0.15,
+   "metallic": 0.0,
+   "emission": "#9FC4E8",
+   "emission_strength": 2.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_windscreen": {
+   "color": "#BFD9E6",
+   "roughness": 0.05,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 0.25,
+   "noise": 0.0
+  },
+  "M_carpet": {
+   "color": "#3A3D45",
+   "roughness": 1.0,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_wheel_rubber": {
+   "color": "#161618",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_leather": {
+   "color": "#4A3A2E",
+   "roughness": 0.7,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.2
+  }
+ }
+}

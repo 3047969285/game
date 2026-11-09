@@ -1,0 +1,55 @@
+{
+ "line_id": "vo.tb.unit01.section_a.p11",
+ "unit": 1,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "I'm not a critic, but I am a partisan for conversation. To make room for it, I see some first steps. At home, we can create “sacred” spaces for conversation while doing domestic chores: the kitchen, the dining room. We can make our cars a place free of little devices. We can be a consultant to our children through the demonstration of the value of conversation. At work, we can do the same thing. Employees asked for casual Fridays; managers may “collaborate” and introduce conversational Thursdays.",
+ "rate": 165,
+ "duration": 30.188,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 3.479,
+   "text": "I'm not a critic, but I am a partisan for conversation."
+  },
+  {
+   "i": 1,
+   "start": 3.479,
+   "end": 6.463,
+   "text": "To make room for it, I see some first steps."
+  },
+  {
+   "i": 2,
+   "start": 6.463,
+   "end": 13.611,
+   "text": "At home, we can create “sacred” spaces for conversation while doing domestic chores: the kitchen, the dining room."
+  },
+  {
+   "i": 3,
+   "start": 13.611,
+   "end": 16.621,
+   "text": "We can make our cars a place free of little devices."
+  },
+  {
+   "i": 4,
+   "start": 16.621,
+   "end": 21.627,
+   "text": "We can be a consultant to our children through the demonstration of the value of conversation."
+  },
+  {
+   "i": 5,
+   "start": 21.627,
+   "end": 23.911,
+   "text": "At work, we can do the same thing."
+  },
+  {
+   "i": 6,
+   "start": 23.911,
+   "end": 30.188,
+   "text": "Employees asked for casual Fridays; managers may “collaborate” and introduce conversational Thursdays."
+  }
+ ]
+}

@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit02.section_b.p06",
+ "unit": 2,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Soon, Audrey was transformed from a malnourished girl into an internationally famous movie star. Director Billy Wilder complimented her, saying, “Audrey walked beautifully; she spoke beautifully.” Although she won many awards for acting, Audrey felt that her most significant work was humanitarian work for those in need, and as the mother to her two sons. She suffered through two divorces and from her memories of the war. Yet, Audrey never let her sadness overcome her or jeopardize her hope for a brighter future. Audrey finally met her soul mate, Robert Wolders, and spent the last 12 years of her life with him.",
+ "rate": 165,
+ "duration": 36.569,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.676,
+   "text": "Soon, Audrey was transformed from a malnourished girl into an internationally famous movie star."
+  },
+  {
+   "i": 1,
+   "start": 5.676,
+   "end": 21.413,
+   "text": "Director Billy Wilder complimented her, saying, “Audrey walked beautifully; she spoke beautifully.” Although she won many awards for acting, Audrey felt that her most significant work was humanitarian work for those in need, and as the mother to her two sons."
+  },
+  {
+   "i": 2,
+   "start": 21.413,
+   "end": 24.907,
+   "text": "She suffered through two divorces and from her memories of the war."
+  },
+  {
+   "i": 3,
+   "start": 24.907,
+   "end": 30.343,
+   "text": "Yet, Audrey never let her sadness overcome her or jeopardize her hope for a brighter future."
+  },
+  {
+   "i": 4,
+   "start": 30.343,
+   "end": 36.569,
+   "text": "Audrey finally met her soul mate, Robert Wolders, and spent the last 12 years of her life with him."
+  }
+ ]
+}

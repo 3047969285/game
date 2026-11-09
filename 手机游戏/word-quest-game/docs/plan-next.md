@@ -14,6 +14,50 @@
 | f69cec8 | M1c 接口（视角切换、第一人称学习、导入教材） |
 | f3a548c | M1c：他/我/纸 自由切换（默认第三人称）、第一人称真实上课、全文进回忆；526 个测试通过 |
 
+## 2026-10-22 单元 5–6 六篇舞台（已完成）
+
+- 新增 `stages/moonExhibit.ts`、`controlRoom.ts`、`astronautHall.ts`（单元 5）；
+- 新增 `stages/bookstore.ts`、`bookExchange.ts`、`countyLibrary.ts`（单元 6）；
+- 新增 `scripts/u05.ts`、`u06.ts`，注册进 `scripts/index.ts`；
+- 场景清单：`docs/textbook-rebuild/scenes/unit05.md`、`unit06.md`；
+- 18 篇文章全部有专属舞台与手写脚本；测试覆盖 18 篇引用校验和全部件显形。
+
+## 2026-10-22 单元 4 三篇舞台（已完成）
+
+- 新增 `stages/careerWorkshop.ts`（职业工作坊）、`violinWorkshop.ts`（小提琴作坊）、`embroideryWorkshop.ts`（苏州绣坊）；
+- 新增 `scripts/u04.ts`（三篇开场/人物/舞台接入），已注册；
+- 场景清单：`docs/textbook-rebuild/scenes/unit04.md`；
+- 测试：unit4 引用校验 + 全部件覆盖；舞台测试含高铁窗外动画。
+
+## 2026-10-22 单元 3 三篇舞台（已完成）
+
+- 新增 `stages/travelLounge.ts`（旅店前厅）、`soloStation.ts`（夜晚站厅）、`highSpeedTrain.ts`（高铁车厢，窗外景观动画）；
+- 新增 `scripts/u03.ts`（三篇开场/人物/舞台接入），已注册；
+- 场景清单：`docs/textbook-rebuild/scenes/unit03.md`；
+- 测试：unit3 引用校验 + 全部件覆盖；舞台测试覆盖 8 个新舞台。
+
+## 2026-10-22 单元 2 三篇舞台（已完成）
+
+- 新增 `stages/archiveExhibit.ts`（校史展厅）、`hepburnGallery.ts`（Hepburn 展厅）、`chartRoom.ts`（海图室）；
+- 新增 `scripts/u02.ts`（A/B/C 三篇开场旁白 + 人物 + 舞台接入），注册进 `stages/index.ts` / `scripts/index.ts`；
+- 场景清单：`docs/textbook-rebuild/scenes/unit02.md`；
+- `autoScript` 改为把**所有**舞台部件均分到各幕，不再只建前 N 个；
+- 测试：scripts.test 增加 unit2 引用校验 + 全部件覆盖；stages.test 覆盖 5 个新舞台。
+
+## 2026-10-22 单元 1 三篇舞台（已完成）
+
+- 新增 `stages/bedroomDawn.ts`（宿舍清晨）与 `stages/clinicRemote.ts`（山区诊室），注册进 `stages/index.ts`；
+- 新增手写脚本 `scripts/u01b.ts`、`scripts/u01c.ts`，单元 1 的 A/B/C 三篇不再共用 emptyRoom；
+- 场景清单：`docs/textbook-rebuild/scenes/unit01.md`（样板块，后续 unit02–06 按同一格式）；
+- 测试：`src/features/memory/scripts/scripts.test.ts` 校验 B/C 的舞台引用；`stages.test.ts` 校验新舞台部件/摆放位/机位。
+
+## 2026-10-22 场景方向调整（已完成）
+
+- 双场景线：读写 3 = 文章实时演绎（回忆线）；CET 4/6 = 单词自由组合建造世界（新 `src/features/wordworld/`）。
+- 读写 3 沉浸化：`mem-tech` 科技记忆质感（扫描线/冷光/边缘光词签）；默认纯英文字幕；自由触碰不弹完整词签。
+- 入口：地图右下 ✦ 打开 `WORDWORLD · CET`（四级/六级切换，本机记录已建造世界数）。
+- 设计文档：`docs/gdd-scene-modes.md`。
+
 ## 下一步（按顺序）
 
 1. **试玩 M1c**（浏览器里还没看过）：三种视角各玩一遍 + 中途切换；重点看手机上讲义 / 笔记本尺寸、翻页动画、漫画格滤镜、四个选项是否超过屏幕 30%。修问题。

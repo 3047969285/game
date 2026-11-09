@@ -1,0 +1,55 @@
+{
+ "line_id": "vo.tb.unit03.section_b.p01",
+ "unit": 3,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "So you’re ready to travel. Pick a place, any place. Let’s say you’ve always wanted to go to China. You’ve seen pictures of the Great Wall, the Forbidden City, and Tiananmen Square. You’ve always been fascinated by Chinese aesthetics and culture, by real, fragrant temples and venerable statues. You have a chunk of money saved and extra vacation time earned. Now is the time to go!",
+ "rate": 165,
+ "duration": 23.903,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 1.637,
+   "text": "So you’re ready to travel."
+  },
+  {
+   "i": 1,
+   "start": 1.637,
+   "end": 3.681,
+   "text": "Pick a place, any place."
+  },
+  {
+   "i": 2,
+   "start": 3.681,
+   "end": 6.4,
+   "text": "Let’s say you’ve always wanted to go to China."
+  },
+  {
+   "i": 3,
+   "start": 6.4,
+   "end": 11.347,
+   "text": "You’ve seen pictures of the Great Wall, the Forbidden City, and Tiananmen Square."
+  },
+  {
+   "i": 4,
+   "start": 11.347,
+   "end": 18.743,
+   "text": "You’ve always been fascinated by Chinese aesthetics and culture, by real, fragrant temples and venerable statues."
+  },
+  {
+   "i": 5,
+   "start": 18.743,
+   "end": 22.368,
+   "text": "You have a chunk of money saved and extra vacation time earned."
+  },
+  {
+   "i": 6,
+   "start": 22.368,
+   "end": 23.903,
+   "text": "Now is the time to go!"
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "kit": "zztest",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_zztest.fbx",
+ "triangles": 1584,
+ "size_m": [
+  0.25,
+  0.02,
+  0.3
+ ],
+ "dims_target_m": [
+  0.25,
+  0.02,
+  0.32
+ ],
+ "slots": [
+  {
+   "slot": "x",
+   "material": "M_x",
+   "BaseColor": "T_zztest_x_BaseColor.png",
+   "Normal": "T_zztest_x_Normal.png",
+   "ARM": "T_zztest_x_ARM.png"
+  }
+ ],
+ "texture_res": 64,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": ""
+}

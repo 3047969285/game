@@ -1,0 +1,536 @@
+{
+ "CashRegister_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/CashRegister_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/CashRegister_01"
+ },
+ "SchoolDesk_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/SchoolDesk_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/SchoolDesk_01"
+ },
+ "WoodenChair_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/WoodenChair_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/WoodenChair_01"
+ },
+ "WoodenTable_02": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/WoodenTable_02",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/WoodenTable_02"
+ },
+ "alarm_clock_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/alarm_clock_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/alarm_clock_01"
+ },
+ "book_encyclopedia_set_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/book_encyclopedia_set_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/book_encyclopedia_set_01"
+ },
+ "cardboard_box_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/cardboard_box_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/cardboard_box_01"
+ },
+ "ceramic_vase_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/ceramic_vase_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/ceramic_vase_01"
+ },
+ "chess_set": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/chess_set",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/chess_set"
+ },
+ "classic_laptop": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/classic_laptop",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/classic_laptop"
+ },
+ "desk_lamp_arm_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/desk_lamp_arm_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/desk_lamp_arm_01"
+ },
+ "dining_table": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/dining_table",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/dining_table"
+ },
+ "fire_hydrant": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/fire_hydrant",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/fire_hydrant"
+ },
+ "gaming_console": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/gaming_console",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/gaming_console"
+ },
+ "hanging_picture_frame_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/hanging_picture_frame_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/hanging_picture_frame_01"
+ },
+ "hanging_picture_frame_02": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/hanging_picture_frame_02",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/hanging_picture_frame_02"
+ },
+ "jug_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/jug_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/jug_01"
+ },
+ "metal_office_desk": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/metal_office_desk",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/metal_office_desk"
+ },
+ "metal_trash_can": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/metal_trash_can",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/metal_trash_can"
+ },
+ "modern_arm_chair_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/modern_arm_chair_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/modern_arm_chair_01"
+ },
+ "modern_ceiling_lamp_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/modern_ceiling_lamp_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/modern_ceiling_lamp_01"
+ },
+ "modern_coffee_table_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/modern_coffee_table_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/modern_coffee_table_01"
+ },
+ "modern_wooden_cabinet": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/modern_wooden_cabinet",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/modern_wooden_cabinet"
+ },
+ "modular_street_seating": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/modular_street_seating",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/modular_street_seating"
+ },
+ "modular_urban_apartments_facade": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/modular_urban_apartments_facade",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/modular_urban_apartments_facade"
+ },
+ "office_notepads": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/office_notepads",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/office_notepads"
+ },
+ "painted_wooden_bench": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/painted_wooden_bench",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/painted_wooden_bench"
+ },
+ "planter_box_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/planter_box_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/planter_box_01"
+ },
+ "plastic_crate_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/plastic_crate_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/plastic_crate_01"
+ },
+ "potted_plant_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/potted_plant_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/potted_plant_01"
+ },
+ "potted_plant_04": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/potted_plant_04",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/potted_plant_04"
+ },
+ "projector_screen": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/projector_screen",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/projector_screen"
+ },
+ "round_wooden_table_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/round_wooden_table_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/round_wooden_table_01"
+ },
+ "shrub_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/shrub_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/shrub_01"
+ },
+ "side_table_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/side_table_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/side_table_01"
+ },
+ "sofa_02": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/sofa_02",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/sofa_02"
+ },
+ "standing_chalkboard_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/standing_chalkboard_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/standing_chalkboard_01"
+ },
+ "standing_picture_frame_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/standing_picture_frame_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/standing_picture_frame_01"
+ },
+ "stationery_supplies": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/stationery_supplies",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/stationery_supplies"
+ },
+ "steel_frame_shelves_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/steel_frame_shelves_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/steel_frame_shelves_01"
+ },
+ "street_lamp_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/street_lamp_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/street_lamp_01"
+ },
+ "tea_set_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/tea_set_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/tea_set_01"
+ },
+ "television_02": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/television_02",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/television_02"
+ },
+ "throw_pillows_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/throw_pillows_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/throw_pillows_01"
+ },
+ "tree_small_02": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/tree_small_02",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/tree_small_02"
+ },
+ "wall_clock": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/wall_clock",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/wall_clock"
+ },
+ "wicker_basket_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/wicker_basket_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/wicker_basket_01"
+ },
+ "wooden_bookshelf_worn": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/wooden_bookshelf_worn",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/wooden_bookshelf_worn"
+ },
+ "wooden_display_shelves_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/wooden_display_shelves_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/wooden_display_shelves_01"
+ },
+ "asphalt_02": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/asphalt_02",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/asphalt_02"
+ },
+ "brick_4": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/brick_4",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/brick_4"
+ },
+ "checkered_pavement_tiles": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/checkered_pavement_tiles",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/checkered_pavement_tiles"
+ },
+ "concrete_floor_02": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/concrete_floor_02",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/concrete_floor_02"
+ },
+ "dirty_carpet": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/dirty_carpet",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/dirty_carpet"
+ },
+ "fabric_leather_01": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/fabric_leather_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/fabric_leather_01"
+ },
+ "marble_01": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/marble_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/marble_01"
+ },
+ "painted_plaster_wall": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/painted_plaster_wall",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/painted_plaster_wall"
+ },
+ "wood_floor_worn": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/wood_floor_worn",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/wood_floor_worn"
+ },
+ "kiara_3_morning": {
+  "type": "hdris",
+  "path": "SourceArt/PolyHaven/hdris/kiara_3_morning_4k.hdr",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/kiara_3_morning"
+ },
+ "kiara_9_dusk": {
+  "type": "hdris",
+  "path": "SourceArt/PolyHaven/hdris/kiara_9_dusk_4k.hdr",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/kiara_9_dusk"
+ },
+ "kloofendal_overcast": {
+  "type": "hdris",
+  "path": "SourceArt/PolyHaven/hdris/kloofendal_overcast_4k.hdr",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/kloofendal_overcast"
+ },
+ "modern_evening_street": {
+  "type": "hdris",
+  "path": "SourceArt/PolyHaven/hdris/modern_evening_street_4k.hdr",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/modern_evening_street"
+ },
+ "suburban_garden": {
+  "type": "hdris",
+  "path": "SourceArt/PolyHaven/hdris/suburban_garden_4k.hdr",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/suburban_garden"
+ },
+ "urban_courtyard": {
+  "type": "hdris",
+  "path": "SourceArt/PolyHaven/hdris/urban_courtyard_4k.hdr",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/urban_courtyard"
+ },
+ "urban_street_01": {
+  "type": "hdris",
+  "path": "SourceArt/PolyHaven/hdris/urban_street_01_4k.hdr",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/urban_street_01"
+ },
+ "decorative_book_set_01": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/decorative_book_set_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/decorative_book_set_01"
+ },
+ "potted_plant_02": {
+  "type": "models",
+  "path": "SourceArt/PolyHaven/models/potted_plant_02",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/potted_plant_02"
+ },
+ "leafy_grass": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/leafy_grass",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/leafy_grass"
+ },
+ "sparse_grass": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/sparse_grass",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/sparse_grass"
+ },
+ "coast_sand_01": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/coast_sand_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/coast_sand_01"
+ },
+ "forest_ground_04": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/forest_ground_04",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/forest_ground_04"
+ },
+ "brown_mud_dry": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/brown_mud_dry",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/brown_mud_dry"
+ },
+ "rocky_terrain_02": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/rocky_terrain_02",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/rocky_terrain_02"
+ },
+ "moon_01": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/moon_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/moon_01"
+ },
+ "moon_dusted_01": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/moon_dusted_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/moon_dusted_01"
+ },
+ "red_mud_stones": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/red_mud_stones",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/red_mud_stones"
+ },
+ "snow_02": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/snow_02",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/snow_02"
+ },
+ "oak_veneer_01": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/oak_veneer_01",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/oak_veneer_01"
+ },
+ "walnut_veneer_02": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/walnut_veneer_02",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/walnut_veneer_02"
+ },
+ "white_maple_veneer": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/white_maple_veneer",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/white_maple_veneer"
+ },
+ "fine_grained_wood": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/fine_grained_wood",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/fine_grained_wood"
+ },
+ "wood_table_worn": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/wood_table_worn",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/wood_table_worn"
+ },
+ "white_plaster_02": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/white_plaster_02",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/white_plaster_02"
+ },
+ "concrete_wall_003": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/concrete_wall_003",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/concrete_wall_003"
+ },
+ "rustic_stone_wall_02": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/rustic_stone_wall_02",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/rustic_stone_wall_02"
+ },
+ "clay_roof_tiles_02": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/clay_roof_tiles_02",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/clay_roof_tiles_02"
+ },
+ "floor_tiles_06": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/floor_tiles_06",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/floor_tiles_06"
+ },
+ "rusty_metal_02": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/rusty_metal_02",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/rusty_metal_02"
+ },
+ "rough_linen": {
+  "type": "textures",
+  "path": "SourceArt/PolyHaven/textures/rough_linen",
+  "licence": "CC0",
+  "source": "https://polyhaven.com/a/rough_linen"
+ }
+}

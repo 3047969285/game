@@ -1,0 +1,6583 @@
+{
+  "schema": "wordquest.textbook_scenes/1",
+  "unit": 1,
+  "note": "Scene design for the real Unit 1 texts (Docs/scenes/unit01.md). Coordinates: metres, UE axes X right / Y forward / Z up, relative to each scene origin. word = lowercase headword of this unit's New words.",
+  "articles": [
+    {
+      "section": "section_a",
+      "level": "L_U01_A",
+      "title": "Connection or Conversation",
+      "scenes": [
+        {
+          "id": "u01a_s1",
+          "title": "Offline day",
+          "paragraphs": [
+            1
+          ],
+          "light": {
+            "type": "sun",
+            "dir": [
+              -0.45,
+              0.35,
+              -0.82
+            ],
+            "color": "#FFCF9A",
+            "intensity": 6.5,
+            "sky": "#1B2230",
+            "fill": 0.55
+          },
+          "props": [
+            {
+              "kit": "wall",
+              "pos": [
+                0,
+                3.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                6.0,
+                0.2,
+                3.0
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "window_wall",
+              "pos": [
+                -3.0,
+                0.5,
+                0.0
+              ],
+              "yaw": 90,
+              "scale": 1.0,
+              "size": [
+                5.0,
+                0.2,
+                3.0
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "rug",
+              "pos": [
+                0,
+                0.3,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                2.6,
+                1.8,
+                0.01
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "bookshelf",
+              "pos": [
+                2.2,
+                2.75,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.2,
+                0.35,
+                2.0
+              ],
+              "layer": "always",
+              "word": "convention"
+            },
+            {
+              "kit": "calendar",
+              "pos": [
+                -1.4,
+                2.88,
+                1.5
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.3,
+                0.02,
+                0.4
+              ],
+              "layer": "always",
+              "word": "scenario"
+            },
+            {
+              "kit": "floor_lamp",
+              "pos": [
+                -2.3,
+                1.6,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.35,
+                0.35,
+                1.6
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "coffee_table",
+              "pos": [
+                0,
+                0.3,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.1,
+                0.6,
+                0.42
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "armchair",
+              "pos": [
+                -1.3,
+                -0.4,
+                0.0
+              ],
+              "yaw": 35,
+              "scale": 1.0,
+              "size": [
+                0.9,
+                0.9,
+                1.0
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "armchair",
+              "pos": [
+                1.3,
+                -0.4,
+                0.0
+              ],
+              "yaw": -35,
+              "scale": 1.0,
+              "size": [
+                0.9,
+                0.9,
+                1.0
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "book",
+              "pos": [
+                -1.2,
+                -0.3,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.16,
+                0.24,
+                0.03
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "book",
+              "pos": [
+                1.2,
+                -0.3,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.16,
+                0.24,
+                0.03
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "chess_set",
+              "pos": [
+                0,
+                0.3,
+                0.42
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.45,
+                0.45,
+                0.1
+              ],
+              "layer": "always",
+              "word": "absorbed"
+            },
+            {
+              "kit": "phone_basket",
+              "pos": [
+                2.6,
+                -1.6,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.35,
+                0.25,
+                0.15
+              ],
+              "layer": "always",
+              "word": "offline"
+            },
+            {
+              "kit": "phone",
+              "pos": [
+                2.58,
+                -1.6,
+                0.1
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.075,
+                0.155,
+                0.009
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "phone",
+              "pos": [
+                2.64,
+                -1.58,
+                0.1
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.075,
+                0.155,
+                0.009
+              ],
+              "layer": "always"
+            }
+          ],
+          "people": [
+            {
+              "role": "paul",
+              "pos": [
+                -1.3,
+                -0.4,
+                0.0
+              ],
+              "yaw": 35,
+              "pose": "sit_read",
+              "layer": "always"
+            },
+            {
+              "role": "maria",
+              "pos": [
+                1.3,
+                -0.4,
+                0.0
+              ],
+              "yaw": -35,
+              "pose": "sit_read",
+              "layer": "always"
+            },
+            {
+              "role": "jason",
+              "pos": [
+                -0.45,
+                0.8,
+                0.0
+              ],
+              "yaw": 160,
+              "pose": "sit_chess",
+              "layer": "always"
+            },
+            {
+              "role": "jack",
+              "pos": [
+                0.45,
+                0.8,
+                0.0
+              ],
+              "yaw": -160,
+              "pose": "sit_chess",
+              "layer": "always"
+            }
+          ],
+          "shots": [
+            {
+              "name": "wide",
+              "pos": [
+                0,
+                -5.5,
+                1.7
+              ],
+              "look": [
+                0,
+                0.4,
+                0.8
+              ],
+              "fov": 40
+            },
+            {
+              "name": "chess",
+              "pos": [
+                0.9,
+                -0.6,
+                1.0
+              ],
+              "look": [
+                0,
+                0.3,
+                0.45
+              ],
+              "fov": 30
+            },
+            {
+              "name": "basket",
+              "pos": [
+                2.0,
+                -2.6,
+                0.8
+              ],
+              "look": [
+                2.6,
+                -1.6,
+                0.1
+              ],
+              "fov": 28
+            }
+          ],
+          "exercises": [
+            "u01_a_understanding#1"
+          ],
+          "origin": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": [
+            {
+              "word": "scenario",
+              "form": "scenario",
+              "paragraph": 1,
+              "sentence": 3
+            },
+            {
+              "word": "Maria",
+              "form": "Maria",
+              "paragraph": 1,
+              "sentence": 1
+            },
+            {
+              "word": "Jason",
+              "form": "Jason",
+              "paragraph": 1,
+              "sentence": 2
+            }
+          ],
+          "room": {
+            "_note": "Claude 2026-11-02: enclosed living room (Tools/room_shell.py). West window faces the garden; door to the hall on the east wall.",
+            "x": [
+              -3.0,
+              3.0
+            ],
+            "y": [
+              -2.6,
+              3.0
+            ],
+            "height": 2.75,
+            "wall_thickness": 0.15,
+            "materials": {
+              "wall": "plaster_warm",
+              "ceiling": "plaster",
+              "floor": "wood_floor",
+              "trim": "plaster"
+            },
+            "openings": [
+              {
+                "wall": "west",
+                "type": "window",
+                "center": 0.5,
+                "width": 2.4,
+                "sill": 0.8,
+                "height": 1.5,
+                "mullions": 2
+              },
+              {
+                "wall": "east",
+                "type": "door",
+                "center": 1.9,
+                "width": 0.9,
+                "height": 2.05,
+                "hinge": "south"
+              }
+            ],
+            "key_light": [
+              -6.5,
+              0.5,
+              3.6
+            ],
+            "fill_light": [
+              1.6,
+              -1.6,
+              2.3
+            ],
+            "exterior_hdri": "suburban_garden",
+            "time_of_day": "10:00",
+            "replaces": [
+              "wall",
+              "window_wall"
+            ],
+            "dressing": [
+              {
+                "id": "ceiling_lamp",
+                "model": "modern_ceiling_lamp_01",
+                "pos": [
+                  0.0,
+                  0.3,
+                  0
+                ],
+                "size": 0.55,
+                "mount": "ceiling"
+              },
+              {
+                "id": "sofa",
+                "model": "sofa_02",
+                "pos": [
+                  -0.9,
+                  2.5,
+                  0.0
+                ],
+                "yaw": 180,
+                "size": 2.1
+              },
+              {
+                "id": "side_table_w",
+                "model": "side_table_01",
+                "pos": [
+                  -2.15,
+                  -0.75,
+                  0.0
+                ],
+                "size": 0.55
+              },
+              {
+                "id": "side_table_e",
+                "model": "side_table_01",
+                "pos": [
+                  2.15,
+                  -0.75,
+                  0.0
+                ],
+                "size": 0.55
+              },
+              {
+                "id": "tea_set",
+                "model": "tea_set_01",
+                "pos": [
+                  0.36,
+                  0.12,
+                  0.42
+                ],
+                "yaw": 20,
+                "size": 0.32,
+                "pickup": true
+              },
+              {
+                "id": "plant_window",
+                "model": "potted_plant_04",
+                "pos": [
+                  -2.6,
+                  -1.7,
+                  0.0
+                ],
+                "size": 0.95
+              },
+              {
+                "id": "tv_cabinet",
+                "model": "modern_wooden_cabinet",
+                "pos": [
+                  0.0,
+                  -2.35,
+                  0.0
+                ],
+                "size": 1.6
+              },
+              {
+                "id": "picture_sofa",
+                "model": "hanging_picture_frame_01",
+                "pos": [
+                  -0.9,
+                  2.97,
+                  1.25
+                ],
+                "yaw": 0,
+                "size": 0.9
+              },
+              {
+                "id": "picture_east",
+                "model": "hanging_picture_frame_02",
+                "pos": [
+                  2.97,
+                  -0.8,
+                  1.2
+                ],
+                "yaw": -90,
+                "size": 0.7
+              },
+              {
+                "id": "wall_clock",
+                "model": "wall_clock",
+                "pos": [
+                  2.97,
+                  1.9,
+                  2.2
+                ],
+                "yaw": -90,
+                "size": 0.32
+              },
+              {
+                "id": "vase",
+                "model": "ceramic_vase_01",
+                "pos": [
+                  2.15,
+                  -0.75,
+                  0.55
+                ],
+                "size": 0.28,
+                "pickup": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "u01a_s2",
+          "title": "Always on",
+          "paragraphs": [
+            2,
+            3
+          ],
+          "light": {
+            "type": "interior",
+            "dir": [
+              0.2,
+              0.5,
+              -0.85
+            ],
+            "color": "#CFE3FF",
+            "intensity": 3.2,
+            "sky": "#0B1220",
+            "fill": 0.35
+          },
+          "props": [
+            {
+              "kit": "wall",
+              "pos": [
+                0,
+                3.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                6.0,
+                0.2,
+                3.0
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "window_wall",
+              "pos": [
+                -3.0,
+                0.5,
+                0.0
+              ],
+              "yaw": 90,
+              "scale": 1.0,
+              "size": [
+                5.0,
+                0.2,
+                3.0
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "rug",
+              "pos": [
+                0,
+                0.3,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                2.6,
+                1.8,
+                0.01
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "bookshelf",
+              "pos": [
+                2.2,
+                2.75,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.2,
+                0.35,
+                2.0
+              ],
+              "layer": "always",
+              "word": "convention"
+            },
+            {
+              "kit": "calendar",
+              "pos": [
+                -1.4,
+                2.88,
+                1.5
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.3,
+                0.02,
+                0.4
+              ],
+              "layer": "always",
+              "word": "scenario"
+            },
+            {
+              "kit": "floor_lamp",
+              "pos": [
+                -2.3,
+                1.6,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.35,
+                0.35,
+                1.6
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "coffee_table",
+              "pos": [
+                0,
+                0.3,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.1,
+                0.6,
+                0.42
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "sofa",
+              "pos": [
+                0,
+                -0.6,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                2.0,
+                0.9,
+                0.85
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "phone",
+              "pos": [
+                -0.6,
+                -0.5,
+                0.95
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.075,
+                0.155,
+                0.009
+              ],
+              "layer": "always",
+              "word": "lure"
+            },
+            {
+              "kit": "phone",
+              "pos": [
+                0.0,
+                -0.5,
+                0.95
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.075,
+                0.155,
+                0.009
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "tablet",
+              "pos": [
+                0.6,
+                -0.5,
+                0.95
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.18,
+                0.25,
+                0.008
+              ],
+              "layer": "always",
+              "word": "immersed"
+            },
+            {
+              "kit": "laptop",
+              "pos": [
+                0,
+                0.3,
+                0.42
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.32,
+                0.3,
+                0.22
+              ],
+              "layer": "always"
+            }
+          ],
+          "people": [
+            {
+              "role": "paul",
+              "pos": [
+                -0.6,
+                -0.6,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_phone",
+              "layer": "always"
+            },
+            {
+              "role": "maria",
+              "pos": [
+                0.0,
+                -0.6,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_phone",
+              "layer": "always"
+            },
+            {
+              "role": "jason",
+              "pos": [
+                0.6,
+                -0.6,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_tablet",
+              "layer": "always"
+            },
+            {
+              "role": "jack",
+              "pos": [
+                1.2,
+                -0.3,
+                0.0
+              ],
+              "yaw": -20,
+              "pose": "sit_phone",
+              "layer": "always"
+            }
+          ],
+          "shots": [
+            {
+              "name": "wide",
+              "pos": [
+                0,
+                -5.0,
+                1.6
+              ],
+              "look": [
+                0,
+                -0.4,
+                0.9
+              ],
+              "fov": 40
+            },
+            {
+              "name": "faces",
+              "pos": [
+                0,
+                -2.2,
+                1.05
+              ],
+              "look": [
+                0,
+                -0.6,
+                1.0
+              ],
+              "fov": 35
+            }
+          ],
+          "exercises": [],
+          "origin": [
+            60.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": [
+            {
+              "word": "convention",
+              "form": "convention",
+              "paragraph": 2,
+              "sentence": 1
+            },
+            {
+              "word": "immerse",
+              "form": "immersed",
+              "paragraph": 2,
+              "sentence": 2
+            },
+            {
+              "word": "immersed",
+              "form": "immersed",
+              "paragraph": 2,
+              "sentence": 2
+            },
+            {
+              "word": "executive",
+              "form": "executives",
+              "paragraph": 3,
+              "sentence": 2
+            },
+            {
+              "word": "identical",
+              "form": "identical",
+              "paragraph": 3,
+              "sentence": 4
+            },
+            {
+              "word": "furious",
+              "form": "furiously",
+              "paragraph": 3,
+              "sentence": 4
+            },
+            {
+              "word": "furiously",
+              "form": "furiously",
+              "paragraph": 3,
+              "sentence": 4
+            },
+            {
+              "word": "device",
+              "form": "devices",
+              "paragraph": 3,
+              "sentence": 5
+            }
+          ]
+        },
+        {
+          "id": "u01a_s3",
+          "title": "Board meeting",
+          "paragraphs": [
+            3
+          ],
+          "light": {
+            "type": "interior",
+            "dir": [
+              0.0,
+              0.6,
+              -0.8
+            ],
+            "color": "#F2F5FF",
+            "intensity": 4.5,
+            "sky": "#141A24",
+            "fill": 0.6
+          },
+          "props": [
+            {
+              "kit": "wall",
+              "pos": [
+                0,
+                3.2,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                6.0,
+                0.2,
+                3.0
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "blinds",
+              "pos": [
+                -3.2,
+                0.5,
+                0.8
+              ],
+              "yaw": 90,
+              "scale": 1.0,
+              "size": [
+                3.0,
+                0.05,
+                2.2
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "board_table",
+              "pos": [
+                0,
+                0.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                5.0,
+                1.4,
+                0.75
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "projector_screen",
+              "pos": [
+                0,
+                3.05,
+                1.2
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                2.4,
+                0.05,
+                1.5
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "office_chair",
+              "pos": [
+                -1.8,
+                -0.4,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.6,
+                0.6,
+                1.1
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "office_chair",
+              "pos": [
+                -1.8,
+                1.4,
+                0.0
+              ],
+              "yaw": 180,
+              "scale": 1.0,
+              "size": [
+                0.6,
+                0.6,
+                1.1
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "office_chair",
+              "pos": [
+                -0.6,
+                -0.4,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.6,
+                0.6,
+                1.1
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "office_chair",
+              "pos": [
+                -0.6,
+                1.4,
+                0.0
+              ],
+              "yaw": 180,
+              "scale": 1.0,
+              "size": [
+                0.6,
+                0.6,
+                1.1
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "office_chair",
+              "pos": [
+                0.6,
+                -0.4,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.6,
+                0.6,
+                1.1
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "office_chair",
+              "pos": [
+                0.6,
+                1.4,
+                0.0
+              ],
+              "yaw": 180,
+              "scale": 1.0,
+              "size": [
+                0.6,
+                0.6,
+                1.1
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "office_chair",
+              "pos": [
+                1.8,
+                -0.4,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.6,
+                0.6,
+                1.1
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "office_chair",
+              "pos": [
+                1.8,
+                1.4,
+                0.0
+              ],
+              "yaw": 180,
+              "scale": 1.0,
+              "size": [
+                0.6,
+                0.6,
+                1.1
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "document_stack",
+              "pos": [
+                -1.8,
+                0.2,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.22,
+                0.3,
+                0.04
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "document_stack",
+              "pos": [
+                -0.6,
+                0.2,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.22,
+                0.3,
+                0.04
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "document_stack",
+              "pos": [
+                0.6,
+                0.2,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.22,
+                0.3,
+                0.04
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "document_stack",
+              "pos": [
+                1.8,
+                0.2,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.22,
+                0.3,
+                0.04
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "phone",
+              "pos": [
+                -1.7,
+                -0.25,
+                0.62
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.075,
+                0.155,
+                0.009
+              ],
+              "layer": "always",
+              "word": "executive"
+            },
+            {
+              "kit": "phone",
+              "pos": [
+                0.7,
+                -0.25,
+                0.62
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.075,
+                0.155,
+                0.009
+              ],
+              "layer": "always"
+            }
+          ],
+          "people": [
+            {
+              "role": "executive_0",
+              "pos": [
+                -1.8,
+                -0.4,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_text_under_table",
+              "layer": "always"
+            },
+            {
+              "role": "executive_1",
+              "pos": [
+                -0.6,
+                -0.4,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_text_under_table",
+              "layer": "always"
+            },
+            {
+              "role": "executive_2",
+              "pos": [
+                0.6,
+                -0.4,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_text_under_table",
+              "layer": "always"
+            },
+            {
+              "role": "executive_3",
+              "pos": [
+                1.8,
+                -0.4,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_text_under_table",
+              "layer": "always"
+            },
+            {
+              "role": "executive_4",
+              "pos": [
+                -0.6,
+                1.4,
+                0.0
+              ],
+              "yaw": 180,
+              "pose": "sit_text_under_table",
+              "layer": "always"
+            },
+            {
+              "role": "executive_5",
+              "pos": [
+                0.6,
+                1.4,
+                0.0
+              ],
+              "yaw": 180,
+              "pose": "sit_text_under_table",
+              "layer": "always"
+            }
+          ],
+          "shots": [
+            {
+              "name": "wide",
+              "pos": [
+                0,
+                -5.0,
+                2.0
+              ],
+              "look": [
+                0,
+                0.5,
+                0.8
+              ],
+              "fov": 42
+            },
+            {
+              "name": "under_table",
+              "pos": [
+                -1.0,
+                -1.2,
+                0.5
+              ],
+              "look": [
+                -1.7,
+                -0.25,
+                0.6
+              ],
+              "fov": 30
+            }
+          ],
+          "exercises": [
+            "u01_a_expressions_in_use#1-3"
+          ],
+          "origin": [
+            120.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": []
+        },
+        {
+          "id": "u01a_s4",
+          "title": "Alone together",
+          "paragraphs": [
+            3,
+            4
+          ],
+          "light": {
+            "type": "sun",
+            "dir": [
+              -0.3,
+              0.45,
+              -0.84
+            ],
+            "color": "#FFF1DC",
+            "intensity": 9.0,
+            "sky": "#7FA6C9",
+            "fill": 0.8
+          },
+          "props": [
+            {
+              "kit": "library_shelf",
+              "pos": [
+                -4.0,
+                3.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                3.0,
+                0.45,
+                2.2
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "library_shelf",
+              "pos": [
+                -0.8,
+                3.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                3.0,
+                0.45,
+                2.2
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "reading_table",
+              "pos": [
+                -2.4,
+                0.8,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                2.4,
+                1.0,
+                0.75
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "chair",
+              "pos": [
+                -3.2,
+                0.1,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.45,
+                0.5,
+                0.9
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "chair",
+              "pos": [
+                -1.6,
+                0.1,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.45,
+                0.5,
+                0.9
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "chair",
+              "pos": [
+                -2.4,
+                1.5,
+                0.0
+              ],
+              "yaw": 180,
+              "scale": 1.0,
+              "size": [
+                0.45,
+                0.5,
+                0.9
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "keyboard",
+              "pos": [
+                -3.2,
+                0.7,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.44,
+                0.14,
+                0.03
+              ],
+              "layer": "always",
+              "word": "furiously"
+            },
+            {
+              "kit": "tablet",
+              "pos": [
+                -1.6,
+                0.7,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.18,
+                0.25,
+                0.008
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "lawn",
+              "pos": [
+                7.0,
+                1.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                14.0,
+                10.0,
+                0.02
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "glass_building",
+              "pos": [
+                9.0,
+                8.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                10.0,
+                6.0,
+                8.0
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "bench",
+              "pos": [
+                5.0,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.6,
+                0.6,
+                0.8
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "bench",
+              "pos": [
+                8.5,
+                -0.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.6,
+                0.6,
+                0.8
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "bubble",
+              "pos": [
+                -3.2,
+                0.1,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                1.4,
+                1.8
+              ],
+              "layer": "always",
+              "word": "identical"
+            },
+            {
+              "kit": "bubble",
+              "pos": [
+                -1.6,
+                0.1,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                1.4,
+                1.8
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "bubble",
+              "pos": [
+                -2.4,
+                1.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                1.4,
+                1.8
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "bubble",
+              "pos": [
+                5.0,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                1.4,
+                1.8
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "bubble",
+              "pos": [
+                8.5,
+                -0.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                1.4,
+                1.8
+              ],
+              "layer": "always"
+            }
+          ],
+          "people": [
+            {
+              "role": "student_1",
+              "pos": [
+                -3.2,
+                0.1,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_type",
+              "layer": "always"
+            },
+            {
+              "role": "student_2",
+              "pos": [
+                -1.6,
+                0.1,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_tablet",
+              "layer": "always"
+            },
+            {
+              "role": "student_3",
+              "pos": [
+                -2.4,
+                1.5,
+                0.0
+              ],
+              "yaw": 180,
+              "pose": "sit_phone",
+              "layer": "always"
+            },
+            {
+              "role": "engineer_1",
+              "pos": [
+                5.0,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_phone",
+              "layer": "always"
+            },
+            {
+              "role": "engineer_2",
+              "pos": [
+                8.5,
+                -0.5,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_laptop",
+              "layer": "always"
+            },
+            {
+              "role": "me",
+              "pos": [
+                6.8,
+                -2.0,
+                0.0
+              ],
+              "yaw": 30,
+              "pose": "stand_look",
+              "layer": "always"
+            }
+          ],
+          "shots": [
+            {
+              "name": "library",
+              "pos": [
+                -2.4,
+                -3.8,
+                1.8
+              ],
+              "look": [
+                -2.4,
+                0.8,
+                0.9
+              ],
+              "fov": 40
+            },
+            {
+              "name": "campus",
+              "pos": [
+                6.8,
+                -6.5,
+                2.2
+              ],
+              "look": [
+                6.8,
+                0,
+                1.0
+              ],
+              "fov": 45
+            }
+          ],
+          "exercises": [
+            "u01_a_understanding#2"
+          ],
+          "origin": [
+            180.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": [
+            {
+              "word": "tribe",
+              "form": "tribe",
+              "paragraph": 4,
+              "sentence": 3
+            }
+          ]
+        },
+        {
+          "id": "u01a_s5",
+          "title": "Cockpits",
+          "paragraphs": [
+            5
+          ],
+          "light": {
+            "type": "interior",
+            "dir": [
+              0.0,
+              0.6,
+              -0.8
+            ],
+            "color": "#F2F5FF",
+            "intensity": 4.5,
+            "sky": "#141A24",
+            "fill": 0.6
+          },
+          "props": [
+            {
+              "kit": "wall",
+              "pos": [
+                0,
+                3.4,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                6.0,
+                0.2,
+                3.0
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "door",
+              "pos": [
+                -3.4,
+                0.0,
+                0.0
+              ],
+              "yaw": 90,
+              "scale": 1.0,
+              "size": [
+                1.0,
+                0.1,
+                2.1
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "office_desk",
+              "pos": [
+                -1.6,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                0.75,
+                0.75
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "office_desk",
+              "pos": [
+                -1.6,
+                1.8,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                0.75,
+                0.75
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "office_desk",
+              "pos": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                0.75,
+                0.75
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "office_desk",
+              "pos": [
+                0.0,
+                1.8,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                0.75,
+                0.75
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "office_desk",
+              "pos": [
+                1.6,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                0.75,
+                0.75
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "office_desk",
+              "pos": [
+                1.6,
+                1.8,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                0.75,
+                0.75
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "laptop",
+              "pos": [
+                -1.6,
+                0.05,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.32,
+                0.3,
+                0.22
+              ],
+              "layer": "always",
+              "word": "suite"
+            },
+            {
+              "kit": "laptop",
+              "pos": [
+                -1.6,
+                1.85,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.32,
+                0.3,
+                0.22
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "laptop",
+              "pos": [
+                0.0,
+                0.05,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.32,
+                0.3,
+                0.22
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "laptop",
+              "pos": [
+                0.0,
+                1.85,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.32,
+                0.3,
+                0.22
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "laptop",
+              "pos": [
+                1.6,
+                0.05,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.32,
+                0.3,
+                0.22
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "laptop",
+              "pos": [
+                1.6,
+                1.85,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.32,
+                0.3,
+                0.22
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "phone",
+              "pos": [
+                -1.25,
+                0.0,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.075,
+                0.155,
+                0.009
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "phone",
+              "pos": [
+                -1.25,
+                1.8,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.075,
+                0.155,
+                0.009
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "phone",
+              "pos": [
+                0.35,
+                0.0,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.075,
+                0.155,
+                0.009
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "phone",
+              "pos": [
+                0.35,
+                1.8,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.075,
+                0.155,
+                0.009
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "phone",
+              "pos": [
+                1.95,
+                0.0,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.075,
+                0.155,
+                0.009
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "phone",
+              "pos": [
+                1.95,
+                1.8,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.075,
+                0.155,
+                0.009
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "tablet",
+              "pos": [
+                -2.0,
+                0.0,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.18,
+                0.25,
+                0.008
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "tablet",
+              "pos": [
+                -2.0,
+                1.8,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.18,
+                0.25,
+                0.008
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "tablet",
+              "pos": [
+                -0.4,
+                0.0,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.18,
+                0.25,
+                0.008
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "tablet",
+              "pos": [
+                -0.4,
+                1.8,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.18,
+                0.25,
+                0.008
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "tablet",
+              "pos": [
+                1.2,
+                0.0,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.18,
+                0.25,
+                0.008
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "tablet",
+              "pos": [
+                1.2,
+                1.8,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.18,
+                0.25,
+                0.008
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "headphones",
+              "pos": [
+                -1.6,
+                -0.25,
+                1.35
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.2,
+                0.1,
+                0.22
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "headphones",
+              "pos": [
+                -1.6,
+                1.55,
+                1.35
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.2,
+                0.1,
+                0.22
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "headphones",
+              "pos": [
+                0.0,
+                -0.25,
+                1.35
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.2,
+                0.1,
+                0.22
+              ],
+              "layer": "always",
+              "word": "cockpit"
+            },
+            {
+              "kit": "headphones",
+              "pos": [
+                0.0,
+                1.55,
+                1.35
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.2,
+                0.1,
+                0.22
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "headphones",
+              "pos": [
+                1.6,
+                -0.25,
+                1.35
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.2,
+                0.1,
+                0.22
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "headphones",
+              "pos": [
+                1.6,
+                1.55,
+                1.35
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.2,
+                0.1,
+                0.22
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "cockpit_console",
+              "pos": [
+                -1.6,
+                0.1,
+                0.76
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                0.6,
+                0.35
+              ],
+              "layer": "now"
+            },
+            {
+              "kit": "cockpit_console",
+              "pos": [
+                -1.6,
+                1.9,
+                0.76
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                0.6,
+                0.35
+              ],
+              "layer": "now"
+            },
+            {
+              "kit": "cockpit_console",
+              "pos": [
+                0.0,
+                0.1,
+                0.76
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                0.6,
+                0.35
+              ],
+              "layer": "now",
+              "word": "convert"
+            },
+            {
+              "kit": "cockpit_console",
+              "pos": [
+                0.0,
+                1.9,
+                0.76
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                0.6,
+                0.35
+              ],
+              "layer": "now"
+            },
+            {
+              "kit": "cockpit_console",
+              "pos": [
+                1.6,
+                0.1,
+                0.76
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                0.6,
+                0.35
+              ],
+              "layer": "now"
+            },
+            {
+              "kit": "cockpit_console",
+              "pos": [
+                1.6,
+                1.9,
+                0.76
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                0.6,
+                0.35
+              ],
+              "layer": "now"
+            }
+          ],
+          "people": [
+            {
+              "role": "associate_0",
+              "pos": [
+                -1.6,
+                -0.6,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_headphones",
+              "layer": "always"
+            },
+            {
+              "role": "associate_1",
+              "pos": [
+                -1.6,
+                1.2000000000000002,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_headphones",
+              "layer": "always"
+            },
+            {
+              "role": "associate_2",
+              "pos": [
+                0.0,
+                -0.6,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_headphones",
+              "layer": "always"
+            },
+            {
+              "role": "associate_3",
+              "pos": [
+                0.0,
+                1.2000000000000002,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_headphones",
+              "layer": "always"
+            },
+            {
+              "role": "associate_4",
+              "pos": [
+                1.6,
+                -0.6,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_headphones",
+              "layer": "always"
+            },
+            {
+              "role": "associate_5",
+              "pos": [
+                1.6,
+                1.2000000000000002,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_headphones",
+              "layer": "always"
+            },
+            {
+              "role": "senior_partner",
+              "pos": [
+                -3.0,
+                -0.6,
+                0.0
+              ],
+              "yaw": 60,
+              "pose": "stand_watch",
+              "layer": "always"
+            }
+          ],
+          "shots": [
+            {
+              "name": "door",
+              "pos": [
+                -3.6,
+                -1.6,
+                1.7
+              ],
+              "look": [
+                0,
+                0.9,
+                1.0
+              ],
+              "fov": 40
+            },
+            {
+              "name": "cockpit",
+              "pos": [
+                0.0,
+                -1.3,
+                1.25
+              ],
+              "look": [
+                0,
+                0.1,
+                0.95
+              ],
+              "fov": 32
+            }
+          ],
+          "exercises": [
+            "u01_a_word_building"
+          ],
+          "origin": [
+            240.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": [
+            {
+              "word": "suite",
+              "form": "suite",
+              "paragraph": 5,
+              "sentence": 2
+            },
+            {
+              "word": "tablet",
+              "form": "tablets",
+              "paragraph": 5,
+              "sentence": 2
+            },
+            {
+              "word": "convert",
+              "form": "converted",
+              "paragraph": 5,
+              "sentence": 6
+            },
+            {
+              "word": "cockpit",
+              "form": "cockpits",
+              "paragraph": 5,
+              "sentence": 6
+            },
+            {
+              "word": "plunge",
+              "form": "plunged",
+              "paragraph": 5,
+              "sentence": 8
+            }
+          ]
+        },
+        {
+          "id": "u01a_s6",
+          "title": "Sips and a swallow",
+          "paragraphs": [
+            6,
+            7,
+            8,
+            9
+          ],
+          "light": {
+            "type": "interior",
+            "dir": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "color": "#B8D1D5",
+            "intensity": 2.2,
+            "sky": "#04060B",
+            "fill": 0.25
+          },
+          "props": [
+            {
+              "kit": "cafe_table",
+              "pos": [
+                0,
+                0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.7,
+                0.7,
+                0.74
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "chair",
+              "pos": [
+                -0.55,
+                0,
+                0.0
+              ],
+              "yaw": 90,
+              "scale": 1.0,
+              "size": [
+                0.45,
+                0.5,
+                0.9
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "chair",
+              "pos": [
+                0.55,
+                0,
+                0.0
+              ],
+              "yaw": -90,
+              "scale": 1.0,
+              "size": [
+                0.45,
+                0.5,
+                0.9
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "coffee_cup",
+              "pos": [
+                -0.15,
+                0,
+                0.74
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.09,
+                0.09,
+                0.1
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "coffee_cup",
+              "pos": [
+                0.15,
+                0,
+                0.74
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.09,
+                0.09,
+                0.1
+              ],
+              "layer": "always",
+              "word": "substitute"
+            },
+            {
+              "kit": "tone_ripple",
+              "pos": [
+                0,
+                0,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.6,
+                1.6,
+                0.02
+              ],
+              "layer": "always",
+              "word": "nuance"
+            },
+            {
+              "kit": "message_drop",
+              "pos": [
+                -2.5,
+                1.5,
+                2.6
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.12,
+                0.12,
+                0.12
+              ],
+              "layer": "always",
+              "word": "discrete"
+            },
+            {
+              "kit": "message_drop",
+              "pos": [
+                -1.8,
+                2.2,
+                3.1
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.12,
+                0.12,
+                0.12
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "message_drop",
+              "pos": [
+                2.1,
+                1.8,
+                2.8
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.12,
+                0.12,
+                0.12
+              ],
+              "layer": "always",
+              "word": "velocity"
+            },
+            {
+              "kit": "message_drop",
+              "pos": [
+                2.8,
+                0.6,
+                2.2
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.12,
+                0.12,
+                0.12
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "message_drop",
+              "pos": [
+                -3.0,
+                -0.5,
+                2.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.12,
+                0.12,
+                0.12
+              ],
+              "layer": "always",
+              "word": "volume"
+            },
+            {
+              "kit": "message_drop",
+              "pos": [
+                1.2,
+                2.8,
+                3.4
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.12,
+                0.12,
+                0.12
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "message_drop",
+              "pos": [
+                3.3,
+                -0.8,
+                2.5
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.12,
+                0.12,
+                0.12
+              ],
+              "layer": "always",
+              "word": "acceleration"
+            }
+          ],
+          "people": [
+            {
+              "role": "friend_a",
+              "pos": [
+                -0.55,
+                0,
+                0.0
+              ],
+              "yaw": 90,
+              "pose": "sit_talk",
+              "layer": "always"
+            },
+            {
+              "role": "friend_b",
+              "pos": [
+                0.55,
+                0,
+                0.0
+              ],
+              "yaw": -90,
+              "pose": "sit_listen",
+              "layer": "always"
+            }
+          ],
+          "shots": [
+            {
+              "name": "orbit",
+              "pos": [
+                0,
+                -4.2,
+                2.0
+              ],
+              "look": [
+                0,
+                0,
+                1.2
+              ],
+              "fov": 45
+            },
+            {
+              "name": "faces",
+              "pos": [
+                0,
+                -1.4,
+                1.15
+              ],
+              "look": [
+                0,
+                0,
+                1.1
+              ],
+              "fov": 30
+            }
+          ],
+          "exercises": [
+            "u01_a_banked_cloze"
+          ],
+          "origin": [
+            300.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": [
+            {
+              "word": "deletion",
+              "form": "deletion",
+              "paragraph": 6,
+              "sentence": 3
+            },
+            {
+              "word": "commerce",
+              "form": "commerce",
+              "paragraph": 7,
+              "sentence": 3
+            },
+            {
+              "word": "substitute",
+              "form": "substitute",
+              "paragraph": 7,
+              "sentence": 3
+            },
+            {
+              "word": "discrete",
+              "form": "discrete",
+              "paragraph": 8,
+              "sentence": 1
+            },
+            {
+              "word": "adequacy",
+              "form": "adequacy",
+              "paragraph": 8,
+              "sentence": 1
+            },
+            {
+              "word": "observant",
+              "form": "observant",
+              "paragraph": 8,
+              "sentence": 2
+            },
+            {
+              "word": "nuance",
+              "form": "nuances",
+              "paragraph": 8,
+              "sentence": 3
+            },
+            {
+              "word": "volume",
+              "form": "volume",
+              "paragraph": 9,
+              "sentence": 2
+            },
+            {
+              "word": "velocity",
+              "form": "velocity",
+              "paragraph": 9,
+              "sentence": 2
+            },
+            {
+              "word": "acceleration",
+              "form": "acceleration",
+              "paragraph": 9,
+              "sentence": 2
+            }
+          ]
+        },
+        {
+          "id": "u01a_s7",
+          "title": "Sacred spaces",
+          "paragraphs": [
+            10,
+            11
+          ],
+          "light": {
+            "type": "sun",
+            "dir": [
+              -0.45,
+              0.35,
+              -0.82
+            ],
+            "color": "#FFCF9A",
+            "intensity": 6.5,
+            "sky": "#1B2230",
+            "fill": 0.55
+          },
+          "props": [
+            {
+              "kit": "kitchen_counter",
+              "pos": [
+                -6.0,
+                1.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                2.4,
+                0.65,
+                0.92
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "sink",
+              "pos": [
+                -6.0,
+                1.0,
+                0.92
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.6,
+                0.45,
+                0.2
+              ],
+              "layer": "always",
+              "word": "chore"
+            },
+            {
+              "kit": "dish_rack",
+              "pos": [
+                -5.2,
+                1.0,
+                0.92
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.45,
+                0.3,
+                0.25
+              ],
+              "layer": "always",
+              "word": "domestic"
+            },
+            {
+              "kit": "dining_table",
+              "pos": [
+                -2.0,
+                0.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.8,
+                0.95,
+                0.75
+              ],
+              "layer": "always",
+              "word": "sacred"
+            },
+            {
+              "kit": "chair",
+              "pos": [
+                -2.7,
+                0.5,
+                0.0
+              ],
+              "yaw": 90,
+              "scale": 1.0,
+              "size": [
+                0.45,
+                0.5,
+                0.9
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "chair",
+              "pos": [
+                -1.3,
+                0.5,
+                0.0
+              ],
+              "yaw": -90,
+              "scale": 1.0,
+              "size": [
+                0.45,
+                0.5,
+                0.9
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "car_interior",
+              "pos": [
+                2.2,
+                0.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.8,
+                2.4,
+                1.3
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "device_box",
+              "pos": [
+                2.2,
+                -0.2,
+                0.6
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.3,
+                0.2,
+                0.12
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "office_desk",
+              "pos": [
+                6.0,
+                0.6,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                0.75,
+                0.75
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "whiteboard",
+              "pos": [
+                6.0,
+                1.6,
+                1.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.8,
+                0.05,
+                1.1
+              ],
+              "layer": "always",
+              "word": "collaborate"
+            },
+            {
+              "kit": "chair",
+              "pos": [
+                5.4,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.45,
+                0.5,
+                0.9
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "chair",
+              "pos": [
+                6.6,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.45,
+                0.5,
+                0.9
+              ],
+              "layer": "always"
+            }
+          ],
+          "people": [
+            {
+              "role": "parent",
+              "pos": [
+                -6.0,
+                0.4,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "wash_dishes",
+              "layer": "always"
+            },
+            {
+              "role": "child",
+              "pos": [
+                -5.3,
+                0.4,
+                0.0
+              ],
+              "yaw": -20,
+              "pose": "talk",
+              "layer": "always"
+            },
+            {
+              "role": "family_a",
+              "pos": [
+                -2.7,
+                0.5,
+                0.0
+              ],
+              "yaw": 90,
+              "pose": "sit_talk",
+              "layer": "always"
+            },
+            {
+              "role": "family_b",
+              "pos": [
+                -1.3,
+                0.5,
+                0.0
+              ],
+              "yaw": -90,
+              "pose": "sit_talk",
+              "layer": "always"
+            },
+            {
+              "role": "driver",
+              "pos": [
+                1.8,
+                0.8,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_drive",
+              "layer": "always"
+            },
+            {
+              "role": "passenger",
+              "pos": [
+                2.6,
+                0.8,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_talk",
+              "layer": "always"
+            },
+            {
+              "role": "colleague_a",
+              "pos": [
+                5.4,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_talk",
+              "layer": "always"
+            },
+            {
+              "role": "colleague_b",
+              "pos": [
+                6.6,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_talk",
+              "layer": "always"
+            }
+          ],
+          "shots": [
+            {
+              "name": "pan",
+              "pos": [
+                0,
+                -7.0,
+                2.4
+              ],
+              "look": [
+                0,
+                0.6,
+                0.9
+              ],
+              "fov": 55
+            },
+            {
+              "name": "kitchen",
+              "pos": [
+                -6.0,
+                -2.0,
+                1.6
+              ],
+              "look": [
+                -5.6,
+                1.0,
+                1.0
+              ],
+              "fov": 38
+            },
+            {
+              "name": "thursday",
+              "pos": [
+                6.0,
+                -2.2,
+                1.6
+              ],
+              "look": [
+                6.0,
+                1.4,
+                1.1
+              ],
+              "fov": 38
+            }
+          ],
+          "exercises": [
+            "u01_a_words_in_use"
+          ],
+          "origin": [
+            360.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": [
+            {
+              "word": "continual",
+              "form": "continually",
+              "paragraph": 10,
+              "sentence": 2
+            },
+            {
+              "word": "continually",
+              "form": "continually",
+              "paragraph": 10,
+              "sentence": 2
+            },
+            {
+              "word": "reflective",
+              "form": "reflective",
+              "paragraph": 10,
+              "sentence": 2
+            },
+            {
+              "word": "critic",
+              "form": "critic",
+              "paragraph": 11,
+              "sentence": 1
+            },
+            {
+              "word": "partisan",
+              "form": "partisan",
+              "paragraph": 11,
+              "sentence": 1
+            },
+            {
+              "word": "sacred",
+              "form": "sacred",
+              "paragraph": 11,
+              "sentence": 3
+            },
+            {
+              "word": "domestic",
+              "form": "domestic",
+              "paragraph": 11,
+              "sentence": 3
+            },
+            {
+              "word": "chore",
+              "form": "chores",
+              "paragraph": 11,
+              "sentence": 3
+            },
+            {
+              "word": "consultant",
+              "form": "consultant",
+              "paragraph": 11,
+              "sentence": 5
+            },
+            {
+              "word": "collaborate",
+              "form": "collaborate",
+              "paragraph": 11,
+              "sentence": 7
+            }
+          ]
+        },
+        {
+          "id": "u01a_s8",
+          "title": "Look up",
+          "paragraphs": [
+            12
+          ],
+          "light": {
+            "type": "sun",
+            "dir": [
+              -0.7,
+              0.2,
+              -0.3
+            ],
+            "color": "#FFB27A",
+            "intensity": 4.0,
+            "sky": "#2A2335",
+            "fill": 0.45
+          },
+          "props": [
+            {
+              "kit": "wall",
+              "pos": [
+                0,
+                3.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                6.0,
+                0.2,
+                3.0
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "window_wall",
+              "pos": [
+                -3.0,
+                0.5,
+                0.0
+              ],
+              "yaw": 90,
+              "scale": 1.0,
+              "size": [
+                5.0,
+                0.2,
+                3.0
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "rug",
+              "pos": [
+                0,
+                0.3,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                2.6,
+                1.8,
+                0.01
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "bookshelf",
+              "pos": [
+                2.2,
+                2.75,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.2,
+                0.35,
+                2.0
+              ],
+              "layer": "always",
+              "word": "convention"
+            },
+            {
+              "kit": "calendar",
+              "pos": [
+                -1.4,
+                2.88,
+                1.5
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.3,
+                0.02,
+                0.4
+              ],
+              "layer": "always",
+              "word": "scenario"
+            },
+            {
+              "kit": "floor_lamp",
+              "pos": [
+                -2.3,
+                1.6,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.35,
+                0.35,
+                1.6
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "coffee_table",
+              "pos": [
+                0,
+                0.3,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.1,
+                0.6,
+                0.42
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "armchair",
+              "pos": [
+                -1.3,
+                -0.4,
+                0.0
+              ],
+              "yaw": 35,
+              "scale": 1.0,
+              "size": [
+                0.9,
+                0.9,
+                1.0
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "armchair",
+              "pos": [
+                1.3,
+                -0.4,
+                0.0
+              ],
+              "yaw": -35,
+              "scale": 1.0,
+              "size": [
+                0.9,
+                0.9,
+                1.0
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "book",
+              "pos": [
+                -1.2,
+                -0.3,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.16,
+                0.24,
+                0.03
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "book",
+              "pos": [
+                1.2,
+                -0.3,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.16,
+                0.24,
+                0.03
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "chess_set",
+              "pos": [
+                0,
+                0.3,
+                0.42
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.45,
+                0.45,
+                0.1
+              ],
+              "layer": "always",
+              "word": "absorbed"
+            },
+            {
+              "kit": "phone_basket",
+              "pos": [
+                2.6,
+                -1.6,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.35,
+                0.25,
+                0.15
+              ],
+              "layer": "always",
+              "word": "offline"
+            },
+            {
+              "kit": "phone",
+              "pos": [
+                2.58,
+                -1.6,
+                0.1
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.075,
+                0.155,
+                0.009
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "phone",
+              "pos": [
+                2.64,
+                -1.58,
+                0.1
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.075,
+                0.155,
+                0.009
+              ],
+              "layer": "always"
+            }
+          ],
+          "people": [
+            {
+              "role": "paul",
+              "pos": [
+                -1.3,
+                -0.4,
+                0.0
+              ],
+              "yaw": 35,
+              "pose": "sit_look_up",
+              "layer": "always"
+            },
+            {
+              "role": "maria",
+              "pos": [
+                1.3,
+                -0.4,
+                0.0
+              ],
+              "yaw": -35,
+              "pose": "sit_look_up",
+              "layer": "always"
+            },
+            {
+              "role": "jason",
+              "pos": [
+                -0.45,
+                0.8,
+                0.0
+              ],
+              "yaw": 160,
+              "pose": "sit_talk",
+              "layer": "always"
+            },
+            {
+              "role": "jack",
+              "pos": [
+                0.45,
+                0.8,
+                0.0
+              ],
+              "yaw": -160,
+              "pose": "sit_talk",
+              "layer": "always"
+            }
+          ],
+          "shots": [
+            {
+              "name": "wide",
+              "pos": [
+                0,
+                -5.5,
+                1.7
+              ],
+              "look": [
+                0,
+                0.4,
+                0.8
+              ],
+              "fov": 40
+            },
+            {
+              "name": "family",
+              "pos": [
+                0,
+                -2.6,
+                1.3
+              ],
+              "look": [
+                0,
+                0.2,
+                0.9
+              ],
+              "fov": 34
+            }
+          ],
+          "exercises": [
+            "u01_a_critical",
+            "u01_a_structure_writing"
+          ],
+          "origin": [
+            420.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": [
+            {
+              "word": "enthusiast",
+              "form": "enthusiasts",
+              "paragraph": 12,
+              "sentence": 1
+            },
+            {
+              "word": "alter",
+              "form": "alter",
+              "paragraph": 12,
+              "sentence": 1
+            },
+            {
+              "word": "assess",
+              "form": "assess",
+              "paragraph": 12,
+              "sentence": 1
+            },
+            {
+              "word": "burden",
+              "form": "burden",
+              "paragraph": 12,
+              "sentence": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "section_b",
+      "level": "L_U01_B",
+      "title": "Living in the digital world",
+      "scenes": [
+        {
+          "id": "u01b_s1",
+          "title": "The digital wave",
+          "paragraphs": [
+            1
+          ],
+          "light": {
+            "type": "interior",
+            "dir": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "color": "#B8D1D5",
+            "intensity": 2.2,
+            "sky": "#04060B",
+            "fill": 0.25
+          },
+          "props": [
+            {
+              "kit": "city_skyline",
+              "pos": [
+                0,
+                14.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                40.0,
+                6.0,
+                18.0
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "city_skyline",
+              "pos": [
+                0,
+                14.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                40.0,
+                6.0,
+                18.0
+              ],
+              "layer": "now"
+            },
+            {
+              "kit": "network_node",
+              "pos": [
+                -4,
+                6,
+                4
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.3,
+                0.3,
+                0.3
+              ],
+              "layer": "now",
+              "word": "subliminal"
+            },
+            {
+              "kit": "network_node",
+              "pos": [
+                3,
+                7,
+                6
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.3,
+                0.3,
+                0.3
+              ],
+              "layer": "now"
+            },
+            {
+              "kit": "network_node",
+              "pos": [
+                0,
+                9,
+                9
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.3,
+                0.3,
+                0.3
+              ],
+              "layer": "now",
+              "word": "imposition"
+            },
+            {
+              "kit": "street",
+              "pos": [
+                0,
+                2.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                24.0,
+                8.0,
+                0.02
+              ],
+              "layer": "always",
+              "word": "ironic"
+            }
+          ],
+          "people": [],
+          "shots": [
+            {
+              "name": "city",
+              "pos": [
+                0,
+                -8.0,
+                3.0
+              ],
+              "look": [
+                0,
+                10,
+                6
+              ],
+              "fov": 55
+            }
+          ],
+          "exercises": [
+            "u01_b_reading_skills"
+          ],
+          "origin": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": [
+            {
+              "word": "subliminal",
+              "form": "subliminal",
+              "paragraph": 1,
+              "sentence": 3
+            },
+            {
+              "word": "ironic",
+              "form": "ironic",
+              "paragraph": 1,
+              "sentence": 3
+            },
+            {
+              "word": "imposition",
+              "form": "imposition",
+              "paragraph": 1,
+              "sentence": 3
+            }
+          ]
+        },
+        {
+          "id": "u01b_s2",
+          "title": "Classroom",
+          "paragraphs": [
+            2
+          ],
+          "light": {
+            "type": "sun",
+            "dir": [
+              -0.3,
+              0.45,
+              -0.84
+            ],
+            "color": "#FFF1DC",
+            "intensity": 9.0,
+            "sky": "#7FA6C9",
+            "fill": 0.8
+          },
+          "props": [
+            {
+              "kit": "wall",
+              "pos": [
+                0,
+                3.2,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                6.0,
+                0.2,
+                3.0
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "student_desk",
+              "pos": [
+                -1.5,
+                -0.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.2,
+                0.5,
+                0.75
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "student_desk",
+              "pos": [
+                -1.5,
+                1.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.2,
+                0.5,
+                0.75
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "student_desk",
+              "pos": [
+                1.5,
+                -0.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.2,
+                0.5,
+                0.75
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "student_desk",
+              "pos": [
+                1.5,
+                1.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.2,
+                0.5,
+                0.75
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "blackboard",
+              "pos": [
+                0,
+                3.05,
+                0.9
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                3.6,
+                0.08,
+                1.2
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "chalk_tray",
+              "pos": [
+                0,
+                3.0,
+                0.88
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                3.0,
+                0.08,
+                0.05
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "duster",
+              "pos": [
+                0.4,
+                3.0,
+                0.92
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.14,
+                0.06,
+                0.05
+              ],
+              "layer": "then",
+              "word": "duster"
+            },
+            {
+              "kit": "school_bag",
+              "pos": [
+                -1.2,
+                -1.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.32,
+                0.18,
+                0.42
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "textbook_stack",
+              "pos": [
+                -1.5,
+                -0.5,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.22,
+                0.3,
+                0.18
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "interactive_board",
+              "pos": [
+                0,
+                3.05,
+                0.8
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                3.0,
+                0.1,
+                1.7
+              ],
+              "layer": "now",
+              "word": "interactive"
+            },
+            {
+              "kit": "tablet",
+              "pos": [
+                -1.5,
+                -0.5,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.18,
+                0.25,
+                0.008
+              ],
+              "layer": "now",
+              "word": "advent"
+            },
+            {
+              "kit": "tablet",
+              "pos": [
+                1.5,
+                -0.5,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.18,
+                0.25,
+                0.008
+              ],
+              "layer": "now"
+            },
+            {
+              "kit": "wifi_router",
+              "pos": [
+                2.6,
+                3.0,
+                2.4
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.22,
+                0.15,
+                0.04
+              ],
+              "layer": "now",
+              "word": "broadband"
+            }
+          ],
+          "people": [
+            {
+              "role": "teacher",
+              "pos": [
+                0,
+                2.4,
+                0.0
+              ],
+              "yaw": 180,
+              "pose": "stand_point",
+              "layer": "always"
+            },
+            {
+              "role": "pupil_1",
+              "pos": [
+                -1.5,
+                -1.0,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_read",
+              "layer": "always"
+            },
+            {
+              "role": "pupil_2",
+              "pos": [
+                1.5,
+                -1.0,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_read",
+              "layer": "always"
+            }
+          ],
+          "shots": [
+            {
+              "name": "front",
+              "pos": [
+                0,
+                -4.5,
+                1.7
+              ],
+              "look": [
+                0,
+                2.5,
+                1.2
+              ],
+              "fov": 42
+            }
+          ],
+          "exercises": [
+            "u01_b_understanding#1-2"
+          ],
+          "origin": [
+            60.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": [
+            {
+              "word": "duster",
+              "form": "dusters",
+              "paragraph": 2,
+              "sentence": 1
+            },
+            {
+              "word": "interactive",
+              "form": "interactive",
+              "paragraph": 2,
+              "sentence": 3
+            },
+            {
+              "word": "advent",
+              "form": "advent",
+              "paragraph": 2,
+              "sentence": 5
+            },
+            {
+              "word": "broadband",
+              "form": "broadband",
+              "paragraph": 2,
+              "sentence": 6
+            }
+          ]
+        },
+        {
+          "id": "u01b_s3",
+          "title": "Children",
+          "paragraphs": [
+            3
+          ],
+          "light": {
+            "type": "sun",
+            "dir": [
+              -0.3,
+              0.45,
+              -0.84
+            ],
+            "color": "#FFF1DC",
+            "intensity": 9.0,
+            "sky": "#7FA6C9",
+            "fill": 0.8
+          },
+          "props": [
+            {
+              "kit": "window_wall",
+              "pos": [
+                0,
+                2.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                5.0,
+                0.2,
+                3.0
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "sofa",
+              "pos": [
+                0,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                2.0,
+                0.9,
+                0.85
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "playground",
+              "pos": [
+                0,
+                9.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                12.0,
+                8.0,
+                2.45
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "swing",
+              "pos": [
+                -2.0,
+                8.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                2.0,
+                1.2,
+                2.2
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "game_console",
+              "pos": [
+                -0.4,
+                -0.1,
+                0.5
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.16,
+                0.08,
+                0.03
+              ],
+              "layer": "now",
+              "word": "abreast"
+            },
+            {
+              "kit": "phone",
+              "pos": [
+                0.4,
+                -0.1,
+                0.5
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.075,
+                0.155,
+                0.009
+              ],
+              "layer": "now"
+            }
+          ],
+          "people": [
+            {
+              "role": "child_1",
+              "pos": [
+                -0.4,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_game",
+              "layer": "now"
+            },
+            {
+              "role": "child_2",
+              "pos": [
+                0.4,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_game",
+              "layer": "now"
+            },
+            {
+              "role": "child_3",
+              "pos": [
+                -2.0,
+                8.0,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "play_swing",
+              "layer": "then"
+            },
+            {
+              "role": "child_4",
+              "pos": [
+                1.0,
+                9.0,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "run",
+              "layer": "then"
+            }
+          ],
+          "shots": [
+            {
+              "name": "room",
+              "pos": [
+                0,
+                -3.5,
+                1.5
+              ],
+              "look": [
+                0,
+                4.0,
+                1.0
+              ],
+              "fov": 45
+            }
+          ],
+          "exercises": [
+            "u01_b_understanding#3"
+          ],
+          "origin": [
+            120.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": [
+            {
+              "word": "abreast",
+              "form": "abreast",
+              "paragraph": 3,
+              "sentence": 4
+            }
+          ]
+        },
+        {
+          "id": "u01b_s4",
+          "title": "Home",
+          "paragraphs": [
+            4
+          ],
+          "light": {
+            "type": "sun",
+            "dir": [
+              -0.45,
+              0.35,
+              -0.82
+            ],
+            "color": "#FFCF9A",
+            "intensity": 6.5,
+            "sky": "#1B2230",
+            "fill": 0.55
+          },
+          "props": [
+            {
+              "kit": "kitchen_counter",
+              "pos": [
+                -2.5,
+                1.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                2.4,
+                0.65,
+                0.92
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "sofa",
+              "pos": [
+                2.0,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                2.0,
+                0.9,
+                0.85
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "recipe_book",
+              "pos": [
+                -2.6,
+                1.4,
+                0.92
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.2,
+                0.26,
+                0.03
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "tv",
+              "pos": [
+                2.0,
+                2.0,
+                0.6
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.1,
+                0.08,
+                0.65
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "tv_stand",
+              "pos": [
+                2.0,
+                2.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.4,
+                0.4,
+                0.5
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "tablet",
+              "pos": [
+                -2.6,
+                1.6,
+                1.05
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.18,
+                0.25,
+                0.008
+              ],
+              "layer": "now",
+              "word": "recipe"
+            },
+            {
+              "kit": "jar",
+              "pos": [
+                -2.6,
+                1.75,
+                0.92
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.12,
+                0.12,
+                0.18
+              ],
+              "layer": "now"
+            },
+            {
+              "kit": "laptop",
+              "pos": [
+                1.6,
+                -0.1,
+                0.45
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.32,
+                0.3,
+                0.22
+              ],
+              "layer": "now"
+            },
+            {
+              "kit": "laptop",
+              "pos": [
+                2.4,
+                -0.1,
+                0.45
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.32,
+                0.3,
+                0.22
+              ],
+              "layer": "now"
+            }
+          ],
+          "people": [
+            {
+              "role": "parent",
+              "pos": [
+                -2.5,
+                0.8,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "cook_hectic",
+              "layer": "always"
+            },
+            {
+              "role": "sibling_1",
+              "pos": [
+                1.6,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_watch",
+              "layer": "always"
+            },
+            {
+              "role": "sibling_2",
+              "pos": [
+                2.4,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_watch",
+              "layer": "always"
+            }
+          ],
+          "shots": [
+            {
+              "name": "home",
+              "pos": [
+                0,
+                -5.0,
+                1.8
+              ],
+              "look": [
+                0,
+                1.0,
+                1.0
+              ],
+              "fov": 48
+            }
+          ],
+          "exercises": [
+            "u01_b_understanding#4"
+          ],
+          "origin": [
+            180.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": [
+            {
+              "word": "hectic",
+              "form": "hectic",
+              "paragraph": 4,
+              "sentence": 2
+            },
+            {
+              "word": "recipe",
+              "form": "recipes",
+              "paragraph": 4,
+              "sentence": 3
+            },
+            {
+              "word": "sibling",
+              "form": "siblings",
+              "paragraph": 4,
+              "sentence": 5
+            }
+          ]
+        },
+        {
+          "id": "u01b_s5",
+          "title": "Work",
+          "paragraphs": [
+            5
+          ],
+          "light": {
+            "type": "interior",
+            "dir": [
+              0.0,
+              0.6,
+              -0.8
+            ],
+            "color": "#F2F5FF",
+            "intensity": 4.5,
+            "sky": "#141A24",
+            "fill": 0.6
+          },
+          "props": [
+            {
+              "kit": "cubicle",
+              "pos": [
+                -3.4,
+                1.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.6,
+                1.6,
+                1.4
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "cubicle",
+              "pos": [
+                -1.7,
+                1.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.6,
+                1.6,
+                1.4
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "cubicle",
+              "pos": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.6,
+                1.6,
+                1.4
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "monitor",
+              "pos": [
+                -1.7,
+                1.1,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.55,
+                0.2,
+                0.45
+              ],
+              "layer": "then",
+              "word": "monitor"
+            },
+            {
+              "kit": "home_desk",
+              "pos": [
+                2.6,
+                0.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.2,
+                0.6,
+                0.75
+              ],
+              "layer": "now"
+            },
+            {
+              "kit": "laptop",
+              "pos": [
+                2.6,
+                0.5,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.32,
+                0.3,
+                0.22
+              ],
+              "layer": "now"
+            },
+            {
+              "kit": "video_grid",
+              "pos": [
+                2.6,
+                1.2,
+                1.1
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.6,
+                0.05,
+                0.9
+              ],
+              "layer": "now",
+              "word": "arena"
+            }
+          ],
+          "people": [
+            {
+              "role": "worker_1",
+              "pos": [
+                -3.4,
+                0.6,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_type",
+              "layer": "then"
+            },
+            {
+              "role": "worker_2",
+              "pos": [
+                -1.7,
+                0.6,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_type",
+              "layer": "then"
+            },
+            {
+              "role": "remote_worker",
+              "pos": [
+                2.6,
+                -0.1,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_video_call",
+              "layer": "now"
+            }
+          ],
+          "shots": [
+            {
+              "name": "office",
+              "pos": [
+                -0.5,
+                -4.5,
+                1.8
+              ],
+              "look": [
+                -0.5,
+                0.8,
+                1.0
+              ],
+              "fov": 48
+            }
+          ],
+          "exercises": [
+            "u01_b_understanding#5"
+          ],
+          "origin": [
+            240.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": [
+            {
+              "word": "monitor",
+              "form": "monitoring",
+              "paragraph": 5,
+              "sentence": 4
+            },
+            {
+              "word": "arena",
+              "form": "arena",
+              "paragraph": 5,
+              "sentence": 5
+            }
+          ]
+        },
+        {
+          "id": "u01b_s6",
+          "title": "Holidays",
+          "paragraphs": [
+            6
+          ],
+          "light": {
+            "type": "sun",
+            "dir": [
+              -0.3,
+              0.45,
+              -0.84
+            ],
+            "color": "#FFF1DC",
+            "intensity": 9.0,
+            "sky": "#7FA6C9",
+            "fill": 0.8
+          },
+          "props": [
+            {
+              "kit": "travel_counter",
+              "pos": [
+                -1.5,
+                1.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                2.2,
+                0.7,
+                1.05
+              ],
+              "layer": "then",
+              "word": "agent"
+            },
+            {
+              "kit": "brochure_rack",
+              "pos": [
+                -3.0,
+                1.2,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.6,
+                0.3,
+                1.4
+              ],
+              "layer": "then",
+              "word": "brochure"
+            },
+            {
+              "kit": "resort_poster",
+              "pos": [
+                -1.5,
+                1.9,
+                1.3
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.7,
+                0.03,
+                1.0
+              ],
+              "layer": "then",
+              "word": "luxurious"
+            },
+            {
+              "kit": "home_desk",
+              "pos": [
+                2.0,
+                0.6,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.2,
+                0.6,
+                0.75
+              ],
+              "layer": "now"
+            },
+            {
+              "kit": "laptop",
+              "pos": [
+                2.0,
+                0.6,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.32,
+                0.3,
+                0.22
+              ],
+              "layer": "now",
+              "word": "site"
+            },
+            {
+              "kit": "review_panel",
+              "pos": [
+                2.0,
+                1.4,
+                1.4
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.0,
+                0.03,
+                0.7
+              ],
+              "layer": "now",
+              "word": "discerning"
+            },
+            {
+              "kit": "review_panel",
+              "pos": [
+                3.2,
+                1.4,
+                1.4
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.0,
+                0.03,
+                0.7
+              ],
+              "layer": "now",
+              "word": "accommodation"
+            }
+          ],
+          "people": [
+            {
+              "role": "travel_agent",
+              "pos": [
+                -1.5,
+                1.6,
+                0.0
+              ],
+              "yaw": 180,
+              "pose": "stand_sell",
+              "layer": "then"
+            },
+            {
+              "role": "me",
+              "pos": [
+                2.0,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_browse",
+              "layer": "now"
+            }
+          ],
+          "shots": [
+            {
+              "name": "both",
+              "pos": [
+                0,
+                -5.0,
+                1.8
+              ],
+              "look": [
+                0,
+                1.0,
+                1.1
+              ],
+              "fov": 48
+            }
+          ],
+          "exercises": [
+            "u01_b_collocation"
+          ],
+          "origin": [
+            300.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": [
+            {
+              "word": "align",
+              "form": "Aligned",
+              "paragraph": 6,
+              "sentence": 1
+            },
+            {
+              "word": "invariably",
+              "form": "invariably",
+              "paragraph": 6,
+              "sentence": 2
+            },
+            {
+              "word": "agent",
+              "form": "agents",
+              "paragraph": 6,
+              "sentence": 2
+            },
+            {
+              "word": "dedicate",
+              "form": "dedicated",
+              "paragraph": 6,
+              "sentence": 2
+            },
+            {
+              "word": "dedicated",
+              "form": "dedicated",
+              "paragraph": 6,
+              "sentence": 2
+            },
+            {
+              "word": "brochure",
+              "form": "brochures",
+              "paragraph": 6,
+              "sentence": 2
+            },
+            {
+              "word": "luxurious",
+              "form": "luxurious",
+              "paragraph": 6,
+              "sentence": 3
+            },
+            {
+              "word": "discern",
+              "form": "discerning",
+              "paragraph": 6,
+              "sentence": 4
+            },
+            {
+              "word": "discerning",
+              "form": "discerning",
+              "paragraph": 6,
+              "sentence": 4
+            },
+            {
+              "word": "site",
+              "form": "sites",
+              "paragraph": 6,
+              "sentence": 4
+            },
+            {
+              "word": "accommodation",
+              "form": "accommodations",
+              "paragraph": 6,
+              "sentence": 6
+            }
+          ]
+        },
+        {
+          "id": "u01b_s7",
+          "title": "One street, four errands",
+          "paragraphs": [
+            7
+          ],
+          "light": {
+            "type": "sun",
+            "dir": [
+              -0.3,
+              0.45,
+              -0.84
+            ],
+            "color": "#FFF1DC",
+            "intensity": 9.0,
+            "sky": "#7FA6C9",
+            "fill": 0.8
+          },
+          "props": [
+            {
+              "kit": "street",
+              "pos": [
+                0,
+                -1.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                24.0,
+                8.0,
+                0.02
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "bank_counter",
+              "pos": [
+                -6.0,
+                1.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                3.0,
+                0.7,
+                1.1
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "queue_rope",
+              "pos": [
+                -6.0,
+                0.2,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                2.4,
+                0.1,
+                0.95
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "newsstand",
+              "pos": [
+                -2.0,
+                1.2,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.6,
+                0.9,
+                1.9
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "video_shelf",
+              "pos": [
+                2.0,
+                1.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                2.0,
+                0.4,
+                1.9
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "arcade_cabinet",
+              "pos": [
+                6.0,
+                1.3,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.7,
+                0.8,
+                1.7
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "phone",
+              "pos": [
+                -6.0,
+                0.0,
+                1.2
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.075,
+                0.155,
+                0.009
+              ],
+              "layer": "now",
+              "word": "practicality"
+            },
+            {
+              "kit": "phone",
+              "pos": [
+                -2.0,
+                0.0,
+                1.2
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.075,
+                0.155,
+                0.009
+              ],
+              "layer": "now"
+            },
+            {
+              "kit": "laptop",
+              "pos": [
+                2.0,
+                0.0,
+                1.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.32,
+                0.3,
+                0.22
+              ],
+              "layer": "now"
+            },
+            {
+              "kit": "game_console",
+              "pos": [
+                6.0,
+                0.0,
+                1.1
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.16,
+                0.08,
+                0.03
+              ],
+              "layer": "now",
+              "word": "credibility"
+            },
+            {
+              "kit": "storefront",
+              "pos": [
+                -6.0,
+                2.4,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                5.0,
+                0.4,
+                3.6
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "storefront",
+              "pos": [
+                -2.0,
+                2.4,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                5.0,
+                0.4,
+                3.6
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "storefront",
+              "pos": [
+                2.0,
+                2.4,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                5.0,
+                0.4,
+                3.6
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "storefront",
+              "pos": [
+                6.0,
+                2.4,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                5.0,
+                0.4,
+                3.6
+              ],
+              "layer": "always"
+            }
+          ],
+          "people": [
+            {
+              "role": "queue_1",
+              "pos": [
+                -6.4,
+                0.2,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "stand_wait",
+              "layer": "then"
+            },
+            {
+              "role": "queue_2",
+              "pos": [
+                -5.6,
+                0.2,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "stand_wait",
+              "layer": "then"
+            },
+            {
+              "role": "me",
+              "pos": [
+                0.0,
+                -1.5,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "walk_phone",
+              "layer": "now"
+            }
+          ],
+          "shots": [
+            {
+              "name": "street",
+              "pos": [
+                0,
+                -8.0,
+                2.4
+              ],
+              "look": [
+                0,
+                1.5,
+                1.4
+              ],
+              "fov": 60
+            }
+          ],
+          "exercises": [
+            "u01_b_understanding#6"
+          ],
+          "origin": [
+            360.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": [
+            {
+              "word": "practicality",
+              "form": "practicality",
+              "paragraph": 7,
+              "sentence": 1
+            },
+            {
+              "word": "credibility",
+              "form": "credibility",
+              "paragraph": 7,
+              "sentence": 1
+            },
+            {
+              "word": "via",
+              "form": "via",
+              "paragraph": 7,
+              "sentence": 2
+            }
+          ]
+        },
+        {
+          "id": "u01b_s8",
+          "title": "Social life and the future",
+          "paragraphs": [
+            8,
+            9
+          ],
+          "light": {
+            "type": "interior",
+            "dir": [
+              0.1,
+              0.3,
+              -0.9
+            ],
+            "color": "#FFD9A8",
+            "intensity": 1.8,
+            "sky": "#05070C",
+            "fill": 0.2
+          },
+          "props": [
+            {
+              "kit": "photo_album",
+              "pos": [
+                0,
+                0.0,
+                0.8
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.3,
+                0.24,
+                0.05
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "coffee_table",
+              "pos": [
+                0,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.1,
+                0.6,
+                0.42
+              ],
+              "layer": "then"
+            },
+            {
+              "kit": "network_node",
+              "pos": [
+                -3,
+                4,
+                3
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.3,
+                0.3,
+                0.3
+              ],
+              "layer": "now",
+              "word": "akin"
+            },
+            {
+              "kit": "network_node",
+              "pos": [
+                -1,
+                6,
+                5
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.3,
+                0.3,
+                0.3
+              ],
+              "layer": "now",
+              "word": "evade"
+            },
+            {
+              "kit": "network_node",
+              "pos": [
+                2,
+                5,
+                4
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.3,
+                0.3,
+                0.3
+              ],
+              "layer": "now",
+              "word": "concede"
+            },
+            {
+              "kit": "network_node",
+              "pos": [
+                4,
+                8,
+                6
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.3,
+                0.3,
+                0.3
+              ],
+              "layer": "now",
+              "word": "flourish"
+            },
+            {
+              "kit": "network_node",
+              "pos": [
+                0,
+                9,
+                7
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.3,
+                0.3,
+                0.3
+              ],
+              "layer": "now",
+              "word": "foreseeable"
+            },
+            {
+              "kit": "network_node",
+              "pos": [
+                -4,
+                7,
+                6
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.3,
+                0.3,
+                0.3
+              ],
+              "layer": "now",
+              "word": "erase"
+            },
+            {
+              "kit": "city_skyline",
+              "pos": [
+                0,
+                16.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                40.0,
+                6.0,
+                18.0
+              ],
+              "layer": "always"
+            }
+          ],
+          "people": [
+            {
+              "role": "me",
+              "pos": [
+                0,
+                -0.8,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "stand_look_up",
+              "layer": "always"
+            }
+          ],
+          "shots": [
+            {
+              "name": "rise",
+              "pos": [
+                0,
+                -6.0,
+                1.6
+              ],
+              "look": [
+                0,
+                8,
+                5
+              ],
+              "fov": 55
+            }
+          ],
+          "exercises": [
+            "u01_b_critical"
+          ],
+          "origin": [
+            420.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": [
+            {
+              "word": "akin",
+              "form": "akin",
+              "paragraph": 8,
+              "sentence": 2
+            },
+            {
+              "word": "blackmail",
+              "form": "blackmail",
+              "paragraph": 8,
+              "sentence": 2
+            },
+            {
+              "word": "evade",
+              "form": "evade",
+              "paragraph": 8,
+              "sentence": 3
+            },
+            {
+              "word": "concede",
+              "form": "concede",
+              "paragraph": 9,
+              "sentence": 2
+            },
+            {
+              "word": "erase",
+              "form": "erasing",
+              "paragraph": 9,
+              "sentence": 2
+            },
+            {
+              "word": "flourish",
+              "form": "flourish",
+              "paragraph": 9,
+              "sentence": 3
+            },
+            {
+              "word": "foreseeable",
+              "form": "foreseeable",
+              "paragraph": 9,
+              "sentence": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "section_c",
+      "level": "L_U01_C",
+      "title": "A smartphone is all you need",
+      "scenes": [
+        {
+          "id": "u01c_s1",
+          "title": "Jianbing at dawn",
+          "paragraphs": [
+            1,
+            2,
+            3
+          ],
+          "light": {
+            "type": "sun",
+            "dir": [
+              -0.45,
+              0.35,
+              -0.82
+            ],
+            "color": "#FFCF9A",
+            "intensity": 6.5,
+            "sky": "#1B2230",
+            "fill": 0.55
+          },
+          "props": [
+            {
+              "kit": "hutong_wall",
+              "pos": [
+                0,
+                3.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                8.0,
+                0.4,
+                2.8
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "jianbing_cart",
+              "pos": [
+                0,
+                1.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.6,
+                0.8,
+                1.2
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "griddle",
+              "pos": [
+                0,
+                1.0,
+                1.2
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.5,
+                0.5,
+                0.05
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "qr_sign",
+              "pos": [
+                0.6,
+                0.62,
+                1.25
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.25,
+                0.02,
+                0.32
+              ],
+              "layer": "always"
+            }
+          ],
+          "people": [
+            {
+              "role": "stall_owner",
+              "pos": [
+                0,
+                1.6,
+                0.0
+              ],
+              "yaw": 180,
+              "pose": "cook",
+              "layer": "always"
+            },
+            {
+              "role": "me",
+              "pos": [
+                0.3,
+                -0.4,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "scan_pay",
+              "layer": "always"
+            }
+          ],
+          "shots": [
+            {
+              "name": "stall",
+              "pos": [
+                0,
+                -3.5,
+                1.6
+              ],
+              "look": [
+                0,
+                1.0,
+                1.2
+              ],
+              "fov": 40
+            },
+            {
+              "name": "scan",
+              "pos": [
+                0.6,
+                -0.4,
+                1.3
+              ],
+              "look": [
+                0.6,
+                0.62,
+                1.25
+              ],
+              "fov": 25
+            }
+          ],
+          "exercises": [],
+          "origin": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": []
+        },
+        {
+          "id": "u01c_s2",
+          "title": "Checkout",
+          "paragraphs": [
+            4
+          ],
+          "light": {
+            "type": "interior",
+            "dir": [
+              0.0,
+              0.6,
+              -0.8
+            ],
+            "color": "#F2F5FF",
+            "intensity": 4.5,
+            "sky": "#141A24",
+            "fill": 0.6
+          },
+          "props": [
+            {
+              "kit": "market_shelf",
+              "pos": [
+                -3.0,
+                2.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                2.0,
+                0.5,
+                1.8
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "market_shelf",
+              "pos": [
+                0.0,
+                2.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                2.0,
+                0.5,
+                1.8
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "market_shelf",
+              "pos": [
+                3.0,
+                2.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                2.0,
+                0.5,
+                1.8
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "checkout_counter",
+              "pos": [
+                0,
+                0.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.8,
+                0.7,
+                0.95
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "payment_sign",
+              "pos": [
+                0.6,
+                0.5,
+                1.3
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.5,
+                0.02,
+                0.35
+              ],
+              "layer": "always"
+            }
+          ],
+          "people": [
+            {
+              "role": "cashier",
+              "pos": [
+                0,
+                1.1,
+                0.0
+              ],
+              "yaw": 180,
+              "pose": "stand",
+              "layer": "always"
+            },
+            {
+              "role": "me",
+              "pos": [
+                0,
+                -0.4,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "scan_pay",
+              "layer": "always"
+            }
+          ],
+          "shots": [
+            {
+              "name": "counter",
+              "pos": [
+                0,
+                -3.5,
+                1.7
+              ],
+              "look": [
+                0,
+                0.6,
+                1.1
+              ],
+              "fov": 42
+            }
+          ],
+          "exercises": [],
+          "origin": [
+            60.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": []
+        },
+        {
+          "id": "u01c_s3",
+          "title": "Getting around",
+          "paragraphs": [
+            5
+          ],
+          "light": {
+            "type": "sun",
+            "dir": [
+              -0.3,
+              0.45,
+              -0.84
+            ],
+            "color": "#FFF1DC",
+            "intensity": 9.0,
+            "sky": "#7FA6C9",
+            "fill": 0.8
+          },
+          "props": [
+            {
+              "kit": "street",
+              "pos": [
+                0,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                24.0,
+                8.0,
+                0.02
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "car",
+              "pos": [
+                -3.0,
+                1.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                4.5,
+                1.8,
+                1.45
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "bike_rack",
+              "pos": [
+                3.0,
+                2.2,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                6.0,
+                0.6,
+                0.8
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "shared_bike",
+              "pos": [
+                1.0,
+                2.2,
+                0.0
+              ],
+              "yaw": 90,
+              "scale": 1.0,
+              "size": [
+                1.7,
+                0.55,
+                1.05
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "shared_bike",
+              "pos": [
+                1.9,
+                2.2,
+                0.0
+              ],
+              "yaw": 90,
+              "scale": 1.0,
+              "size": [
+                1.7,
+                0.55,
+                1.05
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "shared_bike",
+              "pos": [
+                2.8,
+                2.2,
+                0.0
+              ],
+              "yaw": 90,
+              "scale": 1.0,
+              "size": [
+                1.7,
+                0.55,
+                1.05
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "shared_bike",
+              "pos": [
+                3.7,
+                2.2,
+                0.0
+              ],
+              "yaw": 90,
+              "scale": 1.0,
+              "size": [
+                1.7,
+                0.55,
+                1.05
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "shared_bike",
+              "pos": [
+                4.6,
+                2.2,
+                0.0
+              ],
+              "yaw": 90,
+              "scale": 1.0,
+              "size": [
+                1.7,
+                0.55,
+                1.05
+              ],
+              "layer": "always"
+            }
+          ],
+          "people": [
+            {
+              "role": "me",
+              "pos": [
+                2.0,
+                1.4,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "scan_bike",
+              "layer": "always"
+            }
+          ],
+          "shots": [
+            {
+              "name": "street",
+              "pos": [
+                0,
+                -6.0,
+                2.0
+              ],
+              "look": [
+                0,
+                1.8,
+                1.0
+              ],
+              "fov": 50
+            }
+          ],
+          "exercises": [],
+          "origin": [
+            120.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": []
+        },
+        {
+          "id": "u01c_s4",
+          "title": "Lunch and coupons",
+          "paragraphs": [
+            6
+          ],
+          "light": {
+            "type": "sun",
+            "dir": [
+              -0.45,
+              0.35,
+              -0.82
+            ],
+            "color": "#FFCF9A",
+            "intensity": 6.5,
+            "sky": "#1B2230",
+            "fill": 0.55
+          },
+          "props": [
+            {
+              "kit": "cafe_table",
+              "pos": [
+                0,
+                0.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.7,
+                0.7,
+                0.74
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "chair",
+              "pos": [
+                0,
+                -0.1,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.45,
+                0.5,
+                0.9
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "sandwich_plate",
+              "pos": [
+                -0.15,
+                0.5,
+                0.74
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.24,
+                0.24,
+                0.06
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "coffee_cup",
+              "pos": [
+                0.15,
+                0.5,
+                0.74
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.09,
+                0.09,
+                0.1
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "coupon_card",
+              "pos": [
+                0.3,
+                0.3,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.09,
+                0.055,
+                0.003
+              ],
+              "layer": "always"
+            }
+          ],
+          "people": [
+            {
+              "role": "me",
+              "pos": [
+                0,
+                -0.1,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_phone",
+              "layer": "always"
+            },
+            {
+              "role": "waitress",
+              "pos": [
+                0.8,
+                0.6,
+                0.0
+              ],
+              "yaw": -120,
+              "pose": "stand_talk",
+              "layer": "always"
+            }
+          ],
+          "shots": [
+            {
+              "name": "table",
+              "pos": [
+                0,
+                -2.8,
+                1.5
+              ],
+              "look": [
+                0,
+                0.5,
+                0.9
+              ],
+              "fov": 40
+            }
+          ],
+          "exercises": [],
+          "origin": [
+            180.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": []
+        },
+        {
+          "id": "u01c_s5",
+          "title": "Boutique and mall",
+          "paragraphs": [
+            7,
+            9
+          ],
+          "light": {
+            "type": "sun",
+            "dir": [
+              -0.7,
+              0.2,
+              -0.3
+            ],
+            "color": "#FFB27A",
+            "intensity": 4.0,
+            "sky": "#2A2335",
+            "fill": 0.45
+          },
+          "props": [
+            {
+              "kit": "mall_atrium",
+              "pos": [
+                0,
+                8.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                14.0,
+                10.0,
+                9.0
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "boutique_front",
+              "pos": [
+                0,
+                2.0,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                6.0,
+                0.4,
+                4.0
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "payment_sign",
+              "pos": [
+                0.0,
+                1.78,
+                1.6
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.5,
+                0.02,
+                0.35
+              ],
+              "layer": "always"
+            }
+          ],
+          "people": [
+            {
+              "role": "me",
+              "pos": [
+                0,
+                0.0,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "walk_phone",
+              "layer": "always"
+            }
+          ],
+          "shots": [
+            {
+              "name": "mall",
+              "pos": [
+                0,
+                -6.0,
+                2.2
+              ],
+              "look": [
+                0,
+                3.0,
+                2.0
+              ],
+              "fov": 55
+            }
+          ],
+          "exercises": [],
+          "origin": [
+            240.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": []
+        },
+        {
+          "id": "u01c_s6",
+          "title": "Evening bills",
+          "paragraphs": [
+            8,
+            10
+          ],
+          "light": {
+            "type": "interior",
+            "dir": [
+              0.1,
+              0.3,
+              -0.9
+            ],
+            "color": "#FFD9A8",
+            "intensity": 1.8,
+            "sky": "#05070C",
+            "fill": 0.2
+          },
+          "props": [
+            {
+              "kit": "home_desk",
+              "pos": [
+                0,
+                0.5,
+                0.0
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                1.2,
+                0.6,
+                0.75
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "desk_lamp",
+              "pos": [
+                0.45,
+                0.6,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.2,
+                0.2,
+                0.45
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "phone",
+              "pos": [
+                -0.1,
+                0.4,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.075,
+                0.155,
+                0.009
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "notebook",
+              "pos": [
+                -0.4,
+                0.5,
+                0.75
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.18,
+                0.24,
+                0.015
+              ],
+              "layer": "always"
+            },
+            {
+              "kit": "dashboard_screen",
+              "pos": [
+                0,
+                1.0,
+                1.1
+              ],
+              "yaw": 0,
+              "scale": 1.0,
+              "size": [
+                0.6,
+                0.03,
+                0.35
+              ],
+              "layer": "always"
+            }
+          ],
+          "people": [
+            {
+              "role": "me",
+              "pos": [
+                0,
+                -0.1,
+                0.0
+              ],
+              "yaw": 0,
+              "pose": "sit_phone",
+              "layer": "always"
+            }
+          ],
+          "shots": [
+            {
+              "name": "desk",
+              "pos": [
+                0,
+                -2.4,
+                1.4
+              ],
+              "look": [
+                0,
+                0.6,
+                0.9
+              ],
+              "fov": 38
+            }
+          ],
+          "exercises": [
+            "u01_c_translation"
+          ],
+          "origin": [
+            300.0,
+            0.0,
+            0.0
+          ],
+          "transition": "dissolve",
+          "text_words": []
+        }
+      ]
+    }
+  ],
+  "paragraph_source": "Content/Data/textbook/rw3/articles/unit01.json"
+}

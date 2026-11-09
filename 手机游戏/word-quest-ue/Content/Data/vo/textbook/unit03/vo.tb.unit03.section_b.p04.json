@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit03.section_b.p04",
+ "unit": 3,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "To travel alone is a difficult decision for anyone, but for me, it came naturally. I made that trip to China, and then zigzagged on a multinational tour through South Korea, Japan, Indonesia, Thailand, India, and Italy.",
+ "rate": 165,
+ "duration": 14.345,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.226,
+   "text": "To travel alone is a difficult decision for anyone, but for me, it came naturally."
+  },
+  {
+   "i": 1,
+   "start": 5.226,
+   "end": 14.345,
+   "text": "I made that trip to China, and then zigzagged on a multinational tour through South Korea, Japan, Indonesia, Thailand, India, and Italy."
+  }
+ ]
+}

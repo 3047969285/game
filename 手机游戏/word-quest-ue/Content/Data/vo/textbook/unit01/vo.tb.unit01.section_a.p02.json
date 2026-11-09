@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit01.section_a.p02",
+ "unit": 1,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "In our “always on” lives, such a scenario of family convention seems gone. Are we too immersed in the brilliance of the digital world? Perhaps. We cannot seem to resist the lure of our cell phones, even when we are in the company of others. Apparently, we have sacrificed conversation for connection.",
+ "rate": 165,
+ "duration": 17.278,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.653,
+   "text": "In our “always on” lives, such a scenario of family convention seems gone."
+  },
+  {
+   "i": 1,
+   "start": 4.653,
+   "end": 7.575,
+   "text": "Are we too immersed in the brilliance of the digital world?"
+  },
+  {
+   "i": 2,
+   "start": 7.575,
+   "end": 8.42,
+   "text": "Perhaps."
+  },
+  {
+   "i": 3,
+   "start": 8.42,
+   "end": 13.392,
+   "text": "We cannot seem to resist the lure of our cell phones, even when we are in the company of others."
+  },
+  {
+   "i": 4,
+   "start": 13.392,
+   "end": 17.278,
+   "text": "Apparently, we have sacrificed conversation for connection."
+  }
+ ]
+}

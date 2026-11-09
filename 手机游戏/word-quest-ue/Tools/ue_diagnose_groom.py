@@ -17,14 +17,19 @@ def editor_main(unreal):
         for command in ['r.HairStrands.Visibility.ComputeRaster 0','r.HairStrands.Visibility.MSAA.SamplePerPixel 8']:unreal.SystemLibrary.execute_console_command(world,command)
     eas=unreal.get_editor_subsystem(unreal.EditorActorSubsystem);mh=unreal.get_editor_subsystem(unreal.MetaHumanCharacterEditorSubsystem)
     rig=next(a for a in eas.get_all_level_actors() if a.get_actor_label()=='WQ_Lookdev_RefCameraRig')
+    world=unreal.get_editor_subsystem(unreal.UnrealEditorSubsystem).get_editor_world()
+    if os.environ.get('WQ_GROOM_ORTHO_PIXEL_SCALE')=='1':
+        for name,value in [('RasterizationScale',.5*40/1024),('VelocityRasterizationScale',1.5*40/1024)]:
+            unreal.SystemLibrary.execute_console_command(world,'r.HairStrands.'+name+' '+str(value))
     character=unreal.load_asset('/Game/Characters/me2026/MHC_me2026')
     if not mh.try_add_object_to_edit(character):raise RuntimeError('MHC unavailable')
-    actor=mh.spawn_meta_human_actor(character,True);rig.use_preview_skin(character)
+    actor=mh.spawn_meta_human_actor(character,True)
     face=next(c for c in actor.get_components_by_class(unreal.SkeletalMeshComponent) if c.get_bone_index('FACIAL_L_Eye')>=0)
     unreal.log('WQ_FACE_TRANSFORM '+str(face.get_world_transform()))
     eye=face.get_socket_location('FACIAL_L_Eye');rig.set_editor_property('head_center_cm',unreal.Vector(0,eye.y,eye.z-3));rig.configure_views()
     for name in ['male_groom','male_brows']:
         groom=unreal.load_asset('/Game/Blueprints/Characters/Imported/me2026/'+name)
+        unreal.log('WQ_GROOM_CPU_STATS '+name+' '+str(rig.inspect_groom(groom)))
         if os.environ.get('WQ_GROOM_REST_ONLY')=='1':
             groups=groom.get_editor_property('hair_groups_lod')
             for group in groups:
@@ -41,6 +46,7 @@ def editor_main(unreal):
     if os.environ.get('WQ_GROOM_HW_RASTER')=='1':names=[x+'_hw' for x in names]
     if os.environ.get('WQ_GROOM_REST_ONLY')=='1':names=[x+'_rest' for x in names]
     if os.environ.get('WQ_GROOM_MSAA8')=='1':names=[x+'_msaa8' for x in names]
+    if os.environ.get('WQ_GROOM_ORTHO_PIXEL_SCALE')=='1':names=[x+'_pixel_scale' for x in names]
     def tick(dt):
         try:
             rig.warm_view(0);state['frame']+=1
@@ -51,13 +57,17 @@ def editor_main(unreal):
             state['view']=1;state['frame']=0;state['started']=time.monotonic()
             capture=rig.get_editor_property('views')[0];capture.set_editor_property('projection_type',unreal.CameraProjectionMode.PERSPECTIVE)
             capture.set_editor_property('fov_angle',math.degrees(2*math.atan(40/800)))
+            if os.environ.get('WQ_GROOM_ORTHO_PIXEL_SCALE')=='1':
+                for name,value in [('RasterizationScale',.5),('VelocityRasterizationScale',1.5)]:
+                    unreal.SystemLibrary.execute_console_command(world,'r.HairStrands.'+name+' '+str(value))
         except Exception:
             import traceback
             traceback.print_exc();sys.stderr.flush();os._exit(1)
     handle=unreal.register_slate_post_tick_callback(tick)
 
 def cli():
-    log=ROOT/'Saved/CompareDiagnostics/me2026/groom-diagnostic.log';result=run_locked_editor(__file__,{'WQ_GROOM_PROBE_ONLY':os.environ.get('WQ_GROOM_PROBE_ONLY','0'),'WQ_GROOM_HW_RASTER':os.environ.get('WQ_GROOM_HW_RASTER','0'),'WQ_GROOM_REST_ONLY':os.environ.get('WQ_GROOM_REST_ONLY','0'),'WQ_GROOM_MSAA8':os.environ.get('WQ_GROOM_MSAA8','0')},log,level='/Game/Maps/L_CharacterLookdev')
+    extra=['-ini:Engine:[ConsoleVariables]:r.HairStrands.Strands.UseTriangleStrips=0'] if os.environ.get('WQ_GROOM_TRIANGLE_LIST')=='1' else []
+    log=ROOT/'Saved/CompareDiagnostics/me2026/groom-diagnostic.log';result=run_locked_editor(__file__,{'WQ_GROOM_ORTHO_PIXEL_SCALE':os.environ.get('WQ_GROOM_ORTHO_PIXEL_SCALE','0'),'WQ_GROOM_PROBE_ONLY':os.environ.get('WQ_GROOM_PROBE_ONLY','0'),'WQ_GROOM_HW_RASTER':os.environ.get('WQ_GROOM_HW_RASTER','0'),'WQ_GROOM_REST_ONLY':os.environ.get('WQ_GROOM_REST_ONLY','0'),'WQ_GROOM_MSAA8':os.environ.get('WQ_GROOM_MSAA8','0')},log,level='/Game/Maps/L_CharacterLookdev',extra_args=extra)
     if result.returncode or 'WQ_GROOM_DIAG_PASS' not in log.read_text(errors='replace'):raise RuntimeError('Groom diagnosis failed: '+str(log))
     print('WQ_GROOM_DIAG_PASS')
 

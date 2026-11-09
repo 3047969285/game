@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit06.section_a.p11",
+ "unit": 6,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "That last day of her old life, Sue wept as she drove away. She wondered if she would ever again be able to reclaim that life of comfort and respect. She fell into complete despair and didn't know what would happen to her next.",
+ "rate": 165,
+ "duration": 12.15,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 3.586,
+   "text": "That last day of her old life, Sue wept as she drove away."
+  },
+  {
+   "i": 1,
+   "start": 3.586,
+   "end": 8.205,
+   "text": "She wondered if she would ever again be able to reclaim that life of comfort and respect."
+  },
+  {
+   "i": 2,
+   "start": 8.205,
+   "end": 12.15,
+   "text": "She fell into complete despair and didn't know what would happen to her next."
+  }
+ ]
+}

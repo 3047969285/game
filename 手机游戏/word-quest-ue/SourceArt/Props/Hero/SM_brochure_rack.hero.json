@@ -1,0 +1,62 @@
+{
+ "kit": "brochure_rack",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_brochure_rack.fbx",
+ "triangles": 10528,
+ "size_m": [
+  0.6,
+  0.3,
+  1.4
+ ],
+ "dims_target_m": [
+  0.6,
+  0.3,
+  1.4
+ ],
+ "slots": [
+  {
+   "slot": "wood",
+   "material": "M_wood",
+   "BaseColor": "T_brochure_rack_wood_BaseColor.png",
+   "Normal": "T_brochure_rack_wood_Normal.png",
+   "ARM": "T_brochure_rack_wood_ARM.png"
+  },
+  {
+   "slot": "metal",
+   "material": "M_metal",
+   "BaseColor": "T_brochure_rack_metal_BaseColor.png",
+   "Normal": "T_brochure_rack_metal_Normal.png",
+   "ARM": "T_brochure_rack_metal_ARM.png"
+  },
+  {
+   "slot": "paperA",
+   "material": "M_paperA",
+   "BaseColor": "T_brochure_rack_paperA_BaseColor.png",
+   "Normal": "T_brochure_rack_paperA_Normal.png",
+   "ARM": "T_brochure_rack_paperA_ARM.png"
+  },
+  {
+   "slot": "label",
+   "material": "M_label",
+   "BaseColor": "T_brochure_rack_label_BaseColor.png",
+   "Normal": "T_brochure_rack_label_Normal.png",
+   "ARM": "T_brochure_rack_label_ARM.png"
+  },
+  {
+   "slot": "paperB",
+   "material": "M_paperB",
+   "BaseColor": "T_brochure_rack_paperB_BaseColor.png",
+   "Normal": "T_brochure_rack_paperB_Normal.png",
+   "ARM": "T_brochure_rack_paperB_ARM.png"
+  },
+  {
+   "slot": "paperC",
+   "material": "M_paperC",
+   "BaseColor": "T_brochure_rack_paperC_BaseColor.png",
+   "Normal": "T_brochure_rack_paperC_Normal.png",
+   "ARM": "T_brochure_rack_paperC_ARM.png"
+  }
+ ],
+ "texture_res": 512,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "free-standing brochure rack, 3 tiers of printed travel brochures (brochure_panels.png)"
+}

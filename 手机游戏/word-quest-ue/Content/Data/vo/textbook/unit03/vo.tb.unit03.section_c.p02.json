@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit03.section_c.p02",
+ "unit": 3,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "Like other Chinese senior citizens, Zhang and Wang were committed to their families and work, and traveling was not a priority option when they were younger. After retiring, Zhang decided to capitalize on this new-found opportunity to travel. The couple used their life savings to fund their expedition around the world.",
+ "rate": 165,
+ "duration": 24.502,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 11.515,
+   "text": "Like other Chinese senior citizens, Zhang and Wang were committed to their families and work, and traveling was not a priority option when they were younger."
+  },
+  {
+   "i": 1,
+   "start": 11.515,
+   "end": 18.589,
+   "text": "After retiring, Zhang decided to capitalize on this new-found opportunity to travel."
+  },
+  {
+   "i": 2,
+   "start": 18.589,
+   "end": 24.502,
+   "text": "The couple used their life savings to fund their expedition around the world."
+  }
+ ]
+}

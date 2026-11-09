@@ -1,0 +1,46 @@
+{
+ "kit": "qr_sign",
+ "dims_m": [
+  0.25,
+  0.02,
+  0.32
+ ],
+ "materials": {
+  "M_foot_metal": {
+   "color": "#B8C0C8",
+   "roughness": 0.3,
+   "metallic": 0.8,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_acrylic": {
+   "color": "#CDE9F5",
+   "roughness": 0.08,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_qr_white": {
+   "color": "#FAFAFA",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_qr_black": {
+   "color": "#111111",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit02.section_c.p01",
+ "unit": 2,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "Mei Lanfang, a Chinese theatrical performer, is recognized as one of the greatest Peking Opera artists in Chinese history. Actually, Mei Lanfang is his stage name and his real name is Mei Lan.",
+ "rate": 165,
+ "duration": 15.583,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 9.931,
+   "text": "Mei Lanfang, a Chinese theatrical performer, is recognized as one of the greatest Peking Opera artists in Chinese history."
+  },
+  {
+   "i": 1,
+   "start": 9.931,
+   "end": 15.583,
+   "text": "Actually, Mei Lanfang is his stage name and his real name is Mei Lan."
+  }
+ ]
+}

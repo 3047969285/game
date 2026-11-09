@@ -1,0 +1,2369 @@
+{
+  "run_id": "1792726635414390000",
+  "capture_quality": "FAIL",
+  "capture_failures": 5,
+  "resolution": [
+    3840,
+    2160
+  ],
+  "scene_source_sha256": "0849276b6e7e362d3fc2ac7f0be22c6bd82e7a1378eb170e1ded02c422892b1b",
+  "scenes": [
+    {
+      "scene": "u01a_s1",
+      "props": 15,
+      "cameras": 3,
+      "needs_final_asset": 2,
+      "placeholders": 6,
+      "unmapped_kits": [
+        "chess_set",
+        "window_wall"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "2 actors need final assets",
+        "6 placeholders (including people)",
+        "kits missing final assets: chess_set, window_wall",
+        "decals 0/10",
+        "non-scan asset needs PBR/bevel/triangle verification: wall",
+        "non-scan asset needs PBR/bevel/triangle verification: rug",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: bookshelf",
+        "non-scan asset needs PBR/bevel/triangle verification: calendar",
+        "non-scan asset needs PBR/bevel/triangle verification: floor_lamp",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: coffee_table",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: armchair",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: armchair",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: phone_basket",
+        "non-scan asset needs PBR/bevel/triangle verification: phone",
+        "non-scan asset needs PBR/bevel/triangle verification: phone"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01a_s1/wide.png",
+        "Docs/qa/scenes/u01a_s1/chess.png",
+        "Docs/qa/scenes/u01a_s1/basket.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01a_s1/wide.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 77.0849,
+          "black_fraction": 0.194723,
+          "clipped_fraction": 4e-06,
+          "luma_stddev": 64.1615,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b1e090) {x: 0.000000, y: -550.000000, z: 170.000000}>",
+          "schema_camera": [
+            0.0,
+            -550.0,
+            170.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x711fa3b260) {x: 0.000000, y: -550.000000, z: 170.000000}>",
+          "active_ppv": "GRADE_u01a_s1",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01a_s1",
+              "intensity": 5850.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 618.0614856144978
+            },
+            {
+              "actor": "FILL_u01a_s1",
+              "intensity": 1251.25,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 376.82887362833543
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 77.0849,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 7.138
+            }
+          ]
+        },
+        {
+          "path": "Docs/qa/scenes/u01a_s1/chess.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 108.6557,
+          "black_fraction": 0.066055,
+          "clipped_fraction": 0.0,
+          "luma_stddev": 58.6135,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b1e400) {x: 90.000000, y: -60.000000, z: 100.000000}>",
+          "schema_camera": [
+            90.0,
+            -60.0,
+            100.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b1e220) {x: 90.000000, y: -60.000000, z: 100.000000}>",
+          "active_ppv": "GRADE_u01a_s1",
+          "camera_bounds_intersections": [
+            "PROP_u01a_s1_008_armchair"
+          ],
+          "local_lights": [
+            {
+              "actor": "KEY_u01a_s1",
+              "intensity": 5850.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 637.1224372128171
+            },
+            {
+              "actor": "FILL_u01a_s1",
+              "intensity": 1251.25,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 399.9062390110962
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 108.6557,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 5.725
+            }
+          ]
+        },
+        {
+          "path": "Docs/qa/scenes/u01a_s1/basket.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 45.0508,
+          "black_fraction": 0.141777,
+          "clipped_fraction": 0.0,
+          "luma_stddev": 30.4152,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b1e4a0) {x: 200.000000, y: -260.000000, z: 80.000000}>",
+          "schema_camera": [
+            200.0,
+            -260.0,
+            80.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b1e2c0) {x: 200.000000, y: -260.000000, z: 80.000000}>",
+          "active_ppv": "GRADE_u01a_s1",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01a_s1",
+              "intensity": 5850.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 757.1657678474378
+            },
+            {
+              "actor": "FILL_u01a_s1",
+              "intensity": 1251.25,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 391.5354390090379
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 45.0508,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 5.627
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01a_s2",
+      "props": 12,
+      "cameras": 2,
+      "needs_final_asset": 1,
+      "placeholders": 5,
+      "unmapped_kits": [
+        "window_wall"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "1 actors need final assets",
+        "5 placeholders (including people)",
+        "kits missing final assets: window_wall",
+        "decals 0/10",
+        "non-scan asset needs PBR/bevel/triangle verification: wall",
+        "non-scan asset needs PBR/bevel/triangle verification: rug",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: bookshelf",
+        "non-scan asset needs PBR/bevel/triangle verification: calendar",
+        "non-scan asset needs PBR/bevel/triangle verification: floor_lamp",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: coffee_table",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: sofa",
+        "non-scan asset needs PBR/bevel/triangle verification: phone",
+        "non-scan asset needs PBR/bevel/triangle verification: phone",
+        "non-scan asset needs PBR/bevel/triangle verification: tablet",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: laptop"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01a_s2/wide.png",
+        "Docs/qa/scenes/u01a_s2/faces.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01a_s2/wide.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 66.1061,
+          "black_fraction": 0.330701,
+          "clipped_fraction": 0.0,
+          "luma_stddev": 66.0931,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b1e590) {x: 6000.000000, y: -500.000000, z: 160.000000}>",
+          "schema_camera": [
+            6000.0,
+            -500.0,
+            160.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b1e270) {x: 6000.000000, y: -500.000000, z: 160.000000}>",
+          "active_ppv": "GRADE_u01a_s2",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01a_s2",
+              "intensity": 2880.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 570.701322935211
+            },
+            {
+              "actor": "FILL_u01a_s2",
+              "intensity": 392.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 392.04591567825315
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 66.1061,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 7.52
+            }
+          ]
+        },
+        {
+          "path": "Docs/qa/scenes/u01a_s2/faces.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 95.0446,
+          "black_fraction": 0.214914,
+          "clipped_fraction": 0.0,
+          "luma_stddev": 69.0917,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b1e720) {x: 6000.000000, y: -220.000000, z: 105.000000}>",
+          "schema_camera": [
+            6000.0,
+            -220.00000000000003,
+            105.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b1e540) {x: 6000.000000, y: -220.000000, z: 105.000000}>",
+          "active_ppv": "GRADE_u01a_s2",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01a_s2",
+              "intensity": 2880.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 554.616984954482
+            },
+            {
+              "actor": "FILL_u01a_s2",
+              "intensity": 392.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 394.4616584663204
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 95.0446,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 6.901
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01a_s3",
+      "props": 18,
+      "cameras": 2,
+      "needs_final_asset": 1,
+      "placeholders": 7,
+      "unmapped_kits": [
+        "blinds"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "1 actors need final assets",
+        "7 placeholders (including people)",
+        "kits missing final assets: blinds",
+        "decals 0/10",
+        "non-scan asset needs PBR/bevel/triangle verification: wall",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: projector_screen",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: document_stack",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: document_stack",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: document_stack",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: document_stack",
+        "non-scan asset needs PBR/bevel/triangle verification: phone",
+        "non-scan asset needs PBR/bevel/triangle verification: phone"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01a_s3/wide.png",
+        "Docs/qa/scenes/u01a_s3/under_table.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01a_s3/wide.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 80.9065,
+          "black_fraction": 0.0,
+          "clipped_fraction": 0.0,
+          "luma_stddev": 52.7742,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b1e8b0) {x: 12000.000000, y: -500.000000, z: 200.000000}>",
+          "schema_camera": [
+            12000.0,
+            -500.0,
+            200.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b1e720) {x: 12000.000000, y: -500.000000, z: 200.000000}>",
+          "active_ppv": "GRADE_u01a_s3",
+          "camera_bounds_intersections": [
+            "PROP_u01a_s3_002_board_table"
+          ],
+          "local_lights": [
+            {
+              "actor": "KEY_u01a_s3",
+              "intensity": 4050.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 623.6184731067545
+            },
+            {
+              "actor": "FILL_u01a_s3",
+              "intensity": 945.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 375.3664875824692
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": 3.0,
+          "attempts": [
+            {
+              "mean_luma": 0.2512,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 7.219
+            },
+            {
+              "mean_luma": 2.0062,
+              "exposure_bias": -1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 7.078
+            },
+            {
+              "mean_luma": 17.3483,
+              "exposure_bias": 1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 7.604
+            },
+            {
+              "mean_luma": 80.9065,
+              "exposure_bias": 3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 7.598
+            }
+          ]
+        },
+        {
+          "path": "Docs/qa/scenes/u01a_s3/under_table.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 47.4873,
+          "black_fraction": 0.0,
+          "clipped_fraction": 0.0,
+          "luma_stddev": 50.0054,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b1ec70) {x: 11900.000000, y: -120.000000, z: 50.000000}>",
+          "schema_camera": [
+            11900.0,
+            -120.0,
+            50.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b1ea90) {x: 11900.000000, y: -120.000000, z: 50.000000}>",
+          "active_ppv": "GRADE_u01a_s3",
+          "camera_bounds_intersections": [
+            "PROP_u01a_s3_002_board_table"
+          ],
+          "local_lights": [
+            {
+              "actor": "KEY_u01a_s3",
+              "intensity": 4050.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 534.9065338916697
+            },
+            {
+              "actor": "FILL_u01a_s3",
+              "intensity": 945.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 542.3329235810786
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": 3.0,
+          "attempts": [
+            {
+              "mean_luma": 0.1827,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 5.506
+            },
+            {
+              "mean_luma": 1.0008,
+              "exposure_bias": -1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 6.396
+            },
+            {
+              "mean_luma": 8.7961,
+              "exposure_bias": 1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 6.884
+            },
+            {
+              "mean_luma": 47.4873,
+              "exposure_bias": 3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 5.936
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01a_s4",
+      "props": 17,
+      "cameras": 2,
+      "needs_final_asset": 4,
+      "placeholders": 10,
+      "unmapped_kits": [
+        "glass_building",
+        "keyboard",
+        "lawn",
+        "reading_table"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "4 actors need final assets",
+        "10 placeholders (including people)",
+        "kits missing final assets: glass_building, keyboard, lawn, reading_table",
+        "decals 0/10",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: library_shelf",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: library_shelf",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: chair",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: chair",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: chair",
+        "non-scan asset needs PBR/bevel/triangle verification: tablet",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: bench",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: bench",
+        "non-scan asset needs PBR/bevel/triangle verification: bubble",
+        "non-scan asset needs PBR/bevel/triangle verification: bubble",
+        "non-scan asset needs PBR/bevel/triangle verification: bubble",
+        "non-scan asset needs PBR/bevel/triangle verification: bubble",
+        "non-scan asset needs PBR/bevel/triangle verification: bubble"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01a_s4/library.png",
+        "Docs/qa/scenes/u01a_s4/campus.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01a_s4/library.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 147.3594,
+          "black_fraction": 0.005746,
+          "clipped_fraction": 0.000743,
+          "luma_stddev": 91.8065,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b1ef90) {x: 17760.000000, y: -380.000000, z: 180.000000}>",
+          "schema_camera": [
+            17760.0,
+            -380.0,
+            180.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b1eea0) {x: 17760.000000, y: -380.000000, z: 180.000000}>",
+          "active_ppv": "GRADE_u01a_s4",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01a_s4",
+              "intensity": 8100.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 562.2277118748239
+            },
+            {
+              "actor": "FILL_u01a_s4",
+              "intensity": 2520.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 579.7413216254298
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 147.3594,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 8.956
+            }
+          ]
+        },
+        {
+          "path": "Docs/qa/scenes/u01a_s4/campus.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 81.6557,
+          "black_fraction": 0.105799,
+          "clipped_fraction": 0.001637,
+          "luma_stddev": 78.7474,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b1f080) {x: 18680.000000, y: -650.000000, z: 220.000000}>",
+          "schema_camera": [
+            18680.0,
+            -650.0,
+            220.00000000000003
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b1ec70) {x: 18680.000000, y: -650.000000, z: 220.000000}>",
+          "active_ppv": "GRADE_u01a_s4",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01a_s4",
+              "intensity": 8100.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 1100.1818031580053
+            },
+            {
+              "actor": "FILL_u01a_s4",
+              "intensity": 2520.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 440.90815370097204
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -1.0,
+          "attempts": [
+            {
+              "mean_luma": 29.6993,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 9.075
+            },
+            {
+              "mean_luma": 81.6557,
+              "exposure_bias": -1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 9.322
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01a_s5",
+      "props": 38,
+      "cameras": 2,
+      "needs_final_asset": 13,
+      "placeholders": 20,
+      "unmapped_kits": [
+        "cockpit_console",
+        "door",
+        "headphones"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "13 actors need final assets",
+        "20 placeholders (including people)",
+        "kits missing final assets: cockpit_console, door, headphones",
+        "decals 0/10",
+        "non-scan asset needs PBR/bevel/triangle verification: wall",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: office_desk",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: office_desk",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: office_desk",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: office_desk",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: office_desk",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: office_desk",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: laptop",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: laptop",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: laptop",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: laptop",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: laptop",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: laptop",
+        "non-scan asset needs PBR/bevel/triangle verification: phone",
+        "non-scan asset needs PBR/bevel/triangle verification: phone",
+        "non-scan asset needs PBR/bevel/triangle verification: phone",
+        "non-scan asset needs PBR/bevel/triangle verification: phone",
+        "non-scan asset needs PBR/bevel/triangle verification: phone",
+        "non-scan asset needs PBR/bevel/triangle verification: phone",
+        "non-scan asset needs PBR/bevel/triangle verification: tablet",
+        "non-scan asset needs PBR/bevel/triangle verification: tablet",
+        "non-scan asset needs PBR/bevel/triangle verification: tablet",
+        "non-scan asset needs PBR/bevel/triangle verification: tablet",
+        "non-scan asset needs PBR/bevel/triangle verification: tablet",
+        "non-scan asset needs PBR/bevel/triangle verification: tablet"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01a_s5/door.png",
+        "Docs/qa/scenes/u01a_s5/cockpit.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01a_s5/door.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 161.0921,
+          "black_fraction": 0.069789,
+          "clipped_fraction": 0.0,
+          "luma_stddev": 76.8399,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b1f260) {x: 23640.000000, y: -160.000000, z: 170.000000}>",
+          "schema_camera": [
+            23640.0,
+            -160.0,
+            170.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b1f170) {x: 23640.000000, y: -160.000000, z: 170.000000}>",
+          "active_ppv": "GRADE_u01a_s5",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01a_s5",
+              "intensity": 4050.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 634.1135544995076
+            },
+            {
+              "actor": "FILL_u01a_s5",
+              "intensity": 945.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 360.69377593742865
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 161.0921,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 6.969
+            }
+          ]
+        },
+        {
+          "path": "Docs/qa/scenes/u01a_s5/cockpit.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 146.5071,
+          "black_fraction": 0.060514,
+          "clipped_fraction": 0.0,
+          "luma_stddev": 64.0355,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b1f3f0) {x: 24000.000000, y: -130.000000, z: 125.000000}>",
+          "schema_camera": [
+            24000.0,
+            -130.0,
+            125.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b1f260) {x: 24000.000000, y: -130.000000, z: 125.000000}>",
+          "active_ppv": "GRADE_u01a_s5",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01a_s5",
+              "intensity": 4050.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 591.7136131609615
+            },
+            {
+              "actor": "FILL_u01a_s5",
+              "intensity": 945.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 374.33273968489584
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 146.5071,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 5.029
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01a_s6",
+      "props": 13,
+      "cameras": 2,
+      "needs_final_asset": 8,
+      "placeholders": 10,
+      "unmapped_kits": [
+        "message_drop",
+        "tone_ripple"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "8 actors need final assets",
+        "10 placeholders (including people)",
+        "kits missing final assets: message_drop, tone_ripple",
+        "decals 0/10",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: cafe_table",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: chair",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: chair",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: coffee_cup",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: coffee_cup"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01a_s6/orbit.png",
+        "Docs/qa/scenes/u01a_s6/faces.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01a_s6/orbit.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 69.4277,
+          "black_fraction": 0.045742,
+          "clipped_fraction": 0.00041,
+          "luma_stddev": 76.9906,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b1f580) {x: 30000.000000, y: -420.000000, z: 200.000000}>",
+          "schema_camera": [
+            30000.0,
+            -420.0,
+            200.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b1f210) {x: 30000.000000, y: -420.000000, z: 200.000000}>",
+          "active_ppv": "GRADE_u01a_s6",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01a_s6",
+              "intensity": 1980.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 569.5612346359256
+            },
+            {
+              "actor": "FILL_u01a_s6",
+              "intensity": 192.5,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 363.86810797320504
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -1.0,
+          "attempts": [
+            {
+              "mean_luma": 24.6654,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 8.141
+            },
+            {
+              "mean_luma": 69.4277,
+              "exposure_bias": -1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 8.447
+            }
+          ]
+        },
+        {
+          "path": "Docs/qa/scenes/u01a_s6/faces.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 65.4877,
+          "black_fraction": 0.0,
+          "clipped_fraction": 0.0,
+          "luma_stddev": 76.8419,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b1f6c0) {x: 30000.000000, y: -140.000000, z: 115.000000}>",
+          "schema_camera": [
+            30000.0,
+            -140.0,
+            114.99999999999999
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b1f260) {x: 30000.000000, y: -140.000000, z: 115.000000}>",
+          "active_ppv": "GRADE_u01a_s6",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01a_s6",
+              "intensity": 1980.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 576.2811813689564
+            },
+            {
+              "actor": "FILL_u01a_s6",
+              "intensity": 192.5,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 368.9173349139343
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": 1.0,
+          "attempts": [
+            {
+              "mean_luma": 8.6479,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 8.791
+            },
+            {
+              "mean_luma": 25.9536,
+              "exposure_bias": -1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 9.191
+            },
+            {
+              "mean_luma": 65.4877,
+              "exposure_bias": 1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 8.571
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01a_s7",
+      "props": 12,
+      "cameras": 3,
+      "needs_final_asset": 6,
+      "placeholders": 14,
+      "unmapped_kits": [
+        "car_interior",
+        "device_box",
+        "dish_rack",
+        "kitchen_counter",
+        "sink",
+        "whiteboard"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "6 actors need final assets",
+        "14 placeholders (including people)",
+        "kits missing final assets: car_interior, device_box, dish_rack, kitchen_counter, sink, whiteboard",
+        "decals 0/10",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: dining_table",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: chair",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: chair",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: office_desk",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: chair",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: chair",
+        "capture kitchen.png: large black area 38.6% > 35%",
+        "capture thursday.png: large black area 44.7% > 35%"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01a_s7/pan.png",
+        "Docs/qa/scenes/u01a_s7/kitchen.png",
+        "Docs/qa/scenes/u01a_s7/thursday.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01a_s7/pan.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 73.5185,
+          "black_fraction": 0.093822,
+          "clipped_fraction": 0.000314,
+          "luma_stddev": 76.2504,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b1f940) {x: 36000.000000, y: -700.000000, z: 240.000000}>",
+          "schema_camera": [
+            36000.0,
+            -700.0,
+            240.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b1f6c0) {x: 36000.000000, y: -700.000000, z: 240.000000}>",
+          "active_ppv": "GRADE_u01a_s7",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01a_s7",
+              "intensity": 5850.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 622.6556030423238
+            },
+            {
+              "actor": "FILL_u01a_s7",
+              "intensity": 1251.25,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 368.37480912787726
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 73.5185,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 8.48
+            }
+          ]
+        },
+        {
+          "path": "Docs/qa/scenes/u01a_s7/kitchen.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 112.5225,
+          "black_fraction": 0.386467,
+          "clipped_fraction": 0.000899,
+          "luma_stddev": 104.0741,
+          "capture_quality": "FAIL",
+          "issues": [
+            "large black area 38.6% > 35%"
+          ],
+          "saved_camera": "<Struct 'Vector' (0x7119b1fad0) {x: 35400.000000, y: -200.000000, z: 160.000000}>",
+          "schema_camera": [
+            35400.0,
+            -200.0,
+            160.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b1f8f0) {x: 35400.000000, y: -200.000000, z: 160.000000}>",
+          "active_ppv": "GRADE_u01a_s7",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01a_s7",
+              "intensity": 5850.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 622.5752966509352
+            },
+            {
+              "actor": "FILL_u01a_s7",
+              "intensity": 1251.25,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 882.9496021857647
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 112.5225,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 5.397
+            }
+          ]
+        },
+        {
+          "path": "Docs/qa/scenes/u01a_s7/thursday.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 49.7337,
+          "black_fraction": 0.447217,
+          "clipped_fraction": 0.000277,
+          "luma_stddev": 67.9732,
+          "capture_quality": "FAIL",
+          "issues": [
+            "large black area 44.7% > 35%"
+          ],
+          "saved_camera": "<Struct 'Vector' (0x7119b1fc10) {x: 36600.000000, y: -220.000000, z: 160.000000}>",
+          "schema_camera": [
+            36600.0,
+            -220.00000000000003,
+            160.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b1f800) {x: 36600.000000, y: -220.000000, z: 160.000000}>",
+          "active_ppv": "GRADE_u01a_s7",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01a_s7",
+              "intensity": 5850.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 1075.0348831549607
+            },
+            {
+              "actor": "FILL_u01a_s7",
+              "intensity": 1251.25,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 357.35136770411276
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": 1.0,
+          "attempts": [
+            {
+              "mean_luma": 2.0175,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 6.068
+            },
+            {
+              "mean_luma": 13.7627,
+              "exposure_bias": -1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 6.817
+            },
+            {
+              "mean_luma": 49.7337,
+              "exposure_bias": 1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 7.193
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01a_s8",
+      "props": 15,
+      "cameras": 2,
+      "needs_final_asset": 2,
+      "placeholders": 6,
+      "unmapped_kits": [
+        "chess_set",
+        "window_wall"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "2 actors need final assets",
+        "6 placeholders (including people)",
+        "kits missing final assets: chess_set, window_wall",
+        "decals 0/10",
+        "non-scan asset needs PBR/bevel/triangle verification: wall",
+        "non-scan asset needs PBR/bevel/triangle verification: rug",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: bookshelf",
+        "non-scan asset needs PBR/bevel/triangle verification: calendar",
+        "non-scan asset needs PBR/bevel/triangle verification: floor_lamp",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: coffee_table",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: armchair",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: armchair",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: phone_basket",
+        "non-scan asset needs PBR/bevel/triangle verification: phone",
+        "non-scan asset needs PBR/bevel/triangle verification: phone",
+        "capture wide.png: large black area 35.9% > 35%",
+        "capture family.png: large black area 35.6% > 35%"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01a_s8/wide.png",
+        "Docs/qa/scenes/u01a_s8/family.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01a_s8/wide.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 83.8318,
+          "black_fraction": 0.359157,
+          "clipped_fraction": 0.000683,
+          "luma_stddev": 85.9319,
+          "capture_quality": "FAIL",
+          "issues": [
+            "large black area 35.9% > 35%"
+          ],
+          "saved_camera": "<Struct 'Vector' (0x7119b1fcb0) {x: 42000.000000, y: -550.000000, z: 170.000000}>",
+          "schema_camera": [
+            42000.0,
+            -550.0,
+            170.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b1fad0) {x: 42000.000000, y: -550.000000, z: 170.000000}>",
+          "active_ppv": "GRADE_u01a_s8",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01a_s8",
+              "intensity": 3600.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 618.0614856144978
+            },
+            {
+              "actor": "FILL_u01a_s8",
+              "intensity": 630.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 376.82887362833543
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": 1.0,
+          "attempts": [
+            {
+              "mean_luma": 6.4527,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 6.003
+            },
+            {
+              "mean_luma": 33.3901,
+              "exposure_bias": -1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 6.669
+            },
+            {
+              "mean_luma": 83.8318,
+              "exposure_bias": 1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 8.261
+            }
+          ]
+        },
+        {
+          "path": "Docs/qa/scenes/u01a_s8/family.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 82.0493,
+          "black_fraction": 0.356443,
+          "clipped_fraction": 0.0,
+          "luma_stddev": 78.8992,
+          "capture_quality": "FAIL",
+          "issues": [
+            "large black area 35.6% > 35%"
+          ],
+          "saved_camera": "<Struct 'Vector' (0x7119b1ffd0) {x: 42000.000000, y: -260.000000, z: 130.000000}>",
+          "schema_camera": [
+            42000.0,
+            -260.0,
+            130.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b1fe90) {x: 42000.000000, y: -260.000000, z: 130.000000}>",
+          "active_ppv": "GRADE_u01a_s8",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01a_s8",
+              "intensity": 3600.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 600.416522091123
+            },
+            {
+              "actor": "FILL_u01a_s8",
+              "intensity": 630.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 374.83329627982624
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": 1.0,
+          "attempts": [
+            {
+              "mean_luma": 3.8014,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 5.092
+            },
+            {
+              "mean_luma": 26.3883,
+              "exposure_bias": -1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 6.306
+            },
+            {
+              "mean_luma": 82.0493,
+              "exposure_bias": 1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 6.361
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01b_s1",
+      "props": 6,
+      "cameras": 1,
+      "needs_final_asset": 5,
+      "placeholders": 5,
+      "unmapped_kits": [
+        "city_skyline",
+        "network_node"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "5 actors need final assets",
+        "5 placeholders (including people)",
+        "kits missing final assets: city_skyline, network_node",
+        "decals 0/10",
+        "no CC0 clutter scatter",
+        "non-scan asset needs PBR/bevel/triangle verification: street"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01b_s1/city.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01b_s1/city.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 51.2028,
+          "black_fraction": 0.174136,
+          "clipped_fraction": 1e-05,
+          "luma_stddev": 54.8613,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b4c2e0) {x: 0.000000, y: -800.000000, z: 300.000000}>",
+          "schema_camera": [
+            0.0,
+            -800.0,
+            300.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b1d5f0) {x: 0.000000, y: -800.000000, z: 300.000000}>",
+          "active_ppv": "GRADE_u01b_s1",
+          "camera_bounds_intersections": [
+            "PROP_u01b_s1_000_city_skyline",
+            "PROP_u01b_s1_001_city_skyline"
+          ],
+          "local_lights": [
+            {
+              "actor": "KEY_u01b_s1",
+              "intensity": 1980.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 1337.9088160259653
+            },
+            {
+              "actor": "FILL_u01b_s1",
+              "intensity": 192.5,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 994.98743710662
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": 1.0,
+          "attempts": [
+            {
+              "mean_luma": 1.1094,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 9.77
+            },
+            {
+              "mean_luma": 9.9578,
+              "exposure_bias": -1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 11.536
+            },
+            {
+              "mean_luma": 51.2028,
+              "exposure_bias": 1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 33.564
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01b_s2",
+      "props": 14,
+      "cameras": 1,
+      "needs_final_asset": 9,
+      "placeholders": 9,
+      "unmapped_kits": [
+        "blackboard",
+        "chalk_tray",
+        "duster",
+        "interactive_board",
+        "school_bag",
+        "wifi_router"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "9 actors need final assets",
+        "9 placeholders (including people)",
+        "kits missing final assets: blackboard, chalk_tray, duster, interactive_board, school_bag, wifi_router",
+        "decals 0/10",
+        "non-scan asset needs PBR/bevel/triangle verification: wall",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: student_desk",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: student_desk",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: student_desk",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: student_desk",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: textbook_stack",
+        "non-scan asset needs PBR/bevel/triangle verification: tablet",
+        "non-scan asset needs PBR/bevel/triangle verification: tablet"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01b_s2/front.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01b_s2/front.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 131.0059,
+          "black_fraction": 0.063367,
+          "clipped_fraction": 0.005366,
+          "luma_stddev": 79.9884,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b4c650) {x: 6000.000000, y: -450.000000, z: 170.000000}>",
+          "schema_camera": [
+            6000.0,
+            -450.0,
+            170.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b4c510) {x: 6000.000000, y: -450.000000, z: 170.000000}>",
+          "active_ppv": "GRADE_u01b_s2",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01b_s2",
+              "intensity": 8100.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 732.7346040688948
+            },
+            {
+              "actor": "FILL_u01b_s2",
+              "intensity": 2520.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 380.6573262134856
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -4.075139045715332,
+          "attempts": [
+            {
+              "mean_luma": 170.2856,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 10.494
+            },
+            {
+              "mean_luma": 131.0059,
+              "exposure_bias": -4.075139045715332,
+              "warmup_frames": 96,
+              "warmup_seconds": 10.523
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01b_s3",
+      "props": 6,
+      "cameras": 1,
+      "needs_final_asset": 5,
+      "placeholders": 7,
+      "unmapped_kits": [
+        "playground",
+        "swing",
+        "window_wall"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "5 actors need final assets",
+        "7 placeholders (including people)",
+        "kits missing final assets: playground, swing, window_wall",
+        "decals 0/10",
+        "no CC0 clutter scatter",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: sofa",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: game_console",
+        "non-scan asset needs PBR/bevel/triangle verification: phone"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01b_s3/room.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01b_s3/room.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 169.9328,
+          "black_fraction": 0.030345,
+          "clipped_fraction": 0.0,
+          "luma_stddev": 47.4179,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b4c830) {x: 12000.000000, y: -350.000000, z: 150.000000}>",
+          "schema_camera": [
+            12000.0,
+            -350.0,
+            150.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b4c420) {x: 12000.000000, y: -350.000000, z: 150.000000}>",
+          "active_ppv": "GRADE_u01b_s3",
+          "camera_bounds_intersections": [
+            "PROP_u01b_s3_002_playground"
+          ],
+          "local_lights": [
+            {
+              "actor": "KEY_u01b_s3",
+              "intensity": 8100.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 860.2325267042627
+            },
+            {
+              "actor": "FILL_u01b_s3",
+              "intensity": 2520.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 469.041575982343
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -4.580015182495117,
+          "attempts": [
+            {
+              "mean_luma": 218.6438,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 7.179
+            },
+            {
+              "mean_luma": 169.9328,
+              "exposure_bias": -4.580015182495117,
+              "warmup_frames": 96,
+              "warmup_seconds": 6.79
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01b_s4",
+      "props": 9,
+      "cameras": 1,
+      "needs_final_asset": 8,
+      "placeholders": 6,
+      "unmapped_kits": [
+        "kitchen_counter",
+        "recipe_book",
+        "tv"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "8 actors need final assets",
+        "6 placeholders (including people)",
+        "kits missing final assets: kitchen_counter, recipe_book, tv",
+        "decals 0/10",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: sofa",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: tv_stand",
+        "non-scan asset needs PBR/bevel/triangle verification: tablet",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: jar",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: laptop",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: laptop"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01b_s4/home.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01b_s4/home.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 69.0489,
+          "black_fraction": 0.215058,
+          "clipped_fraction": 5.2e-05,
+          "luma_stddev": 87.1997,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b4cb50) {x: 18000.000000, y: -500.000000, z: 180.000000}>",
+          "schema_camera": [
+            18000.0,
+            -500.0,
+            180.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b4c920) {x: 18000.000000, y: -500.000000, z: 180.000000}>",
+          "active_ppv": "GRADE_u01b_s4",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01b_s4",
+              "intensity": 5850.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 640.3124237432849
+            },
+            {
+              "actor": "FILL_u01b_s4",
+              "intensity": 1251.25,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 360.5551275463989
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 69.0489,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 9.773
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01b_s5",
+      "props": 7,
+      "cameras": 1,
+      "needs_final_asset": 7,
+      "placeholders": 7,
+      "unmapped_kits": [
+        "cubicle",
+        "video_grid"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "7 actors need final assets",
+        "7 placeholders (including people)",
+        "kits missing final assets: cubicle, video_grid",
+        "decals 0/10",
+        "non-scan asset needs PBR/bevel/triangle verification: monitor",
+        "non-scan asset needs PBR/bevel/triangle verification: home_desk",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: laptop",
+        "capture office.png: large black area 44.2% > 35%"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01b_s5/office.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01b_s5/office.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 66.9793,
+          "black_fraction": 0.442316,
+          "clipped_fraction": 2e-06,
+          "luma_stddev": 79.4173,
+          "capture_quality": "FAIL",
+          "issues": [
+            "large black area 44.2% > 35%"
+          ],
+          "saved_camera": "<Struct 'Vector' (0x7119b4cbf0) {x: 23950.000000, y: -450.000000, z: 180.000000}>",
+          "schema_camera": [
+            23950.0,
+            -450.0,
+            180.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b4c830) {x: 23950.000000, y: -450.000000, z: 180.000000}>",
+          "active_ppv": "GRADE_u01b_s5",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01b_s5",
+              "intensity": 4050.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 605.7227088363123
+            },
+            {
+              "actor": "FILL_u01b_s5",
+              "intensity": 945.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 403.6087214122113
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 66.9793,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 6.981
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01b_s6",
+      "props": 7,
+      "cameras": 1,
+      "needs_final_asset": 7,
+      "placeholders": 7,
+      "unmapped_kits": [
+        "brochure_rack",
+        "resort_poster",
+        "review_panel",
+        "travel_counter"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "7 actors need final assets",
+        "7 placeholders (including people)",
+        "kits missing final assets: brochure_rack, resort_poster, review_panel, travel_counter",
+        "decals 0/10",
+        "non-scan asset needs PBR/bevel/triangle verification: home_desk",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: laptop"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01b_s6/both.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01b_s6/both.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 120.7706,
+          "black_fraction": 0.025715,
+          "clipped_fraction": 0.02156,
+          "luma_stddev": 97.0051,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b4cdd0) {x: 30000.000000, y: -500.000000, z: 180.000000}>",
+          "schema_camera": [
+            30000.0,
+            -500.0,
+            180.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b4cbf0) {x: 30000.000000, y: -500.000000, z: 180.000000}>",
+          "active_ppv": "GRADE_u01b_s6",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01b_s6",
+              "intensity": 8100.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 634.1135544995076
+            },
+            {
+              "actor": "FILL_u01b_s6",
+              "intensity": 2520.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 355.10561809129405
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 120.7706,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 9.642
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01b_s7",
+      "props": 14,
+      "cameras": 1,
+      "needs_final_asset": 9,
+      "placeholders": 7,
+      "unmapped_kits": [
+        "arcade_cabinet",
+        "bank_counter",
+        "newsstand",
+        "queue_rope"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "9 actors need final assets",
+        "7 placeholders (including people)",
+        "kits missing final assets: arcade_cabinet, bank_counter, newsstand, queue_rope",
+        "decals 0/10",
+        "non-scan asset needs PBR/bevel/triangle verification: street",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: video_shelf",
+        "non-scan asset needs PBR/bevel/triangle verification: phone",
+        "non-scan asset needs PBR/bevel/triangle verification: phone",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: laptop",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: game_console",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: storefront",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: storefront",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: storefront",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: storefront"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01b_s7/street.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01b_s7/street.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 126.9169,
+          "black_fraction": 0.002122,
+          "clipped_fraction": 0.005545,
+          "luma_stddev": 79.7439,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b4cec0) {x: 36000.000000, y: -800.000000, z: 240.000000}>",
+          "schema_camera": [
+            36000.0,
+            -800.0,
+            240.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b4cdd0) {x: 36000.000000, y: -800.000000, z: 240.000000}>",
+          "active_ppv": "GRADE_u01b_s7",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01b_s7",
+              "intensity": 8100.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 649.6922348312314
+            },
+            {
+              "actor": "FILL_u01b_s7",
+              "intensity": 2520.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 343.6568055487917
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 126.9169,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 9.724
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01b_s8",
+      "props": 9,
+      "cameras": 1,
+      "needs_final_asset": 9,
+      "placeholders": 8,
+      "unmapped_kits": [
+        "city_skyline",
+        "network_node"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "9 actors need final assets",
+        "8 placeholders (including people)",
+        "kits missing final assets: city_skyline, network_node",
+        "decals 0/10",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: photo_album",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: coffee_table"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01b_s8/rise.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01b_s8/rise.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 53.9326,
+          "black_fraction": 0.00029,
+          "clipped_fraction": 0.006059,
+          "luma_stddev": 49.4155,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b4cec0) {x: 42000.000000, y: -600.000000, z: 160.000000}>",
+          "schema_camera": [
+            42000.0,
+            -600.0,
+            160.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b4cc40) {x: 42000.000000, y: -600.000000, z: 160.000000}>",
+          "active_ppv": "GRADE_u01b_s8",
+          "camera_bounds_intersections": [
+            "PROP_u01b_s8_008_city_skyline"
+          ],
+          "local_lights": [
+            {
+              "actor": "KEY_u01b_s8",
+              "intensity": 1620.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 1140.175425099138
+            },
+            {
+              "actor": "FILL_u01b_s8",
+              "intensity": 126.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 787.4007874011811
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": 1.0,
+          "attempts": [
+            {
+              "mean_luma": 2.0448,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 9.706
+            },
+            {
+              "mean_luma": 10.6275,
+              "exposure_bias": -1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 11.085
+            },
+            {
+              "mean_luma": 53.9326,
+              "exposure_bias": 1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 22.664
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01c_s1",
+      "props": 4,
+      "cameras": 2,
+      "needs_final_asset": 3,
+      "placeholders": 5,
+      "unmapped_kits": [
+        "griddle",
+        "jianbing_cart",
+        "qr_sign"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "3 actors need final assets",
+        "5 placeholders (including people)",
+        "kits missing final assets: griddle, jianbing_cart, qr_sign",
+        "decals 0/10",
+        "no CC0 clutter scatter",
+        "non-scan asset needs PBR/bevel/triangle verification: hutong_wall"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01c_s1/stall.png",
+        "Docs/qa/scenes/u01c_s1/scan.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01c_s1/stall.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 107.9136,
+          "black_fraction": 0.014267,
+          "clipped_fraction": 0.0,
+          "luma_stddev": 52.1116,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b4d0f0) {x: 0.000000, y: -350.000000, z: 160.000000}>",
+          "schema_camera": [
+            0.0,
+            -350.0,
+            160.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b4c330) {x: 0.000000, y: -350.000000, z: 160.000000}>",
+          "active_ppv": "GRADE_u01c_s1",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01c_s1",
+              "intensity": 5850.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 628.0127387243033
+            },
+            {
+              "actor": "FILL_u01c_s1",
+              "intensity": 1251.25,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 349.85711369071805
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 107.9136,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 10.687
+            }
+          ]
+        },
+        {
+          "path": "Docs/qa/scenes/u01c_s1/scan.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 110.0774,
+          "black_fraction": 0.0,
+          "clipped_fraction": 0.0,
+          "luma_stddev": 33.8491,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b4d1e0) {x: 60.000000, y: -40.000000, z: 130.000000}>",
+          "schema_camera": [
+            60.0,
+            -40.0,
+            130.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b4c150) {x: 60.000000, y: -40.000000, z: 130.000000}>",
+          "active_ppv": "GRADE_u01c_s1",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01c_s1",
+              "intensity": 5850.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 633.4579701921825
+            },
+            {
+              "actor": "FILL_u01c_s1",
+              "intensity": 1251.25,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 299.44782517159814
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 110.0774,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 6.62
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01c_s2",
+      "props": 5,
+      "cameras": 1,
+      "needs_final_asset": 5,
+      "placeholders": 7,
+      "unmapped_kits": [
+        "checkout_counter",
+        "market_shelf",
+        "payment_sign"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "5 actors need final assets",
+        "7 placeholders (including people)",
+        "kits missing final assets: checkout_counter, market_shelf, payment_sign",
+        "decals 0/10"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01c_s2/counter.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01c_s2/counter.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 112.2855,
+          "black_fraction": 0.132771,
+          "clipped_fraction": 0.001603,
+          "luma_stddev": 91.0736,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b4d320) {x: 6000.000000, y: -350.000000, z: 170.000000}>",
+          "schema_camera": [
+            6000.0,
+            -350.0,
+            170.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b4d190) {x: 6000.000000, y: -350.000000, z: 170.000000}>",
+          "active_ppv": "GRADE_u01c_s2",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01c_s2",
+              "intensity": 4050.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 609.6720429870472
+            },
+            {
+              "actor": "FILL_u01c_s2",
+              "intensity": 945.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 357.35136770411276
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 112.2855,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 8.023
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01c_s3",
+      "props": 8,
+      "cameras": 1,
+      "needs_final_asset": 6,
+      "placeholders": 7,
+      "unmapped_kits": [
+        "bike_rack",
+        "shared_bike"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "6 actors need final assets",
+        "7 placeholders (including people)",
+        "kits missing final assets: bike_rack, shared_bike",
+        "decals 0/10",
+        "no CC0 clutter scatter",
+        "non-scan asset needs PBR/bevel/triangle verification: street"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01c_s3/street.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01c_s3/street.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 83.1032,
+          "black_fraction": 0.027631,
+          "clipped_fraction": 0.000478,
+          "luma_stddev": 77.3056,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b4d460) {x: 12000.000000, y: -600.000000, z: 200.000000}>",
+          "schema_camera": [
+            12000.0,
+            -600.0,
+            200.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b4d230) {x: 12000.000000, y: -600.000000, z: 200.000000}>",
+          "active_ppv": "GRADE_u01c_s3",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01c_s3",
+              "intensity": 8100.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 693.1089380465382
+            },
+            {
+              "actor": "FILL_u01c_s3",
+              "intensity": 2520.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 369.32370625238775
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 83.1032,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 31.05
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01c_s4",
+      "props": 5,
+      "cameras": 1,
+      "needs_final_asset": 2,
+      "placeholders": 4,
+      "unmapped_kits": [
+        "coupon_card",
+        "sandwich_plate"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "2 actors need final assets",
+        "4 placeholders (including people)",
+        "kits missing final assets: coupon_card, sandwich_plate",
+        "decals 0/10",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: cafe_table",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: chair",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: coffee_cup"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01c_s4/table.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01c_s4/table.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 60.8115,
+          "black_fraction": 0.29247,
+          "clipped_fraction": 0.0,
+          "luma_stddev": 65.8239,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b4d5f0) {x: 18000.000000, y: -280.000000, z: 150.000000}>",
+          "schema_camera": [
+            18000.0,
+            -280.0,
+            150.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b4d320) {x: 18000.000000, y: -280.000000, z: 150.000000}>",
+          "active_ppv": "GRADE_u01c_s4",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01c_s4",
+              "intensity": 5850.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 616.9278726074872
+            },
+            {
+              "actor": "FILL_u01c_s4",
+              "intensity": 1251.25,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 369.5943722515266
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 60.8115,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 22.947
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01c_s5",
+      "props": 3,
+      "cameras": 1,
+      "needs_final_asset": 3,
+      "placeholders": 4,
+      "unmapped_kits": [
+        "boutique_front",
+        "mall_atrium",
+        "payment_sign"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "3 actors need final assets",
+        "4 placeholders (including people)",
+        "kits missing final assets: boutique_front, mall_atrium, payment_sign",
+        "decals 0/10",
+        "no CC0 clutter scatter"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01c_s5/mall.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01c_s5/mall.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 44.3434,
+          "black_fraction": 0.295409,
+          "clipped_fraction": 0.0,
+          "luma_stddev": 57.8027,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b4d730) {x: 24000.000000, y: -600.000000, z: 220.000000}>",
+          "schema_camera": [
+            24000.0,
+            -600.0,
+            220.00000000000003
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b4d5f0) {x: 24000.000000, y: -600.000000, z: 220.000000}>",
+          "active_ppv": "GRADE_u01c_s5",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01c_s5",
+              "intensity": 3600.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 734.8469228349534
+            },
+            {
+              "actor": "FILL_u01c_s5",
+              "intensity": 630.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 374.16573867739413
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -3.0,
+          "attempts": [
+            {
+              "mean_luma": 44.3434,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 5.823
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "u01c_s6",
+      "props": 5,
+      "cameras": 1,
+      "needs_final_asset": 1,
+      "placeholders": 2,
+      "unmapped_kits": [
+        "dashboard_screen"
+      ],
+      "quality": "FAIL",
+      "issues": [
+        "1 actors need final assets",
+        "2 placeholders (including people)",
+        "kits missing final assets: dashboard_screen",
+        "decals 0/10",
+        "non-scan asset needs PBR/bevel/triangle verification: home_desk",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: desk_lamp",
+        "non-scan asset needs PBR/bevel/triangle verification: phone",
+        "Poly Haven scan needs PBR/bevel/triangle visual review: notebook"
+      ],
+      "shots": [
+        "Docs/qa/scenes/u01c_s6/desk.png"
+      ],
+      "captures": [
+        {
+          "path": "Docs/qa/scenes/u01c_s6/desk.png",
+          "resolution": [
+            3840,
+            2160
+          ],
+          "mean_luma": 79.5319,
+          "black_fraction": 0.324122,
+          "clipped_fraction": 0.0,
+          "luma_stddev": 85.473,
+          "capture_quality": "PASS",
+          "issues": [],
+          "saved_camera": "<Struct 'Vector' (0x7119b4d870) {x: 30000.000000, y: -240.000000, z: 140.000000}>",
+          "schema_camera": [
+            30000.0,
+            -240.0,
+            140.0
+          ],
+          "capture_camera": "<Struct 'Vector' (0x7119b4d730) {x: 30000.000000, y: -240.000000, z: 140.000000}>",
+          "active_ppv": "GRADE_u01c_s6",
+          "camera_bounds_intersections": [],
+          "local_lights": [
+            {
+              "actor": "KEY_u01c_s6",
+              "intensity": 1620.0,
+              "attenuation_radius_cm": 2200.0,
+              "distance_to_subject_cm": 622.6556030423238
+            },
+            {
+              "actor": "FILL_u01c_s6",
+              "intensity": 126.0,
+              "attenuation_radius_cm": 1600.0,
+              "distance_to_subject_cm": 368.37480912787726
+            }
+          ],
+          "run_id": "1792726635414390000",
+          "exposure_bias": -1.0,
+          "attempts": [
+            {
+              "mean_luma": 31.1454,
+              "exposure_bias": -3.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 7.283
+            },
+            {
+              "mean_luma": 79.5319,
+              "exposure_bias": -1.0,
+              "warmup_frames": 96,
+              "warmup_seconds": 7.867
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

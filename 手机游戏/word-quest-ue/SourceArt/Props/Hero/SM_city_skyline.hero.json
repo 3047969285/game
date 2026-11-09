@@ -1,0 +1,60 @@
+{
+ "kit": "city_skyline",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_city_skyline.fbx",
+ "triangles": 38680,
+ "size_m": [
+  39.4547,
+  6.1467,
+  21.1866
+ ],
+ "dims_target_m": [
+  40.0,
+  6.0,
+  18.0
+ ],
+ "slots": [
+  {
+   "slot": "concrete",
+   "material": "M_concrete",
+   "BaseColor": "T_city_skyline_concrete_BaseColor.png",
+   "Normal": "T_city_skyline_concrete_Normal.png",
+   "ARM": "T_city_skyline_concrete_ARM.png"
+  },
+  {
+   "slot": "windowglass",
+   "material": "M_windowglass",
+   "BaseColor": "T_city_skyline_windowglass_BaseColor.png",
+   "Normal": "T_city_skyline_windowglass_Normal.png",
+   "ARM": "T_city_skyline_windowglass_ARM.png"
+  },
+  {
+   "slot": "litwindow",
+   "material": "M_litwindow",
+   "Emissive": "lamp_glow.png",
+   "strength": 2.2
+  },
+  {
+   "slot": "roofplant",
+   "material": "M_roofplant",
+   "BaseColor": "T_city_skyline_roofplant_BaseColor.png",
+   "Normal": "T_city_skyline_roofplant_Normal.png",
+   "ARM": "T_city_skyline_roofplant_ARM.png"
+  },
+  {
+   "slot": "glassbody",
+   "material": "M_glassbody",
+   "BaseColor": "T_city_skyline_glassbody_BaseColor.png",
+   "Normal": "T_city_skyline_glassbody_Normal.png",
+   "ARM": "T_city_skyline_glassbody_ARM.png"
+  },
+  {
+   "slot": "redlamp",
+   "material": "M_redlamp",
+   "Emissive": "lamp_glow.png",
+   "strength": 8.0
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "backdrop; city faces +Y; ~30% windows lit"
+}

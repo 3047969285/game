@@ -28,11 +28,12 @@ bool UWordQuestCharacterStagingLibrary::PersistPreviewTexture(UTexture2D* Target
         // empty CPU mip does not preserve synthesized skin on disk. Read the
         // character's original stored payload, as MHC's assembly path does.
         auto* Character=Cast<UMetaHumanCharacter>(Object);if(!Character)return false;
+        const FString PayloadHint=Hint.Replace(TEXT("_Animated_Delta_"),TEXT("_Animated_"),ESearchCase::IgnoreCase);
         bool Found=false;auto* Types=StaticEnum<EFaceTextureType>();
         for(int32 I=0;I<Types->NumEnums()-1;++I)
         {
             const FString Name=Types->GetNameStringByIndex(I);
-            if(!Hint.EndsWith(TEXT("_")+Name,ESearchCase::IgnoreCase))continue;
+            if(!PayloadHint.EndsWith(TEXT("_")+Name,ESearchCase::IgnoreCase))continue;
             auto Type=static_cast<EFaceTextureType>(Types->GetValueByIndex(I));
             const auto* Info=Character->SynthesizedFaceTexturesInfo.Find(Type);if(!Info)return false;
             const auto Future=Character->GetSynthesizedFaceTextureDataAsync(Type);
@@ -92,11 +93,15 @@ bool UWordQuestCharacterStagingLibrary::EvaluatePreviewPose(USkeletalMeshCompone
 {
 #if WITH_EDITOR
     auto* Mesh=Body?Body->GetSkeletalMeshAsset():nullptr;
-    if(!Mesh||!Pose||!Mesh->GetOutermost()->GetName().StartsWith(TEXT("/Game/Memory/Characters/")))return false;
+    // Claude 11-02: assembled MetaHumans (Tools/char_assemble.py, /Game/MetaHumans/<id>) share metahuman_base_skel
+    // with the authored poses, so no skeleton asset is modified for them.
+    const FString Package=Mesh?Mesh->GetOutermost()->GetName():FString();
+    if(!Mesh||!Pose||!(Package.StartsWith(TEXT("/Game/Memory/Characters/"))||Package.StartsWith(TEXT("/Game/MetaHumans/"))))return false;
     auto* Skeleton=const_cast<USkeleton*>(Mesh->GetSkeleton());auto* Source=Pose->GetSkeleton();
     if(!Skeleton||!Source)return false;
     if(!Skeleton->IsCompatibleForEditor(Source))
     {
+        if(Package.StartsWith(TEXT("/Game/MetaHumans/")))return false;   // never edit an assembled character's skeleton
         const auto& A=Skeleton->GetReferenceSkeleton();const auto& B=Source->GetReferenceSkeleton();
         if(A.GetNum()!=B.GetNum())return false;
         for(int32 I=0;I<A.GetNum();++I)if(A.GetBoneName(I)!=B.GetBoneName(I)||A.GetParentIndex(I)!=B.GetParentIndex(I))return false;

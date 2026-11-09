@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit02.ex.u02_c_translation",
+ "unit": 2,
+ "section": "section_c",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Translation. Translate the following paragraph into English.",
+ "rate": 165,
+ "duration": 5.212,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 1.484,
+   "text": "Translation."
+  },
+  {
+   "i": 1,
+   "start": 1.484,
+   "end": 5.212,
+   "text": "Translate the following paragraph into English."
+  }
+ ]
+}

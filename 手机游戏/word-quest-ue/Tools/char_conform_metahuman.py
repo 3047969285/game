@@ -61,12 +61,19 @@ def import_body():
 
 
 def main():
-    cam = json.load(open(os.path.join(EXP, f"{WHO}_portrait_camera.json")))
+    cam_file = f"{WHO}_photo_camera.json" if os.environ.get("PORTRAIT") == "photo" else f"{WHO}_portrait_camera.json"
+    cam = json.load(open(os.path.join(EXP, cam_file)))   # PORTRAIT=photo: the real reference photo (photo_camera.py)
+    log(f"portrait camera: {cam_file}")
     mesh = import_body()
     mh = unreal.get_editor_subsystem(unreal.MetaHumanCharacterEditorSubsystem)
 
     curve_tracking, image_size = None, None
-    for img in (cam["image"], f"{WHO}_portrait_clay.png"):
+    order = [cam["image"], f"{WHO}_portrait_clay.png"]
+    if os.environ.get("PORTRAIT") == "clay":      # untextured render: landmarks follow the geometry only
+        order.reverse()
+    if os.environ.get("PORTRAIT") == "photo":
+        order = [cam["image"]]
+    for img in order:
         path = os.path.join(EXP, img)
         if not os.path.exists(path):
             continue

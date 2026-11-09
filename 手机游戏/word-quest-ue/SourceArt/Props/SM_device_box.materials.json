@@ -1,0 +1,28 @@
+{
+ "kit": "device_box",
+ "dims_m": [
+  0.31,
+  0.21,
+  0.12
+ ],
+ "materials": {
+  "M_walnut": {
+   "color": "#6B4226",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.2
+  },
+  "M_brass": {
+   "color": "#C8A24A",
+   "roughness": 0.3,
+   "metallic": 1.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

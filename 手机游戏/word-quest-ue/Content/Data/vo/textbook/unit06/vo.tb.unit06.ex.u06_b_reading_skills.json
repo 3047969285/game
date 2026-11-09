@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit06.ex.u06_b_reading_skills",
+ "unit": 6,
+ "section": "section_b",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Read Text B and answer the questions between the paragraphs. Then try to identify how the definitions of the terms are developed in the context.",
+ "rate": 165,
+ "duration": 12.432,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.005,
+   "text": "Read Text B and answer the questions between the paragraphs."
+  },
+  {
+   "i": 1,
+   "start": 5.005,
+   "end": 12.432,
+   "text": "Then try to identify how the definitions of the terms are developed in the context."
+  }
+ ]
+}

@@ -1,0 +1,2245 @@
+{
+ "source": "OpenStreetMap contributors (ODbL 1.0) — https://www.openstreetmap.org/copyright",
+ "origin_latlon": [
+  37.4749,
+  121.4548
+ ],
+ "storey_m": 3.6,
+ "buildings": [
+  {
+   "id": 462548365,
+   "name": "14号楼",
+   "levels": 5,
+   "height_m": 18.6,
+   "centroid_m": [
+    330.99,
+    -313.65
+   ],
+   "area_m2": 2116.5,
+   "fbx": "SM_YTU_B_462548365.fbx"
+  },
+  {
+   "id": 551678741,
+   "name": "新世界百货",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -694.68,
+    416.5
+   ],
+   "area_m2": 9574.1,
+   "fbx": "SM_YTU_B_551678741.fbx"
+  },
+  {
+   "id": 732685964,
+   "name": "",
+   "levels": 24,
+   "height_m": 87.0,
+   "centroid_m": [
+    -578.98,
+    -809.22
+   ],
+   "area_m2": 884.7,
+   "fbx": "SM_YTU_B_732685964.fbx"
+  },
+  {
+   "id": 732685965,
+   "name": "",
+   "levels": 24,
+   "height_m": 87.0,
+   "centroid_m": [
+    -512.72,
+    -794.06
+   ],
+   "area_m2": 491.1,
+   "fbx": "SM_YTU_B_732685965.fbx"
+  },
+  {
+   "id": 732729821,
+   "name": "",
+   "levels": 22,
+   "height_m": 79.8,
+   "centroid_m": [
+    -641.67,
+    -841.87
+   ],
+   "area_m2": 970.1,
+   "fbx": "SM_YTU_B_732729821.fbx"
+  },
+  {
+   "id": 732729822,
+   "name": "",
+   "levels": 30,
+   "height_m": 108.6,
+   "centroid_m": [
+    -479.23,
+    -797.64
+   ],
+   "area_m2": 577.7,
+   "fbx": "SM_YTU_B_732729822.fbx"
+  },
+  {
+   "id": 732729823,
+   "name": "",
+   "levels": 30,
+   "height_m": 108.6,
+   "centroid_m": [
+    -404.39,
+    -780.16
+   ],
+   "area_m2": 577.9,
+   "fbx": "SM_YTU_B_732729823.fbx"
+  },
+  {
+   "id": 732729824,
+   "name": "",
+   "levels": 24,
+   "height_m": 87.0,
+   "centroid_m": [
+    -374.68,
+    -763.82
+   ],
+   "area_m2": 490.9,
+   "fbx": "SM_YTU_B_732729824.fbx"
+  },
+  {
+   "id": 732729825,
+   "name": "",
+   "levels": 24,
+   "height_m": 87.0,
+   "centroid_m": [
+    -325.84,
+    -751.69
+   ],
+   "area_m2": 491.2,
+   "fbx": "SM_YTU_B_732729825.fbx"
+  },
+  {
+   "id": 732729826,
+   "name": "",
+   "levels": 30,
+   "height_m": 108.6,
+   "centroid_m": [
+    -293.87,
+    -750.01
+   ],
+   "area_m2": 577.6,
+   "fbx": "SM_YTU_B_732729826.fbx"
+  },
+  {
+   "id": 984461055,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -442.52,
+    471.2
+   ],
+   "area_m2": 1411.5,
+   "fbx": "SM_YTU_B_984461055.fbx"
+  },
+  {
+   "id": 984461056,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -440.63,
+    441.93
+   ],
+   "area_m2": 1333.1,
+   "fbx": "SM_YTU_B_984461056.fbx"
+  },
+  {
+   "id": 984461057,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -438.29,
+    413.11
+   ],
+   "area_m2": 1213.4,
+   "fbx": "SM_YTU_B_984461057.fbx"
+  },
+  {
+   "id": 1029549362,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    731.95,
+    -178.49
+   ],
+   "area_m2": 139.6,
+   "fbx": "SM_YTU_B_1029549362.fbx"
+  },
+  {
+   "id": 1029552629,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    654.46,
+    -700.11
+   ],
+   "area_m2": 2641.7,
+   "fbx": "SM_YTU_B_1029552629.fbx"
+  },
+  {
+   "id": 1029552630,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    598.78,
+    -684.36
+   ],
+   "area_m2": 1565.5,
+   "fbx": "SM_YTU_B_1029552630.fbx"
+  },
+  {
+   "id": 1029552631,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    512.57,
+    -700.88
+   ],
+   "area_m2": 1251.8,
+   "fbx": "SM_YTU_B_1029552631.fbx"
+  },
+  {
+   "id": 1029552632,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    411.7,
+    -700.6
+   ],
+   "area_m2": 1251.5,
+   "fbx": "SM_YTU_B_1029552632.fbx"
+  },
+  {
+   "id": 1029552633,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    338.49,
+    -689.46
+   ],
+   "area_m2": 1223.8,
+   "fbx": "SM_YTU_B_1029552633.fbx"
+  },
+  {
+   "id": 1029552634,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    459.89,
+    -654.34
+   ],
+   "area_m2": 687.8,
+   "fbx": "SM_YTU_B_1029552634.fbx"
+  },
+  {
+   "id": 1029552635,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    355.82,
+    -597.49
+   ],
+   "area_m2": 1610.6,
+   "fbx": "SM_YTU_B_1029552635.fbx"
+  },
+  {
+   "id": 1029552636,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    469.26,
+    -556.16
+   ],
+   "area_m2": 1991.0,
+   "fbx": "SM_YTU_B_1029552636.fbx"
+  },
+  {
+   "id": 1029552637,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    581.96,
+    -551.29
+   ],
+   "area_m2": 1388.4,
+   "fbx": "SM_YTU_B_1029552637.fbx"
+  },
+  {
+   "id": 1029552638,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    599.33,
+    -529.41
+   ],
+   "area_m2": 213.4,
+   "fbx": "SM_YTU_B_1029552638.fbx"
+  },
+  {
+   "id": 1029552639,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    590.47,
+    -621.21
+   ],
+   "area_m2": 1966.4,
+   "fbx": "SM_YTU_B_1029552639.fbx"
+  },
+  {
+   "id": 1029558744,
+   "name": "实验中心",
+   "levels": 8,
+   "height_m": 29.4,
+   "centroid_m": [
+    456.66,
+    -295.8
+   ],
+   "area_m2": 6104.0,
+   "fbx": "SM_YTU_B_1029558744.fbx"
+  },
+  {
+   "id": 1029558745,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    286.19,
+    -442.7
+   ],
+   "area_m2": 4513.6,
+   "fbx": "SM_YTU_B_1029558745.fbx"
+  },
+  {
+   "id": 1029558746,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    266.41,
+    -378.07
+   ],
+   "area_m2": 1564.8,
+   "fbx": "SM_YTU_B_1029558746.fbx"
+  },
+  {
+   "id": 1029558747,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    183.64,
+    -417.02
+   ],
+   "area_m2": 2631.9,
+   "fbx": "SM_YTU_B_1029558747.fbx"
+  },
+  {
+   "id": 1029558748,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    157.55,
+    -456.78
+   ],
+   "area_m2": 2593.1,
+   "fbx": "SM_YTU_B_1029558748.fbx"
+  },
+  {
+   "id": 1029558749,
+   "name": "建筑馆",
+   "levels": 5,
+   "height_m": 18.6,
+   "centroid_m": [
+    44.89,
+    -449.78
+   ],
+   "area_m2": 2703.7,
+   "fbx": "SM_YTU_B_1029558749.fbx"
+  },
+  {
+   "id": 1029558750,
+   "name": "",
+   "levels": 6,
+   "height_m": 22.2,
+   "centroid_m": [
+    -266.9,
+    -441.72
+   ],
+   "area_m2": 4859.3,
+   "fbx": "SM_YTU_B_1029558750.fbx"
+  },
+  {
+   "id": 1029558751,
+   "name": "千米长廊",
+   "levels": 2,
+   "height_m": 7.8,
+   "centroid_m": [
+    -442.91,
+    -493.77
+   ],
+   "area_m2": 5609.6,
+   "fbx": "SM_YTU_B_1029558751.fbx"
+  },
+  {
+   "id": 1029558752,
+   "name": "",
+   "levels": 5,
+   "height_m": 18.6,
+   "centroid_m": [
+    -323.01,
+    -334.6
+   ],
+   "area_m2": 591.0,
+   "fbx": "SM_YTU_B_1029558752.fbx"
+  },
+  {
+   "id": 1029558753,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -247.83,
+    -296.91
+   ],
+   "area_m2": 2420.6,
+   "fbx": "SM_YTU_B_1029558753.fbx"
+  },
+  {
+   "id": 1029558754,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -322.78,
+    -263.44
+   ],
+   "area_m2": 3149.4,
+   "fbx": "SM_YTU_B_1029558754.fbx"
+  },
+  {
+   "id": 1029558755,
+   "name": "育秀大楼",
+   "levels": 3,
+   "height_m": 11.4,
+   "centroid_m": [
+    -296.72,
+    -213.97
+   ],
+   "area_m2": 1653.2,
+   "fbx": "SM_YTU_B_1029558755.fbx"
+  },
+  {
+   "id": 1029558756,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -146.93,
+    -332.24
+   ],
+   "area_m2": 852.5,
+   "fbx": "SM_YTU_B_1029558756.fbx"
+  },
+  {
+   "id": 1029558757,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -163.49,
+    -257.62
+   ],
+   "area_m2": 2990.6,
+   "fbx": "SM_YTU_B_1029558757.fbx"
+  },
+  {
+   "id": 1029558758,
+   "name": "冠军教学楼",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -132.03,
+    -184.76
+   ],
+   "area_m2": 1317.7,
+   "fbx": "SM_YTU_B_1029558758.fbx"
+  },
+  {
+   "id": 1029558759,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -42.71,
+    -172.77
+   ],
+   "area_m2": 1999.6,
+   "fbx": "SM_YTU_B_1029558759.fbx"
+  },
+  {
+   "id": 1029558760,
+   "name": "",
+   "levels": 6,
+   "height_m": 22.2,
+   "centroid_m": [
+    126.05,
+    -316.72
+   ],
+   "area_m2": 1891.5,
+   "fbx": "SM_YTU_B_1029558760.fbx"
+  },
+  {
+   "id": 1029558761,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    113.69,
+    -215.73
+   ],
+   "area_m2": 2859.0,
+   "fbx": "SM_YTU_B_1029558761.fbx"
+  },
+  {
+   "id": 1029558762,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    194.45,
+    -218.5
+   ],
+   "area_m2": 1861.1,
+   "fbx": "SM_YTU_B_1029558762.fbx"
+  },
+  {
+   "id": 1029558763,
+   "name": "第七餐厅",
+   "levels": 4,
+   "height_m": 15.0,
+   "centroid_m": [
+    215.6,
+    -323.38
+   ],
+   "area_m2": 4215.9,
+   "fbx": "SM_YTU_B_1029558763.fbx"
+  },
+  {
+   "id": 1029558764,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    311.69,
+    -262.58
+   ],
+   "area_m2": 1899.5,
+   "fbx": "SM_YTU_B_1029558764.fbx"
+  },
+  {
+   "id": 1029558765,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    289.37,
+    -218.9
+   ],
+   "area_m2": 1899.9,
+   "fbx": "SM_YTU_B_1029558765.fbx"
+  },
+  {
+   "id": 1029558766,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    276.85,
+    -158.73
+   ],
+   "area_m2": 2182.8,
+   "fbx": "SM_YTU_B_1029558766.fbx"
+  },
+  {
+   "id": 1029558767,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    266.03,
+    -11.45
+   ],
+   "area_m2": 1606.3,
+   "fbx": "SM_YTU_B_1029558767.fbx"
+  },
+  {
+   "id": 1029558769,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    85.04,
+    -57.64
+   ],
+   "area_m2": 2998.8,
+   "fbx": "SM_YTU_B_1029558769.fbx"
+  },
+  {
+   "id": 1029558771,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    90.35,
+    276.0
+   ],
+   "area_m2": 2370.3,
+   "fbx": "SM_YTU_B_1029558771.fbx"
+  },
+  {
+   "id": 1029558772,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    70.1,
+    209.09
+   ],
+   "area_m2": 1066.5,
+   "fbx": "SM_YTU_B_1029558772.fbx"
+  },
+  {
+   "id": 1029558773,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    132.57,
+    218.92
+   ],
+   "area_m2": 1066.5,
+   "fbx": "SM_YTU_B_1029558773.fbx"
+  },
+  {
+   "id": 1029558774,
+   "name": "第四教学楼",
+   "levels": 5,
+   "height_m": 18.6,
+   "centroid_m": [
+    -57.47,
+    25.37
+   ],
+   "area_m2": 1141.2,
+   "fbx": "SM_YTU_B_1029558774.fbx"
+  },
+  {
+   "id": 1029558775,
+   "name": "第七教学楼",
+   "levels": 6,
+   "height_m": 22.2,
+   "centroid_m": [
+    -78.47,
+    56.3
+   ],
+   "area_m2": 557.8,
+   "fbx": "SM_YTU_B_1029558775.fbx"
+  },
+  {
+   "id": 1029558776,
+   "name": "第六教学楼",
+   "levels": 5,
+   "height_m": 18.6,
+   "centroid_m": [
+    -66.75,
+    89.49
+   ],
+   "area_m2": 1356.4,
+   "fbx": "SM_YTU_B_1029558776.fbx"
+  },
+  {
+   "id": 1029558777,
+   "name": "第五教学楼",
+   "levels": 6,
+   "height_m": 22.2,
+   "centroid_m": [
+    -5.74,
+    61.13
+   ],
+   "area_m2": 2639.4,
+   "fbx": "SM_YTU_B_1029558777.fbx"
+  },
+  {
+   "id": 1029558778,
+   "name": "承先图书馆",
+   "levels": 4,
+   "height_m": 15.0,
+   "centroid_m": [
+    -311.72,
+    65.22
+   ],
+   "area_m2": 2900.9,
+   "fbx": "SM_YTU_B_1029558778.fbx"
+  },
+  {
+   "id": 1029558779,
+   "name": "科技馆",
+   "levels": 4,
+   "height_m": 15.0,
+   "centroid_m": [
+    -184.69,
+    25.32
+   ],
+   "area_m2": 4353.1,
+   "fbx": "SM_YTU_B_1029558779.fbx"
+  },
+  {
+   "id": 1029577117,
+   "name": "核学院",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -157.45,
+    125.92
+   ],
+   "area_m2": 6400.2,
+   "fbx": "SM_YTU_B_1029577117.fbx"
+  },
+  {
+   "id": 1029577118,
+   "name": "土木馆",
+   "levels": 5,
+   "height_m": 18.6,
+   "centroid_m": [
+    -60.84,
+    131.57
+   ],
+   "area_m2": 2561.0,
+   "fbx": "SM_YTU_B_1029577118.fbx"
+  },
+  {
+   "id": 1035491479,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -355.69,
+    -115.08
+   ],
+   "area_m2": 1592.0,
+   "fbx": "SM_YTU_B_1035491479.fbx"
+  },
+  {
+   "id": 1035491480,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -426.62,
+    -145.71
+   ],
+   "area_m2": 1372.4,
+   "fbx": "SM_YTU_B_1035491480.fbx"
+  },
+  {
+   "id": 1035491481,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -418.11,
+    12.52
+   ],
+   "area_m2": 4417.6,
+   "fbx": "SM_YTU_B_1035491481.fbx"
+  },
+  {
+   "id": 1035491482,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -443.77,
+    81.62
+   ],
+   "area_m2": 3738.5,
+   "fbx": "SM_YTU_B_1035491482.fbx"
+  },
+  {
+   "id": 1035491483,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -461.39,
+    126.55
+   ],
+   "area_m2": 303.6,
+   "fbx": "SM_YTU_B_1035491483.fbx"
+  },
+  {
+   "id": 1035491484,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -416.18,
+    136.41
+   ],
+   "area_m2": 887.6,
+   "fbx": "SM_YTU_B_1035491484.fbx"
+  },
+  {
+   "id": 1035491485,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -491.32,
+    210.82
+   ],
+   "area_m2": 439.1,
+   "fbx": "SM_YTU_B_1035491485.fbx"
+  },
+  {
+   "id": 1035491486,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -468.19,
+    239.62
+   ],
+   "area_m2": 377.0,
+   "fbx": "SM_YTU_B_1035491486.fbx"
+  },
+  {
+   "id": 1035491487,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -437.04,
+    187.88
+   ],
+   "area_m2": 1011.9,
+   "fbx": "SM_YTU_B_1035491487.fbx"
+  },
+  {
+   "id": 1035491488,
+   "name": "",
+   "levels": 2,
+   "height_m": 7.8,
+   "centroid_m": [
+    -172.99,
+    258.4
+   ],
+   "area_m2": 1753.4,
+   "fbx": "SM_YTU_B_1035491488.fbx"
+  },
+  {
+   "id": 1035491489,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -88.45,
+    342.38
+   ],
+   "area_m2": 2161.3,
+   "fbx": "SM_YTU_B_1035491489.fbx"
+  },
+  {
+   "id": 1035491490,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -36.5,
+    343.39
+   ],
+   "area_m2": 1369.5,
+   "fbx": "SM_YTU_B_1035491490.fbx"
+  },
+  {
+   "id": 1035491491,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -73.13,
+    384.51
+   ],
+   "area_m2": 403.2,
+   "fbx": "SM_YTU_B_1035491491.fbx"
+  },
+  {
+   "id": 1035491492,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    47.4,
+    405.39
+   ],
+   "area_m2": 392.4,
+   "fbx": "SM_YTU_B_1035491492.fbx"
+  },
+  {
+   "id": 1035491493,
+   "name": "第六餐厅",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    53.9,
+    334.74
+   ],
+   "area_m2": 2254.8,
+   "fbx": "SM_YTU_B_1035491493.fbx"
+  },
+  {
+   "id": 1035491494,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -190.84,
+    340.29
+   ],
+   "area_m2": 2370.2,
+   "fbx": "SM_YTU_B_1035491494.fbx"
+  },
+  {
+   "id": 1035491495,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -327.17,
+    328.44
+   ],
+   "area_m2": 2370.3,
+   "fbx": "SM_YTU_B_1035491495.fbx"
+  },
+  {
+   "id": 1035491496,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -261.03,
+    349.34
+   ],
+   "area_m2": 1066.5,
+   "fbx": "SM_YTU_B_1035491496.fbx"
+  },
+  {
+   "id": 1035491497,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -420.63,
+    277.64
+   ],
+   "area_m2": 763.8,
+   "fbx": "SM_YTU_B_1035491497.fbx"
+  },
+  {
+   "id": 1035491498,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -430.52,
+    353.2
+   ],
+   "area_m2": 763.7,
+   "fbx": "SM_YTU_B_1035491498.fbx"
+  },
+  {
+   "id": 1035491499,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -496.38,
+    348.24
+   ],
+   "area_m2": 664.0,
+   "fbx": "SM_YTU_B_1035491499.fbx"
+  },
+  {
+   "id": 1035491500,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -490.78,
+    271.52
+   ],
+   "area_m2": 663.7,
+   "fbx": "SM_YTU_B_1035491500.fbx"
+  },
+  {
+   "id": 1035491501,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -507.04,
+    403.84
+   ],
+   "area_m2": 663.7,
+   "fbx": "SM_YTU_B_1035491501.fbx"
+  },
+  {
+   "id": 1035491502,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -510.87,
+    453.86
+   ],
+   "area_m2": 663.6,
+   "fbx": "SM_YTU_B_1035491502.fbx"
+  },
+  {
+   "id": 1035491503,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -515.33,
+    510.52
+   ],
+   "area_m2": 663.6,
+   "fbx": "SM_YTU_B_1035491503.fbx"
+  },
+  {
+   "id": 1035491504,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -445.25,
+    522.14
+   ],
+   "area_m2": 1411.2,
+   "fbx": "SM_YTU_B_1035491504.fbx"
+  },
+  {
+   "id": 1035491505,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -451.62,
+    558.24
+   ],
+   "area_m2": 1411.2,
+   "fbx": "SM_YTU_B_1035491505.fbx"
+  },
+  {
+   "id": 1035491506,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -377.61,
+    570.67
+   ],
+   "area_m2": 664.2,
+   "fbx": "SM_YTU_B_1035491506.fbx"
+  },
+  {
+   "id": 1035491507,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -339.03,
+    556.74
+   ],
+   "area_m2": 664.0,
+   "fbx": "SM_YTU_B_1035491507.fbx"
+  },
+  {
+   "id": 1035491508,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -333.61,
+    529.83
+   ],
+   "area_m2": 663.3,
+   "fbx": "SM_YTU_B_1035491508.fbx"
+  },
+  {
+   "id": 1035491509,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -358.16,
+    417.77
+   ],
+   "area_m2": 663.8,
+   "fbx": "SM_YTU_B_1035491509.fbx"
+  },
+  {
+   "id": 1035491510,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -362.3,
+    448.48
+   ],
+   "area_m2": 663.6,
+   "fbx": "SM_YTU_B_1035491510.fbx"
+  },
+  {
+   "id": 1035491511,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -367.72,
+    482.35
+   ],
+   "area_m2": 664.1,
+   "fbx": "SM_YTU_B_1035491511.fbx"
+  },
+  {
+   "id": 1035491512,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -291.2,
+    487.73
+   ],
+   "area_m2": 663.9,
+   "fbx": "SM_YTU_B_1035491512.fbx"
+  },
+  {
+   "id": 1035491513,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -287.38,
+    455.44
+   ],
+   "area_m2": 663.8,
+   "fbx": "SM_YTU_B_1035491513.fbx"
+  },
+  {
+   "id": 1035491514,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -286.42,
+    423.15
+   ],
+   "area_m2": 663.4,
+   "fbx": "SM_YTU_B_1035491514.fbx"
+  },
+  {
+   "id": 1035491515,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -211.18,
+    430.75
+   ],
+   "area_m2": 664.1,
+   "fbx": "SM_YTU_B_1035491515.fbx"
+  },
+  {
+   "id": 1035491516,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -209.58,
+    462.72
+   ],
+   "area_m2": 663.3,
+   "fbx": "SM_YTU_B_1035491516.fbx"
+  },
+  {
+   "id": 1035491517,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -208.95,
+    510.84
+   ],
+   "area_m2": 663.0,
+   "fbx": "SM_YTU_B_1035491517.fbx"
+  },
+  {
+   "id": 1035491518,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -189.5,
+    538.7
+   ],
+   "area_m2": 663.6,
+   "fbx": "SM_YTU_B_1035491518.fbx"
+  },
+  {
+   "id": 1035491519,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -169.74,
+    566.24
+   ],
+   "area_m2": 663.6,
+   "fbx": "SM_YTU_B_1035491519.fbx"
+  },
+  {
+   "id": 1035491520,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -146.14,
+    597.26
+   ],
+   "area_m2": 663.2,
+   "fbx": "SM_YTU_B_1035491520.fbx"
+  },
+  {
+   "id": 1035491521,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -188.55,
+    633.66
+   ],
+   "area_m2": 663.4,
+   "fbx": "SM_YTU_B_1035491521.fbx"
+  },
+  {
+   "id": 1035491522,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -216.92,
+    667.22
+   ],
+   "area_m2": 663.1,
+   "fbx": "SM_YTU_B_1035491522.fbx"
+  },
+  {
+   "id": 1035491523,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -226.16,
+    698.88
+   ],
+   "area_m2": 663.7,
+   "fbx": "SM_YTU_B_1035491523.fbx"
+  },
+  {
+   "id": 1035491524,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -284.51,
+    694.13
+   ],
+   "area_m2": 663.6,
+   "fbx": "SM_YTU_B_1035491524.fbx"
+  },
+  {
+   "id": 1035491525,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -282.6,
+    654.24
+   ],
+   "area_m2": 663.5,
+   "fbx": "SM_YTU_B_1035491525.fbx"
+  },
+  {
+   "id": 1035491526,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -272.39,
+    621.01
+   ],
+   "area_m2": 663.5,
+   "fbx": "SM_YTU_B_1035491526.fbx"
+  },
+  {
+   "id": 1035491527,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -351.78,
+    616.57
+   ],
+   "area_m2": 663.1,
+   "fbx": "SM_YTU_B_1035491527.fbx"
+  },
+  {
+   "id": 1035491528,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -360.07,
+    651.71
+   ],
+   "area_m2": 663.4,
+   "fbx": "SM_YTU_B_1035491528.fbx"
+  },
+  {
+   "id": 1035491529,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -357.84,
+    684.32
+   ],
+   "area_m2": 663.3,
+   "fbx": "SM_YTU_B_1035491529.fbx"
+  },
+  {
+   "id": 1035491531,
+   "name": "于维纮学术交流中心",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -79.4,
+    483.25
+   ],
+   "area_m2": 3791.9,
+   "fbx": "SM_YTU_B_1035491531.fbx"
+  },
+  {
+   "id": 1035491533,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -527.72,
+    646.91
+   ],
+   "area_m2": 1754.2,
+   "fbx": "SM_YTU_B_1035491533.fbx"
+  },
+  {
+   "id": 1035491535,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -531.13,
+    678.67
+   ],
+   "area_m2": 1015.3,
+   "fbx": "SM_YTU_B_1035491535.fbx"
+  },
+  {
+   "id": 1035491537,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -489.75,
+    724.06
+   ],
+   "area_m2": 488.6,
+   "fbx": "SM_YTU_B_1035491537.fbx"
+  },
+  {
+   "id": 1035491538,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -412.2,
+    728.54
+   ],
+   "area_m2": 488.6,
+   "fbx": "SM_YTU_B_1035491538.fbx"
+  },
+  {
+   "id": 1035491540,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -307.14,
+    736.15
+   ],
+   "area_m2": 488.9,
+   "fbx": "SM_YTU_B_1035491540.fbx"
+  },
+  {
+   "id": 1035491549,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -549.09,
+    722.53
+   ],
+   "area_m2": 1236.6,
+   "fbx": "SM_YTU_B_1035491549.fbx"
+  },
+  {
+   "id": 1035491555,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -647.73,
+    303.91
+   ],
+   "area_m2": 2734.2,
+   "fbx": "SM_YTU_B_1035491555.fbx"
+  },
+  {
+   "id": 1035491562,
+   "name": "",
+   "levels": 31,
+   "height_m": 112.2,
+   "centroid_m": [
+    -652.81,
+    -597.21
+   ],
+   "area_m2": 877.1,
+   "fbx": "SM_YTU_B_1035491562.fbx"
+  },
+  {
+   "id": 1035491563,
+   "name": "",
+   "levels": 33,
+   "height_m": 119.4,
+   "centroid_m": [
+    -651.08,
+    -535.78
+   ],
+   "area_m2": 1004.6,
+   "fbx": "SM_YTU_B_1035491563.fbx"
+  },
+  {
+   "id": 1035491569,
+   "name": "",
+   "levels": 47,
+   "height_m": 169.8,
+   "centroid_m": [
+    -640.42,
+    -387.26
+   ],
+   "area_m2": 858.9,
+   "fbx": "SM_YTU_B_1035491569.fbx"
+  },
+  {
+   "id": 1035491571,
+   "name": "",
+   "levels": 50,
+   "height_m": 180.6,
+   "centroid_m": [
+    -631.83,
+    -316.35
+   ],
+   "area_m2": 998.1,
+   "fbx": "SM_YTU_B_1035491571.fbx"
+  },
+  {
+   "id": 1035966947,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -668.73,
+    225.79
+   ],
+   "area_m2": 495.3,
+   "fbx": "SM_YTU_B_1035966947.fbx"
+  },
+  {
+   "id": 1035966948,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -668.69,
+    191.16
+   ],
+   "area_m2": 495.4,
+   "fbx": "SM_YTU_B_1035966948.fbx"
+  },
+  {
+   "id": 1035966949,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -669.52,
+    152.97
+   ],
+   "area_m2": 495.6,
+   "fbx": "SM_YTU_B_1035966949.fbx"
+  },
+  {
+   "id": 1035966954,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -662.44,
+    7.67
+   ],
+   "area_m2": 791.2,
+   "fbx": "SM_YTU_B_1035966954.fbx"
+  },
+  {
+   "id": 1035966959,
+   "name": "华冠宾馆",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -606.91,
+    -37.45
+   ],
+   "area_m2": 1428.0,
+   "fbx": "SM_YTU_B_1035966959.fbx"
+  },
+  {
+   "id": 1035966960,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -591.17,
+    28.55
+   ],
+   "area_m2": 682.0,
+   "fbx": "SM_YTU_B_1035966960.fbx"
+  },
+  {
+   "id": 1035966961,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -617.91,
+    115.42
+   ],
+   "area_m2": 240.0,
+   "fbx": "SM_YTU_B_1035966961.fbx"
+  },
+  {
+   "id": 1035966962,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -594.45,
+    88.85
+   ],
+   "area_m2": 1237.7,
+   "fbx": "SM_YTU_B_1035966962.fbx"
+  },
+  {
+   "id": 1035966963,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -614.21,
+    155.65
+   ],
+   "area_m2": 420.6,
+   "fbx": "SM_YTU_B_1035966963.fbx"
+  },
+  {
+   "id": 1035966964,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -614.39,
+    194.11
+   ],
+   "area_m2": 420.8,
+   "fbx": "SM_YTU_B_1035966964.fbx"
+  },
+  {
+   "id": 1035966965,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -615.25,
+    228.03
+   ],
+   "area_m2": 420.9,
+   "fbx": "SM_YTU_B_1035966965.fbx"
+  },
+  {
+   "id": 1035966988,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -687.4,
+    524.86
+   ],
+   "area_m2": 634.9,
+   "fbx": "SM_YTU_B_1035966988.fbx"
+  },
+  {
+   "id": 1035966989,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -649.1,
+    534.26
+   ],
+   "area_m2": 634.9,
+   "fbx": "SM_YTU_B_1035966989.fbx"
+  },
+  {
+   "id": 1035966990,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -700.29,
+    580.19
+   ],
+   "area_m2": 634.6,
+   "fbx": "SM_YTU_B_1035966990.fbx"
+  },
+  {
+   "id": 1035966991,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -656.68,
+    584.34
+   ],
+   "area_m2": 635.0,
+   "fbx": "SM_YTU_B_1035966991.fbx"
+  },
+  {
+   "id": 1035966997,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -707.82,
+    730.61
+   ],
+   "area_m2": 800.3,
+   "fbx": "SM_YTU_B_1035966997.fbx"
+  },
+  {
+   "id": 1035966998,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -660.63,
+    718.79
+   ],
+   "area_m2": 735.0,
+   "fbx": "SM_YTU_B_1035966998.fbx"
+  },
+  {
+   "id": 1035966999,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -638.11,
+    669.23
+   ],
+   "area_m2": 510.6,
+   "fbx": "SM_YTU_B_1035966999.fbx"
+  },
+  {
+   "id": 1035967000,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -675.6,
+    678.75
+   ],
+   "area_m2": 504.1,
+   "fbx": "SM_YTU_B_1035967000.fbx"
+  },
+  {
+   "id": 1038715555,
+   "name": "华润中心B座",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -642.23,
+    -660.72
+   ],
+   "area_m2": 1666.8,
+   "fbx": "SM_YTU_B_1038715555.fbx"
+  },
+  {
+   "id": 1118813563,
+   "name": "",
+   "levels": 3,
+   "height_m": 11.4,
+   "centroid_m": [
+    -622.74,
+    -500.08
+   ],
+   "area_m2": 1772.0,
+   "fbx": "SM_YTU_B_1118813563.fbx"
+  },
+  {
+   "id": 1118813564,
+   "name": "",
+   "levels": 3,
+   "height_m": 11.4,
+   "centroid_m": [
+    -650.12,
+    -657.8
+   ],
+   "area_m2": 3856.2,
+   "fbx": "SM_YTU_B_1118813564.fbx"
+  },
+  {
+   "id": 1118813566,
+   "name": "",
+   "levels": 3,
+   "height_m": 11.4,
+   "centroid_m": [
+    -604.68,
+    -258.84
+   ],
+   "area_m2": 2852.9,
+   "fbx": "SM_YTU_B_1118813566.fbx"
+  },
+  {
+   "id": 1118813567,
+   "name": "",
+   "levels": 27,
+   "height_m": 97.8,
+   "centroid_m": [
+    -627.1,
+    -164.4
+   ],
+   "area_m2": 858.8,
+   "fbx": "SM_YTU_B_1118813567.fbx"
+  },
+  {
+   "id": 1118813568,
+   "name": "",
+   "levels": 37,
+   "height_m": 133.8,
+   "centroid_m": [
+    -692.74,
+    -183.23
+   ],
+   "area_m2": 858.7,
+   "fbx": "SM_YTU_B_1118813568.fbx"
+  },
+  {
+   "id": 1118813571,
+   "name": "",
+   "levels": 33,
+   "height_m": 119.4,
+   "centroid_m": [
+    -629.99,
+    -461.65
+   ],
+   "area_m2": 343.1,
+   "fbx": "SM_YTU_B_1118813571.fbx"
+  },
+  {
+   "id": 1118813572,
+   "name": "",
+   "levels": 33,
+   "height_m": 119.4,
+   "centroid_m": [
+    -679.33,
+    -473.31
+   ],
+   "area_m2": 629.6,
+   "fbx": "SM_YTU_B_1118813572.fbx"
+  },
+  {
+   "id": 1118813574,
+   "name": "",
+   "levels": 34,
+   "height_m": 123.0,
+   "centroid_m": [
+    -708.89,
+    -411.94
+   ],
+   "area_m2": 823.4,
+   "fbx": "SM_YTU_B_1118813574.fbx"
+  },
+  {
+   "id": 1118813576,
+   "name": "",
+   "levels": 41,
+   "height_m": 148.2,
+   "centroid_m": [
+    -633.26,
+    -243.23
+   ],
+   "area_m2": 1118.9,
+   "fbx": "SM_YTU_B_1118813576.fbx"
+  },
+  {
+   "id": 1125317316,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -617.45,
+    246.06
+   ],
+   "area_m2": 308.0,
+   "fbx": "SM_YTU_B_1125317316.fbx"
+  },
+  {
+   "id": 1125317317,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -697.78,
+    247.62
+   ],
+   "area_m2": 1596.7,
+   "fbx": "SM_YTU_B_1125317317.fbx"
+  },
+  {
+   "id": 1125317319,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -663.12,
+    82.9
+   ],
+   "area_m2": 791.7,
+   "fbx": "SM_YTU_B_1125317319.fbx"
+  },
+  {
+   "id": 1125317320,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -665.02,
+    117.02
+   ],
+   "area_m2": 791.0,
+   "fbx": "SM_YTU_B_1125317320.fbx"
+  },
+  {
+   "id": 1125317321,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -662.17,
+    45.49
+   ],
+   "area_m2": 790.9,
+   "fbx": "SM_YTU_B_1125317321.fbx"
+  },
+  {
+   "id": 1346166848,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    -535.29,
+    460.05
+   ],
+   "area_m2": 1492.0,
+   "fbx": "SM_YTU_B_1346166848.fbx"
+  },
+  {
+   "id": 1383237482,
+   "name": "船舶管理中心",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    764.34,
+    -184.38
+   ],
+   "area_m2": 138.0,
+   "fbx": "SM_YTU_B_1383237482.fbx"
+  },
+  {
+   "id": 1469410459,
+   "name": "",
+   "levels": 1,
+   "height_m": 4.2,
+   "centroid_m": [
+    218.88,
+    -46.8
+   ],
+   "area_m2": 2375.3,
+   "fbx": "SM_YTU_B_1469410459.fbx"
+  },
+  {
+   "id": 1475198208,
+   "name": "综合楼",
+   "levels": 6,
+   "height_m": 22.2,
+   "centroid_m": [
+    -94.59,
+    -425.26
+   ],
+   "area_m2": 5628.6,
+   "fbx": "SM_YTU_B_1475198208.fbx"
+  },
+  {
+   "id": 1475198221,
+   "name": "体育学院",
+   "levels": 4,
+   "height_m": 15.0,
+   "centroid_m": [
+    23.04,
+    -330.53
+   ],
+   "area_m2": 708.0,
+   "fbx": "SM_YTU_B_1475198221.fbx"
+  },
+  {
+   "id": 1475198225,
+   "name": "钟楼",
+   "levels": 11,
+   "height_m": 40.2,
+   "centroid_m": [
+    -239.47,
+    8.74
+   ],
+   "area_m2": 183.9,
+   "fbx": "SM_YTU_B_1475198225.fbx"
+  },
+  {
+   "id": 1475198227,
+   "name": "机电汽车工程学院",
+   "levels": 3,
+   "height_m": 11.4,
+   "centroid_m": [
+    -441.33,
+    -242.59
+   ],
+   "area_m2": 4574.9,
+   "fbx": "SM_YTU_B_1475198227.fbx"
+  },
+  {
+   "id": 1475198228,
+   "name": "药学院",
+   "levels": 4,
+   "height_m": 15.0,
+   "centroid_m": [
+    -472.86,
+    -320.53
+   ],
+   "area_m2": 2320.0,
+   "fbx": "SM_YTU_B_1475198228.fbx"
+  },
+  {
+   "id": 1475198229,
+   "name": "数学与信息科学学院",
+   "levels": 3,
+   "height_m": 11.4,
+   "centroid_m": [
+    -433.95,
+    -394.43
+   ],
+   "area_m2": 5359.7,
+   "fbx": "SM_YTU_B_1475198229.fbx"
+  },
+  {
+   "id": 1475198230,
+   "name": "外国语学院",
+   "levels": 3,
+   "height_m": 11.4,
+   "centroid_m": [
+    -427.57,
+    -470.24
+   ],
+   "area_m2": 5142.6,
+   "fbx": "SM_YTU_B_1475198230.fbx"
+  },
+  {
+   "id": 1475198231,
+   "name": "",
+   "levels": 3,
+   "height_m": 11.4,
+   "centroid_m": [
+    -394.3,
+    -573.39
+   ],
+   "area_m2": 3398.5,
+   "fbx": "SM_YTU_B_1475198231.fbx"
+  },
+  {
+   "id": 1475198232,
+   "name": "法学院",
+   "levels": 4,
+   "height_m": 15.0,
+   "centroid_m": [
+    -442.02,
+    -565.29
+   ],
+   "area_m2": 4237.4,
+   "fbx": "SM_YTU_B_1475198232.fbx"
+  },
+  {
+   "id": 1475198234,
+   "name": "",
+   "levels": 2,
+   "height_m": 7.8,
+   "centroid_m": [
+    10.83,
+    -234.71
+   ],
+   "area_m2": 2561.4,
+   "fbx": "SM_YTU_B_1475198234.fbx"
+  }
+ ],
+ "ground": [
+  "G_campus",
+  "G_road_223100845",
+  "G_lawn_223101548",
+  "G_road_223104001",
+  "G_road_223104011",
+  "G_road_223104662",
+  "G_road_223242149",
+  "G_road_223242151",
+  "G_road_527837189",
+  "G_road_534856632",
+  "G_road_535163867",
+  "G_road_970299573",
+  "G_road_970299574",
+  "G_road_970299575",
+  "G_road_970299576",
+  "G_road_970299577",
+  "G_road_970299578",
+  "G_road_970299579",
+  "G_road_970299580",
+  "G_road_970299581",
+  "G_road_970299582",
+  "G_road_970299583",
+  "G_road_970299584",
+  "G_road_984461058",
+  "G_road_984461059",
+  "G_road_984461060",
+  "G_road_984461061",
+  "G_road_984461062",
+  "G_road_984461063",
+  "G_road_984461064",
+  "G_road_984461065",
+  "G_road_984461066",
+  "G_lawn_984462538",
+  "G_water_984462539",
+  "G_lawn_984462773",
+  "G_lawn_984463817",
+  "G_lawn_984463818",
+  "G_lawn_984465612",
+  "G_lawn_984465613",
+  "G_lawn_984465614",
+  "G_road_1029549364",
+  "G_road_1029549366",
+  "G_road_1029549367",
+  "G_road_1029549368",
+  "G_lawn_1029552610",
+  "G_lawn_1029552611",
+  "G_lawn_1029552612",
+  "G_lawn_1029552613",
+  "G_lawn_1029552614",
+  "G_lawn_1029552615",
+  "G_lawn_1029552616",
+  "G_lawn_1029552617",
+  "G_lawn_1029552618",
+  "G_lawn_1029552619",
+  "G_road_1029552628",
+  "G_lawn_1029558768",
+  "G_lawn_1035491532",
+  "G_lawn_1035491534",
+  "G_road_1040741458",
+  "G_road_1040741459",
+  "G_road_1040741460",
+  "G_road_1040745203",
+  "G_road_1041358829",
+  "G_road_1041358830",
+  "G_road_1046572569",
+  "G_road_1046572570",
+  "G_road_1047399548",
+  "G_road_1176510650",
+  "G_road_1312466299",
+  "G_road_1346169855",
+  "G_road_1346169856",
+  "G_road_1346169857",
+  "G_road_1354870985",
+  "G_road_1362781471",
+  "G_road_1362781472",
+  "G_road_1368620680",
+  "G_road_1368620681",
+  "G_road_1368620682",
+  "G_road_1368620683",
+  "G_road_1368620685",
+  "G_road_1368620686",
+  "G_road_1368620687",
+  "G_road_1368620688",
+  "G_road_1368620737",
+  "G_road_1368620738",
+  "G_road_1369416480",
+  "G_road_1369416481",
+  "G_road_1369416482",
+  "G_road_1369416483",
+  "G_road_1369416484",
+  "G_road_1385772177",
+  "G_road_1385772178",
+  "G_road_1385772179",
+  "G_road_1385772180",
+  "G_road_1385772181",
+  "G_road_1385772184",
+  "G_road_1385777047",
+  "G_road_1385777048",
+  "G_road_1385777049",
+  "G_road_1385777050",
+  "G_road_1385777051",
+  "G_road_1385777052",
+  "G_road_1385777054",
+  "G_road_1385777056",
+  "G_road_1385777057",
+  "G_road_1385778738",
+  "G_road_1385778739",
+  "G_road_1385780980",
+  "G_road_1411918061",
+  "G_road_1411918063",
+  "G_road_1411918064",
+  "G_road_1411918065",
+  "G_road_1411918066",
+  "G_road_1411918067",
+  "G_road_1411918068",
+  "G_road_1411918069",
+  "G_road_1411918070",
+  "G_road_1411918073",
+  "G_road_1411918074",
+  "G_road_1411918075",
+  "G_road_1411918076",
+  "G_road_1411918077",
+  "G_road_1411918078",
+  "G_road_1411918079",
+  "G_road_1411918080",
+  "G_road_1411918105",
+  "G_road_1411918106",
+  "G_road_1411918107",
+  "G_road_1411918112",
+  "G_road_1411918113",
+  "G_road_1411918114",
+  "G_road_1411918115",
+  "G_road_1411918116",
+  "G_road_1412738639",
+  "G_road_1412738642",
+  "G_road_1469410448",
+  "G_road_1469410450",
+  "G_road_1469410451",
+  "G_road_1469410452",
+  "G_road_1469410453",
+  "G_road_1469410454",
+  "G_road_1469410455",
+  "G_road_1469410456",
+  "G_road_1469410457",
+  "G_road_1469410458",
+  "G_lawn_1469410461",
+  "G_lawn_1469410462",
+  "G_lawn_1469410464",
+  "G_lawn_1469410465",
+  "G_road_1469413856",
+  "G_road_1469413857",
+  "G_road_1469413858",
+  "G_road_1469413859",
+  "G_road_1469413860",
+  "G_road_1469413861",
+  "G_road_1469413862",
+  "G_road_1469413863",
+  "G_lawn_1474094340",
+  "G_road_1475198206",
+  "G_road_1475198210",
+  "G_road_1475198211",
+  "G_road_1475198216",
+  "G_road_1475198223",
+  "G_road_1475198226",
+  "G_road_1475198233",
+  "G_road_1475198237",
+  "G_road_1475198238",
+  "G_road_1475198239",
+  "G_road_1475198240",
+  "G_road_1475198241",
+  "G_road_1475198242",
+  "G_road_1475198243",
+  "G_road_1475198244",
+  "G_road_1475198245",
+  "G_road_1475198246",
+  "G_road_1475198247",
+  "G_road_1475198248",
+  "G_road_1475198249",
+  "G_road_1475198250",
+  "G_road_1475198254",
+  "G_road_1475198255"
+ ]
+}

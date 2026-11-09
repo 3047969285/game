@@ -1,0 +1,61 @@
+{
+ "line_id": "vo.tb.unit01.section_a.p05",
+ "unit": 1,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "A senior partner at a law firm describes vividly a scene in his office. Every morning, young associates would first lay out their suite of technologies: laptops, tablets, and multiple phones. Then they would put their earphones on. “Big ones. Like pilots. They have converted their desks into cockpits,” he said. With the young lawyers sitting in their cockpits, the office becomes quiet, a quiet that does not ask to be broken. They have completely plunged into their virtual world.",
+ "rate": 165,
+ "duration": 28.003,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.049,
+   "text": "A senior partner at a law firm describes vividly a scene in his office."
+  },
+  {
+   "i": 1,
+   "start": 4.049,
+   "end": 11.801,
+   "text": "Every morning, young associates would first lay out their suite of technologies: laptops, tablets, and multiple phones."
+  },
+  {
+   "i": 2,
+   "start": 11.801,
+   "end": 13.703,
+   "text": "Then they would put their earphones on."
+  },
+  {
+   "i": 3,
+   "start": 13.703,
+   "end": 14.555,
+   "text": "“Big ones."
+  },
+  {
+   "i": 4,
+   "start": 14.555,
+   "end": 15.604,
+   "text": "Like pilots."
+  },
+  {
+   "i": 5,
+   "start": 15.604,
+   "end": 18.842,
+   "text": "They have converted their desks into cockpits,” he said."
+  },
+  {
+   "i": 6,
+   "start": 18.842,
+   "end": 25.23,
+   "text": "With the young lawyers sitting in their cockpits, the office becomes quiet, a quiet that does not ask to be broken."
+  },
+  {
+   "i": 7,
+   "start": 25.23,
+   "end": 28.003,
+   "text": "They have completely plunged into their virtual world."
+  }
+ ]
+}

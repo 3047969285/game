@@ -1,0 +1,64 @@
+{
+ "kit": "arcade_cabinet",
+ "dims_m": [
+  0.7,
+  0.8,
+  1.7
+ ],
+ "materials": {
+  "M_cabinet_black": {
+   "color": "#1A1A22",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_cabinet_art": {
+   "color": "#8E24AA",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_marquee": {
+   "color": "#FFCC33",
+   "roughness": 0.4,
+   "metallic": 0.0,
+   "emission": "#FFCC33",
+   "emission_strength": 0.6,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_crt_screen": {
+   "color": "#0B1A2A",
+   "roughness": 0.2,
+   "metallic": 0.0,
+   "emission": "#4FD1FF",
+   "emission_strength": 2.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_joystick_metal": {
+   "color": "#C0C6CE",
+   "roughness": 0.2,
+   "metallic": 1.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_arcade_button": {
+   "color": "#E53935",
+   "roughness": 0.4,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

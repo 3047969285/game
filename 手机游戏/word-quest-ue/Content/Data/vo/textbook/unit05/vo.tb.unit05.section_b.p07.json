@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit05.section_b.p07",
+ "unit": 5,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Although China is a latecomer in lunar exploration, its program has made many achievements in a few expeditions. The country verified its lunar probe technologies in 2007 with the successful launch of Chang'e-1, the first spacecraft stemming from the program. In 2013 Chang'e-3 accomplished China's first soft-landing on the moon, which was the first man-made craft to achieve this goal in nearly four decades.",
+ "rate": 165,
+ "duration": 25.999,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.876,
+   "text": "Although China is a latecomer in lunar exploration, its program has made many achievements in a few expeditions."
+  },
+  {
+   "i": 1,
+   "start": 6.876,
+   "end": 16.29,
+   "text": "The country verified its lunar probe technologies in 2007 with the successful launch of Chang'e-1, the first spacecraft stemming from the program."
+  },
+  {
+   "i": 2,
+   "start": 16.29,
+   "end": 25.999,
+   "text": "In 2013 Chang'e-3 accomplished China's first soft-landing on the moon, which was the first man-made craft to achieve this goal in nearly four decades."
+  }
+ ]
+}

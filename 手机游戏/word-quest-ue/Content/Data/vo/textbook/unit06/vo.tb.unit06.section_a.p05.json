@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit06.section_a.p05",
+ "unit": 6,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Long-term unemployment was at record levels. Modest payments of unemployment benefits were a lifeline that enabled people who were out of work to maintain at least an appearance of normalcy, keeping a roof over their heads, putting gas in their cars, and paying electric and phone bills.",
+ "rate": 165,
+ "duration": 15.589,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 2.675,
+   "text": "Long-term unemployment was at record levels."
+  },
+  {
+   "i": 1,
+   "start": 2.675,
+   "end": 15.589,
+   "text": "Modest payments of unemployment benefits were a lifeline that enabled people who were out of work to maintain at least an appearance of normalcy, keeping a roof over their heads, putting gas in their cars, and paying electric and phone bills."
+  }
+ ]
+}

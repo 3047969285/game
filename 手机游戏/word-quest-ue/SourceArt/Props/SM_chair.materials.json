@@ -1,0 +1,28 @@
+{
+ "kit": "chair",
+ "dims_m": [
+  0.44,
+  0.5,
+  0.9
+ ],
+ "materials": {
+  "M_chair_wood": {
+   "color": "#8B5E3C",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.15
+  },
+  "M_chair_pad": {
+   "color": "#7A3B2E",
+   "roughness": 0.85,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.1
+  }
+ }
+}

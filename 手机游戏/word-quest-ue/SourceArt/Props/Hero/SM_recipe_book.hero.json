@@ -1,0 +1,41 @@
+{
+ "kit": "recipe_book",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_recipe_book.fbx",
+ "triangles": 3376,
+ "size_m": [
+  0.2,
+  0.26,
+  0.03
+ ],
+ "dims_target_m": [
+  0.2,
+  0.26,
+  0.03
+ ],
+ "slots": [
+  {
+   "slot": "paper",
+   "material": "M_paper",
+   "BaseColor": "T_recipe_book_paper_BaseColor.png",
+   "Normal": "T_recipe_book_paper_Normal.png",
+   "ARM": "T_recipe_book_paper_ARM.png"
+  },
+  {
+   "slot": "cloth",
+   "material": "M_cloth",
+   "BaseColor": "T_recipe_book_cloth_BaseColor.png",
+   "Normal": "T_recipe_book_cloth_Normal.png",
+   "ARM": "T_recipe_book_cloth_ARM.png"
+  },
+  {
+   "slot": "cover",
+   "material": "M_cover",
+   "BaseColor": "T_recipe_book_cover_BaseColor.png",
+   "Normal": "T_recipe_book_cover_Normal.png",
+   "ARM": "T_recipe_book_cover_ARM.png"
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "hardback cookbook; front cover print (recipe_cover.png) faces +Y"
+}

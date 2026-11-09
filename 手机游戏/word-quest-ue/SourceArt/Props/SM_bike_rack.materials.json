@@ -1,0 +1,28 @@
+{
+ "kit": "bike_rack",
+ "dims_m": [
+  6.0,
+  0.65,
+  0.798
+ ],
+ "materials": {
+  "M_steel": {
+   "color": "#9AA3AD",
+   "roughness": 0.35,
+   "metallic": 1.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_paint": {
+   "color": "#F4F4F0",
+   "roughness": 0.8,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

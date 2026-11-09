@@ -1,0 +1,64 @@
+{
+ "kit": "car",
+ "dims_m": [
+  4.56,
+  1.88,
+  1.55
+ ],
+ "materials": {
+  "M_paint": {
+   "color": "#DDE3E8",
+   "roughness": 0.28,
+   "metallic": 0.1,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_glass": {
+   "color": "#5E7E92",
+   "roughness": 0.05,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 0.3,
+   "noise": 0.0
+  },
+  "M_lamp_head": {
+   "color": "#FFF7E2",
+   "roughness": 0.2,
+   "metallic": 0.0,
+   "emission": "#FFF7E2",
+   "emission_strength": 6.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_rubber": {
+   "color": "#151719",
+   "roughness": 0.8,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_chrome": {
+   "color": "#C8CDD3",
+   "roughness": 0.2,
+   "metallic": 1.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_lamp_tail": {
+   "color": "#FF2B2B",
+   "roughness": 0.3,
+   "metallic": 0.0,
+   "emission": "#FF2B2B",
+   "emission_strength": 3.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

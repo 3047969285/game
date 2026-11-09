@@ -1,0 +1,19 @@
+{
+ "line_id": "vo.tb.unit04.section_b.p02",
+ "unit": 4,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Indeed, I had moved into a house at the end of the street only the week before.",
+ "rate": 165,
+ "duration": 4.659,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.659,
+   "text": "Indeed, I had moved into a house at the end of the street only the week before."
+  }
+ ]
+}

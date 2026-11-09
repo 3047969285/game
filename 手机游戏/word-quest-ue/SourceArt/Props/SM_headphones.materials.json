@@ -1,0 +1,37 @@
+{
+ "kit": "headphones",
+ "dims_m": [
+  0.203,
+  0.1,
+  0.224
+ ],
+ "materials": {
+  "M_hp_plastic": {
+   "color": "#1E2024",
+   "roughness": 0.4,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_hp_pad": {
+   "color": "#3A3D44",
+   "roughness": 0.7,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_hp_accent": {
+   "color": "#D9DDE3",
+   "roughness": 0.3,
+   "metallic": 0.8,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

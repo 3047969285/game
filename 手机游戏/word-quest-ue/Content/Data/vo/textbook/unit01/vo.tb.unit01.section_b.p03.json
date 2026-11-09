@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit01.section_b.p03",
+ "unit": 1,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Likewise, how often do you see children playing games on a smartphone, laptop, or mobile game device of one kind or another? Probably more often than you see them playing outside with their friends. Children of the modern age are incredibly tech savvy, my goodness, almost from the time they learn to talk. They don't have to learn how to use technology but are able to be informed, keeping abreast of the latest technological developments, because technology is simply a part of who they are. They grow up with it, they know it, and they cannot survive without it.",
+ "rate": 165,
+ "duration": 33.045,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 8.281,
+   "text": "Likewise, how often do you see children playing games on a smartphone, laptop, or mobile game device of one kind or another?"
+  },
+  {
+   "i": 1,
+   "start": 8.281,
+   "end": 12.124,
+   "text": "Probably more often than you see them playing outside with their friends."
+  },
+  {
+   "i": 2,
+   "start": 12.124,
+   "end": 18.546,
+   "text": "Children of the modern age are incredibly tech savvy, my goodness, almost from the time they learn to talk."
+  },
+  {
+   "i": 3,
+   "start": 18.546,
+   "end": 29.132,
+   "text": "They don't have to learn how to use technology but are able to be informed, keeping abreast of the latest technological developments, because technology is simply a part of who they are."
+  },
+  {
+   "i": 4,
+   "start": 29.132,
+   "end": 33.045,
+   "text": "They grow up with it, they know it, and they cannot survive without it."
+  }
+ ]
+}

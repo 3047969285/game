@@ -1,0 +1,37 @@
+{
+ "kit": "blackboard",
+ "dims_m": [
+  3.6,
+  0.08,
+  1.2
+ ],
+ "materials": {
+  "M_wood": {
+   "color": "#8A5A33",
+   "roughness": 0.55,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.25
+  },
+  "M_slate": {
+   "color": "#1F3B2E",
+   "roughness": 0.8,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.25
+  },
+  "M_chalk_smudge": {
+   "color": "#4E6E5C",
+   "roughness": 0.95,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.9
+  }
+ }
+}

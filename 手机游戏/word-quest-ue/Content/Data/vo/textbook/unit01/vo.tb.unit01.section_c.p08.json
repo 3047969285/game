@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit01.section_c.p08",
+ "unit": 1,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "Mobile payment goes beyond daily purchases. You can also pay utility bills and credit card bills, or invest in money market funds.",
+ "rate": 165,
+ "duration": 10.056,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 3.363,
+   "text": "Mobile payment goes beyond daily purchases."
+  },
+  {
+   "i": 1,
+   "start": 3.363,
+   "end": 10.056,
+   "text": "You can also pay utility bills and credit card bills, or invest in money market funds."
+  }
+ ]
+}

@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit06.section_c.p01",
+ "unit": 6,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "From sharing bicycles to sharing cars, China's sharing economy has now swept into the book industry. Book-sharing services have been launched in cities such as Shanghai, Suzhou, and Hefei.",
+ "rate": 165,
+ "duration": 14.553,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 7.641,
+   "text": "From sharing bicycles to sharing cars, China's sharing economy has now swept into the book industry."
+  },
+  {
+   "i": 1,
+   "start": 7.641,
+   "end": 14.553,
+   "text": "Book-sharing services have been launched in cities such as Shanghai, Suzhou, and Hefei."
+  }
+ ]
+}

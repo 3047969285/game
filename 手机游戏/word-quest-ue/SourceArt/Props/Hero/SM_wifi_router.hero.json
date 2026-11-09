@@ -1,0 +1,40 @@
+{
+ "kit": "wifi_router",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_wifi_router.fbx",
+ "triangles": 11040,
+ "size_m": [
+  0.22,
+  0.15,
+  0.04
+ ],
+ "dims_target_m": [
+  0.22,
+  0.15,
+  0.04
+ ],
+ "slots": [
+  {
+   "slot": "shell",
+   "material": "M_shell",
+   "BaseColor": "T_wifi_router_shell_BaseColor.png",
+   "Normal": "T_wifi_router_shell_Normal.png",
+   "ARM": "T_wifi_router_shell_ARM.png"
+  },
+  {
+   "slot": "dark",
+   "material": "M_dark",
+   "BaseColor": "T_wifi_router_dark_BaseColor.png",
+   "Normal": "T_wifi_router_dark_Normal.png",
+   "ARM": "T_wifi_router_dark_ARM.png"
+  },
+  {
+   "slot": "leds",
+   "material": "M_leds",
+   "Emissive": "router_leds.png",
+   "strength": 3.0
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "wifi router, flat antennae + status LEDs (emissive, router_leds.png)"
+}

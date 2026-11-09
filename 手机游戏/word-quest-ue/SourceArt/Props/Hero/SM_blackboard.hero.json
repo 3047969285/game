@@ -1,0 +1,41 @@
+{
+ "kit": "blackboard",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_blackboard.fbx",
+ "triangles": 8096,
+ "size_m": [
+  3.604,
+  0.046,
+  1.204
+ ],
+ "dims_target_m": [
+  3.6,
+  0.08,
+  1.2
+ ],
+ "slots": [
+  {
+   "slot": "slate",
+   "material": "M_slate",
+   "BaseColor": "T_blackboard_slate_BaseColor.png",
+   "Normal": "T_blackboard_slate_Normal.png",
+   "ARM": "T_blackboard_slate_ARM.png"
+  },
+  {
+   "slot": "frame",
+   "material": "M_frame",
+   "BaseColor": "T_blackboard_frame_BaseColor.png",
+   "Normal": "T_blackboard_frame_Normal.png",
+   "ARM": "T_blackboard_frame_ARM.png"
+  },
+  {
+   "slot": "bracket",
+   "material": "M_bracket",
+   "BaseColor": "T_blackboard_bracket_BaseColor.png",
+   "Normal": "T_blackboard_bracket_Normal.png",
+   "ARM": "T_blackboard_bracket_ARM.png"
+  }
+ ],
+ "texture_res": 4096,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "front toward +Y, bottom edge at z = 0"
+}

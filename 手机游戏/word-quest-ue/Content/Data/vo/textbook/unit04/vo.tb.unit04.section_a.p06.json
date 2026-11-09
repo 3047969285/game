@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit04.section_a.p06",
+ "unit": 4,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "In recent decades, technological innovation and the division of labor have caused major economic changes by eliminating the need for special strengths or skills in many fields and have turned many paid occupations with enjoyable work into boring labor. Increasing productivity with automated machines, such as robots, has reduced the number of necessary laboring hours. It is possible to imagine an upcoming society in which the majority of the population will have almost as much leisure time as in earlier times was enjoyed by the medieval aristocracy. The medieval aristocrats had an abundance of leisure time but often wasted it in trivial pursuit of games and fashion. Likewise, modern day laborers with too much leisure time may find it difficult to refrain from the addictive and trivial pursuits of celebrity gossip, extravagant fashion, and excessive video games and TV - similar bad habits that waste valuable time.",
+ "rate": 165,
+ "duration": 52.275,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 13.813,
+   "text": "In recent decades, technological innovation and the division of labor have caused major economic changes by eliminating the need for special strengths or skills in many fields and have turned many paid occupations with enjoyable work into boring labor."
+  },
+  {
+   "i": 1,
+   "start": 13.813,
+   "end": 21.031,
+   "text": "Increasing productivity with automated machines, such as robots, has reduced the number of necessary laboring hours."
+  },
+  {
+   "i": 2,
+   "start": 21.031,
+   "end": 31.152,
+   "text": "It is possible to imagine an upcoming society in which the majority of the population will have almost as much leisure time as in earlier times was enjoyed by the medieval aristocracy."
+  },
+  {
+   "i": 3,
+   "start": 31.152,
+   "end": 37.282,
+   "text": "The medieval aristocrats had an abundance of leisure time but often wasted it in trivial pursuit of games and fashion."
+  },
+  {
+   "i": 4,
+   "start": 37.282,
+   "end": 52.275,
+   "text": "Likewise, modern day laborers with too much leisure time may find it difficult to refrain from the addictive and trivial pursuits of celebrity gossip, extravagant fashion, and excessive video games and TV - similar bad habits that waste valuable time."
+  }
+ ]
+}

@@ -1,0 +1,55 @@
+{
+ "kit": "textbook_stack",
+ "dims_m": [
+  0.234,
+  0.303,
+  0.18
+ ],
+ "materials": {
+  "M_textbook_cover_0": {
+   "color": "#2F6DB5",
+   "roughness": 0.55,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_textbook_pages": {
+   "color": "#F3EEDF",
+   "roughness": 0.8,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_textbook_cover_1": {
+   "color": "#B5472F",
+   "roughness": 0.55,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_textbook_cover_2": {
+   "color": "#3E8E5E",
+   "roughness": 0.55,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_textbook_cover_3": {
+   "color": "#E2B93B",
+   "roughness": 0.55,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

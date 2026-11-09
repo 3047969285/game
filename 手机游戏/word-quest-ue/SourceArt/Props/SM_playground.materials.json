@@ -1,0 +1,46 @@
+{
+ "kit": "playground",
+ "dims_m": [
+  12.0,
+  8.0,
+  2.453
+ ],
+ "materials": {
+  "M_rubber": {
+   "color": "#C4553A",
+   "roughness": 0.9,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.12
+  },
+  "M_steel": {
+   "color": "#3E6E9E",
+   "roughness": 0.4,
+   "metallic": 0.6,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_wood": {
+   "color": "#B0844F",
+   "roughness": 0.7,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.15
+  },
+  "M_slide": {
+   "color": "#E8B923",
+   "roughness": 0.35,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

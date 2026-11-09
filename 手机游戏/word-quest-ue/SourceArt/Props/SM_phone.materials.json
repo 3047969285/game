@@ -1,0 +1,46 @@
+{
+ "kit": "phone",
+ "dims_m": [
+  0.075,
+  0.155,
+  0.009
+ ],
+ "materials": {
+  "M_phone_frame": {
+   "color": "#C9CED6",
+   "roughness": 0.3,
+   "metallic": 1.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_phone_screen": {
+   "color": "#0A0E14",
+   "roughness": 0.15,
+   "metallic": 0.0,
+   "emission": "#9FC4E8",
+   "emission_strength": 0.6,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_phone_ui": {
+   "color": "#0A0E14",
+   "roughness": 0.15,
+   "metallic": 0.0,
+   "emission": "#9FC4E8",
+   "emission_strength": 1.8,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_phone_lens": {
+   "color": "#111418",
+   "roughness": 0.2,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

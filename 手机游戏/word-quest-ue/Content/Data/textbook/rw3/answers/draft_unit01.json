@@ -1,0 +1,537 @@
+{
+  "unit": 1,
+  "items": [
+    {
+      "block": "u01_a_pre_reading",
+      "n": 1,
+      "explanation_en": "This is a self-assessment task: rate all ten statements on the 1-7 scale, add the scores, and read the total as an addiction indicator.",
+      "draft_answer": "I scored 52 out of 70, which puts me in the 'somewhat addicted' range. I check my phone within minutes of waking up and often scroll in bed at night. The statement I agreed with most was feeling uncomfortable without constant access to information. Seeing the total made me realize how automatic these habits have become.",
+      "needs_review": true
+    },
+    {
+      "block": "u01_a_pre_reading",
+      "n": 2,
+      "explanation_en": "Pair-work discussion: answer both questions in turn, first the effects on relationships, then practical advice, using your own score as a starting point.",
+      "draft_answer": "My partner scored higher than I did, so we compared what we do differently. We agreed that phones often steal attention from the people sitting right next to us: at dinner my family members each stare at a screen. For people who feel addicted, I would suggest one offline evening a week, keeping the phone out of the bedroom, and turning off notifications. Small rules like these seem easier to keep than a total ban.",
+      "needs_review": true
+    },
+    {
+      "block": "u01_a_understanding",
+      "n": 1,
+      "explanation_en": "Para. 1 defines the family's 'offline day': no video games, no computers and no cell phones from Friday night through Sunday evening.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_understanding",
+      "n": 2,
+      "explanation_en": "Para. 3 ends by saying the devices are so powerful that they change 'not only what we do but also who we are'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_understanding",
+      "n": 3,
+      "explanation_en": "Para. 7 rejects the idea outright: however valuable the 'sips' are, it is impossible for them to substitute for real conversation.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_understanding",
+      "n": 4,
+      "explanation_en": "Para. 8 contrasts sips with real conversation, where we are 'more caring and observant' and reveal ourselves through tones and nuances.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_understanding",
+      "n": 5,
+      "explanation_en": "Para. 9: because face-to-face conversation 'unfolds slowly', it teaches us patience that accelerated online exchange never does.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_understanding",
+      "n": 6,
+      "explanation_en": "Para. 10: conversation with trusted others teaches us to converse with ourselves, that is, 'to be honest with ourselves'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_understanding",
+      "n": 7,
+      "explanation_en": "Para. 11 states it plainly: 'I'm not a critic, but I am a partisan for conversation,' so he supports conversation, not attacks technology.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_understanding",
+      "n": 8,
+      "explanation_en": "Para. 12 advises time away from 'the beeps and rings' to assess technology's merit and burden, then to make changes such as an offline day.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_critical",
+      "n": 1,
+      "explanation_en": "Open discussion: take a clear position and support it with Para. 8's contrast between 'sips' of connection and real conversation.",
+      "draft_answer": "I don't think we can fully know someone online. Text A argues that real conversation lets us be 'more caring and observant' and reveal ourselves through tones and nuances, and a text or a like carries none of that. Online we edit what we show, so we meet a curated version of a person rather than the person. Friendships may start online, but trust grows only when people spend unedited time together.",
+      "needs_review": true
+    },
+    {
+      "block": "u01_a_critical",
+      "n": 2,
+      "explanation_en": "Open discussion: weigh both gains (easy contact, new friends) and costs (shallower talk, less patience) as in Paras. 7-10.",
+      "draft_answer": "Social media widens our circle but narrows our talk. We keep in touch with many people, yet most exchanges are quick 'sips' rather than conversations, so we practise reacting more than listening. Constant notifications also make it harder to sit through a slow, awkward face-to-face moment. In my experience, heavy users often become more fluent online and more hesitant in person.",
+      "needs_review": true
+    },
+    {
+      "block": "u01_a_critical",
+      "n": 3,
+      "explanation_en": "Speculative question: build your prediction on Text B's account of how fast digital technology has already reshaped daily life.",
+      "draft_answer": "Communication will probably become more immersive and more visual, with video, avatars and AI assistants handling routine messages. That may make contact even faster across distances, but it will not remove the need for presence. I expect the real divide to be between people who choose their channel deliberately and those who simply react to whatever buzzes. Text A's advice to keep some spaces free of devices will matter more, not less.",
+      "needs_review": true
+    },
+    {
+      "block": "u01_a_words_in_use",
+      "n": 1,
+      "explanation_en": "A plural noun is needed after 'writing' in a film context: a scenario is a plot outline, hence 'scenarios'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_words_in_use",
+      "n": 2,
+      "explanation_en": "Bare infinitive after 'should not'; 'alter the meaning' is the collocation for changing it.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_words_in_use",
+      "n": 3,
+      "explanation_en": "A strong adjective before 'storm'; 'furious' here means violent or fierce, as in a furious storm.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_words_in_use",
+      "n": 4,
+      "explanation_en": "'Sacred duty' is a fixed collocation for an obligation regarded as holy and unquestionable.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_words_in_use",
+      "n": 5,
+      "explanation_en": "'Maintain velocity' means keep the same speed; the noun is required after 'that kind of'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_words_in_use",
+      "n": 6,
+      "explanation_en": "Adjective before the plural 'ideas': 'discrete' means separate and distinct, unlike 'discreet'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_words_in_use",
+      "n": 7,
+      "explanation_en": "'Substitute for' means to take someone's place; a bare infinitive follows 'someone to'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_words_in_use",
+      "n": 8,
+      "explanation_en": "'Get immersed in' is the collocation for becoming absorbed; 'in' is already given, so the past participle fits.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_words_in_use",
+      "n": 9,
+      "explanation_en": "'Collaborate with' is the verb for working jointly; the future 'will' takes the base form.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_words_in_use",
+      "n": 10,
+      "explanation_en": "Passive 'will be assessed on': students are evaluated on proficiency, so the past participle is needed.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_word_building",
+      "n": 1,
+      "explanation_en": "The sentence subject needs the noun form of 'dominate': 'the dominance of the Internet and mobile devices'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_word_building",
+      "n": 2,
+      "explanation_en": "'Get distracted' uses the past participle as an adjective after 'get', meaning lose concentration.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_word_building",
+      "n": 3,
+      "explanation_en": "'Admittance to' a university means being allowed to enter; a noun is needed after 'for'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_word_building",
+      "n": 4,
+      "explanation_en": "'Retired' is the adjective describing the father's status and matches the present tense 'decides'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_word_building",
+      "n": 5,
+      "explanation_en": "'Reliance on' is the noun form of 'rely', following 'too much' and preceding 'on teachers'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_word_building",
+      "n": 6,
+      "explanation_en": "'Assurance that' means a guarantee or certainty, the noun required after 'need'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_word_building",
+      "n": 7,
+      "explanation_en": "'Clearance of trees' is the noun for removing them and serves as subject of 'could cause'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_banked_cloze",
+      "n": 1,
+      "explanation_en": "'Maintain contact' is the collocation; the base form follows 'allows them to'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_banked_cloze",
+      "n": 2,
+      "explanation_en": "'The scenario of people sitting next to each other, not talking' is the familiar scene the sentence describes.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_banked_cloze",
+      "n": 3,
+      "explanation_en": "'Be immersed in' takes the past participle after 'be' and matches the given 'in social media'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_banked_cloze",
+      "n": 4,
+      "explanation_en": "'Concentrate on' is the fixed verb plus preposition for focusing on tasks; base form after 'cannot'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_banked_cloze",
+      "n": 5,
+      "explanation_en": "'Lead to obsession' names compulsive preoccupation and parallels 'addiction' earlier in the passage.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_banked_cloze",
+      "n": 6,
+      "explanation_en": "'Get some form of approval' fits the likes and comments that strangers give online.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_banked_cloze",
+      "n": 7,
+      "explanation_en": "'Yield to the lure of social networks': the noun means attraction or temptation, following 'the'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_banked_cloze",
+      "n": 8,
+      "explanation_en": "'Live in continual fear' needs the adjective meaning ongoing and repeated before 'fear'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_banked_cloze",
+      "n": 9,
+      "explanation_en": "The subject 'popularity' is singular, so the present-tense verb takes -s: 'diminishes'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_banked_cloze",
+      "n": 10,
+      "explanation_en": "'Did not anticipate that' means did not expect; the base form follows 'did not'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_expressions_in_use",
+      "n": 1,
+      "explanation_en": "'Plunge into' means to throw oneself into; the past tense 'plunged' matches the narrative.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_expressions_in_use",
+      "n": 2,
+      "explanation_en": "'In the company of their children' is the phrase meaning together with them.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_expressions_in_use",
+      "n": 3,
+      "explanation_en": "Passive 'can be picked up': 'pick up' means to learn a skill gradually rather than by formal study.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_expressions_in_use",
+      "n": 4,
+      "explanation_en": "'Laid out the map across the table' uses the past tense of 'lay out', to spread something out.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_expressions_in_use",
+      "n": 5,
+      "explanation_en": "'Add up to' means to amount to; the plural subject 'all' takes the base form.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_expressions_in_use",
+      "n": 6,
+      "explanation_en": "Bare infinitive after 'in order to'; 'make room for' means to create space for something.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_expressions_in_use",
+      "n": 7,
+      "explanation_en": "Present perfect passive 'has been dumbed down': 'dumb down' means to simplify excessively for a mass market.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_expressions_in_use",
+      "n": 8,
+      "explanation_en": "The preposition 'toward' takes the gerund 'wiping out', which means eliminating completely.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_a_structure_writing",
+      "n": 1,
+      "explanation_en": "Structure analysis: map Paras. 7-11 onto the sample's introduction, body and conclusion by following the author's own signposts.",
+      "draft_answer": "Paragraph 7 works as the introduction: it raises the controversial claim that our 'sips' of connection add up to real conversation, then states the thesis that they cannot substitute for it. Paragraphs 8, 9 and 10 form the body, offering three supporting points: real conversation lets us know one another, it teaches patience, and it builds self-reflection. Paragraph 11 is the conclusion, restating the thesis as 'I am a partisan for conversation' and calling for action through sacred spaces, device-free cars and conversational Thursdays.",
+      "needs_review": true
+    },
+    {
+      "block": "u01_a_structure_writing",
+      "n": 2,
+      "explanation_en": "Essay task: choose one topic and follow the sample's introduction, body, refutation and conclusion outline in at least 140 words.",
+      "draft_answer": "My topic is whether AI will cause mass unemployment: many people assume that artificial intelligence will soon put millions of people out of work, and the fear behind that assumption is understandable, but I believe AI will change jobs rather than abolish them. Historically, machines have taken over routine tasks while creating new roles around them, and AI looks set to follow the same pattern, since it removes dull, repetitive work and frees people for judgement, care and creativity. Some jobs will certainly disappear, so the real challenge is helping workers retrain fast enough rather than trying to stop the technology, and that is where governments and companies must act together. With sensible policies and steady investment in education, AI can make us more productive instead of idle, and the public debate should be about sharing its gains fairly rather than about a jobless future.",
+      "needs_review": true
+    },
+    {
+      "block": "u01_b_reading_skills",
+      "n": 1,
+      "explanation_en": "Reading skill: build the organizer from Text B's signposts, 'To start with', 'Likewise', 'Furthermore' and 'Then how about', before judging its purpose.",
+      "draft_answer": "Text B is organized by domain rather than by chronology. Paragraph 1 states the thesis that digital technology has changed almost every part of life, and paragraphs 2 to 8 then take one area each: school, children, home, workplace, leisure, personal business and social life, often signalled by 'To start with', 'Likewise', 'Furthermore' and 'Then how about'. Paragraph 9 concludes that the revolution shows no sign of slowing down and asks whether we are ready. So the author's purpose is to convince us that the change is total and ongoing rather than to argue for or against it.",
+      "needs_review": true
+    },
+    {
+      "block": "u01_b_understanding",
+      "n": 1,
+      "explanation_en": "Para. 1 calls the change 'subliminal' yet 'bold': technology pervades our lives while we barely notice its impact.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_understanding",
+      "n": 2,
+      "explanation_en": "Para. 2 says printed books will be 'a distant memory' because children now read e-books on tablets.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_understanding",
+      "n": 3,
+      "explanation_en": "Para. 3 says children play games online 'more often than' outside with friends, so 'as often as' is false.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_understanding",
+      "n": 4,
+      "explanation_en": "Para. 4 says cooking is now 'easy and a lot quicker' thanks to cooking apps, online recipes and how-to-cook videos.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_understanding",
+      "n": 5,
+      "explanation_en": "Para. 5: employers encourage home working because employees 'do not require round-the-clock monitoring' to finish daily tasks.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_understanding",
+      "n": 6,
+      "explanation_en": "Para. 6: online booking sites and reviews make people 'a lot more discerning' when booking holidays.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_understanding",
+      "n": 7,
+      "explanation_en": "Para. 8: even those who 'desperately tried to evade all things social' find it 'simply impossible to avoid'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_understanding",
+      "n": 8,
+      "explanation_en": "Para. 9 ends by saying technology 'will continue to flourish' and transform how we live 'in the foreseeable future'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_critical",
+      "n": 1,
+      "explanation_en": "Open preference question: state a choice and justify it, drawing on Text B's account of tablets and e-books.",
+      "draft_answer": "I still prefer printed books for anything I need to study. A paper page lets me annotate, flip back and remember where an idea sat, whereas on a screen I skim and forget. For travel or light reading, though, e-books win on convenience, since my whole library fits in a tablet. So my answer depends on the purpose rather than on principle.",
+      "needs_review": true
+    },
+    {
+      "block": "u01_b_critical",
+      "n": 2,
+      "explanation_en": "Open question: add one or two examples beyond the school, home, work, leisure and social domains covered in Paras. 2-8.",
+      "draft_answer": "Healthcare is an obvious one: patients now book appointments, read test results and consult doctors through apps instead of queueing at a hospital. Money is another, since in China a phone replaces cash, cards and even the wallet, as Text C shows. Transport has changed too: ride-hailing and shared bikes mean we rarely hail a taxi in the street. Each example follows the text's pattern, a daily routine quietly rebuilt around a screen.",
+      "needs_review": true
+    },
+    {
+      "block": "u01_b_critical",
+      "n": 3,
+      "explanation_en": "Open question: turn the texts' warnings into practical habits, as Text A's final paragraph recommends.",
+      "draft_answer": "We need both skills and limits. The skills are critical ones: checking sources, protecting privacy, and judging when a tool is actually helping us. The limits are personal rules such as device-free meals or a weekly offline day, so that technology stays a choice rather than a reflex. Schools and families should model this balance instead of simply banning screens.",
+      "needs_review": true
+    },
+    {
+      "block": "u01_b_collocation",
+      "n": 1,
+      "explanation_en": "Parsing the sentence: 'which has established its credibility' needs the present perfect of 'establish credibility'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_collocation",
+      "n": 2,
+      "explanation_en": "'Play an essential part in' is the fixed phrase, and the article 'an' is already given.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_collocation",
+      "n": 3,
+      "explanation_en": "A gerund is needed after the preposition 'of': 'the joy of sharing viewpoints'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_collocation",
+      "n": 4,
+      "explanation_en": "'A deceptive illusion' echoes Text A Para. 6, which calls online connection exactly that.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_collocation",
+      "n": 5,
+      "explanation_en": "'Have a firm preference for' supplies the noun object and matches the given preposition 'for'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_collocation",
+      "n": 6,
+      "explanation_en": "'Have little motivation for' is Text A Para. 10's phrase for lacking the drive to act.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_collocation",
+      "n": 7,
+      "explanation_en": "'The widespread use of digital technology' is the noun phrase serving as subject of 'has brought about'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_collocation",
+      "n": 8,
+      "explanation_en": "'Bring about dramatic changes to' requires the plural noun object matching 'changes to what we do'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_collocation",
+      "n": 9,
+      "explanation_en": "'Has completely altered' uses the present perfect, parallel with 'has brought about' in the same sentence.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_collocation",
+      "n": 10,
+      "explanation_en": "'In today's hectic life' needs the adjective meaning busy and rushed before 'life'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_collocation",
+      "n": 11,
+      "explanation_en": "'How to restrict the use of' takes the base form after 'how to' and means to limit.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_collocation",
+      "n": 12,
+      "explanation_en": "'Although it often unfolds slowly' borrows Text A Para. 9's verb for a conversation developing gradually.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_b_collocation",
+      "n": 13,
+      "explanation_en": "'In the foreseeable future' is the fixed phrase for the predictable future, matching 'fore'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u01_c_translation",
+      "n": 1,
+      "explanation_en": "Key renderings: 'with the rapid development of', 'a hot topic', 'an important driving force', 'put forward the concept of Internet Plus', 'integration with', 'broader room for development'.",
+      "draft_answer": null,
+      "needs_review": false
+    }
+  ]
+}

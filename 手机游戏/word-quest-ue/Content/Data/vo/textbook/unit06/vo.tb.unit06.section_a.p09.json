@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit06.section_a.p09",
+ "unit": 6,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Initially, Sue had tried to finish her university certification remotely, but finally dropped out because of the stress from her sinking finances. She applied for every possible job in the employment spectrum, from minimum-wage retail jobs to director positions.",
+ "rate": 165,
+ "duration": 15.169,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 8.426,
+   "text": "Initially, Sue had tried to finish her university certification remotely, but finally dropped out because of the stress from her sinking finances."
+  },
+  {
+   "i": 1,
+   "start": 8.426,
+   "end": 15.169,
+   "text": "She applied for every possible job in the employment spectrum, from minimum-wage retail jobs to director positions."
+  }
+ ]
+}

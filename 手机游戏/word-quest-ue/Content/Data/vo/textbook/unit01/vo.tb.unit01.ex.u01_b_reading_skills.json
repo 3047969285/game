@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit01.ex.u01_b_reading_skills",
+ "unit": 1,
+ "section": "section_b",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Reading skills: Following the structure of a text. As you read Text B for the first time, try to figure out its text structure after reading the first several paragraphs with the help of the signal words you have spotted. Then read the whole text and draw a graphic organizer of it.",
+ "rate": 165,
+ "duration": 23.091,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.669,
+   "text": "Reading skills: Following the structure of a text."
+  },
+  {
+   "i": 1,
+   "start": 4.669,
+   "end": 17.965,
+   "text": "As you read Text B for the first time, try to figure out its text structure after reading the first several paragraphs with the help of the signal words you have spotted."
+  },
+  {
+   "i": 2,
+   "start": 17.965,
+   "end": 23.091,
+   "text": "Then read the whole text and draw a graphic organizer of it."
+  }
+ ]
+}

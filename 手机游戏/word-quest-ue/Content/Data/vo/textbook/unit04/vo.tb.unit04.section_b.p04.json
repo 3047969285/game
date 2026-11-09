@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit04.section_b.p04",
+ "unit": 4,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "I sat there with my shoes off, watching as he got ready to stitch up my shoes I'd entrusted to him. He looked sadly at the leather covering the heel. It was worn through because I had failed to have the shoes patched a month ago. I grew a little impatient, for I was rushing to meet a friend. “Please hurry,” I begged.",
+ "rate": 165,
+ "duration": 18.251,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.809,
+   "text": "I sat there with my shoes off, watching as he got ready to stitch up my shoes I'd entrusted to him."
+  },
+  {
+   "i": 1,
+   "start": 5.809,
+   "end": 8.479,
+   "text": "He looked sadly at the leather covering the heel."
+  },
+  {
+   "i": 2,
+   "start": 8.479,
+   "end": 12.662,
+   "text": "It was worn through because I had failed to have the shoes patched a month ago."
+  },
+  {
+   "i": 3,
+   "start": 12.662,
+   "end": 16.556,
+   "text": "I grew a little impatient, for I was rushing to meet a friend."
+  },
+  {
+   "i": 4,
+   "start": 16.556,
+   "end": 18.251,
+   "text": "“Please hurry,” I begged."
+  }
+ ]
+}

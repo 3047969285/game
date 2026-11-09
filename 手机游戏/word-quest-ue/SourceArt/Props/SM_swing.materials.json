@@ -1,0 +1,37 @@
+{
+ "kit": "swing",
+ "dims_m": [
+  2.0,
+  1.145,
+  2.185
+ ],
+ "materials": {
+  "M_steel": {
+   "color": "#8C9399",
+   "roughness": 0.35,
+   "metallic": 0.75,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_seat": {
+   "color": "#2B2E33",
+   "roughness": 0.7,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_chain": {
+   "color": "#9AA1A8",
+   "roughness": 0.3,
+   "metallic": 0.8,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

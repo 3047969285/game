@@ -1,0 +1,34 @@
+{
+ "kit": "sink",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_sink.fbx",
+ "triangles": 6412,
+ "size_m": [
+  0.6,
+  0.45,
+  0.2
+ ],
+ "dims_target_m": [
+  0.6,
+  0.45,
+  0.2
+ ],
+ "slots": [
+  {
+   "slot": "steel",
+   "material": "M_steel",
+   "BaseColor": "T_sink_steel_BaseColor.png",
+   "Normal": "T_sink_steel_Normal.png",
+   "ARM": "T_sink_steel_ARM.png"
+  },
+  {
+   "slot": "seal",
+   "material": "M_seal",
+   "BaseColor": "T_sink_seal_BaseColor.png",
+   "Normal": "T_sink_seal_Normal.png",
+   "ARM": "T_sink_seal_ARM.png"
+  }
+ ],
+ "texture_res": 512,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "kitchen sink with deck, bowl and mixer tap; front toward +Y"
+}

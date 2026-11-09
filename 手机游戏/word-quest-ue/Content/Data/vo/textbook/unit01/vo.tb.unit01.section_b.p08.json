@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit01.section_b.p08",
+ "unit": 1,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "When it comes to social life, there are now so many social platforms cropping up that it's difficult to keep up with them. It's somewhat funny, though, that our social life is kind of akin to “emotional blackmail”. Even those who have desperately tried to evade all things social have found it's simply impossible to avoid. Today people are more engaged in connection than conversation. Social media has become an essential part of life and a place for people to catch up with existing friends, rekindle friendships from the past, or meet new people from overseas..., because they can.",
+ "rate": 165,
+ "duration": 33.546,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.922,
+   "text": "When it comes to social life, there are now so many social platforms cropping up that it's difficult to keep up with them."
+  },
+  {
+   "i": 1,
+   "start": 6.922,
+   "end": 12.416,
+   "text": "It's somewhat funny, though, that our social life is kind of akin to “emotional blackmail”."
+  },
+  {
+   "i": 2,
+   "start": 12.416,
+   "end": 18.208,
+   "text": "Even those who have desperately tried to evade all things social have found it's simply impossible to avoid."
+  },
+  {
+   "i": 3,
+   "start": 18.208,
+   "end": 21.89,
+   "text": "Today people are more engaged in connection than conversation."
+  },
+  {
+   "i": 4,
+   "start": 21.89,
+   "end": 33.546,
+   "text": "Social media has become an essential part of life and a place for people to catch up with existing friends, rekindle friendships from the past, or meet new people from overseas..., because they can."
+  }
+ ]
+}

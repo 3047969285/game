@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit05.section_b.p10",
+ "unit": 5,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "The probe took some live species like cotton and potato to the lifeless environment to form a mini biosphere, which is expected to produce the first flower on the moon. Engineers also plan to get data by constantly measuring temperatures on the surface of the moon.",
+ "rate": 165,
+ "duration": 15.233,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 9.657,
+   "text": "The probe took some live species like cotton and potato to the lifeless environment to form a mini biosphere, which is expected to produce the first flower on the moon."
+  },
+  {
+   "i": 1,
+   "start": 9.657,
+   "end": 15.233,
+   "text": "Engineers also plan to get data by constantly measuring temperatures on the surface of the moon."
+  }
+ ]
+}

@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit01.section_b.p01",
+ "unit": 1,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "The technological advances that arrived in a swift fashion in the mid-1990s have reshaped the very fabric of society, and modern technologies have attracted various population groups in different areas. It is no exaggeration to say that technology has impacted upon the lives of everybody, in one way or another. However, this is often quite subliminal and somewhat ironic given the bold nature of the imposition of digital technology on our lives. It's true that the digital world has changed our lives in almost every way possible.",
+ "rate": 165,
+ "duration": 31.315,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 12.411,
+   "text": "The technological advances that arrived in a swift fashion in the mid-1990s have reshaped the very fabric of society, and modern technologies have attracted various population groups in different areas."
+  },
+  {
+   "i": 1,
+   "start": 12.411,
+   "end": 18.997,
+   "text": "It is no exaggeration to say that technology has impacted upon the lives of everybody, in one way or another."
+  },
+  {
+   "i": 2,
+   "start": 18.997,
+   "end": 26.714,
+   "text": "However, this is often quite subliminal and somewhat ironic given the bold nature of the imposition of digital technology on our lives."
+  },
+  {
+   "i": 3,
+   "start": 26.714,
+   "end": 31.315,
+   "text": "It's true that the digital world has changed our lives in almost every way possible."
+  }
+ ]
+}

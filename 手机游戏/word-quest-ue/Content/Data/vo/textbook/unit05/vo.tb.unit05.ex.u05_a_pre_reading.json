@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit05.ex.u05_a_pre_reading",
+ "unit": 5,
+ "section": "section_a",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "1 Match the descriptions with the pictures below. 2 Work in pairs and list what qualifications are needed for astronauts.",
+ "rate": 165,
+ "duration": 9.866,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 3.988,
+   "text": "1 Match the descriptions with the pictures below."
+  },
+  {
+   "i": 1,
+   "start": 3.988,
+   "end": 9.866,
+   "text": "2 Work in pairs and list what qualifications are needed for astronauts."
+  }
+ ]
+}

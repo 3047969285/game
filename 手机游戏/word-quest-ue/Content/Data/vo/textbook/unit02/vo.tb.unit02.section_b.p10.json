@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit02.section_b.p10",
+ "unit": 2,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "She turned down three million dollars to write her autobiography and instead accepted one dollar a year for the more conscientious role as an ambassador for UNICEF. For seven months out of each of her last five years, she and Robby left the peace and beauty in their cozy home to embark on outreach trips into some of the most difficult places on earth. From Bangladesh, Sudan, Vietnam, Kenya, Ethiopia, Central and South America, to Somalia, Audrey Hepburn traveled representing UNICEF, making over 50 emotionally draining and physically dangerous missions into bleak destinations to raise world awareness of wars and droughts. Having been a victim of war, she understood the blessing of being the beneficiary of food, clothing, and, most of all, hope.",
+ "rate": 165,
+ "duration": 45.959,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 9.02,
+   "text": "She turned down three million dollars to write her autobiography and instead accepted one dollar a year for the more conscientious role as an ambassador for UNICEF."
+  },
+  {
+   "i": 1,
+   "start": 9.02,
+   "end": 19.328,
+   "text": "For seven months out of each of her last five years, she and Robby left the peace and beauty in their cozy home to embark on outreach trips into some of the most difficult places on earth."
+  },
+  {
+   "i": 2,
+   "start": 19.328,
+   "end": 37.862,
+   "text": "From Bangladesh, Sudan, Vietnam, Kenya, Ethiopia, Central and South America, to Somalia, Audrey Hepburn traveled representing UNICEF, making over 50 emotionally draining and physically dangerous missions into bleak destinations to raise world awareness of wars and droughts."
+  },
+  {
+   "i": 3,
+   "start": 37.862,
+   "end": 45.959,
+   "text": "Having been a victim of war, she understood the blessing of being the beneficiary of food, clothing, and, most of all, hope."
+  }
+ ]
+}

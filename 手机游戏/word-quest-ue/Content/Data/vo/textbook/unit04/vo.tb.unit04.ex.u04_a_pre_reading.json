@@ -1,0 +1,19 @@
+{
+ "line_id": "vo.tb.unit04.ex.u04_a_pre_reading",
+ "unit": 4,
+ "section": "A",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Rate each statement on how important it is when choosing a job (1 = not at all important, 2 = slightly important, 3 = moderately important, 4 = very important, 5 = extremely important), then work in pairs and discuss the questions.",
+ "rate": 165,
+ "duration": 20.671,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 20.671,
+   "text": "Rate each statement on how important it is when choosing a job (1 = not at all important, 2 = slightly important, 3 = moderately important, 4 = very important, 5 = extremely important), then work in pairs and discuss the questions."
+  }
+ ]
+}

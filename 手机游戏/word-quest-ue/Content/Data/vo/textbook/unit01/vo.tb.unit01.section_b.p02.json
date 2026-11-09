@@ -1,0 +1,49 @@
+{
+ "line_id": "vo.tb.unit01.section_b.p02",
+ "unit": 1,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "To start with, do you still remember the days when teachers used chalk, dusters, and blackboards? They are almost never used today. Black has turned white, in the form of interactive whiteboards. To go one step further, the days of children having to carry a bag with printed books will probably be a distant memory in the future. With the advent of the age of the tablet, they are starting to use the impressive electronic devices to read e-books. More importantly, schools now come equipped with Wi-Fi or broadband to ensure instant Internet access for study and research purposes.",
+ "rate": 165,
+ "duration": 34.537,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.364,
+   "text": "To start with, do you still remember the days when teachers used chalk, dusters, and blackboards?"
+  },
+  {
+   "i": 1,
+   "start": 6.364,
+   "end": 8.498,
+   "text": "They are almost never used today."
+  },
+  {
+   "i": 2,
+   "start": 8.498,
+   "end": 12.425,
+   "text": "Black has turned white, in the form of interactive whiteboards."
+  },
+  {
+   "i": 3,
+   "start": 12.425,
+   "end": 19.927,
+   "text": "To go one step further, the days of children having to carry a bag with printed books will probably be a distant memory in the future."
+  },
+  {
+   "i": 4,
+   "start": 19.927,
+   "end": 26.349,
+   "text": "With the advent of the age of the tablet, they are starting to use the impressive electronic devices to read e-books."
+  },
+  {
+   "i": 5,
+   "start": 26.349,
+   "end": 34.537,
+   "text": "More importantly, schools now come equipped with Wi-Fi or broadband to ensure instant Internet access for study and research purposes."
+  }
+ ]
+}

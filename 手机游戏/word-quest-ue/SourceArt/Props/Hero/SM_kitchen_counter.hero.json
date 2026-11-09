@@ -1,0 +1,62 @@
+{
+ "kit": "kitchen_counter",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_kitchen_counter.fbx",
+ "triangles": 39808,
+ "size_m": [
+  2.4015,
+  0.6555,
+  0.92
+ ],
+ "dims_target_m": [
+  2.4,
+  0.65,
+  0.92
+ ],
+ "slots": [
+  {
+   "slot": "quartz",
+   "material": "M_quartz",
+   "BaseColor": "T_kitchen_counter_quartz_BaseColor.png",
+   "Normal": "T_kitchen_counter_quartz_Normal.png",
+   "ARM": "T_kitchen_counter_quartz_ARM.png"
+  },
+  {
+   "slot": "carcass",
+   "material": "M_carcass",
+   "BaseColor": "T_kitchen_counter_carcass_BaseColor.png",
+   "Normal": "T_kitchen_counter_carcass_Normal.png",
+   "ARM": "T_kitchen_counter_carcass_ARM.png"
+  },
+  {
+   "slot": "kick",
+   "material": "M_kick",
+   "BaseColor": "T_kitchen_counter_kick_BaseColor.png",
+   "Normal": "T_kitchen_counter_kick_Normal.png",
+   "ARM": "T_kitchen_counter_kick_ARM.png"
+  },
+  {
+   "slot": "gap",
+   "material": "M_gap",
+   "BaseColor": "T_kitchen_counter_gap_BaseColor.png",
+   "Normal": "T_kitchen_counter_gap_Normal.png",
+   "ARM": "T_kitchen_counter_gap_ARM.png"
+  },
+  {
+   "slot": "front",
+   "material": "M_front",
+   "BaseColor": "T_kitchen_counter_front_BaseColor.png",
+   "Normal": "T_kitchen_counter_front_Normal.png",
+   "ARM": "T_kitchen_counter_front_ARM.png"
+  },
+  {
+   "slot": "handle",
+   "material": "M_handle",
+   "BaseColor": "T_kitchen_counter_handle_BaseColor.png",
+   "Normal": "T_kitchen_counter_handle_Normal.png",
+   "ARM": "T_kitchen_counter_handle_ARM.png"
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "front toward +Y; worktop overhang 20 mm"
+}

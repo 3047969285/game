@@ -1,0 +1,46 @@
+{
+ "kit": "tv_stand",
+ "dims_m": [
+  1.4,
+  0.428,
+  0.5
+ ],
+ "materials": {
+  "M_stand_wood": {
+   "color": "#6B4E36",
+   "roughness": 0.55,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.1
+  },
+  "M_stand_door": {
+   "color": "#8C6B4C",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.1
+  },
+  "M_stand_metal": {
+   "color": "#5A5650",
+   "roughness": 0.4,
+   "metallic": 0.6,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_stand_leg": {
+   "color": "#2A231E",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

@@ -1,0 +1,37 @@
+{
+ "kit": "coupon_card",
+ "dims_m": [
+  0.09,
+  0.055,
+  0.003
+ ],
+ "materials": {
+  "M_coupon_paper": {
+   "color": "#F7D154",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_coupon_band": {
+   "color": "#E4572E",
+   "roughness": 0.45,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_coupon_ink": {
+   "color": "#1F2430",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

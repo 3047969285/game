@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit01.section_a.p09",
+ "unit": 1,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "While communicating on our digital devices, we unconsciously raise our expectations as well. As we increase the volume and velocity of online connection, we start to expect acceleration - faster answers. We ask one another simpler questions; we dumb down our communication, even on the most important matters. Face-to-face conversation, by contrast, unfolds slowly, so it teaches us patience.",
+ "rate": 165,
+ "duration": 24.86,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.61,
+   "text": "While communicating on our digital devices, we unconsciously raise our expectations as well."
+  },
+  {
+   "i": 1,
+   "start": 5.61,
+   "end": 12.468,
+   "text": "As we increase the volume and velocity of online connection, we start to expect acceleration - faster answers."
+  },
+  {
+   "i": 2,
+   "start": 12.468,
+   "end": 18.751,
+   "text": "We ask one another simpler questions; we dumb down our communication, even on the most important matters."
+  },
+  {
+   "i": 3,
+   "start": 18.751,
+   "end": 24.86,
+   "text": "Face-to-face conversation, by contrast, unfolds slowly, so it teaches us patience."
+  }
+ ]
+}

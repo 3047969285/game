@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit01.ex.u01_a_banked_cloze",
+ "unit": 1,
+ "section": "section_a",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Fill in the blanks by selecting suitable words from the word bank. You may not use any of the words more than once.",
+ "rate": 165,
+ "duration": 9.074,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.028,
+   "text": "Fill in the blanks by selecting suitable words from the word bank."
+  },
+  {
+   "i": 1,
+   "start": 5.028,
+   "end": 9.074,
+   "text": "You may not use any of the words more than once."
+  }
+ ]
+}

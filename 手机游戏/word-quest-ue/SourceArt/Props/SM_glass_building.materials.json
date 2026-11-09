@@ -1,0 +1,46 @@
+{
+ "kit": "glass_building",
+ "dims_m": [
+  9.92,
+  5.86,
+  8.0
+ ],
+ "materials": {
+  "M_core": {
+   "color": "#C9D0D8",
+   "roughness": 0.7,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_glass": {
+   "color": "#8FBCD0",
+   "roughness": 0.05,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 0.25,
+   "noise": 0.0
+  },
+  "M_alu": {
+   "color": "#C3C9D1",
+   "roughness": 0.3,
+   "metallic": 0.85,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_steel": {
+   "color": "#2B3038",
+   "roughness": 0.4,
+   "metallic": 0.6,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

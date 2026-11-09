@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit04.section_b.p03",
+ "unit": 4,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "“This is a fine neighborhood,” he said. “You'll be happy here.”",
+ "rate": 165,
+ "duration": 3.692,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 2.32,
+   "text": "“This is a fine neighborhood,” he said."
+  },
+  {
+   "i": 1,
+   "start": 2.32,
+   "end": 3.692,
+   "text": "“You'll be happy here.”"
+  }
+ ]
+}

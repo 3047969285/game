@@ -1,0 +1,62 @@
+{
+ "kit": "sandwich_plate",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_sandwich_plate.fbx",
+ "triangles": 7152,
+ "size_m": [
+  0.24,
+  0.24,
+  0.06
+ ],
+ "dims_target_m": [
+  0.24,
+  0.24,
+  0.06
+ ],
+ "slots": [
+  {
+   "slot": "ceramic",
+   "material": "M_ceramic",
+   "BaseColor": "T_sandwich_plate_ceramic_BaseColor.png",
+   "Normal": "T_sandwich_plate_ceramic_Normal.png",
+   "ARM": "T_sandwich_plate_ceramic_ARM.png"
+  },
+  {
+   "slot": "bread",
+   "material": "M_bread",
+   "BaseColor": "T_sandwich_plate_bread_BaseColor.png",
+   "Normal": "T_sandwich_plate_bread_Normal.png",
+   "ARM": "T_sandwich_plate_bread_ARM.png"
+  },
+  {
+   "slot": "crust",
+   "material": "M_crust",
+   "BaseColor": "T_sandwich_plate_crust_BaseColor.png",
+   "Normal": "T_sandwich_plate_crust_Normal.png",
+   "ARM": "T_sandwich_plate_crust_ARM.png"
+  },
+  {
+   "slot": "lettuce",
+   "material": "M_lettuce",
+   "BaseColor": "T_sandwich_plate_lettuce_BaseColor.png",
+   "Normal": "T_sandwich_plate_lettuce_Normal.png",
+   "ARM": "T_sandwich_plate_lettuce_ARM.png"
+  },
+  {
+   "slot": "cheese",
+   "material": "M_cheese",
+   "BaseColor": "T_sandwich_plate_cheese_BaseColor.png",
+   "Normal": "T_sandwich_plate_cheese_Normal.png",
+   "ARM": "T_sandwich_plate_cheese_ARM.png"
+  },
+  {
+   "slot": "tomato",
+   "material": "M_tomato",
+   "BaseColor": "T_sandwich_plate_tomato_BaseColor.png",
+   "Normal": "T_sandwich_plate_tomato_Normal.png",
+   "ARM": "T_sandwich_plate_tomato_ARM.png"
+  }
+ ],
+ "texture_res": 512,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "ceramic plate + club sandwich; front toward +Y"
+}

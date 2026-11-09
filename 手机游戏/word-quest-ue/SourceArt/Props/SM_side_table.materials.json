@@ -1,0 +1,28 @@
+{
+ "kit": "side_table",
+ "dims_m": [
+  0.5,
+  0.5,
+  0.55
+ ],
+ "materials": {
+  "M_wood_top": {
+   "color": "#7E5C41",
+   "roughness": 0.4,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.08
+  },
+  "M_wood_base": {
+   "color": "#5D442F",
+   "roughness": 0.55,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

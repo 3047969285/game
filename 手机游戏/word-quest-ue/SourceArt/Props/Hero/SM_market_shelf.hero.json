@@ -1,0 +1,55 @@
+{
+ "kit": "market_shelf",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_market_shelf.fbx",
+ "triangles": 104992,
+ "size_m": [
+  2.0,
+  0.5098,
+  1.8
+ ],
+ "dims_target_m": [
+  2.0,
+  0.5,
+  1.8
+ ],
+ "slots": [
+  {
+   "slot": "gondola",
+   "material": "M_gondola",
+   "BaseColor": "T_market_shelf_gondola_BaseColor.png",
+   "Normal": "T_market_shelf_gondola_Normal.png",
+   "ARM": "T_market_shelf_gondola_ARM.png"
+  },
+  {
+   "slot": "kick",
+   "material": "M_kick",
+   "BaseColor": "T_market_shelf_kick_BaseColor.png",
+   "Normal": "T_market_shelf_kick_Normal.png",
+   "ARM": "T_market_shelf_kick_ARM.png"
+  },
+  {
+   "slot": "pegboard",
+   "material": "M_pegboard",
+   "BaseColor": "T_market_shelf_pegboard_BaseColor.png",
+   "Normal": "T_market_shelf_pegboard_Normal.png",
+   "ARM": "T_market_shelf_pegboard_ARM.png"
+  },
+  {
+   "slot": "packaging",
+   "material": "M_packaging",
+   "BaseColor": "T_market_shelf_packaging_BaseColor.png",
+   "Normal": "T_market_shelf_packaging_Normal.png",
+   "ARM": "T_market_shelf_packaging_ARM.png"
+  },
+  {
+   "slot": "canrim",
+   "material": "M_canrim",
+   "BaseColor": "T_market_shelf_canrim_BaseColor.png",
+   "Normal": "T_market_shelf_canrim_Normal.png",
+   "ARM": "T_market_shelf_canrim_ARM.png"
+  }
+ ],
+ "texture_res": 4096,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "front toward +Y; labels projected from designs/shelf_labels.png"
+}

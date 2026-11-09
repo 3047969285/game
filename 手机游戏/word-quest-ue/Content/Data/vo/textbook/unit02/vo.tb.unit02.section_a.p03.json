@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit02.section_a.p03",
+ "unit": 2,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Seven times, from 1405 to 1433, the Chinese fleet set off for the unknown. These great expeditions took place about half a century before the first Europeans, rounding the tip of Africa in frail Portuguese caravels,",
+ "rate": 165,
+ "duration": 14.339,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.214,
+   "text": "Seven times, from 1405 to 1433, the Chinese fleet set off for the unknown."
+  },
+  {
+   "i": 1,
+   "start": 6.214,
+   "end": 14.339,
+   "text": "These great expeditions took place about half a century before the first Europeans, rounding the tip of Africa in frail Portuguese caravels,"
+  }
+ ]
+}

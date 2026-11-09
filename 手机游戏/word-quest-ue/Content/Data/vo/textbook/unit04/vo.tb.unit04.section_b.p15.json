@@ -1,0 +1,19 @@
+{
+ "line_id": "vo.tb.unit04.section_b.p15",
+ "unit": 4,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "“What can be done about it?” I asked.",
+ "rate": 165,
+ "duration": 2.127,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 2.127,
+   "text": "“What can be done about it?” I asked."
+  }
+ ]
+}

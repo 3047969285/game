@@ -1,0 +1,46 @@
+{
+ "kit": "office_chair",
+ "dims_m": [
+  0.588,
+  0.57,
+  1.075
+ ],
+ "materials": {
+  "M_plastic": {
+   "color": "#1C1F24",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_chrome": {
+   "color": "#9AA0A8",
+   "roughness": 0.2,
+   "metallic": 1.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_seat_fabric": {
+   "color": "#2A2E36",
+   "roughness": 0.9,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.1
+  },
+  "M_back_mesh": {
+   "color": "#3B414B",
+   "roughness": 0.75,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

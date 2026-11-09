@@ -1,0 +1,121 @@
+{
+ "corrected": [
+  {
+   "old": "Furious",
+   "new": "furious",
+   "pos_from": "a.",
+   "pos_to": "a."
+  },
+  {
+   "old": "Furiousty",
+   "new": "furiously",
+   "pos_from": "a",
+   "pos_to": "adv."
+  },
+  {
+   "old": "cevice",
+   "new": "device",
+   "pos_from": "n.",
+   "pos_to": "n."
+  },
+  {
+   "old": "tnihe",
+   "new": "tribe",
+   "pos_from": "n.",
+   "pos_to": "n."
+  },
+  {
+   "old": "tabiet",
+   "new": "tablet",
+   "pos_from": "n.",
+   "pos_to": "n."
+  },
+  {
+   "old": "Iuxurious",
+   "new": "luxurious",
+   "pos_from": "a.",
+   "pos_to": "a."
+  },
+  {
+   "old": "AVia",
+   "new": "via",
+   "pos_from": "prep.",
+   "pos_to": "prep."
+  },
+  {
+   "old": "Ivory",
+   "new": "ivory",
+   "pos_from": "n.",
+   "pos_to": "n."
+  },
+  {
+   "old": "Jeopardize",
+   "new": "jeopardize",
+   "pos_from": "v",
+   "pos_to": "v."
+  },
+  {
+   "old": "Adrougnt",
+   "new": "drought",
+   "pos_from": "n.",
+   "pos_to": "n."
+  },
+  {
+   "old": "Keepsake",
+   "new": "keepsake",
+   "pos_from": "n.",
+   "pos_to": "n."
+  },
+  {
+   "old": "ACharitable",
+   "new": "charitable",
+   "pos_from": "a.",
+   "pos_to": "a."
+  },
+  {
+   "old": "buliying",
+   "new": "bullying",
+   "pos_from": "n.",
+   "pos_to": "n."
+  },
+  {
+   "old": "Tofty",
+   "new": "lofty",
+   "pos_from": "a.",
+   "pos_to": "a."
+  },
+  {
+   "old": "milennium",
+   "new": "millennium",
+   "pos_from": "n.",
+   "pos_to": "n."
+  },
+  {
+   "old": "sizabie",
+   "new": "sizable",
+   "pos_from": "a.",
+   "pos_to": "a."
+  },
+  {
+   "old": "cllent",
+   "new": "client",
+   "pos_from": "n.",
+   "pos_to": "n."
+  },
+  {
+   "old": "Jelly",
+   "new": "jelly",
+   "pos_from": "n.",
+   "pos_to": "n."
+  }
+ ],
+ "phonetic_missing": [],
+ "meaning_from_reference": 469,
+ "meaning_cleaned": 10,
+ "ipa_sources": {
+  "cmudict": 490,
+  "reference": 4,
+  "cmudict-composed": 8,
+  "manual": 4
+ }
+}

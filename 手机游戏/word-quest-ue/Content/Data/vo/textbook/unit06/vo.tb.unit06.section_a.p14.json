@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit06.section_a.p14",
+ "unit": 6,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "“I knew the only help I was going to get was from me myself,” Sue said. “I thought to myself: I have to take care of myself. I really, really need to get work. I need a job. I don't want to be seen as a parasite.”",
+ "rate": 165,
+ "duration": 13.356,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.373,
+   "text": "“I knew the only help I was going to get was from me myself,” Sue said."
+  },
+  {
+   "i": 1,
+   "start": 4.373,
+   "end": 7.771,
+   "text": "“I thought to myself: I have to take care of myself."
+  },
+  {
+   "i": 2,
+   "start": 7.771,
+   "end": 9.985,
+   "text": "I really, really need to get work."
+  },
+  {
+   "i": 3,
+   "start": 9.985,
+   "end": 11.003,
+   "text": "I need a job."
+  },
+  {
+   "i": 4,
+   "start": 11.003,
+   "end": 13.356,
+   "text": "I don't want to be seen as a parasite.”"
+  }
+ ]
+}

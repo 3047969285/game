@@ -1,0 +1,46 @@
+{
+ "kit": "sofa",
+ "dims_m": [
+  2.0,
+  0.88,
+  0.85
+ ],
+ "materials": {
+  "M_beech": {
+   "color": "#3A2C20",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_velvet": {
+   "color": "#7A6A58",
+   "roughness": 0.9,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.1
+  },
+  "M_pillow_a": {
+   "color": "#8C7B66",
+   "roughness": 0.92,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_pillow_b": {
+   "color": "#5E6B5C",
+   "roughness": 0.92,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

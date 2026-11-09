@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit06.section_a.p13",
+ "unit": 6,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Helped by gas cards donated by a church, Sue decided to return to her hometown. She figured the health-care safety net there was better, as well as the job market. She contacted a local shelter but learned there was a waiting list. Welfare was not an option, because she didn't have young children. And, Sue knew that none of her three adult sons were in a position to help her.",
+ "rate": 165,
+ "duration": 21.236,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.128,
+   "text": "Helped by gas cards donated by a church, Sue decided to return to her hometown."
+  },
+  {
+   "i": 1,
+   "start": 5.128,
+   "end": 9.689,
+   "text": "She figured the health-care safety net there was better, as well as the job market."
+  },
+  {
+   "i": 2,
+   "start": 9.689,
+   "end": 13.263,
+   "text": "She contacted a local shelter but learned there was a waiting list."
+  },
+  {
+   "i": 3,
+   "start": 13.263,
+   "end": 16.957,
+   "text": "Welfare was not an option, because she didn't have young children."
+  },
+  {
+   "i": 4,
+   "start": 16.957,
+   "end": 21.236,
+   "text": "And, Sue knew that none of her three adult sons were in a position to help her."
+  }
+ ]
+}

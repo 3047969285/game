@@ -1,0 +1,49 @@
+{
+ "line_id": "vo.tb.unit05.section_b.p02",
+ "unit": 5,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "As the nearest heavenly body, the moon has fascinated humankind since we first gazed at the sky. The silver disc in the sky is always a captivating theme in our legends, myths, and dreams. Its ever-changing face has inspired ambitious aspirations. We admire its beauty from the earth, so why are we so eager to reach the moon? It's an ideal place to peer into the deep reaches of the universe. It inspires our imaginations and dreams of space travel.",
+ "rate": 165,
+ "duration": 27.798,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.843,
+   "text": "As the nearest heavenly body, the moon has fascinated humankind since we first gazed at the sky."
+  },
+  {
+   "i": 1,
+   "start": 5.843,
+   "end": 11.915,
+   "text": "The silver disc in the sky is always a captivating theme in our legends, myths, and dreams."
+  },
+  {
+   "i": 2,
+   "start": 11.915,
+   "end": 15.807,
+   "text": "Its ever-changing face has inspired ambitious aspirations."
+  },
+  {
+   "i": 3,
+   "start": 15.807,
+   "end": 20.465,
+   "text": "We admire its beauty from the earth, so why are we so eager to reach the moon?"
+  },
+  {
+   "i": 4,
+   "start": 20.465,
+   "end": 24.277,
+   "text": "It's an ideal place to peer into the deep reaches of the universe."
+  },
+  {
+   "i": 5,
+   "start": 24.277,
+   "end": 27.798,
+   "text": "It inspires our imaginations and dreams of space travel."
+  }
+ ]
+}

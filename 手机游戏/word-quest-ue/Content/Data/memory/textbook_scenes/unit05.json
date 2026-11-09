@@ -1,0 +1,5600 @@
+{
+ "schema": "wordquest.textbook_scenes/1",
+ "unit": 5,
+ "note": "Scene design for the real Unit 5 texts (Docs/scenes/unit05.md). Coordinates: metres, UE axes X right / Y forward / Z up, relative to each scene origin. word = lowercase headword of this unit's New words.",
+ "articles": [
+  {
+   "section": "section_a",
+   "level": "L_U05_A",
+   "title": "No limit for China's astronauts",
+   "scenes": [
+    {
+     "id": "u05a_s1",
+     "title": "Lecture from orbit",
+     "paragraphs": [
+      1,
+      4
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.2,
+       0.5,
+       -0.85
+      ],
+      "color": "#F2F5FF",
+      "intensity": 4.5,
+      "sky": "#141A24",
+      "fill": 0.6
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        4.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "projector_screen",
+       "pos": [
+        0.0,
+        3.8,
+        1.2
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.4,
+        0.05,
+        1.5
+       ],
+       "layer": "always",
+       "word": "extravehicular"
+      },
+      {
+       "kit": "whiteboard",
+       "pos": [
+        -2.85,
+        1.2,
+        1.2
+       ],
+       "yaw": 90,
+       "scale": 1.0,
+       "size": [
+        1.8,
+        0.05,
+        1.1
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "student_desk",
+       "pos": [
+        -1.8,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        0.5,
+        0.75
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "student_desk",
+       "pos": [
+        -0.6,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        0.5,
+        0.75
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "student_desk",
+       "pos": [
+        0.6,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        0.5,
+        0.75
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "textbook_stack",
+       "pos": [
+        -1.8,
+        0.05,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.22,
+        0.3,
+        0.18
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "teacher",
+       "pos": [
+        0.8,
+        2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "pupil_1",
+       "pos": [
+        -1.8,
+        -0.55,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_watch",
+       "layer": "always"
+      },
+      {
+       "role": "pupil_2",
+       "pos": [
+        -0.6,
+        -0.55,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_watch",
+       "layer": "always"
+      },
+      {
+       "role": "pupil_3",
+       "pos": [
+        0.6,
+        -0.55,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_watch",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "lecture",
+       "pos": [
+        0.0,
+        -5.0,
+        1.6
+       ],
+       "look": [
+        0.0,
+        3.4,
+        1.0
+       ],
+       "fov": 42
+      },
+      {
+       "name": "screen",
+       "pos": [
+        0.9,
+        -1.8,
+        1.3
+       ],
+       "look": [
+        0.0,
+        3.8,
+        1.2
+       ],
+       "fov": 28
+      }
+     ],
+     "exercises": [
+      "u05_a_pre_reading#1-5",
+      "u05_a_understanding#1",
+      "u05_a_expressions_in_use#4"
+     ],
+     "origin": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "milestone",
+       "form": "milestone",
+       "paragraph": 1,
+       "sentence": 1
+      },
+      {
+       "word": "dock",
+       "form": "docked",
+       "paragraph": 1,
+       "sentence": 1
+      },
+      {
+       "word": "momentous",
+       "form": "momentous",
+       "paragraph": 4,
+       "sentence": 1
+      },
+      {
+       "word": "gigantic",
+       "form": "gigantic",
+       "paragraph": 4,
+       "sentence": 1
+      },
+      {
+       "word": "extravehicular",
+       "form": "extravehicular",
+       "paragraph": 4,
+       "sentence": 2
+      }
+     ]
+    },
+    {
+     "id": "u05a_s2",
+     "title": "One year, sixty subjects",
+     "paragraphs": [
+      2,
+      5,
+      6
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.2,
+       0.5,
+       -0.85
+      ],
+      "color": "#F2F5FF",
+      "intensity": 4.5,
+      "sky": "#141A24",
+      "fill": 0.6
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "library_shelf",
+       "pos": [
+        -1.0,
+        2.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.0,
+        0.45,
+        2.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "whiteboard",
+       "pos": [
+        2.0,
+        2.82,
+        1.2
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.8,
+        0.05,
+        1.1
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "floor_lamp",
+       "pos": [
+        -2.6,
+        0.6,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.35,
+        0.35,
+        1.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "reading_table",
+       "pos": [
+        0.0,
+        0.4,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.4,
+        1.0,
+        0.75
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        -0.5,
+        -0.45,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        0.5,
+        -0.45,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "document_stack",
+       "pos": [
+        -0.7,
+        0.4,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.22,
+        0.3,
+        0.04
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "document_stack",
+       "pos": [
+        0.8,
+        0.2,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.22,
+        0.3,
+        0.04
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "textbook_stack",
+       "pos": [
+        0.1,
+        0.6,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.22,
+        0.3,
+        0.18
+       ],
+       "layer": "always",
+       "word": "astronautics"
+      }
+     ],
+     "people": [
+      {
+       "role": "trainee_1",
+       "pos": [
+        -0.5,
+        -0.45,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_read",
+       "layer": "always"
+      },
+      {
+       "role": "trainee_2",
+       "pos": [
+        0.5,
+        -0.45,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_read",
+       "layer": "always"
+      },
+      {
+       "role": "instructor",
+       "pos": [
+        -1.6,
+        1.8,
+        0.0
+       ],
+       "yaw": 180,
+       "pose": "stand_point",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "study",
+       "pos": [
+        0.0,
+        -4.2,
+        1.5
+       ],
+       "look": [
+        0.0,
+        1.0,
+        0.9
+       ],
+       "fov": 40
+      },
+      {
+       "name": "papers",
+       "pos": [
+        1.0,
+        -1.5,
+        1.3
+       ],
+       "look": [
+        0.2,
+        0.5,
+        0.85
+       ],
+       "fov": 30
+      }
+     ],
+     "exercises": [
+      "u05_a_understanding#2",
+      "u05_a_critical#2",
+      "u05_a_word_building#1-2",
+      "u05_a_words_in_use#8"
+     ],
+     "origin": [
+      60.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "blueprint",
+       "form": "blueprint",
+       "paragraph": 2,
+       "sentence": 1
+      },
+      {
+       "word": "batch",
+       "form": "batch",
+       "paragraph": 2,
+       "sentence": 2
+      },
+      {
+       "word": "astronautics",
+       "form": "astronautics",
+       "paragraph": 6,
+       "sentence": 1
+      },
+      {
+       "word": "normally",
+       "form": "Normally",
+       "paragraph": 6,
+       "sentence": 2
+      }
+     ]
+    },
+    {
+     "id": "u05a_s3",
+     "title": "Pool and centrifuge",
+     "paragraphs": [
+      7
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.2,
+       0.5,
+       -0.85
+      ],
+      "color": "#F2F5FF",
+      "intensity": 4.5,
+      "sky": "#141A24",
+      "fill": 0.6
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        -12.0,
+        9.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        9.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "wall",
+       "pos": [
+        12.0,
+        9.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "training_tank",
+       "pos": [
+        -7.0,
+        4.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        10.0,
+        6.0,
+        2.2
+       ],
+       "layer": "always",
+       "word": "weightlessness"
+      },
+      {
+       "kit": "bench",
+       "pos": [
+        -7.0,
+        -0.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        0.6,
+        0.8
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "spacesuit",
+       "pos": [
+        -13.4,
+        4.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.6,
+        1.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "centrifuge",
+       "pos": [
+        7.0,
+        4.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        10.0,
+        10.0,
+        4.5
+       ],
+       "layer": "always",
+       "word": "centrifuge"
+      },
+      {
+       "kit": "control_console",
+       "pos": [
+        16.0,
+        4.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.8,
+        1.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "emergency_stop",
+       "pos": [
+        16.0,
+        4.0,
+        1.2
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.4,
+        0.1,
+        0.4
+       ],
+       "layer": "always",
+       "word": "halt"
+      }
+     ],
+     "people": [
+      {
+       "role": "astronaut_suited",
+       "pos": [
+        -7.0,
+        4.0,
+        0.6
+       ],
+       "yaw": 0,
+       "pose": "stand",
+       "layer": "always"
+      },
+      {
+       "role": "astronaut_rest",
+       "pos": [
+        -7.0,
+        -0.2,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_talk",
+       "layer": "always"
+      },
+      {
+       "role": "astronaut_centrifuge",
+       "pos": [
+        7.0,
+        4.0,
+        1.0
+       ],
+       "yaw": 0,
+       "pose": "sit_drive",
+       "layer": "always"
+      },
+      {
+       "role": "trainer",
+       "pos": [
+        14.0,
+        1.8,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_watch",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "hall",
+       "pos": [
+        0.0,
+        -14.0,
+        3.0
+       ],
+       "look": [
+        0.0,
+        5.0,
+        1.2
+       ],
+       "fov": 50
+      },
+      {
+       "name": "pool",
+       "pos": [
+        -7.0,
+        -6.0,
+        1.8
+       ],
+       "look": [
+        -7.0,
+        4.0,
+        0.8
+       ],
+       "fov": 35
+      },
+      {
+       "name": "centrifuge",
+       "pos": [
+        11.0,
+        -6.0,
+        1.6
+       ],
+       "look": [
+        7.0,
+        4.0,
+        1.0
+       ],
+       "fov": 32
+      }
+     ],
+     "exercises": [
+      "u05_a_understanding#5",
+      "u05_a_words_in_use#3"
+     ],
+     "origin": [
+      120.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "simulate",
+       "form": "simulate",
+       "paragraph": 7,
+       "sentence": 1
+      },
+      {
+       "word": "weightlessness",
+       "form": "weightlessness",
+       "paragraph": 7,
+       "sentence": 1
+      },
+      {
+       "word": "centrifuge",
+       "form": "centrifuge",
+       "paragraph": 7,
+       "sentence": 3
+      },
+      {
+       "word": "halt",
+       "form": "halt",
+       "paragraph": 7,
+       "sentence": 4
+      }
+     ]
+    },
+    {
+     "id": "u05a_s4",
+     "title": "Shenzhou-5 ascent",
+     "paragraphs": [
+      3,
+      8
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.45,
+       0.35,
+       -0.82
+      ],
+      "color": "#FFCF9A",
+      "intensity": 6.5,
+      "sky": "#1B2230",
+      "fill": 0.55
+     },
+     "props": [
+      {
+       "kit": "launch_pad",
+       "pos": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        30.0,
+        24.0,
+        1.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "launch_tower",
+       "pos": [
+        -9.0,
+        0.0,
+        1.2
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        14.0,
+        10.0,
+        60.0
+       ],
+       "layer": "always",
+       "word": "ascend"
+      },
+      {
+       "kit": "rocket",
+       "pos": [
+        3.0,
+        0.0,
+        1.2
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.35,
+        3.35,
+        58.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "spacecraft_cabin",
+       "pos": [
+        20.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.6,
+        2.6,
+        2.4
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "cockpit_console",
+       "pos": [
+        20.0,
+        1.0,
+        0.9
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.4,
+        0.6,
+        0.35
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "ground_crew_1",
+       "pos": [
+        -4.0,
+        -9.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_watch",
+       "layer": "always"
+      },
+      {
+       "role": "ground_crew_2",
+       "pos": [
+        1.0,
+        -9.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_watch",
+       "layer": "always"
+      },
+      {
+       "role": "yang_liwei",
+       "pos": [
+        20.0,
+        -0.3,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_drive",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "launch",
+       "pos": [
+        -10.0,
+        -80.0,
+        10.0
+       ],
+       "look": [
+        0.0,
+        0.0,
+        30.0
+       ],
+       "fov": 50
+      },
+      {
+       "name": "cabin",
+       "pos": [
+        20.0,
+        -3.5,
+        1.2
+       ],
+       "look": [
+        20.0,
+        0.0,
+        1.0
+       ],
+       "fov": 35
+      }
+     ],
+     "exercises": [
+      "u05_a_understanding#3",
+      "u05_a_words_in_use#4-5",
+      "u05_a_banked_cloze#5-7"
+     ],
+     "origin": [
+      180.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "feat",
+       "form": "feat",
+       "paragraph": 3,
+       "sentence": 2
+      },
+      {
+       "word": "ascend",
+       "form": "ascended",
+       "paragraph": 8,
+       "sentence": 2
+      },
+      {
+       "word": "oscillation",
+       "form": "oscillation",
+       "paragraph": 8,
+       "sentence": 2
+      },
+      {
+       "word": "organ",
+       "form": "organs",
+       "paragraph": 8,
+       "sentence": 2
+      },
+      {
+       "word": "vibrate",
+       "form": "vibrate",
+       "paragraph": 8,
+       "sentence": 2
+      },
+      {
+       "word": "inflict",
+       "form": "inflicting",
+       "paragraph": 8,
+       "sentence": 2
+      },
+      {
+       "word": "grit",
+       "form": "gritted",
+       "paragraph": 8,
+       "sentence": 3
+      },
+      {
+       "word": "accomplish",
+       "form": "accomplish",
+       "paragraph": 8,
+       "sentence": 6
+      }
+     ]
+    },
+    {
+     "id": "u05a_s5",
+     "title": "Hatch",
+     "paragraphs": [
+      8
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.2,
+       0.5,
+       -0.85
+      ],
+      "color": "#FFD9A8",
+      "intensity": 2.4,
+      "sky": "#05070C",
+      "fill": 0.2
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "spacecraft_hatch",
+       "pos": [
+        0.0,
+        2.85,
+        0.9
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.0,
+        0.1,
+        1.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "national_flag",
+       "pos": [
+        2.2,
+        2.75,
+        1.5
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.02,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "cockpit_console",
+       "pos": [
+        -2.4,
+        1.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.4,
+        0.6,
+        0.35
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "hatch_tool",
+       "pos": [
+        0.5,
+        0.9,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.8,
+        0.1,
+        0.1
+       ],
+       "layer": "always",
+       "word": "grit"
+      }
+     ],
+     "people": [
+      {
+       "role": "zhai_zhigang",
+       "pos": [
+        -0.9,
+        1.6,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      },
+      {
+       "role": "liu_boming",
+       "pos": [
+        1.0,
+        1.6,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "hatch",
+       "pos": [
+        0.0,
+        -2.6,
+        1.4
+       ],
+       "look": [
+        0.0,
+        2.6,
+        1.0
+       ],
+       "fov": 40
+      },
+      {
+       "name": "tool",
+       "pos": [
+        -0.4,
+        -0.6,
+        1.0
+       ],
+       "look": [
+        0.4,
+        0.9,
+        0.05
+       ],
+       "fov": 30
+      }
+     ],
+     "exercises": [
+      "u05_a_understanding#6",
+      "u05_a_expressions_in_use#6",
+      "u05_a_word_building#5-7"
+     ],
+     "origin": [
+      240.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    },
+    {
+     "id": "u05a_s6",
+     "title": "View from orbit",
+     "paragraphs": [
+      9
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.2,
+       0.5,
+       -0.85
+      ],
+      "color": "#CFE3FF",
+      "intensity": 3.2,
+      "sky": "#0B1220",
+      "fill": 0.35
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "porthole",
+       "pos": [
+        0.0,
+        2.85,
+        1.6
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.1,
+        0.6
+       ],
+       "layer": "always",
+       "word": "unforgettable"
+      },
+      {
+       "kit": "earth_globe",
+       "pos": [
+        0.0,
+        30.0,
+        2.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        18.0,
+        18.0,
+        18.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "dashboard_screen",
+       "pos": [
+        -1.8,
+        2.8,
+        1.1
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.03,
+        0.35
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "cockpit_console",
+       "pos": [
+        2.0,
+        0.9,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.4,
+        0.6,
+        0.35
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "liu_wang",
+       "pos": [
+        0.0,
+        0.5,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "window",
+       "pos": [
+        0.0,
+        -3.8,
+        1.6
+       ],
+       "look": [
+        0.0,
+        3.0,
+        1.9
+       ],
+       "fov": 40
+      },
+      {
+       "name": "earth",
+       "pos": [
+        0.0,
+        -7.0,
+        2.0
+       ],
+       "look": [
+        0.0,
+        30.0,
+        10.0
+       ],
+       "fov": 45
+      }
+     ],
+     "exercises": [
+      "u05_a_word_building#3",
+      "u05_a_critical#1",
+      "u05_a_words_in_use#6-7"
+     ],
+     "origin": [
+      300.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "unforgettable",
+       "form": "unforgettable",
+       "paragraph": 9,
+       "sentence": 2
+      },
+      {
+       "word": "rip",
+       "form": "ripping",
+       "paragraph": 9,
+       "sentence": 3
+      }
+     ]
+    },
+    {
+     "id": "u05a_s7",
+     "title": "Medal, letters, New York",
+     "paragraphs": [
+      10,
+      11
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.7,
+       0.2,
+       -0.3
+      ],
+      "color": "#FFB27A",
+      "intensity": 4.0,
+      "sky": "#2A2335",
+      "fill": 0.45
+     },
+     "props": [
+      {
+       "kit": "street",
+       "pos": [
+        4.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        24.0,
+        8.0,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "stage_platform",
+       "pos": [
+        -10.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        4.0,
+        0.4
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "podium",
+       "pos": [
+        -10.0,
+        0.0,
+        0.4
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.8,
+        0.5,
+        1.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "medal_box",
+       "pos": [
+        -10.0,
+        0.0,
+        1.6
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.3,
+        0.2,
+        0.1
+       ],
+       "layer": "always",
+       "word": "feat"
+      },
+      {
+       "kit": "home_desk",
+       "pos": [
+        0.0,
+        0.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        0.6,
+        0.75
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        0.0,
+        -0.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "document_stack",
+       "pos": [
+        0.3,
+        0.6,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.22,
+        0.3,
+        0.04
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "document_stack",
+       "pos": [
+        -0.25,
+        0.35,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.22,
+        0.3,
+        0.04
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "storefront",
+       "pos": [
+        17.0,
+        -2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        5.0,
+        0.4,
+        3.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "glass_building",
+       "pos": [
+        17.0,
+        12.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        10.0,
+        6.0,
+        8.0
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "jing_haipeng",
+       "pos": [
+        -10.0,
+        1.0,
+        0.4
+       ],
+       "yaw": 180,
+       "pose": "stand",
+       "layer": "always"
+      },
+      {
+       "role": "engineer_1",
+       "pos": [
+        -12.0,
+        -5.5,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_watch",
+       "layer": "always"
+      },
+      {
+       "role": "engineer_2",
+       "pos": [
+        -8.5,
+        -5.5,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_watch",
+       "layer": "always"
+      },
+      {
+       "role": "wang_yaping",
+       "pos": [
+        0.0,
+        -0.2,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_read",
+       "layer": "always"
+      },
+      {
+       "role": "yang_liwei",
+       "pos": [
+        15.2,
+        -0.6,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_talk",
+       "layer": "always"
+      },
+      {
+       "role": "chinese_american",
+       "pos": [
+        16.6,
+        -0.6,
+        0.0
+       ],
+       "yaw": 180,
+       "pose": "stand_talk",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "ceremony",
+       "pos": [
+        -10.0,
+        -14.0,
+        3.0
+       ],
+       "look": [
+        -10.0,
+        0.0,
+        1.4
+       ],
+       "fov": 42
+      },
+      {
+       "name": "letters",
+       "pos": [
+        0.0,
+        -3.6,
+        1.6
+       ],
+       "look": [
+        0.0,
+        0.5,
+        0.9
+       ],
+       "fov": 35
+      },
+      {
+       "name": "newyork",
+       "pos": [
+        17.0,
+        -9.0,
+        1.8
+       ],
+       "look": [
+        16.0,
+        -0.5,
+        1.1
+       ],
+       "fov": 38
+      }
+     ],
+     "exercises": [
+      "u05_a_understanding#4",
+      "u05_a_understanding#7",
+      "u05_a_banked_cloze#1-4",
+      "u05_a_expressions_in_use#1-3",
+      "u05_a_words_in_use#1-2"
+     ],
+     "origin": [
+      360.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "patriotic",
+       "form": "patriotic",
+       "paragraph": 11,
+       "sentence": 1
+      },
+      {
+       "word": "trigger",
+       "form": "trigger",
+       "paragraph": 11,
+       "sentence": 3
+      },
+      {
+       "word": "tearfully",
+       "form": "tearfully",
+       "paragraph": 11,
+       "sentence": 4
+      }
+     ]
+    },
+    {
+     "id": "u05a_s8",
+     "title": "No limit",
+     "paragraphs": [
+      12
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.7,
+       0.2,
+       -0.3
+      ],
+      "color": "#FFB27A",
+      "intensity": 4.0,
+      "sky": "#2A2335",
+      "fill": 0.45
+     },
+     "props": [
+      {
+       "kit": "playground",
+       "pos": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        12.0,
+        8.0,
+        2.45
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "swing",
+       "pos": [
+        -6.0,
+        -2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        1.2,
+        2.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bench",
+       "pos": [
+        4.0,
+        -2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        0.6,
+        0.8
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "school_bag",
+       "pos": [
+        4.0,
+        -2.0,
+        0.8
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.32,
+        0.18,
+        0.42
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "flag_pole",
+       "pos": [
+        1.2,
+        -1.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.15,
+        0.15,
+        4.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "national_flag",
+       "pos": [
+        1.75,
+        -1.2,
+        3.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.02,
+        0.6
+       ],
+       "layer": "always",
+       "word": "rejuvenation"
+      },
+      {
+       "kit": "rocket",
+       "pos": [
+        0.0,
+        40.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.35,
+        3.35,
+        58.0
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "child_swing",
+       "pos": [
+        -6.0,
+        -2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "play_swing",
+       "layer": "always"
+      },
+      {
+       "role": "child_look",
+       "pos": [
+        2.6,
+        -3.4,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look_up",
+       "layer": "always"
+      },
+      {
+       "role": "child_bench",
+       "pos": [
+        4.0,
+        -2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_look_up",
+       "layer": "always"
+      },
+      {
+       "role": "child_run",
+       "pos": [
+        -2.5,
+        -5.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "run",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "yard",
+       "pos": [
+        -1.0,
+        -9.0,
+        1.6
+       ],
+       "look": [
+        0.0,
+        2.0,
+        1.4
+       ],
+       "fov": 45
+      },
+      {
+       "name": "sky",
+       "pos": [
+        0.0,
+        -14.0,
+        1.6
+       ],
+       "look": [
+        0.0,
+        40.0,
+        30.0
+       ],
+       "fov": 50
+      }
+     ],
+     "exercises": [
+      "u05_a_understanding#8",
+      "u05_a_critical#3",
+      "u05_a_word_building#4",
+      "u05_a_banked_cloze#8-10",
+      "u05_a_expressions_in_use#5",
+      "u05_a_expressions_in_use#7-8",
+      "u05_a_words_in_use#9-10",
+      "u05_a_structure_analysis",
+      "u05_a_structured_writing"
+     ],
+     "origin": [
+      420.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "embody",
+       "form": "embody",
+       "paragraph": 12,
+       "sentence": 1
+      },
+      {
+       "word": "lofty",
+       "form": "lofty",
+       "paragraph": 12,
+       "sentence": 1
+      },
+      {
+       "word": "rejuvenation",
+       "form": "rejuvenation",
+       "paragraph": 12,
+       "sentence": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "section": "section_b",
+   "level": "L_U05_B",
+   "title": "Chang'e-4 kicked off a new space odyssey",
+   "scenes": [
+    {
+     "id": "u05b_s1",
+     "title": "The far side",
+     "paragraphs": [
+      1,
+      3
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.2,
+       0.3,
+       -0.9
+      ],
+      "color": "#E8E2D0",
+      "intensity": 5.0,
+      "sky": "#02030A",
+      "fill": 0.3
+     },
+     "props": [
+      {
+       "kit": "moon_surface",
+       "pos": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        40.0,
+        30.0,
+        0.02
+       ],
+       "layer": "always",
+       "word": "desolate"
+      },
+      {
+       "kit": "lunar_lander",
+       "pos": [
+        -4.0,
+        2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.0,
+        3.0,
+        2.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "lunar_rover",
+       "pos": [
+        2.5,
+        1.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.5,
+        1.0,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "crater_rim",
+       "pos": [
+        6.0,
+        -6.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        8.0,
+        8.0,
+        1.2
+       ],
+       "layer": "always",
+       "word": "crash"
+      },
+      {
+       "kit": "meteorite",
+       "pos": [
+        -9.0,
+        -4.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.6,
+        0.5
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "me",
+       "pos": [
+        0.0,
+        -6.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "far_side",
+       "pos": [
+        0.0,
+        -14.0,
+        2.2
+       ],
+       "look": [
+        0.0,
+        4.0,
+        0.8
+       ],
+       "fov": 50
+      },
+      {
+       "name": "lander",
+       "pos": [
+        -1.0,
+        -7.5,
+        1.6
+       ],
+       "look": [
+        -4.0,
+        2.0,
+        1.2
+       ],
+       "fov": 35
+      }
+     ],
+     "exercises": [
+      "u05_b_understanding#2",
+      "u05_b_collocation#1-3"
+     ],
+     "origin": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "crash",
+       "form": "crashing",
+       "paragraph": 1,
+       "sentence": 2
+      },
+      {
+       "word": "meteorite",
+       "form": "meteorites",
+       "paragraph": 1,
+       "sentence": 2
+      },
+      {
+       "word": "disrupt",
+       "form": "disrupt",
+       "paragraph": 1,
+       "sentence": 2
+      },
+      {
+       "word": "desolate",
+       "form": "desolate",
+       "paragraph": 1,
+       "sentence": 3
+      },
+      {
+       "word": "tidal",
+       "form": "tidal",
+       "paragraph": 3,
+       "sentence": 3
+      }
+     ]
+    },
+    {
+     "id": "u05b_s2",
+     "title": "Moon in legend and plan",
+     "paragraphs": [
+      2,
+      6
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.2,
+       0.5,
+       -0.85
+      ],
+      "color": "#B8D1D5",
+      "intensity": 2.2,
+      "sky": "#04060B",
+      "fill": 0.25
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "poem_scroll",
+       "pos": [
+        -1.8,
+        2.86,
+        1.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.03,
+        1.4
+       ],
+       "layer": "then",
+       "word": "mythology"
+      },
+      {
+       "kit": "cafe_table",
+       "pos": [
+        0.6,
+        1.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.7,
+        0.7,
+        0.74
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "jade_rabbit",
+       "pos": [
+        0.6,
+        1.2,
+        0.74
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.35,
+        0.25,
+        0.4
+       ],
+       "layer": "then",
+       "word": "jade"
+      },
+      {
+       "kit": "bench",
+       "pos": [
+        -2.0,
+        -0.6,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        0.6,
+        0.8
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "mission_board",
+       "pos": [
+        1.8,
+        2.9,
+        1.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.4,
+        0.1,
+        1.6
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "office_desk",
+       "pos": [
+        -1.8,
+        0.6,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.4,
+        0.75,
+        0.75
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "monitor",
+       "pos": [
+        -1.8,
+        0.4,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.55,
+        0.2,
+        0.45
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        -1.8,
+        -0.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "moon_disc",
+       "pos": [
+        0.0,
+        12.0,
+        8.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.1,
+        6.0
+       ],
+       "layer": "always",
+       "word": "captivating"
+      }
+     ],
+     "people": [
+      {
+       "role": "poet",
+       "pos": [
+        -2.0,
+        -0.6,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_read",
+       "layer": "then"
+      },
+      {
+       "role": "poet_standing",
+       "pos": [
+        1.0,
+        -1.6,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look_up",
+       "layer": "then"
+      },
+      {
+       "role": "engineer_board",
+       "pos": [
+        1.8,
+        1.6,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "now"
+      },
+      {
+       "role": "engineer_desk",
+       "pos": [
+        -1.8,
+        -0.2,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_laptop",
+       "layer": "now"
+      }
+     ],
+     "shots": [
+      {
+       "name": "courtyard",
+       "pos": [
+        0.0,
+        -6.5,
+        1.6
+       ],
+       "look": [
+        0.0,
+        1.0,
+        1.2
+       ],
+       "fov": 45
+      },
+      {
+       "name": "board",
+       "pos": [
+        1.8,
+        -3.2,
+        1.5
+       ],
+       "look": [
+        1.8,
+        2.9,
+        1.1
+       ],
+       "fov": 32
+      },
+      {
+       "name": "moon",
+       "pos": [
+        0.0,
+        -9.0,
+        1.0
+       ],
+       "look": [
+        0.0,
+        12.0,
+        8.0
+       ],
+       "fov": 30
+      }
+     ],
+     "exercises": [
+      "u05_b_reading_skills#1",
+      "u05_b_understanding#1",
+      "u05_b_understanding#5"
+     ],
+     "origin": [
+      60.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "disc",
+       "form": "disc",
+       "paragraph": 2,
+       "sentence": 2
+      },
+      {
+       "word": "captivating",
+       "form": "captivating",
+       "paragraph": 2,
+       "sentence": 2
+      },
+      {
+       "word": "preparatory",
+       "form": "preparatory",
+       "paragraph": 6,
+       "sentence": 4
+      },
+      {
+       "word": "mythology",
+       "form": "mythology",
+       "paragraph": 6,
+       "sentence": 6
+      },
+      {
+       "word": "jade",
+       "form": "Jade",
+       "paragraph": 6,
+       "sentence": 6
+      }
+     ]
+    },
+    {
+     "id": "u05b_s3",
+     "title": "First looks at the far side",
+     "paragraphs": [
+      4
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.2,
+       0.3,
+       -0.9
+      ],
+      "color": "#E8E2D0",
+      "intensity": 5.0,
+      "sky": "#02030A",
+      "fill": 0.3
+     },
+     "props": [
+      {
+       "kit": "moon_surface",
+       "pos": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        40.0,
+        30.0,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "luna_3_probe",
+       "pos": [
+        -6.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.4,
+        1.4,
+        1.6
+       ],
+       "layer": "then",
+       "word": "spacecraft"
+      },
+      {
+       "kit": "apollo_capsule",
+       "pos": [
+        3.0,
+        2.0,
+        8.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.9,
+        3.9,
+        3.2
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "lunar_lander",
+       "pos": [
+        -6.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.0,
+        3.0,
+        2.2
+       ],
+       "layer": "now"
+      }
+     ],
+     "people": [
+      {
+       "role": "soviet_engineer",
+       "pos": [
+        -8.5,
+        -3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_watch",
+       "layer": "then"
+      },
+      {
+       "role": "apollo_crew_1",
+       "pos": [
+        0.5,
+        -5.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "then"
+      },
+      {
+       "role": "apollo_crew_2",
+       "pos": [
+        2.0,
+        -5.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "then"
+      },
+      {
+       "role": "apollo_crew_3",
+       "pos": [
+        3.5,
+        -5.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "then"
+      },
+      {
+       "role": "engineer_now_1",
+       "pos": [
+        -6.0,
+        -3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_watch",
+       "layer": "now"
+      },
+      {
+       "role": "engineer_now_2",
+       "pos": [
+        -3.5,
+        -2.5,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "now"
+      }
+     ],
+     "shots": [
+      {
+       "name": "then",
+       "pos": [
+        0.0,
+        -14.0,
+        3.0
+       ],
+       "look": [
+        0.0,
+        0.0,
+        3.0
+       ],
+       "fov": 50
+      },
+      {
+       "name": "now",
+       "pos": [
+        -6.0,
+        -7.0,
+        1.6
+       ],
+       "look": [
+        -6.0,
+        0.0,
+        1.3
+       ],
+       "fov": 35
+      },
+      {
+       "name": "orbit",
+       "pos": [
+        0.0,
+        -16.0,
+        7.0
+       ],
+       "look": [
+        3.0,
+        2.0,
+        8.0
+       ],
+       "fov": 45
+      }
+     ],
+     "exercises": [
+      "u05_b_understanding#3"
+     ],
+     "origin": [
+      120.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "rove",
+       "form": "rove",
+       "paragraph": 4,
+       "sentence": 4
+      },
+      {
+       "word": "deepen",
+       "form": "deepened",
+       "paragraph": 4,
+       "sentence": 4
+      },
+      {
+       "word": "Luna",
+       "form": "Luna",
+       "paragraph": 4,
+       "sentence": 1
+      },
+      {
+       "word": "Apollo",
+       "form": "Apollo",
+       "paragraph": 4,
+       "sentence": 3
+      }
+     ]
+    },
+    {
+     "id": "u05b_s4",
+     "title": "Race, then restart",
+     "paragraphs": [
+      5
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.2,
+       0.5,
+       -0.85
+      ],
+      "color": "#F2F5FF",
+      "intensity": 4.5,
+      "sky": "#141A24",
+      "fill": 0.6
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        -6.0,
+        9.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        9.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "wall",
+       "pos": [
+        6.0,
+        9.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "mission_console",
+       "pos": [
+        -6.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.8,
+        1.2
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "mission_console",
+       "pos": [
+        6.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.8,
+        1.2
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "national_flag",
+       "pos": [
+        -6.0,
+        8.84,
+        2.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.02,
+        0.6
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "national_flag",
+       "pos": [
+        6.0,
+        8.84,
+        2.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.02,
+        0.6
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "mission_console",
+       "pos": [
+        -4.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.8,
+        1.2
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "mission_console",
+       "pos": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.8,
+        1.2
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "mission_console",
+       "pos": [
+        4.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.8,
+        1.2
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "national_flag",
+       "pos": [
+        -4.0,
+        8.84,
+        2.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.02,
+        0.6
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "national_flag",
+       "pos": [
+        0.0,
+        8.84,
+        2.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.02,
+        0.6
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "national_flag",
+       "pos": [
+        4.0,
+        8.84,
+        2.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.02,
+        0.6
+       ],
+       "layer": "now"
+      }
+     ],
+     "people": [
+      {
+       "role": "engineer_us",
+       "pos": [
+        -6.0,
+        -2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_watch",
+       "layer": "then"
+      },
+      {
+       "role": "engineer_ussr",
+       "pos": [
+        6.0,
+        -2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_watch",
+       "layer": "then"
+      },
+      {
+       "role": "scientist_jp",
+       "pos": [
+        -4.0,
+        -2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "now"
+      },
+      {
+       "role": "scientist_cn",
+       "pos": [
+        0.0,
+        -2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_talk",
+       "layer": "now"
+      },
+      {
+       "role": "scientist_in",
+       "pos": [
+        4.0,
+        -2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "now"
+      }
+     ],
+     "shots": [
+      {
+       "name": "then",
+       "pos": [
+        0.0,
+        -12.0,
+        2.2
+       ],
+       "look": [
+        0.0,
+        2.0,
+        1.2
+       ],
+       "fov": 50
+      },
+      {
+       "name": "now",
+       "pos": [
+        0.0,
+        -7.0,
+        1.8
+       ],
+       "look": [
+        0.0,
+        4.0,
+        1.2
+       ],
+       "fov": 40
+      }
+     ],
+     "exercises": [
+      "u05_b_understanding#4"
+     ],
+     "origin": [
+      180.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "lunar",
+       "form": "lunar",
+       "paragraph": 5,
+       "sentence": 1
+      },
+      {
+       "word": "lull",
+       "form": "lull",
+       "paragraph": 5,
+       "sentence": 2
+      },
+      {
+       "word": "millennium",
+       "form": "millennium",
+       "paragraph": 5,
+       "sentence": 3
+      },
+      {
+       "word": "unmanned",
+       "form": "unmanned",
+       "paragraph": 5,
+       "sentence": 4
+      }
+     ]
+    },
+    {
+     "id": "u05b_s5",
+     "title": "Chang'e-1 to Chang'e-3",
+     "paragraphs": [
+      7
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.2,
+       0.3,
+       -0.9
+      ],
+      "color": "#E8E2D0",
+      "intensity": 5.0,
+      "sky": "#02030A",
+      "fill": 0.3
+     },
+     "props": [
+      {
+       "kit": "moon_surface",
+       "pos": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        40.0,
+        30.0,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chang_e1_orbiter",
+       "pos": [
+        0.0,
+        0.0,
+        9.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.2,
+        2.0,
+        2.2
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "lunar_lander",
+       "pos": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.0,
+        3.0,
+        2.2
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "lunar_rover",
+       "pos": [
+        2.5,
+        1.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.5,
+        1.0,
+        0.9
+       ],
+       "layer": "now"
+      }
+     ],
+     "people": [
+      {
+       "role": "engineer_2007",
+       "pos": [
+        -5.0,
+        -4.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_watch",
+       "layer": "then"
+      },
+      {
+       "role": "engineer_2013",
+       "pos": [
+        4.0,
+        -4.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "now"
+      }
+     ],
+     "shots": [
+      {
+       "name": "orbit",
+       "pos": [
+        0.0,
+        -16.0,
+        5.0
+       ],
+       "look": [
+        0.0,
+        0.0,
+        6.0
+       ],
+       "fov": 45
+      },
+      {
+       "name": "landing",
+       "pos": [
+        -4.0,
+        -7.0,
+        1.6
+       ],
+       "look": [
+        0.0,
+        0.0,
+        1.0
+       ],
+       "fov": 35
+      }
+     ],
+     "exercises": [
+      "u05_b_understanding#6"
+     ],
+     "origin": [
+      240.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "latecomer",
+       "form": "latecomer",
+       "paragraph": 7,
+       "sentence": 1
+      },
+      {
+       "word": "spacecraft",
+       "form": "spacecraft",
+       "paragraph": 7,
+       "sentence": 2
+      }
+     ]
+    },
+    {
+     "id": "u05b_s6",
+     "title": "Relay and rugged terrain",
+     "paragraphs": [
+      8
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.2,
+       0.3,
+       -0.9
+      ],
+      "color": "#E8E2D0",
+      "intensity": 5.0,
+      "sky": "#02030A",
+      "fill": 0.3
+     },
+     "props": [
+      {
+       "kit": "moon_surface",
+       "pos": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        40.0,
+        30.0,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "lunar_lander",
+       "pos": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.0,
+        3.0,
+        2.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "crater_rim",
+       "pos": [
+        7.0,
+        -5.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        8.0,
+        8.0,
+        1.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "relay_satellite",
+       "pos": [
+        -3.0,
+        6.0,
+        10.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.5,
+        2.5,
+        3.0
+       ],
+       "layer": "always",
+       "word": "relay"
+      }
+     ],
+     "people": [
+      {
+       "role": "engineer_relay",
+       "pos": [
+        -5.0,
+        -4.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look_up",
+       "layer": "always"
+      },
+      {
+       "role": "expert_intl",
+       "pos": [
+        2.5,
+        -2.5,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "relay",
+       "pos": [
+        0.0,
+        -16.0,
+        4.0
+       ],
+       "look": [
+        -3.0,
+        6.0,
+        9.0
+       ],
+       "fov": 45
+      },
+      {
+       "name": "landing",
+       "pos": [
+        -4.0,
+        -7.0,
+        1.6
+       ],
+       "look": [
+        0.0,
+        0.0,
+        1.0
+       ],
+       "fov": 35
+      }
+     ],
+     "exercises": [
+      "u05_b_understanding#7",
+      "u05_b_understanding#8",
+      "u05_b_collocation#4-7"
+     ],
+     "origin": [
+      300.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "relay",
+       "form": "relay",
+       "paragraph": 8,
+       "sentence": 2
+      },
+      {
+       "word": "magpie",
+       "form": "Magpie",
+       "paragraph": 8,
+       "sentence": 2
+      },
+      {
+       "word": "rugged",
+       "form": "rugged",
+       "paragraph": 8,
+       "sentence": 3
+      },
+      {
+       "word": "terrain",
+       "form": "terrain",
+       "paragraph": 8,
+       "sentence": 3
+      }
+     ]
+    },
+    {
+     "id": "u05b_s7",
+     "title": "Instruments and a mini biosphere",
+     "paragraphs": [
+      9,
+      10
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.2,
+       0.5,
+       -0.85
+      ],
+      "color": "#F2F5FF",
+      "intensity": 4.5,
+      "sky": "#141A24",
+      "fill": 0.6
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        -6.0,
+        8.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        8.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "wall",
+       "pos": [
+        6.0,
+        8.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "instrument_box",
+       "pos": [
+        -4.5,
+        -5.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.8,
+        0.6,
+        0.5
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "instrument_box",
+       "pos": [
+        -3.0,
+        -5.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.8,
+        0.6,
+        0.5
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "instrument_box",
+       "pos": [
+        -1.5,
+        -5.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.8,
+        0.6,
+        0.5
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "instrument_box",
+       "pos": [
+        0.0,
+        -5.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.8,
+        0.6,
+        0.5
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "national_flag",
+       "pos": [
+        -4.5,
+        -5.0,
+        0.5
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.02,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "national_flag",
+       "pos": [
+        -3.0,
+        -5.0,
+        0.5
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.02,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "national_flag",
+       "pos": [
+        -1.5,
+        -5.0,
+        0.5
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.02,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "national_flag",
+       "pos": [
+        0.0,
+        -5.0,
+        0.5
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.02,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "biosphere_canister",
+       "pos": [
+        4.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.8,
+        0.8,
+        0.9
+       ],
+       "layer": "always",
+       "word": "biosphere"
+      },
+      {
+       "kit": "plant_sprout",
+       "pos": [
+        3.8,
+        -0.1,
+        0.1
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.3,
+        0.3,
+        0.25
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "plant_sprout",
+       "pos": [
+        4.2,
+        0.1,
+        0.1
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.3,
+        0.3,
+        0.25
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "lunar_lander",
+       "pos": [
+        -7.0,
+        6.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.0,
+        3.0,
+        2.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "device_box",
+       "pos": [
+        -2.5,
+        2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.3,
+        0.2,
+        0.12
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "scientist_intl",
+       "pos": [
+        -2.0,
+        -2.6,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "me",
+       "pos": [
+        1.2,
+        -3.6,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      },
+      {
+       "role": "visitor",
+       "pos": [
+        4.0,
+        -2.8,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "instruments",
+       "pos": [
+        -2.0,
+        -12.0,
+        2.2
+       ],
+       "look": [
+        -2.0,
+        -5.0,
+        0.5
+       ],
+       "fov": 45
+      },
+      {
+       "name": "canister",
+       "pos": [
+        1.6,
+        -3.6,
+        1.4
+       ],
+       "look": [
+        4.0,
+        0.0,
+        0.6
+       ],
+       "fov": 32
+      }
+     ],
+     "exercises": [
+      "u05_b_critical#1",
+      "u05_b_collocation#8-10"
+     ],
+     "origin": [
+      360.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "region",
+       "form": "regions",
+       "paragraph": 9,
+       "sentence": 2
+      },
+      {
+       "word": "cooperate",
+       "form": "cooperate",
+       "paragraph": 9,
+       "sentence": 3
+      },
+      {
+       "word": "species",
+       "form": "species",
+       "paragraph": 10,
+       "sentence": 1
+      },
+      {
+       "word": "mini",
+       "form": "mini",
+       "paragraph": 10,
+       "sentence": 1
+      },
+      {
+       "word": "biosphere",
+       "form": "biosphere",
+       "paragraph": 10,
+       "sentence": 1
+      },
+      {
+       "word": "Sweden",
+       "form": "Sweden",
+       "paragraph": 9,
+       "sentence": 1
+      }
+     ]
+    },
+    {
+     "id": "u05b_s8",
+     "title": "Outpost and the next step",
+     "paragraphs": [
+      11,
+      12
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.7,
+       0.2,
+       -0.3
+      ],
+      "color": "#FFB27A",
+      "intensity": 4.0,
+      "sky": "#2A2335",
+      "fill": 0.45
+     },
+     "props": [
+      {
+       "kit": "observatory_deck",
+       "pos": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        8.0,
+        6.0,
+        0.8
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "telescope",
+       "pos": [
+        -2.0,
+        -1.5,
+        0.8
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.5,
+        0.5,
+        1.4
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bench",
+       "pos": [
+        2.5,
+        -1.8,
+        0.8
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        0.6,
+        0.8
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "notebook",
+       "pos": [
+        2.5,
+        -1.8,
+        1.6
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.18,
+        0.24,
+        0.015
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "moon_surface",
+       "pos": [
+        0.0,
+        20.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        40.0,
+        30.0,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "moon_outpost",
+       "pos": [
+        0.0,
+        16.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        5.0,
+        3.0
+       ],
+       "layer": "always",
+       "word": "outpost"
+      },
+      {
+       "kit": "moon_disc",
+       "pos": [
+        0.0,
+        22.0,
+        14.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.1,
+        6.0
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "student_a",
+       "pos": [
+        -2.0,
+        -2.6,
+        0.8
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      },
+      {
+       "role": "student_b",
+       "pos": [
+        2.5,
+        -1.8,
+        0.8
+       ],
+       "yaw": 0,
+       "pose": "sit_look_up",
+       "layer": "always"
+      },
+      {
+       "role": "me",
+       "pos": [
+        0.0,
+        -4.6,
+        0.8
+       ],
+       "yaw": 0,
+       "pose": "stand_look_up",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "deck",
+       "pos": [
+        -1.0,
+        -9.0,
+        2.4
+       ],
+       "look": [
+        0.0,
+        0.0,
+        2.0
+       ],
+       "fov": 45
+      },
+      {
+       "name": "moon",
+       "pos": [
+        0.0,
+        -10.0,
+        1.7
+       ],
+       "look": [
+        0.0,
+        18.0,
+        8.0
+       ],
+       "fov": 30
+      }
+     ],
+     "exercises": [
+      "u05_b_critical#2",
+      "u05_b_critical#3",
+      "u05_b_collocation#11-14"
+     ],
+     "origin": [
+      420.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "robotic",
+       "form": "robotic",
+       "paragraph": 11,
+       "sentence": 1
+      },
+      {
+       "word": "footprint",
+       "form": "footprints",
+       "paragraph": 11,
+       "sentence": 2
+      },
+      {
+       "word": "nucleus",
+       "form": "nucleus",
+       "paragraph": 12,
+       "sentence": 1
+      },
+      {
+       "word": "outpost",
+       "form": "outpost",
+       "paragraph": 12,
+       "sentence": 2
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "section": "section_c",
+   "level": "L_U05_C",
+   "title": "China aims for peaceful use of space exploration",
+   "scenes": [
+    {
+     "id": "u05c_s1",
+     "title": "Chang'e-5 sample lab",
+     "paragraphs": [
+      1
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.2,
+       0.5,
+       -0.85
+      ],
+      "color": "#F2F5FF",
+      "intensity": 4.5,
+      "sky": "#141A24",
+      "fill": 0.6
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "mission_board",
+       "pos": [
+        -1.5,
+        2.82,
+        1.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.4,
+        0.1,
+        1.6
+       ],
+       "layer": "always",
+       "word": "milestone"
+      },
+      {
+       "kit": "reading_table",
+       "pos": [
+        0.0,
+        0.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.4,
+        1.0,
+        0.75
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "sample_canister",
+       "pos": [
+        0.0,
+        0.5,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.5,
+        0.5,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "lunar_rock_sample",
+       "pos": [
+        0.6,
+        0.5,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.2,
+        0.15,
+        0.1
+       ],
+       "layer": "always",
+       "word": "lunar"
+      },
+      {
+       "kit": "monitor",
+       "pos": [
+        -0.8,
+        0.2,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.55,
+        0.2,
+        0.45
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "scientist_cn",
+       "pos": [
+        1.0,
+        -0.9,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "me",
+       "pos": [
+        -1.0,
+        -1.6,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "lab",
+       "pos": [
+        0.0,
+        -3.6,
+        1.5
+       ],
+       "look": [
+        0.0,
+        0.5,
+        1.0
+       ],
+       "fov": 40
+      },
+      {
+       "name": "rock",
+       "pos": [
+        0.6,
+        -1.4,
+        1.3
+       ],
+       "look": [
+        0.5,
+        0.5,
+        0.85
+       ],
+       "fov": 25
+      }
+     ],
+     "exercises": [],
+     "origin": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    },
+    {
+     "id": "u05c_s2",
+     "title": "Tiangong core module launch",
+     "paragraphs": [
+      1
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.45,
+       0.35,
+       -0.82
+      ],
+      "color": "#FFCF9A",
+      "intensity": 6.5,
+      "sky": "#1B2230",
+      "fill": 0.55
+     },
+     "props": [
+      {
+       "kit": "launch_pad",
+       "pos": [
+        4.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        30.0,
+        24.0,
+        1.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "tiangong_core",
+       "pos": [
+        -10.0,
+        0.0,
+        1.2
+       ],
+       "yaw": 90,
+       "scale": 1.0,
+       "size": [
+        16.6,
+        4.2,
+        4.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "heavy_rocket",
+       "pos": [
+        6.0,
+        0.0,
+        1.2
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        5.0,
+        5.0,
+        60.0
+       ],
+       "layer": "always",
+       "word": "gigantic"
+      },
+      {
+       "kit": "launch_tower",
+       "pos": [
+        17.0,
+        0.0,
+        1.2
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        14.0,
+        10.0,
+        60.0
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "engineer_launch",
+       "pos": [
+        -6.0,
+        -9.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_watch",
+       "layer": "always"
+      },
+      {
+       "role": "me",
+       "pos": [
+        2.0,
+        -12.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look_up",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "pad",
+       "pos": [
+        4.0,
+        -70.0,
+        8.0
+       ],
+       "look": [
+        6.0,
+        0.0,
+        30.0
+       ],
+       "fov": 50
+      },
+      {
+       "name": "core",
+       "pos": [
+        -10.0,
+        -30.0,
+        6.0
+       ],
+       "look": [
+        -10.0,
+        0.0,
+        3.0
+       ],
+       "fov": 45
+      }
+     ],
+     "exercises": [],
+     "origin": [
+      60.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    },
+    {
+     "id": "u05c_s3",
+     "title": "Mars: rover and orbiter",
+     "paragraphs": [
+      1
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.5,
+       0.3,
+       -0.8
+      ],
+      "color": "#FFB27A",
+      "intensity": 6.0,
+      "sky": "#5A3A2A",
+      "fill": 0.6
+     },
+     "props": [
+      {
+       "kit": "mars_surface",
+       "pos": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        30.0,
+        20.0,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "mars_rover",
+       "pos": [
+        -2.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        1.6,
+        1.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "mars_rock",
+       "pos": [
+        3.0,
+        -2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.0,
+        0.8,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "mars_orbiter",
+       "pos": [
+        0.0,
+        10.0,
+        9.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.5,
+        2.0,
+        2.2
+       ],
+       "layer": "always",
+       "word": "accomplish"
+      }
+     ],
+     "people": [
+      {
+       "role": "engineer_mars",
+       "pos": [
+        4.0,
+        -4.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look_up",
+       "layer": "always"
+      },
+      {
+       "role": "engineer_2",
+       "pos": [
+        -5.0,
+        -4.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_watch",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "surface",
+       "pos": [
+        -2.0,
+        -9.0,
+        1.6
+       ],
+       "look": [
+        -2.0,
+        0.0,
+        1.0
+       ],
+       "fov": 40
+      },
+      {
+       "name": "orbit",
+       "pos": [
+        0.0,
+        -16.0,
+        6.0
+       ],
+       "look": [
+        0.0,
+        10.0,
+        8.0
+       ],
+       "fov": 45
+      }
+     ],
+     "exercises": [],
+     "origin": [
+      120.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    },
+    {
+     "id": "u05c_s4",
+     "title": "Road map signing",
+     "paragraphs": [
+      1
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.2,
+       0.5,
+       -0.85
+      ],
+      "color": "#F2F5FF",
+      "intensity": 4.5,
+      "sky": "#141A24",
+      "fill": 0.6
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        4.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "national_flag",
+       "pos": [
+        -3.2,
+        4.0,
+        1.4
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.02,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "national_flag",
+       "pos": [
+        3.2,
+        4.0,
+        1.4
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.02,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "board_table",
+       "pos": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        5.0,
+        1.4,
+        0.75
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "document_stack",
+       "pos": [
+        0.0,
+        0.0,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.22,
+        0.3,
+        0.04
+       ],
+       "layer": "always",
+       "word": "blueprint"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        -1.2,
+        -1.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        1.2,
+        -1.2,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "signer_cn",
+       "pos": [
+        -1.2,
+        -1.2,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_talk",
+       "layer": "always"
+      },
+      {
+       "role": "signer_ru",
+       "pos": [
+        1.2,
+        -1.2,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_talk",
+       "layer": "always"
+      },
+      {
+       "role": "aide",
+       "pos": [
+        -2.8,
+        -2.2,
+        0.0
+       ],
+       "yaw": 90,
+       "pose": "stand_point",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "hall",
+       "pos": [
+        0.0,
+        -6.0,
+        1.7
+       ],
+       "look": [
+        0.0,
+        1.0,
+        1.0
+       ],
+       "fov": 42
+      },
+      {
+       "name": "signing",
+       "pos": [
+        0.0,
+        -2.6,
+        1.4
+       ],
+       "look": [
+        0.0,
+        0.0,
+        0.9
+       ],
+       "fov": 30
+      }
+     ],
+     "exercises": [],
+     "origin": [
+      180.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    },
+    {
+     "id": "u05c_s5",
+     "title": "Ancient astronomers, modern telescopes",
+     "paragraphs": [
+      2
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.7,
+       0.2,
+       -0.3
+      ],
+      "color": "#FFB27A",
+      "intensity": 4.0,
+      "sky": "#2A2335",
+      "fill": 0.45
+     },
+     "props": [
+      {
+       "kit": "lawn",
+       "pos": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        14.0,
+        10.0,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "ancient_platform",
+       "pos": [
+        -5.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        8.0,
+        8.0,
+        1.0
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "armillary_sphere",
+       "pos": [
+        -5.0,
+        0.0,
+        1.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.4,
+        1.4,
+        2.0
+       ],
+       "layer": "then",
+       "word": "momentous"
+      },
+      {
+       "kit": "gnomon_pillar",
+       "pos": [
+        -1.5,
+        0.0,
+        1.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.4,
+        0.4,
+        3.0
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "radio_telescope",
+       "pos": [
+        -5.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        10.0,
+        10.0,
+        8.0
+       ],
+       "layer": "now"
+      }
+     ],
+     "people": [
+      {
+       "role": "astronomer_ancient",
+       "pos": [
+        -5.0,
+        -2.6,
+        1.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look_up",
+       "layer": "then"
+      },
+      {
+       "role": "astronomer_now",
+       "pos": [
+        -5.0,
+        -7.5,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look_up",
+       "layer": "now"
+      },
+      {
+       "role": "me",
+       "pos": [
+        2.5,
+        -4.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "observatory",
+       "pos": [
+        -5.0,
+        -14.0,
+        2.4
+       ],
+       "look": [
+        -5.0,
+        0.0,
+        2.5
+       ],
+       "fov": 45
+      },
+      {
+       "name": "sky",
+       "pos": [
+        -5.0,
+        -22.0,
+        3.0
+       ],
+       "look": [
+        -5.0,
+        0.0,
+        8.0
+       ],
+       "fov": 50
+      }
+     ],
+     "exercises": [],
+     "origin": [
+      240.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    },
+    {
+     "id": "u05c_s6",
+     "title": "New frontier: energy and pollution",
+     "paragraphs": [
+      3
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.3,
+       0.45,
+       -0.84
+      ],
+      "color": "#FFF1DC",
+      "intensity": 9.0,
+      "sky": "#7FA6C9",
+      "fill": 0.8
+     },
+     "props": [
+      {
+       "kit": "city_skyline",
+       "pos": [
+        0.0,
+        14.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        40.0,
+        6.0,
+        18.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "lawn",
+       "pos": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        14.0,
+        10.0,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "smokestack",
+       "pos": [
+        7.0,
+        6.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        1.2,
+        8.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "solar_array",
+       "pos": [
+        -6.0,
+        -1.0,
+        0.5
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        3.0,
+        0.3
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "globe_model",
+       "pos": [
+        0.0,
+        -3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        1.2,
+        1.5
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "me",
+       "pos": [
+        0.0,
+        -6.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look_up",
+       "layer": "always"
+      },
+      {
+       "role": "citizen_1",
+       "pos": [
+        -3.0,
+        -4.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_talk",
+       "layer": "always"
+      },
+      {
+       "role": "citizen_2",
+       "pos": [
+        3.0,
+        -4.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "skyline",
+       "pos": [
+        0.0,
+        -10.0,
+        2.4
+       ],
+       "look": [
+        0.0,
+        4.0,
+        4.0
+       ],
+       "fov": 50
+      },
+      {
+       "name": "globe",
+       "pos": [
+        -2.2,
+        -5.0,
+        1.6
+       ],
+       "look": [
+        -0.5,
+        -3.0,
+        1.0
+       ],
+       "fov": 35
+      }
+     ],
+     "exercises": [],
+     "origin": [
+      300.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    },
+    {
+     "id": "u05c_s7",
+     "title": "From TV to satellites",
+     "paragraphs": [
+      4
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.2,
+       0.5,
+       -0.85
+      ],
+      "color": "#FFD9A8",
+      "intensity": 3.0,
+      "sky": "#05070C",
+      "fill": 0.3
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        3.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "tv_stand",
+       "pos": [
+        0.0,
+        2.6,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.4,
+        0.4,
+        0.5
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "tv",
+       "pos": [
+        0.0,
+        2.6,
+        0.5
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.1,
+        0.08,
+        0.65
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "phone",
+       "pos": [
+        -0.4,
+        0.3,
+        0.42
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.075,
+        0.155,
+        0.009
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "sofa",
+       "pos": [
+        0.0,
+        -1.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.9,
+        0.85
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "coffee_table",
+       "pos": [
+        0.0,
+        0.4,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.1,
+        0.6,
+        0.42
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "tablet",
+       "pos": [
+        0.2,
+        0.4,
+        0.42
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.18,
+        0.25,
+        0.008
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "satellite_dish",
+       "pos": [
+        2.6,
+        2.75,
+        1.8
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.0,
+        0.3,
+        1.0
+       ],
+       "layer": "now",
+       "word": "feat"
+      }
+     ],
+     "people": [
+      {
+       "role": "parent_then",
+       "pos": [
+        -0.5,
+        -1.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_watch",
+       "layer": "then"
+      },
+      {
+       "role": "child_then",
+       "pos": [
+        0.5,
+        -1.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_watch",
+       "layer": "then"
+      },
+      {
+       "role": "parent_now",
+       "pos": [
+        -0.5,
+        -1.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_tablet",
+       "layer": "now"
+      },
+      {
+       "role": "child_now",
+       "pos": [
+        0.5,
+        -1.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "sit_phone",
+       "layer": "now"
+      }
+     ],
+     "shots": [
+      {
+       "name": "living",
+       "pos": [
+        0.0,
+        -5.6,
+        1.6
+       ],
+       "look": [
+        0.0,
+        2.0,
+        1.0
+       ],
+       "fov": 45
+      },
+      {
+       "name": "dish",
+       "pos": [
+        1.5,
+        -2.5,
+        1.4
+       ],
+       "look": [
+        2.6,
+        2.8,
+        1.8
+       ],
+       "fov": 35
+      }
+     ],
+     "exercises": [],
+     "origin": [
+      360.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    },
+    {
+     "id": "u05c_s8",
+     "title": "Shared future",
+     "paragraphs": [
+      5,
+      6
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.45,
+       0.35,
+       -0.82
+      ],
+      "color": "#FFCF9A",
+      "intensity": 6.5,
+      "sky": "#1B2230",
+      "fill": 0.55
+     },
+     "props": [
+      {
+       "kit": "lawn",
+       "pos": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        14.0,
+        10.0,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "wall",
+       "pos": [
+        0.0,
+        4.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "national_flag",
+       "pos": [
+        -2.0,
+        4.3,
+        1.4
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.02,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "national_flag",
+       "pos": [
+        -1.0,
+        4.3,
+        1.4
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.02,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "national_flag",
+       "pos": [
+        0.0,
+        4.3,
+        1.4
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.02,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "national_flag",
+       "pos": [
+        1.0,
+        4.3,
+        1.4
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.02,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "national_flag",
+       "pos": [
+        2.0,
+        4.3,
+        1.4
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.02,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "globe_model",
+       "pos": [
+        0.0,
+        -4.5,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        1.2,
+        1.5
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "tiangong_core",
+       "pos": [
+        0.0,
+        14.0,
+        14.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        16.6,
+        4.2,
+        4.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "lunar_base",
+       "pos": [
+        0.0,
+        22.0,
+        0.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        12.0,
+        8.0,
+        4.0
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "citizen_1",
+       "pos": [
+        -3.0,
+        -2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_talk",
+       "layer": "always"
+      },
+      {
+       "role": "citizen_2",
+       "pos": [
+        -1.0,
+        -1.6,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look_up",
+       "layer": "always"
+      },
+      {
+       "role": "citizen_3",
+       "pos": [
+        1.0,
+        -2.0,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_talk",
+       "layer": "always"
+      },
+      {
+       "role": "citizen_4",
+       "pos": [
+        3.0,
+        -1.5,
+        0.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look_up",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "plaza",
+       "pos": [
+        0.0,
+        -9.0,
+        1.7
+       ],
+       "look": [
+        0.0,
+        2.0,
+        1.2
+       ],
+       "fov": 45
+      },
+      {
+       "name": "sky",
+       "pos": [
+        0.0,
+        -18.0,
+        4.0
+       ],
+       "look": [
+        0.0,
+        20.0,
+        12.0
+       ],
+       "fov": 45
+      }
+     ],
+     "exercises": [
+      "u05_c_translation"
+     ],
+     "origin": [
+      420.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    }
+   ]
+  }
+ ],
+ "paragraph_source": "Content/Data/textbook/rw3/articles/unit05.json"
+}

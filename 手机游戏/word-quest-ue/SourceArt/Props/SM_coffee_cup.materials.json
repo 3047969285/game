@@ -1,0 +1,37 @@
+{
+ "kit": "coffee_cup",
+ "dims_m": [
+  0.097,
+  0.089,
+  0.103
+ ],
+ "materials": {
+  "M_cup_ceramic": {
+   "color": "#F4F1EC",
+   "roughness": 0.25,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_cup_stripe": {
+   "color": "#2A9D8F",
+   "roughness": 0.3,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_cup_coffee": {
+   "color": "#3E2415",
+   "roughness": 0.2,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

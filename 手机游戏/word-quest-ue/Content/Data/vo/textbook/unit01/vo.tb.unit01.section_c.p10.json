@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit01.section_c.p10",
+ "unit": 1,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "Chinese shoppers nowadays do not have to carry cash around; they just need to carry their phones around. Cash really is becoming a thing of the past.",
+ "rate": 165,
+ "duration": 11.392,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 7.653,
+   "text": "Chinese shoppers nowadays do not have to carry cash around; they just need to carry their phones around."
+  },
+  {
+   "i": 1,
+   "start": 7.653,
+   "end": 11.392,
+   "text": "Cash really is becoming a thing of the past."
+  }
+ ]
+}

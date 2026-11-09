@@ -1,0 +1,37 @@
+{
+ "kit": "jar",
+ "dims_m": [
+  0.121,
+  0.121,
+  0.18
+ ],
+ "materials": {
+  "M_jar_glass": {
+   "color": "#E3A03A",
+   "roughness": 0.15,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_jar_lid": {
+   "color": "#B8BEC6",
+   "roughness": 0.3,
+   "metallic": 1.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_jar_label": {
+   "color": "#F4EBD0",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

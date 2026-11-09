@@ -1,0 +1,5300 @@
+{
+ "schema": "wordquest.textbook_scenes/1",
+ "unit": 2,
+ "note": "Scene design for the real Unit 2 texts (Docs/scenes/unit02.md). Coordinates: metres, UE axes X right / Y forward / Z up, relative to each scene origin. word = lowercase headword of this unit's New words.",
+ "articles": [
+  {
+   "section": "section_a",
+   "level": "L_U02_A",
+   "title": "Life stories of Zheng He",
+   "scenes": [
+    {
+     "id": "u02a_s1",
+     "title": "Pate village",
+     "paragraphs": [
+      1
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.45,
+       0.35,
+       -0.82
+      ],
+      "color": "#FFCF9A",
+      "intensity": 7.0,
+      "sky": "#8FB8D8",
+      "fill": 0.6
+     },
+     "props": [
+      {
+       "kit": "sand_beach",
+       "pos": [
+        0,
+        1.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        14.0,
+        5.0,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "reef_rocks",
+       "pos": [
+        0,
+        6.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        10.0,
+        3.0,
+        0.6
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "wrecked_junk",
+       "pos": [
+        0,
+        10.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        16.0,
+        5.0,
+        8.0
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "giraffe",
+       "pos": [
+        -6.0,
+        6.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.2,
+        0.9,
+        3.4
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "stone_hut",
+       "pos": [
+        -3.5,
+        -2.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.0,
+        3.0,
+        2.4
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "stone_hut",
+       "pos": [
+        0.5,
+        -3.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.0,
+        3.0,
+        2.4
+       ],
+       "layer": "now",
+       "word": "descendant"
+      },
+      {
+       "kit": "stone_hut",
+       "pos": [
+        4.0,
+        -2.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.0,
+        3.0,
+        2.4
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "dense_trees",
+       "pos": [
+        -8.0,
+        -1.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        4.0,
+        8.0,
+        6.0
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "bench",
+       "pos": [
+        0.5,
+        -0.4,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        0.5,
+        0.45
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "porcelain_vase",
+       "pos": [
+        -0.2,
+        -0.4,
+        0.45
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.22,
+        0.22,
+        0.38
+       ],
+       "layer": "now",
+       "word": "porcelain"
+      },
+      {
+       "kit": "notebook",
+       "pos": [
+        1.0,
+        -0.4,
+        0.45
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.18,
+        0.24,
+        0.015
+       ],
+       "layer": "now",
+       "word": "vague"
+      },
+      {
+       "kit": "shard_pile",
+       "pos": [
+        2.2,
+        1.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.8,
+        0.6,
+        0.03
+       ],
+       "layer": "now"
+      }
+     ],
+     "people": [
+      {
+       "role": "elder_1",
+       "pos": [
+        -1.3,
+        -0.5,
+        0
+       ],
+       "yaw": 60,
+       "pose": "stand_talk",
+       "layer": "now"
+      },
+      {
+       "role": "elder_2",
+       "pos": [
+        2.2,
+        -0.4,
+        0
+       ],
+       "yaw": -60,
+       "pose": "stand_talk",
+       "layer": "now"
+      },
+      {
+       "role": "journalist",
+       "pos": [
+        0.4,
+        1.4,
+        0
+       ],
+       "yaw": 180,
+       "pose": "stand_look",
+       "layer": "now"
+      },
+      {
+       "role": "sailor_1",
+       "pos": [
+        -2.0,
+        6.0,
+        0.6
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "then"
+      }
+     ],
+     "shots": [
+      {
+       "name": "village",
+       "pos": [
+        0,
+        -9.0,
+        2.0
+       ],
+       "look": [
+        0,
+        4.0,
+        1.0
+       ],
+       "fov": 45
+      },
+      {
+       "name": "wreck",
+       "pos": [
+        6.0,
+        -2.0,
+        2.0
+       ],
+       "look": [
+        -1.0,
+        9.0,
+        2.0
+       ],
+       "fov": 40
+      },
+      {
+       "name": "notebook",
+       "pos": [
+        -1.5,
+        1.8,
+        1.5
+       ],
+       "look": [
+        0.5,
+        -0.4,
+        0.6
+       ],
+       "fov": 30
+      }
+     ],
+     "exercises": [
+      "u02_a_understanding#1"
+     ],
+     "origin": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "dense",
+       "form": "dense",
+       "paragraph": 1,
+       "sentence": 2
+      },
+      {
+       "word": "descendant",
+       "form": "descendants",
+       "paragraph": 1,
+       "sentence": 2
+      },
+      {
+       "word": "giraffe",
+       "form": "giraffes",
+       "paragraph": 1,
+       "sentence": 3
+      },
+      {
+       "word": "reef",
+       "form": "reef",
+       "paragraph": 1,
+       "sentence": 3
+      },
+      {
+       "word": "vague",
+       "form": "vaguely",
+       "paragraph": 1,
+       "sentence": 4
+      },
+      {
+       "word": "vaguely",
+       "form": "vaguely",
+       "paragraph": 1,
+       "sentence": 4
+      },
+      {
+       "word": "porcelain",
+       "form": "porcelain",
+       "paragraph": 1,
+       "sentence": 4
+      },
+      {
+       "word": "heirloom",
+       "form": "heirlooms",
+       "paragraph": 1,
+       "sentence": 4
+      },
+      {
+       "word": "shard",
+       "form": "shards",
+       "paragraph": 1,
+       "sentence": 4
+      },
+      {
+       "word": "maritime",
+       "form": "maritime",
+       "paragraph": 1,
+       "sentence": 5
+      },
+      {
+       "word": "Pate",
+       "form": "Pate",
+       "paragraph": 1,
+       "sentence": 1
+      },
+      {
+       "word": "Kenya",
+       "form": "Kenya",
+       "paragraph": 1,
+       "sentence": 1
+      }
+     ]
+    },
+    {
+     "id": "u02a_s2",
+     "title": "Fleet at sea",
+     "paragraphs": [
+      2,
+      3
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.4,
+       0.5,
+       -0.78
+      ],
+      "color": "#FFF0D8",
+      "intensity": 9.0,
+      "sky": "#7FA6C9",
+      "fill": 0.75
+     },
+     "props": [
+      {
+       "kit": "sea_water",
+       "pos": [
+        0,
+        8.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        60.0,
+        50.0,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "treasure_ship",
+       "pos": [
+        -9.0,
+        8.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        9.0,
+        30.0,
+        26.0
+       ],
+       "layer": "always",
+       "word": "junk"
+      },
+      {
+       "kit": "patrol_boat",
+       "pos": [
+        -1.0,
+        -6.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.5,
+        7.0,
+        3.0
+       ],
+       "layer": "always",
+       "word": "patrol"
+      },
+      {
+       "kit": "supply_ship",
+       "pos": [
+        5.0,
+        3.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        16.0,
+        12.0
+       ],
+       "layer": "always",
+       "word": "escort"
+      },
+      {
+       "kit": "caravel_ship",
+       "pos": [
+        14.0,
+        9.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        5.5,
+        16.0,
+        15.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "caravel_ship",
+       "pos": [
+        -19.0,
+        -9.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        5.5,
+        16.0,
+        15.0
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "zheng_he",
+       "pos": [
+        -9.0,
+        2.0,
+        4.0
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "sailor_1",
+       "pos": [
+        -6.0,
+        -1.0,
+        4.0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      },
+      {
+       "role": "sailor_2",
+       "pos": [
+        14.0,
+        4.0,
+        4.0
+       ],
+       "yaw": 0,
+       "pose": "stand_watch",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "fleet",
+       "pos": [
+        0,
+        -24.0,
+        7.0
+       ],
+       "look": [
+        -2.0,
+        6.0,
+        5.0
+       ],
+       "fov": 48
+      },
+      {
+       "name": "comparison",
+       "pos": [
+        6.0,
+        -12.0,
+        3.0
+       ],
+       "look": [
+        13.0,
+        9.0,
+        6.0
+       ],
+       "fov": 36
+      }
+     ],
+     "exercises": [
+      "u02_a_understanding#2",
+      "u02_a_understanding#3"
+     ],
+     "origin": [
+      60.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "mighty",
+       "form": "mighty",
+       "paragraph": 2,
+       "sentence": 1
+      },
+      {
+       "word": "fleet",
+       "form": "fleet",
+       "paragraph": 2,
+       "sentence": 1
+      },
+      {
+       "word": "masted",
+       "form": "masted",
+       "paragraph": 2,
+       "sentence": 2
+      },
+      {
+       "word": "junk",
+       "form": "junks",
+       "paragraph": 2,
+       "sentence": 2
+      },
+      {
+       "word": "escort",
+       "form": "escorted",
+       "paragraph": 2,
+       "sentence": 2
+      },
+      {
+       "word": "tanker",
+       "form": "tankers",
+       "paragraph": 2,
+       "sentence": 2
+      },
+      {
+       "word": "cavalry",
+       "form": "cavalry",
+       "paragraph": 2,
+       "sentence": 2
+      },
+      {
+       "word": "patrol",
+       "form": "patrol",
+       "paragraph": 2,
+       "sentence": 2
+      },
+      {
+       "word": "frail",
+       "form": "frail",
+       "paragraph": 3,
+       "sentence": 2
+      },
+      {
+       "word": "Portuguese",
+       "form": "Portuguese",
+       "paragraph": 3,
+       "sentence": 2
+      },
+      {
+       "word": "caravel",
+       "form": "caravels",
+       "paragraph": 3,
+       "sentence": 2
+      },
+      {
+       "word": "Ceylon",
+       "form": "Ceylon",
+       "paragraph": 2,
+       "sentence": 1
+      },
+      {
+       "word": "Arabia",
+       "form": "Arabia",
+       "paragraph": 2,
+       "sentence": 1
+      },
+      {
+       "word": "Columbus",
+       "form": "Columbus",
+       "paragraph": 2,
+       "sentence": 4
+      },
+      {
+       "word": "Santa Maria",
+       "form": "Santa Maria",
+       "paragraph": 2,
+       "sentence": 4
+      }
+     ]
+    },
+    {
+     "id": "u02a_s3",
+     "title": "Boyhood study",
+     "paragraphs": [
+      4
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.1,
+       0.3,
+       -0.9
+      ],
+      "color": "#FFD9A8",
+      "intensity": 2.2,
+      "sky": "#05070C",
+      "fill": 0.3
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0,
+        3.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bookshelf",
+       "pos": [
+        2.4,
+        2.75,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        0.35,
+        2.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "portrait_frame",
+       "pos": [
+        -2.0,
+        2.95,
+        1.6
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.5,
+        0.04,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "portrait_frame",
+       "pos": [
+        -1.0,
+        2.95,
+        1.6
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.5,
+        0.04,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "portrait_frame",
+       "pos": [
+        0.0,
+        2.95,
+        1.6
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.5,
+        0.04,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "portrait_frame",
+       "pos": [
+        1.0,
+        2.95,
+        1.6
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.5,
+        0.04,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "rug",
+       "pos": [
+        0,
+        0.4,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.6,
+        1.8,
+        0.01
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "coffee_table",
+       "pos": [
+        0,
+        0.6,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.1,
+        0.6,
+        0.42
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "book",
+       "pos": [
+        0.2,
+        0.6,
+        0.42
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.16,
+        0.24,
+        0.03
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "armchair",
+       "pos": [
+        -1.6,
+        -0.4,
+        0
+       ],
+       "yaw": 35,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.9,
+        1.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "armchair",
+       "pos": [
+        1.6,
+        -0.4,
+        0
+       ],
+       "yaw": -35,
+       "scale": 1.0,
+       "size": [
+        0.9,
+        0.9,
+        1.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "floor_lamp",
+       "pos": [
+        -2.6,
+        1.6,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.35,
+        0.35,
+        1.6
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "grandfather",
+       "pos": [
+        -1.6,
+        -0.4,
+        0
+       ],
+       "yaw": 35,
+       "pose": "sit_talk",
+       "layer": "always"
+      },
+      {
+       "role": "father",
+       "pos": [
+        1.6,
+        -0.4,
+        0
+       ],
+       "yaw": -35,
+       "pose": "sit_talk",
+       "layer": "always"
+      },
+      {
+       "role": "zheng_he_boy",
+       "pos": [
+        0.0,
+        -1.0,
+        0
+       ],
+       "yaw": 0,
+       "pose": "sit_listen",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "wide",
+       "pos": [
+        0,
+        -5.0,
+        1.6
+       ],
+       "look": [
+        0,
+        1.0,
+        1.0
+       ],
+       "fov": 42
+      },
+      {
+       "name": "portraits",
+       "pos": [
+        -1.0,
+        -2.6,
+        1.5
+       ],
+       "look": [
+        0,
+        2.9,
+        1.5
+       ],
+       "fov": 30
+      }
+     ],
+     "exercises": [
+      "u02_a_pre_reading",
+      "u02_a_understanding#4"
+     ],
+     "origin": [
+      120.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "royal",
+       "form": "royal",
+       "paragraph": 4,
+       "sentence": 5
+      },
+      {
+       "word": "Confucius",
+       "form": "Confucius",
+       "paragraph": 4,
+       "sentence": 4
+      },
+      {
+       "word": "Mencius",
+       "form": "Mencius",
+       "paragraph": 4,
+       "sentence": 4
+      }
+     ]
+    },
+    {
+     "id": "u02a_s4",
+     "title": "Shipyard",
+     "paragraphs": [
+      5
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.4,
+       0.4,
+       -0.82
+      ],
+      "color": "#FFE2B8",
+      "intensity": 8.0,
+      "sky": "#9FC3DE",
+      "fill": 0.6
+     },
+     "props": [
+      {
+       "kit": "lawn",
+       "pos": [
+        0,
+        2.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        14.0,
+        10.0,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "shipyard_scaffold",
+       "pos": [
+        0,
+        11.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        12.0,
+        4.0,
+        9.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "hull_section",
+       "pos": [
+        0,
+        2.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.5,
+        10.0,
+        4.0
+       ],
+       "layer": "always",
+       "word": "hull"
+      },
+      {
+       "kit": "bulkhead_wall",
+       "pos": [
+        -5.25,
+        -6.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.2,
+        0.15,
+        3.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bulkhead_wall",
+       "pos": [
+        -1.75,
+        -6.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.2,
+        0.15,
+        3.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bulkhead_wall",
+       "pos": [
+        1.75,
+        -6.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.2,
+        0.15,
+        3.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bulkhead_wall",
+       "pos": [
+        5.25,
+        -6.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.2,
+        0.15,
+        3.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "ballast_stones",
+       "pos": [
+        -4.0,
+        -1.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        0.8,
+        0.5
+       ],
+       "layer": "always",
+       "word": "ballast"
+      }
+     ],
+     "people": [
+      {
+       "role": "worker_1",
+       "pos": [
+        2.8,
+        4.5,
+        0
+       ],
+       "yaw": -90,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "worker_2",
+       "pos": [
+        -3.0,
+        -2.5,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "hull",
+       "pos": [
+        -7.0,
+        -9.0,
+        2.0
+       ],
+       "look": [
+        0,
+        2.0,
+        1.6
+       ],
+       "fov": 42
+      },
+      {
+       "name": "bulkheads",
+       "pos": [
+        0,
+        -10.0,
+        1.4
+       ],
+       "look": [
+        0,
+        -6.0,
+        1.2
+       ],
+       "fov": 40
+      }
+     ],
+     "exercises": [
+      "u02_a_word_building"
+     ],
+     "origin": [
+      180.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "hull",
+       "form": "hulls",
+       "paragraph": 5,
+       "sentence": 2
+      },
+      {
+       "word": "watertight",
+       "form": "watertight",
+       "paragraph": 5,
+       "sentence": 2
+      },
+      {
+       "word": "compartment",
+       "form": "compartments",
+       "paragraph": 5,
+       "sentence": 2
+      },
+      {
+       "word": "seafaring",
+       "form": "seafaring",
+       "paragraph": 5,
+       "sentence": 3
+      },
+      {
+       "word": "unprecedented",
+       "form": "unprecedented",
+       "paragraph": 5,
+       "sentence": 4
+      },
+      {
+       "word": "ballast",
+       "form": "ballast",
+       "paragraph": 5,
+       "sentence": 4
+      }
+     ]
+    },
+    {
+     "id": "u02a_s5",
+     "title": "Departure in 1405",
+     "paragraphs": [
+      6
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.45,
+       0.35,
+       -0.82
+      ],
+      "color": "#FFD9A0",
+      "intensity": 8.5,
+      "sky": "#8FB8D8",
+      "fill": 0.6
+     },
+     "props": [
+      {
+       "kit": "imperial_pavilion",
+       "pos": [
+        0,
+        8.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        8.0,
+        5.0,
+        5.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "quay",
+       "pos": [
+        0,
+        2.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        14.0,
+        4.0,
+        0.4
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "treasure_ship",
+       "pos": [
+        -9.0,
+        -15.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        9.0,
+        30.0,
+        26.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "cargo_crate",
+       "pos": [
+        -2.5,
+        1.5,
+        0.4
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.0,
+        0.8,
+        0.8
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "cargo_crate",
+       "pos": [
+        -1.0,
+        1.8,
+        0.4
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.0,
+        0.8,
+        0.8
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "cargo_crate",
+       "pos": [
+        0.6,
+        1.6,
+        0.4
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.0,
+        0.8,
+        0.8
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "silk_bolt",
+       "pos": [
+        2.0,
+        1.8,
+        0.4
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.4,
+        0.4,
+        0.25
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "emperor",
+       "pos": [
+        -3.0,
+        4.8,
+        0
+       ],
+       "yaw": 180,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "zheng_he",
+       "pos": [
+        0.5,
+        3.0,
+        0.4
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "sailor_1",
+       "pos": [
+        -6.0,
+        2.0,
+        0.4
+       ],
+       "yaw": 0,
+       "pose": "stand_wait",
+       "layer": "always"
+      },
+      {
+       "role": "sailor_2",
+       "pos": [
+        5.0,
+        2.5,
+        0.4
+       ],
+       "yaw": 0,
+       "pose": "stand_wait",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "court",
+       "pos": [
+        0,
+        -8.0,
+        2.0
+       ],
+       "look": [
+        0,
+        6.0,
+        1.4
+       ],
+       "fov": 42
+      },
+      {
+       "name": "cargo",
+       "pos": [
+        3.0,
+        -2.5,
+        1.4
+       ],
+       "look": [
+        -1.0,
+        1.6,
+        0.6
+       ],
+       "fov": 32
+      }
+     ],
+     "exercises": [
+      "u02_a_understanding#5",
+      "u02_a_expressions_in_use",
+      "u02_a_structure_analysis"
+     ],
+     "origin": [
+      240.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "appoint",
+       "form": "appointed",
+       "paragraph": 6,
+       "sentence": 1
+      },
+      {
+       "word": "lacquerware",
+       "form": "lacquerware",
+       "paragraph": 6,
+       "sentence": 3
+      },
+      {
+       "word": "spice",
+       "form": "spices",
+       "paragraph": 6,
+       "sentence": 3
+      },
+      {
+       "word": "ivory",
+       "form": "ivory",
+       "paragraph": 6,
+       "sentence": 3
+      },
+      {
+       "word": "pearl",
+       "form": "pearls",
+       "paragraph": 6,
+       "sentence": 3
+      },
+      {
+       "word": "exotic",
+       "form": "exotic",
+       "paragraph": 6,
+       "sentence": 3
+      }
+     ]
+    },
+    {
+     "id": "u02a_s6",
+     "title": "Foreign ports and Malindi",
+     "paragraphs": [
+      7,
+      8
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.35,
+       0.45,
+       -0.82
+      ],
+      "color": "#FFE2B8",
+      "intensity": 8.5,
+      "sky": "#9FC3DE",
+      "fill": 0.65
+     },
+     "props": [
+      {
+       "kit": "sand_beach",
+       "pos": [
+        -9.0,
+        3.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        14.0,
+        5.0,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "board_table",
+       "pos": [
+        -9.0,
+        0.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        5.0,
+        1.4,
+        0.75
+       ],
+       "layer": "always",
+       "word": "diplomatic"
+      },
+      {
+       "kit": "market_shelf",
+       "pos": [
+        -9.0,
+        6.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.5,
+        1.8
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "spice_sack",
+       "pos": [
+        -7.0,
+        6.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.5,
+        0.35,
+        0.3
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "animal_cage",
+       "pos": [
+        -4.5,
+        8.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        1.2,
+        1.8
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "quay",
+       "pos": [
+        9.0,
+        2.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        14.0,
+        4.0,
+        0.4
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "treasure_ship",
+       "pos": [
+        9.0,
+        -15.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        9.0,
+        30.0,
+        26.0
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "foreign_ruler_1",
+       "pos": [
+        -10.3,
+        -1.4,
+        0
+       ],
+       "yaw": 0,
+       "pose": "sit_talk",
+       "layer": "always"
+      },
+      {
+       "role": "foreign_ruler_2",
+       "pos": [
+        -7.7,
+        -1.4,
+        0
+       ],
+       "yaw": 0,
+       "pose": "sit_talk",
+       "layer": "always"
+      },
+      {
+       "role": "zheng_he",
+       "pos": [
+        -9.0,
+        1.4,
+        0
+       ],
+       "yaw": 180,
+       "pose": "sit_talk",
+       "layer": "always"
+      },
+      {
+       "role": "sailor_2",
+       "pos": [
+        7.0,
+        2.0,
+        0.4
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      },
+      {
+       "role": "local_host",
+       "pos": [
+        11.0,
+        6.0,
+        0
+       ],
+       "yaw": 180,
+       "pose": "stand_talk",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "envoy",
+       "pos": [
+        -9.0,
+        -7.0,
+        1.6
+       ],
+       "look": [
+        -9.0,
+        0.0,
+        1.0
+       ],
+       "fov": 40
+      },
+      {
+       "name": "malindi",
+       "pos": [
+        17.0,
+        2.0,
+        1.8
+       ],
+       "look": [
+        9.0,
+        6.0,
+        0.8
+       ],
+       "fov": 46
+      }
+     ],
+     "exercises": [
+      "u02_a_understanding#6",
+      "u02_a_banked_cloze"
+     ],
+     "origin": [
+      300.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "naval",
+       "form": "naval",
+       "paragraph": 7,
+       "sentence": 1
+      },
+      {
+       "word": "pact",
+       "form": "pacts",
+       "paragraph": 7,
+       "sentence": 1
+      },
+      {
+       "word": "pirate",
+       "form": "pirates",
+       "paragraph": 7,
+       "sentence": 1
+      },
+      {
+       "word": "Arabian",
+       "form": "Arabian",
+       "paragraph": 7,
+       "sentence": 2
+      },
+      {
+       "word": "diplomatic",
+       "form": "diplomatic",
+       "paragraph": 7,
+       "sentence": 3
+      },
+      {
+       "word": "Indonesia",
+       "form": "Indonesia",
+       "paragraph": 7,
+       "sentence": 2
+      },
+      {
+       "word": "Malaysia",
+       "form": "Malaysia",
+       "paragraph": 7,
+       "sentence": 2
+      },
+      {
+       "word": "Thailand",
+       "form": "Thailand",
+       "paragraph": 7,
+       "sentence": 2
+      },
+      {
+       "word": "Yemen",
+       "form": "Yemen",
+       "paragraph": 7,
+       "sentence": 2
+      },
+      {
+       "word": "Malindi",
+       "form": "Malindi",
+       "paragraph": 8,
+       "sentence": 1
+      }
+     ]
+    },
+    {
+     "id": "u02a_s7",
+     "title": "Decline and influence",
+     "paragraphs": [
+      9,
+      10
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.4,
+       0.4,
+       -0.82
+      ],
+      "color": "#FFD8A6",
+      "intensity": 7.5,
+      "sky": "#A9C4D6",
+      "fill": 0.55
+     },
+     "props": [
+      {
+       "kit": "dry_dock",
+       "pos": [
+        -8.0,
+        2.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        14.0,
+        4.0,
+        1.5
+       ],
+       "layer": "always",
+       "word": "maintenance"
+      },
+      {
+       "kit": "shipyard_scaffold",
+       "pos": [
+        -8.0,
+        10.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        12.0,
+        4.0,
+        9.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "great_wall_segment",
+       "pos": [
+        -8.0,
+        -6.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        14.0,
+        1.2,
+        4.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chart_table",
+       "pos": [
+        10.0,
+        5.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        1.2,
+        0.85
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "compass_instrument",
+       "pos": [
+        10.0,
+        5.5,
+        0.85
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.2,
+        0.2,
+        0.05
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "gunpowder_barrel",
+       "pos": [
+        13.0,
+        3.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.6,
+        0.7
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "gunpowder_barrel",
+       "pos": [
+        13.8,
+        3.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.6,
+        0.7
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "world_map",
+       "pos": [
+        10.0,
+        9.0,
+        1.0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        4.0,
+        0.05,
+        2.6
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "soldier_1",
+       "pos": [
+        -3.0,
+        -4.0,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_watch",
+       "layer": "always"
+      },
+      {
+       "role": "worker_1",
+       "pos": [
+        -11.0,
+        5.5,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      },
+      {
+       "role": "zheng_he",
+       "pos": [
+        10.0,
+        3.5,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      },
+      {
+       "role": "sailor_2",
+       "pos": [
+        7.0,
+        4.0,
+        0
+       ],
+       "yaw": -30,
+       "pose": "stand_point",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "decline",
+       "pos": [
+        -3.0,
+        -9.0,
+        6.0
+       ],
+       "look": [
+        -8.0,
+        3.0,
+        1.0
+       ],
+       "fov": 50
+      },
+      {
+       "name": "influence",
+       "pos": [
+        6.0,
+        -2.0,
+        1.8
+       ],
+       "look": [
+        10.0,
+        6.0,
+        1.1
+       ],
+       "fov": 38
+      }
+     ],
+     "exercises": [
+      "u02_a_understanding#7",
+      "u02_a_understanding#8",
+      "u02_a_words_in_use"
+     ],
+     "origin": [
+      360.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "realm",
+       "form": "realm",
+       "paragraph": 9,
+       "sentence": 1
+      },
+      {
+       "word": "maintenance",
+       "form": "maintenance",
+       "paragraph": 9,
+       "sentence": 2
+      },
+      {
+       "word": "expansion",
+       "form": "expansion",
+       "paragraph": 9,
+       "sentence": 2
+      },
+      {
+       "word": "epic",
+       "form": "epic",
+       "paragraph": 9,
+       "sentence": 4
+      },
+      {
+       "word": "complexity",
+       "form": "complexity",
+       "paragraph": 10,
+       "sentence": 2
+      },
+      {
+       "word": "compass",
+       "form": "compass",
+       "paragraph": 10,
+       "sentence": 3
+      }
+     ]
+    },
+    {
+     "id": "u02a_s8",
+     "title": "Today",
+     "paragraphs": [
+      11
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.1,
+       0.3,
+       -0.9
+      ],
+      "color": "#FFE7C2",
+      "intensity": 2.4,
+      "sky": "#0A0E14",
+      "fill": 0.35
+     },
+     "props": [
+      {
+       "kit": "sea_water",
+       "pos": [
+        0,
+        24.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        60.0,
+        50.0,
+        0.02
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "treasure_ship",
+       "pos": [
+        0,
+        24.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        9.0,
+        30.0,
+        26.0
+       ],
+       "layer": "then"
+      },
+      {
+       "kit": "museum_hall",
+       "pos": [
+        0,
+        6.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        10.0,
+        6.0,
+        4.0
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "treasure_ship_model",
+       "pos": [
+        0,
+        6.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.0,
+        1.0,
+        2.6
+       ],
+       "layer": "now"
+      },
+      {
+       "kit": "museum_plaque",
+       "pos": [
+        0,
+        3.0,
+        1.2
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.03,
+        0.4
+       ],
+       "layer": "now"
+      }
+     ],
+     "people": [
+      {
+       "role": "visitor_1",
+       "pos": [
+        -2.5,
+        4.5,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_look_up",
+       "layer": "now"
+      },
+      {
+       "role": "visitor_2",
+       "pos": [
+        2.5,
+        4.2,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "now"
+      },
+      {
+       "role": "guide",
+       "pos": [
+        0.0,
+        3.8,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_talk",
+       "layer": "now"
+      }
+     ],
+     "shots": [
+      {
+       "name": "model",
+       "pos": [
+        0,
+        -1.0,
+        1.6
+       ],
+       "look": [
+        0,
+        6.5,
+        1.2
+       ],
+       "fov": 40
+      },
+      {
+       "name": "then_sea",
+       "pos": [
+        6.0,
+        2.0,
+        2.0
+       ],
+       "look": [
+        0,
+        24.0,
+        6.0
+       ],
+       "fov": 50
+      }
+     ],
+     "exercises": [
+      "u02_a_critical",
+      "u02_a_structured_writing"
+     ],
+     "origin": [
+      420.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "emblem",
+       "form": "emblem",
+       "paragraph": 11,
+       "sentence": 1
+      },
+      {
+       "word": "symbol",
+       "form": "symbol",
+       "paragraph": 11,
+       "sentence": 1
+      },
+      {
+       "word": "navigation",
+       "form": "navigation",
+       "paragraph": 11,
+       "sentence": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "section": "section_b",
+   "level": "L_U02_B",
+   "title": "Audrey Hepburn",
+   "scenes": [
+    {
+     "id": "u02b_s1",
+     "title": "Film set",
+     "paragraphs": [
+      1,
+      2
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.1,
+       0.3,
+       -0.9
+      ],
+      "color": "#FFF1DC",
+      "intensity": 3.2,
+      "sky": "#0A0A0C",
+      "fill": 0.5
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0,
+        3.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "unicef_banner",
+       "pos": [
+        -1.0,
+        2.8,
+        1.8
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        0.03,
+        0.8
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "film_poster",
+       "pos": [
+        2.2,
+        2.8,
+        1.2
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        0.03,
+        1.8
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "dressing_table",
+       "pos": [
+        -3.0,
+        1.2,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.8,
+        0.6,
+        0.75
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "makeup_mirror",
+       "pos": [
+        -3.0,
+        1.0,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.1,
+        0.8
+       ],
+       "layer": "always",
+       "word": "portray"
+      },
+      {
+       "kit": "film_camera",
+       "pos": [
+        1.5,
+        -2.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        1.0,
+        1.4
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "studio_light",
+       "pos": [
+        3.5,
+        -1.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.5,
+        0.5,
+        2.0
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "audrey",
+       "pos": [
+        0.0,
+        0.5,
+        0
+       ],
+       "yaw": 180,
+       "pose": "stand_talk",
+       "layer": "always"
+      },
+      {
+       "role": "director",
+       "pos": [
+        1.6,
+        -0.4,
+        0
+       ],
+       "yaw": 180,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "crew_1",
+       "pos": [
+        -1.6,
+        -2.0,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "set",
+       "pos": [
+        0,
+        -6.0,
+        1.7
+       ],
+       "look": [
+        0,
+        1.5,
+        1.0
+       ],
+       "fov": 42
+      },
+      {
+       "name": "mirror",
+       "pos": [
+        -1.5,
+        -0.5,
+        1.4
+       ],
+       "look": [
+        -3.0,
+        1.2,
+        0.9
+       ],
+       "fov": 30
+      }
+     ],
+     "exercises": [
+      "u02_b_understanding_mcq#1"
+     ],
+     "origin": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "noteworthy",
+       "form": "noteworthy",
+       "paragraph": 1,
+       "sentence": 1
+      },
+      {
+       "word": "domain",
+       "form": "domain",
+       "paragraph": 2,
+       "sentence": 1
+      },
+      {
+       "word": "portray",
+       "form": "portraying",
+       "paragraph": 2,
+       "sentence": 1
+      },
+      {
+       "word": "exemplary",
+       "form": "exemplary",
+       "paragraph": 2,
+       "sentence": 2
+      },
+      {
+       "word": "Audrey Hepburn",
+       "form": "Audrey Hepburn",
+       "paragraph": 1,
+       "sentence": 1
+      },
+      {
+       "word": "Breakfast at Tiffany's",
+       "form": "Breakfast at Tiffany's",
+       "paragraph": 1,
+       "sentence": 1
+      },
+      {
+       "word": "Sabrina",
+       "form": "Sabrina",
+       "paragraph": 1,
+       "sentence": 1
+      },
+      {
+       "word": "UNICEF",
+       "form": "UNICEF",
+       "paragraph": 2,
+       "sentence": 2
+      }
+     ]
+    },
+    {
+     "id": "u02b_s2",
+     "title": "Street and basement",
+     "paragraphs": [
+      3,
+      4
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.3,
+       0.5,
+       -0.8
+      ],
+      "color": "#B8C4D0",
+      "intensity": 4.5,
+      "sky": "#4A5566",
+      "fill": 0.5
+     },
+     "props": [
+      {
+       "kit": "storefront",
+       "pos": [
+        -6.0,
+        6.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        5.0,
+        0.4,
+        3.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "occupation_banner",
+       "pos": [
+        -6.0,
+        5.75,
+        1.6
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.0,
+        0.03,
+        1.4
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "cellar_wall",
+       "pos": [
+        6.0,
+        2.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        2.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "straw_bed",
+       "pos": [
+        5.0,
+        -0.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        1.0,
+        0.3
+       ],
+       "layer": "always",
+       "word": "huddle"
+      },
+      {
+       "kit": "refugee_bundle",
+       "pos": [
+        7.5,
+        0.8,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.5,
+        0.4,
+        0.4
+       ],
+       "layer": "always",
+       "word": "refugee"
+      },
+      {
+       "kit": "desk_lamp",
+       "pos": [
+        8.4,
+        -1.2,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.2,
+        0.2,
+        0.45
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "soldier_1",
+       "pos": [
+        -5.0,
+        2.5,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "soldier_2",
+       "pos": [
+        -7.5,
+        1.8,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_watch",
+       "layer": "always"
+      },
+      {
+       "role": "audrey_child",
+       "pos": [
+        -3.0,
+        1.0,
+        0
+       ],
+       "yaw": 90,
+       "pose": "run",
+       "layer": "always"
+      },
+      {
+       "role": "audrey_child_b",
+       "pos": [
+        6.4,
+        -0.2,
+        0
+       ],
+       "yaw": 180,
+       "pose": "sit_watch",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "street",
+       "pos": [
+        -6.0,
+        -6.0,
+        1.7
+       ],
+       "look": [
+        -5.0,
+        4.0,
+        1.2
+       ],
+       "fov": 42
+      },
+      {
+       "name": "basement",
+       "pos": [
+        6.0,
+        -5.5,
+        1.2
+       ],
+       "look": [
+        6.0,
+        0.0,
+        0.6
+       ],
+       "fov": 36
+      }
+     ],
+     "exercises": [
+      "u02_b_reading_skills#1",
+      "u02_b_understanding_mcq#2",
+      "u02_b_understanding_mcq#3"
+     ],
+     "origin": [
+      60.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "Nazi",
+       "form": "Nazi",
+       "paragraph": 3,
+       "sentence": 1
+      },
+      {
+       "word": "brutality",
+       "form": "brutality",
+       "paragraph": 3,
+       "sentence": 1
+      },
+      {
+       "word": "invasion",
+       "form": "invasion",
+       "paragraph": 3,
+       "sentence": 2
+      },
+      {
+       "word": "dart",
+       "form": "darted",
+       "paragraph": 3,
+       "sentence": 4
+      },
+      {
+       "word": "huddle",
+       "form": "huddled",
+       "paragraph": 3,
+       "sentence": 4
+      },
+      {
+       "word": "foul",
+       "form": "foul",
+       "paragraph": 3,
+       "sentence": 4
+      },
+      {
+       "word": "anonymous",
+       "form": "anonymous",
+       "paragraph": 4,
+       "sentence": 1
+      },
+      {
+       "word": "refugee",
+       "form": "refugee",
+       "paragraph": 4,
+       "sentence": 1
+      },
+      {
+       "word": "confront",
+       "form": "confronting",
+       "paragraph": 4,
+       "sentence": 1
+      },
+      {
+       "word": "fragility",
+       "form": "fragility",
+       "paragraph": 4,
+       "sentence": 1
+      },
+      {
+       "word": "afflict",
+       "form": "afflicted",
+       "paragraph": 4,
+       "sentence": 2
+      },
+      {
+       "word": "transcend",
+       "form": "transcended",
+       "paragraph": 4,
+       "sentence": 3
+      },
+      {
+       "word": "the Netherlands",
+       "form": "the Netherlands",
+       "paragraph": 3,
+       "sentence": 1
+      }
+     ]
+    },
+    {
+     "id": "u02b_s3",
+     "title": "Ballet school",
+     "paragraphs": [
+      5
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.2,
+       0.25,
+       -0.95
+      ],
+      "color": "#FFF0D8",
+      "intensity": 3.0,
+      "sky": "#0A0A0C",
+      "fill": 0.5
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0,
+        3.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "window_wall",
+       "pos": [
+        -3.0,
+        0.0,
+        0
+       ],
+       "yaw": 90,
+       "scale": 1.0,
+       "size": [
+        5.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "ballet_barre",
+       "pos": [
+        0,
+        2.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.1,
+        1.1
+       ],
+       "layer": "always",
+       "word": "rigorous"
+      },
+      {
+       "kit": "piano",
+       "pos": [
+        2.4,
+        0.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        0.7,
+        1.1
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "teacher",
+       "pos": [
+        -1.0,
+        0.6,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "audrey",
+       "pos": [
+        0.8,
+        1.0,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand",
+       "layer": "always"
+      },
+      {
+       "role": "producer",
+       "pos": [
+        1.0,
+        -2.5,
+        0
+       ],
+       "yaw": 180,
+       "pose": "stand_look",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "barre",
+       "pos": [
+        0,
+        -4.5,
+        1.4
+       ],
+       "look": [
+        0,
+        1.5,
+        1.0
+       ],
+       "fov": 45
+      }
+     ],
+     "exercises": [
+      "u02_b_reading_skills#2",
+      "u02_b_understanding_mcq#4"
+     ],
+     "origin": [
+      120.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "rigorous",
+       "form": "rigorous",
+       "paragraph": 5,
+       "sentence": 2
+      },
+      {
+       "word": "Gregory",
+       "form": "Gregory",
+       "paragraph": 5,
+       "sentence": 3
+      }
+     ]
+    },
+    {
+     "id": "u02b_s4",
+     "title": "Awards night",
+     "paragraphs": [
+      6
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.0,
+       0.3,
+       -0.95
+      ],
+      "color": "#FFE9C4",
+      "intensity": 4.0,
+      "sky": "#070A10",
+      "fill": 0.4
+     },
+     "props": [
+      {
+       "kit": "stage_curtain",
+       "pos": [
+        0,
+        8.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        8.0,
+        0.1,
+        4.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "stage_podium",
+       "pos": [
+        0,
+        3.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        0.6,
+        1.1
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "award_statue",
+       "pos": [
+        0,
+        3.0,
+        1.1
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.4,
+        0.4,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        -2.0,
+        -2.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        0.0,
+        -2.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        2.0,
+        -2.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "director",
+       "pos": [
+        1.2,
+        1.2,
+        0
+       ],
+       "yaw": 180,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "audrey",
+       "pos": [
+        -1.4,
+        1.4,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      },
+      {
+       "role": "audience_1",
+       "pos": [
+        -2.0,
+        -2.0,
+        0
+       ],
+       "yaw": 0,
+       "pose": "sit_watch",
+       "layer": "always"
+      },
+      {
+       "role": "audience_2",
+       "pos": [
+        2.0,
+        -2.0,
+        0
+       ],
+       "yaw": 0,
+       "pose": "sit_watch",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "stage",
+       "pos": [
+        0,
+        -6.5,
+        1.6
+       ],
+       "look": [
+        0,
+        3.0,
+        1.1
+       ],
+       "fov": 40
+      }
+     ],
+     "exercises": [
+      "u02_b_reading_skills#3"
+     ],
+     "origin": [
+      180.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "humanitarian",
+       "form": "humanitarian",
+       "paragraph": 6,
+       "sentence": 3
+      },
+      {
+       "word": "divorce",
+       "form": "divorces",
+       "paragraph": 6,
+       "sentence": 4
+      },
+      {
+       "word": "jeopardize",
+       "form": "jeopardize",
+       "paragraph": 6,
+       "sentence": 5
+      },
+      {
+       "word": "Billy Wilder",
+       "form": "Billy Wilder",
+       "paragraph": 6,
+       "sentence": 2
+      },
+      {
+       "word": "Robert Wolders",
+       "form": "Robert Wolders",
+       "paragraph": 6,
+       "sentence": 6
+      }
+     ]
+    },
+    {
+     "id": "u02b_s5",
+     "title": "Home in Switzerland",
+     "paragraphs": [
+      7,
+      8
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.4,
+       0.45,
+       -0.8
+      ],
+      "color": "#FFF1DC",
+      "intensity": 9.0,
+      "sky": "#7FA6C9",
+      "fill": 0.8
+     },
+     "props": [
+      {
+       "kit": "garden_plot",
+       "pos": [
+        0,
+        0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        12.0,
+        8.0,
+        0.02
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "house_facade",
+       "pos": [
+        -3.0,
+        6.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        8.0,
+        0.4,
+        4.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "flower_bed",
+       "pos": [
+        3.0,
+        2.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        4.0,
+        1.2,
+        0.4
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bench",
+       "pos": [
+        2.0,
+        -1.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        0.5,
+        0.45
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "photo_album",
+       "pos": [
+        2.0,
+        -1.0,
+        0.45
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.3,
+        0.24,
+        0.05
+       ],
+       "layer": "always",
+       "word": "cherish"
+      }
+     ],
+     "people": [
+      {
+       "role": "audrey",
+       "pos": [
+        -1.5,
+        2.0,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      },
+      {
+       "role": "son_1",
+       "pos": [
+        -4.0,
+        -2.0,
+        0
+       ],
+       "yaw": 45,
+       "pose": "run",
+       "layer": "always"
+      },
+      {
+       "role": "son_2",
+       "pos": [
+        -2.5,
+        -0.5,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "home",
+       "pos": [
+        0,
+        -9.0,
+        2.0
+       ],
+       "look": [
+        -1.0,
+        3.0,
+        1.0
+       ],
+       "fov": 45
+      },
+      {
+       "name": "album",
+       "pos": [
+        -0.5,
+        -2.8,
+        1.4
+       ],
+       "look": [
+        2.0,
+        -1.0,
+        0.6
+       ],
+       "fov": 30
+      }
+     ],
+     "exercises": [
+      "u02_b_reading_skills#4",
+      "u02_b_reading_skills#5",
+      "u02_b_understanding_mcq#5"
+     ],
+     "origin": [
+      240.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "compassionate",
+       "form": "compassionate",
+       "paragraph": 7,
+       "sentence": 1
+      },
+      {
+       "word": "alleviate",
+       "form": "alleviate",
+       "paragraph": 7,
+       "sentence": 2
+      },
+      {
+       "word": "paradise",
+       "form": "paradise",
+       "paragraph": 8,
+       "sentence": 2
+      },
+      {
+       "word": "Switzerland",
+       "form": "Switzerland",
+       "paragraph": 8,
+       "sentence": 1
+      }
+     ]
+    },
+    {
+     "id": "u02b_s6",
+     "title": "UNICEF office and relief camp",
+     "paragraphs": [
+      9,
+      10,
+      11
+     ],
+     "light": {
+      "type": "sun",
+      "dir": [
+       -0.35,
+       0.4,
+       -0.85
+      ],
+      "color": "#FFE6C0",
+      "intensity": 8.5,
+      "sky": "#9DBBD0",
+      "fill": 0.6
+     },
+     "props": [
+      {
+       "kit": "office_desk",
+       "pos": [
+        -9.0,
+        2.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.4,
+        0.75,
+        0.75
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "document_stack",
+       "pos": [
+        -9.0,
+        2.0,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.22,
+        0.3,
+        0.04
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "office_chair",
+       "pos": [
+        -9.0,
+        0.8,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.6,
+        1.1
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "relief_truck",
+       "pos": [
+        7.0,
+        -3.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        5.0,
+        2.2,
+        2.6
+       ],
+       "layer": "always",
+       "word": "outreach"
+      },
+      {
+       "kit": "food_crate",
+       "pos": [
+        3.5,
+        1.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.0,
+        0.8,
+        0.8
+       ],
+       "layer": "always",
+       "word": "humanitarian"
+      },
+      {
+       "kit": "relief_tent",
+       "pos": [
+        8.0,
+        3.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.0,
+        2.5,
+        2.2
+       ],
+       "layer": "always",
+       "word": "bleak"
+      },
+      {
+       "kit": "dry_well",
+       "pos": [
+        4.0,
+        4.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.4,
+        1.4,
+        1.2
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "audrey",
+       "pos": [
+        -9.0,
+        0.8,
+        0
+       ],
+       "yaw": 0,
+       "pose": "sit_type",
+       "layer": "always"
+      },
+      {
+       "role": "publisher",
+       "pos": [
+        -7.2,
+        2.6,
+        0
+       ],
+       "yaw": 180,
+       "pose": "stand_talk",
+       "layer": "always"
+      },
+      {
+       "role": "audrey_field",
+       "pos": [
+        5.8,
+        0.2,
+        0
+       ],
+       "yaw": 180,
+       "pose": "stand_talk",
+       "layer": "always"
+      },
+      {
+       "role": "child_1",
+       "pos": [
+        5.2,
+        1.8,
+        0
+       ],
+       "yaw": 0,
+       "pose": "sit_talk",
+       "layer": "always"
+      },
+      {
+       "role": "child_2",
+       "pos": [
+        2.0,
+        -0.5,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_wait",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "office",
+       "pos": [
+        -9.0,
+        -3.5,
+        1.6
+       ],
+       "look": [
+        -9.0,
+        1.5,
+        1.0
+       ],
+       "fov": 40
+      },
+      {
+       "name": "camp",
+       "pos": [
+        5.0,
+        -8.0,
+        2.0
+       ],
+       "look": [
+        6.0,
+        2.0,
+        0.9
+       ],
+       "fov": 45
+      }
+     ],
+     "exercises": [
+      "u02_b_reading_skills#6",
+      "u02_b_understanding_mcq#6",
+      "u02_b_understanding_mcq#7"
+     ],
+     "origin": [
+      300.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "catastrophe",
+       "form": "catastrophes",
+       "paragraph": 9,
+       "sentence": 1
+      },
+      {
+       "word": "embark",
+       "form": "embark",
+       "paragraph": 10,
+       "sentence": 2
+      },
+      {
+       "word": "outreach",
+       "form": "outreach",
+       "paragraph": 10,
+       "sentence": 2
+      },
+      {
+       "word": "bleak",
+       "form": "bleak",
+       "paragraph": 10,
+       "sentence": 3
+      },
+      {
+       "word": "drought",
+       "form": "droughts",
+       "paragraph": 10,
+       "sentence": 3
+      },
+      {
+       "word": "beneficiary",
+       "form": "beneficiary",
+       "paragraph": 10,
+       "sentence": 4
+      },
+      {
+       "word": "wicked",
+       "form": "wicked",
+       "paragraph": 11,
+       "sentence": 1
+      },
+      {
+       "word": "deprive",
+       "form": "deprived",
+       "paragraph": 11,
+       "sentence": 1
+      },
+      {
+       "word": "misery",
+       "form": "misery",
+       "paragraph": 11,
+       "sentence": 1
+      },
+      {
+       "word": "ideology",
+       "form": "ideology",
+       "paragraph": 11,
+       "sentence": 2
+      },
+      {
+       "word": "integral",
+       "form": "integral",
+       "paragraph": 11,
+       "sentence": 5
+      },
+      {
+       "word": "Bangladesh",
+       "form": "Bangladesh",
+       "paragraph": 10,
+       "sentence": 3
+      },
+      {
+       "word": "Vietnam",
+       "form": "Vietnam",
+       "paragraph": 10,
+       "sentence": 3
+      },
+      {
+       "word": "Ethiopia",
+       "form": "Ethiopia",
+       "paragraph": 10,
+       "sentence": 3
+      },
+      {
+       "word": "Somalia",
+       "form": "Somalia",
+       "paragraph": 10,
+       "sentence": 3
+      }
+     ]
+    },
+    {
+     "id": "u02b_s7",
+     "title": "Last Christmas and farewell",
+     "paragraphs": [
+      12,
+      13
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.1,
+       0.3,
+       -0.9
+      ],
+      "color": "#FFD9A8",
+      "intensity": 2.6,
+      "sky": "#0A0C10",
+      "fill": 0.35
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0,
+        3.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "wall",
+       "pos": [
+        6.0,
+        3.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "window_wall",
+       "pos": [
+        -3.0,
+        0.0,
+        0
+       ],
+       "yaw": 90,
+       "scale": 1.0,
+       "size": [
+        5.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "christmas_tree",
+       "pos": [
+        -1.8,
+        2.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.4,
+        1.4,
+        2.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "sofa",
+       "pos": [
+        -0.5,
+        -1.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.9,
+        0.85
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bed",
+       "pos": [
+        6.0,
+        2.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.2,
+        1.5,
+        0.6
+       ],
+       "layer": "always",
+       "word": "serene"
+      },
+      {
+       "kit": "floor_lamp",
+       "pos": [
+        4.0,
+        0.8,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.35,
+        0.35,
+        1.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        7.5,
+        0.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "audrey",
+       "pos": [
+        -1.0,
+        -1.3,
+        0
+       ],
+       "yaw": 0,
+       "pose": "sit_talk",
+       "layer": "always"
+      },
+      {
+       "role": "robby",
+       "pos": [
+        0.1,
+        -1.3,
+        0
+       ],
+       "yaw": 0,
+       "pose": "sit_talk",
+       "layer": "always"
+      },
+      {
+       "role": "son_1",
+       "pos": [
+        -2.0,
+        -0.5,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      },
+      {
+       "role": "audrey_bed",
+       "pos": [
+        6.0,
+        2.0,
+        0.6
+       ],
+       "yaw": 180,
+       "pose": "sit_watch",
+       "layer": "always"
+      },
+      {
+       "role": "designer",
+       "pos": [
+        7.5,
+        0.5,
+        0
+       ],
+       "yaw": 90,
+       "pose": "sit_talk",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "christmas",
+       "pos": [
+        -1.5,
+        -5.5,
+        1.6
+       ],
+       "look": [
+        -1.0,
+        1.5,
+        1.0
+       ],
+       "fov": 42
+      },
+      {
+       "name": "bedside",
+       "pos": [
+        5.0,
+        -1.5,
+        1.5
+       ],
+       "look": [
+        6.0,
+        2.0,
+        0.8
+       ],
+       "fov": 36
+      }
+     ],
+     "exercises": [
+      "u02_b_reading_skills#7",
+      "u02_b_collocation"
+     ],
+     "origin": [
+      360.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "stricken",
+       "form": "stricken",
+       "paragraph": 12,
+       "sentence": 1
+      },
+      {
+       "word": "cherish",
+       "form": "cherished",
+       "paragraph": 13,
+       "sentence": 1
+      },
+      {
+       "word": "serene",
+       "form": "serene",
+       "paragraph": 13,
+       "sentence": 2
+      }
+     ]
+    },
+    {
+     "id": "u02b_s8",
+     "title": "Legacy",
+     "paragraphs": [
+      14,
+      15
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.1,
+       0.3,
+       -0.9
+      ],
+      "color": "#FFF1DC",
+      "intensity": 2.8,
+      "sky": "#080A0E",
+      "fill": 0.4
+     },
+     "props": [
+      {
+       "kit": "quote_wall",
+       "pos": [
+        0,
+        4.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.1,
+        2.4
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "flower_bed",
+       "pos": [
+        -3.0,
+        1.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        4.0,
+        1.2,
+        0.4
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bench",
+       "pos": [
+        2.0,
+        -1.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        0.5,
+        0.45
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "student_1",
+       "pos": [
+        -1.5,
+        2.2,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      },
+      {
+       "role": "student_2",
+       "pos": [
+        2.0,
+        -1.0,
+        0
+       ],
+       "yaw": 0,
+       "pose": "sit_read",
+       "layer": "always"
+      },
+      {
+       "role": "guide",
+       "pos": [
+        0.5,
+        0.2,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_talk",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "wall",
+       "pos": [
+        0,
+        -4.5,
+        1.5
+       ],
+       "look": [
+        0,
+        4.0,
+        1.2
+       ],
+       "fov": 42
+      }
+     ],
+     "exercises": [
+      "u02_b_reading_skills#8",
+      "u02_b_understanding_mcq#8",
+      "u02_b_critical"
+     ],
+     "origin": [
+      420.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": [
+      {
+       "word": "gracious",
+       "form": "gracious",
+       "paragraph": 14,
+       "sentence": 2
+      },
+      {
+       "word": "perpetual",
+       "form": "perpetually",
+       "paragraph": 14,
+       "sentence": 2
+      },
+      {
+       "word": "perpetually",
+       "form": "perpetually",
+       "paragraph": 14,
+       "sentence": 2
+      },
+      {
+       "word": "signify",
+       "form": "signified",
+       "paragraph": 14,
+       "sentence": 2
+      },
+      {
+       "word": "majesty",
+       "form": "majesty",
+       "paragraph": 15,
+       "sentence": 1
+      },
+      {
+       "word": "poise",
+       "form": "poise",
+       "paragraph": 15,
+       "sentence": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "section": "section_c",
+   "level": "L_U02_C",
+   "title": "Stories of China: Mei Lanfang",
+   "scenes": [
+    {
+     "id": "u02c_s1",
+     "title": "Backstage mirror",
+     "paragraphs": [
+      1
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.1,
+       0.3,
+       -0.9
+      ],
+      "color": "#FFD9A0",
+      "intensity": 2.6,
+      "sky": "#120C08",
+      "fill": 0.3
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0,
+        3.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "vanity_bulbs",
+       "pos": [
+        0,
+        3.4,
+        2.4
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.0,
+        0.1,
+        0.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "dressing_table",
+       "pos": [
+        0,
+        2.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.8,
+        0.6,
+        0.75
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "makeup_mirror",
+       "pos": [
+        0,
+        2.85,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.1,
+        0.8
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "name_placard",
+       "pos": [
+        1.8,
+        3.4,
+        1.5
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.03,
+        0.3
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "costume_rack",
+       "pos": [
+        -2.5,
+        1.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        0.6,
+        1.8
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "chair",
+       "pos": [
+        0,
+        1.4,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.45,
+        0.5,
+        0.9
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "mei_lanfang",
+       "pos": [
+        0,
+        1.5,
+        0
+       ],
+       "yaw": 0,
+       "pose": "sit_watch",
+       "layer": "always"
+      },
+      {
+       "role": "assistant",
+       "pos": [
+        -0.9,
+        0.4,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "mirror",
+       "pos": [
+        0,
+        -2.5,
+        1.4
+       ],
+       "look": [
+        0,
+        2.8,
+        1.0
+       ],
+       "fov": 40
+      },
+      {
+       "name": "placard",
+       "pos": [
+        1.8,
+        -1.0,
+        1.4
+       ],
+       "look": [
+        1.8,
+        3.4,
+        1.4
+       ],
+       "fov": 30
+      }
+     ],
+     "exercises": [],
+     "origin": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    },
+    {
+     "id": "u02c_s2",
+     "title": "Childhood and debut",
+     "paragraphs": [
+      2
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.0,
+       0.4,
+       -0.9
+      ],
+      "color": "#FFE6C2",
+      "intensity": 3.0,
+      "sky": "#0A0808",
+      "fill": 0.35
+     },
+     "props": [
+      {
+       "kit": "stage_platform_small",
+       "pos": [
+        0,
+        4.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        4.0,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "stage_curtain",
+       "pos": [
+        0,
+        7.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        8.0,
+        0.1,
+        4.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "weaving_loom",
+       "pos": [
+        -4.0,
+        4.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.4,
+        0.8,
+        1.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "drum_set",
+       "pos": [
+        3.8,
+        3.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "mei_child",
+       "pos": [
+        0.0,
+        4.5,
+        0.6
+       ],
+       "yaw": 0,
+       "pose": "stand",
+       "layer": "always"
+      },
+      {
+       "role": "teacher",
+       "pos": [
+        0.5,
+        0.0,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "mei_father",
+       "pos": [
+        -3.5,
+        -1.0,
+        0
+       ],
+       "yaw": 0,
+       "pose": "sit_watch",
+       "layer": "always"
+      },
+      {
+       "role": "grandfather",
+       "pos": [
+        -2.5,
+        -2.0,
+        0
+       ],
+       "yaw": 0,
+       "pose": "sit_watch",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "stage",
+       "pos": [
+        0,
+        -6.0,
+        1.6
+       ],
+       "look": [
+        0,
+        4.5,
+        1.0
+       ],
+       "fov": 42
+      },
+      {
+       "name": "loom",
+       "pos": [
+        -6.0,
+        1.0,
+        1.4
+       ],
+       "look": [
+        -4.0,
+        4.0,
+        0.9
+       ],
+       "fov": 32
+      }
+     ],
+     "exercises": [],
+     "origin": [
+      60.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    },
+    {
+     "id": "u02c_s3",
+     "title": "Golden age of Peking Opera",
+     "paragraphs": [
+      3
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.1,
+       0.3,
+       -0.9
+      ],
+      "color": "#FFE2B0",
+      "intensity": 3.4,
+      "sky": "#0C0A08",
+      "fill": 0.4
+     },
+     "props": [
+      {
+       "kit": "stage_platform",
+       "pos": [
+        0,
+        8.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        8.0,
+        4.0,
+        0.8
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "troupe_banner",
+       "pos": [
+        -3.0,
+        10.2,
+        1.2
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        3.0,
+        0.03,
+        2.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "poster_board",
+       "pos": [
+        4.5,
+        -1.0,
+        0.6
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.05,
+        1.2
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bench",
+       "pos": [
+        -3.0,
+        0.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        0.5,
+        0.45
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bench",
+       "pos": [
+        -1.0,
+        0.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        0.5,
+        0.45
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bench",
+       "pos": [
+        1.0,
+        0.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        0.5,
+        0.45
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "bench",
+       "pos": [
+        3.0,
+        0.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        0.5,
+        0.45
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "performer",
+       "pos": [
+        0.0,
+        7.0,
+        0.8
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "critic_1",
+       "pos": [
+        -2.5,
+        -2.0,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_talk",
+       "layer": "always"
+      },
+      {
+       "role": "critic_2",
+       "pos": [
+        2.5,
+        -2.0,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_talk",
+       "layer": "always"
+      },
+      {
+       "role": "audience_1",
+       "pos": [
+        -1.0,
+        0.0,
+        0
+       ],
+       "yaw": 0,
+       "pose": "sit_watch",
+       "layer": "always"
+      },
+      {
+       "role": "audience_2",
+       "pos": [
+        1.0,
+        0.0,
+        0
+       ],
+       "yaw": 0,
+       "pose": "sit_watch",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "hall",
+       "pos": [
+        0,
+        -7.0,
+        2.0
+       ],
+       "look": [
+        0,
+        8.0,
+        1.0
+       ],
+       "fov": 46
+      },
+      {
+       "name": "critics",
+       "pos": [
+        -0.5,
+        -5.0,
+        1.4
+       ],
+       "look": [
+        0,
+        0.0,
+        0.9
+       ],
+       "fov": 34
+      }
+     ],
+     "exercises": [],
+     "origin": [
+      120.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    },
+    {
+     "id": "u02c_s4",
+     "title": "1927 survey",
+     "paragraphs": [
+      4
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.1,
+       0.3,
+       -0.9
+      ],
+      "color": "#FFE6C2",
+      "intensity": 3.0,
+      "sky": "#0C0A08",
+      "fill": 0.4
+     },
+     "props": [
+      {
+       "kit": "stage_riser",
+       "pos": [
+        0,
+        6.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        12.0,
+        3.0,
+        0.5
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "opera_poster",
+       "pos": [
+        0,
+        8.9,
+        1.2
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.03,
+        2.4
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "reading_table",
+       "pos": [
+        0,
+        2.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.4,
+        1.0,
+        0.75
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "ballot_box",
+       "pos": [
+        0,
+        2.0,
+        0.75
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        0.6,
+        0.4,
+        0.5
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "dan_1",
+       "pos": [
+        -4.5,
+        6.0,
+        0.5
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "dan_2",
+       "pos": [
+        -1.5,
+        6.0,
+        0.5
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "dan_3",
+       "pos": [
+        1.5,
+        6.0,
+        0.5
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "dan_4",
+       "pos": [
+        4.5,
+        6.0,
+        0.5
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "clerk_1",
+       "pos": [
+        -1.0,
+        0.6,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      },
+      {
+       "role": "voter_1",
+       "pos": [
+        -2.5,
+        -2.0,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      },
+      {
+       "role": "voter_2",
+       "pos": [
+        2.5,
+        -2.0,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "ballot",
+       "pos": [
+        0,
+        -3.5,
+        1.5
+       ],
+       "look": [
+        0,
+        2.0,
+        1.0
+       ],
+       "fov": 36
+      },
+      {
+       "name": "dans",
+       "pos": [
+        0,
+        -4.0,
+        1.5
+       ],
+       "look": [
+        0,
+        6.0,
+        1.2
+       ],
+       "fov": 52
+      }
+     ],
+     "exercises": [],
+     "origin": [
+      180.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    },
+    {
+     "id": "u02c_s5",
+     "title": "Modern stage and Chaplin",
+     "paragraphs": [
+      5
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.0,
+       0.35,
+       -0.94
+      ],
+      "color": "#FFF4E0",
+      "intensity": 4.5,
+      "sky": "#070809",
+      "fill": 0.45
+     },
+     "props": [
+      {
+       "kit": "stage_platform",
+       "pos": [
+        0,
+        4.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        8.0,
+        4.0,
+        0.8
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "set_backdrop",
+       "pos": [
+        0,
+        8.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.1,
+        4.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "spotlight_rig",
+       "pos": [
+        0,
+        4.0,
+        4.2
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        8.0,
+        0.4,
+        0.6
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "lighting_desk",
+       "pos": [
+        -5.0,
+        -2.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.2,
+        0.6,
+        1.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "costume_rack",
+       "pos": [
+        6.0,
+        1.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        1.6,
+        0.6,
+        1.8
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "mei_lanfang",
+       "pos": [
+        -1.5,
+        3.0,
+        0.8
+       ],
+       "yaw": 0,
+       "pose": "stand_talk",
+       "layer": "always"
+      },
+      {
+       "role": "chaplin",
+       "pos": [
+        1.5,
+        3.0,
+        0.8
+       ],
+       "yaw": 180,
+       "pose": "stand_talk",
+       "layer": "always"
+      },
+      {
+       "role": "technician",
+       "pos": [
+        -4.5,
+        -1.0,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_look",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "stage",
+       "pos": [
+        0,
+        -7.0,
+        1.8
+       ],
+       "look": [
+        0,
+        6.0,
+        1.0
+       ],
+       "fov": 46
+      },
+      {
+       "name": "chaplin",
+       "pos": [
+        0,
+        -3.5,
+        1.4
+       ],
+       "look": [
+        0,
+        3.0,
+        1.0
+       ],
+       "fov": 36
+      }
+     ],
+     "exercises": [],
+     "origin": [
+      240.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    },
+    {
+     "id": "u02c_s6",
+     "title": "The moustache",
+     "paragraphs": [
+      6
+     ],
+     "light": {
+      "type": "interior",
+      "dir": [
+       0.1,
+       0.3,
+       -0.9
+      ],
+      "color": "#E8D2B0",
+      "intensity": 2.2,
+      "sky": "#0C0A08",
+      "fill": 0.3
+     },
+     "props": [
+      {
+       "kit": "wall",
+       "pos": [
+        0,
+        6.5,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        6.0,
+        0.2,
+        3.0
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "notice_board",
+       "pos": [
+        0,
+        6.0,
+        1.2
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        2.0,
+        0.05,
+        1.4
+       ],
+       "layer": "always"
+      },
+      {
+       "kit": "board_table",
+       "pos": [
+        0,
+        0.0,
+        0
+       ],
+       "yaw": 0,
+       "scale": 1.0,
+       "size": [
+        5.0,
+        1.4,
+        0.75
+       ],
+       "layer": "always"
+      }
+     ],
+     "people": [
+      {
+       "role": "officer_1",
+       "pos": [
+        -1.2,
+        -1.2,
+        0
+       ],
+       "yaw": 0,
+       "pose": "sit_talk",
+       "layer": "always"
+      },
+      {
+       "role": "officer_2",
+       "pos": [
+        1.8,
+        -1.4,
+        0
+       ],
+       "yaw": 0,
+       "pose": "stand_point",
+       "layer": "always"
+      },
+      {
+       "role": "mei_lanfang",
+       "pos": [
+        0.0,
+        3.0,
+        0
+       ],
+       "yaw": 180,
+       "pose": "stand_look",
+       "layer": "always"
+      }
+     ],
+     "shots": [
+      {
+       "name": "refusal",
+       "pos": [
+        0,
+        -4.5,
+        1.5
+       ],
+       "look": [
+        0,
+        2.5,
+        1.1
+       ],
+       "fov": 40
+      },
+      {
+       "name": "close",
+       "pos": [
+        2.8,
+        1.5,
+        1.5
+       ],
+       "look": [
+        0,
+        3.0,
+        1.2
+       ],
+       "fov": 30
+      }
+     ],
+     "exercises": [
+      "u02_c_translation"
+     ],
+     "origin": [
+      300.0,
+      0.0,
+      0.0
+     ],
+     "transition": "dissolve",
+     "text_words": []
+    }
+   ]
+  }
+ ],
+ "paragraph_source": "Content/Data/textbook/rw3/articles/unit02.json"
+}

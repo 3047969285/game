@@ -1,0 +1,49 @@
+{
+ "line_id": "vo.tb.unit01.section_b.p04",
+ "unit": 1,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Dramatic changes can also be felt at home. As the modern family is busier than in the past, hectic family life seems dominated by all-things-convenient. Luckily, cooking is now made easy and a lot quicker thanks to hundreds upon hundreds of cooking apps, online recipes, how-to-cook videos, etc. Quite literally, technology has made cooking accessible and enjoyable to all. Furthermore, the days of battling other siblings for rights of the sole TV in the living room have gone and become a thing of the past. Now, children have their own laptop on which to watch their choice of TV shows, movies, videos, etc.",
+ "rate": 165,
+ "duration": 38.415,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 3.01,
+   "text": "Dramatic changes can also be felt at home."
+  },
+  {
+   "i": 1,
+   "start": 3.01,
+   "end": 9.735,
+   "text": "As the modern family is busier than in the past, hectic family life seems dominated by all-things-convenient."
+  },
+  {
+   "i": 2,
+   "start": 9.735,
+   "end": 19.305,
+   "text": "Luckily, cooking is now made easy and a lot quicker thanks to hundreds upon hundreds of cooking apps, online recipes, how-to-cook videos, etc."
+  },
+  {
+   "i": 3,
+   "start": 19.305,
+   "end": 23.915,
+   "text": "Quite literally, technology has made cooking accessible and enjoyable to all."
+  },
+  {
+   "i": 4,
+   "start": 23.915,
+   "end": 31.036,
+   "text": "Furthermore, the days of battling other siblings for rights of the sole TV in the living room have gone and become a thing of the past."
+  },
+  {
+   "i": 5,
+   "start": 31.036,
+   "end": 38.415,
+   "text": "Now, children have their own laptop on which to watch their choice of TV shows, movies, videos, etc."
+  }
+ ]
+}

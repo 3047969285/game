@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit04.section_b.p07",
+ "unit": 4,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "He must have sensed my bias, for he smiled with a gleam in his eyes as he went on. “Yes, I inherited a tradition. My father always told me, ‘Son, do the best job on every shoe that comes into the shop, and be proud of your fine work. If you work with dedication, you'll always have happiness and money.’”",
+ "rate": 165,
+ "duration": 19.095,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.015,
+   "text": "He must have sensed my bias, for he smiled with a gleam in his eyes as he went on."
+  },
+  {
+   "i": 1,
+   "start": 5.015,
+   "end": 7.339,
+   "text": "“Yes, I inherited a tradition."
+  },
+  {
+   "i": 2,
+   "start": 7.339,
+   "end": 15.132,
+   "text": "My father always told me, ‘Son, do the best job on every shoe that comes into the shop, and be proud of your fine work."
+  },
+  {
+   "i": 3,
+   "start": 15.132,
+   "end": 19.095,
+   "text": "If you work with dedication, you'll always have happiness and money.’”"
+  }
+ ]
+}

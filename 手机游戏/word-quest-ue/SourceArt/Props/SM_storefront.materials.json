@@ -1,0 +1,55 @@
+{
+ "kit": "storefront",
+ "dims_m": [
+  5.0,
+  0.41,
+  3.6
+ ],
+ "materials": {
+  "M_facade": {
+   "color": "#2F4E42",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.05
+  },
+  "M_sign": {
+   "color": "#1F3D36",
+   "roughness": 0.4,
+   "metallic": 0.0,
+   "emission": "#FFE2A8",
+   "emission_strength": 0.6,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_frame": {
+   "color": "#1B1E22",
+   "roughness": 0.35,
+   "metallic": 0.6,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_glass": {
+   "color": "#B8D8E4",
+   "roughness": 0.05,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 0.25,
+   "noise": 0.0
+  },
+  "M_door": {
+   "color": "#6B4A2E",
+   "roughness": 0.55,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.1
+  }
+ }
+}

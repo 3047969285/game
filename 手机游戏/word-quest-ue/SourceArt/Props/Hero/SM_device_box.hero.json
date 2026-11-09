@@ -1,0 +1,41 @@
+{
+ "kit": "device_box",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_device_box.fbx",
+ "triangles": 2416,
+ "size_m": [
+  0.3,
+  0.2,
+  0.12
+ ],
+ "dims_target_m": [
+  0.3,
+  0.2,
+  0.12
+ ],
+ "slots": [
+  {
+   "slot": "card",
+   "material": "M_card",
+   "BaseColor": "T_device_box_card_BaseColor.png",
+   "Normal": "T_device_box_card_Normal.png",
+   "ARM": "T_device_box_card_ARM.png"
+  },
+  {
+   "slot": "top",
+   "material": "M_top",
+   "BaseColor": "T_device_box_top_BaseColor.png",
+   "Normal": "T_device_box_top_Normal.png",
+   "ARM": "T_device_box_top_ARM.png"
+  },
+  {
+   "slot": "foam",
+   "material": "M_foam",
+   "BaseColor": "T_device_box_foam_BaseColor.png",
+   "Normal": "T_device_box_foam_Normal.png",
+   "ARM": "T_device_box_foam_ARM.png"
+  }
+ ],
+ "texture_res": 512,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "retail smartphone box, printed lid (box_print.png) faces +Z"
+}

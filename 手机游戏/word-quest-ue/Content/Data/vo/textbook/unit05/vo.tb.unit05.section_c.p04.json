@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit05.section_c.p04",
+ "unit": 5,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "Each civil feat in space subsequently transforms the way we live, even if we do not realize it. The achievements of the 20th century transformed our world in communications and expanded our capability to understand ourselves. The invention of the satellite and similar resources has been invaluable in promoting globalization and interconnectivity.",
+ "rate": 165,
+ "duration": 28.023,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 7.838,
+   "text": "Each civil feat in space subsequently transforms the way we live, even if we do not realize it."
+  },
+  {
+   "i": 1,
+   "start": 7.838,
+   "end": 18.653,
+   "text": "The achievements of the 20th century transformed our world in communications and expanded our capability to understand ourselves."
+  },
+  {
+   "i": 2,
+   "start": 18.653,
+   "end": 28.023,
+   "text": "The invention of the satellite and similar resources has been invaluable in promoting globalization and interconnectivity."
+  }
+ ]
+}

@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit02.ex.u02_b_reading_skills",
+ "unit": 2,
+ "section": "section_b",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Reading skills: Distinguishing between facts and opinions. Look at the following statements from Text B and decide which are facts (F) and which are opinions (O).",
+ "rate": 165,
+ "duration": 13.582,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.155,
+   "text": "Reading skills: Distinguishing between facts and opinions."
+  },
+  {
+   "i": 1,
+   "start": 5.155,
+   "end": 13.582,
+   "text": "Look at the following statements from Text B and decide which are facts (F) and which are opinions (O)."
+  }
+ ]
+}

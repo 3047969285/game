@@ -1,18 +1,18 @@
 {
- "total_lines": 441,
- "total_seconds": 2765.9,
+ "total_lines": 424,
+ "total_seconds": 2752.3,
  "speakers": {
   "tts_reader": {
    "lines": 359,
    "seconds": 2518.76
   },
   "narrator": {
-   "lines": 76,
-   "seconds": 226.3
+   "lines": 58,
+   "seconds": 208.24
   },
   "old2090": {
-   "lines": 3,
-   "seconds": 11.09
+   "lines": 4,
+   "seconds": 15.55
   },
   "system": {
    "lines": 1,

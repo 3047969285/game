@@ -1,0 +1,19 @@
+{
+ "kit": "tone_ripple",
+ "dims_m": [
+  1.6,
+  1.6,
+  0.02
+ ],
+ "materials": {
+  "M_tone": {
+   "color": "#0B1418",
+   "roughness": 0.3,
+   "metallic": 0.0,
+   "emission": "#B8D1D5",
+   "emission_strength": 2.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

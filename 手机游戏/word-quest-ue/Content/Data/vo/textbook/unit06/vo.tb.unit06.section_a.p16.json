@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit06.section_a.p16",
+ "unit": 6,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Sue had all new problems and obstacles to deal with, too, like what to do for an address for job applications. She worried about what would happen when her cell phone was cut off for non-payment, and calls to her number would disappear into an invisible world she could not reach.",
+ "rate": 165,
+ "duration": 15.129,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.713,
+   "text": "Sue had all new problems and obstacles to deal with, too, like what to do for an address for job applications."
+  },
+  {
+   "i": 1,
+   "start": 6.713,
+   "end": 15.129,
+   "text": "She worried about what would happen when her cell phone was cut off for non-payment, and calls to her number would disappear into an invisible world she could not reach."
+  }
+ ]
+}

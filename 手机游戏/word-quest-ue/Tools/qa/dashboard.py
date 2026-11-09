@@ -25,6 +25,18 @@ CHARACTERS = ["me2026", "lin", "mei", "an", "rui", "organizer", "old2090"]
 PROTAGONISTS = {"me2026": "male", "lin": "female"}
 VIEWS = ["front", "q34", "side", "back", "closeup"]
 THRESHOLDS = {"front": 3.0, "q34": 8.0, "side_iou": 0.95, "hair_iou": 0.85}
+HAIR_STYLES = {
+    # id: (min_top_excess, max_top_excess, min_coverage, max_coverage, 描述)
+    # top_excess 是相对“额顶点(10)”——寸头/后梳会覆盖到 10 点上方，故下限 >0；
+    # 高马尾明显更高（0.18–0.45）。
+    "me2026": (0.05, 0.25, 0.10, 0.60, "黑色层次碎发，头顶蓬起 5.5–6.5 cm"),
+    "lin": (0.03, 0.20, 0.15, 0.75, "酒红长直发 + 齐刘海，垂到髋"),
+    "mei": (0.18, 0.45, 0.20, 0.90, "高马尾，尖端高出头顶"),
+    "an": (0.05, 0.18, 0.03, 0.40, "寸头，贴头"),
+    "rui": (0.05, 0.20, 0.08, 0.55, "棕色短卷，贴头微蓬"),
+    "organizer": (0.03, 0.20, 0.10, 0.65, "低马尾，不超过头顶"),
+    "old2090": (0.03, 0.18, 0.03, 0.40, "稀疏银发后梳，发际线后移"),
+}
 HISTORY = PROJECT / "Docs" / "qa" / "history.csv"
 HISTORY_FIELDS = ["timestamp", "id", "front_px", "q34_px", "side_px", "face_iou", "hair_iou",
                   "photo_target_px", "target_mhc_px", "verdict"]
@@ -56,8 +68,7 @@ def collect_character(cid: str) -> dict:
            "hair_iou": {}, "ratios": {}, "photo_target": {}, "timestamp": None, "notes": []}
     cap = base / "capture.json"
     if not cap.is_file():
-        out["notes"].append("无 capture.json（Codex 渲染未完成）")
-        return out
+        out["notes"].append("capture.json 缺失（用现有渲染继续）")
     mtimes = []
     for view in VIEWS:
         render, target = base / f"{view}.png", base / f"target_{view}.png"
@@ -105,6 +116,8 @@ def collect_character(cid: str) -> dict:
         if hair_px < 0.005 * rgb.shape[0] * rgb.shape[1]:
             out["notes"].append("当前渲染为皮肤预览（无头发），头发 IoU 跳过")
             return out
+    if out["renders"].get("front"):
+        out["hair_acceptance"] = hair_acceptance(cid, out["renders"]["front"])
     for view in ("front", "side"):
         mask_path = PROJECT / "Docs" / "qa" / "ref_masks" / f"{cid}_{view}.png"
         render = out["renders"].get(view)
@@ -123,6 +136,62 @@ def collect_character(cid: str) -> dict:
     return out
 
 
+def hair_acceptance(cid: str, render: Path, pts=None) -> dict:
+    """头发剪影合理性（配角）：
+    - coverage = 头发像素 / 头部区域面积
+    - top_excess = (额顶点 y − 头发最高点 y) / 头高（马尾会 >0，寸头≈0）
+    - outside = 落在头部扩展框外的头发像素占比（排除飞散/离头）
+    返回 PASS/FAIL/N/A 与原因。
+    """
+    style = HAIR_STYLES.get(cid)
+    if style is None or not render.is_file():
+        return {"status": "N/A", "note": "无发型规格/无渲染"}
+    rgb = np.array(Image.open(render).convert("RGB"))
+    # 背景不均匀（lookdev 渐变/彩边）时暗色分割不可靠
+    borders = np.concatenate([rgb[:8].reshape(-1, 3), rgb[-8:].reshape(-1, 3),
+                              rgb[:, :8].reshape(-1, 3), rgb[:, -8:].reshape(-1, 3)]).astype(float)
+    if borders.std() > 12.0:
+        return {"status": "N/A", "note": "背景不均匀，头发分割不可靠（等 Groom 导入后的白底渲染）"}
+    vmax = 100.0 if cid in ("me2026", "an", "rui", "old2090") else 130.0
+    hair = hair_mask(rgb, v_max=vmax) & foreground_mask_auto(rgb)
+    hair_px = int(hair.sum())
+    if hair_px < 0.004 * rgb.shape[0] * rgb.shape[1]:
+        return {"status": "N/A", "note": "皮肤预览无头发（等 Groom 导入后重测）", "coverage": 0.0}
+    if pts is None:
+        try:
+            pts, _, _ = cr.cl.landmarks(render)
+        except SystemExit:
+            return {"status": "N/A", "note": "关键点检测失败，无法定位头部"}
+    pts = np.asarray(pts)
+    # 皮肤预览里深色眼睛/衣服也会被判为头发：头顶以上没有头发像素 → 视为无头发
+    ys0, _ = np.where(hair)
+    above = int((ys0 < float(pts[10][1])).sum())
+    if above < 0.0015 * rgb.shape[0] * rgb.shape[1]:
+        return {"status": "N/A", "note": "皮肤预览无头发（等 Groom 导入后重测）", "coverage": 0.0}
+    chin_y = float(pts[152][1])
+    top_y = float(pts[10][1])
+    head_h = max(1.0, chin_y - top_y)
+    face_w = float(np.linalg.norm(pts[234] - pts[454])) if len(pts) > 454 else float(np.ptp(pts[:, 0]))
+    head_w = max(face_w * 1.45, 1.0)
+    ys, xs = np.where(hair)
+    hair_top = float(ys.min())
+    top_excess = (top_y - hair_top) / head_h
+    # 头部扩展框：以脸宽/下巴/额顶构造
+    x_c = float((pts[234][0] + pts[454][0]) / 2.0) if len(pts) > 454 else float(pts[:, 0].mean())
+    box_y0 = top_y - 0.35 * head_h
+    box_y1 = chin_y + 0.10 * head_h
+    box_x0 = x_c - 0.55 * head_w
+    box_x1 = x_c + 0.55 * head_w
+    inside = (ys >= box_y0) & (ys <= box_y1) & (xs >= box_x0) & (xs <= box_x1)
+    outside_ratio = 1.0 - inside.sum() / max(len(ys), 1)
+    coverage = hair_px / ((head_h * 1.35) * (head_w * 1.1))
+    lo_t, hi_t, lo_c, hi_c, desc = style
+    ok = (lo_t <= top_excess <= hi_t) and (lo_c <= coverage <= hi_c) and outside_ratio <= 0.5
+    return {"status": "PASS" if ok else "FAIL", "coverage": round(coverage, 3),
+            "top_excess": round(top_excess, 3), "outside_ratio": round(outside_ratio, 3),
+            "note": desc}
+
+
 def verdict(row: dict) -> str:
     front = row["metrics"].get("front_px")
     q34 = row["metrics"].get("q34_px")
@@ -133,7 +202,7 @@ def verdict(row: dict) -> str:
     if q34 is not None: checks.append(q34 <= THRESHOLDS["q34"])
     if side is not None: checks.append(side >= THRESHOLDS["side_iou"])
     if hair is not None: checks.append(hair >= THRESHOLDS["hair_iou"])
-    if not checks:
+    if not checks or row["metrics"].get("front_px") is None:
         return "N/A"
     return "PASS" if all(checks) else "FAIL"
 
@@ -219,13 +288,17 @@ def render_markdown(rows: list[dict], prev: dict, generated: str) -> str:
              "- 缺失数据一律 N/A，不估算。", ""]
     # 总览
     lines += ["## 1. 总览", "",
-              "| 角色 | 状态 | front px | q34 px | side px | 脸部 IoU | 头发 IoU | 照片→目标 | 目标→MHC | 渲染时间 | 趋势 |",
-              "|------|------|----------|--------|---------|----------|----------|-----------|----------|----------|------|"]
+              "| 角色 | 状态 | front px | q34 px | 脸部 IoU | 头发 IoU | 发丝验收 | 照片→目标 | 目标→MHC | 渲染时间 | 趋势 |",
+              "|------|------|----------|--------|----------|----------|----------|-----------|----------|----------|------|"]
     for r in rows:
         m, p = r["metrics"], prev.get(r["id"])
         trend_txt = " / ".join(f"{k}:{trend(m.get(k), p, k)}" for k in ("front_px", "face_iou", "hair_iou")) if p else "—"
+        ha = r["raw"].get("hair_acceptance", {}) or {}
+        ha_txt = ha.get("status", "—")
+        if ha.get("coverage") is not None and ha.get("status") != "N/A":
+            ha_txt += f"（覆盖 {ha['coverage']:.2f} / 顶上 {ha['top_excess']:.2f}）"
         lines.append(f"| {r['id']} | {r['verdict']} | {fmt(m.get('front_px'))} | {fmt(m.get('q34_px'))} | "
-                     f"{fmt(m.get('side_px'))} | {fmt(m.get('face_iou'), 3)} | {fmt(m.get('hair_iou'), 3)} | "
+                     f"{fmt(m.get('face_iou'), 3)} | {fmt(m.get('hair_iou'), 3)} | {ha_txt} | "
                      f"{fmt(m.get('photo_target_px'))} | {fmt(m.get('target_mhc_px'))} | {r['timestamp'] or '—'} | {trend_txt} |")
     # 逐角色细节
     lines += ["", "## 2. 逐角色", ""]

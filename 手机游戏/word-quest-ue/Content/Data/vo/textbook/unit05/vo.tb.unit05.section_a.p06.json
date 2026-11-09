@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit05.section_a.p06",
+ "unit": 5,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Once pilots are admitted to the astronaut team, they must immerse themselves in the study of about 60 subjects, including physics, astronautics, and astronomy. Normally, each of these subjects requires university students to take four-year courses, but the astronauts have just one year to complete their studies and must pass exams in every subject.",
+ "rate": 165,
+ "duration": 20.533,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 9.952,
+   "text": "Once pilots are admitted to the astronaut team, they must immerse themselves in the study of about 60 subjects, including physics, astronautics, and astronomy."
+  },
+  {
+   "i": 1,
+   "start": 9.952,
+   "end": 20.533,
+   "text": "Normally, each of these subjects requires university students to take four-year courses, but the astronauts have just one year to complete their studies and must pass exams in every subject."
+  }
+ ]
+}

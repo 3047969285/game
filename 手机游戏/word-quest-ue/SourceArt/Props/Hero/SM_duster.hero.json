@@ -1,0 +1,34 @@
+{
+ "kit": "duster",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_duster.fbx",
+ "triangles": 3872,
+ "size_m": [
+  0.14,
+  0.06,
+  0.05
+ ],
+ "dims_target_m": [
+  0.14,
+  0.06,
+  0.05
+ ],
+ "slots": [
+  {
+   "slot": "wood",
+   "material": "M_wood",
+   "BaseColor": "T_duster_wood_BaseColor.png",
+   "Normal": "T_duster_wood_Normal.png",
+   "ARM": "T_duster_wood_ARM.png"
+  },
+  {
+   "slot": "cloth",
+   "material": "M_cloth",
+   "BaseColor": "T_duster_cloth_BaseColor.png",
+   "Normal": "T_duster_cloth_Normal.png",
+   "ARM": "T_duster_cloth_ARM.png"
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "feather duster: turned handle (-X end), layered cloth head"
+}

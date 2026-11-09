@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit02.section_b.p02",
+ "unit": 2,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Despite her success in the film domain, the roles she most preferred portraying were not in movies. She was an exemplary mother to her two sons and a UNICEF (the United Nations International Children's Emergency Fund) Goodwill Ambassador serving victims in war-torn countries.",
+ "rate": 165,
+ "duration": 16.001,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.761,
+   "text": "Despite her success in the film domain, the roles she most preferred portraying were not in movies."
+  },
+  {
+   "i": 1,
+   "start": 5.761,
+   "end": 16.001,
+   "text": "She was an exemplary mother to her two sons and a UNICEF (the United Nations International Children's Emergency Fund) Goodwill Ambassador serving victims in war-torn countries."
+  }
+ ]
+}

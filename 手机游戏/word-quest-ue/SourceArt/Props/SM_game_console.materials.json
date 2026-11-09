@@ -1,0 +1,46 @@
+{
+ "kit": "game_console",
+ "dims_m": [
+  0.16,
+  0.08,
+  0.032
+ ],
+ "materials": {
+  "M_gc_body": {
+   "color": "#2D3340",
+   "roughness": 0.45,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_gc_grip": {
+   "color": "#E0523A",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_gc_screen": {
+   "color": "#0E1116",
+   "roughness": 0.08,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_gc_button": {
+   "color": "#1A1D23",
+   "roughness": 0.4,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

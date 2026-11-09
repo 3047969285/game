@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit06.section_b.p01",
+ "unit": 6,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Economic bubbles occur when, for any number of reasons, excessive investment in commodities (such as oil), securities (such as stocks and bonds), real estate, or collectibles drives up prices well beyond the item's intrinsic value. The inevitable result of this boom in price is a crash or bust. The price falls sharply once it becomes clear that it has grown far beyond the purchasing power of potential customers.",
+ "rate": 165,
+ "duration": 26.208,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 15.88,
+   "text": "Economic bubbles occur when, for any number of reasons, excessive investment in commodities (such as oil), securities (such as stocks and bonds), real estate, or collectibles drives up prices well beyond the item's intrinsic value."
+  },
+  {
+   "i": 1,
+   "start": 15.88,
+   "end": 19.407,
+   "text": "The inevitable result of this boom in price is a crash or bust."
+  },
+  {
+   "i": 2,
+   "start": 19.407,
+   "end": 26.208,
+   "text": "The price falls sharply once it becomes clear that it has grown far beyond the purchasing power of potential customers."
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "kit": "dashboard_screen",
+ "dims_m": [
+  0.6,
+  0.031,
+  0.35
+ ],
+ "materials": {
+  "M_dash_bezel": {
+   "color": "#1A1D23",
+   "roughness": 0.4,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_screen": {
+   "color": "#0A0F18",
+   "roughness": 0.05,
+   "metallic": 0.0,
+   "emission": "#9FC4E8",
+   "emission_strength": 1.5,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

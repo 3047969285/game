@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit04.section_b.p01",
+ "unit": 4,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "I first met him in 1990, when I rushed into his little shop to have the heels of my shoes repaired. He greeted me with a cheerful smile and instant hospitality. “You're new in this neighborhood, aren't you?”",
+ "rate": 165,
+ "duration": 12.243,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.239,
+   "text": "I first met him in 1990, when I rushed into his little shop to have the heels of my shoes repaired."
+  },
+  {
+   "i": 1,
+   "start": 6.239,
+   "end": 9.872,
+   "text": "He greeted me with a cheerful smile and instant hospitality."
+  },
+  {
+   "i": 2,
+   "start": 9.872,
+   "end": 12.243,
+   "text": "“You're new in this neighborhood, aren't you?”"
+  }
+ ]
+}

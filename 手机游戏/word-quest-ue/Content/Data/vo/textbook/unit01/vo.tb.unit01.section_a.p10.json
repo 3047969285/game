@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit01.section_a.p10",
+ "unit": 1,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "In addition, our move from conversation means diminished opportunities to learn skills of self-reflection. These days, social media continually asks us what's “on our mind”, but we have little motivation to say something truly self-reflective. Imagine how hard it is to do something with thousands of online friends! It is through the conversation with trusted others that we learn to converse with ourselves - to be honest with ourselves.",
+ "rate": 165,
+ "duration": 24.152,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.987,
+   "text": "In addition, our move from conversation means diminished opportunities to learn skills of self-reflection."
+  },
+  {
+   "i": 1,
+   "start": 5.987,
+   "end": 14.046,
+   "text": "These days, social media continually asks us what's “on our mind”, but we have little motivation to say something truly self-reflective."
+  },
+  {
+   "i": 2,
+   "start": 14.046,
+   "end": 17.886,
+   "text": "Imagine how hard it is to do something with thousands of online friends!"
+  },
+  {
+   "i": 3,
+   "start": 17.886,
+   "end": 24.152,
+   "text": "It is through the conversation with trusted others that we learn to converse with ourselves - to be honest with ourselves."
+  }
+ ]
+}

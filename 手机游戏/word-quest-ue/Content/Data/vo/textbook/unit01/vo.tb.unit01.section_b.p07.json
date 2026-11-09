@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit01.section_b.p07",
+ "unit": 1,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "In the everyday practicality, digital technology has also established its credibility in changing our old-fashioned personal life. While we used to stand in line at the bank during our lunch break, now we perform most of our banking online, mainly via our smartphones. While we formerly walked to the shop to buy the daily newspaper, now we can access news sites worldwide and download news apps at the touch of a screen. While we used to head to the video store to choose the latest release, now we can download movies online at the click of a mouse. While we used to play simple, yet wonderful, console games, now we can play them through the Internet against people from all around the world.",
+ "rate": 165,
+ "duration": 41.1,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 8.177,
+   "text": "In the everyday practicality, digital technology has also established its credibility in changing our old-fashioned personal life."
+  },
+  {
+   "i": 1,
+   "start": 8.177,
+   "end": 16.817,
+   "text": "While we used to stand in line at the bank during our lunch break, now we perform most of our banking online, mainly via our smartphones."
+  },
+  {
+   "i": 2,
+   "start": 16.817,
+   "end": 25.329,
+   "text": "While we formerly walked to the shop to buy the daily newspaper, now we can access news sites worldwide and download news apps at the touch of a screen."
+  },
+  {
+   "i": 3,
+   "start": 25.329,
+   "end": 32.599,
+   "text": "While we used to head to the video store to choose the latest release, now we can download movies online at the click of a mouse."
+  },
+  {
+   "i": 4,
+   "start": 32.599,
+   "end": 41.1,
+   "text": "While we used to play simple, yet wonderful, console games, now we can play them through the Internet against people from all around the world."
+  }
+ ]
+}

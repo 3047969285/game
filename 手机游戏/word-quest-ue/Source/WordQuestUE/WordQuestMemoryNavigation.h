@@ -13,7 +13,7 @@ public:
  virtual void TickComponent(float DeltaTime,ELevelTick TickType,FActorComponentTickFunction* Fn) override;
  UFUNCTION(BlueprintPure) FString GetNavigationState() const;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Navigation") bool bEnabled=true;
- UPROPERTY(EditAnywhere,Category="Navigation") float WalkSpeed=280.f;
+ UPROPERTY(EditAnywhere,Category="Navigation") float WalkSpeed=140.f;
 private:
  TWeakObjectPtr<AActor> ActiveView;
  TArray<TWeakObjectPtr<AActor>> NonSolidEnvironment;

@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit03.section_a.p03",
+ "unit": 3,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Sometimes, of course, we travel because we need to. Because in this digital age, there is still something important about the handshake at a business luncheon. Or eating Mom’s special food on Thanksgiving. Or seeing your girlfriend on your two-year anniversary.",
+ "rate": 165,
+ "duration": 14.69,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 3.718,
+   "text": "Sometimes, of course, we travel because we need to."
+  },
+  {
+   "i": 1,
+   "start": 3.718,
+   "end": 9.295,
+   "text": "Because in this digital age, there is still something important about the handshake at a business luncheon."
+  },
+  {
+   "i": 2,
+   "start": 9.295,
+   "end": 11.842,
+   "text": "Or eating Mom’s special food on Thanksgiving."
+  },
+  {
+   "i": 3,
+   "start": 11.842,
+   "end": 14.69,
+   "text": "Or seeing your girlfriend on your two-year anniversary."
+  }
+ ]
+}

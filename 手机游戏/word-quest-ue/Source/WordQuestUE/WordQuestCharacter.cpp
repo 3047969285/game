@@ -1,4 +1,6 @@
 #include "WordQuestCharacter.h"
+#include "Components/InputComponent.h"
+#include "Engine/SkeletalMesh.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/PlayerController.h"

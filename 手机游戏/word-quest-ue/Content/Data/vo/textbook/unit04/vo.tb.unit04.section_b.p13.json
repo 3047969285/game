@@ -1,0 +1,49 @@
+{
+ "line_id": "vo.tb.unit04.section_b.p13",
+ "unit": 4,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "One day, I came away from my house filled with fury because of a poor job some painters had done on my house. My friend waved to me as I walked by, so I went into his shop to vent my frustration. He let me speak angrily about the poor work and carelessness of present-day workmen. “They had no pride in their work,” I said. “They just wanted to collect money for doing nothing. The undutiful attitude these days is almost a sin.”",
+ "rate": 165,
+ "duration": 25.426,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.527,
+   "text": "One day, I came away from my house filled with fury because of a poor job some painters had done on my house."
+  },
+  {
+   "i": 1,
+   "start": 6.527,
+   "end": 12.044,
+   "text": "My friend waved to me as I walked by, so I went into his shop to vent my frustration."
+  },
+  {
+   "i": 2,
+   "start": 12.044,
+   "end": 16.641,
+   "text": "He let me speak angrily about the poor work and carelessness of present-day workmen."
+  },
+  {
+   "i": 3,
+   "start": 16.641,
+   "end": 19.242,
+   "text": "“They had no pride in their work,” I said."
+  },
+  {
+   "i": 4,
+   "start": 19.242,
+   "end": 22.212,
+   "text": "“They just wanted to collect money for doing nothing."
+  },
+  {
+   "i": 5,
+   "start": 22.212,
+   "end": 25.426,
+   "text": "The undutiful attitude these days is almost a sin.”"
+  }
+ ]
+}

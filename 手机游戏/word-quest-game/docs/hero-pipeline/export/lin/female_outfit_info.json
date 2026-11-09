@@ -1,0 +1,54 @@
+{
+ "garments": [
+  {
+   "name": "lin_bodice",
+   "verts": 1158,
+   "faces": 1158,
+   "materials": [
+    "lin_dress"
+   ]
+  },
+  {
+   "name": "lin_necklace",
+   "verts": 512,
+   "faces": 512,
+   "materials": [
+    "lin_cord"
+   ]
+  },
+  {
+   "name": "lin_pendant",
+   "verts": 8,
+   "faces": 6,
+   "materials": [
+    "lin_pendant_metal"
+   ]
+  },
+  {
+   "name": "lin_skirt",
+   "verts": 7872,
+   "faces": 7872,
+   "materials": [
+    "lin_dress"
+   ]
+  },
+  {
+   "name": "lin_strap_-1",
+   "verts": 92,
+   "faces": 90,
+   "materials": [
+    "lin_dress"
+   ]
+  },
+  {
+   "name": "lin_strap_1",
+   "verts": 92,
+   "faces": 90,
+   "materials": [
+    "lin_dress"
+   ]
+  }
+ ],
+ "height_m": 1.68,
+ "frame": "same as <who>_body.fbx (metres, feet at 0, face -Y)"
+}

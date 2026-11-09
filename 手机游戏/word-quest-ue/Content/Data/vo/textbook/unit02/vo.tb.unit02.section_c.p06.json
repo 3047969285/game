@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit02.section_c.p06",
+ "unit": 2,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "During the War of Resistance Against Japanese Aggression, Mei kept a moustache as a reply to the Japanese who asked him to perform. This bold act of patriotism earned him great respect and bolstered his fame as an artist.",
+ "rate": 165,
+ "duration": 18.062,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 10.751,
+   "text": "During the War of Resistance Against Japanese Aggression, Mei kept a moustache as a reply to the Japanese who asked him to perform."
+  },
+  {
+   "i": 1,
+   "start": 10.751,
+   "end": 18.062,
+   "text": "This bold act of patriotism earned him great respect and bolstered his fame as an artist."
+  }
+ ]
+}

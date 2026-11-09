@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit03.section_a.p02",
+ "unit": 3,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Why do we travel? I don’t mind the actual flying, the wonder of being airborne in a dense metal bird. The rest of the journey, however, can feel like a tedious lesson in the ills of modernity, from the predawn x-ray screening to the sad airport malls selling clusters of keepsakes. It’s the result of a globalized world, and it sucks.",
+ "rate": 165,
+ "duration": 19.105,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 1.314,
+   "text": "Why do we travel?"
+  },
+  {
+   "i": 1,
+   "start": 1.314,
+   "end": 5.942,
+   "text": "I don’t mind the actual flying, the wonder of being airborne in a dense metal bird."
+  },
+  {
+   "i": 2,
+   "start": 5.942,
+   "end": 15.927,
+   "text": "The rest of the journey, however, can feel like a tedious lesson in the ills of modernity, from the predawn x-ray screening to the sad airport malls selling clusters of keepsakes."
+  },
+  {
+   "i": 3,
+   "start": 15.927,
+   "end": 19.105,
+   "text": "It’s the result of a globalized world, and it sucks."
+  }
+ ]
+}

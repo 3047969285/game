@@ -1,0 +1,817 @@
+{
+ "unit": 1,
+ "exercises": [
+  {
+   "id": "u01_a_pre_reading",
+   "section": "section_a",
+   "kind": "pre_reading",
+   "instructions": "Are you addicted to your smartphone? Rate each statement below and circle the score that represents your opinion to make an assessment. 1=Strongly disagree 2=Disagree 3=Somewhat disagree 4=Neutral 5=Somewhat agree 6=Agree 7=Strongly agree",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Rate the ten statements (e.g. “I would feel uncomfortable without constant access to information through my smartphone”; “I would feel weird because I would not know what to do”), then add up your score. The higher the score, the more likely you are to be addicted to your smartphone.",
+     "answer": "I scored 52 out of 70, which puts me in the 'somewhat addicted' range. I check my phone within minutes of waking up and often scroll in bed at night. The statement I agreed with most was feeling uncomfortable without constant access to information. Seeing the total made me realize how automatic these habits have become.",
+     "answer_source": "draft",
+     "explanation": "This is a self-assessment task: rate all ten statements on the 1-7 scale, add the scores, and read the total as an addiction indicator.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "Work in pairs. Share your assessment result and discuss the following questions. 1 What impacts do you think smartphones have on your relationships with people around you? 2 What suggestions can you offer to those who are addicted to smartphones?",
+     "answer": "My partner scored higher than I did, so we compared what we do differently. We agreed that phones often steal attention from the people sitting right next to us: at dinner my family members each stare at a screen. For people who feel addicted, I would suggest one offline evening a week, keeping the phone out of the bedroom, and turning off notifications. Small rules like these seem easier to keep than a total ban.",
+     "answer_source": "draft",
+     "explanation": "Pair-work discussion: answer both questions in turn, first the effects on relationships, then practical advice, using your own score as a starting point.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u01_a_understanding",
+   "section": "section_a",
+   "kind": "understanding",
+   "instructions": "Answer the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "What activities are the family not allowed to do on their “offline days”?",
+     "answer": "They are not allowed to play video games, use computers, or use cell phones from Friday night through Sunday evening.",
+     "answer_source": "derived",
+     "explanation_zh": "第1段：“offline day”期间，从周五晚到周日晚不玩电子游戏、不用电脑和手机。",
+     "explanation": "Para. 1 defines the family's 'offline day': no video games, no computers and no cell phones from Friday night through Sunday evening."
+    },
+    {
+     "n": 2,
+     "prompt": "According to Para. 3, to what extent are we influenced by the little devices most of us carry around?",
+     "answer": "The devices are so powerful that they change not only what we do but also who we are.",
+     "answer_source": "derived",
+     "explanation_zh": "第3段：这些小设备功能强大，不仅改变我们的所为，还改变我们是谁。",
+     "explanation": "Para. 3 ends by saying the devices are so powerful that they change 'not only what we do but also who we are'."
+    },
+    {
+     "n": 3,
+     "prompt": "What does the author think of the idea that our little “sips” of online connection will substitute for real conversation?",
+     "answer": "The author disagrees: however valuable the sips are, they cannot substitute for real conversation.",
+     "answer_source": "derived",
+     "explanation_zh": "第7段：作者明确反对，认为网络上的“小口”连接无法取代真正的交谈。",
+     "explanation": "Para. 7 rejects the idea outright: however valuable the 'sips' are, it is impossible for them to substitute for real conversation."
+    },
+    {
+     "n": 4,
+     "prompt": "According to Para. 8, what can we do in real conversation but cannot in online connection?",
+     "answer": "We can understand and get to know one another; we can be more caring and observant, and reveal ourselves through tones and nuances.",
+     "answer_source": "derived",
+     "explanation_zh": "第8段：真正的交谈能让人彼此理解、更加关心和细致观察，并通过语气和细微差别袒露自己。",
+     "explanation": "Para. 8 contrasts sips with real conversation, where we are 'more caring and observant' and reveal ourselves through tones and nuances."
+    },
+    {
+     "n": 5,
+     "prompt": "What can a face-to-face conversation teach us?",
+     "answer": "It teaches us patience, because it unfolds slowly.",
+     "answer_source": "derived",
+     "explanation_zh": "第9段：面对面交谈节奏慢，因此教会我们耐心。",
+     "explanation": "Para. 9: because face-to-face conversation 'unfolds slowly', it teaches us patience that accelerated online exchange never does."
+    },
+    {
+     "n": 6,
+     "prompt": "What can we learn from the conversation with trusted others?",
+     "answer": "We learn to converse with ourselves and to be honest with ourselves, i.e. self-reflection.",
+     "answer_source": "derived",
+     "explanation_zh": "第10段：与可信赖的人交谈，能学会与自己对话、诚实面对自己，即自我反省。",
+     "explanation": "Para. 10: conversation with trusted others teaches us to converse with ourselves, that is, 'to be honest with ourselves'."
+    },
+    {
+     "n": 7,
+     "prompt": "What is the author’s attitude toward conversation?",
+     "answer": "He is a strong supporter (partisan) of conversation rather than a critic of technology.",
+     "answer_source": "derived",
+     "explanation_zh": "第11段：作者自称不是批评者，而是坚定支持交谈的人。",
+     "explanation": "Para. 11 states it plainly: 'I'm not a critic, but I am a partisan for conversation,' so he supports conversation, not attacks technology."
+    },
+    {
+     "n": 8,
+     "prompt": "What is the author’s suggestion for evaluating our relationship with technology?",
+     "answer": "Take some time away from the beeps and rings to assess the merits and burdens of technology, and make some changes, such as having an offline day.",
+     "answer_source": "derived",
+     "explanation_zh": "第12段：暂时远离提示音和铃声，权衡科技的利弊，并尝试做出改变。",
+     "explanation": "Para. 12 advises time away from 'the beeps and rings' to assess technology's merit and burden, then to make changes such as an offline day."
+    }
+   ]
+  },
+  {
+   "id": "u01_a_critical",
+   "section": "section_a",
+   "kind": "critical",
+   "instructions": "Work in pairs and discuss the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Do you believe people can truly get to know each other simply via online communication? Why or why not?",
+     "answer": "I don't think we can fully know someone online. Text A argues that real conversation lets us be 'more caring and observant' and reveal ourselves through tones and nuances, and a text or a like carries none of that. Online we edit what we show, so we meet a curated version of a person rather than the person. Friendships may start online, but trust grows only when people spend unedited time together.",
+     "answer_source": "draft",
+     "explanation": "Open discussion: take a clear position and support it with Para. 8's contrast between 'sips' of connection and real conversation.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "What impact does social media have on people’s social skills?",
+     "answer": "Social media widens our circle but narrows our talk. We keep in touch with many people, yet most exchanges are quick 'sips' rather than conversations, so we practise reacting more than listening. Constant notifications also make it harder to sit through a slow, awkward face-to-face moment. In my experience, heavy users often become more fluent online and more hesitant in person.",
+     "answer_source": "draft",
+     "explanation": "Open discussion: weigh both gains (easy contact, new friends) and costs (shallower talk, less patience) as in Paras. 7-10.",
+     "needs_review": true
+    },
+    {
+     "n": 3,
+     "prompt": "How do you think technology will change communication in the future?",
+     "answer": "Communication will probably become more immersive and more visual, with video, avatars and AI assistants handling routine messages. That may make contact even faster across distances, but it will not remove the need for presence. I expect the real divide to be between people who choose their channel deliberately and those who simply react to whatever buzzes. Text A's advice to keep some spaces free of devices will matter more, not less.",
+     "answer_source": "draft",
+     "explanation": "Speculative question: build your prediction on Text B's account of how fast digital technology has already reshaped daily life.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u01_a_words_in_use",
+   "section": "section_a",
+   "kind": "words_in_use",
+   "instructions": "Fill in the blanks with the words given below. Change the form where necessary. Each word can be used only once.",
+   "bank": [
+    "alter",
+    "assess",
+    "collaborate",
+    "sacred",
+    "discrete",
+    "furious",
+    "immersed",
+    "scenario",
+    "substitute",
+    "velocity"
+   ],
+   "items": [
+    {
+     "n": 1,
+     "prompt": "He entered the film industry, taking small roles and writing ____ for a famous film company.",
+     "answer": "scenarios",
+     "answer_source": "derived",
+     "explanation_zh": "scenario 指电影的剧情梗概，此处为复数形式。",
+     "explanation": "A plural noun is needed after 'writing' in a film context: a scenario is a plot outline, hence 'scenarios'."
+    },
+    {
+     "n": 2,
+     "prompt": "In doing translation, one should not ____ the meaning of the original to suit one’s own taste.",
+     "answer": "alter",
+     "answer_source": "derived",
+     "explanation_zh": "not 之后用动词原形 alter（改变）。",
+     "explanation": "Bare infinitive after 'should not'; 'alter the meaning' is the collocation for changing it."
+    },
+    {
+     "n": 3,
+     "prompt": "Without warning, there was a (n) ____ storm and the waves swept over the boat.",
+     "answer": "furious",
+     "answer_source": "derived",
+     "explanation_zh": "形容词 furious（猛烈的）修饰名词 storm。",
+     "explanation": "A strong adjective before 'storm'; 'furious' here means violent or fierce, as in a furious storm."
+    },
+    {
+     "n": 4,
+     "prompt": "Doctors consider it their ____ duty to protect and save the lives of their patients.",
+     "answer": "sacred",
+     "answer_source": "derived",
+     "explanation_zh": "sacred duty 意为神圣的职责。",
+     "explanation": "'Sacred duty' is a fixed collocation for an obligation regarded as holy and unquestionable."
+    },
+    {
+     "n": 5,
+     "prompt": "The question was how to maintain that kind of ____ for a vehicle that weighed considerably more than 3,300 pounds.",
+     "answer": "velocity",
+     "answer_source": "derived",
+     "explanation_zh": "maintain velocity 意为保持速度。",
+     "explanation": "'Maintain velocity' means keep the same speed; the noun is required after 'that kind of'."
+    },
+    {
+     "n": 6,
+     "prompt": "They are able to take ____ ideas, thoughts, and generalizations and weave them into meaningful patterns.",
+     "answer": "discrete",
+     "answer_source": "derived",
+     "explanation_zh": "discrete ideas 指分开的、独立的想法。",
+     "explanation": "Adjective before the plural 'ideas': 'discrete' means separate and distinct, unlike 'discreet'."
+    },
+    {
+     "n": 7,
+     "prompt": "They needed someone to ____ for a pianist who couldn’t make it, and her professor recommended her.",
+     "answer": "substitute",
+     "answer_source": "derived",
+     "explanation_zh": "substitute for 意为代替。",
+     "explanation": "'Substitute for' means to take someone's place; a bare infinitive follows 'someone to'."
+    },
+    {
+     "n": 8,
+     "prompt": "Let’s embrace Chinese culture this summer and get ____ in the richness of traditional Chinese music and dance!",
+     "answer": "immersed",
+     "answer_source": "derived",
+     "explanation_zh": "get immersed in 意为沉浸于，in 已在句中给出。",
+     "explanation": "'Get immersed in' is the collocation for becoming absorbed; 'in' is already given, so the past participle fits."
+    },
+    {
+     "n": 9,
+     "prompt": "The Chinese scientific community will ____ with their international peers in frontier science research.",
+     "answer": "collaborate",
+     "answer_source": "derived",
+     "explanation_zh": "collaborate with 意为与……合作。",
+     "explanation": "'Collaborate with' is the verb for working jointly; the future 'will' takes the base form."
+    },
+    {
+     "n": 10,
+     "prompt": "At the end of the semester, students will be ____ on their proficiency in writing and speaking in English.",
+     "answer": "assessed",
+     "answer_source": "derived",
+     "explanation_zh": "be assessed on 意为就……接受评估，此处用过去分词。",
+     "explanation": "Passive 'will be assessed on': students are evaluated on proficiency, so the past participle is needed."
+    }
+   ]
+  },
+  {
+   "id": "u01_a_word_building",
+   "section": "section_a",
+   "kind": "word_building",
+   "instructions": "Fill in the blanks with the words given below. Change the form where necessary. Each word can be used only once.",
+   "bank": [
+    "admittance",
+    "assurance",
+    "clearance",
+    "distracted",
+    "dominance",
+    "reliance",
+    "retired"
+   ],
+   "items": [
+    {
+     "n": 1,
+     "prompt": "The ____ of the Internet and mobile devices means that anything that can be used effectively with them is likely to be a success.",
+     "answer": "dominance",
+     "answer_source": "derived",
+     "explanation_zh": "dominance（主导地位）是 dominate 的名词形式，作主语。",
+     "explanation": "The sentence subject needs the noun form of 'dominate': 'the dominance of the Internet and mobile devices'."
+    },
+    {
+     "n": 2,
+     "prompt": "Younger children may have problems paying attention in class, and would easily get ____.",
+     "answer": "distracted",
+     "answer_source": "derived",
+     "explanation_zh": "get distracted 意为分心，用作表语的过去分词形容词。",
+     "explanation": "'Get distracted' uses the past participle as an adjective after 'get', meaning lose concentration."
+    },
+    {
+     "n": 3,
+     "prompt": "The competitive entrance examination for ____ to this university was such that hundreds of applicants were turned down each year.",
+     "answer": "admittance",
+     "answer_source": "derived",
+     "explanation_zh": "admittance to 意为入场许可、录取，名词作 for 的宾语。",
+     "explanation": "'Admittance to' a university means being allowed to enter; a noun is needed after 'for'."
+    },
+    {
+     "n": 4,
+     "prompt": "My dad is ____ and decides to devote his leisure time and energies to his passion: painting.",
+     "answer": "retired",
+     "answer_source": "derived",
+     "explanation_zh": "retired 形容词，表示已退休。",
+     "explanation": "'Retired' is the adjective describing the father's status and matches the present tense 'decides'."
+    },
+    {
+     "n": 5,
+     "prompt": "Too much ____ on teachers telling them what to do next might hinder the development of children’s independent thinking.",
+     "answer": "reliance",
+     "answer_source": "derived",
+     "explanation_zh": "reliance on 意为依赖，名词作 much 之后的宾语。",
+     "explanation": "'Reliance on' is the noun form of 'rely', following 'too much' and preceding 'on teachers'."
+    },
+    {
+     "n": 6,
+     "prompt": "Investors need ____ that the risk taken by the company is acceptable to them.",
+     "answer": "assurance",
+     "answer_source": "derived",
+     "explanation_zh": "need assurance that 意为需要确信/保证。",
+     "explanation": "'Assurance that' means a guarantee or certainty, the noun required after 'need'."
+    },
+    {
+     "n": 7,
+     "prompt": "The careless ____ of trees could cause economic damage through degradation of the soil.",
+     "answer": "clearance",
+     "answer_source": "derived",
+     "explanation_zh": "clearance of trees 意为砍伐、清除树木。",
+     "explanation": "'Clearance of trees' is the noun for removing them and serves as subject of 'could cause'."
+    }
+   ]
+  },
+  {
+   "id": "u01_a_banked_cloze",
+   "section": "section_a",
+   "kind": "banked_cloze",
+   "instructions": "Fill in the blanks by selecting suitable words from the word bank. You may not use any of the words more than once.",
+   "bank": [
+    "mutual",
+    "diminishes",
+    "anticipate",
+    "furnishes",
+    "obsession",
+    "approval",
+    "immersed",
+    "attain",
+    "removal",
+    "concentrate",
+    "scenario",
+    "maintain",
+    "continual",
+    "succession",
+    "lure"
+   ],
+   "passage": "Through online interactions, young people can share ideas, acquire information, and be exposed to many opportunities out there. Social media gives them the avenue to make new friends and allows them to {{1}} contact with their old friends. However, too much social media also leads to addiction. We are quite familiar with the {{2}} of people sitting next to each other, not talking, but just staring at their phones. Young people are more likely to be {{3}} in social media rather than spend time with their families and friends. They may check their social media accounts first thing in the morning and check social media updates last thing before going to sleep. With too many distractions, they cannot fully {{4}} on their tasks. Social media also leads to {{5}}. Some people are crazy about likes and comments and they will do anything to get them on a daily basis. Everything they do, they want to post on social media to get some form of {{6}} from strangers. They work tirelessly to buy the latest clothes, eat expensive meals, and visit unusual places, just for a show. They even do things that they would never do in real life just to impress people. Since they cannot get the same popularity in real life as they do in social media, they yield to the {{7}} of social networks. However, many of them live in {{8}} fear of being less popular. Everything falls apart when their popularity really {{9}}, and they may even get into serious psychological problems. The creators of social networks perhaps did not {{10}} that their creations would bring these problems. Doing away with social media may not be practical, but some form of regulation should be put into place to ensure that people can really benefit from the technology.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Blank 1",
+     "answer": "maintain",
+     "answer_source": "derived",
+     "explanation_zh": "allow sb. to maintain contact 意为保持联系。",
+     "explanation": "'Maintain contact' is the collocation; the base form follows 'allows them to'."
+    },
+    {
+     "n": 2,
+     "prompt": "Blank 2",
+     "answer": "scenario",
+     "answer_source": "derived",
+     "explanation_zh": "the scenario of people sitting next to each other 意为……这样的情景。",
+     "explanation": "'The scenario of people sitting next to each other, not talking' is the familiar scene the sentence describes."
+    },
+    {
+     "n": 3,
+     "prompt": "Blank 3",
+     "answer": "immersed",
+     "answer_source": "derived",
+     "explanation_zh": "be immersed in 意为专注于、沉浸于。",
+     "explanation": "'Be immersed in' takes the past participle after 'be' and matches the given 'in social media'."
+    },
+    {
+     "n": 4,
+     "prompt": "Blank 4",
+     "answer": "concentrate",
+     "answer_source": "derived",
+     "explanation_zh": "concentrate on 意为专注于。",
+     "explanation": "'Concentrate on' is the fixed verb plus preposition for focusing on tasks; base form after 'cannot'."
+    },
+    {
+     "n": 5,
+     "prompt": "Blank 5",
+     "answer": "obsession",
+     "answer_source": "derived",
+     "explanation_zh": "leads to obsession 意为导致痴迷。",
+     "explanation": "'Lead to obsession' names compulsive preoccupation and parallels 'addiction' earlier in the passage."
+    },
+    {
+     "n": 6,
+     "prompt": "Blank 6",
+     "answer": "approval",
+     "answer_source": "derived",
+     "explanation_zh": "get some form of approval 意为得到某种认可。",
+     "explanation": "'Get some form of approval' fits the likes and comments that strangers give online."
+    },
+    {
+     "n": 7,
+     "prompt": "Blank 7",
+     "answer": "lure",
+     "answer_source": "derived",
+     "explanation_zh": "yield to the lure of 意为屈从于……的诱惑。",
+     "explanation": "'Yield to the lure of social networks': the noun means attraction or temptation, following 'the'."
+    },
+    {
+     "n": 8,
+     "prompt": "Blank 8",
+     "answer": "continual",
+     "answer_source": "derived",
+     "explanation_zh": "live in continual fear 意为生活在持续的恐惧中。",
+     "explanation": "'Live in continual fear' needs the adjective meaning ongoing and repeated before 'fear'."
+    },
+    {
+     "n": 9,
+     "prompt": "Blank 9",
+     "answer": "diminishes",
+     "answer_source": "derived",
+     "explanation_zh": "主语 popularity 为单数第三人称，用动词 diminish 的第三人称单数。",
+     "explanation": "The subject 'popularity' is singular, so the present-tense verb takes -s: 'diminishes'."
+    },
+    {
+     "n": 10,
+     "prompt": "Blank 10",
+     "answer": "anticipate",
+     "answer_source": "derived",
+     "explanation_zh": "did not anticipate that 意为没有预料到。",
+     "explanation": "'Did not anticipate that' means did not expect; the base form follows 'did not'."
+    }
+   ]
+  },
+  {
+   "id": "u01_a_expressions_in_use",
+   "section": "section_a",
+   "kind": "expressions_in_use",
+   "instructions": "Fill in the blanks with the expressions given below. Change the form where necessary. Each expression can be used only once.",
+   "bank": [
+    "add up to",
+    "dumb...down",
+    "make room for",
+    "in the company of",
+    "lay...out",
+    "pick...up",
+    "plunge into",
+    "wipe...out"
+   ],
+   "items": [
+    {
+     "n": 1,
+     "prompt": "The cheerful guy who wore virtual reality glasses ____ the virtual world.",
+     "answer": "plunged into",
+     "answer_source": "derived",
+     "explanation_zh": "plunge into 意为投身于，句子为过去时。",
+     "explanation": "'Plunge into' means to throw oneself into; the past tense 'plunged' matches the narrative."
+    },
+    {
+     "n": 2,
+     "prompt": "It has been the tradition in China that elderly people live in a familiar environment, preferably ____ their children.",
+     "answer": "in the company of",
+     "answer_source": "derived",
+     "explanation_zh": "in the company of 意为与……在一起。",
+     "explanation": "'In the company of their children' is the phrase meaning together with them."
+    },
+    {
+     "n": 3,
+     "prompt": "Chinese isn’t a subject that can be ____ in a month, and you can’t accomplish your goal of mastering the language unless you work at it for years.",
+     "answer": "picked up",
+     "answer_source": "derived",
+     "explanation_zh": "pick up 意为学会（技能），此处为被动语态。",
+     "explanation": "Passive 'can be picked up': 'pick up' means to learn a skill gradually rather than by formal study."
+    },
+    {
+     "n": 4,
+     "prompt": "He ____ the map across the table and took another look at it.",
+     "answer": "laid out",
+     "answer_source": "derived",
+     "explanation_zh": "lay out 意为铺开、摊开，主语 He 为过去时。",
+     "explanation": "'Laid out the map across the table' uses the past tense of 'lay out', to spread something out."
+    },
+    {
+     "n": 5,
+     "prompt": "The live music, the wild dancing, and the amazing lights all ____ an exciting theatrical experience.",
+     "answer": "add up to",
+     "answer_source": "derived",
+     "explanation_zh": "add up to 意为总计为、结果是，主语 all 为复数，用原形。",
+     "explanation": "'Add up to' means to amount to; the plural subject 'all' takes the base form."
+    },
+    {
+     "n": 6,
+     "prompt": "Since space is limited, we sometimes have to say goodbye to old things in order to ____ new items.",
+     "answer": "make room for",
+     "answer_source": "derived",
+     "explanation_zh": "in order to 之后用动词原形，make room for 意为为……腾出空间。",
+     "explanation": "Bare infinitive after 'in order to'; 'make room for' means to create space for something."
+    },
+    {
+     "n": 7,
+     "prompt": "The magazine has a reputation for being very thorough, although critics claim that it has been ____ in recent years to cater to the mass market.",
+     "answer": "dumbed down",
+     "answer_source": "derived",
+     "explanation_zh": "dumb down 意为降低标准、使简单化（含贬义），此处用现在完成时的被动语态。",
+     "explanation": "Present perfect passive 'has been dumbed down': 'dumb down' means to simplify excessively for a mass market."
+    },
+    {
+     "n": 8,
+     "prompt": "This marks another historic step toward ____ the absolute poverty that has plagued the nation for centuries.",
+     "answer": "wiping out",
+     "answer_source": "derived",
+     "explanation_zh": "toward 为介词，后接动名词 wiping out，意为消灭。",
+     "explanation": "The preposition 'toward' takes the gerund 'wiping out', which means eliminating completely."
+    }
+   ]
+  },
+  {
+   "id": "u01_a_structure_writing",
+   "section": "section_a",
+   "kind": "structure_writing",
+   "instructions": "Structure analysis: Developing an argumentative essay. Structured writing: Read the sample essay and see how the essay is structured. Write an essay of no less than 140 words on one of the topics listed.",
+   "sample": "Topic: Is smart technology making us dumb?\nIntroduction: Controversial argument: Smart technology is damaging our cognitive abilities and making us dumb. Thesis statement: Smart technology is actually making us smarter.\nBody: Supporting point 1: Smart technology helps us become more knowledgeable. Supporting point 2: Smart technology helps us learn better. Supporting point 3: Smart technology helps us be more innovative. Refutation/Opposition: People worry that smart technology is making us dumb, but this is not true and not supported by scientific evidence.\nConclusion: Smart technology is changing our lives and benefiting us in positive ways.\nMore topics: Will AI (artificial intelligence) cause mass unemployment? Should parents monitor their children’s use of the Internet?",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Structure analysis: Using Paras. 7–11 of Text A as a mini argumentative essay, identify the introduction (controversial argument and thesis statement), the body (supporting points) and the conclusion (restated thesis and call for action).",
+     "answer": "Paragraph 7 works as the introduction: it raises the controversial claim that our 'sips' of connection add up to real conversation, then states the thesis that they cannot substitute for it. Paragraphs 8, 9 and 10 form the body, offering three supporting points: real conversation lets us know one another, it teaches patience, and it builds self-reflection. Paragraph 11 is the conclusion, restating the thesis as 'I am a partisan for conversation' and calling for action through sacred spaces, device-free cars and conversational Thursdays.",
+     "answer_source": "draft",
+     "explanation": "Structure analysis: map Paras. 7-11 onto the sample's introduction, body and conclusion by following the author's own signposts.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "Write an essay of no less than 140 words on one of the topics above, following the outline given in the sample.",
+     "answer": "My topic is whether AI will cause mass unemployment: many people assume that artificial intelligence will soon put millions of people out of work, and the fear behind that assumption is understandable, but I believe AI will change jobs rather than abolish them. Historically, machines have taken over routine tasks while creating new roles around them, and AI looks set to follow the same pattern, since it removes dull, repetitive work and frees people for judgement, care and creativity. Some jobs will certainly disappear, so the real challenge is helping workers retrain fast enough rather than trying to stop the technology, and that is where governments and companies must act together. With sensible policies and steady investment in education, AI can make us more productive instead of idle, and the public debate should be about sharing its gains fairly rather than about a jobless future.",
+     "answer_source": "draft",
+     "explanation": "Essay task: choose one topic and follow the sample's introduction, body, refutation and conclusion outline in at least 140 words.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u01_b_reading_skills",
+   "section": "section_b",
+   "kind": "reading_skills",
+   "instructions": "Reading skills: Following the structure of a text. As you read Text B for the first time, try to figure out its text structure after reading the first several paragraphs with the help of the signal words you have spotted. Then read the whole text and draw a graphic organizer of it.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Draw a graphic organizer of Text B showing its text structure, then compare it with your partner’s to see whether you understand the author’s writing purpose in the same way.",
+     "answer": "Text B is organized by domain rather than by chronology. Paragraph 1 states the thesis that digital technology has changed almost every part of life, and paragraphs 2 to 8 then take one area each: school, children, home, workplace, leisure, personal business and social life, often signalled by 'To start with', 'Likewise', 'Furthermore' and 'Then how about'. Paragraph 9 concludes that the revolution shows no sign of slowing down and asks whether we are ready. So the author's purpose is to convince us that the change is total and ongoing rather than to argue for or against it.",
+     "answer_source": "draft",
+     "explanation": "Reading skill: build the organizer from Text B's signposts, 'To start with', 'Likewise', 'Furthermore' and 'Then how about', before judging its purpose.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u01_b_understanding",
+   "section": "section_b",
+   "kind": "text_b_mcq",
+   "instructions": "Choose the best answer to each of the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "What is ironic about digital technology as mentioned in Para. 1?",
+     "options": [
+      "It develops very fast but people can keep up with it easily.",
+      "Some population groups get addicted to it while others are fed up with it.",
+      "It has invaded everything in our lives but we are not always aware of its impact.",
+      "Many people cannot live without it but deny that it has reshaped their lives."
+     ],
+     "answer": 2,
+     "answer_source": "derived",
+     "explanation_zh": "第1段指出技术已渗入生活的方方面面，但人们往往意识不到其影响，这正是讽刺之处。",
+     "explanation": "Para. 1 calls the change 'subliminal' yet 'bold': technology pervades our lives while we barely notice its impact."
+    },
+    {
+     "n": 2,
+     "prompt": "Why may children not have to carry printed books in the future?",
+     "options": [
+      "Children may use tablets to read e-books.",
+      "Children may become used to studying at home.",
+      "Children may be provided with interactive whiteboards in the classroom.",
+      "Children may leave their books in the classroom rather than bring them home."
+     ],
+     "answer": 0,
+     "answer_source": "derived",
+     "explanation_zh": "第2段提到孩子们开始用平板电脑阅读电子书，所以未来可能不必背印刷书。",
+     "explanation": "Para. 2 says printed books will be 'a distant memory' because children now read e-books on tablets."
+    },
+    {
+     "n": 3,
+     "prompt": "Which of the following is not true about children in the digital world?",
+     "options": [
+      "They cannot survive without technology.",
+      "They are incredibly good at using electronic devices.",
+      "They can keep up with the latest technological developments.",
+      "They play games on electronic devices as often as they play outside with their friends."
+     ],
+     "answer": 3,
+     "answer_source": "derived",
+     "explanation_zh": "第3段原文是“比和朋友在外面玩得更频繁”，选项D说成“一样频繁”，与原文不符。",
+     "explanation": "Para. 3 says children play games online 'more often than' outside with friends, so 'as often as' is false."
+    },
+    {
+     "n": 4,
+     "prompt": "What changes does digital technology bring to the modern family?",
+     "options": [
+      "The modern family is much busier.",
+      "People enjoy the convenience of ready-made food.",
+      "Cooking becomes easy and enjoyable to many people.",
+      "Siblings often battle for their choices of TV programs."
+     ],
+     "answer": 2,
+     "answer_source": "derived",
+     "explanation_zh": "第4段指出借助各种烹饪应用和视频，烹饪变得容易且令人愉快，是技术带来的变化。",
+     "explanation": "Para. 4 says cooking is now 'easy and a lot quicker' thanks to cooking apps, online recipes and how-to-cook videos."
+    },
+    {
+     "n": 5,
+     "prompt": "Why do more companies encourage working from home?",
+     "options": [
+      "It is an effective way to cut costs.",
+      "Employees don’t need constant monitoring.",
+      "Employees can work more efficiently at home.",
+      "More companies are located far from the city center."
+     ],
+     "answer": 1,
+     "answer_source": "derived",
+     "explanation_zh": "第5段指出员工无需全天候监控即可完成日常工作，因此公司鼓励在家办公。",
+     "explanation": "Para. 5: employers encourage home working because employees 'do not require round-the-clock monitoring' to finish daily tasks."
+    },
+    {
+     "n": 6,
+     "prompt": "What changes does digital technology bring to the leisure domain?",
+     "options": [
+      "People prefer going to Internet-famous places.",
+      "People prefer watching shows online to traveling.",
+      "People become more discerning when booking their holidays.",
+      "People search the Web for what to do once they arrive at their destination."
+     ],
+     "answer": 2,
+     "answer_source": "derived",
+     "explanation_zh": "第6段指出得益于网络预订和点评，人们在订假期时变得更有眼光。",
+     "explanation": "Para. 6: online booking sites and reviews make people 'a lot more discerning' when booking holidays."
+    },
+    {
+     "n": 7,
+     "prompt": "What changes does technology bring to our social life?",
+     "options": [
+      "People are more willing to make new friends.",
+      "People value face-to-face conversation more.",
+      "People have learned to keep up with so many social platforms.",
+      "People find it simply impossible to avoid social interactions."
+     ],
+     "answer": 3,
+     "answer_source": "derived",
+     "explanation_zh": "第8段提到即使想回避社交的人也发现几乎不可能避开，故选D。",
+     "explanation": "Para. 8: even those who 'desperately tried to evade all things social' find it 'simply impossible to avoid'."
+    },
+    {
+     "n": 8,
+     "prompt": "According to the author, what will happen as a result of the digital revolution?",
+     "options": [
+      "The pace of life will be much faster.",
+      "Human relationships will be enriched.",
+      "Our civilization will be changed little by little.",
+      "Our lives will continue to change in the future."
+     ],
+     "answer": 3,
+     "answer_source": "derived",
+     "explanation_zh": "第9段结尾指出数字革命将继续改变我们的生活，并在可预见的未来带来变革。",
+     "explanation": "Para. 9 ends by saying technology 'will continue to flourish' and transform how we live 'in the foreseeable future'."
+    }
+   ]
+  },
+  {
+   "id": "u01_b_critical",
+   "section": "section_b",
+   "kind": "critical",
+   "instructions": "Work in pairs and discuss the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Do you prefer reading an e-book or a printed book? Why?",
+     "answer": "I still prefer printed books for anything I need to study. A paper page lets me annotate, flip back and remember where an idea sat, whereas on a screen I skim and forget. For travel or light reading, though, e-books win on convenience, since my whole library fits in a tablet. So my answer depends on the purpose rather than on principle.",
+     "answer_source": "draft",
+     "explanation": "Open preference question: state a choice and justify it, drawing on Text B's account of tablets and e-books.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "Apart from what has been mentioned in the text, can you provide other evidence that digital technology has changed our lives in almost every way possible?",
+     "answer": "Healthcare is an obvious one: patients now book appointments, read test results and consult doctors through apps instead of queueing at a hospital. Money is another, since in China a phone replaces cash, cards and even the wallet, as Text C shows. Transport has changed too: ride-hailing and shared bikes mean we rarely hail a taxi in the street. Each example follows the text's pattern, a daily routine quietly rebuilt around a screen.",
+     "answer_source": "draft",
+     "explanation": "Open question: add one or two examples beyond the school, home, work, leisure and social domains covered in Paras. 2-8.",
+     "needs_review": true
+    },
+    {
+     "n": 3,
+     "prompt": "How can we prepare ourselves for living in the digital world?",
+     "answer": "We need both skills and limits. The skills are critical ones: checking sources, protecting privacy, and judging when a tool is actually helping us. The limits are personal rules such as device-free meals or a weekly offline day, so that technology stays a choice rather than a reflex. Schools and families should model this balance instead of simply banning screens.",
+     "answer_source": "draft",
+     "explanation": "Open question: turn the texts' warnings into practical habits, as Text A's final paragraph recommends.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u01_b_collocation",
+   "section": "section_b",
+   "kind": "collocation",
+   "instructions": "Complete the following passage by filling in the blanks with appropriate collocations from the texts. You are provided with the first letter(s) for each of the collocations. Change the form where necessary.",
+   "passage": "How often have you seen a couple at a restaurant absorbed in their phones instead of talking with each other? Most of us may agree that this occurs all too frequently. It seems that in-person connection has become less valuable than the digital one, which has {{1}} in the eyes of young people. Ironically, it is precisely our need for constant in-person interaction that plays an {{2}} in fueling digital interaction. However, digital and in-person interactions are definitely not interchangeable. On the one hand, we love technology - most of us could never be without our smartphones. On the other hand, we are wired to love real and physical interaction, for the joy of {{3}} with someone face-to-face. Face-to-face interaction is not a {{4}} in any sense. However, nowadays we seem to prefer digital interaction to face-to-face conversation. We would like to have better relationships with our colleagues, but when faced with a choice between dropping by their office and shooting them an email, many of us may have {{5}} for the former. As a consequence, we have {{6}} for deeper communication. We are sacrificing in-person conversation for digital interaction. Indeed, the {{7}} of digital technology in recent years has brought about {{8}} to what we do and who we are, and has {{9}} our ways of interaction. How can we break the spell? If the march of digital interaction is inevitable in today’s {{10}}, breaking the spell means not simply avoiding digital interaction but knowing when digital or in-person interaction is the right way to communicate, and how to {{11}} digital communication when face-to-face conversation would be better, although it often {{12}}. We believe this can help deal with the problem in the {{13}}. Without a doubt, some types of communication are better on our mobile devices. For example, we can discuss where to meet and how to get there. But when we use the same technology for more complex matters, it fails us. Deep communication through conversation in person may work better in this case.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Blank 1 (first letters: es…, cre…)",
+     "answer": "established its credibility",
+     "answer_source": "derived",
+     "explanation_zh": "establish credibility 意为建立信誉，与 which has 搭配用现在完成时。",
+     "explanation": "Parsing the sentence: 'which has established its credibility' needs the present perfect of 'establish credibility'."
+    },
+    {
+     "n": 2,
+     "prompt": "Blank 2 (first letter: e…)",
+     "answer": "essential part",
+     "answer_source": "derived",
+     "explanation_zh": "play an essential part in 意为在……中起重要作用。",
+     "explanation": "'Play an essential part in' is the fixed phrase, and the article 'an' is already given."
+    },
+    {
+     "n": 3,
+     "prompt": "Blank 3 (first letters: shi…)",
+     "answer": "sharing viewpoints",
+     "answer_source": "derived",
+     "explanation_zh": "share viewpoints 意为分享观点，此处为动名词形式作 for the joy of 的宾语。",
+     "explanation": "A gerund is needed after the preposition 'of': 'the joy of sharing viewpoints'."
+    },
+    {
+     "n": 4,
+     "prompt": "Blank 4 (first letters: de…, il…)",
+     "answer": "deceptive illusion",
+     "answer_source": "derived",
+     "explanation_zh": "a deceptive illusion 意为具有欺骗性的幻觉（见 Text A 第7段）。",
+     "explanation": "'A deceptive illusion' echoes Text A Para. 6, which calls online connection exactly that."
+    },
+    {
+     "n": 5,
+     "prompt": "Blank 5 (first letter: fir…)",
+     "answer": "a firm preference",
+     "answer_source": "derived",
+     "explanation_zh": "have a firm preference for 意为对……有明确偏好。",
+     "explanation": "'Have a firm preference for' supplies the noun object and matches the given preposition 'for'."
+    },
+    {
+     "n": 6,
+     "prompt": "Blank 6 (first letters: li…, mo…)",
+     "answer": "little motivation",
+     "answer_source": "derived",
+     "explanation_zh": "have little motivation for 意为对……动力不足（Text A 第10段）。",
+     "explanation": "'Have little motivation for' is Text A Para. 10's phrase for lacking the drive to act."
+    },
+    {
+     "n": 7,
+     "prompt": "Blank 7 (first letters: wide…)",
+     "answer": "widespread use",
+     "answer_source": "derived",
+     "explanation_zh": "widespread use of 意为……的广泛使用，名词短语作主语。",
+     "explanation": "'The widespread use of digital technology' is the noun phrase serving as subject of 'has brought about'."
+    },
+    {
+     "n": 8,
+     "prompt": "Blank 8 (first letters: dra…, cha…)",
+     "answer": "dramatic changes",
+     "answer_source": "derived",
+     "explanation_zh": "bring about dramatic changes 意为带来巨大变化。",
+     "explanation": "'Bring about dramatic changes to' requires the plural noun object matching 'changes to what we do'."
+    },
+    {
+     "n": 9,
+     "prompt": "Blank 9 (first letters: com…)",
+     "answer": "completely altered",
+     "answer_source": "derived",
+     "explanation_zh": "has completely altered 意为彻底改变了，现在完成时。",
+     "explanation": "'Has completely altered' uses the present perfect, parallel with 'has brought about' in the same sentence."
+    },
+    {
+     "n": 10,
+     "prompt": "Blank 10 (first letters: hec…)",
+     "answer": "hectic life",
+     "answer_source": "derived",
+     "explanation_zh": "hectic life 意为繁忙的生活。",
+     "explanation": "'In today's hectic life' needs the adjective meaning busy and rushed before 'life'."
+    },
+    {
+     "n": 11,
+     "prompt": "Blank 11 (first letter: re…)",
+     "answer": "restrict the use of",
+     "answer_source": "derived",
+     "explanation_zh": "restrict the use of 意为限制……的使用，不定式 how to 后接动词原形。",
+     "explanation": "'How to restrict the use of' takes the base form after 'how to' and means to limit."
+    },
+    {
+     "n": 12,
+     "prompt": "Blank 12 (first letters: un…)",
+     "answer": "unfolds slowly",
+     "answer_source": "derived",
+     "explanation_zh": "unfold slowly 意为缓慢展开，与 although 从句的主语 it 搭配（Text A 第8段）。",
+     "explanation": "'Although it often unfolds slowly' borrows Text A Para. 9's verb for a conversation developing gradually."
+    },
+    {
+     "n": 13,
+     "prompt": "Blank 13 (first letters: fore…)",
+     "answer": "foreseeable future",
+     "answer_source": "derived",
+     "explanation_zh": "in the foreseeable future 意为在可预见的将来。",
+     "explanation": "'In the foreseeable future' is the fixed phrase for the predictable future, matching 'fore'."
+    }
+   ]
+  },
+  {
+   "id": "u01_c_translation",
+   "section": "section_c",
+   "kind": "translation",
+   "instructions": "Translate the following paragraph into English.",
+   "sample": "近年来，随着互联网技术的迅猛发展，互联网经济已成为一个热门话题。以电子商务为代表的互联网经济已成为中国经济发展的重要引擎（driving force）。我国政府提出了“互联网+”的概念，以推动互联网与医疗、交通、教育、金融、公共服务等领域的结合。这将为互联网经济的发展提供更多发展机遇和更广阔的发展空间。",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "近年来，随着互联网技术的迅猛发展，互联网经济已成为一个热门话题。以电子商务为代表的互联网经济已成为中国经济发展的重要引擎（driving force）。我国政府提出了“互联网+”的概念，以推动互联网与医疗、交通、教育、金融、公共服务等领域的结合。这将为互联网经济的发展提供更多发展机遇和更广阔的发展空间。",
+     "answer": "In recent years, with the rapid development of Internet technology, the Internet economy has become a hot topic. Represented by e-commerce, the Internet economy has become an important driving force for China’s economic development. The Chinese government has put forward the concept of “Internet Plus” to promote the integration of the Internet with healthcare, transportation, education, finance, public services and other fields. This will provide more development opportunities and broader room for the development of the Internet economy.",
+     "answer_source": "derived",
+     "explanation_zh": "译文要点：“迅猛发展”用 rapid development；“热门话题”用 a hot topic；“重要引擎”用 important driving force；“互联网+”保留引号与概念表述。",
+     "explanation": "Key renderings: 'with the rapid development of', 'a hot topic', 'an important driving force', 'put forward the concept of Internet Plus', 'integration with', 'broader room for development'."
+    }
+   ]
+  }
+ ]
+}

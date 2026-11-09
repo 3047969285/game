@@ -1,0 +1,41 @@
+{
+ "kit": "payment_sign",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_payment_sign.fbx",
+ "triangles": 2848,
+ "size_m": [
+  0.5,
+  0.02,
+  0.35
+ ],
+ "dims_target_m": [
+  0.5,
+  0.02,
+  0.35
+ ],
+ "slots": [
+  {
+   "slot": "acrylic",
+   "material": "M_acrylic",
+   "BaseColor": "T_payment_sign_acrylic_BaseColor.png",
+   "Normal": "T_payment_sign_acrylic_Normal.png",
+   "ARM": "T_payment_sign_acrylic_ARM.png"
+  },
+  {
+   "slot": "face",
+   "material": "M_face",
+   "BaseColor": "T_payment_sign_face_BaseColor.png",
+   "Normal": "T_payment_sign_face_Normal.png",
+   "ARM": "T_payment_sign_face_ARM.png"
+  },
+  {
+   "slot": "metal",
+   "material": "M_metal",
+   "BaseColor": "T_payment_sign_metal_BaseColor.png",
+   "Normal": "T_payment_sign_metal_Normal.png",
+   "ARM": "T_payment_sign_metal_ARM.png"
+  }
+ ],
+ "texture_res": 512,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "checkout 'PAY HERE' sign; printed face +Y"
+}

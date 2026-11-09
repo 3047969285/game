@@ -1,0 +1,25 @@
+{
+ "kit": "arch_box",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_arch_box.fbx",
+ "triangles": 20412,
+ "size_m": [
+  1.0,
+  1.0,
+  1.0
+ ],
+ "dims_target_m": [
+  1.0,
+  1.0,
+  1.0
+ ],
+ "slots": [
+  {
+   "slot": "arch",
+   "material": "M_arch",
+   "Material": "/Game/Memory/Materials/Arch/MI_Arch_plaster"
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "unit box for fit:size architecture kits"
+}

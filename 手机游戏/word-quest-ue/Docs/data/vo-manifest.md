@@ -67,3 +67,7 @@
 - `line_id` 唯一；`speaker` 全部在角色表 + `tts_reader/narrator/system` 集合内
 - `text`/`context` 非空；`est_seconds > 0`；`language == en`
 - 条数与 `vo_summary.json` 一致（441）；6 个单元都有课文朗读行
+
+## 2026-11-09：静默转场与尾声
+
+产品需求：配音清单只包含实际要朗读的文本；有旁白的尾声保留原文与对应角色，纯画面冻结不生成空配音条目。接口：`Tools/data_vo_manifest.py` 的 `collect` 从 `freeze.epilogue` 取文本与中文说明，并将 `voice=old` 映射为 `old2090`；没有文本的静默转场跳过。测试：重新生成后共 424 条，`python3 Tools/data_vo_manifest.py --check` 通过；完整工具测试结果另见 `Docs/tasks/STATUS.md`。

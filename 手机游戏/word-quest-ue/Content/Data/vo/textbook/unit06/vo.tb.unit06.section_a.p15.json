@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit06.section_a.p15",
+ "unit": 6,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Sue's motel room was depressing. Lining the shelves underneath the television were her food supplies: rice and noodles that she mixed with water in the motel's ice bucket and heated up in a microwave, peanut butter and jelly, a loaf of white bread—the subsistence of a desperate person. Sue's days were spent surfing Internet job indexes and applying for jobs where the silent “No,” “No,” “No” led to a feeling of helplessness.",
+ "rate": 165,
+ "duration": 23.404,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 2.093,
+   "text": "Sue's motel room was depressing."
+  },
+  {
+   "i": 1,
+   "start": 2.093,
+   "end": 15.483,
+   "text": "Lining the shelves underneath the television were her food supplies: rice and noodles that she mixed with water in the motel's ice bucket and heated up in a microwave, peanut butter and jelly, a loaf of white bread—the subsistence of a desperate person."
+  },
+  {
+   "i": 2,
+   "start": 15.483,
+   "end": 23.404,
+   "text": "Sue's days were spent surfing Internet job indexes and applying for jobs where the silent “No,” “No,” “No” led to a feeling of helplessness."
+  }
+ ]
+}

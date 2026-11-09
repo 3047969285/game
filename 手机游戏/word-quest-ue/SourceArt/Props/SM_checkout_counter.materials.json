@@ -1,0 +1,55 @@
+{
+ "kit": "checkout_counter",
+ "dims_m": [
+  1.8,
+  0.68,
+  0.95
+ ],
+ "materials": {
+  "M_counter_body": {
+   "color": "#3D4A5C",
+   "roughness": 0.6,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_counter_top": {
+   "color": "#E6E2D8",
+   "roughness": 0.35,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_belt_rubber": {
+   "color": "#22262D",
+   "roughness": 0.8,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_rail_metal": {
+   "color": "#B8C0C8",
+   "roughness": 0.25,
+   "metallic": 1.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_pos_screen": {
+   "color": "#0E1E2E",
+   "roughness": 0.2,
+   "metallic": 0.0,
+   "emission": "#3EA8FF",
+   "emission_strength": 0.8,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

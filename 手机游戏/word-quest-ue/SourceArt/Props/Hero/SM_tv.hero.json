@@ -1,0 +1,61 @@
+{
+ "kit": "tv",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_tv.fbx",
+ "triangles": 3042,
+ "size_m": [
+  1.105,
+  0.0746,
+  0.645
+ ],
+ "dims_target_m": [
+  1.1,
+  0.08,
+  0.65
+ ],
+ "slots": [
+  {
+   "slot": "bezel",
+   "material": "M_bezel",
+   "BaseColor": "T_tv_bezel_BaseColor.png",
+   "Normal": "T_tv_bezel_Normal.png",
+   "ARM": "T_tv_bezel_ARM.png"
+  },
+  {
+   "slot": "screen",
+   "material": "M_screen",
+   "Emissive": "tv_documentary.png",
+   "strength": 1.6
+  },
+  {
+   "slot": "chin",
+   "material": "M_chin",
+   "BaseColor": "T_tv_chin_BaseColor.png",
+   "Normal": "T_tv_chin_Normal.png",
+   "ARM": "T_tv_chin_ARM.png"
+  },
+  {
+   "slot": "led",
+   "material": "M_led",
+   "BaseColor": "T_tv_led_BaseColor.png",
+   "Normal": "T_tv_led_Normal.png",
+   "ARM": "T_tv_led_ARM.png"
+  },
+  {
+   "slot": "housing",
+   "material": "M_housing",
+   "BaseColor": "T_tv_housing_BaseColor.png",
+   "Normal": "T_tv_housing_Normal.png",
+   "ARM": "T_tv_housing_ARM.png"
+  },
+  {
+   "slot": "mount",
+   "material": "M_mount",
+   "BaseColor": "T_tv_mount_BaseColor.png",
+   "Normal": "T_tv_mount_Normal.png",
+   "ARM": "T_tv_mount_ARM.png"
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "front toward +Y, back plate on the wall at y = 0, bottom at z = 0"
+}

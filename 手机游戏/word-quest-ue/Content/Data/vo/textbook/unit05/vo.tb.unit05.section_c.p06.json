@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit05.section_c.p06",
+ "unit": 5,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "The Chinese endeavor is not a zero-sum game; China invites all countries to participate in its projects as a peaceful initiative and to help shape humanity's future. China will pursue the path of peaceful development in space with a view to the moon, Mars, and beyond.",
+ "rate": 165,
+ "duration": 21.509,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 13.579,
+   "text": "The Chinese endeavor is not a zero-sum game; China invites all countries to participate in its projects as a peaceful initiative and to help shape humanity's future."
+  },
+  {
+   "i": 1,
+   "start": 13.579,
+   "end": 21.509,
+   "text": "China will pursue the path of peaceful development in space with a view to the moon, Mars, and beyond."
+  }
+ ]
+}

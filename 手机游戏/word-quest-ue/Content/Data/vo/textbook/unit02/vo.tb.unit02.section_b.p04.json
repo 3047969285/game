@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit02.section_b.p04",
+ "unit": 2,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "The little girl who would become one of the world's most magical actresses began as an anonymous refugee confronting life's horrors and fragility firsthand. She refused to allow her spirit to be afflicted by the desperate reality of her childhood. Instead, she transcended those challenges but never forgot what it felt like to suffer, to be hungry, alone, and helpless.",
+ "rate": 165,
+ "duration": 21.351,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 8.461,
+   "text": "The little girl who would become one of the world's most magical actresses began as an anonymous refugee confronting life's horrors and fragility firsthand."
+  },
+  {
+   "i": 1,
+   "start": 8.461,
+   "end": 13.406,
+   "text": "She refused to allow her spirit to be afflicted by the desperate reality of her childhood."
+  },
+  {
+   "i": 2,
+   "start": 13.406,
+   "end": 21.351,
+   "text": "Instead, she transcended those challenges but never forgot what it felt like to suffer, to be hungry, alone, and helpless."
+  }
+ ]
+}

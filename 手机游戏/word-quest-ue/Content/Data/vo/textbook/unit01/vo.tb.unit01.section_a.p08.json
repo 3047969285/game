@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit01.section_a.p08",
+ "unit": 1,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Yes, connecting in sips may work for gathering discrete bits of information, or for saying “I am thinking about you”, or even for saying “I love you”, but it's far from the adequacy of communication when it comes to understanding and knowing one another. Real conversation, on the other hand, is a more informative process, in which we're more caring and observant. We hesitate and pause and go silent, and we reveal ourselves to one another through tones and nuances.",
+ "rate": 165,
+ "duration": 26.009,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 13.774,
+   "text": "Yes, connecting in sips may work for gathering discrete bits of information, or for saying “I am thinking about you”, or even for saying “I love you”, but it's far from the adequacy of communication when it comes to understanding and knowing one another."
+  },
+  {
+   "i": 1,
+   "start": 13.774,
+   "end": 20.375,
+   "text": "Real conversation, on the other hand, is a more informative process, in which we're more caring and observant."
+  },
+  {
+   "i": 2,
+   "start": 20.375,
+   "end": 26.009,
+   "text": "We hesitate and pause and go silent, and we reveal ourselves to one another through tones and nuances."
+  }
+ ]
+}

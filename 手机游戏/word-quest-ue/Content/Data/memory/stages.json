@@ -1,0 +1,4306 @@
+{
+ "schema": "wordquest.memory.scenes/1",
+ "stages": {
+  "archiveExhibit": {
+   "name": "archiveExhibit",
+   "targets": {
+    "ceiling": "fade",
+    "floor": "rise",
+    "wall_back": "rise",
+    "wall_left": "rise",
+    "wall_right": "rise",
+    "wall_front": "rise",
+    "window": "fade",
+    "table": "rise",
+    "chairs": "rise",
+    "shelf": "rise",
+    "display_case_a": "condense",
+    "display_case_b": "condense",
+    "panels": "fade",
+    "timeline": "fade",
+    "screen": "fade",
+    "projector": "condense",
+    "bench": "rise",
+    "spotlight": "fade",
+    "plaque": "fade",
+    "crates": "rise",
+    "rug": "rise"
+   },
+   "bounds": {
+    "minX": -4.4,
+    "maxX": 4.4,
+    "minZ": -3.2,
+    "maxZ": 3.4
+   },
+   "cameraBounds": {
+    "minX": -4.6,
+    "maxX": 4.6,
+    "minZ": -3.4,
+    "maxZ": 7.5
+   },
+   "spawn": {
+    "x": 0.3,
+    "y": 0,
+    "z": 2.4,
+    "yaw": 3.141592653589793
+   },
+   "slots": {
+    "table": [
+     {
+      "x": -0.8,
+      "y": 0.78,
+      "z": -0.9
+     },
+     {
+      "x": -0.2,
+      "y": 0.78,
+      "z": -0.9
+     },
+     {
+      "x": 0.4,
+      "y": 0.78,
+      "z": -0.9
+     },
+     {
+      "x": 1,
+      "y": 0.78,
+      "z": -0.9
+     },
+     {
+      "x": -3.1,
+      "y": 1.08,
+      "z": -0.9
+     },
+     {
+      "x": 3.1,
+      "y": 1.08,
+      "z": -0.9
+     },
+     {
+      "x": 0.3,
+      "y": 0.5,
+      "z": 2
+     }
+    ],
+    "hover": [
+     {
+      "x": -2.6,
+      "y": 1.5,
+      "z": -1.5
+     },
+     {
+      "x": 2.6,
+      "y": 1.5,
+      "z": -1.5
+     },
+     {
+      "x": -1.4,
+      "y": 1.2,
+      "z": 0.6
+     },
+     {
+      "x": 1.4,
+      "y": 1.2,
+      "z": 0.6
+     },
+     {
+      "x": 0,
+      "y": 2,
+      "z": -1.2
+     }
+    ],
+    "floor": [
+     {
+      "x": -2.6,
+      "y": 0,
+      "z": 1.6
+     },
+     {
+      "x": 2.4,
+      "y": 0,
+      "z": 1.5
+     }
+    ]
+   },
+   "shots": [
+    {
+     "from": {
+      "x": 0.2,
+      "y": 1.7,
+      "z": 3.2
+     },
+     "to": {
+      "x": 0.4,
+      "y": 1.6,
+      "z": 2.4
+     },
+     "look": {
+      "x": 0,
+      "y": 1.2,
+      "z": -2
+     },
+     "duration": 9,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": -4,
+      "y": 1.6,
+      "z": 1.8
+     },
+     "to": {
+      "x": -3.2,
+      "y": 1.5,
+      "z": 1.2
+     },
+     "look": {
+      "x": 0.4,
+      "y": 1.1,
+      "z": -1.4
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 4,
+      "y": 1.6,
+      "z": 1.8
+     },
+     "to": {
+      "x": 3.2,
+      "y": 1.5,
+      "z": 1.2
+     },
+     "look": {
+      "x": -0.4,
+      "y": 1.1,
+      "z": -1.4
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 0,
+      "y": 1.5,
+      "z": 2.4
+     },
+     "to": {
+      "x": 0,
+      "y": 1.3,
+      "z": 1.2
+     },
+     "look": {
+      "x": 0,
+      "y": 1.1,
+      "z": -1.2
+     },
+     "duration": 8,
+     "move": "push",
+     "fov": 36
+    }
+   ],
+   "weather": {
+    "default": "clear",
+    "mode": "window",
+    "window": {
+     "x": 0,
+     "y": 1.9,
+     "z": -3.94,
+     "width": 3.6,
+     "height": 1.8
+    }
+   },
+   "environment": {
+    "fogColor": 1383716,
+    "fogDensity": 0.04,
+    "skyTop": 2767430,
+    "skyMid": 6057330,
+    "skyBot": 2304558,
+    "sunColor": 15266026,
+    "sunDir": {
+     "x": 0.2,
+     "y": 0.5,
+     "z": -0.8
+    },
+    "sunIntensity": 1.1,
+    "hemiSky": 9413800,
+    "hemiGround": 3817024,
+    "hemiIntensity": 0.9,
+    "envIntensity": 0.9,
+    "shadowRadius": 9
+   },
+   "targetNames": [
+    "ceiling",
+    "floor",
+    "wall_back",
+    "wall_left",
+    "wall_right",
+    "wall_front",
+    "window",
+    "table",
+    "chairs",
+    "shelf",
+    "display_case_a",
+    "display_case_b",
+    "panels",
+    "timeline",
+    "screen",
+    "projector",
+    "bench",
+    "spotlight",
+    "plaque",
+    "crates",
+    "rug"
+   ]
+  },
+  "astronautHall": {
+   "name": "astronautHall",
+   "targets": {
+    "ceiling": "fade",
+    "floor": "rise",
+    "wall_back": "rise",
+    "wall_left": "rise",
+    "wall_right": "rise",
+    "wall_front": "rise",
+    "window": "fade",
+    "table": "rise",
+    "chairs": "rise",
+    "capsule": "rise",
+    "suit": "condense",
+    "exercise_rig": "rise",
+    "procedure_board": "fade",
+    "helmet": "condense",
+    "sample_tray": "condense",
+    "spotlights": "fade",
+    "bench": "rise",
+    "rope": "fade",
+    "mission_patch": "fade"
+   },
+   "bounds": {
+    "minX": -4.4,
+    "maxX": 4.4,
+    "minZ": -3.2,
+    "maxZ": 3.4
+   },
+   "cameraBounds": {
+    "minX": -4.6,
+    "maxX": 4.6,
+    "minZ": -3.4,
+    "maxZ": 7.4
+   },
+   "spawn": {
+    "x": 0.2,
+    "y": 0,
+    "z": 2.8,
+    "yaw": 3.141592653589793
+   },
+   "slots": {
+    "table": [
+     {
+      "x": -0.8,
+      "y": 0.77,
+      "z": 0.4
+     },
+     {
+      "x": -0.2,
+      "y": 0.77,
+      "z": 0.4
+     },
+     {
+      "x": 0.4,
+      "y": 0.77,
+      "z": 0.4
+     },
+     {
+      "x": 1,
+      "y": 0.77,
+      "z": 0.4
+     },
+     {
+      "x": 1,
+      "y": 0.76,
+      "z": 0.5
+     },
+     {
+      "x": 0.4,
+      "y": 0.74,
+      "z": 0.4
+     }
+    ],
+    "hover": [
+     {
+      "x": -2.8,
+      "y": 1.8,
+      "z": -1.8
+     },
+     {
+      "x": 2.2,
+      "y": 2,
+      "z": -1.6
+     },
+     {
+      "x": -2,
+      "y": 1.3,
+      "z": 0.6
+     },
+     {
+      "x": 2,
+      "y": 1.3,
+      "z": 0.8
+     }
+    ],
+    "floor": [
+     {
+      "x": -1.8,
+      "y": 0,
+      "z": 2
+     },
+     {
+      "x": 2,
+      "y": 0,
+      "z": 2
+     }
+    ]
+   },
+   "shots": [
+    {
+     "from": {
+      "x": 0.2,
+      "y": 1.8,
+      "z": 3.4
+     },
+     "to": {
+      "x": 0.4,
+      "y": 1.7,
+      "z": 2.6
+     },
+     "look": {
+      "x": 0,
+      "y": 1.3,
+      "z": -1.8
+     },
+     "duration": 9,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": -3.8,
+      "y": 1.7,
+      "z": 1.8
+     },
+     "to": {
+      "x": -3.1,
+      "y": 1.6,
+      "z": 1.2
+     },
+     "look": {
+      "x": 1.2,
+      "y": 1.1,
+      "z": -1.6
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 3.8,
+      "y": 1.7,
+      "z": 1.8
+     },
+     "to": {
+      "x": 3.1,
+      "y": 1.6,
+      "z": 1.2
+     },
+     "look": {
+      "x": -1.2,
+      "y": 1.1,
+      "z": -1.6
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 0,
+      "y": 1.6,
+      "z": 2.8
+     },
+     "to": {
+      "x": -0.4,
+      "y": 1.4,
+      "z": 1.7
+     },
+     "look": {
+      "x": -0.8,
+      "y": 1.2,
+      "z": -1.4
+     },
+     "duration": 8,
+     "move": "push",
+     "fov": 38
+    }
+   ],
+   "weather": {
+    "default": "clear",
+    "mode": "window",
+    "window": {
+     "x": 0,
+     "y": 1.9,
+     "z": -3.94,
+     "width": 3.6,
+     "height": 1.9
+    }
+   },
+   "environment": {
+    "fogColor": 1382940,
+    "fogDensity": 0.045,
+    "skyTop": 2765880,
+    "skyMid": 6978168,
+    "skyBot": 2370092,
+    "sunColor": 15397096,
+    "sunDir": {
+     "x": 0.2,
+     "y": 0.55,
+     "z": -0.8
+    },
+    "sunIntensity": 1,
+    "hemiSky": 9085088,
+    "hemiGround": 2764848,
+    "hemiIntensity": 0.85,
+    "envIntensity": 0.85,
+    "shadowRadius": 9
+   },
+   "targetNames": [
+    "ceiling",
+    "floor",
+    "wall_back",
+    "wall_left",
+    "wall_right",
+    "wall_front",
+    "window",
+    "table",
+    "chairs",
+    "capsule",
+    "suit",
+    "exercise_rig",
+    "procedure_board",
+    "helmet",
+    "sample_tray",
+    "spotlights",
+    "bench",
+    "rope",
+    "mission_patch"
+   ]
+  },
+  "bedroomDawn": {
+   "name": "bedroomDawn",
+   "targets": {
+    "ceiling": "fade",
+    "floor": "rise",
+    "wall_back": "rise",
+    "wall_left": "rise",
+    "wall_right": "rise",
+    "wall_front": "rise",
+    "window": "fade",
+    "curtain": "fade",
+    "bed": "rise",
+    "nightstand": "rise",
+    "phone": "condense",
+    "desk": "rise",
+    "laptop": "condense",
+    "chair": "rise",
+    "shelf": "rise",
+    "poster": "fade",
+    "lamp": "fade",
+    "rug": "rise",
+    "skyline": "fade",
+    "light_glow": "fade",
+    "cable": "condense",
+    "clock": "condense"
+   },
+   "bounds": {
+    "minX": -3.65,
+    "maxX": 3.65,
+    "minZ": -2.95,
+    "maxZ": 3.15
+   },
+   "cameraBounds": {
+    "minX": -3.85,
+    "maxX": 3.85,
+    "minZ": -3.15,
+    "maxZ": 7.25
+   },
+   "spawn": {
+    "x": 0.4,
+    "y": 0,
+    "z": 2.2,
+    "yaw": 3.141592653589793
+   },
+   "slots": {
+    "table": [
+     {
+      "x": -1.25,
+      "y": 0.56,
+      "z": 0.45
+     },
+     {
+      "x": 1.75,
+      "y": 0.76,
+      "z": -2.15
+     },
+     {
+      "x": 2.2,
+      "y": 0.76,
+      "z": -2.15
+     },
+     {
+      "x": 1.5,
+      "y": 0.76,
+      "z": -1.85
+     },
+     {
+      "x": -1.1,
+      "y": 0.56,
+      "z": 0.2
+     }
+    ],
+    "hover": [
+     {
+      "x": -2.4,
+      "y": 1.2,
+      "z": 0.5
+     },
+     {
+      "x": 2.3,
+      "y": 1.25,
+      "z": -1.1
+     },
+     {
+      "x": 0.6,
+      "y": 1.6,
+      "z": 0.2
+     },
+     {
+      "x": -0.6,
+      "y": 1.3,
+      "z": -1.6
+     }
+    ],
+    "floor": [
+     {
+      "x": -0.8,
+      "y": 0,
+      "z": 1.5
+     },
+     {
+      "x": 1.2,
+      "y": 0,
+      "z": 1.3
+     }
+    ]
+   },
+   "shots": [
+    {
+     "from": {
+      "x": 0.2,
+      "y": 1.7,
+      "z": 3
+     },
+     "to": {
+      "x": 0.4,
+      "y": 1.6,
+      "z": 2
+     },
+     "look": {
+      "x": -1.6,
+      "y": 0.9,
+      "z": -1
+     },
+     "duration": 9,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 2.6,
+      "y": 1.5,
+      "z": 1.4
+     },
+     "to": {
+      "x": 1.8,
+      "y": 1.4,
+      "z": 0.9
+     },
+     "look": {
+      "x": 1.6,
+      "y": 0.9,
+      "z": -2
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": -1,
+      "y": 1.35,
+      "z": 1.6
+     },
+     "to": {
+      "x": -1.3,
+      "y": 1.25,
+      "z": 1.1
+     },
+     "look": {
+      "x": -1.25,
+      "y": 0.8,
+      "z": 0.4
+     },
+     "duration": 7,
+     "move": "push",
+     "fov": 34
+    },
+    {
+     "from": {
+      "x": 3,
+      "y": 2.1,
+      "z": 2.8
+     },
+     "to": {
+      "x": -2.6,
+      "y": 2,
+      "z": 2.4
+     },
+     "look": {
+      "x": 0,
+      "y": 0.9,
+      "z": -1
+     },
+     "duration": 11,
+     "move": "orbit"
+    }
+   ],
+   "weather": {
+    "default": "clear",
+    "mode": "window",
+    "window": {
+     "x": 0,
+     "y": 1.7,
+     "z": -3.69,
+     "width": 4.2,
+     "height": 1.7000000000000002
+    }
+   },
+   "environment": {
+    "fogColor": 725536,
+    "fogDensity": 0.05,
+    "skyTop": 1252659,
+    "skyMid": 2767445,
+    "skyBot": 1054240,
+    "sunColor": 11061480,
+    "sunDir": {
+     "x": -0.2,
+     "y": 0.35,
+     "z": -0.9
+    },
+    "sunIntensity": 0.9,
+    "hemiSky": 5929112,
+    "hemiGround": 1712168,
+    "hemiIntensity": 0.8,
+    "envIntensity": 0.8,
+    "shadowRadius": 7
+   },
+   "targetNames": [
+    "ceiling",
+    "floor",
+    "wall_back",
+    "wall_left",
+    "wall_right",
+    "wall_front",
+    "window",
+    "curtain",
+    "bed",
+    "nightstand",
+    "phone",
+    "desk",
+    "laptop",
+    "chair",
+    "shelf",
+    "poster",
+    "lamp",
+    "rug",
+    "skyline",
+    "light_glow",
+    "cable",
+    "clock"
+   ]
+  },
+  "bookExchange": {
+   "name": "bookExchange",
+   "targets": {
+    "ceiling": "fade",
+    "floor": "rise",
+    "wall_back": "rise",
+    "wall_left": "rise",
+    "wall_right": "rise",
+    "wall_front": "rise",
+    "window": "fade",
+    "table": "rise",
+    "chairs": "rise",
+    "exchange_shelf": "rise",
+    "box_books": "rise",
+    "rule_cards": "condense",
+    "laptop": "condense",
+    "posters": "fade",
+    "stamp": "condense",
+    "lamp": "fade",
+    "rug": "rise",
+    "campus_view": "fade"
+   },
+   "bounds": {
+    "minX": -3.9,
+    "maxX": 3.9,
+    "minZ": -2.7,
+    "maxZ": 2.9
+   },
+   "cameraBounds": {
+    "minX": -4.1,
+    "maxX": 4.1,
+    "minZ": -2.9,
+    "maxZ": 6.7
+   },
+   "spawn": {
+    "x": 0.2,
+    "y": 0,
+    "z": 2.2,
+    "yaw": 3.141592653589793
+   },
+   "slots": {
+    "table": [
+     {
+      "x": -0.8,
+      "y": 0.77,
+      "z": -0.6
+     },
+     {
+      "x": -0.2,
+      "y": 0.77,
+      "z": -0.6
+     },
+     {
+      "x": 0.4,
+      "y": 0.77,
+      "z": -0.6
+     },
+     {
+      "x": 1,
+      "y": 0.77,
+      "z": -0.6
+     },
+     {
+      "x": -3.2,
+      "y": 0.6,
+      "z": 1
+     },
+     {
+      "x": 3.2,
+      "y": 0.6,
+      "z": 1
+     }
+    ],
+    "hover": [
+     {
+      "x": -2.4,
+      "y": 1.4,
+      "z": -1.6
+     },
+     {
+      "x": 2.4,
+      "y": 1.4,
+      "z": -1.6
+     },
+     {
+      "x": -1.6,
+      "y": 1.1,
+      "z": 0.6
+     },
+     {
+      "x": 1.6,
+      "y": 1.1,
+      "z": 0.6
+     }
+    ],
+    "floor": [
+     {
+      "x": -2.2,
+      "y": 0,
+      "z": 1.5
+     },
+     {
+      "x": 2.2,
+      "y": 0,
+      "z": 1.5
+     }
+    ]
+   },
+   "shots": [
+    {
+     "from": {
+      "x": 0.2,
+      "y": 1.7,
+      "z": 2.9
+     },
+     "to": {
+      "x": 0.4,
+      "y": 1.6,
+      "z": 2.1
+     },
+     "look": {
+      "x": 0,
+      "y": 1.1,
+      "z": -1.6
+     },
+     "duration": 9,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": -3.6,
+      "y": 1.6,
+      "z": 1.6
+     },
+     "to": {
+      "x": -2.8,
+      "y": 1.5,
+      "z": 1.1
+     },
+     "look": {
+      "x": 0.8,
+      "y": 1,
+      "z": -1.4
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 3.6,
+      "y": 1.6,
+      "z": 1.6
+     },
+     "to": {
+      "x": 2.8,
+      "y": 1.5,
+      "z": 1.1
+     },
+     "look": {
+      "x": -0.8,
+      "y": 1,
+      "z": -1.4
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 0,
+      "y": 1.5,
+      "z": 2.4
+     },
+     "to": {
+      "x": 0,
+      "y": 1.35,
+      "z": 1.4
+     },
+     "look": {
+      "x": 0.2,
+      "y": 1,
+      "z": -1.2
+     },
+     "duration": 7,
+     "move": "push",
+     "fov": 36
+    }
+   ],
+   "weather": {
+    "default": "clear",
+    "mode": "window",
+    "window": {
+     "x": 0,
+     "y": 1.8,
+     "z": -3.44,
+     "width": 3.6,
+     "height": 1.8
+    }
+   },
+   "environment": {
+    "fogColor": 1711644,
+    "fogDensity": 0.04,
+    "skyTop": 3819070,
+    "skyMid": 7504500,
+    "skyBot": 2633258,
+    "sunColor": 16052440,
+    "sunDir": {
+     "x": 0.2,
+     "y": 0.5,
+     "z": -0.85
+    },
+    "sunIntensity": 1.2,
+    "hemiSky": 10794148,
+    "hemiGround": 3817016,
+    "hemiIntensity": 0.9,
+    "envIntensity": 0.9,
+    "shadowRadius": 8
+   },
+   "targetNames": [
+    "ceiling",
+    "floor",
+    "wall_back",
+    "wall_left",
+    "wall_right",
+    "wall_front",
+    "window",
+    "table",
+    "chairs",
+    "exchange_shelf",
+    "box_books",
+    "rule_cards",
+    "laptop",
+    "posters",
+    "stamp",
+    "lamp",
+    "rug",
+    "campus_view"
+   ]
+  },
+  "bookstore": {
+   "name": "bookstore",
+   "targets": {
+    "ceiling": "fade",
+    "floor": "rise",
+    "wall_back": "rise",
+    "wall_left": "rise",
+    "wall_right": "rise",
+    "wall_front": "rise",
+    "window": "fade",
+    "table": "rise",
+    "chairs": "rise",
+    "shelves": "rise",
+    "counter": "rise",
+    "ledger": "condense",
+    "rent_bill": "condense",
+    "price_tags": "condense",
+    "lamp": "fade",
+    "street_view": "fade",
+    "rug": "rise",
+    "box_stack": "rise",
+    "sign": "fade"
+   },
+   "bounds": {
+    "minX": -3.9,
+    "maxX": 3.9,
+    "minZ": -3.2,
+    "maxZ": 3.4
+   },
+   "cameraBounds": {
+    "minX": -4.1,
+    "maxX": 4.1,
+    "minZ": -3.4,
+    "maxZ": 7.2
+   },
+   "spawn": {
+    "x": 0.2,
+    "y": 0,
+    "z": 2.4,
+    "yaw": 3.141592653589793
+   },
+   "slots": {
+    "table": [
+     {
+      "x": -0.8,
+      "y": 0.78,
+      "z": -0.6
+     },
+     {
+      "x": -0.2,
+      "y": 0.78,
+      "z": -0.6
+     },
+     {
+      "x": 0.4,
+      "y": 0.78,
+      "z": -0.6
+     },
+     {
+      "x": 1,
+      "y": 0.78,
+      "z": -0.6
+     },
+     {
+      "x": 2.6,
+      "y": 1.08,
+      "z": 0.8
+     },
+     {
+      "x": 3,
+      "y": 1.08,
+      "z": 0.8
+     }
+    ],
+    "hover": [
+     {
+      "x": -2.6,
+      "y": 1.5,
+      "z": -1.6
+     },
+     {
+      "x": 2.6,
+      "y": 1.5,
+      "z": -1.6
+     },
+     {
+      "x": -2,
+      "y": 1.1,
+      "z": 0.6
+     },
+     {
+      "x": 2,
+      "y": 1.1,
+      "z": 0.6
+     }
+    ],
+    "floor": [
+     {
+      "x": -2.2,
+      "y": 0,
+      "z": 1.6
+     },
+     {
+      "x": 2.2,
+      "y": 0,
+      "z": 1.6
+     }
+    ]
+   },
+   "shots": [
+    {
+     "from": {
+      "x": 0.2,
+      "y": 1.7,
+      "z": 3
+     },
+     "to": {
+      "x": 0.4,
+      "y": 1.6,
+      "z": 2.2
+     },
+     "look": {
+      "x": 0,
+      "y": 1.1,
+      "z": -1.6
+     },
+     "duration": 9,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": -3.4,
+      "y": 1.6,
+      "z": 1.6
+     },
+     "to": {
+      "x": -2.6,
+      "y": 1.5,
+      "z": 1.1
+     },
+     "look": {
+      "x": 0.8,
+      "y": 1,
+      "z": -1.4
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 3.4,
+      "y": 1.6,
+      "z": 1.6
+     },
+     "to": {
+      "x": 2.6,
+      "y": 1.5,
+      "z": 1.1
+     },
+     "look": {
+      "x": -0.8,
+      "y": 1,
+      "z": -1.4
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 0,
+      "y": 1.5,
+      "z": 2.4
+     },
+     "to": {
+      "x": 0,
+      "y": 1.35,
+      "z": 1.4
+     },
+     "look": {
+      "x": 0,
+      "y": 1,
+      "z": -1.2
+     },
+     "duration": 7,
+     "move": "push",
+     "fov": 36
+    }
+   ],
+   "weather": {
+    "default": "clear",
+    "mode": "window",
+    "window": {
+     "x": 0,
+     "y": 1.85,
+     "z": -3.94,
+     "width": 3.6,
+     "height": 1.9
+    }
+   },
+   "environment": {
+    "fogColor": 1709586,
+    "fogDensity": 0.045,
+    "skyTop": 3813414,
+    "skyMid": 7233096,
+    "skyBot": 2761756,
+    "sunColor": 16767400,
+    "sunDir": {
+     "x": 0.2,
+     "y": 0.4,
+     "z": -0.85
+    },
+    "sunIntensity": 1,
+    "hemiSky": 10126440,
+    "hemiGround": 3287584,
+    "hemiIntensity": 0.85,
+    "envIntensity": 0.85,
+    "shadowRadius": 8
+   },
+   "targetNames": [
+    "ceiling",
+    "floor",
+    "wall_back",
+    "wall_left",
+    "wall_right",
+    "wall_front",
+    "window",
+    "table",
+    "chairs",
+    "shelves",
+    "counter",
+    "ledger",
+    "rent_bill",
+    "price_tags",
+    "lamp",
+    "street_view",
+    "rug",
+    "box_stack",
+    "sign"
+   ]
+  },
+  "careerWorkshop": {
+   "name": "careerWorkshop",
+   "targets": {
+    "ceiling": "fade",
+    "floor": "rise",
+    "wall_back": "rise",
+    "wall_left": "rise",
+    "wall_right": "rise",
+    "wall_front": "rise",
+    "window": "fade",
+    "table": "rise",
+    "chairs": "rise",
+    "board": "rise",
+    "prompt_cards": "condense",
+    "coffee": "condense",
+    "poster": "fade",
+    "bench": "rise",
+    "rug": "rise",
+    "campus_view": "fade",
+    "lights": "fade",
+    "clock": "condense"
+   },
+   "bounds": {
+    "minX": -3.9,
+    "maxX": 3.9,
+    "minZ": -3.2,
+    "maxZ": 3.4
+   },
+   "cameraBounds": {
+    "minX": -4.1,
+    "maxX": 4.1,
+    "minZ": -3.4,
+    "maxZ": 7.4
+   },
+   "spawn": {
+    "x": 0.2,
+    "y": 0,
+    "z": 2.4,
+    "yaw": 3.141592653589793
+   },
+   "slots": {
+    "table": [
+     {
+      "x": -0.8,
+      "y": 0.78,
+      "z": -0.6
+     },
+     {
+      "x": -0.2,
+      "y": 0.78,
+      "z": -0.6
+     },
+     {
+      "x": 0.4,
+      "y": 0.78,
+      "z": -0.6
+     },
+     {
+      "x": 1,
+      "y": 0.78,
+      "z": -0.6
+     },
+     {
+      "x": -0.7,
+      "y": 0.78,
+      "z": -0.2
+     },
+     {
+      "x": 0.7,
+      "y": 0.78,
+      "z": -0.2
+     }
+    ],
+    "hover": [
+     {
+      "x": -2.2,
+      "y": 1.4,
+      "z": -1.6
+     },
+     {
+      "x": 2.2,
+      "y": 1.4,
+      "z": -1.2
+     },
+     {
+      "x": -1.4,
+      "y": 1.2,
+      "z": 0.8
+     },
+     {
+      "x": 1.4,
+      "y": 1.2,
+      "z": 0.8
+     }
+    ],
+    "floor": [
+     {
+      "x": -2,
+      "y": 0,
+      "z": 1.8
+     },
+     {
+      "x": 2,
+      "y": 0,
+      "z": 1.7
+     }
+    ]
+   },
+   "shots": [
+    {
+     "from": {
+      "x": 0.2,
+      "y": 1.7,
+      "z": 3.2
+     },
+     "to": {
+      "x": 0.4,
+      "y": 1.6,
+      "z": 2.4
+     },
+     "look": {
+      "x": 0,
+      "y": 1.1,
+      "z": -1.6
+     },
+     "duration": 9,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": -3.4,
+      "y": 1.6,
+      "z": 2
+     },
+     "to": {
+      "x": -2.7,
+      "y": 1.5,
+      "z": 1.4
+     },
+     "look": {
+      "x": 1,
+      "y": 1,
+      "z": -1.4
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 3.4,
+      "y": 1.6,
+      "z": 2
+     },
+     "to": {
+      "x": 2.7,
+      "y": 1.5,
+      "z": 1.4
+     },
+     "look": {
+      "x": -1,
+      "y": 1,
+      "z": -1.4
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 0,
+      "y": 1.5,
+      "z": 2.6
+     },
+     "to": {
+      "x": 0,
+      "y": 1.35,
+      "z": 1.5
+     },
+     "look": {
+      "x": 0,
+      "y": 1,
+      "z": -1
+     },
+     "duration": 8,
+     "move": "push",
+     "fov": 36
+    }
+   ],
+   "weather": {
+    "default": "clear",
+    "mode": "window",
+    "window": {
+     "x": 0,
+     "y": 1.85,
+     "z": -3.94,
+     "width": 3.6,
+     "height": 1.8
+    }
+   },
+   "environment": {
+    "fogColor": 1711130,
+    "fogDensity": 0.04,
+    "skyTop": 3818556,
+    "skyMid": 7438447,
+    "skyBot": 2764330,
+    "sunColor": 16052440,
+    "sunDir": {
+     "x": 0.15,
+     "y": 0.5,
+     "z": -0.85
+    },
+    "sunIntensity": 1.25,
+    "hemiSky": 11056292,
+    "hemiGround": 3816504,
+    "hemiIntensity": 0.9,
+    "envIntensity": 0.9,
+    "shadowRadius": 8
+   },
+   "targetNames": [
+    "ceiling",
+    "floor",
+    "wall_back",
+    "wall_left",
+    "wall_right",
+    "wall_front",
+    "window",
+    "table",
+    "chairs",
+    "board",
+    "prompt_cards",
+    "coffee",
+    "poster",
+    "bench",
+    "rug",
+    "campus_view",
+    "lights",
+    "clock"
+   ]
+  },
+  "chartRoom": {
+   "name": "chartRoom",
+   "targets": {
+    "ceiling": "fade",
+    "floor": "rise",
+    "wall_back": "rise",
+    "wall_left": "rise",
+    "wall_right": "rise",
+    "wall_front": "rise",
+    "window": "fade",
+    "table": "rise",
+    "chairs": "rise",
+    "stool": "rise",
+    "chart_wall": "fade",
+    "ship_model": "condense",
+    "compass": "condense",
+    "scrolls": "condense",
+    "chest": "rise",
+    "telescope": "condense",
+    "lantern": "fade",
+    "shelf": "rise",
+    "rug": "rise",
+    "sea_view": "fade"
+   },
+   "bounds": {
+    "minX": -3.9,
+    "maxX": 3.9,
+    "minZ": -3.2,
+    "maxZ": 3.4
+   },
+   "cameraBounds": {
+    "minX": -4.1,
+    "maxX": 4.1,
+    "minZ": -3.4,
+    "maxZ": 7.2
+   },
+   "spawn": {
+    "x": 0.3,
+    "y": 0,
+    "z": 2.3,
+    "yaw": 3.141592653589793
+   },
+   "slots": {
+    "table": [
+     {
+      "x": -1.1,
+      "y": 0.8,
+      "z": -0.9
+     },
+     {
+      "x": -0.5,
+      "y": 0.8,
+      "z": -0.9
+     },
+     {
+      "x": 0.1,
+      "y": 0.8,
+      "z": -0.9
+     },
+     {
+      "x": 0.7,
+      "y": 0.8,
+      "z": -0.9
+     },
+     {
+      "x": 1.2,
+      "y": 0.8,
+      "z": -0.9
+     },
+     {
+      "x": -3,
+      "y": 0.62,
+      "z": 1.6
+     }
+    ],
+    "hover": [
+     {
+      "x": -2.5,
+      "y": 1.5,
+      "z": -1.4
+     },
+     {
+      "x": 1.5,
+      "y": 1.5,
+      "z": -1.4
+     },
+     {
+      "x": 0.9,
+      "y": 1.2,
+      "z": -0.9
+     },
+     {
+      "x": -1.2,
+      "y": 1.2,
+      "z": 0.6
+     }
+    ],
+    "floor": [
+     {
+      "x": -1.8,
+      "y": 0,
+      "z": 1.4
+     },
+     {
+      "x": 1.8,
+      "y": 0,
+      "z": 1.4
+     }
+    ]
+   },
+   "shots": [
+    {
+     "from": {
+      "x": 0.2,
+      "y": 1.7,
+      "z": 3
+     },
+     "to": {
+      "x": 0.4,
+      "y": 1.6,
+      "z": 2.2
+     },
+     "look": {
+      "x": 0,
+      "y": 1.1,
+      "z": -1.8
+     },
+     "duration": 9,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": -3.4,
+      "y": 1.6,
+      "z": 1.8
+     },
+     "to": {
+      "x": -2.6,
+      "y": 1.5,
+      "z": 1.2
+     },
+     "look": {
+      "x": 0.6,
+      "y": 1,
+      "z": -1.4
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 3.4,
+      "y": 1.6,
+      "z": 1.8
+     },
+     "to": {
+      "x": 2.6,
+      "y": 1.5,
+      "z": 1.2
+     },
+     "look": {
+      "x": -0.6,
+      "y": 1,
+      "z": -1.4
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 0,
+      "y": 1.5,
+      "z": 2.4
+     },
+     "to": {
+      "x": 0,
+      "y": 1.3,
+      "z": 1.3
+     },
+     "look": {
+      "x": 0,
+      "y": 0.95,
+      "z": -1
+     },
+     "duration": 7,
+     "move": "push",
+     "fov": 36
+    }
+   ],
+   "weather": {
+    "default": "clear",
+    "mode": "window",
+    "window": {
+     "x": 0,
+     "y": 1.8,
+     "z": -3.94,
+     "width": 4,
+     "height": 1.8
+    }
+   },
+   "environment": {
+    "fogColor": 2367514,
+    "fogDensity": 0.045,
+    "skyTop": 3812900,
+    "skyMid": 8020552,
+    "skyBot": 2761760,
+    "sunColor": 16764826,
+    "sunDir": {
+     "x": 0.4,
+     "y": 0.3,
+     "z": -0.85
+    },
+    "sunIntensity": 1.25,
+    "hemiSky": 10518624,
+    "hemiGround": 3550242,
+    "hemiIntensity": 0.9,
+    "envIntensity": 0.9,
+    "shadowRadius": 8
+   },
+   "targetNames": [
+    "ceiling",
+    "floor",
+    "wall_back",
+    "wall_left",
+    "wall_right",
+    "wall_front",
+    "window",
+    "table",
+    "chairs",
+    "stool",
+    "chart_wall",
+    "ship_model",
+    "compass",
+    "scrolls",
+    "chest",
+    "telescope",
+    "lantern",
+    "shelf",
+    "rug",
+    "sea_view"
+   ]
+  },
+  "clinicRemote": {
+   "name": "clinicRemote",
+   "targets": {
+    "ceiling": "fade",
+    "floor": "rise",
+    "wall_back": "rise",
+    "wall_left": "rise",
+    "wall_right": "rise",
+    "wall_front": "rise",
+    "window": "fade",
+    "curtain": "fade",
+    "desk": "rise",
+    "monitor": "condense",
+    "camera": "condense",
+    "cabinet": "rise",
+    "exam_bed": "rise",
+    "stool": "rise",
+    "poster": "fade",
+    "kettle": "condense",
+    "stethoscope": "condense",
+    "router": "condense",
+    "mountain_view": "fade",
+    "sunlight": "fade",
+    "lamp": "fade"
+   },
+   "bounds": {
+    "minX": -3.9,
+    "maxX": 3.9,
+    "minZ": -3.2,
+    "maxZ": 3.4
+   },
+   "cameraBounds": {
+    "minX": -4.1,
+    "maxX": 4.1,
+    "minZ": -3.4,
+    "maxZ": 8
+   },
+   "spawn": {
+    "x": 0.6,
+    "y": 0,
+    "z": 2.4,
+    "yaw": 3.141592653589793
+   },
+   "slots": {
+    "table": [
+     {
+      "x": -2.1,
+      "y": 0.78,
+      "z": -1.7
+     },
+     {
+      "x": -1.6,
+      "y": 0.78,
+      "z": -1.25
+     },
+     {
+      "x": -1.1,
+      "y": 0.78,
+      "z": -1.55
+     },
+     {
+      "x": 1.1,
+      "y": 0.79,
+      "z": -3.1
+     },
+     {
+      "x": -0.5,
+      "y": 0.79,
+      "z": -1.4
+     }
+    ],
+    "hover": [
+     {
+      "x": 0.8,
+      "y": 1.4,
+      "z": -1
+     },
+     {
+      "x": -2.6,
+      "y": 1.3,
+      "z": -0.6
+     },
+     {
+      "x": 1.8,
+      "y": 1.5,
+      "z": 0.6
+     },
+     {
+      "x": 0,
+      "y": 1.7,
+      "z": -0.8
+     }
+    ],
+    "floor": [
+     {
+      "x": -0.9,
+      "y": 0,
+      "z": 0.9
+     },
+     {
+      "x": 1.4,
+      "y": 0,
+      "z": 1.4
+     }
+    ]
+   },
+   "shots": [
+    {
+     "from": {
+      "x": 0.4,
+      "y": 1.8,
+      "z": 3
+     },
+     "to": {
+      "x": 0.8,
+      "y": 1.7,
+      "z": 2.2
+     },
+     "look": {
+      "x": -1.2,
+      "y": 1,
+      "z": -1.6
+     },
+     "duration": 9,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": -3.2,
+      "y": 1.6,
+      "z": 1.4
+     },
+     "to": {
+      "x": -2.5,
+      "y": 1.5,
+      "z": 1
+     },
+     "look": {
+      "x": 0.6,
+      "y": 1,
+      "z": -1.4
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 3.2,
+      "y": 1.7,
+      "z": 1.6
+     },
+     "to": {
+      "x": 2.4,
+      "y": 1.6,
+      "z": 1.1
+     },
+     "look": {
+      "x": -1.4,
+      "y": 1,
+      "z": -1.5
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 0,
+      "y": 1.6,
+      "z": 2.6
+     },
+     "to": {
+      "x": -1.1,
+      "y": 1.35,
+      "z": 1.7
+     },
+     "look": {
+      "x": -1.6,
+      "y": 1.15,
+      "z": -1.4
+     },
+     "duration": 8,
+     "move": "push",
+     "fov": 36
+    }
+   ],
+   "weather": {
+    "default": "clear",
+    "mode": "window",
+    "window": {
+     "x": 0,
+     "y": 1.85,
+     "z": -3.94,
+     "width": 4,
+     "height": 1.7000000000000002
+    }
+   },
+   "environment": {
+    "fogColor": 1581610,
+    "fogDensity": 0.04,
+    "skyTop": 4873318,
+    "skyMid": 8096910,
+    "skyBot": 2765110,
+    "sunColor": 15265764,
+    "sunDir": {
+     "x": 0.25,
+     "y": 0.55,
+     "z": -0.8
+    },
+    "sunIntensity": 1.15,
+    "hemiSky": 10465448,
+    "hemiGround": 3817536,
+    "hemiIntensity": 0.95,
+    "envIntensity": 0.9,
+    "shadowRadius": 8
+   },
+   "targetNames": [
+    "ceiling",
+    "floor",
+    "wall_back",
+    "wall_left",
+    "wall_right",
+    "wall_front",
+    "window",
+    "curtain",
+    "desk",
+    "monitor",
+    "camera",
+    "cabinet",
+    "exam_bed",
+    "stool",
+    "poster",
+    "kettle",
+    "stethoscope",
+    "router",
+    "mountain_view",
+    "sunlight",
+    "lamp"
+   ]
+  },
+  "clubRoom": {
+   "name": "clubRoom",
+   "targets": {
+    "floor": "rise",
+    "wall_back": "rise",
+    "window": "fade",
+    "wall_left": "rise",
+    "wall_right": "rise",
+    "wall_front": "rise",
+    "ceiling": "fade",
+    "courtyard_ground": "rise",
+    "courtyard_path": "rise",
+    "benches": "rise",
+    "library": "rise",
+    "tree_a": "grow",
+    "tree_b": "grow",
+    "tree_c": "grow",
+    "tree_d": "grow",
+    "sunlight": "fade",
+    "table": "rise",
+    "chairs": "rise",
+    "basket": "condense",
+    "board": "rise",
+    "plan": "fade",
+    "clock": "condense",
+    "shelf": "rise",
+    "plants": "grow",
+    "notice": "fade",
+    "lamps": "fade"
+   },
+   "bounds": {
+    "minX": -4.9,
+    "maxX": 4.9,
+    "minZ": -3.1,
+    "maxZ": 3.4
+   },
+   "cameraBounds": {
+    "minX": -5.1,
+    "maxX": 5.1,
+    "minZ": -3.5,
+    "maxZ": 8.6
+   },
+   "spawn": {
+    "x": -2.6,
+    "y": 0,
+    "z": 2.6,
+    "yaw": 3.141592653589793
+   },
+   "slots": {
+    "table": [
+     {
+      "x": -1.9,
+      "y": 0.76,
+      "z": -0.25
+     },
+     {
+      "x": -1,
+      "y": 0.76,
+      "z": -0.25
+     },
+     {
+      "x": 0,
+      "y": 0.76,
+      "z": -0.25
+     },
+     {
+      "x": 1,
+      "y": 0.76,
+      "z": -0.25
+     },
+     {
+      "x": 1.9,
+      "y": 0.76,
+      "z": -0.25
+     }
+    ],
+    "hover": [
+     {
+      "x": -3.2,
+      "y": 1.4,
+      "z": 1.2
+     },
+     {
+      "x": 3.2,
+      "y": 1.4,
+      "z": 1.4
+     },
+     {
+      "x": -3.6,
+      "y": 1.5,
+      "z": -1.8
+     },
+     {
+      "x": 0,
+      "y": 1.8,
+      "z": 1.8
+     }
+    ],
+    "floor": [
+     {
+      "x": -4.2,
+      "y": 0,
+      "z": -2.8
+     },
+     {
+      "x": 3.6,
+      "y": 0,
+      "z": 2.2
+     }
+    ]
+   },
+   "shots": [
+    {
+     "from": {
+      "x": -4.3,
+      "y": 1.9,
+      "z": 3.2
+     },
+     "to": {
+      "x": -3.4,
+      "y": 1.8,
+      "z": 2.6
+     },
+     "look": {
+      "x": 0.6,
+      "y": 1,
+      "z": -0.6
+     },
+     "duration": 10,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 4.4,
+      "y": 1.7,
+      "z": 3
+     },
+     "to": {
+      "x": 3.6,
+      "y": 1.7,
+      "z": 2.4
+     },
+     "look": {
+      "x": -0.6,
+      "y": 1,
+      "z": -0.8
+     },
+     "duration": 10,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 0,
+      "y": 1.5,
+      "z": 3.4
+     },
+     "to": {
+      "x": 0,
+      "y": 1.3,
+      "z": 2
+     },
+     "look": {
+      "x": 0,
+      "y": 1,
+      "z": -0.8
+     },
+     "duration": 9,
+     "move": "push",
+     "fov": 40
+    }
+   ],
+   "weather": {
+    "default": "clear",
+    "mode": "window",
+    "window": {
+     "x": 0,
+     "y": 1.8,
+     "z": -3.95,
+     "width": 5.8,
+     "height": 2.4
+    },
+    "wetParts": [
+     "courtyard_ground",
+     "courtyard_path",
+     "benches",
+     "tree_a",
+     "tree_b",
+     "tree_c",
+     "tree_d"
+    ]
+   },
+   "environment": {
+    "fogColor": 14279914,
+    "fogDensity": 0.016,
+    "skyTop": 10467542,
+    "skyMid": 13951724,
+    "skyBot": 5661292,
+    "sunColor": 15922943,
+    "sunDir": {
+     "x": -0.34025528723406506,
+     "y": 0.2702027280976399,
+     "z": -0.9006757603254663
+    },
+    "sunIntensity": 3.1,
+    "hemiSky": 12241116,
+    "hemiGround": 5068384,
+    "hemiIntensity": 1,
+    "envIntensity": 0.85,
+    "shadowRadius": 10
+   },
+   "targetNames": [
+    "floor",
+    "wall_back",
+    "window",
+    "wall_left",
+    "wall_right",
+    "wall_front",
+    "ceiling",
+    "courtyard_ground",
+    "courtyard_path",
+    "benches",
+    "library",
+    "tree_a",
+    "tree_b",
+    "tree_c",
+    "tree_d",
+    "sunlight",
+    "table",
+    "chairs",
+    "basket",
+    "board",
+    "plan",
+    "clock",
+    "shelf",
+    "plants",
+    "notice",
+    "lamps"
+   ]
+  },
+  "controlRoom": {
+   "name": "controlRoom",
+   "targets": {
+    "ceiling": "fade",
+    "floor": "rise",
+    "wall_back": "rise",
+    "wall_left": "rise",
+    "wall_right": "rise",
+    "wall_front": "rise",
+    "window": "fade",
+    "table": "rise",
+    "chairs": "rise",
+    "consoles": "rise",
+    "big_screen": "fade",
+    "satellite_model": "condense",
+    "antenna": "condense",
+    "status_lights": "fade",
+    "glass_wall": "fade",
+    "coffee": "condense",
+    "clock": "condense"
+   },
+   "bounds": {
+    "minX": -4.9,
+    "maxX": 4.9,
+    "minZ": -3.2,
+    "maxZ": 3.4
+   },
+   "cameraBounds": {
+    "minX": -5.1,
+    "maxX": 5.1,
+    "minZ": -3.4,
+    "maxZ": 7.6
+   },
+   "spawn": {
+    "x": 0.2,
+    "y": 0,
+    "z": 3,
+    "yaw": 3.141592653589793
+   },
+   "slots": {
+    "table": [
+     {
+      "x": -0.8,
+      "y": 0.77,
+      "z": 0.6
+     },
+     {
+      "x": -0.2,
+      "y": 0.77,
+      "z": 0.6
+     },
+     {
+      "x": 0.4,
+      "y": 0.77,
+      "z": 0.6
+     },
+     {
+      "x": 1,
+      "y": 0.77,
+      "z": 0.6
+     },
+     {
+      "x": -1.4,
+      "y": 0.97,
+      "z": -1.2
+     },
+     {
+      "x": 1.4,
+      "y": 0.97,
+      "z": -1.2
+     }
+    ],
+    "hover": [
+     {
+      "x": -4,
+      "y": 1.7,
+      "z": 0.2
+     },
+     {
+      "x": 3.8,
+      "y": 2,
+      "z": -1.4
+     },
+     {
+      "x": -2.2,
+      "y": 2.4,
+      "z": -2.4
+     },
+     {
+      "x": 2.2,
+      "y": 2.4,
+      "z": -2.4
+     }
+    ],
+    "floor": [
+     {
+      "x": -2.4,
+      "y": 0,
+      "z": 2
+     },
+     {
+      "x": 2.4,
+      "y": 0,
+      "z": 2
+     }
+    ]
+   },
+   "shots": [
+    {
+     "from": {
+      "x": 0.2,
+      "y": 1.9,
+      "z": 3.6
+     },
+     "to": {
+      "x": 0.4,
+      "y": 1.8,
+      "z": 2.8
+     },
+     "look": {
+      "x": 0,
+      "y": 1.4,
+      "z": -2
+     },
+     "duration": 9,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": -4.2,
+      "y": 1.8,
+      "z": 2
+     },
+     "to": {
+      "x": -3.5,
+      "y": 1.7,
+      "z": 1.4
+     },
+     "look": {
+      "x": 1.2,
+      "y": 1.2,
+      "z": -1.8
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 4.2,
+      "y": 1.8,
+      "z": 2
+     },
+     "to": {
+      "x": 3.5,
+      "y": 1.7,
+      "z": 1.4
+     },
+     "look": {
+      "x": -1.2,
+      "y": 1.2,
+      "z": -1.8
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 0,
+      "y": 2.4,
+      "z": 3.2
+     },
+     "to": {
+      "x": 0,
+      "y": 2,
+      "z": 2.2
+     },
+     "look": {
+      "x": 0,
+      "y": 2.2,
+      "z": -2.4
+     },
+     "duration": 9,
+     "move": "push",
+     "fov": 40
+    }
+   ],
+   "weather": {
+    "default": "clear",
+    "mode": "window",
+    "window": {
+     "x": -5.44,
+     "y": 1.9,
+     "z": 1.6,
+     "width": 3.2,
+     "height": 1.6
+    }
+   },
+   "environment": {
+    "fogColor": 659478,
+    "fogDensity": 0.05,
+    "skyTop": 792612,
+    "skyMid": 1848386,
+    "skyBot": 659480,
+    "sunColor": 10469592,
+    "sunDir": {
+     "x": 0.2,
+     "y": 0.6,
+     "z": -0.8
+    },
+    "sunIntensity": 0.8,
+    "hemiSky": 4876922,
+    "hemiGround": 1317922,
+    "hemiIntensity": 0.7,
+    "envIntensity": 0.8,
+    "shadowRadius": 9
+   },
+   "targetNames": [
+    "ceiling",
+    "floor",
+    "wall_back",
+    "wall_left",
+    "wall_right",
+    "wall_front",
+    "window",
+    "table",
+    "chairs",
+    "consoles",
+    "big_screen",
+    "satellite_model",
+    "antenna",
+    "status_lights",
+    "glass_wall",
+    "coffee",
+    "clock"
+   ]
+  },
+  "countyLibrary": {
+   "name": "countyLibrary",
+   "targets": {
+    "ceiling": "fade",
+    "floor": "rise",
+    "wall_back": "rise",
+    "wall_left": "rise",
+    "wall_right": "rise",
+    "wall_front": "rise",
+    "window": "fade",
+    "table": "rise",
+    "chairs": "rise",
+    "shelves": "rise",
+    "newspaper_rack": "rise",
+    "kids_shelf": "rise",
+    "ledger": "condense",
+    "fan": "fade",
+    "lamp": "fade",
+    "donation_box": "condense",
+    "street_view": "fade",
+    "rug": "rise",
+    "sign": "fade"
+   },
+   "bounds": {
+    "minX": -4.4,
+    "maxX": 4.4,
+    "minZ": -3.2,
+    "maxZ": 3.4
+   },
+   "cameraBounds": {
+    "minX": -4.6,
+    "maxX": 4.6,
+    "minZ": -3.4,
+    "maxZ": 7.4
+   },
+   "spawn": {
+    "x": 0.2,
+    "y": 0,
+    "z": 2.6,
+    "yaw": 3.141592653589793
+   },
+   "slots": {
+    "table": [
+     {
+      "x": -0.8,
+      "y": 0.78,
+      "z": 0.2
+     },
+     {
+      "x": -0.2,
+      "y": 0.78,
+      "z": 0.2
+     },
+     {
+      "x": 0.4,
+      "y": 0.78,
+      "z": 0.2
+     },
+     {
+      "x": 1,
+      "y": 0.78,
+      "z": 0.2
+     },
+     {
+      "x": -3.6,
+      "y": 0.42,
+      "z": 1.6
+     },
+     {
+      "x": -3.2,
+      "y": 1.45,
+      "z": 0.75
+     }
+    ],
+    "hover": [
+     {
+      "x": -3.2,
+      "y": 1.5,
+      "z": 0.6
+     },
+     {
+      "x": 3.2,
+      "y": 1.2,
+      "z": 1.2
+     },
+     {
+      "x": -2,
+      "y": 1.2,
+      "z": -1.2
+     },
+     {
+      "x": 2,
+      "y": 1.2,
+      "z": -1.2
+     }
+    ],
+    "floor": [
+     {
+      "x": -2.4,
+      "y": 0,
+      "z": 1.8
+     },
+     {
+      "x": 2.4,
+      "y": 0,
+      "z": 1.8
+     }
+    ]
+   },
+   "shots": [
+    {
+     "from": {
+      "x": 0.2,
+      "y": 1.8,
+      "z": 3.2
+     },
+     "to": {
+      "x": 0.4,
+      "y": 1.7,
+      "z": 2.4
+     },
+     "look": {
+      "x": 0,
+      "y": 1.2,
+      "z": -1.6
+     },
+     "duration": 9,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": -3.8,
+      "y": 1.7,
+      "z": 1.8
+     },
+     "to": {
+      "x": -3,
+      "y": 1.6,
+      "z": 1.2
+     },
+     "look": {
+      "x": 1,
+      "y": 1.1,
+      "z": -1.4
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 3.8,
+      "y": 1.7,
+      "z": 1.8
+     },
+     "to": {
+      "x": 3,
+      "y": 1.6,
+      "z": 1.2
+     },
+     "look": {
+      "x": -1,
+      "y": 1.1,
+      "z": -1.4
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 0,
+      "y": 1.6,
+      "z": 2.6
+     },
+     "to": {
+      "x": 0,
+      "y": 1.4,
+      "z": 1.5
+     },
+     "look": {
+      "x": 0,
+      "y": 1.05,
+      "z": -1.2
+     },
+     "duration": 8,
+     "move": "push",
+     "fov": 36
+    }
+   ],
+   "weather": {
+    "default": "clear",
+    "mode": "window",
+    "window": {
+     "x": 0,
+     "y": 1.85,
+     "z": -3.94,
+     "width": 3.2,
+     "height": 1.9
+    }
+   },
+   "environment": {
+    "fogColor": 1710614,
+    "fogDensity": 0.04,
+    "skyTop": 3815984,
+    "skyMid": 7763046,
+    "skyBot": 2763300,
+    "sunColor": 16050380,
+    "sunDir": {
+     "x": 0.25,
+     "y": 0.5,
+     "z": -0.8
+    },
+    "sunIntensity": 1.2,
+    "hemiSky": 11052688,
+    "hemiGround": 3815472,
+    "hemiIntensity": 0.9,
+    "envIntensity": 0.85,
+    "shadowRadius": 9
+   },
+   "targetNames": [
+    "ceiling",
+    "floor",
+    "wall_back",
+    "wall_left",
+    "wall_right",
+    "wall_front",
+    "window",
+    "table",
+    "chairs",
+    "shelves",
+    "newspaper_rack",
+    "kids_shelf",
+    "ledger",
+    "fan",
+    "lamp",
+    "donation_box",
+    "street_view",
+    "rug",
+    "sign"
+   ]
+  },
+  "embroideryWorkshop": {
+   "name": "embroideryWorkshop",
+   "targets": {
+    "ceiling": "fade",
+    "floor": "rise",
+    "wall_back": "rise",
+    "wall_left": "rise",
+    "wall_right": "rise",
+    "wall_front": "rise",
+    "window": "fade",
+    "table": "rise",
+    "chairs": "rise",
+    "frame": "rise",
+    "silk_threads": "condense",
+    "samples": "condense",
+    "scrolls": "condense",
+    "stool": "rise",
+    "shelf": "rise",
+    "lamp": "fade",
+    "garden_view": "fade",
+    "lantern": "fade",
+    "silk_light": "fade"
+   },
+   "bounds": {
+    "minX": -3.4,
+    "maxX": 3.4,
+    "minZ": -2.7,
+    "maxZ": 2.9
+   },
+   "cameraBounds": {
+    "minX": -3.6,
+    "maxX": 3.6,
+    "minZ": -2.9,
+    "maxZ": 6.7
+   },
+   "spawn": {
+    "x": 0.2,
+    "y": 0,
+    "z": 2.3,
+    "yaw": 3.141592653589793
+   },
+   "slots": {
+    "table": [
+     {
+      "x": -0.7,
+      "y": 1.12,
+      "z": -1.6
+     },
+     {
+      "x": 0.3,
+      "y": 1.12,
+      "z": -1.6
+     },
+     {
+      "x": 0.8,
+      "y": 1.12,
+      "z": -1.6
+     },
+     {
+      "x": -1.2,
+      "y": 1.12,
+      "z": -1.5
+     },
+     {
+      "x": -2.6,
+      "y": 1.45,
+      "z": -3.4
+     }
+    ],
+    "hover": [
+     {
+      "x": -2.4,
+      "y": 1.5,
+      "z": -1.4
+     },
+     {
+      "x": 2.2,
+      "y": 1.5,
+      "z": -1.2
+     },
+     {
+      "x": -1.8,
+      "y": 1,
+      "z": 0.8
+     },
+     {
+      "x": 0.2,
+      "y": 1.25,
+      "z": 0.9
+     }
+    ],
+    "floor": [
+     {
+      "x": -1.6,
+      "y": 0,
+      "z": 1.4
+     },
+     {
+      "x": 1.8,
+      "y": 0,
+      "z": 1.3
+     }
+    ]
+   },
+   "shots": [
+    {
+     "from": {
+      "x": 0.2,
+      "y": 1.6,
+      "z": 2.9
+     },
+     "to": {
+      "x": 0.4,
+      "y": 1.5,
+      "z": 2.1
+     },
+     "look": {
+      "x": 0,
+      "y": 1.1,
+      "z": -1.8
+     },
+     "duration": 9,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": -3,
+      "y": 1.5,
+      "z": 1.6
+     },
+     "to": {
+      "x": -2.4,
+      "y": 1.4,
+      "z": 1.1
+     },
+     "look": {
+      "x": 0.8,
+      "y": 1.1,
+      "z": -1.6
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 2.9,
+      "y": 1.5,
+      "z": 1.6
+     },
+     "to": {
+      "x": 2.3,
+      "y": 1.4,
+      "z": 1.1
+     },
+     "look": {
+      "x": -0.6,
+      "y": 1.1,
+      "z": -1.6
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 0,
+      "y": 1.4,
+      "z": 2.2
+     },
+     "to": {
+      "x": 0,
+      "y": 1.25,
+      "z": 1.2
+     },
+     "look": {
+      "x": 0,
+      "y": 1.05,
+      "z": -1.6
+     },
+     "duration": 8,
+     "move": "push",
+     "fov": 34
+    }
+   ],
+   "weather": {
+    "default": "clear",
+    "mode": "window",
+    "window": {
+     "x": 0,
+     "y": 1.85,
+     "z": -3.44,
+     "width": 3,
+     "height": 1.6
+    }
+   },
+   "environment": {
+    "fogColor": 1841686,
+    "fogDensity": 0.04,
+    "skyTop": 3815982,
+    "skyMid": 8025184,
+    "skyBot": 2763300,
+    "sunColor": 16770754,
+    "sunDir": {
+     "x": 0.2,
+     "y": 0.45,
+     "z": -0.85
+    },
+    "sunIntensity": 1.15,
+    "hemiSky": 11051144,
+    "hemiGround": 3814698,
+    "hemiIntensity": 0.9,
+    "envIntensity": 0.85,
+    "shadowRadius": 7
+   },
+   "targetNames": [
+    "ceiling",
+    "floor",
+    "wall_back",
+    "wall_left",
+    "wall_right",
+    "wall_front",
+    "window",
+    "table",
+    "chairs",
+    "frame",
+    "silk_threads",
+    "samples",
+    "scrolls",
+    "stool",
+    "shelf",
+    "lamp",
+    "garden_view",
+    "lantern",
+    "silk_light"
+   ]
+  },
+  "hepburnGallery": {
+   "name": "hepburnGallery",
+   "targets": {
+    "ceiling": "fade",
+    "floor": "rise",
+    "wall_back": "rise",
+    "wall_left": "rise",
+    "wall_right": "rise",
+    "wall_front": "rise",
+    "window": "fade",
+    "curtain": "fade",
+    "table": "rise",
+    "chairs": "rise",
+    "portrait": "fade",
+    "film_posters": "fade",
+    "display_case": "condense",
+    "dress_form": "rise",
+    "unicef_letter": "condense",
+    "bench": "rise",
+    "projector": "condense",
+    "spotlight": "fade",
+    "plaque": "fade",
+    "rug": "rise"
+   },
+   "bounds": {
+    "minX": -3.4,
+    "maxX": 3.4,
+    "minZ": -2.7,
+    "maxZ": 2.9
+   },
+   "cameraBounds": {
+    "minX": -3.6,
+    "maxX": 3.6,
+    "minZ": -2.9,
+    "maxZ": 6.7
+   },
+   "spawn": {
+    "x": 0.2,
+    "y": 0,
+    "z": 2.2,
+    "yaw": 3.141592653589793
+   },
+   "slots": {
+    "table": [
+     {
+      "x": -0.8,
+      "y": 0.76,
+      "z": -1
+     },
+     {
+      "x": 0,
+      "y": 0.76,
+      "z": -1
+     },
+     {
+      "x": 0.8,
+      "y": 0.76,
+      "z": -1
+     },
+     {
+      "x": 2.8,
+      "y": 1.12,
+      "z": -0.6
+     },
+     {
+      "x": -2.7,
+      "y": 1.2,
+      "z": -0.4
+     }
+    ],
+    "hover": [
+     {
+      "x": -2.2,
+      "y": 1.5,
+      "z": -1.2
+     },
+     {
+      "x": 2.2,
+      "y": 1.5,
+      "z": -1.2
+     },
+     {
+      "x": 0.2,
+      "y": 1.3,
+      "z": 0.6
+     },
+     {
+      "x": -1.3,
+      "y": 1.1,
+      "z": 0.9
+     }
+    ],
+    "floor": [
+     {
+      "x": -2,
+      "y": 0,
+      "z": 1.3
+     },
+     {
+      "x": 2,
+      "y": 0,
+      "z": 1.3
+     }
+    ]
+   },
+   "shots": [
+    {
+     "from": {
+      "x": 0.2,
+      "y": 1.7,
+      "z": 2.9
+     },
+     "to": {
+      "x": 0.4,
+      "y": 1.6,
+      "z": 2.1
+     },
+     "look": {
+      "x": 0,
+      "y": 1.3,
+      "z": -2
+     },
+     "duration": 9,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": -3.2,
+      "y": 1.6,
+      "z": 1.6
+     },
+     "to": {
+      "x": -2.5,
+      "y": 1.5,
+      "z": 1.1
+     },
+     "look": {
+      "x": 0.6,
+      "y": 1.1,
+      "z": -1.2
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 3.2,
+      "y": 1.6,
+      "z": 1.6
+     },
+     "to": {
+      "x": 2.5,
+      "y": 1.5,
+      "z": 1.1
+     },
+     "look": {
+      "x": -0.6,
+      "y": 1.1,
+      "z": -1.2
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 0,
+      "y": 1.4,
+      "z": 2.2
+     },
+     "to": {
+      "x": 0,
+      "y": 1.3,
+      "z": 1.2
+     },
+     "look": {
+      "x": 0,
+      "y": 1.1,
+      "z": -1.1
+     },
+     "duration": 7,
+     "move": "push",
+     "fov": 34
+    }
+   ],
+   "weather": {
+    "default": "clear",
+    "mode": "window",
+    "window": {
+     "x": 0,
+     "y": 1.85,
+     "z": -3.44,
+     "width": 3.2,
+     "height": 1.7
+    }
+   },
+   "environment": {
+    "fogColor": 1709588,
+    "fogDensity": 0.04,
+    "skyTop": 2893344,
+    "skyMid": 6181962,
+    "skyBot": 2367516,
+    "sunColor": 16771016,
+    "sunDir": {
+     "x": 0.15,
+     "y": 0.45,
+     "z": -0.85
+    },
+    "sunIntensity": 1,
+    "hemiSky": 10521202,
+    "hemiGround": 3814188,
+    "hemiIntensity": 0.85,
+    "envIntensity": 0.85,
+    "shadowRadius": 7
+   },
+   "targetNames": [
+    "ceiling",
+    "floor",
+    "wall_back",
+    "wall_left",
+    "wall_right",
+    "wall_front",
+    "window",
+    "curtain",
+    "table",
+    "chairs",
+    "portrait",
+    "film_posters",
+    "display_case",
+    "dress_form",
+    "unicef_letter",
+    "bench",
+    "projector",
+    "spotlight",
+    "plaque",
+    "rug"
+   ]
+  },
+  "highSpeedTrain": {
+   "name": "highSpeedTrain",
+   "targets": {
+    "ceiling": "fade",
+    "floor": "rise",
+    "wall_back": "rise",
+    "wall_left": "rise",
+    "wall_right": "rise",
+    "wall_front": "rise",
+    "window": "fade",
+    "table": "rise",
+    "chairs": "rise",
+    "seats": "rise",
+    "luggage_rack": "fade",
+    "aisle": "rise",
+    "ticket": "condense",
+    "phone": "condense",
+    "landscape": "fade",
+    "lights": "fade",
+    "door": "rise",
+    "overhead_sign": "fade"
+   },
+   "bounds": {
+    "minX": -1.3,
+    "maxX": 1.3,
+    "minZ": -7.8,
+    "maxZ": 7.8
+   },
+   "cameraBounds": {
+    "minX": -1.6,
+    "maxX": 1.6,
+    "minZ": -8,
+    "maxZ": 8
+   },
+   "spawn": {
+    "x": 0,
+    "y": 0,
+    "z": 6,
+    "yaw": 3.141592653589793
+   },
+   "slots": {
+    "table": [
+     {
+      "x": -0.4,
+      "y": 0.98,
+      "z": -2.2
+     },
+     {
+      "x": -0.2,
+      "y": 0.98,
+      "z": 1.2
+     },
+     {
+      "x": -0.3,
+      "y": 0.98,
+      "z": 4.6
+     },
+     {
+      "x": -0.4,
+      "y": 0.98,
+      "z": 0.2
+     },
+     {
+      "x": 0.2,
+      "y": 0.98,
+      "z": 2.8
+     }
+    ],
+    "hover": [
+     {
+      "x": -0.6,
+      "y": 1.6,
+      "z": -1.4
+     },
+     {
+      "x": 0.6,
+      "y": 1.6,
+      "z": 2
+     },
+     {
+      "x": 0,
+      "y": 1.9,
+      "z": 5
+     },
+     {
+      "x": -0.5,
+      "y": 1.4,
+      "z": 6.2
+     }
+    ],
+    "floor": [
+     {
+      "x": 0,
+      "y": 0,
+      "z": 0.5
+     },
+     {
+      "x": 0,
+      "y": 0,
+      "z": 4
+     }
+    ]
+   },
+   "shots": [
+    {
+     "from": {
+      "x": 0,
+      "y": 1.55,
+      "z": 8.2
+     },
+     "to": {
+      "x": 0,
+      "y": 1.5,
+      "z": 7
+     },
+     "look": {
+      "x": 0,
+      "y": 1,
+      "z": 4
+     },
+     "duration": 10,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": -0.9,
+      "y": 1.45,
+      "z": 4.6
+     },
+     "to": {
+      "x": -0.6,
+      "y": 1.4,
+      "z": 3.6
+     },
+     "look": {
+      "x": 0.8,
+      "y": 1.1,
+      "z": 1
+     },
+     "duration": 9,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 0.9,
+      "y": 1.45,
+      "z": 4.6
+     },
+     "to": {
+      "x": 0.6,
+      "y": 1.4,
+      "z": 3.6
+     },
+     "look": {
+      "x": -0.8,
+      "y": 1.1,
+      "z": 1
+     },
+     "duration": 9,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 0,
+      "y": 1.5,
+      "z": 7.6
+     },
+     "to": {
+      "x": 0,
+      "y": 1.35,
+      "z": 6.2
+     },
+     "look": {
+      "x": -0.4,
+      "y": 1,
+      "z": 2.4
+     },
+     "duration": 8,
+     "move": "push",
+     "fov": 42
+    }
+   ],
+   "environment": {
+    "fogColor": 1713192,
+    "fogDensity": 0.035,
+    "skyTop": 4876922,
+    "skyMid": 10467516,
+    "skyBot": 3818568,
+    "sunColor": 16773848,
+    "sunDir": {
+     "x": 0.3,
+     "y": 0.7,
+     "z": 0.4
+    },
+    "sunIntensity": 1.4,
+    "hemiSky": 12112088,
+    "hemiGround": 3818564,
+    "hemiIntensity": 1,
+    "envIntensity": 0.9,
+    "shadowRadius": 8
+   },
+   "targetNames": [
+    "ceiling",
+    "floor",
+    "wall_back",
+    "wall_left",
+    "wall_right",
+    "wall_front",
+    "window",
+    "table",
+    "chairs",
+    "seats",
+    "luggage_rack",
+    "aisle",
+    "ticket",
+    "phone",
+    "landscape",
+    "lights",
+    "door",
+    "overhead_sign"
+   ]
+  },
+  "moonExhibit": {
+   "name": "moonExhibit",
+   "targets": {
+    "ceiling": "fade",
+    "floor": "rise",
+    "wall_back": "rise",
+    "wall_left": "rise",
+    "wall_right": "rise",
+    "wall_front": "rise",
+    "window": "fade",
+    "table": "rise",
+    "chairs": "rise",
+    "moon_globe": "condense",
+    "blank_map": "fade",
+    "lander": "condense",
+    "rover": "condense",
+    "patches": "fade",
+    "display_cases": "rise",
+    "screen": "fade",
+    "spotlights": "fade",
+    "bench": "rise",
+    "rug": "rise",
+    "earth_view": "fade"
+   },
+   "bounds": {
+    "minX": -4.4,
+    "maxX": 4.4,
+    "minZ": -3.2,
+    "maxZ": 3.4
+   },
+   "cameraBounds": {
+    "minX": -4.6,
+    "maxX": 4.6,
+    "minZ": -3.4,
+    "maxZ": 7.4
+   },
+   "spawn": {
+    "x": 0.2,
+    "y": 0,
+    "z": 2.6,
+    "yaw": 3.141592653589793
+   },
+   "slots": {
+    "table": [
+     {
+      "x": -0.8,
+      "y": 0.78,
+      "z": 0.2
+     },
+     {
+      "x": -0.2,
+      "y": 0.78,
+      "z": 0.2
+     },
+     {
+      "x": 0.4,
+      "y": 0.78,
+      "z": 0.2
+     },
+     {
+      "x": 1,
+      "y": 0.78,
+      "z": 0.2
+     },
+     {
+      "x": -1.4,
+      "y": 0.6,
+      "z": 1.2
+     },
+     {
+      "x": 1.4,
+      "y": 0.6,
+      "z": 1.2
+     }
+    ],
+    "hover": [
+     {
+      "x": -2.8,
+      "y": 1.6,
+      "z": -1.6
+     },
+     {
+      "x": 2.6,
+      "y": 1.5,
+      "z": -1.6
+     },
+     {
+      "x": -2,
+      "y": 1.2,
+      "z": 0.6
+     },
+     {
+      "x": 2,
+      "y": 1.2,
+      "z": 0.6
+     }
+    ],
+    "floor": [
+     {
+      "x": -2.2,
+      "y": 0,
+      "z": 1.8
+     },
+     {
+      "x": 2.2,
+      "y": 0,
+      "z": 1.8
+     }
+    ]
+   },
+   "shots": [
+    {
+     "from": {
+      "x": 0.2,
+      "y": 1.8,
+      "z": 3.2
+     },
+     "to": {
+      "x": 0.4,
+      "y": 1.7,
+      "z": 2.5
+     },
+     "look": {
+      "x": 0,
+      "y": 1.3,
+      "z": -1.8
+     },
+     "duration": 9,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": -3.6,
+      "y": 1.7,
+      "z": 1.8
+     },
+     "to": {
+      "x": -3,
+      "y": 1.6,
+      "z": 1.2
+     },
+     "look": {
+      "x": 1.2,
+      "y": 1.1,
+      "z": -1.6
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 3.6,
+      "y": 1.7,
+      "z": 1.8
+     },
+     "to": {
+      "x": 3,
+      "y": 1.6,
+      "z": 1.2
+     },
+     "look": {
+      "x": -1.2,
+      "y": 1.1,
+      "z": -1.6
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 0,
+      "y": 1.6,
+      "z": 2.8
+     },
+     "to": {
+      "x": 0,
+      "y": 1.4,
+      "z": 1.6
+     },
+     "look": {
+      "x": 0,
+      "y": 1.2,
+      "z": -1.4
+     },
+     "duration": 8,
+     "move": "push",
+     "fov": 38
+    }
+   ],
+   "weather": {
+    "default": "clear",
+    "mode": "window",
+    "window": {
+     "x": 0,
+     "y": 1.9,
+     "z": -3.94,
+     "width": 3.2,
+     "height": 1.9
+    }
+   },
+   "environment": {
+    "fogColor": 461328,
+    "fogDensity": 0.055,
+    "skyTop": 791584,
+    "skyMid": 1714232,
+    "skyBot": 658966,
+    "sunColor": 13621482,
+    "sunDir": {
+     "x": 0.2,
+     "y": 0.55,
+     "z": -0.8
+    },
+    "sunIntensity": 0.6,
+    "hemiSky": 4872814,
+    "hemiGround": 1316894,
+    "hemiIntensity": 0.6,
+    "envIntensity": 0.6,
+    "shadowRadius": 9
+   },
+   "targetNames": [
+    "ceiling",
+    "floor",
+    "wall_back",
+    "wall_left",
+    "wall_right",
+    "wall_front",
+    "window",
+    "table",
+    "chairs",
+    "moon_globe",
+    "blank_map",
+    "lander",
+    "rover",
+    "patches",
+    "display_cases",
+    "screen",
+    "spotlights",
+    "bench",
+    "rug",
+    "earth_view"
+   ]
+  },
+  "soloStation": {
+   "name": "soloStation",
+   "targets": {
+    "ceiling": "fade",
+    "floor": "rise",
+    "wall_back": "rise",
+    "wall_left": "rise",
+    "wall_right": "rise",
+    "wall_front": "rise",
+    "window": "fade",
+    "table": "rise",
+    "chairs": "rise",
+    "board": "fade",
+    "gates": "rise",
+    "benches": "rise",
+    "suitcase": "condense",
+    "ticket_card": "condense",
+    "kiosk": "rise",
+    "pillars": "rise",
+    "clock": "condense",
+    "platform_view": "fade",
+    "lights": "fade",
+    "route_sign": "fade"
+   },
+   "bounds": {
+    "minX": -5.3,
+    "maxX": 5.3,
+    "minZ": -3.6,
+    "maxZ": 3.8
+   },
+   "cameraBounds": {
+    "minX": -5.5,
+    "maxX": 5.5,
+    "minZ": -3.8,
+    "maxZ": 8.5
+   },
+   "spawn": {
+    "x": 0.2,
+    "y": 0,
+    "z": 2.8,
+    "yaw": 3.141592653589793
+   },
+   "slots": {
+    "table": [
+     {
+      "x": -0.6,
+      "y": 0.78,
+      "z": -0.4
+     },
+     {
+      "x": 0,
+      "y": 0.78,
+      "z": -0.4
+     },
+     {
+      "x": 0.6,
+      "y": 0.78,
+      "z": -0.4
+     },
+     {
+      "x": 1,
+      "y": 0.78,
+      "z": -0.4
+     },
+     {
+      "x": -3.6,
+      "y": 0.5,
+      "z": 0.8
+     },
+     {
+      "x": 3.6,
+      "y": 0.5,
+      "z": 0.8
+     }
+    ],
+    "hover": [
+     {
+      "x": -2.6,
+      "y": 3,
+      "z": -2.4
+     },
+     {
+      "x": 4.2,
+      "y": 2,
+      "z": -2.2
+     },
+     {
+      "x": -4,
+      "y": 1.3,
+      "z": -1.6
+     },
+     {
+      "x": 0.4,
+      "y": 1.2,
+      "z": 0.8
+     }
+    ],
+    "floor": [
+     {
+      "x": -2.2,
+      "y": 0,
+      "z": 1.6
+     },
+     {
+      "x": 2.2,
+      "y": 0,
+      "z": 1.6
+     }
+    ]
+   },
+   "shots": [
+    {
+     "from": {
+      "x": 0.2,
+      "y": 1.9,
+      "z": 3.4
+     },
+     "to": {
+      "x": 0.4,
+      "y": 1.8,
+      "z": 2.6
+     },
+     "look": {
+      "x": 0,
+      "y": 1.3,
+      "z": -2
+     },
+     "duration": 9,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": -4.2,
+      "y": 1.8,
+      "z": 2
+     },
+     "to": {
+      "x": -3.4,
+      "y": 1.7,
+      "z": 1.4
+     },
+     "look": {
+      "x": 1,
+      "y": 1.2,
+      "z": -1.6
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 4.2,
+      "y": 1.8,
+      "z": 2
+     },
+     "to": {
+      "x": 3.4,
+      "y": 1.7,
+      "z": 1.4
+     },
+     "look": {
+      "x": -1,
+      "y": 1.2,
+      "z": -1.6
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 0,
+      "y": 3.2,
+      "z": 3.8
+     },
+     "to": {
+      "x": 0,
+      "y": 2.8,
+      "z": 3
+     },
+     "look": {
+      "x": 0,
+      "y": 1.2,
+      "z": -1.2
+     },
+     "duration": 9,
+     "move": "orbit"
+    }
+   ],
+   "weather": {
+    "default": "clear",
+    "mode": "window",
+    "window": {
+     "x": 0,
+     "y": 2,
+     "z": -4.44,
+     "width": 4.4,
+     "height": 2
+    }
+   },
+   "environment": {
+    "fogColor": 1054752,
+    "fogDensity": 0.04,
+    "skyTop": 1713712,
+    "skyMid": 3952732,
+    "skyBot": 1712166,
+    "sunColor": 10470624,
+    "sunDir": {
+     "x": 0,
+     "y": 0.5,
+     "z": -0.9
+    },
+    "sunIntensity": 0.7,
+    "hemiSky": 7309982,
+    "hemiGround": 2238510,
+    "hemiIntensity": 0.8,
+    "envIntensity": 0.85,
+    "shadowRadius": 10
+   },
+   "targetNames": [
+    "ceiling",
+    "floor",
+    "wall_back",
+    "wall_left",
+    "wall_right",
+    "wall_front",
+    "window",
+    "table",
+    "chairs",
+    "board",
+    "gates",
+    "benches",
+    "suitcase",
+    "ticket_card",
+    "kiosk",
+    "pillars",
+    "clock",
+    "platform_view",
+    "lights",
+    "route_sign"
+   ]
+  },
+  "travelLounge": {
+   "name": "travelLounge",
+   "targets": {
+    "ceiling": "fade",
+    "floor": "rise",
+    "wall_back": "rise",
+    "wall_left": "rise",
+    "wall_right": "rise",
+    "wall_front": "rise",
+    "window": "fade",
+    "table": "rise",
+    "chairs": "rise",
+    "counter": "rise",
+    "map_wall": "fade",
+    "itinerary": "fade",
+    "suitcase": "condense",
+    "camera": "condense",
+    "postcards": "condense",
+    "bench": "rise",
+    "lamp": "fade",
+    "rug": "rise",
+    "street_view": "fade",
+    "clock": "condense"
+   },
+   "bounds": {
+    "minX": -3.9,
+    "maxX": 3.9,
+    "minZ": -2.95,
+    "maxZ": 3.15
+   },
+   "cameraBounds": {
+    "minX": -4.1,
+    "maxX": 4.1,
+    "minZ": -3.15,
+    "maxZ": 7.15
+   },
+   "spawn": {
+    "x": 0.2,
+    "y": 0,
+    "z": 2.3,
+    "yaw": 3.141592653589793
+   },
+   "slots": {
+    "table": [
+     {
+      "x": -0.9,
+      "y": 0.78,
+      "z": -0.8
+     },
+     {
+      "x": -0.3,
+      "y": 0.78,
+      "z": -0.8
+     },
+     {
+      "x": 0.3,
+      "y": 0.78,
+      "z": -0.8
+     },
+     {
+      "x": 0.9,
+      "y": 0.78,
+      "z": -0.8
+     },
+     {
+      "x": 2.4,
+      "y": 1.07,
+      "z": -3.05
+     },
+     {
+      "x": 2.9,
+      "y": 1.07,
+      "z": -3.05
+     }
+    ],
+    "hover": [
+     {
+      "x": -2.2,
+      "y": 1.4,
+      "z": -1.2
+     },
+     {
+      "x": 2.1,
+      "y": 1.4,
+      "z": -1.2
+     },
+     {
+      "x": -2.6,
+      "y": 0.9,
+      "z": 1.3
+     },
+     {
+      "x": 0.2,
+      "y": 1.2,
+      "z": 1.4
+     }
+    ],
+    "floor": [
+     {
+      "x": -1.9,
+      "y": 0,
+      "z": 1.5
+     },
+     {
+      "x": 1.9,
+      "y": 0,
+      "z": 1.4
+     }
+    ]
+   },
+   "shots": [
+    {
+     "from": {
+      "x": 0.2,
+      "y": 1.7,
+      "z": 3
+     },
+     "to": {
+      "x": 0.4,
+      "y": 1.6,
+      "z": 2.2
+     },
+     "look": {
+      "x": 0,
+      "y": 1.1,
+      "z": -1.6
+     },
+     "duration": 9,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": -3.4,
+      "y": 1.6,
+      "z": 1.6
+     },
+     "to": {
+      "x": -2.6,
+      "y": 1.5,
+      "z": 1.1
+     },
+     "look": {
+      "x": 0.8,
+      "y": 1.1,
+      "z": -1.4
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 3.2,
+      "y": 1.6,
+      "z": 1.6
+     },
+     "to": {
+      "x": 2.5,
+      "y": 1.5,
+      "z": 1.1
+     },
+     "look": {
+      "x": -0.8,
+      "y": 1,
+      "z": -1.2
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 0,
+      "y": 1.5,
+      "z": 2.2
+     },
+     "to": {
+      "x": -0.2,
+      "y": 1.35,
+      "z": 1.2
+     },
+     "look": {
+      "x": 0.1,
+      "y": 1,
+      "z": -1.2
+     },
+     "duration": 7,
+     "move": "push",
+     "fov": 36
+    }
+   ],
+   "weather": {
+    "default": "clear",
+    "mode": "window",
+    "window": {
+     "x": 0,
+     "y": 1.8,
+     "z": -3.69,
+     "width": 3.2,
+     "height": 1.8
+    }
+   },
+   "environment": {
+    "fogColor": 1841688,
+    "fogDensity": 0.045,
+    "skyTop": 3813416,
+    "skyMid": 7232070,
+    "skyBot": 2630174,
+    "sunColor": 16764566,
+    "sunDir": {
+     "x": 0.2,
+     "y": 0.4,
+     "z": -0.85
+    },
+    "sunIntensity": 1.2,
+    "hemiSky": 10521200,
+    "hemiGround": 3813930,
+    "hemiIntensity": 0.9,
+    "envIntensity": 0.9,
+    "shadowRadius": 7
+   },
+   "targetNames": [
+    "ceiling",
+    "floor",
+    "wall_back",
+    "wall_left",
+    "wall_right",
+    "wall_front",
+    "window",
+    "table",
+    "chairs",
+    "counter",
+    "map_wall",
+    "itinerary",
+    "suitcase",
+    "camera",
+    "postcards",
+    "bench",
+    "lamp",
+    "rug",
+    "street_view",
+    "clock"
+   ]
+  },
+  "violinWorkshop": {
+   "name": "violinWorkshop",
+   "targets": {
+    "ceiling": "fade",
+    "floor": "rise",
+    "wall_back": "rise",
+    "wall_left": "rise",
+    "wall_right": "rise",
+    "wall_front": "rise",
+    "window": "fade",
+    "table": "rise",
+    "chairs": "rise",
+    "workbench": "rise",
+    "tools": "condense",
+    "violin_body": "condense",
+    "violin_neck": "condense",
+    "shavings": "condense",
+    "shelf": "rise",
+    "stool": "rise",
+    "lamp": "fade",
+    "wood_stack": "rise",
+    "window_light": "fade"
+   },
+   "bounds": {
+    "minX": -3.4,
+    "maxX": 3.4,
+    "minZ": -2.7,
+    "maxZ": 2.9
+   },
+   "cameraBounds": {
+    "minX": -3.6,
+    "maxX": 3.6,
+    "minZ": -2.9,
+    "maxZ": 6.7
+   },
+   "spawn": {
+    "x": 0.2,
+    "y": 0,
+    "z": 2.2,
+    "yaw": 3.141592653589793
+   },
+   "slots": {
+    "table": [
+     {
+      "x": 0.4,
+      "y": 0.92,
+      "z": -1.8
+     },
+     {
+      "x": 0.8,
+      "y": 0.92,
+      "z": -1.8
+     },
+     {
+      "x": 1.4,
+      "y": 0.92,
+      "z": -1.8
+     },
+     {
+      "x": 1.7,
+      "y": 0.92,
+      "z": -1.7
+     },
+     {
+      "x": -1.4,
+      "y": 0.83,
+      "z": -1.9
+     }
+    ],
+    "hover": [
+     {
+      "x": -2,
+      "y": 1.4,
+      "z": -1.6
+     },
+     {
+      "x": 2.1,
+      "y": 1.4,
+      "z": -1.6
+     },
+     {
+      "x": -1.8,
+      "y": 1,
+      "z": 0.6
+     },
+     {
+      "x": 0.4,
+      "y": 1.2,
+      "z": 0.6
+     }
+    ],
+    "floor": [
+     {
+      "x": -1.6,
+      "y": 0,
+      "z": 1.3
+     },
+     {
+      "x": 1.8,
+      "y": 0,
+      "z": 1.2
+     }
+    ]
+   },
+   "shots": [
+    {
+     "from": {
+      "x": 0.2,
+      "y": 1.6,
+      "z": 2.8
+     },
+     "to": {
+      "x": 0.4,
+      "y": 1.5,
+      "z": 2.1
+     },
+     "look": {
+      "x": 0.2,
+      "y": 1,
+      "z": -1.6
+     },
+     "duration": 9,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": -3.2,
+      "y": 1.5,
+      "z": 1.6
+     },
+     "to": {
+      "x": -2.5,
+      "y": 1.4,
+      "z": 1.1
+     },
+     "look": {
+      "x": 0.8,
+      "y": 1,
+      "z": -1.6
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 3,
+      "y": 1.5,
+      "z": 1.6
+     },
+     "to": {
+      "x": 2.4,
+      "y": 1.4,
+      "z": 1.1
+     },
+     "look": {
+      "x": -0.4,
+      "y": 1,
+      "z": -1.6
+     },
+     "duration": 8,
+     "move": "dolly"
+    },
+    {
+     "from": {
+      "x": 0.6,
+      "y": 1.4,
+      "z": 2.2
+     },
+     "to": {
+      "x": 0.4,
+      "y": 1.25,
+      "z": 1.3
+     },
+     "look": {
+      "x": 0.8,
+      "y": 0.95,
+      "z": -1.6
+     },
+     "duration": 8,
+     "move": "push",
+     "fov": 34
+    }
+   ],
+   "weather": {
+    "default": "clear",
+    "mode": "window",
+    "window": {
+     "x": 0,
+     "y": 1.85,
+     "z": -3.44,
+     "width": 3.2,
+     "height": 1.8
+    }
+   },
+   "environment": {
+    "fogColor": 1841170,
+    "fogDensity": 0.045,
+    "skyTop": 3814182,
+    "skyMid": 7233608,
+    "skyBot": 2762012,
+    "sunColor": 16767392,
+    "sunDir": {
+     "x": -0.2,
+     "y": 0.45,
+     "z": -0.85
+    },
+    "sunIntensity": 1.3,
+    "hemiSky": 10521194,
+    "hemiGround": 3353120,
+    "hemiIntensity": 0.85,
+    "envIntensity": 0.85,
+    "shadowRadius": 7
+   },
+   "targetNames": [
+    "ceiling",
+    "floor",
+    "wall_back",
+    "wall_left",
+    "wall_right",
+    "wall_front",
+    "window",
+    "table",
+    "chairs",
+    "workbench",
+    "tools",
+    "violin_body",
+    "violin_neck",
+    "shavings",
+    "shelf",
+    "stool",
+    "lamp",
+    "wood_stack",
+    "window_light"
+   ]
+  }
+ }
+}

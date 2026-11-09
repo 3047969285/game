@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit04.section_c.p02",
+ "unit": 4,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "In line with tradition, Xing followed a teacher, Tian Wenyuan, and after three years' apprenticeship, she was already very good at the art thanks to her diligence and passion. She always chose to tackle complicated work and soon became a leading figure in the factory. When the factory established its technology department in 1970, she became a member and studied the technology and designed new glassware products together with her co-workers.",
+ "rate": 165,
+ "duration": 34.799,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 13.469,
+   "text": "In line with tradition, Xing followed a teacher, Tian Wenyuan, and after three years' apprenticeship, she was already very good at the art thanks to her diligence and passion."
+  },
+  {
+   "i": 1,
+   "start": 13.469,
+   "end": 20.602,
+   "text": "She always chose to tackle complicated work and soon became a leading figure in the factory."
+  },
+  {
+   "i": 2,
+   "start": 20.602,
+   "end": 34.799,
+   "text": "When the factory established its technology department in 1970, she became a member and studied the technology and designed new glassware products together with her co-workers."
+  }
+ ]
+}

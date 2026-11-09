@@ -1,0 +1,49 @@
+{
+ "line_id": "vo.tb.unit03.section_a.p09",
+ "unit": 3,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "So, let’s not pretend that travel doesn’t have its drawbacks, or that we endure jet lag for pleasure. We don’t spend 10 hours lost in the Louvre because we like it, and the view from the top of Machu Picchu probably doesn’t make up for the trouble of lost luggage. (More often than not, I need a vacation after my vacation.) We travel because we need to, because distance and difference are the secret cornerstones of creativity. When we get home, home is still the same. But something in our mind has been changed, and that changes everything.",
+ "rate": 165,
+ "duration": 30.214,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.958,
+   "text": "So, let’s not pretend that travel doesn’t have its drawbacks, or that we endure jet lag for pleasure."
+  },
+  {
+   "i": 1,
+   "start": 5.958,
+   "end": 14.354,
+   "text": "We don’t spend 10 hours lost in the Louvre because we like it, and the view from the top of Machu Picchu probably doesn’t make up for the trouble of lost luggage."
+  },
+  {
+   "i": 2,
+   "start": 14.354,
+   "end": 18.085,
+   "text": "(More often than not, I need a vacation after my vacation."
+  },
+  {
+   "i": 3,
+   "start": 18.085,
+   "end": 23.742,
+   "text": "We travel because we need to, because distance and difference are the secret cornerstones of creativity."
+  },
+  {
+   "i": 4,
+   "start": 23.742,
+   "end": 26.321,
+   "text": "When we get home, home is still the same."
+  },
+  {
+   "i": 5,
+   "start": 26.321,
+   "end": 30.214,
+   "text": "But something in our mind has been changed, and that changes everything."
+  }
+ ]
+}

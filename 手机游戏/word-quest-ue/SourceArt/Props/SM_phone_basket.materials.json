@@ -1,0 +1,28 @@
+{
+ "kit": "phone_basket",
+ "dims_m": [
+  0.362,
+  0.256,
+  0.148
+ ],
+ "materials": {
+  "M_rattan": {
+   "color": "#A88956",
+   "roughness": 0.7,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.1
+  },
+  "M_rattan_dk": {
+   "color": "#7D6139",
+   "roughness": 0.75,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

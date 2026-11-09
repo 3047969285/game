@@ -39,13 +39,13 @@
 ```sh
 ENGINE='/Users/Shared/Epic Games/UE_5.8'
 PROJECT="$PWD/WordQuestUE.uproject"
-"$ENGINE/Engine/Build/BatchFiles/Mac/Build.sh" WordQuestUEEditor Mac Development "$PROJECT" -WaitMutex -NoHotReloadFromIDE
+UE_LOCK_WHO=codex Tools/run_ue_serial.sh "$ENGINE/Engine/Build/BatchFiles/Mac/Build.sh" WordQuestUEEditor Mac Development "$PROJECT" -WaitMutex -NoHotReloadFromIDE
 ```
 
 无头自检：
 
 ```sh
-"$ENGINE/Engine/Binaries/Mac/UnrealEditor-Cmd" "$PROJECT" \
+UE_LOCK_WHO=codex Tools/run_ue_serial.sh "$ENGINE/Engine/Binaries/Mac/UnrealEditor-Cmd" "$PROJECT" \
   -run=pythonscript "-script=$PWD/Tools/ue_check_character_engine.py" \
   -nullrhi -unattended -nop4 -nosplash -nosound -NoEpicPortal \
   -stdout -FullStdOutLogOutput
@@ -137,3 +137,40 @@ QA 工具实际执行完成，每位 4 FAIL（没有修改工具/阈值）：
 测试：实际退出 0，三张 1024² 同机位图成功，MHC SHA256 不变。无贴图和屏幕/自阴影的灰模仍有同一条颅底—颈部折痕；改下方光后暗带变亮但表面折线仍可见。因此源于模型表面/顶点法线过渡，顶部轮廓光会放大；不归因于地面、曝光或皮肤法线贴图。尚未进一步分离顶点几何和法线的贡献，交 Claude 检查拟合后颅底和颈部的过渡及法线平滑。
 
 **新增强制约定：C++ Build.sh / UBT 也必须使用与 UE 同一把锁。** 22:33 Codex 未加锁链接造成 dylib 短暂缺失，rui 的 ab600750130147c79cbe4febbbe333bb 日志明确为模块找不到。后续编译不再与编辑器并行。
+
+
+## 第二轮（2026-10-22）产品需求说明书
+
+C3 先等待 Claude 在 STATUS 的 Claude 一节写入“Groom 重新导出完成”，再读取九份新 ABC。源 radius=1 的问题由 Claude 修正；Codex 不修改发丝源数据。首先验证男主的真实 FaceMesh 绑定耗时与画面，再渲染七人并运行原 QA report/dashboard。C4 先验证 idle/walk/sit 的 IK Retargeter 和 archetype 预览；登录和正式身份 auto-rig 由用户处理。C6 以 Docs/characters 的服装和发型规格同步身份数据，继续独立英雄 GLB 加载。
+
+## 第二轮接口文档
+
+- `ue_import_character.py <id|all>`：导入前、持锁编辑器内再次检查 Claude 的交付标记；发丝来源 SHA256 改变才重新导入。头发直径使用 sidecar 均值 0.0075 cm（0.075 mm），眉毛 0.008 cm（0.08 mm）；拒绝非有限值及明显错误的米制直径。导入目标仍为 `/Game/Blueprints/Characters/Imported/<id>`，自动生成 10% guides，保留真实 Strands LOD；Cards 未生成。
+- `ue_inventory_animation.py`：只读本地资产与 API 清点，写 `Saved/CharacterEngine/C4-inventory.json`，走共享完整编辑器锁。
+- `ue_retarget_character.py`：引擎自带 TutorialTPP idle/walk 与明确标为 handkey 的坐姿源，经 IK Retargeter 输出到 `/Game/Animation/CharacterPreview`。目标为 MetaHuman 插件真实 archetype 的本地副本；不会伪造正式身份骨架或保存 MHC。`BP_me2026` 预览由 `WordQuestAnimationPreview` 驱动，`EvaluatePreview(state,seconds)` 可采样 pelvis/head/feet/hands，预览状态为 idle/walk/sit。
+- 网页 `CharacterIdentity.outfit` 新增袖型、鞋色、裙摆/鞋跟高度和领口元数据；`necklace` 记录黑皮绳和深金属吊坠。`characterLook().wardrobe` 传递作者规格；独立 GLB 保留原几何，不由身份表自动生成鞋跟或裙装。男主回退使用已有 shirtJacket 贴图模式，女主程序回退选择 dress；Rocketbox 身体本身仍不能代替最终 A 字裙、吊带与项链，最终外形依赖 Claude 的 GLB 交付。
+
+## 第二轮测试（持续追加）
+
+- 离线安全合约 20/20，通过交付标记所属章节、直径单位、错误直径拒绝、路径隔离、共享锁等校验。
+- 动画清点完整编辑器退出 0；本机已能发现 MetaHuman Optional 动画/Core Data 资产，之前“缺少 Core Data”的记录为上一轮历史状态，正式合成质量仍需实际图像验证。
+- 新动画预览 C++ 类共享锁编译成功，15.60 秒。C4 实际重定向/动作采样尚待执行。
+- 网页 `VITEST_MAX_WORKERS=2 npm test`：76 文件、811 前端测试 + 7 数据测试通过；`npm run build` 通过。首次默认并行跑测试时，旧服装断言已按新需求更新；两个既有重型网格测试在 UE/Blender 同机高负载时超过 5 秒，限制测试 worker 数后全量通过，未放宽断言/超时。
+
+
+### 第二轮 C3 实测补充（2026-10-22）
+
+九份源 Groom 已重新导入，来源 SHA256 全部匹配。男主正常 FaceMesh 绑定耗时 1.98 秒；`d71249389b61439db7b2882400460159` 五视图含真实皮肤，但仍有条纹，渲染成功不表示质量通过。新增 `InspectGroom` 只读检测实际 UE 几何：男主最大直径 0.006164 cm、最长相邻线段 0.171545 cm；眉毛 0.008 cm / 0.098730 cm，均为合理尺寸。
+
+Metal 对照：只为诊断进程启动时覆写 `r.HairStrands.Strands.UseTriangleStrips=0`（只读 CVar 不能在运行中随意切换），配合 rigid/rest-only 对照后长条消失；尚待保留皮肤绑定、只改 triangle-list 的复核。没有修改全局引擎或作者发丝。参考 Epic 的 [Groom 导入与绑定指南](https://dev.epicgames.com/documentation/unreal-engine/hair-simulation-and-rendering-quick-start-guide-in-unreal-engine)；当前平台结果以本项目实测为准。
+
+`ue_render_compare.py --triangle-list` 提供这项启动级对照；`ue_render_cast.py --import-before` 在每位渲染前重新核对源哈希，防止作者继续更新源文件后沿用旧导入。角色皮肤保持交付资产设置，`preview_material=Authored`；已选 Skin 的角色不切换材质；若保存的模式是彩色 Topology，仅使用 display-only Editable 选择器显示角色已有 SkinSettings 的合成皮肤，不提交肤色设置、不保存 MHC。上文 C2 缺少 Core Data 时的灰白 Skin 是 2026-10-21 的历史验证。
+
+
+### C3 相机与 Mac 配置修复
+
+`Config/Mac/MacEngine.ini` 仅对 Mac 启动设置 `r.HairStrands.Strands.UseTriangleStrips=0`。正常 FaceMesh 绑定对照已证明长条消失（`71bc95eca95d4a08a11b5f0edea4f85d`，1.73 s）；不会在运行中改只读 CVar。`ConfigureViews` 对已保存的相机也开启 AntiAliasing/TemporalAA，已有 bAlwaysPersistRenderingState 保留历史。发丝 lookdev 组件强制 LOD0，不使用远景降档作为质量验收输入。最终本机构建成功 13.02 秒。
+
+CPU 几何检查用于发现单位错误，长发 16 CV 可以有数厘米的相邻线段，因此不会套用男主短发的密度上限。Lin 真实最长相邻线段 2.305 cm，首次 2 cm 限制误拦后已改为只拦明显单位错误，真实数值保留在 capture.json；没有修改作者线段。人脸检测失败会作为 quality_issues=FAIL 记录，仍保存完整五视图供 QA 诊断，不再用单一检测器中止采集。
+
+`ue_validate_character_round2.py` 按编译→七人五视图→原版 report/conform_report/dashboard→C4 预览顺序执行，建议外层 run_ue_serial.sh 持同一把锁，子进程验证祖先后复用锁，保证比较期间 MHC 不被另一 UE 进程改写。日志与逐步骤退出码写 `Saved/CharacterEngine/Round2/`。渲染退出 0 仅表示图像采集完成，quality_status 及 QA 的 FAIL/N/A 单独保留。

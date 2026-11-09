@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit04.section_c.p01",
+ "unit": 4,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "Xing first came into contact with glassware making when she entered a technical school in 1962. Before that, she had never heard of the art, and even afterward never did she expect to be engaged in it for the rest of her life. Today, together with her two sons, Xing is the heir of a national intangible cultural heritage and is the only glassware artist who has received the title of master in China.",
+ "rate": 165,
+ "duration": 33.364,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 9.046,
+   "text": "Xing first came into contact with glassware making when she entered a technical school in 1962."
+  },
+  {
+   "i": 1,
+   "start": 9.046,
+   "end": 19.669,
+   "text": "Before that, she had never heard of the art, and even afterward never did she expect to be engaged in it for the rest of her life."
+  },
+  {
+   "i": 2,
+   "start": 19.669,
+   "end": 33.364,
+   "text": "Today, together with her two sons, Xing is the heir of a national intangible cultural heritage and is the only glassware artist who has received the title of master in China."
+  }
+ ]
+}

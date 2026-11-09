@@ -1,0 +1,46 @@
+{
+ "kit": "chess_set",
+ "dims_m": [
+  0.45,
+  0.45,
+  0.106
+ ],
+ "materials": {
+  "M_maple": {
+   "color": "#CDBB96",
+   "roughness": 0.45,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_walnut_sq": {
+   "color": "#4A3322",
+   "roughness": 0.45,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_ivory": {
+   "color": "#E6DCC6",
+   "roughness": 0.35,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_ebony": {
+   "color": "#2F2620",
+   "roughness": 0.35,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

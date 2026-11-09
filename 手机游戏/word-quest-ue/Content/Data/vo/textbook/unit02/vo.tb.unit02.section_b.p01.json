@@ -1,0 +1,19 @@
+{
+ "line_id": "vo.tb.unit02.section_b.p01",
+ "unit": 2,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Audrey Hepburn thrilled audiences with starring roles in noteworthy films like Breakfast at Tiffany's, Sabrina, Roman Holiday, My Fair Lady, War and Peace, and Always.",
+ "rate": 165,
+ "duration": 11.276,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 11.276,
+   "text": "Audrey Hepburn thrilled audiences with starring roles in noteworthy films like Breakfast at Tiffany's, Sabrina, Roman Holiday, My Fair Lady, War and Peace, and Always."
+  }
+ ]
+}

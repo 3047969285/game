@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit03.section_b.p13",
+ "unit": 3,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "The key to solo travel is to open your mind, close your eyes, and leap in. Everything that happens to you is an experience, and good, bad, or neutral, it will benefit you in some way. Take those little annoyances, those inefficiencies, and those boring bureaucrats with a laugh. If you despise something, just remember: You don’t live there, you can leave anytime, and you’ll never have to deal with this again!",
+ "rate": 165,
+ "duration": 25.358,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.909,
+   "text": "The key to solo travel is to open your mind, close your eyes, and leap in."
+  },
+  {
+   "i": 1,
+   "start": 4.909,
+   "end": 11.704,
+   "text": "Everything that happens to you is an experience, and good, bad, or neutral, it will benefit you in some way."
+  },
+  {
+   "i": 2,
+   "start": 11.704,
+   "end": 17.542,
+   "text": "Take those little annoyances, those inefficiencies, and those boring bureaucrats with a laugh."
+  },
+  {
+   "i": 3,
+   "start": 17.542,
+   "end": 25.358,
+   "text": "If you despise something, just remember: You don’t live there, you can leave anytime, and you’ll never have to deal with this again!"
+  }
+ ]
+}

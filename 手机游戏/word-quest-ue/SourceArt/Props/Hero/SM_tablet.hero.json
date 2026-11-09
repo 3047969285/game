@@ -1,0 +1,61 @@
+{
+ "kit": "tablet",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_tablet.fbx",
+ "triangles": 16694,
+ "size_m": [
+  0.1794,
+  0.2487,
+  0.0096
+ ],
+ "dims_target_m": [
+  0.18,
+  0.25,
+  0.008
+ ],
+ "slots": [
+  {
+   "slot": "body",
+   "material": "M_body",
+   "BaseColor": "T_tablet_body_BaseColor.png",
+   "Normal": "T_tablet_body_Normal.png",
+   "ARM": "T_tablet_body_ARM.png"
+  },
+  {
+   "slot": "frontglass",
+   "material": "M_frontglass",
+   "BaseColor": "T_tablet_frontglass_BaseColor.png",
+   "Normal": "T_tablet_frontglass_Normal.png",
+   "ARM": "T_tablet_frontglass_ARM.png"
+  },
+  {
+   "slot": "screen",
+   "material": "M_screen",
+   "Emissive": "tablet_reader.png",
+   "strength": 1.3
+  },
+  {
+   "slot": "port",
+   "material": "M_port",
+   "BaseColor": "T_tablet_port_BaseColor.png",
+   "Normal": "T_tablet_port_Normal.png",
+   "ARM": "T_tablet_port_ARM.png"
+  },
+  {
+   "slot": "lensring",
+   "material": "M_lensring",
+   "BaseColor": "T_tablet_lensring_BaseColor.png",
+   "Normal": "T_tablet_lensring_Normal.png",
+   "ARM": "T_tablet_lensring_ARM.png"
+  },
+  {
+   "slot": "lens",
+   "material": "M_lens",
+   "BaseColor": "T_tablet_lens_BaseColor.png",
+   "Normal": "T_tablet_lens_Normal.png",
+   "ARM": "T_tablet_lens_ARM.png"
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "lying screen-up, tilted onto the camera plateau"
+}

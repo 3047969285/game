@@ -1,0 +1,28 @@
+{
+ "kit": "duster",
+ "dims_m": [
+  0.14,
+  0.06,
+  0.05
+ ],
+ "materials": {
+  "M_duster_felt": {
+   "color": "#7D8B9C",
+   "roughness": 0.95,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_duster_wood": {
+   "color": "#9C6B3E",
+   "roughness": 0.55,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

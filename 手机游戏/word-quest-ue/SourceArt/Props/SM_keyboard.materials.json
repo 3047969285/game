@@ -1,0 +1,28 @@
+{
+ "kit": "keyboard",
+ "dims_m": [
+  0.44,
+  0.14,
+  0.029
+ ],
+ "materials": {
+  "M_kb_body": {
+   "color": "#2B2F36",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_kb_key": {
+   "color": "#3E444E",
+   "roughness": 0.45,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

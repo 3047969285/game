@@ -1,0 +1,19 @@
+{
+ "line_id": "vo.tb.unit01.section_c.p02",
+ "unit": 1,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "To see how far I could go in Beijing without a wallet, I spent a day armed only with my smartphone.",
+ "rate": 165,
+ "duration": 7.52,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 7.52,
+   "text": "To see how far I could go in Beijing without a wallet, I spent a day armed only with my smartphone."
+  }
+ ]
+}

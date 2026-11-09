@@ -1,0 +1,61 @@
+{
+ "line_id": "vo.tb.unit06.section_b.p07",
+ "unit": 6,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "A striking example of a stock market bubble is the “dot-com” bubble. The buzz about the economic possibilities of the Internet encouraged investors to fund the creation of many dot-com companies—too many, it turned out. For several years, dozens of entrepreneurs sought to duplicate for themselves the results of those that had come before. Many investors envisaged wealth for any business with a website that could advertise on TV or billboards, even if its actual services were ambiguous. Instead, on March 10, 2000, the dot-com boom reached its peak when the stock index hit 5,132.52. Over the next two and a half years, the index dropped to as low as 1,108.49. Very few companies bucked the trend. Most had blundered into awful financial difficulties, selling off their assets to healthier companies.",
+ "rate": 165,
+ "duration": 53.21,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 3.835,
+   "text": "A striking example of a stock market bubble is the “dot-com” bubble."
+  },
+  {
+   "i": 1,
+   "start": 3.835,
+   "end": 12.9,
+   "text": "The buzz about the economic possibilities of the Internet encouraged investors to fund the creation of many dot-com companies—too many, it turned out."
+  },
+  {
+   "i": 2,
+   "start": 12.9,
+   "end": 19.742,
+   "text": "For several years, dozens of entrepreneurs sought to duplicate for themselves the results of those that had come before."
+  },
+  {
+   "i": 3,
+   "start": 19.742,
+   "end": 28.521,
+   "text": "Many investors envisaged wealth for any business with a website that could advertise on TV or billboards, even if its actual services were ambiguous."
+  },
+  {
+   "i": 4,
+   "start": 28.521,
+   "end": 38.242,
+   "text": "Instead, on March 10, 2000, the dot-com boom reached its peak when the stock index hit 5,132.52."
+  },
+  {
+   "i": 5,
+   "start": 38.242,
+   "end": 44.788,
+   "text": "Over the next two and a half years, the index dropped to as low as 1,108.49."
+  },
+  {
+   "i": 6,
+   "start": 44.788,
+   "end": 47.043,
+   "text": "Very few companies bucked the trend."
+  },
+  {
+   "i": 7,
+   "start": 47.043,
+   "end": 53.21,
+   "text": "Most had blundered into awful financial difficulties, selling off their assets to healthier companies."
+  }
+ ]
+}

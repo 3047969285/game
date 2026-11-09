@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit01.section_c.p09",
+ "unit": 1,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "From food stalls to shopping malls, almost every place I stopped by in this corner of Beijing accepted mobile payment. When making a purchase, all I needed to do was tap on the phone, scan the QR code, and make the payment in a second or two. Mobile payment has really changed the way of life in China.",
+ "rate": 165,
+ "duration": 24.034,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 9.087,
+   "text": "From food stalls to shopping malls, almost every place I stopped by in this corner of Beijing accepted mobile payment."
+  },
+  {
+   "i": 1,
+   "start": 9.087,
+   "end": 19.549,
+   "text": "When making a purchase, all I needed to do was tap on the phone, scan the QR code, and make the payment in a second or two."
+  },
+  {
+   "i": 2,
+   "start": 19.549,
+   "end": 24.034,
+   "text": "Mobile payment has really changed the way of life in China."
+  }
+ ]
+}

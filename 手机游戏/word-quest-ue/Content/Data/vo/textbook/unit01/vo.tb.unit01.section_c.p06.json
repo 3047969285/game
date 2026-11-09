@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit01.section_c.p06",
+ "unit": 1,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "Many shops have incentives to use mobile payment services because this way they can engage customers better. After I paid for a sandwich and a cup of coffee at a restaurant with my smartphone, the waitress asked me to “follow” their public account so they could send me coupons and a virtual membership card. On the door of a nearby fashion boutique, there was another sign: “Welcome to use mobile payment!”",
+ "rate": 165,
+ "duration": 31.549,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 8.323,
+   "text": "Many shops have incentives to use mobile payment services because this way they can engage customers better."
+  },
+  {
+   "i": 1,
+   "start": 8.323,
+   "end": 23.238,
+   "text": "After I paid for a sandwich and a cup of coffee at a restaurant with my smartphone, the waitress asked me to “follow” their public account so they could send me coupons and a virtual membership card."
+  },
+  {
+   "i": 2,
+   "start": 23.238,
+   "end": 31.549,
+   "text": "On the door of a nearby fashion boutique, there was another sign: “Welcome to use mobile payment!”"
+  }
+ ]
+}

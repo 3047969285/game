@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit03.section_b.p09",
+ "unit": 3,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "I’ve been irritated and perplexed many times - not speaking a language, not understanding or being understood. Once, in Italy, a hotel clerk tried to overcharge me and only gave up after 10 minutes of arguing. Another time in India, a taxi driver insisted I pay more, and I was rescued by the doorman of a fancy hotel.",
+ "rate": 165,
+ "duration": 20.291,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.749,
+   "text": "I’ve been irritated and perplexed many times - not speaking a language, not understanding or being understood."
+  },
+  {
+   "i": 1,
+   "start": 6.749,
+   "end": 13.194,
+   "text": "Once, in Italy, a hotel clerk tried to overcharge me and only gave up after 10 minutes of arguing."
+  },
+  {
+   "i": 2,
+   "start": 13.194,
+   "end": 20.291,
+   "text": "Another time in India, a taxi driver insisted I pay more, and I was rescued by the doorman of a fancy hotel."
+  }
+ ]
+}

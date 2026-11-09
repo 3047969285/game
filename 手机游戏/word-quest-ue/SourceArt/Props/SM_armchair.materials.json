@@ -1,0 +1,37 @@
+{
+ "kit": "armchair",
+ "dims_m": [
+  0.92,
+  0.92,
+  1.0
+ ],
+ "materials": {
+  "M_walnut": {
+   "color": "#4A3526",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_linen": {
+   "color": "#6F5E4C",
+   "roughness": 0.92,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.12
+  },
+  "M_cushion": {
+   "color": "#5F5244",
+   "roughness": 0.9,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.12
+  }
+ }
+}

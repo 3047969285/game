@@ -1,0 +1,572 @@
+{
+  "unit": 5,
+  "items": [
+    {
+      "block": "u05_a_pre_reading",
+      "n": 1,
+      "explanation_en": "Para. 11 identifies Wang Yaping as the female astronaut who delivered the science lecture from space, watched by tens of millions of students.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_pre_reading",
+      "n": 2,
+      "explanation_en": "Para. 3 states that Yang Liwei became the first Chinese person to go into space, aboard Shenzhou-5 in October 2003.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_pre_reading",
+      "n": 3,
+      "explanation_en": "Para. 1 names Nie Haisheng as the leader of the Shenzhou-12 crew, the first to dock at the Tiangong space station.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_pre_reading",
+      "n": 4,
+      "explanation_en": "Para. 8 describes Zhai Zhigang forcing open the Shenzhou-7 hatch so the crew could go outside and wave the Chinese flag in space.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_pre_reading",
+      "n": 5,
+      "explanation_en": "Para. 2 and Para. 6 give the text's own criteria: veteran fighter pilots with 600+ flight hours, survivors of demanding tests, and fast learners.",
+      "draft_answer": "Candidates must first be veteran PLA Air Force pilots with at least 600 flight hours in fighter or attack aircraft, and only a tiny fraction survive the demanding selection tests. Once admitted, they must master about 60 subjects, from physics to astronomy, within a single year and pass every exam. They also need the physical and mental toughness to endure 160-kg suits underwater and eight times their own weight in a centrifuge. Team spirit and commitment matter too, since missions demand risking one's life for the flag.",
+      "needs_review": true
+    },
+    {
+      "block": "u05_a_understanding",
+      "n": 1,
+      "explanation_en": "The closing sentence of Para. 1 names building and operating China's first space station as one of the most spectacular endeavors.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_understanding",
+      "n": 2,
+      "explanation_en": "Para. 2 ends by saying the first 14 astronauts became founding members of the PLA Astronaut Group in 1998.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_understanding",
+      "n": 3,
+      "explanation_en": "Para. 3 says the Shenzhou-5 mission made China the third country to send a man into space.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_understanding",
+      "n": 4,
+      "explanation_en": "Para. 4 lists scientific experiments, technological tests, extravehicular activities and a science lecture as the progress made since Yang's journey.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_understanding",
+      "n": 5,
+      "explanation_en": "Para. 7 explains that astronauts wear 160-kg suits and stay underwater for about four hours to simulate weightlessness.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_understanding",
+      "n": 6,
+      "explanation_en": "Para. 8 reports that the two decided to force the hatch open with a tool despite the obvious safety risk.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_understanding",
+      "n": 7,
+      "explanation_en": "Para. 11 credits the achievements with national pride and confidence, patriotism among overseas Chinese, and added courage and strength.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_understanding",
+      "n": 8,
+      "explanation_en": "The final paragraph names bravery, wisdom and commitment as the qualities the Chinese astronauts embody.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_critical",
+      "n": 1,
+      "explanation_en": "Text C argues space progress solves earthly problems such as energy shortage and pollution, and drives communications and globalization.",
+      "draft_answer": "Space exploration pushes science and technology that later solves earthly problems, from energy and resource shortages to pollution, as Text C argues. It has already transformed daily life through satellites, communications and interconnectivity. It also lifts a nation's confidence and inspires young people to pursue scientific careers.",
+      "needs_review": true
+    },
+    {
+      "block": "u05_a_critical",
+      "n": 2,
+      "explanation_en": "Text A stresses a blueprint approved in 1992, rigorous training, and the thousands of scientists and workers behind each mission.",
+      "draft_answer": "China approved a blueprint for its manned space program back in 1992 and has followed it patiently for three decades instead of chasing quick results. Behind every mission stand tens of thousands of scientists, engineers and workers, as Jing Haipeng points out when accepting his medal. Rigorous training, the astronauts' willingness to risk their lives, and growing international cooperation explain the speed of the progress.",
+      "needs_review": true
+    },
+    {
+      "block": "u05_a_critical",
+      "n": 3,
+      "explanation_en": "Paras. 7-8 show the spirit in action: enduring unbearable g-forces and forcing a stuck hatch open for the flag.",
+      "draft_answer": "The spirit means gritting your teeth when the centrifuge or a stuck hatch threatens the mission, as Yang Liwei and Zhai Zhigang did. It means putting the nation's dream above personal safety, knowing there might be no return trip. It also means staying modest, since Jing Haipeng credits the honour to the whole team rather than to himself.",
+      "needs_review": true
+    },
+    {
+      "block": "u05_a_words_in_use",
+      "n": 1,
+      "explanation_en": "The present perfect 'have ____ the decline' needs the past participle 'halted', meaning to stop the decline.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_words_in_use",
+      "n": 2,
+      "explanation_en": "'Map out a(n) ____ for the city's development' calls for 'blueprint'; 'a blueprint for' is the fixed collocation for a plan.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_words_in_use",
+      "n": 3,
+      "explanation_en": "The modal 'could' takes the base form 'simulate', meaning to imitate environmental conditions for research.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_words_in_use",
+      "n": 4,
+      "explanation_en": "Past tense 'vibrated' matches 'while I was walking', a finished action in the past.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_words_in_use",
+      "n": 5,
+      "explanation_en": "'A very important ____ for the development of the program' takes 'milestone', a turning point in a process.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_words_in_use",
+      "n": 6,
+      "explanation_en": "The present perfect needs 'inflicted'; the collocation is 'inflict a loss on sb.'",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_words_in_use",
+      "n": 7,
+      "explanation_en": "Present perfect 'have ascended' takes Lushan Mountain as its direct object, meaning men of letters climbed it.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_words_in_use",
+      "n": 8,
+      "explanation_en": "'Blur the ____ between school and work' requires the noun 'boundary' after the definite article.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_words_in_use",
+      "n": 9,
+      "explanation_en": "An adjective is needed before 'waves'; 'gigantic' means enormous, matching the height of a 10-story building.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_words_in_use",
+      "n": 10,
+      "explanation_en": "The plural subject 'patterns' takes the base form 'embody', meaning to represent values.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_word_building",
+      "n": 1,
+      "explanation_en": "The adjective 'legendary', from 'legend', modifies 'Chinese physician' and means famous in legends.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_word_building",
+      "n": 2,
+      "explanation_en": "The adjective 'precautionary', from 'precaution', modifies 'purposes': savings kept against future uncertainty.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_word_building",
+      "n": 3,
+      "explanation_en": "A noun from 'immense' is needed after 'with its'; 'immensity' means the vastness of the ocean.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_word_building",
+      "n": 4,
+      "explanation_en": "A noun from 'sincere' is coordinated with 'trust' as subject, so the form is 'sincerity'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_word_building",
+      "n": 5,
+      "explanation_en": "The adjective 'momentary', from 'moment', modifies 'fear'; the next clause, 'it soon passed', confirms it was brief.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_word_building",
+      "n": 6,
+      "explanation_en": "The adjective 'disciplinary', from 'discipline', modifies 'punishment' for disobeying an order.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_word_building",
+      "n": 7,
+      "explanation_en": "After 'many', the uncountable 'adversity' becomes the plural 'adversities', meaning personal hardships.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_banked_cloze",
+      "n": 1,
+      "explanation_en": "'Marked a(n) ____ in China's research' is the collocation 'mark a milestone in', fitting the 1970 satellite launch.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_banked_cloze",
+      "n": 2,
+      "explanation_en": "'A period of ____ growth' needs an adjective, and 'soaring growth' means fast, sustained growth in the 1980s.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_banked_cloze",
+      "n": 3,
+      "explanation_en": "The government 'created a(n) ____' before implementing the program, so 'blueprint', a plan, fits.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_banked_cloze",
+      "n": 4,
+      "explanation_en": "'The largest and most technically complex ____ of China's space exploration' takes 'endeavor', a major undertaking.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_banked_cloze",
+      "n": 5,
+      "explanation_en": "The past tense 'ascended into space' matches October 2003; 'ascend' means to rise upward.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_banked_cloze",
+      "n": 6,
+      "explanation_en": "'Entered its ____ orbit' refers to the orbit assigned to the spaceship, hence 'designated'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_banked_cloze",
+      "n": 7,
+      "explanation_en": "'Was ____ with the Tianhe core module' needs the past participle 'docked'; 'dock with' is the collocation.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_banked_cloze",
+      "n": 8,
+      "explanation_en": "'Is ____ forward' takes the present participle 'pushing'; 'push forward with' means to advance an effort.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_banked_cloze",
+      "n": 9,
+      "explanation_en": "The modal 'will' requires the base form 'trigger'; 'trigger the interest of' means to spark it.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_banked_cloze",
+      "n": 10,
+      "explanation_en": "'The ____ cause' needs an adjective before the noun; 'a lofty cause' means a noble one.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_expressions_in_use",
+      "n": 1,
+      "explanation_en": "'Advise you to ____' requires the reflexive pronoun matching 'you', giving 'immerse yourself in'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_expressions_in_use",
+      "n": 2,
+      "explanation_en": "After 'have', the past participle 'triggered off' is needed, meaning sparked a series of controversies.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_expressions_in_use",
+      "n": 3,
+      "explanation_en": "'Available ____ people in rural areas' takes 'for the benefit of', meaning for the good of those people.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_expressions_in_use",
+      "n": 4,
+      "explanation_en": "Present simple with 'we' gives 'owe a debt to', meaning we are deeply grateful to such teachers.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_expressions_in_use",
+      "n": 5,
+      "explanation_en": "The passive past 'was ripped through by an explosion' agrees with the singular 'a gold mine'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_expressions_in_use",
+      "n": 6,
+      "explanation_en": "After 'you just have to', the base form is needed, with 'your' matching the subject 'you'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_expressions_in_use",
+      "n": 7,
+      "explanation_en": "Reported speech 'said that they ____' shifts back to the past passive 'were overwhelmed by'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_expressions_in_use",
+      "n": 8,
+      "explanation_en": "Present simple after the plural subject 'farmers' takes 'make use of', meaning to use water efficiently.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_a_structure_analysis",
+      "n": 1,
+      "explanation_en": "Each paragraph states a point first, then proves it with one extended example or a pair of brief ones, ending with a comment.",
+      "draft_answer": "Paragraph 9 opens with the claim that the astronauts' struggles were worthwhile and supports it with Liu Wang's extended description of the earth and stars seen from orbit. Paragraph 10 makes the same move: Jing Haipeng's medal becomes an extended example showing that the honour belongs to the whole team. Paragraph 11 then uses two brief examples, Wang Yaping's letters and Yang Liwei's New York encounter, to show the wide impact efficiently.",
+      "needs_review": true
+    },
+    {
+      "block": "u05_a_structured_writing",
+      "n": 1,
+      "explanation_en": "Read the sample as a pattern: thesis first, one example per body paragraph, and each example explained before the next.",
+      "draft_answer": "The sample starts from a clear thesis and then gives each body paragraph a single example that is described before it is explained. Link sentences then tie the example back to the thesis, so the evidence never stands alone. The conclusion echoes the opening claim, which turns a list of examples into a chain of proof.",
+      "needs_review": true
+    },
+    {
+      "block": "u05_a_structured_writing",
+      "n": 2,
+      "explanation_en": "Follow the given outline: thesis, two body paragraphs with named examples, and a conclusion that restates the thesis.",
+      "draft_answer": "Curiosity is the secret to scientific breakthroughs, because it first makes people ask questions nobody else has asked. Li Siguang's childhood wonder at a big stone, for instance, grew into the Quaternary Glacial Theory of China, which changed Chinese geology. Curiosity also supplies persistence: Michael Faraday kept experimenting until he built the first electric motor, and Tu Youyou kept searching ancient texts until artemisinin worked. Their stories show that breakthroughs begin not with equipment but with a mind that refuses to stop asking why.",
+      "needs_review": true
+    },
+    {
+      "block": "u05_b_reading_skills",
+      "n": 1,
+      "explanation_en": "Text B gives the dates in order: 2000, 2004, 2007, 2013, and the two 2018 milestones, Queqiao and Chang'e-4.",
+      "draft_answer": "China announced preparatory research on lunar exploration in 2000 and officially began the program in 2004, aiming to orbit and land on the moon and bring samples home. Chang'e-1 verified the probe technologies in 2007, and Chang'e-3 achieved China's first soft landing in 2013. In 2018 the Queqiao relay satellite was launched to link the earth with the far side, and Chang'e-4 made the first-ever soft landing there.",
+      "needs_review": true
+    },
+    {
+      "block": "u05_b_understanding",
+      "n": 1,
+      "explanation_en": "Para. 2 calls the moon 'an ideal place to peer into the deep reaches of the universe', which matches option C.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_understanding",
+      "n": 2,
+      "explanation_en": "Para. 3 says the far side is called dark only because it remains a mystery, so 'dark' reflects our ignorance, option B.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_understanding",
+      "n": 3,
+      "explanation_en": "Para. 4 credits the Soviet Luna 3 probe of 1959 with the first-ever photographs of the far side, option A.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_understanding",
+      "n": 4,
+      "explanation_en": "Para. 5 says that 'since the turn of the millennium' more countries including China joined the lunar club, option D.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_understanding",
+      "n": 5,
+      "explanation_en": "Para. 6 states the program aimed to orbit and land on the moon and bring samples back to the earth, option B.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_understanding",
+      "n": 6,
+      "explanation_en": "Para. 7 says Chang'e-3 accomplished China's first soft landing on the moon in 2013, option C.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_understanding",
+      "n": 7,
+      "explanation_en": "Para. 8 explains that Queqiao was launched to set up a communication link with the far side, option D.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_understanding",
+      "n": 8,
+      "explanation_en": "Para. 8 says Chang'e-4 realized the first-ever soft landing on the far side, so option B is the special point.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_critical",
+      "n": 1,
+      "explanation_en": "Text B notes Chang'e-4 carried instruments from Sweden, Germany, the Netherlands and Saudi Arabia, combining human wisdom.",
+      "draft_answer": "Pooling instruments and expertise, as Chang'e-4 did with payloads from Sweden, Germany, the Netherlands and Saudi Arabia, stretches what one country can afford and speeds up discovery. It also turns space science into 'a message of peace worldwide', in the German professor's words. Shared data mean the results belong to humanity rather than to a single flag.",
+      "needs_review": true
+    },
+    {
+      "block": "u05_b_critical",
+      "n": 2,
+      "explanation_en": "Text B mentions polar-region plans and Text C the International Lunar Research Station, the first structures on the moon by 2035.",
+      "draft_answer": "China is already drawing up plans to explore the moon's polar regions and, with Russia, a joint road map for an International Lunar Research Station by 2035. Future crews may stay there for long periods, grow plants in a mini biosphere and turn lunar resources into fuel and materials. As Text B predicts, the Chinese will leave their footprints on the moon in the foreseeable future.",
+      "needs_review": true
+    },
+    {
+      "block": "u05_b_critical",
+      "n": 3,
+      "explanation_en": "Text B shows the moon as a theme in Chinese poems, music and painting, and the program is named after the myth of Chang'e.",
+      "draft_answer": "The humanities keep space meaningful: the moon has long been a theme in Chinese poems, music and paintings, and the program borrows the myth of Chang'e and the Jade Rabbit for its names. Law and international relations decide how shared resources are governed, while economics turns technology into industries. Education matters too, since Wang Yaping's lecture from space stirred children's dreams.",
+      "needs_review": true
+    },
+    {
+      "block": "u05_b_collocation",
+      "n": 1,
+      "explanation_en": "'Marking a(n) ____ progress' needs an adjective before the uncountable noun 'progress'; 'gigantic' means huge.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_collocation",
+      "n": 2,
+      "explanation_en": "After 'has', the past participle 'reached' is needed; 'reach a milestone' is the collocation.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_collocation",
+      "n": 3,
+      "explanation_en": "After 'will', the base form 'deepen' is needed, and 'deepen our understanding' is the collocation.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_collocation",
+      "n": 4,
+      "explanation_en": "'Aims at' is a preposition, so the gerund 'accomplishing' follows; 'accomplish a mission' is the collocation.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_collocation",
+      "n": 5,
+      "explanation_en": "The adjective 'continuous' is coordinated with 'great' before 'support', meaning unceasing support.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_collocation",
+      "n": 6,
+      "explanation_en": "Past tense 'triggered' parallels 'aroused' and 'motivated' in the same sentence; 'trigger interest' is the collocation.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_collocation",
+      "n": 7,
+      "explanation_en": "'Aroused ____ sentiments' needs an adjective; 'patriotic sentiments' means love of country.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_collocation",
+      "n": 8,
+      "explanation_en": "'Motivated them to ____' takes the base form 'pursue', and 'pursue a career' is the collocation.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_collocation",
+      "n": 9,
+      "explanation_en": "An adjective modifies 'space program'; 'spectacular' matches the scale of the achievement described.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_collocation",
+      "n": 10,
+      "explanation_en": "'Endeavors to ____' takes the base form 'combine', and 'combine human wisdom' is the collocation.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_collocation",
+      "n": 11,
+      "explanation_en": "The present participle 'captivating' forms a participial phrase showing what space does to writers' and directors' imagination.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_collocation",
+      "n": 12,
+      "explanation_en": "The passive 'inspired by' parallels 'related to', both modifying 'a theme'; the past participle is required.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_collocation",
+      "n": 13,
+      "explanation_en": "'And' joins two gerunds after 'an initial phase of', so 'verifying' technologies is required.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_b_collocation",
+      "n": 14,
+      "explanation_en": "'Inspire ____ aspirations' needs an adjective; 'ambitious aspirations' is the collocation for grand goals.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u05_c_translation",
+      "n": 1,
+      "explanation_en": "Key renderings: 'the great rejuvenation of the Chinese nation', 'national prosperity', 'link our own future with the destiny of the country', and 'with one heart and one mind'.",
+      "draft_answer": null,
+      "needs_review": false
+    }
+  ]
+}

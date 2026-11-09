@@ -1,0 +1,91 @@
+{
+ "kit": "jianbing_cart",
+ "dims_m": [
+  1.635,
+  0.845,
+  1.19
+ ],
+ "materials": {
+  "M_iron": {
+   "color": "#2A2D31",
+   "roughness": 0.45,
+   "metallic": 0.7,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_steel": {
+   "color": "#C9CED6",
+   "roughness": 0.3,
+   "metallic": 0.55,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_cloth": {
+   "color": "#B3141B",
+   "roughness": 0.9,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.15
+  },
+  "M_griddle": {
+   "color": "#2B2C30",
+   "roughness": 0.55,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_glass": {
+   "color": "#A9D3E6",
+   "roughness": 0.05,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 0.3,
+   "noise": 0.0
+  },
+  "M_bowl": {
+   "color": "#EFEFE8",
+   "roughness": 0.3,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_herb": {
+   "color": "#5B8C3A",
+   "roughness": 0.8,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_paper": {
+   "color": "#F5F5F0",
+   "roughness": 0.7,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_rubber": {
+   "color": "#1C1C1E",
+   "roughness": 0.8,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

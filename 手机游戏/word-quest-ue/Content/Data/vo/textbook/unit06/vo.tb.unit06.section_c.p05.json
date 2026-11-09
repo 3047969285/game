@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit06.section_c.p05",
+ "unit": 6,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "A national reading survey showed that on average, Chinese people read less than eight books a year. Jumping on the bandwagon of the sharing economy may tempt young people to return to bookstores first, and help develop their reading habits.",
+ "rate": 165,
+ "duration": 18.0,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 7.433,
+   "text": "A national reading survey showed that on average, Chinese people read less than eight books a year."
+  },
+  {
+   "i": 1,
+   "start": 7.433,
+   "end": 18.0,
+   "text": "Jumping on the bandwagon of the sharing economy may tempt young people to return to bookstores first, and help develop their reading habits."
+  }
+ ]
+}

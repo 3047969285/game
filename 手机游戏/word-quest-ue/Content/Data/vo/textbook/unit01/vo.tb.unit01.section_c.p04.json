@@ -1,0 +1,19 @@
+{
+ "line_id": "vo.tb.unit01.section_c.p04",
+ "unit": 1,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "I then passed a small supermarket - each checkout counter carried a sign that proclaimed: “Welcome to use mobile payment!”",
+ "rate": 165,
+ "duration": 9.838,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 9.838,
+   "text": "I then passed a small supermarket - each checkout counter carried a sign that proclaimed: “Welcome to use mobile payment!”"
+  }
+ ]
+}

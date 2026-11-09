@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit02.section_b.p13",
+ "unit": 2,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Audrey's cherished friend, a world-famous fashion designer, spoke to her for the last time just before she died. He said she was “... serene at the end because she knew she had achieved everything with perfection”.",
+ "rate": 165,
+ "duration": 12.171,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.807,
+   "text": "Audrey's cherished friend, a world-famous fashion designer, spoke to her for the last time just before she died."
+  },
+  {
+   "i": 1,
+   "start": 6.807,
+   "end": 8.06,
+   "text": "He said she was “..."
+  },
+  {
+   "i": 2,
+   "start": 8.06,
+   "end": 12.171,
+   "text": "serene at the end because she knew she had achieved everything with perfection”."
+  }
+ ]
+}

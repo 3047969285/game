@@ -1,0 +1,37 @@
+{
+ "kit": "notebook",
+ "dims_m": [
+  0.186,
+  0.24,
+  0.015
+ ],
+ "materials": {
+  "M_notebook_cover": {
+   "color": "#2D6A9F",
+   "roughness": 0.5,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_notebook_pages": {
+   "color": "#FBFAF5",
+   "roughness": 0.85,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_notebook_wire": {
+   "color": "#C9CED6",
+   "roughness": 0.3,
+   "metallic": 1.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

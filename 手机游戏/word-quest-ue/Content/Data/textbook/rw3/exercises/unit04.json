@@ -1,0 +1,867 @@
+{
+ "unit": 4,
+ "exercises": [
+  {
+   "id": "u04_a_pre_reading",
+   "section": "A",
+   "kind": "pre_reading",
+   "instructions": "Rate each statement on how important it is when choosing a job (1 = not at all important, 2 = slightly important, 3 = moderately important, 4 = very important, 5 = extremely important), then work in pairs and discuss the questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "When deciding on a job, rate how important it is to know: (1) the chance of advancing to a higher position; (2) how much the job pays; (3) how much responsibility the job involves; (4) the stress level of the job; (5) the location of the workplace; (6) the corporate culture; (7) whether the job aligns with my interest; (8) whether the job is compatible with my personality; (9) whether the industry has a promising future; (10) the work's contribution to society.",
+     "answer": "I would give a 5 to 'whether the job aligns with my interest' and 'whether the job is compatible with my personality', because I know I would lose motivation in work I do not care about. Pay and job security would get a 4, since I still have to support myself after graduation. Location and corporate culture would be 3: they matter, but they are not decisive for me.",
+     "answer_source": "draft",
+     "explanation": "Open personal rating: no fixed key; score each of the ten factors from 1 to 5, then compare priorities with your partner.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "Which factor(s) in Activity 1 do you value most in your job? Why?",
+     "answer": "The factor I value most is interest, because Text A shows that people who enjoy their work are happier, less stressed and more satisfied with their lives. I would rather accept a modest salary in a field I find meaningful than a well-paid job I dread every morning. Income still matters to me, but it is a condition for living, not the purpose of working.",
+     "answer_source": "draft",
+     "explanation": "Open discussion: name the factor(s) you scored highest in Activity 1 and justify the choice with a personal reason or example.",
+     "needs_review": true
+    },
+    {
+     "n": 3,
+     "prompt": "What kind of job would you like to do in the future, which may meet both your personal interest and the needs of our society? Explain your choice to your partner.",
+     "answer": "I would like to be a special-education teacher, because I enjoy working with children and explaining things patiently. The job also meets a real social need, since many children with learning difficulties lack trained support. The pay is not high, but as Text A says, a job that is both useful to society and personally fulfilling gives you a lasting sense of purpose and enthusiasm.",
+     "answer_source": "draft",
+     "explanation": "Open discussion: describe a job that satisfies both your own interest and a real social need, and explain the link between them.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u04_a_understanding",
+   "section": "A",
+   "kind": "understanding",
+   "instructions": "Answer the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "How can a person be truly happy according to the author?",
+     "answer": "A person must feel both free and important.",
+     "answer_source": "derived",
+     "explanation_zh": "课文第1段指出，要真正快乐，人必须既感到自由又感到自己重要。",
+     "explanation": "Para. 1 states the thesis directly: 'To be truly happy a person must feel both free and important'; compulsion and being ignored both destroy happiness."
+    },
+    {
+     "n": 2,
+     "prompt": "How is labor different from play?",
+     "answer": "Play is a purely private pastime that one enjoys and society does not care about, while labor is work one is compelled to do and that society depends on.",
+     "answer_source": "derived",
+     "explanation_zh": "第2、3段对比了劳动与娱乐：娱乐是私人消遣，社会不关心；劳动是被迫从事、社会需要的工作。",
+     "explanation": "Paras. 2-3: play is a 'purely private pastime' that society does not care about, while labor is compulsory work that earns revenue and meets societal expectations."
+    },
+    {
+     "n": 3,
+     "prompt": "Why does the author make a comparison between a gardener and a well-dressed city mayor?",
+     "answer": "To show that whether a job is labor or work depends on the individual's attitude and interest, not on the job's type or income.",
+     "answer_source": "derived",
+     "explanation_zh": "作者用园丁与市长的对比说明：区分劳动与工作取决于个人的态度，而非工作本身的体力或脑力性质及收入。",
+     "explanation": "Para. 3: the label depends 'not on the job itself, but on the tastes of the individual', not on manual versus mental work or on income."
+    },
+    {
+     "n": 4,
+     "prompt": "What does leisure mean to workers and laborers respectively?",
+     "answer": "To workers, leisure means just the hours needed to rest in order to work efficiently; to laborers, it means autonomy from compulsion and is the time they value most.",
+     "answer_source": "derived",
+     "explanation_zh": "第4段指出，工作者把闲暇当作恢复精力的时间，劳动者则把闲暇视为摆脱强迫的自主时间。",
+     "explanation": "Para. 4: to workers leisure is only the rest hours needed to 'work efficiently'; to laborers it 'means autonomy from compulsion', the time they value most."
+    },
+    {
+     "n": 5,
+     "prompt": "How do workers and laborers differ in the amount of personal satisfaction they derive from their jobs?",
+     "answer": "Workers who enjoy their jobs are happier, less stressed and more satisfied with life, whereas laborers feel their work is a wasted grind and find satisfaction only in leisure and play.",
+     "answer_source": "derived",
+     "explanation_zh": "第5段比较了二者对工作的满足感：工作者因热爱工作而更快乐，劳动者只在闲暇中找到意义。",
+     "explanation": "Para. 5: workers who enjoy their jobs are 'happier, less stressed, and generally more satisfied', whereas laborers see the 'daily grind' as wasted time."
+    },
+    {
+     "n": 6,
+     "prompt": "How do technological innovation and the division of labor change the nature of work?",
+     "answer": "They remove the need for special skills in many fields and turn many enjoyable paid jobs into boring labor.",
+     "answer_source": "derived",
+     "explanation_zh": "第6段指出，技术创新与分工使许多有趣的工作变成了枯燥的劳动。",
+     "explanation": "Para. 6: innovation and the division of labor remove the need for special skills and turn 'paid occupations with enjoyable work into boring labor'."
+    },
+    {
+     "n": 7,
+     "prompt": "What kind of attitude should people take toward leisure time?",
+     "answer": "They should not take a toxic attitude toward leisure; they should use it for lifelong learning to improve themselves and make life more meaningful.",
+     "answer_source": "derived",
+     "explanation_zh": "第7段认为不应把闲暇看成有害之物，而应通过终身学习提升自己、过得更充实。",
+     "explanation": "Para. 7 rejects the 'toxic attitude' and recommends lifelong learning, 'continuing education' and 'experiential learning' to improve the mind and working conditions."
+    },
+    {
+     "n": 8,
+     "prompt": "Why does the author mention \"sinking one's teeth into a problem\" (Para. 8)?",
+     "answer": "To show that even purely mental work can be an outlet, since people who enjoy a challenge become absorbed in it.",
+     "answer_source": "derived",
+     "explanation_zh": "第8段引用该短语说明，即使是纯脑力工作，只要全身心投入，也能成为一种让人享受的宣泄途径。",
+     "explanation": "Para. 8 uses the phrase to show that even 'purely mental work can suffice as an outlet' for people who hurl their passion into a problem."
+    }
+   ]
+  },
+  {
+   "id": "u04_a_critical",
+   "section": "A",
+   "kind": "critical",
+   "instructions": "Work in pairs and discuss the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "What other characteristics do people who love their jobs have, apart from their dedication to work?",
+     "answer": "Apart from dedication, people who love their jobs tend to be curious and willing to keep learning, which Text A links to lifelong learning and 'experiential learning'. They also take visible pride in what they produce, as the shoe repairer in Text B does, and they are generous with colleagues rather than complaining about them. Finally, they enjoy the process and not only the reward, which is why time passes quickly for them at work.",
+     "answer_source": "draft",
+     "explanation": "Open discussion: go beyond dedication and list other traits of people who love their jobs, supporting each trait with a reason or example.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "What do you think people can do to become a worker instead of a laborer?",
+     "answer": "One way is to find the part of the job that matches your interests and put more energy there, since the label depends on the individual's tastes rather than on the job itself. Another is to build pride in the work by doing each task properly, as the shoe repairer's father advised. Using leisure time for continuing education can also turn a boring routine into something you understand, and therefore enjoy.",
+     "answer_source": "draft",
+     "explanation": "Open discussion: suggest practical ways to move from labor to work, such as matching interests, building pride, and learning in leisure time.",
+     "needs_review": true
+    },
+    {
+     "n": 3,
+     "prompt": "What might you do if you are not happy with your work?",
+     "answer": "First I would ask whether the problem is the job or my attitude toward it, since the author insists that people's attitude toward their work 'determines everything'. If the work itself is the problem, I would use my spare time to learn new skills and prepare for a change, as Text A recommends. Before leaving, though, I would talk to my manager about taking on new challenges, because getting bored is one of the main reasons people switch jobs.",
+     "answer_source": "draft",
+     "explanation": "Open discussion: describe realistic responses to job dissatisfaction, such as changing your attitude, retraining, or moving to work that fits.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u04_a_words_in_use",
+   "section": "A",
+   "kind": "words_in_use",
+   "instructions": "Fill in the blanks with the words given below. Change the form where necessary. Each word can be used only once.",
+   "bank": [
+    "abolish",
+    "adverse",
+    "commonplace",
+    "contend",
+    "diversion",
+    "foster",
+    "gauge",
+    "suffice",
+    "upcoming",
+    "revenue"
+   ],
+   "items": [
+    {
+     "n": 1,
+     "prompt": "He is measuring the depth of the hole to ____ how much climbing line we'll need to get us down and back up again.",
+     "answer": "gauge",
+     "answer_source": "derived",
+     "explanation_zh": "不定式“to + 动词原形”后应填动词 gauge（估计、测量）。",
+     "explanation": "The infinitive after 'to' needs a base verb; 'gauge' means to measure or estimate how much line is needed."
+    },
+    {
+     "n": 2,
+     "prompt": "He ____ for the lead in the final round, but ultimately finished in second position.",
+     "answer": "contended",
+     "answer_source": "derived",
+     "explanation_zh": "句子叙述过去的事，动词需用过去式 contended（竞争，争夺）。",
+     "explanation": "The past tense is set by 'ultimately finished'; 'contend for' means to compete for a prize or position."
+    },
+    {
+     "n": 3,
+     "prompt": "Smartphone conversations, which are fairly ____ on commuter trains, can be annoying to fellow commuters.",
+     "answer": "commonplace",
+     "answer_source": "derived",
+     "explanation_zh": "fairly 修饰的形容词应为 commonplace（常见的），与句意“常见于通勤列车”相符。",
+     "explanation": "'Fairly' takes a gradable adjective, and 'commonplace' fits 'on commuter trains', meaning very common there."
+    },
+    {
+     "n": 4,
+     "prompt": "Ask your doctor whether a low-fat diet and a daily walk will ____ to lower your high blood pressure.",
+     "answer": "suffice",
+     "answer_source": "derived",
+     "explanation_zh": "will 之后接动词原形，suffice（足够）表示“足以”。",
+     "explanation": "'Will' is followed by the base verb; 'suffice to do sth' means to be enough to achieve it."
+    },
+    {
+     "n": 5,
+     "prompt": "According to the latest statistics, most of the company's ____ is generated through the sale of smartphones.",
+     "answer": "revenue",
+     "answer_source": "derived",
+     "explanation_zh": "公司通过销售手机获得的收入，应填 revenue（收入）。",
+     "explanation": "The possessive 'the company's' needs a noun; 'revenue' is the income a company generates from sales."
+    },
+    {
+     "n": 6,
+     "prompt": "Scientists have learned more about the ____ effects that human activities have on the environment and climate.",
+     "answer": "adverse",
+     "answer_source": "derived",
+     "explanation_zh": "人类活动对环境的影响是负面的，应填 adverse（不利的，有害的）修饰 effects。",
+     "explanation": "'Adverse' collocates with 'effects' and matches the negative impact of human activities on the environment and climate."
+    },
+    {
+     "n": 7,
+     "prompt": "I learned a great deal from this guide, and I am feeling very confident about my chances of passing the ____ exam.",
+     "answer": "upcoming",
+     "answer_source": "derived",
+     "explanation_zh": "即将到来的考试应用 upcoming（即将来临的）修饰 exam。",
+     "explanation": "'Upcoming' modifies 'exam' as the exam that is about to take place."
+    },
+    {
+     "n": 8,
+     "prompt": "There are rumors going around that this program will be ____ in November or December and all the work will be stopped.",
+     "answer": "abolished",
+     "answer_source": "derived",
+     "explanation_zh": "will be 之后需用被动式过去分词 abolished（废除），表示项目被取消。",
+     "explanation": "'Will be' requires a past participle for the passive; 'abolish' means to officially end a program or practice."
+    },
+    {
+     "n": 9,
+     "prompt": "This program has transformed the airport's security screening area into an art gallery and a pleasant ____ for travelers.",
+     "answer": "diversion",
+     "answer_source": "derived",
+     "explanation_zh": "a pleasant 之后应为名词 diversion（消遣，娱乐），指让旅客感到愉快的消遣。",
+     "explanation": "The article 'a' plus the adjective 'pleasant' needs a noun; 'diversion' is an enjoyable distraction or pastime."
+    },
+    {
+     "n": 10,
+     "prompt": "We hope that the new series of music festivals will ____ interest in the arts in general and increase the city's international reputation.",
+     "answer": "foster",
+     "answer_source": "derived",
+     "explanation_zh": "will 之后接动词原形，foster（培养，促进）与 interest 搭配。",
+     "explanation": "'Will' takes the base verb, and 'foster interest in' is the collocation meaning to encourage interest to grow."
+    }
+   ]
+  },
+  {
+   "id": "u04_a_word_building",
+   "section": "A",
+   "kind": "word_building",
+   "instructions": "Fill in the blanks with the words given below. Change the form where necessary. Each word can be used only once.",
+   "bank": [
+    "commercialism",
+    "enforcement",
+    "imperialism",
+    "realism",
+    "materialism",
+    "recruitment",
+    "terrorism",
+    "shipment",
+    "resentment"
+   ],
+   "items": [
+    {
+     "n": 1,
+     "prompt": "In the last half-century, women have entered law ____ in increasing numbers, especially in larger police agencies.",
+     "answer": "enforcement",
+     "answer_source": "derived",
+     "explanation_zh": "law enforcement 为固定搭配，意为执法，填 enforcement。",
+     "explanation": "'Law enforcement' is a fixed compound naming the police and the work they do."
+    },
+    {
+     "n": 2,
+     "prompt": "It took me two days to get the furniture cleaned, packed, and ready for ____ to my new home.",
+     "answer": "shipment",
+     "answer_source": "derived",
+     "explanation_zh": "ready for 之后需名词，shipment（运送）指把家具运往新家。",
+     "explanation": "'Ready for shipment' is the standard phrase for goods about to be transported to a new home."
+    },
+    {
+     "n": 3,
+     "prompt": "The museum's management had placed a ban on selling more than one duplicate print from the collection to avoid ____.",
+     "answer": "commercialism",
+     "answer_source": "derived",
+     "explanation_zh": "禁止大量出售复制品是为避免商业化，应填 commercialism（商业主义）。",
+     "explanation": "The ban aims to stop the collection being turned into a business, which is exactly 'commercialism'."
+    },
+    {
+     "n": 4,
+     "prompt": "Within a work of magical ____, the world is still grounded in the real world, but fantastical elements are considered normal.",
+     "answer": "realism",
+     "answer_source": "derived",
+     "explanation_zh": "magical 之后为文学流派名称 realism（现实主义，此处指魔幻现实主义）。",
+     "explanation": "'Magical realism' is the literary term for a realistic world in which fantastical elements are treated as normal."
+    },
+    {
+     "n": 5,
+     "prompt": "This is a well-known online ____ fair connecting job-seekers with leading employers looking for skilled talent.",
+     "answer": "recruitment",
+     "answer_source": "derived",
+     "explanation_zh": "连接求职者与雇主的招聘会应为 recruitment fair（招聘会）。",
+     "explanation": "'Recruitment fair' is the fixed term for an event connecting job-seekers with employers."
+    },
+    {
+     "n": 6,
+     "prompt": "Roman ____ introduced extremes of wealth and poverty that sharpened the social and economic conflicts within the Roman state.",
+     "answer": "imperialism",
+     "answer_source": "derived",
+     "explanation_zh": "指罗马帝国的扩张政策，应填 imperialism（帝国主义，扩张主义）。",
+     "explanation": "The sentence describes Rome's expansionist policy of conquest, which 'imperialism' names."
+    },
+    {
+     "n": 7,
+     "prompt": "What impressed us most was that he did this without ____ or complaint, and had a great work ethic.",
+     "answer": "resentment",
+     "answer_source": "derived",
+     "explanation_zh": "without 之后与 complaint 并列的名词为 resentment（怨恨，不满）。",
+     "explanation": "'Without' needs a noun parallel to 'complaint'; 'resentment' means bitterness at unfair treatment."
+    },
+    {
+     "n": 8,
+     "prompt": "The book examines the results of terror attacks and analyzes the responses to ____.",
+     "answer": "terrorism",
+     "answer_source": "derived",
+     "explanation_zh": "分析恐怖袭击的应对措施，应填 terrorism（恐怖主义）。",
+     "explanation": "The blank names the phenomenon behind terror attacks, so the abstract noun 'terrorism' is required."
+    },
+    {
+     "n": 9,
+     "prompt": "Here are two ways to avoid ____ and discovering the joy of generosity and satisfying your spiritual hunger.",
+     "answer": "materialism",
+     "answer_source": "derived",
+     "explanation_zh": "与“发现慷慨之乐、满足精神需求”对照，应避免的是 materialism（唯物质主义，拜金）。",
+     "explanation": "The contrast with generosity and 'spiritual hunger' points to 'materialism', the devotion to money and possessions."
+    }
+   ]
+  },
+  {
+   "id": "u04_a_banked_cloze",
+   "section": "A",
+   "kind": "banked_cloze",
+   "instructions": "Fill in the blanks by selecting suitable words from the word bank. You may not use any of the words more than once.",
+   "bank": [
+    "abolish",
+    "barrier",
+    "bored",
+    "carrier",
+    "clusters",
+    "complaining",
+    "exhaustive",
+    "foster",
+    "incentives",
+    "indebted",
+    "monetary",
+    "motion",
+    "notion",
+    "reflecting",
+    "refraining"
+   ],
+   "passage": "According to a study conducted in the U.K., four out of every five employees are happy at work. Surprisingly, the study revealed that the {{1}} that people are happy when they have a good salary isn't true. So, what should people do to keep their spirits up and, at the same time, {{2}} a sense of joy at work? Here are two suggestions which are believed to be important in achieving happiness at work.\n\nStart with a positive outlook. Happiness is an attitude. Staying {{3}} state of mind, happy at work is totally based on your motivation and a positive outlook toward your job, not on {{4}} rewards or material gain. Always remembering the good aspects of the work and {{5}} from thinking about what makes you unhappy are important to happiness. {{6}} about bad things are easy; it is looking at the bright side that is the difficult part of a job.\n\nChallenge yourself. Rather than looking for help and {{7}} from other people, challenge yourself and take charge of your own growth with work. Getting {{8}} is one of the primary factors that cause people to switch jobs. So find new challenges and deal with them by making {{9}} plans and following them. It is a good idea to have help from your manager if you hit a {{10}}, but completely relying on someone else for your career advancement is unwise.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Blank {{1}}",
+     "answer": "notion",
+     "answer_source": "derived",
+     "explanation_zh": "the ___ that people are happy... 指一种观念，应填 notion（看法，观念）。",
+     "explanation": "'The ___ that people are happy when they have a good salary' needs a noun for a belief, and 'notion' means an idea or belief."
+    },
+    {
+     "n": 2,
+     "prompt": "Blank {{2}}",
+     "answer": "foster",
+     "answer_source": "derived",
+     "explanation_zh": "“培养一种快乐感”应填 foster（培养，促进）。",
+     "explanation": "'Foster a sense of joy' is the collocation; 'foster' means to encourage something to develop."
+    },
+    {
+     "n": 3,
+     "prompt": "Blank {{3}}",
+     "answer": "reflecting",
+     "answer_source": "derived",
+     "explanation_zh": "Staying ___ state of mind 指保持一种反思的心态，选 reflecting；此空为根据排除法推断，原文OCR模糊。",
+     "explanation": "The blank modifies 'state of mind' and must be a participle: 'reflecting' pictures a deliberately thoughtful, self-aware outlook rather than a passive one."
+    },
+    {
+     "n": 4,
+     "prompt": "Blank {{4}}",
+     "answer": "monetary",
+     "answer_source": "derived",
+     "explanation_zh": "not on ___ rewards 指“不看重金钱奖励”，应填 monetary（金钱的）。",
+     "explanation": "'Monetary rewards' contrasts with 'material gain' later in the same sentence."
+    },
+    {
+     "n": 5,
+     "prompt": "Blank {{5}}",
+     "answer": "refraining",
+     "answer_source": "derived",
+     "explanation_zh": "refrain from 意为“避免”，与 from thinking 搭配，填 refraining。",
+     "explanation": "'Refrain from doing sth' is the fixed pattern, and the gerund 'thinking' follows the blank."
+    },
+    {
+     "n": 6,
+     "prompt": "Blank {{6}}",
+     "answer": "complaining",
+     "answer_source": "derived",
+     "explanation_zh": "Negativity and ___ about bad things 指消极与抱怨，应填 complaining。",
+     "explanation": "The subject slot before 'about bad things are easy' needs a gerund, and 'complaining' matches the negative tone of the sentence."
+    },
+    {
+     "n": 7,
+     "prompt": "Blank {{7}}",
+     "answer": "incentives",
+     "answer_source": "derived",
+     "explanation_zh": "look for help and incentives from other people 指寻求帮助与鼓励，选 incentives；此空为推断，原文OCR模糊。",
+     "explanation": "'Help and ___ from other people' needs a plural noun; 'incentives' are things that motivate people to act."
+    },
+    {
+     "n": 8,
+     "prompt": "Blank {{8}}",
+     "answer": "bored",
+     "answer_source": "derived",
+     "explanation_zh": "Getting bored（变得厌倦）是人们跳槽的主要原因之一。",
+     "explanation": "'Getting ___' names the feeling that drives people to switch jobs, and boredom is the main cause listed here."
+    },
+    {
+     "n": 9,
+     "prompt": "Blank {{9}}",
+     "answer": "exhaustive",
+     "answer_source": "derived",
+     "explanation_zh": "making exhaustive plans 指制定详尽的计划，应填 exhaustive（详尽的）。",
+     "explanation": "'Exhaustive plans' means very thorough plans, which suits the advice to make and then follow them."
+    },
+    {
+     "n": 10,
+     "prompt": "Blank {{10}}",
+     "answer": "barrier",
+     "answer_source": "derived",
+     "explanation_zh": "if you hit a barrier 指遇到障碍，应填 barrier；此空编号在OCR中位置有误，按语义填入。",
+     "explanation": "'Hit a barrier' is the collocation for meeting an obstacle, after which help from a manager is welcome."
+    }
+   ]
+  },
+  {
+   "id": "u04_a_expressions_in_use",
+   "section": "A",
+   "kind": "expressions_in_use",
+   "instructions": "Fill in the blanks with the expressions given below. Change the form where necessary. Each expression can be used only once.",
+   "bank": [
+    "be counting down the days",
+    "conform to",
+    "contend with",
+    "correlate with",
+    "designate ... as",
+    "refrain from",
+    "sink one's teeth into",
+    "slave away"
+   ],
+   "items": [
+    {
+     "n": 1,
+     "prompt": "The rapid rise in unemployment does ____ the increase in young people living at home, according to research.",
+     "answer": "correlate with",
+     "answer_source": "derived",
+     "explanation_zh": "表示两者相关，用 correlate with（与……相关）。",
+     "explanation": "'Correlate with' expresses a statistical link between the rise in unemployment and the increase in young people living at home."
+    },
+    {
+     "n": 2,
+     "prompt": "It was a moment of overwhelming excitement when Steve was given the first prize; Tiffany couldn't ____ hugging and kissing him.",
+     "answer": "refrain from",
+     "answer_source": "derived",
+     "explanation_zh": "couldn't 之后表示“忍不住不去做”，用 refrain from（克制，忍住）。",
+     "explanation": "'Can't refrain from doing sth' means cannot stop oneself; 'from' is followed by the gerund 'hugging'."
+    },
+    {
+     "n": 3,
+     "prompt": "I guarantee they will ____ to come and spend time with you because you have made them feel welcome.",
+     "answer": "be counting down the days",
+     "answer_source": "derived",
+     "explanation_zh": "表示“满心期待地等待某事”，用 be counting down the days（翘首以待）。",
+     "explanation": "'Be counting down the days' means to wait eagerly for an event, which fits the promise that they will come."
+    },
+    {
+     "n": 4,
+     "prompt": "She spent the next 10 years ____ to pay back the money they had borrowed from the bank.",
+     "answer": "slaving away",
+     "answer_source": "derived",
+     "explanation_zh": "spend ... 后接现在分词，slave away（拼命干活）改为 slaving away。",
+     "explanation": "After 'spend time' the -ing form is required; 'slaving away' means working extremely hard for years."
+    },
+    {
+     "n": 5,
+     "prompt": "This is a rare opportunity and he just can't ____ the interesting new project.",
+     "answer": "wait to sink one's teeth into",
+     "answer_source": "derived",
+     "explanation_zh": "表示迫不及待地投入某事，用 sink one's teeth into（全身心投入）。",
+     "explanation": "'Can't wait to do sth' takes the infinitive, and 'sink one's teeth into' means to become fully absorbed in a task."
+    },
+    {
+     "n": 6,
+     "prompt": "The travel agency offers considerate care for its customers when they encounter unplanned circumstances or must ____ an unfamiliar environment.",
+     "answer": "contend with",
+     "answer_source": "derived",
+     "explanation_zh": "must 之后表示“不得不应对陌生环境”，用 contend with（应对，处理）。",
+     "explanation": "'Must contend with' means have to deal with a difficulty, here an unfamiliar environment."
+    },
+    {
+     "n": 7,
+     "prompt": "One teacher will be ____ distance learning teacher for students who choose to start the school year that way.",
+     "answer": "designated as",
+     "answer_source": "derived",
+     "explanation_zh": "表示“被指定为”，用 designate ... as 的被动形式 designated as。",
+     "explanation": "The passive 'be designated as' means be officially named for a role, here distance learning teacher."
+    },
+    {
+     "n": 8,
+     "prompt": "The deepening cooperation between the two countries meets the development needs of both sides and ____ the will of the people of both sides.",
+     "answer": "conforms to",
+     "answer_source": "derived",
+     "explanation_zh": "与前面的 meets 并列且主语为单数，用 conforms to（符合）。",
+     "explanation": "The verb is parallel to 'meets' and agrees with singular 'cooperation'; 'conform to' means to comply with."
+    }
+   ]
+  },
+  {
+   "id": "u04_a_structure_writing",
+   "section": "A",
+   "kind": "structure_writing",
+   "instructions": "Structure analysis: read Paras. 4 and 5 and analyze how the contrast between workers and laborers is developed. Structured writing: write an essay of no less than 140 words on one of the topics given.",
+   "sample": "Outline of the sample essay (point-by-point pattern): Introduction: the thesis says recognizing the differences between a beach vacation and a city break helps in deciding where to go. Point 1: activities (at the beach, water activities and sunbathing; in a city, visiting museums, theaters and downtown, which needs more time and organization). Point 2: things to take (a beach needs a swimsuit, sandals, sunglasses and sunblock; a city needs comfortable shoes and possibly fancy clothes). Point 3: pace of life (a beach allows a relaxing pace; a city requires planning). Conclusion: the choice depends on what you are looking for.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Structure analysis: How is the contrast between workers and laborers developed in Paras. 4 and 5? Identify the general statement and the point-by-point organization.",
+     "answer": "Paragraph 4 opens with the general statement that workers and laborers can be told apart by their attitude toward leisure, and paragraph 5 with the equally general claim that they differ in the personal satisfaction they get from their jobs. Each paragraph then contrasts the two groups point by point on the very same aspect: leisure as rest versus autonomy from compulsion, and pride and satisfaction versus a wasted daily grind. This point-by-point pattern, rather than block-by-block, keeps the two categories side by side, so the contrast between them stays sharp for the reader.",
+     "answer_source": "draft",
+     "explanation": "Structure analysis task: identify the general statement opening each paragraph and the point-by-point pattern, not a fixed answer.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "Structured writing: Write an essay of no less than 140 words on one of the following topics: (1) Continuing to study or going to work; (2) Working for a company or starting one's own business; (3) Going to a movie or watching a movie at home. Follow the outline given for topic (1) if you choose it: introduction with a thesis, three points on the impacts of each choice, and a conclusion.",
+     "answer": "Deciding whether to continue studying or start working comes down to whether you need depth or experience first. Graduate study gives you specialized training and protected time to think, which matters in fields like research or medicine, while starting work early brings a salary, real projects and skills no classroom can teach. A degree opens some doors, and work experience builds the judgment and network that employers also value. My own view is that the right choice depends on your field and on how clearly you know your goal, and that either path should be chosen deliberately rather than by default.",
+     "answer_source": "draft",
+     "explanation": "Essay task: no single answer; follow the outline of thesis, three points of comparison and conclusion in at least 140 words.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u04_b_reading_skills",
+   "section": "B",
+   "kind": "reading_skills",
+   "instructions": "Pick out the main signal words in the following sentences from Text B, and decide what kinds of connection they show.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "I sat there with my shoes off, watching as he got ready to stitch up my shoes I'd entrusted to him. ... I grew a little impatient, for I was rushing to meet a friend. (Para. 4)",
+     "answer": "because (cause and effect); for (cause/reason)",
+     "answer_source": "derived",
+     "explanation_zh": "because 引出原因（鞋子因未及时修补而磨破），for 表示原因（急着赴约）。",
+     "explanation": "'For I was rushing to meet a friend' gives the cause of her impatience, and 'because' in the same paragraph explains the worn heel, so both signal cause."
+    },
+    {
+     "n": 2,
+     "prompt": "Thereafter, we waved to each other in a friendly greeting when I passed his shop every day. At first I went in only when I had repair work to be done. Then I found myself lingering in his store... (Para. 10)",
+     "answer": "Thereafter; At first; Then (sequence / time order)",
+     "answer_source": "derived",
+     "explanation_zh": "Thereafter、At first、Then 表示时间先后顺序。",
+     "explanation": "'Thereafter', 'At first' and 'Then' mark successive stages of the friendship, so they signal time order rather than cause or contrast."
+    },
+    {
+     "n": 3,
+     "prompt": "He pondered that for a minute before answering. Then he looked at me seriously. ... No matter what sort of work a person does, if they give it their best each day, they're starting a tradition... When a person amends their ways... (Para. 16)",
+     "answer": "Then (sequence); No matter what (concession); if (condition); When (time)",
+     "answer_source": "derived",
+     "explanation_zh": "Then 表示顺序，No matter 表示让步，if 引导条件，When 引导时间状语。",
+     "explanation": "'Then' continues the sequence; 'No matter what' concedes a point, 'if' sets a condition, and 'When' marks the time of the change."
+    }
+   ]
+  },
+  {
+   "id": "u04_b_understanding",
+   "section": "B",
+   "kind": "text_b_mcq",
+   "instructions": "Choose the best answer to each of the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "The author went quickly into the shop to",
+     "options": [
+      "buy a pair of shoes",
+      "have her shoes repaired",
+      "learn to build a tradition",
+      "meet one of her old friends"
+     ],
+     "answer": 1,
+     "answer_source": "derived",
+     "explanation_zh": "作者走进店里是为了修鞋。",
+     "explanation": "Para. 1: 'I rushed into his little shop to have the heels of my shoes repaired', which option B restates."
+    },
+    {
+     "n": 2,
+     "prompt": "Why did the author become a little impatient?",
+     "options": [
+      "She was in a hurry to meet a friend.",
+      "It took a long time to have her shoes repaired.",
+      "The shoe repairer was sad and did nothing about her torn shoes.",
+      "She couldn't put up with the shoe repairer's carelessness."
+     ],
+     "answer": 0,
+     "answer_source": "derived",
+     "explanation_zh": "原文：I was rushing to meet a friend，她因急着赴约而不耐烦。",
+     "explanation": "Para. 4 gives the reason directly: 'I grew a little impatient, for I was rushing to meet a friend.'"
+    },
+    {
+     "n": 3,
+     "prompt": "How did the author feel when the shoe repairer first mentioned that he had a tradition to live up to?",
+     "options": [
+      "Upset.",
+      "Thrilled.",
+      "Doubtful.",
+      "Confused."
+     ],
+     "answer": 2,
+     "answer_source": "derived",
+     "explanation_zh": "作者觉得“传统”的说法有点荒谬，因此是怀疑的态度。",
+     "explanation": "Para. 6 calls the claim 'a bit absurd' for 'this modest little shop', so her first reaction was doubt, not confusion or upset."
+    },
+    {
+     "n": 4,
+     "prompt": "What is the tradition the shoe repairer's father handed down to him?",
+     "options": [
+      "Treating all the clients with hospitality.",
+      "Finding pleasure in what a person does.",
+      "Running the shoe-repair shop personally.",
+      "Being dedicated to work and feeling proud."
+     ],
+     "answer": 3,
+     "answer_source": "derived",
+     "explanation_zh": "父亲教导他要把每双鞋都做好并为自己的手艺感到骄傲。",
+     "explanation": "Para. 7 quotes the father: 'do the best job on every shoe... and be proud of your fine work', which is dedication plus pride."
+    },
+    {
+     "n": 5,
+     "prompt": "Why did the author drop into the shoe-repair shop very frequently?",
+     "options": [
+      "Her shoes often needed repairing.",
+      "The shoe repairer would bring her joy.",
+      "She wanted to have someone to chat with.",
+      "She could listen to the shoe repairer's songs."
+     ],
+     "answer": 1,
+     "answer_source": "derived",
+     "explanation_zh": "原文：just to chat with him for the joy he would impart，修鞋匠给她带来快乐。",
+     "explanation": "Para. 10: she dropped in 'just to chat with him for the joy he would impart', so it was the pleasure his company gave her."
+    },
+    {
+     "n": 6,
+     "prompt": "What do we know about the shoe repairer?",
+     "options": [
+      "He earned more money than needed.",
+      "Children regarded him as a trustworthy man.",
+      "He often sang songs to the neighborhood children.",
+      "Neighbors often had their shoes repaired in his shop."
+     ],
+     "answer": 2,
+     "answer_source": "derived",
+     "explanation_zh": "第12段提到他常在门口边工作边唱歌，孩子们都喜欢他。",
+     "explanation": "Para. 12 shows him singing in the doorway as the children's favourite; the other three statements are never made in the text."
+    },
+    {
+     "n": 7,
+     "prompt": "The shoe repairer explained that the poor work the painters had done was owing to the painters' lack of",
+     "options": [
+      "enthusiasm",
+      "responsibility",
+      "work experience",
+      "a prideful tradition"
+     ],
+     "answer": 3,
+     "answer_source": "derived",
+     "explanation_zh": "修鞋匠认为油漆工缺乏骄傲的传统，即父辈没有以工作为荣。",
+     "explanation": "Para. 13: he says the painters' parents 'had no pride in their work', so what they lacked was a prideful tradition."
+    },
+    {
+     "n": 8,
+     "prompt": "What wisdom did the shoe repairer impart to the author?",
+     "options": [
+      "It is important to be kind to people around you.",
+      "It is important to be happy with what you are doing.",
+      "It is important to be good at your own handicraft.",
+      "It is important to start, keep, and carry on a prideful tradition."
+     ],
+     "answer": 3,
+     "answer_source": "derived",
+     "explanation_zh": "结尾的智慧：拥有骄傲的传统就要传承，没有就要开始建立。",
+     "explanation": "The closing lines state his wisdom: 'If you have inherited a prideful tradition, you must carry it on; if you haven't, then start building one now.'"
+    }
+   ]
+  },
+  {
+   "id": "u04_b_critical",
+   "section": "B",
+   "kind": "critical",
+   "instructions": "Work in pairs and discuss the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "How do you understand the shoe repairer's view that each of us can make our own contribution to the fabric of society, and that we must endeavor to make it a good one?",
+     "answer": "I read it as meaning that society is woven from countless small jobs, so every worker leaves a thread in it, whether as a cobbler, a teacher or a cleaner. The point is not that all contributions are equal in status but that each can be done well or badly. His own answer is to do the best job on every shoe, so the fabric holds because ordinary people take pride in ordinary tasks.",
+     "answer_source": "draft",
+     "explanation": "Open discussion: interpret the image of society as fabric and say what a good contribution means for ordinary jobs.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "What do you think are the factors that contribute to a person's pride in their work?",
+     "answer": "The clearest factor is craftsmanship: the shoe repairer is proud because he uses good leather and stitches each pair properly. Recognition matters too, since pride grows when customers and managers notice good work, and autonomy helps people feel the result is truly theirs. Fair pay and training also contribute, because pride is hard to sustain when work is badly rewarded or nobody has taught you how to do it well.",
+     "answer_source": "draft",
+     "explanation": "Open discussion: identify factors behind pride in work, such as craftsmanship, recognition, autonomy and fair pay, and support them.",
+     "needs_review": true
+    },
+    {
+     "n": 3,
+     "prompt": "Do you think it necessary that we hand down to the next generations the traditions we have inherited from our ancestors? Why or why not?",
+     "answer": "Yes, but selectively: what is worth handing down is the skill and the standard behind a tradition, not every detail of how it was once practised. The glassware artist in Text C hopes her art will pass 'from one generation to another' because it is beautiful and represents a high level of skill, yet she has only her two sons to teach. Keeping such crafts alive preserves knowledge, but young people should be free to adapt them rather than simply copy them.",
+     "answer_source": "draft",
+     "explanation": "Open discussion: take a position on passing down inherited traditions and support it with reasons or examples.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u04_b_collocation",
+   "section": "B",
+   "kind": "collocation",
+   "instructions": "Complete the following passage by filling in the blanks with appropriate collocations from the texts. You are provided with the first letter(s) for each of the collocations. Change the form where necessary.",
+   "passage": "Do you feel happy at work? Are you a happy worker or an {{1}}? Let me introduce Valerie, who finds her work, cleaning the ladies' toilets, {{2}}. You'll see a joyful Valerie at her work. Not only is she happy, but her happiness also seems to infect those using \"Valerie's Happy Restroom\". My point: You can always {{3}} at work regardless of what you do.\n\nMany companies get it wrong when it comes to making employees happy. They try to {{4}} create a happy workplace through things like {{5}}, free gym membership, or health care, but working {{6}} of earning a living will not make people happy. In my opinion, happiness can be created through three Rs: results, recognition, and relationships.\n\nResults create happiness when you achieve something, make a difference, and create value, which bring you {{7}}. School teachers find happiness when they see their students learning. Nurses find happiness when they see their patients improving. It is the seemingly {{8}} that is a key source of happiness at work.\n\nRecognition also creates happiness when we praise each other for results. There are many different ways of praising and recognizing {{9}}, whether it is a congratulatory email, an announcement in a meeting, or a picture on a bulletin board. It should be known that recognition is earned by your impressive performance at work rather than your {{10}}.\n\nFor some people, joy and work might seem like {{11}}, but relationships can bring happiness to your work when you like your co-workers, build connections, and have fun with them. After a {{12}}, you grab a coffee or have lunch with your colleagues. With a {{13}}, you talk about your personal life and work with them happily to resolve problems. Every day you have countless opportunities to shape and reshape your co-worker relationships, and don't let them have an {{14}} on your work experience.\n\nAll in all, happiness at work is a feeling of happiness derived from work and it can be achieved by focusing on results, recognition, and relationships.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Blank {{1}} (initial letter(s): un)",
+     "answer": "unhappy laborer",
+     "answer_source": "derived",
+     "explanation_zh": "与 happy worker 相对，应为 unhappy laborer（不快乐的劳动者）。",
+     "explanation": "'Unhappy laborer' is the counterpart of 'happy worker', echoing Text A's contrast between laborers and workers."
+    },
+    {
+     "n": 2,
+     "prompt": "Blank {{2}} (initial letter(s): per)",
+     "answer": "personally fulfilling",
+     "answer_source": "derived",
+     "explanation_zh": "find ... personally fulfilling 指觉得工作很有成就感，与 find 搭配。",
+     "explanation": "After 'finds her work' a complement is needed; 'personally fulfilling' means the work satisfies her as a person."
+    },
+    {
+     "n": 3,
+     "prompt": "Blank {{3}} (initial letter(s): op)",
+     "answer": "optimum pleasure",
+     "answer_source": "derived",
+     "explanation_zh": "find optimum pleasure at work 指从工作中获得最大乐趣。",
+     "explanation": "'Can always ___' needs a verb phrase, so the blank is 'find optimum pleasure', echoing Text A's 'taking optimum pleasure in the task at hand'."
+    },
+    {
+     "n": 4,
+     "prompt": "Blank {{4}} (initial letter(s): l)",
+     "answer": "learn",
+     "answer_source": "derived",
+     "explanation_zh": "此空首字母为 l，按上下文推断为 learn，OCR 文字模糊，属推断。",
+     "explanation": "The initial 'l' and the sense of trying to bring something about point to 'learn', i.e. companies try to learn how to create a happy workplace."
+    },
+    {
+     "n": 5,
+     "prompt": "Blank {{5}} (initial letter(s): mon)",
+     "answer": "monetary rewards",
+     "answer_source": "derived",
+     "explanation_zh": "things like monetary rewards（金钱奖励）与 free gym membership 并列。",
+     "explanation": "The list 'things like ___, free gym membership, or health care' needs a benefit noun, and 'monetary rewards' fits beside those material perks."
+    },
+    {
+     "n": 6,
+     "prompt": "Blank {{6}} (no initial letter given)",
+     "answer": "for the sake",
+     "answer_source": "derived",
+     "explanation_zh": "working for the sake of earning a living 指仅为谋生而工作，OCR 未给出首字母。",
+     "explanation": "'For the sake of doing sth' is the fixed phrase, and here it describes working only to earn a living."
+    },
+    {
+     "n": 7,
+     "prompt": "Blank {{7}} (initial letter(s): pe)",
+     "answer": "personal satisfaction",
+     "answer_source": "derived",
+     "explanation_zh": "bring you personal satisfaction 指带来个人满足感。",
+     "explanation": "'Which bring you ___' after 'create value' needs 'personal satisfaction', the reward Text A also ties to work."
+    },
+    {
+     "n": 8,
+     "prompt": "Blank {{8}} (no initial letter given)",
+     "answer": "trivial task",
+     "answer_source": "derived",
+     "explanation_zh": "the seemingly trivial task 指看似微不足道的任务，此空 OCR 不清，属推断。",
+     "explanation": "The contrast with 'a key source of happiness' calls for 'trivial task', the small ordinary acts that still satisfy people."
+    },
+    {
+     "n": 9,
+     "prompt": "Blank {{9}} (initial letter(s): spe)",
+     "answer": "specific results",
+     "answer_source": "derived",
+     "explanation_zh": "praising and recognizing specific results 指表扬具体成果。",
+     "explanation": "'Praising and recognizing ___' is completed by 'specific results', the concrete achievements colleagues can point to."
+    },
+    {
+     "n": 10,
+     "prompt": "Blank {{10}} (initial letter(s): h)",
+     "answer": "high position",
+     "answer_source": "derived",
+     "explanation_zh": "recognition is earned by performance rather than your high position 指不靠职位。",
+     "explanation": "The contrast with 'impressive performance' requires 'high position': recognition should come from work, not from rank."
+    },
+    {
+     "n": 11,
+     "prompt": "Blank {{11}} (initial letter(s): po)",
+     "answer": "polar opposites",
+     "answer_source": "derived",
+     "explanation_zh": "seem like polar opposites 指看似截然相反。",
+     "explanation": "'Seem like ___' needs a plural noun, and 'polar opposites' restates the labor-versus-play contrast of Text A."
+    },
+    {
+     "n": 12,
+     "prompt": "Blank {{12}} (initial letter(s): fi)",
+     "answer": "finished task",
+     "answer_source": "derived",
+     "explanation_zh": "After a finished task 指完成一项任务之后，此空首字母 fi 与语境相符，为推断。",
+     "explanation": "With the initial 'fi' and the following 'grab a coffee', the intended phrase is 'finished task'."
+    },
+    {
+     "n": 13,
+     "prompt": "Blank {{13}} (initial letter(s): ch)",
+     "answer": "cheerful smile",
+     "answer_source": "derived",
+     "explanation_zh": "With a cheerful smile 指带着笑容，与 bring a cheerful smile 搭配。",
+     "explanation": "With the initial 'ch', 'cheerful smile' fits, the very greeting the cobbler gives the author in Text B."
+    },
+    {
+     "n": 14,
+     "prompt": "Blank {{14}} (initial letter(s): ad)",
+     "answer": "adverse effect",
+     "answer_source": "derived",
+     "explanation_zh": "have an adverse effect on 指产生不利影响。",
+     "explanation": "'Have an ___ on' is completed by 'adverse effect', the collocation Text A uses for harmful influence."
+    }
+   ]
+  },
+  {
+   "id": "u04_c_translation",
+   "section": "C",
+   "kind": "translation",
+   "instructions": "Translate the following paragraph into English.",
+   "sample": "近年来，社会的发展和就业形势的变化对大学生提出了更高的要求。越来越多大学生不再局限于学习书本知识，而是利用业余时间积极投身于社会实践活动。通过社会实践活动，他们可以提高分析问题和解决问题的能力，更深入地了解社会，增强社会责任感。同时，参加社会实践活动还可以帮助他们认识到自身不足，明确未来努力的方向。",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "近年来，社会的发展和就业形势的变化对大学生提出了更高的要求。越来越多大学生不再局限于学习书本知识，而是利用业余时间积极投身于社会实践活动。通过社会实践活动，他们可以提高分析问题和解决问题的能力，更深入地了解社会，增强社会责任感。同时，参加社会实践活动还可以帮助他们认识到自身不足，明确未来努力的方向。",
+     "answer": "In recent years, the development of society and changes in the employment situation have placed higher demands on college students. More and more college students no longer confine themselves to textbook knowledge; instead, they make use of their spare time to take an active part in social practice. Through such practice, they can improve their ability to analyze and solve problems, understand society more deeply, and strengthen their sense of social responsibility. At the same time, social practice also helps them recognize their own shortcomings and clarify the direction of their future efforts.",
+     "answer_source": "derived",
+     "explanation_zh": "译文按段落意思译出：社会发展与就业形势、社会实践的作用，以及认识自身不足与明确努力方向。",
+     "explanation": "Key renderings: 'place higher demands on', 'confine themselves to', 'take an active part in', 'sense of social responsibility', 'clarify the direction of future efforts'."
+    }
+   ]
+  }
+ ]
+}

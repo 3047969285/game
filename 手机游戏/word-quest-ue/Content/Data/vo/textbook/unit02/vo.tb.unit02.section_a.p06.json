@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit02.section_a.p06",
+ "unit": 2,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "In 1405, the emperor appointed Zheng He to head a massive fleet of more than 200 junks with a royal order to establish ties with rulers all around the Indian Ocean. It was the start of the seven great voyages of the Treasure Fleet. The junks, loaded with Chinese silk, porcelain, and lacquerware, visited ports around the Indian Ocean, where Zheng He exchanged the goods for spices, ivory, medicines, rare wood, pearls, and exotic animals, sought by the Ming court.",
+ "rate": 165,
+ "duration": 28.117,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 9.726,
+   "text": "In 1405, the emperor appointed Zheng He to head a massive fleet of more than 200 junks with a royal order to establish ties with rulers all around the Indian Ocean."
+  },
+  {
+   "i": 1,
+   "start": 9.726,
+   "end": 13.148,
+   "text": "It was the start of the seven great voyages of the Treasure Fleet."
+  },
+  {
+   "i": 2,
+   "start": 13.148,
+   "end": 28.117,
+   "text": "The junks, loaded with Chinese silk, porcelain, and lacquerware, visited ports around the Indian Ocean, where Zheng He exchanged the goods for spices, ivory, medicines, rare wood, pearls, and exotic animals, sought by the Ming court."
+  }
+ ]
+}

@@ -1,0 +1,55 @@
+{
+ "kit": "chess_set",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_chess_set.fbx",
+ "triangles": 139440,
+ "size_m": [
+  0.45,
+  0.45,
+  0.1003
+ ],
+ "dims_target_m": [
+  0.45,
+  0.45,
+  0.1
+ ],
+ "slots": [
+  {
+   "slot": "walnut",
+   "material": "M_walnut",
+   "BaseColor": "T_chess_set_walnut_BaseColor.png",
+   "Normal": "T_chess_set_walnut_Normal.png",
+   "ARM": "T_chess_set_walnut_ARM.png"
+  },
+  {
+   "slot": "felt",
+   "material": "M_felt",
+   "BaseColor": "T_chess_set_felt_BaseColor.png",
+   "Normal": "T_chess_set_felt_Normal.png",
+   "ARM": "T_chess_set_felt_ARM.png"
+  },
+  {
+   "slot": "maple",
+   "material": "M_maple",
+   "BaseColor": "T_chess_set_maple_BaseColor.png",
+   "Normal": "T_chess_set_maple_Normal.png",
+   "ARM": "T_chess_set_maple_ARM.png"
+  },
+  {
+   "slot": "boxwood",
+   "material": "M_boxwood",
+   "BaseColor": "T_chess_set_boxwood_BaseColor.png",
+   "Normal": "T_chess_set_boxwood_Normal.png",
+   "ARM": "T_chess_set_boxwood_ARM.png"
+  },
+  {
+   "slot": "ebony",
+   "material": "M_ebony",
+   "BaseColor": "T_chess_set_ebony_BaseColor.png",
+   "Normal": "T_chess_set_ebony_Normal.png",
+   "ARM": "T_chess_set_ebony_ARM.png"
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "white (boxwood) at -Y; middlegame position"
+}

@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit02.ex.u02_a_structured_writing",
+ "unit": 2,
+ "section": "section_a",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Structured writing. Read the sample essay on O. Henry and see how it develops in chronological order. Then write an essay of no less than 140 words on one of the following topics, following the outline.",
+ "rate": 165,
+ "duration": 17.089,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 1.803,
+   "text": "Structured writing."
+  },
+  {
+   "i": 1,
+   "start": 1.803,
+   "end": 4.252,
+   "text": "Read the sample essay on O."
+  },
+  {
+   "i": 2,
+   "start": 4.252,
+   "end": 8.436,
+   "text": "Henry and see how it develops in chronological order."
+  },
+  {
+   "i": 3,
+   "start": 8.436,
+   "end": 17.089,
+   "text": "Then write an essay of no less than 140 words on one of the following topics, following the outline."
+  }
+ ]
+}

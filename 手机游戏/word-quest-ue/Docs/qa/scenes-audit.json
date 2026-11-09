@@ -1,0 +1,710 @@
+{
+ "generated_at": "2026-10-23T05:47:03+00:00",
+ "thresholds": {
+  "dark": 0.35,
+  "bright": 0.25,
+  "flat": 0.45,
+  "edge": 0.03,
+  "decals": 10
+ },
+ "units": [
+  {
+   "unit": "unit01",
+   "report": "Docs/qa/textbook-scenes-unit01.json",
+   "resolution": [
+    3840,
+    2160
+   ],
+   "missing_report": false,
+   "scenes": [
+    {
+     "scene": "u01a_s1",
+     "section": "section_a",
+     "quality": "FAIL",
+     "props": 15,
+     "cameras": 3,
+     "needs_final_asset": 2,
+     "placeholders": 6,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 78.3667,
+      "dark_ratio": 0.2057,
+      "bright_ratio": 0.0,
+      "flat_ratio": 0.256,
+      "edge_ratio": 0.018,
+      "shots_measured": 3
+     },
+     "flags": [
+      "needs_final_asset:2",
+      "placeholders:6",
+      "decals:0/10",
+      "empty:0.018",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01a_s1/wide.png",
+      "Docs/qa/scenes/u01a_s1/chess.png",
+      "Docs/qa/scenes/u01a_s1/basket.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01a_s2",
+     "section": "section_a",
+     "quality": "FAIL",
+     "props": 12,
+     "cameras": 2,
+     "needs_final_asset": 1,
+     "placeholders": 5,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 79.95,
+      "dark_ratio": 0.3075,
+      "bright_ratio": 0.0,
+      "flat_ratio": 0.299,
+      "edge_ratio": 0.0115,
+      "shots_measured": 2
+     },
+     "flags": [
+      "needs_final_asset:1",
+      "placeholders:5",
+      "decals:0/10",
+      "empty:0.0115",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01a_s2/wide.png",
+      "Docs/qa/scenes/u01a_s2/faces.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01a_s3",
+     "section": "section_a",
+     "quality": "FAIL",
+     "props": 18,
+     "cameras": 2,
+     "needs_final_asset": 1,
+     "placeholders": 7,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 64.0,
+      "dark_ratio": 0.213,
+      "bright_ratio": 0.0,
+      "flat_ratio": 0.274,
+      "edge_ratio": 0.0022,
+      "shots_measured": 2
+     },
+     "flags": [
+      "needs_final_asset:1",
+      "placeholders:7",
+      "decals:0/10",
+      "empty:0.0022",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01a_s3/wide.png",
+      "Docs/qa/scenes/u01a_s3/under_table.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01a_s4",
+     "section": "section_a",
+     "quality": "FAIL",
+     "props": 17,
+     "cameras": 2,
+     "needs_final_asset": 4,
+     "placeholders": 10,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 113.9,
+      "dark_ratio": 0.2475,
+      "bright_ratio": 0.0245,
+      "flat_ratio": 0.244,
+      "edge_ratio": 0.0301,
+      "shots_measured": 2
+     },
+     "flags": [
+      "needs_final_asset:4",
+      "placeholders:10",
+      "decals:0/10",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01a_s4/library.png",
+      "Docs/qa/scenes/u01a_s4/campus.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01a_s5",
+     "section": "section_a",
+     "quality": "FAIL",
+     "props": 38,
+     "cameras": 2,
+     "needs_final_asset": 13,
+     "placeholders": 20,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 152.5,
+      "dark_ratio": 0.113,
+      "bright_ratio": 0.0,
+      "flat_ratio": 0.181,
+      "edge_ratio": 0.0034,
+      "shots_measured": 2
+     },
+     "flags": [
+      "needs_final_asset:13",
+      "placeholders:20",
+      "decals:0/10",
+      "empty:0.0034",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01a_s5/door.png",
+      "Docs/qa/scenes/u01a_s5/cockpit.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01a_s6",
+     "section": "section_a",
+     "quality": "FAIL",
+     "props": 13,
+     "cameras": 2,
+     "needs_final_asset": 8,
+     "placeholders": 10,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 66.9,
+      "dark_ratio": 0.47,
+      "bright_ratio": 0.037,
+      "flat_ratio": 0.4615,
+      "edge_ratio": 0.0456,
+      "shots_measured": 2
+     },
+     "flags": [
+      "needs_final_asset:8",
+      "placeholders:10",
+      "decals:0/10",
+      "too_dark:0.47",
+      "flat_area:0.4615",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01a_s6/orbit.png",
+      "Docs/qa/scenes/u01a_s6/faces.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01a_s7",
+     "section": "section_a",
+     "quality": "FAIL",
+     "props": 12,
+     "cameras": 3,
+     "needs_final_asset": 6,
+     "placeholders": 14,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 79.0333,
+      "dark_ratio": 0.4427,
+      "bright_ratio": 0.0417,
+      "flat_ratio": 0.424,
+      "edge_ratio": 0.0104,
+      "shots_measured": 3
+     },
+     "flags": [
+      "needs_final_asset:6",
+      "placeholders:14",
+      "decals:0/10",
+      "too_dark:0.4427",
+      "empty:0.0104",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01a_s7/pan.png",
+      "Docs/qa/scenes/u01a_s7/kitchen.png",
+      "Docs/qa/scenes/u01a_s7/thursday.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01a_s8",
+     "section": "section_a",
+     "quality": "FAIL",
+     "props": 15,
+     "cameras": 2,
+     "needs_final_asset": 2,
+     "placeholders": 6,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 83.75,
+      "dark_ratio": 0.417,
+      "bright_ratio": 0.0015,
+      "flat_ratio": 0.4035,
+      "edge_ratio": 0.0243,
+      "shots_measured": 2
+     },
+     "flags": [
+      "needs_final_asset:2",
+      "placeholders:6",
+      "decals:0/10",
+      "too_dark:0.417",
+      "empty:0.0243",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01a_s8/wide.png",
+      "Docs/qa/scenes/u01a_s8/family.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01b_s1",
+     "section": "section_b",
+     "quality": "FAIL",
+     "props": 6,
+     "cameras": 1,
+     "needs_final_asset": 5,
+     "placeholders": 5,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 50.9,
+      "dark_ratio": 0.446,
+      "bright_ratio": 0.0,
+      "flat_ratio": 0.435,
+      "edge_ratio": 0.0037,
+      "shots_measured": 1
+     },
+     "flags": [
+      "needs_final_asset:5",
+      "placeholders:5",
+      "decals:0/10",
+      "too_dark:0.446",
+      "empty:0.0037",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01b_s1/city.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01b_s2",
+     "section": "section_b",
+     "quality": "FAIL",
+     "props": 14,
+     "cameras": 1,
+     "needs_final_asset": 9,
+     "placeholders": 9,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 130.1,
+      "dark_ratio": 0.114,
+      "bright_ratio": 0.016,
+      "flat_ratio": 0.11,
+      "edge_ratio": 0.0562,
+      "shots_measured": 1
+     },
+     "flags": [
+      "needs_final_asset:9",
+      "placeholders:9",
+      "decals:0/10",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01b_s2/front.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01b_s3",
+     "section": "section_b",
+     "quality": "FAIL",
+     "props": 6,
+     "cameras": 1,
+     "needs_final_asset": 5,
+     "placeholders": 7,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 168.8,
+      "dark_ratio": 0.052,
+      "bright_ratio": 0.0,
+      "flat_ratio": 0.222,
+      "edge_ratio": 0.0064,
+      "shots_measured": 1
+     },
+     "flags": [
+      "needs_final_asset:5",
+      "placeholders:7",
+      "decals:0/10",
+      "empty:0.0064",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01b_s3/room.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01b_s4",
+     "section": "section_b",
+     "quality": "FAIL",
+     "props": 9,
+     "cameras": 1,
+     "needs_final_asset": 8,
+     "placeholders": 6,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 69.8,
+      "dark_ratio": 0.561,
+      "bright_ratio": 0.033,
+      "flat_ratio": 0.529,
+      "edge_ratio": 0.0253,
+      "shots_measured": 1
+     },
+     "flags": [
+      "needs_final_asset:8",
+      "placeholders:6",
+      "decals:0/10",
+      "too_dark:0.561",
+      "flat_area:0.529",
+      "empty:0.0253",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01b_s4/home.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01b_s5",
+     "section": "section_b",
+     "quality": "FAIL",
+     "props": 7,
+     "cameras": 1,
+     "needs_final_asset": 7,
+     "placeholders": 7,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 67.1,
+      "dark_ratio": 0.54,
+      "bright_ratio": 0.0,
+      "flat_ratio": 0.531,
+      "edge_ratio": 0.0202,
+      "shots_measured": 1
+     },
+     "flags": [
+      "needs_final_asset:7",
+      "placeholders:7",
+      "decals:0/10",
+      "too_dark:0.54",
+      "flat_area:0.531",
+      "empty:0.0202",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01b_s5/office.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01b_s6",
+     "section": "section_b",
+     "quality": "FAIL",
+     "props": 7,
+     "cameras": 1,
+     "needs_final_asset": 7,
+     "placeholders": 7,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 120.3,
+      "dark_ratio": 0.219,
+      "bright_ratio": 0.069,
+      "flat_ratio": 0.199,
+      "edge_ratio": 0.0269,
+      "shots_measured": 1
+     },
+     "flags": [
+      "needs_final_asset:7",
+      "placeholders:7",
+      "decals:0/10",
+      "empty:0.0269",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01b_s6/both.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01b_s7",
+     "section": "section_b",
+     "quality": "FAIL",
+     "props": 14,
+     "cameras": 1,
+     "needs_final_asset": 9,
+     "placeholders": 7,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 126.5,
+      "dark_ratio": 0.099,
+      "bright_ratio": 0.053,
+      "flat_ratio": 0.085,
+      "edge_ratio": 0.0258,
+      "shots_measured": 1
+     },
+     "flags": [
+      "needs_final_asset:9",
+      "placeholders:7",
+      "decals:0/10",
+      "empty:0.0258",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01b_s7/street.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01b_s8",
+     "section": "section_b",
+     "quality": "FAIL",
+     "props": 9,
+     "cameras": 1,
+     "needs_final_asset": 9,
+     "placeholders": 8,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 54.0,
+      "dark_ratio": 0.266,
+      "bright_ratio": 0.008,
+      "flat_ratio": 0.227,
+      "edge_ratio": 0.0033,
+      "shots_measured": 1
+     },
+     "flags": [
+      "needs_final_asset:9",
+      "placeholders:8",
+      "decals:0/10",
+      "empty:0.0033",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01b_s8/rise.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01c_s1",
+     "section": "section_c",
+     "quality": "FAIL",
+     "props": 4,
+     "cameras": 2,
+     "needs_final_asset": 3,
+     "placeholders": 5,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 108.55,
+      "dark_ratio": 0.028,
+      "bright_ratio": 0.0,
+      "flat_ratio": 0.1245,
+      "edge_ratio": 0.0024,
+      "shots_measured": 2
+     },
+     "flags": [
+      "needs_final_asset:3",
+      "placeholders:5",
+      "decals:0/10",
+      "empty:0.0024",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01c_s1/stall.png",
+      "Docs/qa/scenes/u01c_s1/scan.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01c_s2",
+     "section": "section_c",
+     "quality": "FAIL",
+     "props": 5,
+     "cameras": 1,
+     "needs_final_asset": 5,
+     "placeholders": 7,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 110.9,
+      "dark_ratio": 0.348,
+      "bright_ratio": 0.012,
+      "flat_ratio": 0.321,
+      "edge_ratio": 0.0404,
+      "shots_measured": 1
+     },
+     "flags": [
+      "needs_final_asset:5",
+      "placeholders:7",
+      "decals:0/10",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01c_s2/counter.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01c_s3",
+     "section": "section_c",
+     "quality": "FAIL",
+     "props": 8,
+     "cameras": 1,
+     "needs_final_asset": 6,
+     "placeholders": 7,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 82.8,
+      "dark_ratio": 0.227,
+      "bright_ratio": 0.002,
+      "flat_ratio": 0.19,
+      "edge_ratio": 0.0452,
+      "shots_measured": 1
+     },
+     "flags": [
+      "needs_final_asset:6",
+      "placeholders:7",
+      "decals:0/10",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01c_s3/street.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01c_s4",
+     "section": "section_c",
+     "quality": "FAIL",
+     "props": 5,
+     "cameras": 1,
+     "needs_final_asset": 2,
+     "placeholders": 4,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 60.6,
+      "dark_ratio": 0.415,
+      "bright_ratio": 0.0,
+      "flat_ratio": 0.375,
+      "edge_ratio": 0.0488,
+      "shots_measured": 1
+     },
+     "flags": [
+      "needs_final_asset:2",
+      "placeholders:4",
+      "decals:0/10",
+      "too_dark:0.415",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01c_s4/table.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01c_s5",
+     "section": "section_c",
+     "quality": "FAIL",
+     "props": 3,
+     "cameras": 1,
+     "needs_final_asset": 3,
+     "placeholders": 4,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 44.7,
+      "dark_ratio": 0.537,
+      "bright_ratio": 0.0,
+      "flat_ratio": 0.478,
+      "edge_ratio": 0.0057,
+      "shots_measured": 1
+     },
+     "flags": [
+      "needs_final_asset:3",
+      "placeholders:4",
+      "decals:0/10",
+      "too_dark:0.537",
+      "flat_area:0.478",
+      "empty:0.0057",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01c_s5/mall.png"
+     ],
+     "shots_missing": []
+    },
+    {
+     "scene": "u01c_s6",
+     "section": "section_c",
+     "quality": "FAIL",
+     "props": 5,
+     "cameras": 1,
+     "needs_final_asset": 1,
+     "placeholders": 2,
+     "decals": 0,
+     "metrics": {
+      "mean_luma": 80.6,
+      "dark_ratio": 0.405,
+      "bright_ratio": 0.001,
+      "flat_ratio": 0.377,
+      "edge_ratio": 0.0076,
+      "shots_measured": 1
+     },
+     "flags": [
+      "needs_final_asset:1",
+      "placeholders:2",
+      "decals:0/10",
+      "too_dark:0.405",
+      "empty:0.0076",
+      "checker:FAIL"
+     ],
+     "shots": [
+      "Docs/qa/scenes/u01c_s6/desk.png"
+     ],
+     "shots_missing": []
+    }
+   ],
+   "articles": {
+    "section_a": {
+     "scene_count": 8,
+     "fail": 8,
+     "needs_final_asset": 37,
+     "placeholders": 78,
+     "shots": 18
+    },
+    "section_b": {
+     "scene_count": 8,
+     "fail": 8,
+     "needs_final_asset": 59,
+     "placeholders": 56,
+     "shots": 8
+    },
+    "section_c": {
+     "scene_count": 6,
+     "fail": 6,
+     "needs_final_asset": 20,
+     "placeholders": 29,
+     "shots": 7
+    }
+   }
+  }
+ ],
+ "totals": {
+  "scenes": 22,
+  "fail": 22,
+  "needs_final_asset": 116,
+  "placeholders": 163,
+  "shots": 33,
+  "reports": 1
+ }
+}

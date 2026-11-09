@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit05.ex.u05_b_collocation",
+ "unit": 5,
+ "section": "section_b",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "4 Complete the following paragraphs by choosing appropriate words from the boxes. Change the form where necessary. Each word can be used only once.",
+ "rate": 165,
+ "duration": 11.622,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.289,
+   "text": "4 Complete the following paragraphs by choosing appropriate words from the boxes."
+  },
+  {
+   "i": 1,
+   "start": 6.289,
+   "end": 8.825,
+   "text": "Change the form where necessary."
+  },
+  {
+   "i": 2,
+   "start": 8.825,
+   "end": 11.622,
+   "text": "Each word can be used only once."
+  }
+ ]
+}

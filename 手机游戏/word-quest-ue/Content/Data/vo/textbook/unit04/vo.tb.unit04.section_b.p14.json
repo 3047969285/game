@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit04.section_b.p14",
+ "unit": 4,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "He consoled me, saying, “There's a lot of that kind around, but maybe we should not blame them too rashly. Maybe their parents had no pride in their work. That's hard on a child. It keeps a child from learning what's important.”",
+ "rate": 165,
+ "duration": 13.589,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.571,
+   "text": "He consoled me, saying, “There's a lot of that kind around, but maybe we should not blame them too rashly."
+  },
+  {
+   "i": 1,
+   "start": 6.571,
+   "end": 9.244,
+   "text": "Maybe their parents had no pride in their work."
+  },
+  {
+   "i": 2,
+   "start": 9.244,
+   "end": 10.834,
+   "text": "That's hard on a child."
+  },
+  {
+   "i": 3,
+   "start": 10.834,
+   "end": 13.589,
+   "text": "It keeps a child from learning what's important.”"
+  }
+ ]
+}

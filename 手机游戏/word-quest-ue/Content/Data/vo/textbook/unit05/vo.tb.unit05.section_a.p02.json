@@ -1,0 +1,37 @@
+{
+ "line_id": "vo.tb.unit05.section_a.p02",
+ "unit": 5,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "It was back in 1992 that China approved a blueprint for her manned space program and began training astronauts. The first batch of astronauts was chosen from veteran pilots in the People's Liberation Army (PLA) Air Force who had at least 600 flight hours in fighter jets or attack aircraft. More than 1,500 pilots applied, and after rounds of most demanding tests, the number reduced sharply to 14. In 1998, they became the founding members of the PLA Astronaut Group.",
+ "rate": 165,
+ "duration": 29.546,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 6.684,
+   "text": "It was back in 1992 that China approved a blueprint for her manned space program and began training astronauts."
+  },
+  {
+   "i": 1,
+   "start": 6.684,
+   "end": 16.89,
+   "text": "The first batch of astronauts was chosen from veteran pilots in the People's Liberation Army (PLA) Air Force who had at least 600 flight hours in fighter jets or attack aircraft."
+  },
+  {
+   "i": 2,
+   "start": 16.89,
+   "end": 24.684,
+   "text": "More than 1,500 pilots applied, and after rounds of most demanding tests, the number reduced sharply to 14."
+  },
+  {
+   "i": 3,
+   "start": 24.684,
+   "end": 29.546,
+   "text": "In 1998, they became the founding members of the PLA Astronaut Group."
+  }
+ ]
+}

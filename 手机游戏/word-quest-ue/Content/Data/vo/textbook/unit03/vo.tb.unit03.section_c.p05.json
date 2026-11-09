@@ -1,0 +1,67 @@
+{
+ "line_id": "vo.tb.unit03.section_c.p05",
+ "unit": 3,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "Since their European escapade, the couple has taken up traveling abroad as a hobby. Each year, they spend six months with family in Beijing and the next six traveling. “My wife and I have been to many astonishing places, from the Arctic Circle to Antarctica. We have crossed the equator six times. We also climbed to the base camp of Mount Qomolangma at an altitude of 5,200 meters,” said Zhang. “A person may have a lot of dreams. But putting them into practice is the key. Even if you retire at 60, you can still expect to live another 20 to 30 years. Therefore, retired people should make a good plan to spend the rest of their lives.”",
+ "rate": 165,
+ "duration": 55.029,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 7.04,
+   "text": "Since their European escapade, the couple has taken up traveling abroad as a hobby."
+  },
+  {
+   "i": 1,
+   "start": 7.04,
+   "end": 13.144,
+   "text": "Each year, they spend six months with family in Beijing and the next six traveling."
+  },
+  {
+   "i": 2,
+   "start": 13.144,
+   "end": 20.901,
+   "text": "“My wife and I have been to many astonishing places, from the Arctic Circle to Antarctica."
+  },
+  {
+   "i": 3,
+   "start": 20.901,
+   "end": 24.403,
+   "text": "We have crossed the equator six times."
+  },
+  {
+   "i": 4,
+   "start": 24.403,
+   "end": 33.374,
+   "text": "We also climbed to the base camp of Mount Qomolangma at an altitude of 5,200 meters,” said Zhang."
+  },
+  {
+   "i": 5,
+   "start": 33.374,
+   "end": 36.645,
+   "text": "“A person may have a lot of dreams."
+  },
+  {
+   "i": 6,
+   "start": 36.645,
+   "end": 40.365,
+   "text": "But putting them into practice is the key."
+  },
+  {
+   "i": 7,
+   "start": 40.365,
+   "end": 48.249,
+   "text": "Even if you retire at 60, you can still expect to live another 20 to 30 years."
+  },
+  {
+   "i": 8,
+   "start": 48.249,
+   "end": 55.029,
+   "text": "Therefore, retired people should make a good plan to spend the rest of their lives.”"
+  }
+ ]
+}

@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit06.ex.u06_b_collocation",
+ "unit": 6,
+ "section": "section_b",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Complete the following passage by filling in the blanks with appropriate collocations from the texts. Change the form where necessary.",
+ "rate": 165,
+ "duration": 9.998,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 7.462,
+   "text": "Complete the following passage by filling in the blanks with appropriate collocations from the texts."
+  },
+  {
+   "i": 1,
+   "start": 7.462,
+   "end": 9.998,
+   "text": "Change the form where necessary."
+  }
+ ]
+}

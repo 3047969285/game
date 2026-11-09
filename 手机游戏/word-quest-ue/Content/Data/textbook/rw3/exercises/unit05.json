@@ -1,0 +1,883 @@
+{
+ "unit": 5,
+ "exercises": [
+  {
+   "id": "u05_a_pre_reading",
+   "section": "section_a",
+   "kind": "pre_reading",
+   "instructions": "1 Match the descriptions with the pictures below. 2 Work in pairs and list what qualifications are needed for astronauts.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "The first space teacher in China",
+     "answer": "Wang Yaping",
+     "answer_source": "derived",
+     "explanation_zh": "王亚平在太空授课，是中国首位“太空教师”（课文第11段）。",
+     "explanation": "Para. 11 identifies Wang Yaping as the female astronaut who delivered the science lecture from space, watched by tens of millions of students."
+    },
+    {
+     "n": 2,
+     "prompt": "The first person sent into space by the Chinese space program",
+     "answer": "Yang Liwei",
+     "answer_source": "derived",
+     "explanation_zh": "杨利伟乘神舟五号首次进入太空（课文第3段）。",
+     "explanation": "Para. 3 states that Yang Liwei became the first Chinese person to go into space, aboard Shenzhou-5 in October 2003."
+    },
+    {
+     "n": 3,
+     "prompt": "The commander of the first crew to visit the Tiangong space station",
+     "answer": "Nie Haisheng",
+     "answer_source": "derived",
+     "explanation_zh": "聂海胜任神舟十二号乘组指令长，该乘组首次进驻天宫空间站（课文第1段）。",
+     "explanation": "Para. 1 names Nie Haisheng as the leader of the Shenzhou-12 crew, the first to dock at the Tiangong space station."
+    },
+    {
+     "n": 4,
+     "prompt": "The first Chinese person to perform a spacewalk",
+     "answer": "Zhai Zhigang",
+     "answer_source": "derived",
+     "explanation_zh": "翟志刚在神舟七号任务中完成中国首次太空行走（课文第8段）。",
+     "explanation": "Para. 8 describes Zhai Zhigang forcing open the Shenzhou-7 hatch so the crew could go outside and wave the Chinese flag in space."
+    },
+    {
+     "n": 5,
+     "prompt": "Work in pairs and list what qualifications are needed for astronauts.",
+     "answer": "Candidates must first be veteran PLA Air Force pilots with at least 600 flight hours in fighter or attack aircraft, and only a tiny fraction survive the demanding selection tests. Once admitted, they must master about 60 subjects, from physics to astronomy, within a single year and pass every exam. They also need the physical and mental toughness to endure 160-kg suits underwater and eight times their own weight in a centrifuge. Team spirit and commitment matter too, since missions demand risking one's life for the flag.",
+     "answer_source": "draft",
+     "explanation": "Para. 2 and Para. 6 give the text's own criteria: veteran fighter pilots with 600+ flight hours, survivors of demanding tests, and fast learners.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u05_a_understanding",
+   "section": "section_a",
+   "kind": "understanding",
+   "instructions": "1 Answer the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "What is one of the most spectacular endeavors of China's space exploration according to Para. 1?",
+     "answer": "Building and operating China's first space station.",
+     "answer_source": "derived",
+     "explanation_zh": "第1段提到，最壮观的航天工程之一是建造并运营中国首个空间站。",
+     "explanation": "The closing sentence of Para. 1 names building and operating China's first space station as one of the most spectacular endeavors."
+    },
+    {
+     "n": 2,
+     "prompt": "When was the PLA Astronaut Group established?",
+     "answer": "In 1998.",
+     "answer_source": "derived",
+     "explanation_zh": "第2段：首批航天员于1998年成为中国人民解放军航天员大队的创始成员。",
+     "explanation": "Para. 2 ends by saying the first 14 astronauts became founding members of the PLA Astronaut Group in 1998."
+    },
+    {
+     "n": 3,
+     "prompt": "What did it mean when Yang Liwei became the first Chinese person to go into space in the Shenzhou-5 manned mission?",
+     "answer": "It meant China became the third country to send a man into space.",
+     "answer_source": "derived",
+     "explanation_zh": "第3段：神舟五号任务使中国成为第三个独立把人送上太空的国家。",
+     "explanation": "Para. 3 says the Shenzhou-5 mission made China the third country to send a man into space."
+    },
+    {
+     "n": 4,
+     "prompt": "What have the Chinese astronauts accomplished since Yang Liwei's momentous journey according to Para. 4?",
+     "answer": "China has made gigantic progress in space exploration; astronauts have performed experiments and tests, undertaken spacewalks and delivered a science lecture.",
+     "answer_source": "derived",
+     "explanation_zh": "第4段概括中国航天的巨大进步，具体成就（实验、测试、舱外活动、太空授课）见后续段落。",
+     "explanation": "Para. 4 lists scientific experiments, technological tests, extravehicular activities and a science lecture as the progress made since Yang's journey."
+    },
+    {
+     "n": 5,
+     "prompt": "What do astronauts have to do to simulate weightlessness during training?",
+     "answer": "They wear suits weighing 160 kg and stay underwater for about four hours.",
+     "answer_source": "derived",
+     "explanation_zh": "第7段：航天员穿着160千克重的水下训练服在水下停留约四小时，以模拟失重。",
+     "explanation": "Para. 7 explains that astronauts wear 160-kg suits and stay underwater for about four hours to simulate weightlessness."
+    },
+    {
+     "n": 6,
+     "prompt": "What did Zhai Zhigang and Liu Boming decide to do when they discovered they were unable to open the spaceship's exit hatch?",
+     "answer": "They decided to use a tool to force the hatch open despite the obvious safety risk.",
+     "answer_source": "derived",
+     "explanation_zh": "第8段：二人决定用工具强行打开舱门，尽管安全风险明显。",
+     "explanation": "Para. 8 reports that the two decided to force the hatch open with a tool despite the obvious safety risk."
+    },
+    {
+     "n": 7,
+     "prompt": "What are the impacts that the accomplishments of China's space exploration have on the Chinese at home and abroad?",
+     "answer": "They make the nation proud and more confident, spark patriotism among overseas Chinese, and give them more courage and strength.",
+     "answer_source": "derived",
+     "explanation_zh": "第11段：航天成就增强了民族自豪感和信心，激发海外华人的爱国情怀，并给他们更多勇气和力量。",
+     "explanation": "Para. 11 credits the achievements with national pride and confidence, patriotism among overseas Chinese, and added courage and strength."
+    },
+    {
+     "n": 8,
+     "prompt": "What are the qualities the Chinese astronauts embody?",
+     "answer": "Bravery, wisdom, and commitment.",
+     "answer_source": "derived",
+     "explanation_zh": "第12段：中国航天员体现出勇气、智慧和奉献精神。",
+     "explanation": "The final paragraph names bravery, wisdom and commitment as the qualities the Chinese astronauts embody."
+    }
+   ]
+  },
+  {
+   "id": "u05_a_critical",
+   "section": "section_a",
+   "kind": "critical",
+   "instructions": "2 Work in pairs and discuss the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "What is the significance of space exploration?",
+     "answer": "Space exploration pushes science and technology that later solves earthly problems, from energy and resource shortages to pollution, as Text C argues. It has already transformed daily life through satellites, communications and interconnectivity. It also lifts a nation's confidence and inspires young people to pursue scientific careers.",
+     "answer_source": "draft",
+     "explanation": "Text C argues space progress solves earthly problems such as energy shortage and pollution, and drives communications and globalization.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "Why could China achieve outstanding progress in space exploration in a short period of time?",
+     "answer": "China approved a blueprint for its manned space program back in 1992 and has followed it patiently for three decades instead of chasing quick results. Behind every mission stand tens of thousands of scientists, engineers and workers, as Jing Haipeng points out when accepting his medal. Rigorous training, the astronauts' willingness to risk their lives, and growing international cooperation explain the speed of the progress.",
+     "answer_source": "draft",
+     "explanation": "Text A stresses a blueprint approved in 1992, rigorous training, and the thousands of scientists and workers behind each mission.",
+     "needs_review": true
+    },
+    {
+     "n": 3,
+     "prompt": "How do you understand the spirit of the manned space program?",
+     "answer": "The spirit means gritting your teeth when the centrifuge or a stuck hatch threatens the mission, as Yang Liwei and Zhai Zhigang did. It means putting the nation's dream above personal safety, knowing there might be no return trip. It also means staying modest, since Jing Haipeng credits the honour to the whole team rather than to himself.",
+     "answer_source": "draft",
+     "explanation": "Paras. 7-8 show the spirit in action: enduring unbearable g-forces and forcing a stuck hatch open for the flag.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u05_a_words_in_use",
+   "section": "section_a",
+   "kind": "words_in_use",
+   "instructions": "3 Fill in the blanks with the words given below. Change the form where necessary. Each word can be used only once.",
+   "bank": [
+    "ascend",
+    "blueprint",
+    "boundary",
+    "embody",
+    "gigantic",
+    "halt",
+    "inflict",
+    "milestone",
+    "simulate",
+    "vibrate"
+   ],
+   "items": [
+    {
+     "n": 1,
+     "prompt": "All these industries have ____ the decline and in some cases reversed it by innovations of their own.",
+     "answer": "halted",
+     "answer_source": "derived",
+     "explanation_zh": "have halted the decline（停止衰退），用过去分词halted。",
+     "explanation": "The present perfect 'have ____ the decline' needs the past participle 'halted', meaning to stop the decline."
+    },
+    {
+     "n": 2,
+     "prompt": "The city has recently devised a series of strategies mapping out a(n) ____ for the city's development.",
+     "answer": "blueprint",
+     "answer_source": "derived",
+     "explanation_zh": "a blueprint for...意为“……的蓝图”。",
+     "explanation": "'Map out a(n) ____ for the city's development' calls for 'blueprint'; 'a blueprint for' is the fixed collocation for a plan."
+    },
+    {
+     "n": 3,
+     "prompt": "Research laboratories could ____ environmental conditions surrounding historical sites to help researchers with their cultural heritage protection endeavors.",
+     "answer": "simulate",
+     "answer_source": "derived",
+     "explanation_zh": "could simulate环境条件，表示“模拟”，动词原形。",
+     "explanation": "The modal 'could' takes the base form 'simulate', meaning to imitate environmental conditions for research."
+    },
+    {
+     "n": 4,
+     "prompt": "My phone ____ in my pocket while I was walking around the mall.",
+     "answer": "vibrated",
+     "answer_source": "derived",
+     "explanation_zh": "手机在口袋里振动，描述过去的动作，用过去式vibrated。",
+     "explanation": "Past tense 'vibrated' matches 'while I was walking', a finished action in the past."
+    },
+    {
+     "n": 5,
+     "prompt": "This meeting proved to be a very important ____ for the development of the program.",
+     "answer": "milestone",
+     "answer_source": "derived",
+     "explanation_zh": "a very important milestone意为“重要的里程碑”。",
+     "explanation": "'A very important ____ for the development of the program' takes 'milestone', a turning point in a process."
+    },
+    {
+     "n": 6,
+     "prompt": "The drought has ____ a direct agricultural economic loss of 952 million dollars in that area.",
+     "answer": "inflicted",
+     "answer_source": "derived",
+     "explanation_zh": "inflict...on造成（损失），现在完成时用过去分词inflicted。",
+     "explanation": "The present perfect needs 'inflicted'; the collocation is 'inflict a loss on sb.'"
+    },
+    {
+     "n": 7,
+     "prompt": "Many men of letters have ____ Lushan Mountain, a mountain of immense cultural significance, and produced more than 16,000 poems and verses.",
+     "answer": "ascended",
+     "answer_source": "derived",
+     "explanation_zh": "ascend登上，此处为及物用法，现在完成时用ascended。",
+     "explanation": "Present perfect 'have ascended' takes Lushan Mountain as its direct object, meaning men of letters climbed it."
+    },
+    {
+     "n": 8,
+     "prompt": "This program is designed to blur the ____ between school and work by pairing traditional technical skills training with real-world work experiences.",
+     "answer": "boundary",
+     "answer_source": "derived",
+     "explanation_zh": "blur the boundary between...意为“模糊……之间的界限”。",
+     "explanation": "'Blur the ____ between school and work' requires the noun 'boundary' after the definite article."
+    },
+    {
+     "n": 9,
+     "prompt": "The ____ waves are awe-inspiring, reaching the height of a 10-story building.",
+     "answer": "gigantic",
+     "answer_source": "derived",
+     "explanation_zh": "修饰名词waves的形容词，意为“巨大的”。",
+     "explanation": "An adjective is needed before 'waves'; 'gigantic' means enormous, matching the height of a 10-story building."
+    },
+    {
+     "n": 10,
+     "prompt": "The patterns found on folk art and their symbolic meanings ____ values which have evolved over a long time.",
+     "answer": "embody",
+     "answer_source": "derived",
+     "explanation_zh": "embody表示“体现”，主语为复数，用原形embody。",
+     "explanation": "The plural subject 'patterns' takes the base form 'embody', meaning to represent values."
+    }
+   ]
+  },
+  {
+   "id": "u05_a_word_building",
+   "section": "section_a",
+   "kind": "word_building",
+   "instructions": "4 Fill in the blanks with the words given below. Change the form where necessary. Each word can be used only once.",
+   "bank": [
+    "adversity",
+    "disciplinary",
+    "immensity",
+    "legendary",
+    "momentary",
+    "precautionary",
+    "sincerity"
+   ],
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Hua Tuo was a(n) ____ Chinese physician who lived during the late Eastern Han Dynasty.",
+     "answer": "legendary",
+     "answer_source": "derived",
+     "explanation_zh": "legend派生形容词legendary，修饰Chinese physician，意为“传奇的”。",
+     "explanation": "The adjective 'legendary', from 'legend', modifies 'Chinese physician' and means famous in legends."
+    },
+    {
+     "n": 2,
+     "prompt": "Economic theory suggests that in the presence of rising uncertainty, households can increase their savings for ____ purposes.",
+     "answer": "precautionary",
+     "answer_source": "derived",
+     "explanation_zh": "precaution派生precautionary，意为“预防的”，修饰purposes。",
+     "explanation": "The adjective 'precautionary', from 'precaution', modifies 'purposes': savings kept against future uncertainty."
+    },
+    {
+     "n": 3,
+     "prompt": "Nothing has overwhelmed me so much with its ____ as the boundless ocean.",
+     "answer": "immensity",
+     "answer_source": "derived",
+     "explanation_zh": "immense派生名词immensity，意为“巨大”，作with的宾语。",
+     "explanation": "A noun from 'immense' is needed after 'with its'; 'immensity' means the vastness of the ocean."
+    },
+    {
+     "n": 4,
+     "prompt": "Nobody can deny that trust and ____ are important in a relationship.",
+     "answer": "sincerity",
+     "answer_source": "derived",
+     "explanation_zh": "sincere派生名词sincerity，与trust并列作主语。",
+     "explanation": "A noun from 'sincere' is coordinated with 'trust' as subject, so the form is 'sincerity'."
+    },
+    {
+     "n": 5,
+     "prompt": "Her fear was only ____; it soon passed when her family came home and told her that everything was all right.",
+     "answer": "momentary",
+     "answer_source": "derived",
+     "explanation_zh": "moment派生形容词momentary，意为“短暂的”，修饰fear。",
+     "explanation": "The adjective 'momentary', from 'moment', modifies 'fear'; the next clause, 'it soon passed', confirms it was brief."
+    },
+    {
+     "n": 6,
+     "prompt": "Perhaps he would receive ____ punishment because he had disobeyed an order.",
+     "answer": "disciplinary",
+     "answer_source": "derived",
+     "explanation_zh": "discipline派生形容词disciplinary，意为“纪律的”，修饰punishment。",
+     "explanation": "The adjective 'disciplinary', from 'discipline', modifies 'punishment' for disobeying an order."
+    },
+    {
+     "n": 7,
+     "prompt": "She had overcome many personal ____, which prepared her to be an awesome motivational speaker.",
+     "answer": "adversities",
+     "answer_source": "derived",
+     "explanation_zh": "adversity为不可数名词，此处前有many修饰，需用复数形式adversities。",
+     "explanation": "After 'many', the uncountable 'adversity' becomes the plural 'adversities', meaning personal hardships."
+    }
+   ]
+  },
+  {
+   "id": "u05_a_banked_cloze",
+   "section": "section_a",
+   "kind": "banked_cloze",
+   "instructions": "5 Fill in the blanks by selecting suitable words from the word bank. You may not use any of the words more than once.",
+   "bank": [
+    "abolition",
+    "ascended",
+    "blueprint",
+    "designated",
+    "docked",
+    "endeavor",
+    "fingerprint",
+    "hasty",
+    "lofty",
+    "milestone",
+    "pushing",
+    "simulate",
+    "soaring",
+    "transcended",
+    "trigger"
+   ],
+   "passage": "China's first attempt at independently developing its astronautic industry can be dated back to the 1950s, but it was not until the 1960s that any substantial progress was made. A major breakthrough in China's astronautic technology came on April 24, 1970, when China succeeded in launching its first satellite. This development marked a(n) {{1}} in China's research on man-made satellite.\nThe 1980s was a period of {{2}} growth for Chinese space technology. The successful launch of the Long March-3 brought the country into a leading position in carrier rocket technology around the world.\nIn 1992, the Chinese government created a(n) {{3}} and decided to implement its manned space program, which laid claim to being the largest and most technically complex {{4}} of China's space exploration in the late 20th century and early 21st century.\nIn October 2003, the Shenzhou-5 manned spaceship {{5}} into space and sent the first Chinese astronaut into orbit. This momentous space journey marked the realization of China's dream of a manned space flight.\nOn October 16, 2021, Shenzhou-13 was launched and entered its {{6}} orbit successfully. After entering its orbit, the spaceship was {{7}} with the Tianhe core module. The crew completed a six-month stay, the longest one since the beginning of the program, and returned to the earth safely on April 16, 2022.\nChina now is {{8}} forward with its deep space exploration, and aims to contribute its wisdom to utilizing the outer space peacefully. The achievements of China's space exploration will {{9}} the interest of more young people who are willing to devote themselves to the {{10}} cause. China's space exploration, of course, will start a new journey.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Blank 1: marked a(n) ____ in China's research on man-made satellite",
+     "answer": "milestone",
+     "answer_source": "derived",
+     "explanation_zh": "此处指一次重大进展，构成a milestone in...。",
+     "explanation": "'Marked a(n) ____ in China's research' is the collocation 'mark a milestone in', fitting the 1970 satellite launch."
+    },
+    {
+     "n": 2,
+     "prompt": "Blank 2: a period of ____ growth",
+     "answer": "soaring",
+     "answer_source": "derived",
+     "explanation_zh": "soaring growth意为“飞速增长”。",
+     "explanation": "'A period of ____ growth' needs an adjective, and 'soaring growth' means fast, sustained growth in the 1980s."
+    },
+    {
+     "n": 3,
+     "prompt": "Blank 3: created a(n) ____ and decided to implement its manned space program",
+     "answer": "blueprint",
+     "answer_source": "derived",
+     "explanation_zh": "created a blueprint意为“制定了蓝图”，与后文计划实施相符。",
+     "explanation": "The government 'created a(n) ____' before implementing the program, so 'blueprint', a plan, fits."
+    },
+    {
+     "n": 4,
+     "prompt": "Blank 4: the largest and most technically complex ____ of China's space exploration",
+     "answer": "endeavor",
+     "answer_source": "derived",
+     "explanation_zh": "一项最庞大、技术最复杂的事业，用endeavor。",
+     "explanation": "'The largest and most technically complex ____ of China's space exploration' takes 'endeavor', a major undertaking."
+    },
+    {
+     "n": 5,
+     "prompt": "Blank 5: the Shenzhou-5 manned spaceship ____ into space",
+     "answer": "ascended",
+     "answer_source": "derived",
+     "explanation_zh": "ascend into space意为“升入太空”，过去式ascended。",
+     "explanation": "The past tense 'ascended into space' matches October 2003; 'ascend' means to rise upward."
+    },
+    {
+     "n": 6,
+     "prompt": "Blank 6: entered its ____ orbit successfully",
+     "answer": "designated",
+     "answer_source": "derived",
+     "explanation_zh": "designated orbit指“指定的轨道”。",
+     "explanation": "'Entered its ____ orbit' refers to the orbit assigned to the spaceship, hence 'designated'."
+    },
+    {
+     "n": 7,
+     "prompt": "Blank 7: the spaceship was ____ with the Tianhe core module",
+     "answer": "docked",
+     "answer_source": "derived",
+     "explanation_zh": "dock with表示宇宙飞船与天和核心舱“对接”，被动语态用过去分词docked。",
+     "explanation": "'Was ____ with the Tianhe core module' needs the past participle 'docked'; 'dock with' is the collocation."
+    },
+    {
+     "n": 8,
+     "prompt": "Blank 8: China now is ____ forward with its deep space exploration",
+     "answer": "pushing",
+     "answer_source": "derived",
+     "explanation_zh": "pushing forward意为“推进”，现在进行时。",
+     "explanation": "'Is ____ forward' takes the present participle 'pushing'; 'push forward with' means to advance an effort."
+    },
+    {
+     "n": 9,
+     "prompt": "Blank 9: The achievements ... will ____ the interest of more young people",
+     "answer": "trigger",
+     "answer_source": "derived",
+     "explanation_zh": "trigger the interest意为“激发兴趣”，will后用原形。",
+     "explanation": "The modal 'will' requires the base form 'trigger'; 'trigger the interest of' means to spark it."
+    },
+    {
+     "n": 10,
+     "prompt": "Blank 10: to devote themselves to the ____ cause",
+     "answer": "lofty",
+     "answer_source": "derived",
+     "explanation_zh": "lofty cause意为“崇高的事业”。",
+     "explanation": "'The ____ cause' needs an adjective before the noun; 'a lofty cause' means a noble one."
+    }
+   ]
+  },
+  {
+   "id": "u05_a_expressions_in_use",
+   "section": "section_a",
+   "kind": "expressions_in_use",
+   "instructions": "6 Fill in the blanks with the expressions given below. Change the form where necessary. Each expression can be used only once.",
+   "bank": [
+    "be overwhelmed by",
+    "for the benefit of",
+    "grit one's teeth",
+    "immerse oneself in",
+    "make use of",
+    "owe a debt to",
+    "rip through",
+    "trigger off"
+   ],
+   "items": [
+    {
+     "n": 1,
+     "prompt": "To help you better deal with your studies and life abroad, we advise you to ____ the local culture.",
+     "answer": "immerse yourself in",
+     "answer_source": "derived",
+     "explanation_zh": "immerse oneself in的反身代词随主语改为yourself。",
+     "explanation": "'Advise you to ____' requires the reflexive pronoun matching 'you', giving 'immerse yourself in'."
+    },
+    {
+     "n": 2,
+     "prompt": "With the further development of contemporary historians' research, a number of new academic views have been put forth and have ____ a series of controversies among researchers.",
+     "answer": "triggered off",
+     "answer_source": "derived",
+     "explanation_zh": "trigger off引发，现在完成时用过去分词triggered off。",
+     "explanation": "After 'have', the past participle 'triggered off' is needed, meaning sparked a series of controversies."
+    },
+    {
+     "n": 3,
+     "prompt": "The government has called on large companies to make comprehensive e-commerce platforms available ____ people in rural areas.",
+     "answer": "for the benefit of",
+     "answer_source": "derived",
+     "explanation_zh": "for the benefit of意为“为了……的利益”。",
+     "explanation": "'Available ____ people in rural areas' takes 'for the benefit of', meaning for the good of those people."
+    },
+    {
+     "n": 4,
+     "prompt": "We ____ teachers like Willa, who dedicate their lives to helping our children become better - not only at learning but also at living a full and meaningful life.",
+     "answer": "owe a debt to",
+     "answer_source": "derived",
+     "explanation_zh": "owe a debt to sb.表示“对……感恩、欠……的情”。",
+     "explanation": "Present simple with 'we' gives 'owe a debt to', meaning we are deeply grateful to such teachers."
+    },
+    {
+     "n": 5,
+     "prompt": "Rescue workers continued their efforts to free the miners trapped underground after a gold mine ____ an explosion near the town.",
+     "answer": "was ripped through by",
+     "answer_source": "derived",
+     "explanation_zh": "rip through指迅猛穿过，此处用被动语态was ripped through by。",
+     "explanation": "The passive past 'was ripped through by an explosion' agrees with the singular 'a gold mine'."
+    },
+    {
+     "n": 6,
+     "prompt": "Sometimes in life, you just have to ____ and do what you have to do to protect the ones you love.",
+     "answer": "grit your teeth",
+     "answer_source": "derived",
+     "explanation_zh": "grit one's teeth意为“咬紧牙关”，人称改为your。",
+     "explanation": "After 'you just have to', the base form is needed, with 'your' matching the subject 'you'."
+    },
+    {
+     "n": 7,
+     "prompt": "Almost half of all users surveyed said that they ____ the sheer number of apps currently available.",
+     "answer": "were overwhelmed by",
+     "answer_source": "derived",
+     "explanation_zh": "be overwhelmed by意为“被……压倒”，此处用过去式被动。",
+     "explanation": "Reported speech 'said that they ____' shifts back to the past passive 'were overwhelmed by'."
+    },
+    {
+     "n": 8,
+     "prompt": "Soil management, rainwater harvesting, and proper storage of water all affect how efficiently farmers ____ water resources.",
+     "answer": "make use of",
+     "answer_source": "derived",
+     "explanation_zh": "make use of意为“利用”，动词原形接在farmers之后。",
+     "explanation": "Present simple after the plural subject 'farmers' takes 'make use of', meaning to use water efficiently."
+    }
+   ]
+  },
+  {
+   "id": "u05_a_structure_analysis",
+   "section": "section_a",
+   "kind": "structure_writing",
+   "instructions": "Structure analysis: Developing an exemplification essay. Take Paras. 9-11 of Text A and see how examples are used to support the point.",
+   "sample": "Para. 9: topic sentence (the astronauts' struggles, sacrifices and persistence were all worthwhile) + an extended example (Liu Wang's quotation about the scenes he saw in space).\nPara. 10: topic sentence (the accomplishments of China's space exploration ...) is supported by an extended example of Jing Haipeng, who attributed his August 1 Medal to all the people behind the programs.\nPara. 11: brief examples (Wang Yaping's letters from students; Yang Liwei's meeting with a Chinese-American in New York) show the wide impact of the achievements.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Analyze how the extended and brief examples in Paras. 9-11 of Text A support their topic sentences.",
+     "answer": "Paragraph 9 opens with the claim that the astronauts' struggles were worthwhile and supports it with Liu Wang's extended description of the earth and stars seen from orbit. Paragraph 10 makes the same move: Jing Haipeng's medal becomes an extended example showing that the honour belongs to the whole team. Paragraph 11 then uses two brief examples, Wang Yaping's letters and Yang Liwei's New York encounter, to show the wide impact efficiently.",
+     "answer_source": "draft",
+     "explanation": "Each paragraph states a point first, then proves it with one extended example or a pair of brief ones, ending with a comment.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u05_a_structured_writing",
+   "section": "section_a",
+   "kind": "structure_writing",
+   "instructions": "Structured writing: 1 Read the sample essay and see how the examples are developed and organized. 7 Write an essay of no less than 140 words on one of the following topics. One topic has an outline that you can follow.",
+   "sample": "Outline for topic (a) Curiosity and scientific breakthroughs\nIntroduction: Thesis statement: Curiosity is the secret to scientific breakthroughs.\nBody 1: Topic sentence: Curiosity sparks questions which are important in scientific discoveries. Example: Li Siguang and the Quaternary Glacial Theory of China, which started from a big stone he was curious about as a child.\nBody 2: Topic sentence: Curiosity gives people the persistence to look for scientific discoveries. Example 1: Michael Faraday and the first electric motor. Example 2: Tu Youyou and artemisinin.\nConclusion: Curiosity plays a key role in important scientific breakthroughs.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Read the sample essay on global warming and see how the examples are developed and organized.",
+     "answer": "The sample starts from a clear thesis and then gives each body paragraph a single example that is described before it is explained. Link sentences then tie the example back to the thesis, so the evidence never stands alone. The conclusion echoes the opening claim, which turns a list of examples into a chain of proof.",
+     "answer_source": "draft",
+     "explanation": "Read the sample as a pattern: thesis first, one example per body paragraph, and each example explained before the next.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "Write an essay of no less than 140 words on one of these topics: (a) Curiosity and scientific breakthroughs; (b) Procrastination is a bad habit; (c) Exploring the space for the benefit of all humankind.",
+     "answer": "Curiosity is the secret to scientific breakthroughs, because it first makes people ask questions nobody else has asked. Li Siguang's childhood wonder at a big stone, for instance, grew into the Quaternary Glacial Theory of China, which changed Chinese geology. Curiosity also supplies persistence: Michael Faraday kept experimenting until he built the first electric motor, and Tu Youyou kept searching ancient texts until artemisinin worked. Their stories show that breakthroughs begin not with equipment but with a mind that refuses to stop asking why.",
+     "answer_source": "draft",
+     "explanation": "Follow the given outline: thesis, two body paragraphs with named examples, and a conclusion that restates the thesis.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u05_b_reading_skills",
+   "section": "section_b",
+   "kind": "reading_skills",
+   "instructions": "1 Read Text B and identify the sequence of events displayed in the text. Make a timeline of China's scientific endeavors in lunar exploration.",
+   "sample": "2000: China announced preparatory research on lunar exploration in its space planning.\n2004: The lunar exploration program officially began, aiming to orbit and land on the moon and bring samples back.\n2007: Chang'e-1, the first spacecraft of the program, was launched.\n2013: Chang'e-3 achieved China's first soft landing on the moon.\n2018 (May): The relay satellite Queqiao was launched to link the earth with the far side.\n2018 (December): Chang'e-4 made the first-ever soft landing on the far side of the moon.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Read Text B and make a timeline of China's scientific endeavors in lunar exploration.",
+     "answer": "China announced preparatory research on lunar exploration in 2000 and officially began the program in 2004, aiming to orbit and land on the moon and bring samples home. Chang'e-1 verified the probe technologies in 2007, and Chang'e-3 achieved China's first soft landing in 2013. In 2018 the Queqiao relay satellite was launched to link the earth with the far side, and Chang'e-4 made the first-ever soft landing there.",
+     "answer_source": "draft",
+     "explanation": "Text B gives the dates in order: 2000, 2004, 2007, 2013, and the two 2018 milestones, Queqiao and Chang'e-4.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u05_b_understanding",
+   "section": "section_b",
+   "kind": "text_b_mcq",
+   "instructions": "2 Choose the best answer to each of the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "Why do we want to explore the moon according to the text?",
+     "answer": 2,
+     "answer_source": "derived",
+     "options": [
+      "To solve resource problems on earth.",
+      "To build a similar biosphere on the moon.",
+      "To peer into and explore the deep universe.",
+      "To learn more about the other side of the moon."
+     ],
+     "explanation_zh": "Text B第2段：月球是深入探索宇宙的理想场所，故选C。",
+     "explanation": "Para. 2 calls the moon 'an ideal place to peer into the deep reaches of the universe', which matches option C."
+    },
+    {
+     "n": 2,
+     "prompt": "Why is the far side of the moon also called the dark side?",
+     "answer": 1,
+     "answer_source": "derived",
+     "options": [
+      "It is covered by black rocks.",
+      "It is relatively unknown to us.",
+      "It is darker than the near side.",
+      "It is more dangerous than the near side."
+     ],
+     "explanation_zh": "Text B第3-4段：dark只表达人们对未知的感受，即远端相对鲜为人知，故选B。",
+     "explanation": "Para. 3 says the far side is called dark only because it remains a mystery, so 'dark' reflects our ignorance, option B."
+    },
+    {
+     "n": 3,
+     "prompt": "Which of the following is the first-ever mission to photograph the moon's far side?",
+     "answer": 0,
+     "answer_source": "derived",
+     "options": [
+      "The Luna 3 mission.",
+      "The Apollo 8 mission.",
+      "The Chang'e-1 mission.",
+      "The Chang'e-4 mission."
+     ],
+     "explanation_zh": "Text B第4段：1959年苏联的Luna 3是首次拍摄月球背面的任务。",
+     "explanation": "Para. 4 credits the Soviet Luna 3 probe of 1959 with the first-ever photographs of the far side, option A."
+    },
+    {
+     "n": 4,
+     "prompt": "When did China join the lunar exploration club?",
+     "answer": 3,
+     "answer_source": "derived",
+     "options": [
+      "In the 1950s.",
+      "In the 1970s.",
+      "At the beginning of 2007.",
+      "At the turn of the millennium."
+     ],
+     "explanation_zh": "Text B第5段：进入21世纪前后（at the turn of the millennium）中国加入了月球探测行列。",
+     "explanation": "Para. 5 says that 'since the turn of the millennium' more countries including China joined the lunar club, option D."
+    },
+    {
+     "n": 5,
+     "prompt": "Which of the following is a goal of China's lunar exploration program according to the text?",
+     "answer": 1,
+     "answer_source": "derived",
+     "options": [
+      "To find signs of life on the moon.",
+      "To bring samples back to the earth.",
+      "To establish a settlement on the moon.",
+      "To find a good location to observe the earth."
+     ],
+     "explanation_zh": "Text B第6段：该计划的目标之一是绕月、登月并把样品带回地球。",
+     "explanation": "Para. 6 states the program aimed to orbit and land on the moon and bring samples back to the earth, option B."
+    },
+    {
+     "n": 6,
+     "prompt": "Which mission accomplished China's first soft-landing on the moon?",
+     "answer": 2,
+     "answer_source": "derived",
+     "options": [
+      "The Chang'e-1 mission.",
+      "The Chang'e-2 mission.",
+      "The Chang'e-3 mission.",
+      "The Chang'e-4 mission."
+     ],
+     "explanation_zh": "Text B第7段：2013年嫦娥三号实现中国首次月球软着陆。",
+     "explanation": "Para. 7 says Chang'e-3 accomplished China's first soft landing on the moon in 2013, option C."
+    },
+    {
+     "n": 7,
+     "prompt": "Why did China launch the satellite Queqiao?",
+     "answer": 3,
+     "answer_source": "derived",
+     "options": [
+      "To survey the rugged terrain on the moon's far side.",
+      "To take on the role of Chang'e-4 if it failed to function.",
+      "To help with the Chang'e-4 mission by carrying more instruments.",
+      "To set up a communication link between the earth and the moon's far side."
+     ],
+     "explanation_zh": "Text B第8段：鹊桥中继卫星用于在地球与月球背面之间建立通信链路。",
+     "explanation": "Para. 8 explains that Queqiao was launched to set up a communication link with the far side, option D."
+    },
+    {
+     "n": 8,
+     "prompt": "What is special about Chang'e-4?",
+     "answer": 1,
+     "answer_source": "derived",
+     "options": [
+      "It brought fresh flowers and potato seeds with it to the moon.",
+      "It is the first man-made craft to soft land on the far side of the moon.",
+      "It helped humans see the moon's far side with their own eyes for the first time.",
+      "It carried instruments developed by foreign scientists from Japan and Germany."
+     ],
+     "explanation_zh": "Text B第8段：嫦娥四号是首个在月球背面成功软着陆的人造航天器。",
+     "explanation": "Para. 8 says Chang'e-4 realized the first-ever soft landing on the far side, so option B is the special point."
+    }
+   ]
+  },
+  {
+   "id": "u05_b_critical",
+   "section": "section_b",
+   "kind": "critical",
+   "instructions": "3 Work in pairs and discuss the following questions.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "What are the benefits of enhancing international cooperation in space exploration?",
+     "answer": "Pooling instruments and expertise, as Chang'e-4 did with payloads from Sweden, Germany, the Netherlands and Saudi Arabia, stretches what one country can afford and speeds up discovery. It also turns space science into 'a message of peace worldwide', in the German professor's words. Shared data mean the results belong to humanity rather than to a single flag.",
+     "answer_source": "draft",
+     "explanation": "Text B notes Chang'e-4 carried instruments from Sweden, Germany, the Netherlands and Saudi Arabia, combining human wisdom.",
+     "needs_review": true
+    },
+    {
+     "n": 2,
+     "prompt": "What accomplishments do you think humans could achieve in the future lunar exploration?",
+     "answer": "China is already drawing up plans to explore the moon's polar regions and, with Russia, a joint road map for an International Lunar Research Station by 2035. Future crews may stay there for long periods, grow plants in a mini biosphere and turn lunar resources into fuel and materials. As Text B predicts, the Chinese will leave their footprints on the moon in the foreseeable future.",
+     "answer_source": "draft",
+     "explanation": "Text B mentions polar-region plans and Text C the International Lunar Research Station, the first structures on the moon by 2035.",
+     "needs_review": true
+    },
+    {
+     "n": 3,
+     "prompt": "What roles do you think disciplines other than science and technology play in space exploration?",
+     "answer": "The humanities keep space meaningful: the moon has long been a theme in Chinese poems, music and paintings, and the program borrows the myth of Chang'e and the Jade Rabbit for its names. Law and international relations decide how shared resources are governed, while economics turns technology into industries. Education matters too, since Wang Yaping's lecture from space stirred children's dreams.",
+     "answer_source": "draft",
+     "explanation": "Text B shows the moon as a theme in Chinese poems, music and painting, and the program is named after the myth of Chang'e.",
+     "needs_review": true
+    }
+   ]
+  },
+  {
+   "id": "u05_b_collocation",
+   "section": "section_b",
+   "kind": "collocation",
+   "instructions": "4 Complete the following paragraphs by choosing appropriate words from the boxes. Change the form where necessary. Each word can be used only once.",
+   "bank": [
+    "accomplish",
+    "ambitious",
+    "captivating",
+    "combine",
+    "continuous",
+    "deepen",
+    "gigantic",
+    "inspire",
+    "patriotic",
+    "pursue",
+    "reach",
+    "spectacular",
+    "trigger",
+    "verify"
+   ],
+   "passage": "The successful re-entry and landing of the Chang'e-5 probe has enabled China to obtain its first lunar samples, marking a(n) {{1}} progress in lunar and planetary research. With this achievement, China has {{2}} a new milestone in the space domain. The primary goal of Chang'e-5 was to bring back samples from the moon's surface. This will {{3}} our understanding of the state, temperature, and material content of the moon. No matter how far China goes into space, it always aims at {{4}} its original mission - revealing the secrets of the universe and providing great and {{5}} support for humanity's peaceful use of space.\nThis eye-opening experience not only successfully {{6}} students' interest in science and technology, but also greatly aroused {{7}} sentiments among young citizens and motivated them to {{8}} science-based careers. Such an event further demonstrates China's advanced technology and reveals its {{9}} space program. China endeavors to {{10}} human wisdom to explore the universe for the benefit of humankind.\nThrough the years, space has often been identified as the new frontier, {{11}} the imagination of writers and film directors, who have made it a theme related to the fantastic and {{12}} by developments in space technologies. History has shown us that after an initial phase of 'exploring' a new environment and {{13}} relevant technologies, what follows is an explosion of businesses to exploit the new opportunities offered by this new environment, which would inspire {{14}} aspirations among many people.",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "marking a(n) ____ progress in lunar and planetary research",
+     "answer": "gigantic",
+     "answer_source": "derived",
+     "explanation_zh": "gigantic progress为固定搭配，意为“巨大的进步”。",
+     "explanation": "'Marking a(n) ____ progress' needs an adjective before the uncountable noun 'progress'; 'gigantic' means huge."
+    },
+    {
+     "n": 2,
+     "prompt": "With this achievement, China has ____ a new milestone in the space domain.",
+     "answer": "reached",
+     "answer_source": "derived",
+     "explanation_zh": "reach a milestone意为“达到里程碑”，现在完成时用过去分词reached。",
+     "explanation": "After 'has', the past participle 'reached' is needed; 'reach a milestone' is the collocation."
+    },
+    {
+     "n": 3,
+     "prompt": "This will ____ our understanding of the state, temperature, and material content of the moon.",
+     "answer": "deepen",
+     "answer_source": "derived",
+     "explanation_zh": "deepen our understanding意为“加深我们的理解”，助动词will后用原形。",
+     "explanation": "After 'will', the base form 'deepen' is needed, and 'deepen our understanding' is the collocation."
+    },
+    {
+     "n": 4,
+     "prompt": "No matter how far China goes into space, it always aims at ____ its original mission.",
+     "answer": "accomplishing",
+     "answer_source": "derived",
+     "explanation_zh": "aim at doing sth.，介词at后接动名词accomplishing。",
+     "explanation": "'Aims at' is a preposition, so the gerund 'accomplishing' follows; 'accomplish a mission' is the collocation."
+    },
+    {
+     "n": 5,
+     "prompt": "providing great and ____ support for humanity's peaceful use of space",
+     "answer": "continuous",
+     "answer_source": "derived",
+     "explanation_zh": "continuous support意为“持续的支持”。",
+     "explanation": "The adjective 'continuous' is coordinated with 'great' before 'support', meaning unceasing support."
+    },
+    {
+     "n": 6,
+     "prompt": "This eye-opening experience not only successfully ____ students' interest in science and technology",
+     "answer": "triggered",
+     "answer_source": "derived",
+     "explanation_zh": "trigger students' interest意为“激发学生的兴趣”，前有successfully，用过去式triggered。",
+     "explanation": "Past tense 'triggered' parallels 'aroused' and 'motivated' in the same sentence; 'trigger interest' is the collocation."
+    },
+    {
+     "n": 7,
+     "prompt": "but also greatly aroused ____ sentiments among young citizens",
+     "answer": "patriotic",
+     "answer_source": "derived",
+     "explanation_zh": "patriotic sentiments意为“爱国情感”。",
+     "explanation": "'Aroused ____ sentiments' needs an adjective; 'patriotic sentiments' means love of country."
+    },
+    {
+     "n": 8,
+     "prompt": "and motivated them to ____ science-based careers",
+     "answer": "pursue",
+     "answer_source": "derived",
+     "explanation_zh": "pursue a career意为“从事……职业”，motivate sb. to do后接动词原形。",
+     "explanation": "'Motivated them to ____' takes the base form 'pursue', and 'pursue a career' is the collocation."
+    },
+    {
+     "n": 9,
+     "prompt": "and reveals its ____ space program",
+     "answer": "spectacular",
+     "answer_source": "derived",
+     "explanation_zh": "spectacular space program意为“壮观的航天计划”。",
+     "explanation": "An adjective modifies 'space program'; 'spectacular' matches the scale of the achievement described."
+    },
+    {
+     "n": 10,
+     "prompt": "China endeavors to ____ human wisdom to explore the universe",
+     "answer": "combine",
+     "answer_source": "derived",
+     "explanation_zh": "combine human wisdom意为“结合人类智慧”，endeavor to do后用动词原形。",
+     "explanation": "'Endeavors to ____' takes the base form 'combine', and 'combine human wisdom' is the collocation."
+    },
+    {
+     "n": 11,
+     "prompt": "Through the years, space has often been identified as the new frontier, ____ the imagination of writers and film directors",
+     "answer": "captivating",
+     "answer_source": "derived",
+     "explanation_zh": "captivate the imagination意为“吸引想象力”，此处作伴随状语用现在分词。",
+     "explanation": "The present participle 'captivating' forms a participial phrase showing what space does to writers' and directors' imagination."
+    },
+    {
+     "n": 12,
+     "prompt": "who have made it a theme related to the fantastic and ____ by developments in space technologies",
+     "answer": "inspired",
+     "answer_source": "derived",
+     "explanation_zh": "be inspired by意为“受……启发”，用过去分词。",
+     "explanation": "The passive 'inspired by' parallels 'related to', both modifying 'a theme'; the past participle is required."
+    },
+    {
+     "n": 13,
+     "prompt": "after an initial phase of 'exploring' a new environment and ____ relevant technologies",
+     "answer": "verifying",
+     "answer_source": "derived",
+     "explanation_zh": "verify technologies意为“验证技术”，and后并列动名词verifying。",
+     "explanation": "'And' joins two gerunds after 'an initial phase of', so 'verifying' technologies is required."
+    },
+    {
+     "n": 14,
+     "prompt": "which would inspire ____ aspirations among many people",
+     "answer": "ambitious",
+     "answer_source": "derived",
+     "explanation_zh": "ambitious aspirations意为“雄心壮志”，形容词修饰aspirations。",
+     "explanation": "'Inspire ____ aspirations' needs an adjective; 'ambitious aspirations' is the collocation for grand goals."
+    }
+   ]
+  },
+  {
+   "id": "u05_c_translation",
+   "section": "section_c",
+   "kind": "translation",
+   "instructions": "Translate the following paragraph into English.",
+   "sample": "实现中华民族伟大复兴是近代以来中国人民最伟大的梦想，我们称之为“中国梦”，其基本内涵是实现国家富强、民族振兴、人民幸福。每个中国人都是中国梦参与者和创造者。我们要把自己的前途与国家命运紧紧相连。中国梦是民族梦，也是每个中国人的梦。我们应坚定信心、同心同德，为全面推进中华民族伟大复兴而团结奋斗。",
+   "items": [
+    {
+     "n": 1,
+     "prompt": "实现中华民族伟大复兴是近代以来中国人民最伟大的梦想，我们称之为“中国梦”，其基本内涵是实现国家富强、民族振兴、人民幸福。每个中国人都是中国梦参与者和创造者。我们要把自己的前途与国家命运紧紧相连。中国梦是民族梦，也是每个中国人的梦。我们应坚定信心、同心同德，为全面推进中华民族伟大复兴而团结奋斗。",
+     "answer": "Realizing the great rejuvenation of the Chinese nation has been the greatest dream of the Chinese people since modern times. We call it the \"Chinese Dream\", whose essence is to achieve national prosperity, national rejuvenation, and happiness for the people. Every Chinese person is a participant in and creator of the Chinese Dream. We must closely link our own future with the destiny of the country. The Chinese Dream is the dream of the nation and also the dream of every Chinese. We should stay confident, work with one heart and one mind, and strive together to advance the great rejuvenation of the Chinese nation in an all-round way.",
+     "answer_source": "derived",
+     "explanation_zh": "参考译文，按原段落意思译出“中国梦”的内涵、个人与国家的关系及团结奋斗的号召。",
+     "explanation": "Key renderings: 'the great rejuvenation of the Chinese nation', 'national prosperity', 'link our own future with the destiny of the country', and 'with one heart and one mind'."
+    }
+   ]
+  }
+ ]
+}

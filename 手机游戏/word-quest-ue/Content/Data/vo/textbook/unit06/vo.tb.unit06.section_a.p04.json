@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit06.section_a.p04",
+ "unit": 6,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Sue knew that, in all likelihood, she would end up living in her car. She was part of a hard-luck group of jobless people who called themselves “99ers,” because they had exhausted the maximum 99 weeks of unemployment insurance benefits that they could claim.",
+ "rate": 165,
+ "duration": 14.699,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.055,
+   "text": "Sue knew that, in all likelihood, she would end up living in her car."
+  },
+  {
+   "i": 1,
+   "start": 4.055,
+   "end": 14.699,
+   "text": "She was part of a hard-luck group of jobless people who called themselves “99ers,” because they had exhausted the maximum 99 weeks of unemployment insurance benefits that they could claim."
+  }
+ ]
+}

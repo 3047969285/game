@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit06.section_a.p06",
+ "unit": 6,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Without the checks, people like Sue, who had once been a director of client services at a technology company, began to tumble over the economic cliff. The last remnants of their former working-class or middle-class lives were gone, and all of them faced unsure futures.",
+ "rate": 165,
+ "duration": 15.467,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 9.221,
+   "text": "Without the checks, people like Sue, who had once been a director of client services at a technology company, began to tumble over the economic cliff."
+  },
+  {
+   "i": 1,
+   "start": 9.221,
+   "end": 15.467,
+   "text": "The last remnants of their former working-class or middle-class lives were gone, and all of them faced unsure futures."
+  }
+ ]
+}

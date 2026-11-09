@@ -1,0 +1,28 @@
+{
+ "kit": "wall",
+ "dims_m": [
+  6.0,
+  0.2,
+  3.0
+ ],
+ "materials": {
+  "M_plaster": {
+   "color": "#EEE6D8",
+   "roughness": 0.92,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.12
+  },
+  "M_trim": {
+   "color": "#F6F3EC",
+   "roughness": 0.45,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "kit": "lawn",
+ "dims_m": [
+  14.0,
+  10.0,
+  0.021
+ ],
+ "materials": {
+  "M_grass": {
+   "color": "#4F7D3A",
+   "roughness": 0.9,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.3
+  },
+  "M_soil": {
+   "color": "#5B4A36",
+   "roughness": 0.95,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.15
+  }
+ }
+}

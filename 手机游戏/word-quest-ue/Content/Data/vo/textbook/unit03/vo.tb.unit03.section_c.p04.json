@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit03.section_c.p04",
+ "unit": 3,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "The two then took an 88-day journey to 16 European countries. Despite careful travel preparation, the couple still got lost at the airport in Athens, Greece, upon arriving at their first destination. Even so, their enthusiasm was high and they were off to travel as strangers in a strange land.",
+ "rate": 165,
+ "duration": 23.946,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 5.716,
+   "text": "The two then took an 88-day journey to 16 European countries."
+  },
+  {
+   "i": 1,
+   "start": 5.716,
+   "end": 16.814,
+   "text": "Despite careful travel preparation, the couple still got lost at the airport in Athens, Greece, upon arriving at their first destination."
+  },
+  {
+   "i": 2,
+   "start": 16.814,
+   "end": 23.946,
+   "text": "Even so, their enthusiasm was high and they were off to travel as strangers in a strange land."
+  }
+ ]
+}

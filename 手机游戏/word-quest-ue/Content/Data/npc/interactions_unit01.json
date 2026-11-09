@@ -1,0 +1,5892 @@
+{
+ "unit": 1,
+ "generated_from": "Content/Data/memory/textbook_scenes/unit01.json",
+ "notes": "每件可交互物件的动作、约束和物理质量估计；decor 表示不可交互背景。给 Codex 的物理/交互系统。",
+ "scenes": [
+  {
+   "scene": "u01a_s1",
+   "title": "Offline day",
+   "section": "section_a",
+   "floor_material": "carpet",
+   "props": [
+    {
+     "prop_id": "u01a_s1_prop_000",
+     "kit": "wall",
+     "pos": [
+      0,
+      3.0,
+      0.0
+     ],
+     "size": [
+      6.0,
+      0.2,
+      3.0
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s1_prop_001",
+     "kit": "window_wall",
+     "pos": [
+      -3.0,
+      0.5,
+      0.0
+     ],
+     "size": [
+      5.0,
+      0.2,
+      3.0
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "opening",
+     "material": "glass",
+     "actions": [
+      "open",
+      "close",
+      "look_through"
+     ],
+     "physics": "sliding constraint, 2 dof"
+    },
+    {
+     "prop_id": "u01a_s1_prop_002",
+     "kit": "rug",
+     "pos": [
+      0,
+      0.3,
+      0.0
+     ],
+     "size": [
+      2.6,
+      1.8,
+      0.01
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s1_prop_003",
+     "kit": "bookshelf",
+     "pos": [
+      2.2,
+      2.75,
+      0.0
+     ],
+     "size": [
+      1.2,
+      0.35,
+      2.0
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "storage",
+     "material": "wood",
+     "actions": [
+      "take",
+      "place",
+      "browse"
+     ],
+     "physics": "shelf static, books physics"
+    },
+    {
+     "prop_id": "u01a_s1_prop_004",
+     "kit": "calendar",
+     "pos": [
+      -1.4,
+      2.88,
+      1.5
+     ],
+     "size": [
+      0.3,
+      0.02,
+      0.4
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "paper",
+     "material": "paper",
+     "actions": [
+      "touch",
+      "flip"
+     ],
+     "physics": "wall fixed"
+    },
+    {
+     "prop_id": "u01a_s1_prop_005",
+     "kit": "floor_lamp",
+     "pos": [
+      -2.3,
+      1.6,
+      0.0
+     ],
+     "size": [
+      0.35,
+      0.35,
+      1.6
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "light",
+     "material": "metal",
+     "actions": [
+      "switch_on",
+      "switch_off"
+     ],
+     "physics": "switch + light change"
+    },
+    {
+     "prop_id": "u01a_s1_prop_006",
+     "kit": "coffee_table",
+     "pos": [
+      0,
+      0.3,
+      0.0
+     ],
+     "size": [
+      1.1,
+      0.6,
+      0.42
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "wood",
+     "actions": [
+      "touch",
+      "place"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s1_prop_007",
+     "kit": "armchair",
+     "pos": [
+      -1.3,
+      -0.4,
+      0.0
+     ],
+     "size": [
+      0.9,
+      0.9,
+      1.0
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "fabric",
+     "actions": [
+      "sit",
+      "stand"
+     ],
+     "physics": "mass 22 kg, heavy"
+    },
+    {
+     "prop_id": "u01a_s1_prop_008",
+     "kit": "armchair",
+     "pos": [
+      1.3,
+      -0.4,
+      0.0
+     ],
+     "size": [
+      0.9,
+      0.9,
+      1.0
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "fabric",
+     "actions": [
+      "sit",
+      "stand"
+     ],
+     "physics": "mass 22 kg, heavy"
+    },
+    {
+     "prop_id": "u01a_s1_prop_009",
+     "kit": "book",
+     "pos": [
+      -1.2,
+      -0.3,
+      0.75
+     ],
+     "size": [
+      0.16,
+      0.24,
+      0.03
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "paper",
+     "material": "paper",
+     "actions": [
+      "pick_up",
+      "open",
+      "read",
+      "put_down"
+     ],
+     "physics": "mass 0.5 kg, page flip"
+    },
+    {
+     "prop_id": "u01a_s1_prop_010",
+     "kit": "book",
+     "pos": [
+      1.2,
+      -0.3,
+      0.75
+     ],
+     "size": [
+      0.16,
+      0.24,
+      0.03
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "paper",
+     "material": "paper",
+     "actions": [
+      "pick_up",
+      "open",
+      "read",
+      "put_down"
+     ],
+     "physics": "mass 0.5 kg, page flip"
+    },
+    {
+     "prop_id": "u01a_s1_prop_011",
+     "kit": "chess_set",
+     "pos": [
+      0,
+      0.3,
+      0.42
+     ],
+     "size": [
+      0.45,
+      0.45,
+      0.1
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "game",
+     "material": "wood",
+     "actions": [
+      "pick_up",
+      "move",
+      "sit_near"
+     ],
+     "physics": "pieces 12 g, board static"
+    },
+    {
+     "prop_id": "u01a_s1_prop_012",
+     "kit": "phone_basket",
+     "pos": [
+      2.6,
+      -1.6,
+      0.0
+     ],
+     "size": [
+      0.35,
+      0.25,
+      0.15
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "container",
+     "material": "wood",
+     "actions": [
+      "pick_up",
+      "place"
+     ],
+     "physics": "mass 1.1 kg"
+    },
+    {
+     "prop_id": "u01a_s1_prop_013",
+     "kit": "phone",
+     "pos": [
+      2.58,
+      -1.6,
+      0.1
+     ],
+     "size": [
+      0.075,
+      0.155,
+      0.009
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.2 kg"
+    },
+    {
+     "prop_id": "u01a_s1_prop_014",
+     "kit": "phone",
+     "pos": [
+      2.64,
+      -1.58,
+      0.1
+     ],
+     "size": [
+      0.075,
+      0.155,
+      0.009
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.2 kg"
+    }
+   ]
+  },
+  {
+   "scene": "u01a_s2",
+   "title": "Always on",
+   "section": "section_a",
+   "floor_material": "carpet",
+   "props": [
+    {
+     "prop_id": "u01a_s2_prop_000",
+     "kit": "wall",
+     "pos": [
+      0,
+      3.0,
+      0.0
+     ],
+     "size": [
+      6.0,
+      0.2,
+      3.0
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s2_prop_001",
+     "kit": "window_wall",
+     "pos": [
+      -3.0,
+      0.5,
+      0.0
+     ],
+     "size": [
+      5.0,
+      0.2,
+      3.0
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "opening",
+     "material": "glass",
+     "actions": [
+      "open",
+      "close",
+      "look_through"
+     ],
+     "physics": "sliding constraint, 2 dof"
+    },
+    {
+     "prop_id": "u01a_s2_prop_002",
+     "kit": "rug",
+     "pos": [
+      0,
+      0.3,
+      0.0
+     ],
+     "size": [
+      2.6,
+      1.8,
+      0.01
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s2_prop_003",
+     "kit": "bookshelf",
+     "pos": [
+      2.2,
+      2.75,
+      0.0
+     ],
+     "size": [
+      1.2,
+      0.35,
+      2.0
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "storage",
+     "material": "wood",
+     "actions": [
+      "take",
+      "place",
+      "browse"
+     ],
+     "physics": "shelf static, books physics"
+    },
+    {
+     "prop_id": "u01a_s2_prop_004",
+     "kit": "calendar",
+     "pos": [
+      -1.4,
+      2.88,
+      1.5
+     ],
+     "size": [
+      0.3,
+      0.02,
+      0.4
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "paper",
+     "material": "paper",
+     "actions": [
+      "touch",
+      "flip"
+     ],
+     "physics": "wall fixed"
+    },
+    {
+     "prop_id": "u01a_s2_prop_005",
+     "kit": "floor_lamp",
+     "pos": [
+      -2.3,
+      1.6,
+      0.0
+     ],
+     "size": [
+      0.35,
+      0.35,
+      1.6
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "light",
+     "material": "metal",
+     "actions": [
+      "switch_on",
+      "switch_off"
+     ],
+     "physics": "switch + light change"
+    },
+    {
+     "prop_id": "u01a_s2_prop_006",
+     "kit": "coffee_table",
+     "pos": [
+      0,
+      0.3,
+      0.0
+     ],
+     "size": [
+      1.1,
+      0.6,
+      0.42
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "wood",
+     "actions": [
+      "touch",
+      "place"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s2_prop_007",
+     "kit": "sofa",
+     "pos": [
+      0,
+      -0.6,
+      0.0
+     ],
+     "size": [
+      2.0,
+      0.9,
+      0.85
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "fabric",
+     "actions": [
+      "sit",
+      "stand"
+     ],
+     "physics": "mass 45 kg, cloth simulation"
+    },
+    {
+     "prop_id": "u01a_s2_prop_008",
+     "kit": "phone",
+     "pos": [
+      -0.6,
+      -0.5,
+      0.95
+     ],
+     "size": [
+      0.075,
+      0.155,
+      0.009
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.2 kg"
+    },
+    {
+     "prop_id": "u01a_s2_prop_009",
+     "kit": "phone",
+     "pos": [
+      0.0,
+      -0.5,
+      0.95
+     ],
+     "size": [
+      0.075,
+      0.155,
+      0.009
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.2 kg"
+    },
+    {
+     "prop_id": "u01a_s2_prop_010",
+     "kit": "tablet",
+     "pos": [
+      0.6,
+      -0.5,
+      0.95
+     ],
+     "size": [
+      0.18,
+      0.25,
+      0.008
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.5 kg"
+    },
+    {
+     "prop_id": "u01a_s2_prop_011",
+     "kit": "laptop",
+     "pos": [
+      0,
+      0.3,
+      0.42
+     ],
+     "size": [
+      0.32,
+      0.3,
+      0.22
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "aluminium",
+     "actions": [
+      "open",
+      "close",
+      "type",
+      "pick_up"
+     ],
+     "physics": "lid hinge, mass 1.4 kg"
+    }
+   ]
+  },
+  {
+   "scene": "u01a_s3",
+   "title": "Board meeting",
+   "section": "section_a",
+   "floor_material": "wood",
+   "props": [
+    {
+     "prop_id": "u01a_s3_prop_000",
+     "kit": "wall",
+     "pos": [
+      0,
+      3.2,
+      0.0
+     ],
+     "size": [
+      6.0,
+      0.2,
+      3.0
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s3_prop_001",
+     "kit": "blinds",
+     "pos": [
+      -3.2,
+      0.5,
+      0.8
+     ],
+     "size": [
+      3.0,
+      0.05,
+      2.2
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "opening",
+     "material": "fabric",
+     "actions": [
+      "pull",
+      "raise"
+     ],
+     "physics": "cloth + spring, 1 dof"
+    },
+    {
+     "prop_id": "u01a_s3_prop_002",
+     "kit": "board_table",
+     "pos": [
+      0,
+      0.5,
+      0.0
+     ],
+     "size": [
+      5.0,
+      1.4,
+      0.75
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "wood",
+     "actions": [
+      "touch",
+      "place"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s3_prop_003",
+     "kit": "projector_screen",
+     "pos": [
+      0,
+      3.05,
+      1.2
+     ],
+     "size": [
+      2.4,
+      0.05,
+      1.5
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "fabric",
+     "actions": [
+      "pull_down",
+      "touch"
+     ],
+     "physics": "cloth + spring"
+    },
+    {
+     "prop_id": "u01a_s3_prop_004",
+     "kit": "office_chair",
+     "pos": [
+      -1.8,
+      -0.4,
+      0.0
+     ],
+     "size": [
+      0.6,
+      0.6,
+      1.1
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "plastic",
+     "actions": [
+      "sit",
+      "stand",
+      "roll"
+     ],
+     "physics": "mass 8 kg, castors"
+    },
+    {
+     "prop_id": "u01a_s3_prop_005",
+     "kit": "office_chair",
+     "pos": [
+      -1.8,
+      1.4,
+      0.0
+     ],
+     "size": [
+      0.6,
+      0.6,
+      1.1
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "plastic",
+     "actions": [
+      "sit",
+      "stand",
+      "roll"
+     ],
+     "physics": "mass 8 kg, castors"
+    },
+    {
+     "prop_id": "u01a_s3_prop_006",
+     "kit": "office_chair",
+     "pos": [
+      -0.6,
+      -0.4,
+      0.0
+     ],
+     "size": [
+      0.6,
+      0.6,
+      1.1
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "plastic",
+     "actions": [
+      "sit",
+      "stand",
+      "roll"
+     ],
+     "physics": "mass 8 kg, castors"
+    },
+    {
+     "prop_id": "u01a_s3_prop_007",
+     "kit": "office_chair",
+     "pos": [
+      -0.6,
+      1.4,
+      0.0
+     ],
+     "size": [
+      0.6,
+      0.6,
+      1.1
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "plastic",
+     "actions": [
+      "sit",
+      "stand",
+      "roll"
+     ],
+     "physics": "mass 8 kg, castors"
+    },
+    {
+     "prop_id": "u01a_s3_prop_008",
+     "kit": "office_chair",
+     "pos": [
+      0.6,
+      -0.4,
+      0.0
+     ],
+     "size": [
+      0.6,
+      0.6,
+      1.1
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "plastic",
+     "actions": [
+      "sit",
+      "stand",
+      "roll"
+     ],
+     "physics": "mass 8 kg, castors"
+    },
+    {
+     "prop_id": "u01a_s3_prop_009",
+     "kit": "office_chair",
+     "pos": [
+      0.6,
+      1.4,
+      0.0
+     ],
+     "size": [
+      0.6,
+      0.6,
+      1.1
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "plastic",
+     "actions": [
+      "sit",
+      "stand",
+      "roll"
+     ],
+     "physics": "mass 8 kg, castors"
+    },
+    {
+     "prop_id": "u01a_s3_prop_010",
+     "kit": "office_chair",
+     "pos": [
+      1.8,
+      -0.4,
+      0.0
+     ],
+     "size": [
+      0.6,
+      0.6,
+      1.1
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "plastic",
+     "actions": [
+      "sit",
+      "stand",
+      "roll"
+     ],
+     "physics": "mass 8 kg, castors"
+    },
+    {
+     "prop_id": "u01a_s3_prop_011",
+     "kit": "office_chair",
+     "pos": [
+      1.8,
+      1.4,
+      0.0
+     ],
+     "size": [
+      0.6,
+      0.6,
+      1.1
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "plastic",
+     "actions": [
+      "sit",
+      "stand",
+      "roll"
+     ],
+     "physics": "mass 8 kg, castors"
+    },
+    {
+     "prop_id": "u01a_s3_prop_012",
+     "kit": "document_stack",
+     "pos": [
+      -1.8,
+      0.2,
+      0.75
+     ],
+     "size": [
+      0.22,
+      0.3,
+      0.04
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "paper",
+     "material": "paper",
+     "actions": [
+      "pick_up",
+      "leaf_through"
+     ],
+     "physics": "mass 0.4 kg"
+    },
+    {
+     "prop_id": "u01a_s3_prop_013",
+     "kit": "document_stack",
+     "pos": [
+      -0.6,
+      0.2,
+      0.75
+     ],
+     "size": [
+      0.22,
+      0.3,
+      0.04
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "paper",
+     "material": "paper",
+     "actions": [
+      "pick_up",
+      "leaf_through"
+     ],
+     "physics": "mass 0.4 kg"
+    },
+    {
+     "prop_id": "u01a_s3_prop_014",
+     "kit": "document_stack",
+     "pos": [
+      0.6,
+      0.2,
+      0.75
+     ],
+     "size": [
+      0.22,
+      0.3,
+      0.04
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "paper",
+     "material": "paper",
+     "actions": [
+      "pick_up",
+      "leaf_through"
+     ],
+     "physics": "mass 0.4 kg"
+    },
+    {
+     "prop_id": "u01a_s3_prop_015",
+     "kit": "document_stack",
+     "pos": [
+      1.8,
+      0.2,
+      0.75
+     ],
+     "size": [
+      0.22,
+      0.3,
+      0.04
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "paper",
+     "material": "paper",
+     "actions": [
+      "pick_up",
+      "leaf_through"
+     ],
+     "physics": "mass 0.4 kg"
+    },
+    {
+     "prop_id": "u01a_s3_prop_016",
+     "kit": "phone",
+     "pos": [
+      -1.7,
+      -0.25,
+      0.62
+     ],
+     "size": [
+      0.075,
+      0.155,
+      0.009
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.2 kg"
+    },
+    {
+     "prop_id": "u01a_s3_prop_017",
+     "kit": "phone",
+     "pos": [
+      0.7,
+      -0.25,
+      0.62
+     ],
+     "size": [
+      0.075,
+      0.155,
+      0.009
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.2 kg"
+    }
+   ]
+  },
+  {
+   "scene": "u01a_s4",
+   "title": "Alone together",
+   "section": "section_a",
+   "floor_material": "grass",
+   "props": [
+    {
+     "prop_id": "u01a_s4_prop_000",
+     "kit": "library_shelf",
+     "pos": [
+      -4.0,
+      3.0,
+      0.0
+     ],
+     "size": [
+      3.0,
+      0.45,
+      2.2
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "storage",
+     "material": "wood",
+     "actions": [
+      "take",
+      "place",
+      "browse"
+     ],
+     "physics": "shelf static"
+    },
+    {
+     "prop_id": "u01a_s4_prop_001",
+     "kit": "library_shelf",
+     "pos": [
+      -0.8,
+      3.0,
+      0.0
+     ],
+     "size": [
+      3.0,
+      0.45,
+      2.2
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "storage",
+     "material": "wood",
+     "actions": [
+      "take",
+      "place",
+      "browse"
+     ],
+     "physics": "shelf static"
+    },
+    {
+     "prop_id": "u01a_s4_prop_002",
+     "kit": "reading_table",
+     "pos": [
+      -2.4,
+      0.8,
+      0.0
+     ],
+     "size": [
+      2.4,
+      1.0,
+      0.75
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "wood",
+     "actions": [
+      "touch",
+      "place"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s4_prop_003",
+     "kit": "chair",
+     "pos": [
+      -3.2,
+      0.1,
+      0.0
+     ],
+     "size": [
+      0.45,
+      0.5,
+      0.9
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "wood",
+     "actions": [
+      "sit",
+      "stand",
+      "push"
+     ],
+     "physics": "mass 4.5 kg, floor friction 0.5"
+    },
+    {
+     "prop_id": "u01a_s4_prop_004",
+     "kit": "chair",
+     "pos": [
+      -1.6,
+      0.1,
+      0.0
+     ],
+     "size": [
+      0.45,
+      0.5,
+      0.9
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "wood",
+     "actions": [
+      "sit",
+      "stand",
+      "push"
+     ],
+     "physics": "mass 4.5 kg, floor friction 0.5"
+    },
+    {
+     "prop_id": "u01a_s4_prop_005",
+     "kit": "chair",
+     "pos": [
+      -2.4,
+      1.5,
+      0.0
+     ],
+     "size": [
+      0.45,
+      0.5,
+      0.9
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "wood",
+     "actions": [
+      "sit",
+      "stand",
+      "push"
+     ],
+     "physics": "mass 4.5 kg, floor friction 0.5"
+    },
+    {
+     "prop_id": "u01a_s4_prop_006",
+     "kit": "keyboard",
+     "pos": [
+      -3.2,
+      0.7,
+      0.75
+     ],
+     "size": [
+      0.44,
+      0.14,
+      0.03
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "plastic",
+     "actions": [
+      "type",
+      "press"
+     ],
+     "physics": "keys depress 1 mm"
+    },
+    {
+     "prop_id": "u01a_s4_prop_007",
+     "kit": "tablet",
+     "pos": [
+      -1.6,
+      0.7,
+      0.75
+     ],
+     "size": [
+      0.18,
+      0.25,
+      0.008
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.5 kg"
+    },
+    {
+     "prop_id": "u01a_s4_prop_008",
+     "kit": "lawn",
+     "pos": [
+      7.0,
+      1.0,
+      0.0
+     ],
+     "size": [
+      14.0,
+      10.0,
+      0.02
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s4_prop_009",
+     "kit": "glass_building",
+     "pos": [
+      9.0,
+      8.0,
+      0.0
+     ],
+     "size": [
+      10.0,
+      6.0,
+      8.0
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s4_prop_010",
+     "kit": "bench",
+     "pos": [
+      5.0,
+      0.0,
+      0.0
+     ],
+     "size": [
+      1.6,
+      0.6,
+      0.8
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "wood",
+     "actions": [
+      "sit",
+      "stand"
+     ],
+     "physics": "mass 30 kg, fixed"
+    },
+    {
+     "prop_id": "u01a_s4_prop_011",
+     "kit": "bench",
+     "pos": [
+      8.5,
+      -0.5,
+      0.0
+     ],
+     "size": [
+      1.6,
+      0.6,
+      0.8
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "wood",
+     "actions": [
+      "sit",
+      "stand"
+     ],
+     "physics": "mass 30 kg, fixed"
+    },
+    {
+     "prop_id": "u01a_s4_prop_012",
+     "kit": "bubble",
+     "pos": [
+      -3.2,
+      0.1,
+      0.0
+     ],
+     "size": [
+      1.4,
+      1.4,
+      1.8
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s4_prop_013",
+     "kit": "bubble",
+     "pos": [
+      -1.6,
+      0.1,
+      0.0
+     ],
+     "size": [
+      1.4,
+      1.4,
+      1.8
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s4_prop_014",
+     "kit": "bubble",
+     "pos": [
+      -2.4,
+      1.5,
+      0.0
+     ],
+     "size": [
+      1.4,
+      1.4,
+      1.8
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s4_prop_015",
+     "kit": "bubble",
+     "pos": [
+      5.0,
+      0.0,
+      0.0
+     ],
+     "size": [
+      1.4,
+      1.4,
+      1.8
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s4_prop_016",
+     "kit": "bubble",
+     "pos": [
+      8.5,
+      -0.5,
+      0.0
+     ],
+     "size": [
+      1.4,
+      1.4,
+      1.8
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    }
+   ]
+  },
+  {
+   "scene": "u01a_s5",
+   "title": "Cockpits",
+   "section": "section_a",
+   "floor_material": "wood",
+   "props": [
+    {
+     "prop_id": "u01a_s5_prop_000",
+     "kit": "wall",
+     "pos": [
+      0,
+      3.4,
+      0.0
+     ],
+     "size": [
+      6.0,
+      0.2,
+      3.0
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s5_prop_001",
+     "kit": "door",
+     "pos": [
+      -3.4,
+      0.0,
+      0.0
+     ],
+     "size": [
+      1.0,
+      0.1,
+      2.1
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "opening",
+     "material": "wood",
+     "actions": [
+      "open",
+      "close",
+      "knock"
+     ],
+     "physics": "hinge constraint, 1 dof, mass 18 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_002",
+     "kit": "office_desk",
+     "pos": [
+      -1.6,
+      0.0,
+      0.0
+     ],
+     "size": [
+      1.4,
+      0.75,
+      0.75
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "laminate",
+     "actions": [
+      "touch",
+      "place",
+      "open_drawer"
+     ],
+     "physics": "drawer slider"
+    },
+    {
+     "prop_id": "u01a_s5_prop_003",
+     "kit": "office_desk",
+     "pos": [
+      -1.6,
+      1.8,
+      0.0
+     ],
+     "size": [
+      1.4,
+      0.75,
+      0.75
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "laminate",
+     "actions": [
+      "touch",
+      "place",
+      "open_drawer"
+     ],
+     "physics": "drawer slider"
+    },
+    {
+     "prop_id": "u01a_s5_prop_004",
+     "kit": "office_desk",
+     "pos": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "size": [
+      1.4,
+      0.75,
+      0.75
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "laminate",
+     "actions": [
+      "touch",
+      "place",
+      "open_drawer"
+     ],
+     "physics": "drawer slider"
+    },
+    {
+     "prop_id": "u01a_s5_prop_005",
+     "kit": "office_desk",
+     "pos": [
+      0.0,
+      1.8,
+      0.0
+     ],
+     "size": [
+      1.4,
+      0.75,
+      0.75
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "laminate",
+     "actions": [
+      "touch",
+      "place",
+      "open_drawer"
+     ],
+     "physics": "drawer slider"
+    },
+    {
+     "prop_id": "u01a_s5_prop_006",
+     "kit": "office_desk",
+     "pos": [
+      1.6,
+      0.0,
+      0.0
+     ],
+     "size": [
+      1.4,
+      0.75,
+      0.75
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "laminate",
+     "actions": [
+      "touch",
+      "place",
+      "open_drawer"
+     ],
+     "physics": "drawer slider"
+    },
+    {
+     "prop_id": "u01a_s5_prop_007",
+     "kit": "office_desk",
+     "pos": [
+      1.6,
+      1.8,
+      0.0
+     ],
+     "size": [
+      1.4,
+      0.75,
+      0.75
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "laminate",
+     "actions": [
+      "touch",
+      "place",
+      "open_drawer"
+     ],
+     "physics": "drawer slider"
+    },
+    {
+     "prop_id": "u01a_s5_prop_008",
+     "kit": "laptop",
+     "pos": [
+      -1.6,
+      0.05,
+      0.75
+     ],
+     "size": [
+      0.32,
+      0.3,
+      0.22
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "aluminium",
+     "actions": [
+      "open",
+      "close",
+      "type",
+      "pick_up"
+     ],
+     "physics": "lid hinge, mass 1.4 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_009",
+     "kit": "laptop",
+     "pos": [
+      -1.6,
+      1.85,
+      0.75
+     ],
+     "size": [
+      0.32,
+      0.3,
+      0.22
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "aluminium",
+     "actions": [
+      "open",
+      "close",
+      "type",
+      "pick_up"
+     ],
+     "physics": "lid hinge, mass 1.4 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_010",
+     "kit": "laptop",
+     "pos": [
+      0.0,
+      0.05,
+      0.75
+     ],
+     "size": [
+      0.32,
+      0.3,
+      0.22
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "aluminium",
+     "actions": [
+      "open",
+      "close",
+      "type",
+      "pick_up"
+     ],
+     "physics": "lid hinge, mass 1.4 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_011",
+     "kit": "laptop",
+     "pos": [
+      0.0,
+      1.85,
+      0.75
+     ],
+     "size": [
+      0.32,
+      0.3,
+      0.22
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "aluminium",
+     "actions": [
+      "open",
+      "close",
+      "type",
+      "pick_up"
+     ],
+     "physics": "lid hinge, mass 1.4 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_012",
+     "kit": "laptop",
+     "pos": [
+      1.6,
+      0.05,
+      0.75
+     ],
+     "size": [
+      0.32,
+      0.3,
+      0.22
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "aluminium",
+     "actions": [
+      "open",
+      "close",
+      "type",
+      "pick_up"
+     ],
+     "physics": "lid hinge, mass 1.4 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_013",
+     "kit": "laptop",
+     "pos": [
+      1.6,
+      1.85,
+      0.75
+     ],
+     "size": [
+      0.32,
+      0.3,
+      0.22
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "aluminium",
+     "actions": [
+      "open",
+      "close",
+      "type",
+      "pick_up"
+     ],
+     "physics": "lid hinge, mass 1.4 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_014",
+     "kit": "phone",
+     "pos": [
+      -1.25,
+      0.0,
+      0.75
+     ],
+     "size": [
+      0.075,
+      0.155,
+      0.009
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.2 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_015",
+     "kit": "phone",
+     "pos": [
+      -1.25,
+      1.8,
+      0.75
+     ],
+     "size": [
+      0.075,
+      0.155,
+      0.009
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.2 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_016",
+     "kit": "phone",
+     "pos": [
+      0.35,
+      0.0,
+      0.75
+     ],
+     "size": [
+      0.075,
+      0.155,
+      0.009
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.2 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_017",
+     "kit": "phone",
+     "pos": [
+      0.35,
+      1.8,
+      0.75
+     ],
+     "size": [
+      0.075,
+      0.155,
+      0.009
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.2 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_018",
+     "kit": "phone",
+     "pos": [
+      1.95,
+      0.0,
+      0.75
+     ],
+     "size": [
+      0.075,
+      0.155,
+      0.009
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.2 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_019",
+     "kit": "phone",
+     "pos": [
+      1.95,
+      1.8,
+      0.75
+     ],
+     "size": [
+      0.075,
+      0.155,
+      0.009
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.2 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_020",
+     "kit": "tablet",
+     "pos": [
+      -2.0,
+      0.0,
+      0.75
+     ],
+     "size": [
+      0.18,
+      0.25,
+      0.008
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.5 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_021",
+     "kit": "tablet",
+     "pos": [
+      -2.0,
+      1.8,
+      0.75
+     ],
+     "size": [
+      0.18,
+      0.25,
+      0.008
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.5 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_022",
+     "kit": "tablet",
+     "pos": [
+      -0.4,
+      0.0,
+      0.75
+     ],
+     "size": [
+      0.18,
+      0.25,
+      0.008
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.5 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_023",
+     "kit": "tablet",
+     "pos": [
+      -0.4,
+      1.8,
+      0.75
+     ],
+     "size": [
+      0.18,
+      0.25,
+      0.008
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.5 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_024",
+     "kit": "tablet",
+     "pos": [
+      1.2,
+      0.0,
+      0.75
+     ],
+     "size": [
+      0.18,
+      0.25,
+      0.008
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.5 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_025",
+     "kit": "tablet",
+     "pos": [
+      1.2,
+      1.8,
+      0.75
+     ],
+     "size": [
+      0.18,
+      0.25,
+      0.008
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.5 kg"
+    },
+    {
+     "prop_id": "u01a_s5_prop_026",
+     "kit": "headphones",
+     "pos": [
+      -1.6,
+      -0.25,
+      1.35
+     ],
+     "size": [
+      0.2,
+      0.1,
+      0.22
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "plastic",
+     "actions": [
+      "pick_up",
+      "put_on",
+      "take_off"
+     ],
+     "physics": "mass 0.3 kg, head socket"
+    },
+    {
+     "prop_id": "u01a_s5_prop_027",
+     "kit": "headphones",
+     "pos": [
+      -1.6,
+      1.55,
+      1.35
+     ],
+     "size": [
+      0.2,
+      0.1,
+      0.22
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "plastic",
+     "actions": [
+      "pick_up",
+      "put_on",
+      "take_off"
+     ],
+     "physics": "mass 0.3 kg, head socket"
+    },
+    {
+     "prop_id": "u01a_s5_prop_028",
+     "kit": "headphones",
+     "pos": [
+      0.0,
+      -0.25,
+      1.35
+     ],
+     "size": [
+      0.2,
+      0.1,
+      0.22
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "plastic",
+     "actions": [
+      "pick_up",
+      "put_on",
+      "take_off"
+     ],
+     "physics": "mass 0.3 kg, head socket"
+    },
+    {
+     "prop_id": "u01a_s5_prop_029",
+     "kit": "headphones",
+     "pos": [
+      0.0,
+      1.55,
+      1.35
+     ],
+     "size": [
+      0.2,
+      0.1,
+      0.22
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "plastic",
+     "actions": [
+      "pick_up",
+      "put_on",
+      "take_off"
+     ],
+     "physics": "mass 0.3 kg, head socket"
+    },
+    {
+     "prop_id": "u01a_s5_prop_030",
+     "kit": "headphones",
+     "pos": [
+      1.6,
+      -0.25,
+      1.35
+     ],
+     "size": [
+      0.2,
+      0.1,
+      0.22
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "plastic",
+     "actions": [
+      "pick_up",
+      "put_on",
+      "take_off"
+     ],
+     "physics": "mass 0.3 kg, head socket"
+    },
+    {
+     "prop_id": "u01a_s5_prop_031",
+     "kit": "headphones",
+     "pos": [
+      1.6,
+      1.55,
+      1.35
+     ],
+     "size": [
+      0.2,
+      0.1,
+      0.22
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "plastic",
+     "actions": [
+      "pick_up",
+      "put_on",
+      "take_off"
+     ],
+     "physics": "mass 0.3 kg, head socket"
+    },
+    {
+     "prop_id": "u01a_s5_prop_032",
+     "kit": "cockpit_console",
+     "pos": [
+      -1.6,
+      0.1,
+      0.76
+     ],
+     "size": [
+      1.4,
+      0.6,
+      0.35
+     ],
+     "layer": "now",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s5_prop_033",
+     "kit": "cockpit_console",
+     "pos": [
+      -1.6,
+      1.9,
+      0.76
+     ],
+     "size": [
+      1.4,
+      0.6,
+      0.35
+     ],
+     "layer": "now",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s5_prop_034",
+     "kit": "cockpit_console",
+     "pos": [
+      0.0,
+      0.1,
+      0.76
+     ],
+     "size": [
+      1.4,
+      0.6,
+      0.35
+     ],
+     "layer": "now",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s5_prop_035",
+     "kit": "cockpit_console",
+     "pos": [
+      0.0,
+      1.9,
+      0.76
+     ],
+     "size": [
+      1.4,
+      0.6,
+      0.35
+     ],
+     "layer": "now",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s5_prop_036",
+     "kit": "cockpit_console",
+     "pos": [
+      1.6,
+      0.1,
+      0.76
+     ],
+     "size": [
+      1.4,
+      0.6,
+      0.35
+     ],
+     "layer": "now",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s5_prop_037",
+     "kit": "cockpit_console",
+     "pos": [
+      1.6,
+      1.9,
+      0.76
+     ],
+     "size": [
+      1.4,
+      0.6,
+      0.35
+     ],
+     "layer": "now",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    }
+   ]
+  },
+  {
+   "scene": "u01a_s6",
+   "title": "Sips and a swallow",
+   "section": "section_a",
+   "floor_material": "wood",
+   "props": [
+    {
+     "prop_id": "u01a_s6_prop_000",
+     "kit": "cafe_table",
+     "pos": [
+      0,
+      0,
+      0.0
+     ],
+     "size": [
+      0.7,
+      0.7,
+      0.74
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "wood",
+     "actions": [
+      "touch",
+      "place"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s6_prop_001",
+     "kit": "chair",
+     "pos": [
+      -0.55,
+      0,
+      0.0
+     ],
+     "size": [
+      0.45,
+      0.5,
+      0.9
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "wood",
+     "actions": [
+      "sit",
+      "stand",
+      "push"
+     ],
+     "physics": "mass 4.5 kg, floor friction 0.5"
+    },
+    {
+     "prop_id": "u01a_s6_prop_002",
+     "kit": "chair",
+     "pos": [
+      0.55,
+      0,
+      0.0
+     ],
+     "size": [
+      0.45,
+      0.5,
+      0.9
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "wood",
+     "actions": [
+      "sit",
+      "stand",
+      "push"
+     ],
+     "physics": "mass 4.5 kg, floor friction 0.5"
+    },
+    {
+     "prop_id": "u01a_s6_prop_003",
+     "kit": "coffee_cup",
+     "pos": [
+      -0.15,
+      0,
+      0.74
+     ],
+     "size": [
+      0.09,
+      0.09,
+      0.1
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "tableware",
+     "material": "ceramic",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "drink"
+     ],
+     "physics": "mass 0.25 kg, liquid"
+    },
+    {
+     "prop_id": "u01a_s6_prop_004",
+     "kit": "coffee_cup",
+     "pos": [
+      0.15,
+      0,
+      0.74
+     ],
+     "size": [
+      0.09,
+      0.09,
+      0.1
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "tableware",
+     "material": "ceramic",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "drink"
+     ],
+     "physics": "mass 0.25 kg, liquid"
+    },
+    {
+     "prop_id": "u01a_s6_prop_005",
+     "kit": "tone_ripple",
+     "pos": [
+      0,
+      0,
+      0.75
+     ],
+     "size": [
+      1.6,
+      1.6,
+      0.02
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s6_prop_006",
+     "kit": "message_drop",
+     "pos": [
+      -2.5,
+      1.5,
+      2.6
+     ],
+     "size": [
+      0.12,
+      0.12,
+      0.12
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s6_prop_007",
+     "kit": "message_drop",
+     "pos": [
+      -1.8,
+      2.2,
+      3.1
+     ],
+     "size": [
+      0.12,
+      0.12,
+      0.12
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s6_prop_008",
+     "kit": "message_drop",
+     "pos": [
+      2.1,
+      1.8,
+      2.8
+     ],
+     "size": [
+      0.12,
+      0.12,
+      0.12
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s6_prop_009",
+     "kit": "message_drop",
+     "pos": [
+      2.8,
+      0.6,
+      2.2
+     ],
+     "size": [
+      0.12,
+      0.12,
+      0.12
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s6_prop_010",
+     "kit": "message_drop",
+     "pos": [
+      -3.0,
+      -0.5,
+      2.0
+     ],
+     "size": [
+      0.12,
+      0.12,
+      0.12
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s6_prop_011",
+     "kit": "message_drop",
+     "pos": [
+      1.2,
+      2.8,
+      3.4
+     ],
+     "size": [
+      0.12,
+      0.12,
+      0.12
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s6_prop_012",
+     "kit": "message_drop",
+     "pos": [
+      3.3,
+      -0.8,
+      2.5
+     ],
+     "size": [
+      0.12,
+      0.12,
+      0.12
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    }
+   ]
+  },
+  {
+   "scene": "u01a_s7",
+   "title": "Sacred spaces",
+   "section": "section_a",
+   "floor_material": "wood",
+   "props": [
+    {
+     "prop_id": "u01a_s7_prop_000",
+     "kit": "kitchen_counter",
+     "pos": [
+      -6.0,
+      1.0,
+      0.0
+     ],
+     "size": [
+      2.4,
+      0.65,
+      0.92
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "stone",
+     "actions": [
+      "touch",
+      "place",
+      "lean"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s7_prop_001",
+     "kit": "sink",
+     "pos": [
+      -6.0,
+      1.0,
+      0.92
+     ],
+     "size": [
+      0.6,
+      0.45,
+      0.2
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "appliance",
+     "material": "metal",
+     "actions": [
+      "turn_tap",
+      "wash"
+     ],
+     "physics": "water VFX + splash audio"
+    },
+    {
+     "prop_id": "u01a_s7_prop_002",
+     "kit": "dish_rack",
+     "pos": [
+      -5.2,
+      1.0,
+      0.92
+     ],
+     "size": [
+      0.45,
+      0.3,
+      0.25
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "tableware",
+     "material": "metal",
+     "actions": [
+      "pick_up",
+      "place"
+     ],
+     "physics": "static rack, plates physics"
+    },
+    {
+     "prop_id": "u01a_s7_prop_003",
+     "kit": "dining_table",
+     "pos": [
+      -2.0,
+      0.5,
+      0.0
+     ],
+     "size": [
+      1.8,
+      0.95,
+      0.75
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "wood",
+     "actions": [
+      "touch",
+      "place",
+      "lean"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s7_prop_004",
+     "kit": "chair",
+     "pos": [
+      -2.7,
+      0.5,
+      0.0
+     ],
+     "size": [
+      0.45,
+      0.5,
+      0.9
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "wood",
+     "actions": [
+      "sit",
+      "stand",
+      "push"
+     ],
+     "physics": "mass 4.5 kg, floor friction 0.5"
+    },
+    {
+     "prop_id": "u01a_s7_prop_005",
+     "kit": "chair",
+     "pos": [
+      -1.3,
+      0.5,
+      0.0
+     ],
+     "size": [
+      0.45,
+      0.5,
+      0.9
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "wood",
+     "actions": [
+      "sit",
+      "stand",
+      "push"
+     ],
+     "physics": "mass 4.5 kg, floor friction 0.5"
+    },
+    {
+     "prop_id": "u01a_s7_prop_006",
+     "kit": "car_interior",
+     "pos": [
+      2.2,
+      0.5,
+      0.0
+     ],
+     "size": [
+      1.8,
+      2.4,
+      1.3
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "vehicle",
+     "material": "fabric",
+     "actions": [
+      "sit",
+      "touch",
+      "open_door"
+     ],
+     "physics": "interior static"
+    },
+    {
+     "prop_id": "u01a_s7_prop_007",
+     "kit": "device_box",
+     "pos": [
+      2.2,
+      -0.2,
+      0.6
+     ],
+     "size": [
+      0.3,
+      0.2,
+      0.12
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "container",
+     "material": "cardboard",
+     "actions": [
+      "pick_up",
+      "open",
+      "close"
+     ],
+     "physics": "mass 0.6 kg, lid hinge"
+    },
+    {
+     "prop_id": "u01a_s7_prop_008",
+     "kit": "office_desk",
+     "pos": [
+      6.0,
+      0.6,
+      0.0
+     ],
+     "size": [
+      1.4,
+      0.75,
+      0.75
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "laminate",
+     "actions": [
+      "touch",
+      "place",
+      "open_drawer"
+     ],
+     "physics": "drawer slider"
+    },
+    {
+     "prop_id": "u01a_s7_prop_009",
+     "kit": "whiteboard",
+     "pos": [
+      6.0,
+      1.6,
+      1.0
+     ],
+     "size": [
+      1.8,
+      0.05,
+      1.1
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "opening",
+     "material": "metal",
+     "actions": [
+      "write",
+      "erase"
+     ],
+     "physics": "marker contact, no physics body"
+    },
+    {
+     "prop_id": "u01a_s7_prop_010",
+     "kit": "chair",
+     "pos": [
+      5.4,
+      0.0,
+      0.0
+     ],
+     "size": [
+      0.45,
+      0.5,
+      0.9
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "wood",
+     "actions": [
+      "sit",
+      "stand",
+      "push"
+     ],
+     "physics": "mass 4.5 kg, floor friction 0.5"
+    },
+    {
+     "prop_id": "u01a_s7_prop_011",
+     "kit": "chair",
+     "pos": [
+      6.6,
+      0.0,
+      0.0
+     ],
+     "size": [
+      0.45,
+      0.5,
+      0.9
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "wood",
+     "actions": [
+      "sit",
+      "stand",
+      "push"
+     ],
+     "physics": "mass 4.5 kg, floor friction 0.5"
+    }
+   ]
+  },
+  {
+   "scene": "u01a_s8",
+   "title": "Look up",
+   "section": "section_a",
+   "floor_material": "carpet",
+   "props": [
+    {
+     "prop_id": "u01a_s8_prop_000",
+     "kit": "wall",
+     "pos": [
+      0,
+      3.0,
+      0.0
+     ],
+     "size": [
+      6.0,
+      0.2,
+      3.0
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s8_prop_001",
+     "kit": "window_wall",
+     "pos": [
+      -3.0,
+      0.5,
+      0.0
+     ],
+     "size": [
+      5.0,
+      0.2,
+      3.0
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "opening",
+     "material": "glass",
+     "actions": [
+      "open",
+      "close",
+      "look_through"
+     ],
+     "physics": "sliding constraint, 2 dof"
+    },
+    {
+     "prop_id": "u01a_s8_prop_002",
+     "kit": "rug",
+     "pos": [
+      0,
+      0.3,
+      0.0
+     ],
+     "size": [
+      2.6,
+      1.8,
+      0.01
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s8_prop_003",
+     "kit": "bookshelf",
+     "pos": [
+      2.2,
+      2.75,
+      0.0
+     ],
+     "size": [
+      1.2,
+      0.35,
+      2.0
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "storage",
+     "material": "wood",
+     "actions": [
+      "take",
+      "place",
+      "browse"
+     ],
+     "physics": "shelf static, books physics"
+    },
+    {
+     "prop_id": "u01a_s8_prop_004",
+     "kit": "calendar",
+     "pos": [
+      -1.4,
+      2.88,
+      1.5
+     ],
+     "size": [
+      0.3,
+      0.02,
+      0.4
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "paper",
+     "material": "paper",
+     "actions": [
+      "touch",
+      "flip"
+     ],
+     "physics": "wall fixed"
+    },
+    {
+     "prop_id": "u01a_s8_prop_005",
+     "kit": "floor_lamp",
+     "pos": [
+      -2.3,
+      1.6,
+      0.0
+     ],
+     "size": [
+      0.35,
+      0.35,
+      1.6
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "light",
+     "material": "metal",
+     "actions": [
+      "switch_on",
+      "switch_off"
+     ],
+     "physics": "switch + light change"
+    },
+    {
+     "prop_id": "u01a_s8_prop_006",
+     "kit": "coffee_table",
+     "pos": [
+      0,
+      0.3,
+      0.0
+     ],
+     "size": [
+      1.1,
+      0.6,
+      0.42
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "wood",
+     "actions": [
+      "touch",
+      "place"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01a_s8_prop_007",
+     "kit": "armchair",
+     "pos": [
+      -1.3,
+      -0.4,
+      0.0
+     ],
+     "size": [
+      0.9,
+      0.9,
+      1.0
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "fabric",
+     "actions": [
+      "sit",
+      "stand"
+     ],
+     "physics": "mass 22 kg, heavy"
+    },
+    {
+     "prop_id": "u01a_s8_prop_008",
+     "kit": "armchair",
+     "pos": [
+      1.3,
+      -0.4,
+      0.0
+     ],
+     "size": [
+      0.9,
+      0.9,
+      1.0
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "fabric",
+     "actions": [
+      "sit",
+      "stand"
+     ],
+     "physics": "mass 22 kg, heavy"
+    },
+    {
+     "prop_id": "u01a_s8_prop_009",
+     "kit": "book",
+     "pos": [
+      -1.2,
+      -0.3,
+      0.75
+     ],
+     "size": [
+      0.16,
+      0.24,
+      0.03
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "paper",
+     "material": "paper",
+     "actions": [
+      "pick_up",
+      "open",
+      "read",
+      "put_down"
+     ],
+     "physics": "mass 0.5 kg, page flip"
+    },
+    {
+     "prop_id": "u01a_s8_prop_010",
+     "kit": "book",
+     "pos": [
+      1.2,
+      -0.3,
+      0.75
+     ],
+     "size": [
+      0.16,
+      0.24,
+      0.03
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "paper",
+     "material": "paper",
+     "actions": [
+      "pick_up",
+      "open",
+      "read",
+      "put_down"
+     ],
+     "physics": "mass 0.5 kg, page flip"
+    },
+    {
+     "prop_id": "u01a_s8_prop_011",
+     "kit": "chess_set",
+     "pos": [
+      0,
+      0.3,
+      0.42
+     ],
+     "size": [
+      0.45,
+      0.45,
+      0.1
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "game",
+     "material": "wood",
+     "actions": [
+      "pick_up",
+      "move",
+      "sit_near"
+     ],
+     "physics": "pieces 12 g, board static"
+    },
+    {
+     "prop_id": "u01a_s8_prop_012",
+     "kit": "phone_basket",
+     "pos": [
+      2.6,
+      -1.6,
+      0.0
+     ],
+     "size": [
+      0.35,
+      0.25,
+      0.15
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "container",
+     "material": "wood",
+     "actions": [
+      "pick_up",
+      "place"
+     ],
+     "physics": "mass 1.1 kg"
+    },
+    {
+     "prop_id": "u01a_s8_prop_013",
+     "kit": "phone",
+     "pos": [
+      2.58,
+      -1.6,
+      0.1
+     ],
+     "size": [
+      0.075,
+      0.155,
+      0.009
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.2 kg"
+    },
+    {
+     "prop_id": "u01a_s8_prop_014",
+     "kit": "phone",
+     "pos": [
+      2.64,
+      -1.58,
+      0.1
+     ],
+     "size": [
+      0.075,
+      0.155,
+      0.009
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.2 kg"
+    }
+   ]
+  },
+  {
+   "scene": "u01b_s1",
+   "title": "The digital wave",
+   "section": "section_b",
+   "floor_material": "stone_floor",
+   "props": [
+    {
+     "prop_id": "u01b_s1_prop_000",
+     "kit": "city_skyline",
+     "pos": [
+      0,
+      14.0,
+      0.0
+     ],
+     "size": [
+      40.0,
+      6.0,
+      18.0
+     ],
+     "layer": "then",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s1_prop_001",
+     "kit": "city_skyline",
+     "pos": [
+      0,
+      14.0,
+      0.0
+     ],
+     "size": [
+      40.0,
+      6.0,
+      18.0
+     ],
+     "layer": "now",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s1_prop_002",
+     "kit": "network_node",
+     "pos": [
+      -4,
+      6,
+      4
+     ],
+     "size": [
+      0.3,
+      0.3,
+      0.3
+     ],
+     "layer": "now",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s1_prop_003",
+     "kit": "network_node",
+     "pos": [
+      3,
+      7,
+      6
+     ],
+     "size": [
+      0.3,
+      0.3,
+      0.3
+     ],
+     "layer": "now",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s1_prop_004",
+     "kit": "network_node",
+     "pos": [
+      0,
+      9,
+      9
+     ],
+     "size": [
+      0.3,
+      0.3,
+      0.3
+     ],
+     "layer": "now",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s1_prop_005",
+     "kit": "street",
+     "pos": [
+      0,
+      2.0,
+      0.0
+     ],
+     "size": [
+      24.0,
+      8.0,
+      0.02
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    }
+   ]
+  },
+  {
+   "scene": "u01b_s2",
+   "title": "Classroom",
+   "section": "section_b",
+   "floor_material": "wood",
+   "props": [
+    {
+     "prop_id": "u01b_s2_prop_000",
+     "kit": "wall",
+     "pos": [
+      0,
+      3.2,
+      0.0
+     ],
+     "size": [
+      6.0,
+      0.2,
+      3.0
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s2_prop_001",
+     "kit": "student_desk",
+     "pos": [
+      -1.5,
+      -0.5,
+      0.0
+     ],
+     "size": [
+      1.2,
+      0.5,
+      0.75
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "laminate",
+     "actions": [
+      "touch",
+      "place",
+      "open_lid"
+     ],
+     "physics": "lid hinge"
+    },
+    {
+     "prop_id": "u01b_s2_prop_002",
+     "kit": "student_desk",
+     "pos": [
+      -1.5,
+      1.0,
+      0.0
+     ],
+     "size": [
+      1.2,
+      0.5,
+      0.75
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "laminate",
+     "actions": [
+      "touch",
+      "place",
+      "open_lid"
+     ],
+     "physics": "lid hinge"
+    },
+    {
+     "prop_id": "u01b_s2_prop_003",
+     "kit": "student_desk",
+     "pos": [
+      1.5,
+      -0.5,
+      0.0
+     ],
+     "size": [
+      1.2,
+      0.5,
+      0.75
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "laminate",
+     "actions": [
+      "touch",
+      "place",
+      "open_lid"
+     ],
+     "physics": "lid hinge"
+    },
+    {
+     "prop_id": "u01b_s2_prop_004",
+     "kit": "student_desk",
+     "pos": [
+      1.5,
+      1.0,
+      0.0
+     ],
+     "size": [
+      1.2,
+      0.5,
+      0.75
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "laminate",
+     "actions": [
+      "touch",
+      "place",
+      "open_lid"
+     ],
+     "physics": "lid hinge"
+    },
+    {
+     "prop_id": "u01b_s2_prop_005",
+     "kit": "blackboard",
+     "pos": [
+      0,
+      3.05,
+      0.9
+     ],
+     "size": [
+      3.6,
+      0.08,
+      1.2
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "opening",
+     "material": "stone",
+     "actions": [
+      "write",
+      "erase"
+     ],
+     "physics": "chalk contact"
+    },
+    {
+     "prop_id": "u01b_s2_prop_006",
+     "kit": "chalk_tray",
+     "pos": [
+      0,
+      3.0,
+      0.88
+     ],
+     "size": [
+      3.0,
+      0.08,
+      0.05
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "cleaning",
+     "material": "metal",
+     "actions": [
+      "take_chalk",
+      "put_back"
+     ],
+     "physics": "chalk mass 8 g"
+    },
+    {
+     "prop_id": "u01b_s2_prop_007",
+     "kit": "duster",
+     "pos": [
+      0.4,
+      3.0,
+      0.92
+     ],
+     "size": [
+      0.14,
+      0.06,
+      0.05
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "cleaning",
+     "material": "wood",
+     "actions": [
+      "pick_up",
+      "wipe"
+     ],
+     "physics": "felt contact"
+    },
+    {
+     "prop_id": "u01b_s2_prop_008",
+     "kit": "school_bag",
+     "pos": [
+      -1.2,
+      -1.0,
+      0.0
+     ],
+     "size": [
+      0.32,
+      0.18,
+      0.42
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "container",
+     "material": "fabric",
+     "actions": [
+      "pick_up",
+      "open",
+      "put_down"
+     ],
+     "physics": "mass 2.2 kg, soft body strap"
+    },
+    {
+     "prop_id": "u01b_s2_prop_009",
+     "kit": "textbook_stack",
+     "pos": [
+      -1.5,
+      -0.5,
+      0.75
+     ],
+     "size": [
+      0.22,
+      0.3,
+      0.18
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "paper",
+     "material": "paper",
+     "actions": [
+      "pick_up",
+      "open"
+     ],
+     "physics": "mass 1.2 kg"
+    },
+    {
+     "prop_id": "u01b_s2_prop_010",
+     "kit": "interactive_board",
+     "pos": [
+      0,
+      3.05,
+      0.8
+     ],
+     "size": [
+      3.0,
+      0.1,
+      1.7
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "opening",
+     "material": "glass",
+     "actions": [
+      "tap",
+      "write",
+      "erase"
+     ],
+     "physics": "screen surface, stylus hit"
+    },
+    {
+     "prop_id": "u01b_s2_prop_011",
+     "kit": "tablet",
+     "pos": [
+      -1.5,
+      -0.5,
+      0.75
+     ],
+     "size": [
+      0.18,
+      0.25,
+      0.008
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.5 kg"
+    },
+    {
+     "prop_id": "u01b_s2_prop_012",
+     "kit": "tablet",
+     "pos": [
+      1.5,
+      -0.5,
+      0.75
+     ],
+     "size": [
+      0.18,
+      0.25,
+      0.008
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.5 kg"
+    },
+    {
+     "prop_id": "u01b_s2_prop_013",
+     "kit": "wifi_router",
+     "pos": [
+      2.6,
+      3.0,
+      2.4
+     ],
+     "size": [
+      0.22,
+      0.15,
+      0.04
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "device",
+     "material": "plastic",
+     "actions": [
+      "press",
+      "pick_up"
+     ],
+     "physics": "mass 0.4 kg"
+    }
+   ]
+  },
+  {
+   "scene": "u01b_s3",
+   "title": "Children",
+   "section": "section_b",
+   "floor_material": "wood",
+   "props": [
+    {
+     "prop_id": "u01b_s3_prop_000",
+     "kit": "window_wall",
+     "pos": [
+      0,
+      2.0,
+      0.0
+     ],
+     "size": [
+      5.0,
+      0.2,
+      3.0
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "opening",
+     "material": "glass",
+     "actions": [
+      "open",
+      "close",
+      "look_through"
+     ],
+     "physics": "sliding constraint, 2 dof"
+    },
+    {
+     "prop_id": "u01b_s3_prop_001",
+     "kit": "sofa",
+     "pos": [
+      0,
+      0.0,
+      0.0
+     ],
+     "size": [
+      2.0,
+      0.9,
+      0.85
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "fabric",
+     "actions": [
+      "sit",
+      "stand"
+     ],
+     "physics": "mass 45 kg, cloth simulation"
+    },
+    {
+     "prop_id": "u01b_s3_prop_002",
+     "kit": "playground",
+     "pos": [
+      0,
+      9.0,
+      0.0
+     ],
+     "size": [
+      12.0,
+      8.0,
+      2.45
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "playground",
+     "material": "plastic",
+     "actions": [
+      "climb",
+      "slide",
+      "touch"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s3_prop_003",
+     "kit": "swing",
+     "pos": [
+      -2.0,
+      8.0,
+      0.0
+     ],
+     "size": [
+      2.0,
+      1.2,
+      2.2
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "playground",
+     "material": "metal",
+     "actions": [
+      "sit",
+      "swing",
+      "push"
+     ],
+     "physics": "rope + hinge"
+    },
+    {
+     "prop_id": "u01b_s3_prop_004",
+     "kit": "game_console",
+     "pos": [
+      -0.4,
+      -0.1,
+      0.5
+     ],
+     "size": [
+      0.16,
+      0.08,
+      0.03
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "device",
+     "material": "plastic",
+     "actions": [
+      "turn_on",
+      "press",
+      "pick_up"
+     ],
+     "physics": "mass 3 kg"
+    },
+    {
+     "prop_id": "u01b_s3_prop_005",
+     "kit": "phone",
+     "pos": [
+      0.4,
+      -0.1,
+      0.5
+     ],
+     "size": [
+      0.075,
+      0.155,
+      0.009
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.2 kg"
+    }
+   ]
+  },
+  {
+   "scene": "u01b_s4",
+   "title": "Home",
+   "section": "section_b",
+   "floor_material": "wood",
+   "props": [
+    {
+     "prop_id": "u01b_s4_prop_000",
+     "kit": "kitchen_counter",
+     "pos": [
+      -2.5,
+      1.5,
+      0.0
+     ],
+     "size": [
+      2.4,
+      0.65,
+      0.92
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "stone",
+     "actions": [
+      "touch",
+      "place",
+      "lean"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s4_prop_001",
+     "kit": "sofa",
+     "pos": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "size": [
+      2.0,
+      0.9,
+      0.85
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "fabric",
+     "actions": [
+      "sit",
+      "stand"
+     ],
+     "physics": "mass 45 kg, cloth simulation"
+    },
+    {
+     "prop_id": "u01b_s4_prop_002",
+     "kit": "recipe_book",
+     "pos": [
+      -2.6,
+      1.4,
+      0.92
+     ],
+     "size": [
+      0.2,
+      0.26,
+      0.03
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "paper",
+     "material": "paper",
+     "actions": [
+      "pick_up",
+      "open"
+     ],
+     "physics": "mass 0.8 kg"
+    },
+    {
+     "prop_id": "u01b_s4_prop_003",
+     "kit": "tv",
+     "pos": [
+      2.0,
+      2.0,
+      0.6
+     ],
+     "size": [
+      1.1,
+      0.08,
+      0.65
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "turn_on",
+      "turn_off",
+      "touch"
+     ],
+     "physics": "screen emissive"
+    },
+    {
+     "prop_id": "u01b_s4_prop_004",
+     "kit": "tv_stand",
+     "pos": [
+      2.0,
+      2.0,
+      0.0
+     ],
+     "size": [
+      1.4,
+      0.4,
+      0.5
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "storage",
+     "material": "wood",
+     "actions": [
+      "open_drawer",
+      "place"
+     ],
+     "physics": "drawer slider"
+    },
+    {
+     "prop_id": "u01b_s4_prop_005",
+     "kit": "tablet",
+     "pos": [
+      -2.6,
+      1.6,
+      1.05
+     ],
+     "size": [
+      0.18,
+      0.25,
+      0.008
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.5 kg"
+    },
+    {
+     "prop_id": "u01b_s4_prop_006",
+     "kit": "jar",
+     "pos": [
+      -2.6,
+      1.75,
+      0.92
+     ],
+     "size": [
+      0.12,
+      0.12,
+      0.18
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "container",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "open",
+      "close"
+     ],
+     "physics": "mass 0.5 kg"
+    },
+    {
+     "prop_id": "u01b_s4_prop_007",
+     "kit": "laptop",
+     "pos": [
+      1.6,
+      -0.1,
+      0.45
+     ],
+     "size": [
+      0.32,
+      0.3,
+      0.22
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "device",
+     "material": "aluminium",
+     "actions": [
+      "open",
+      "close",
+      "type",
+      "pick_up"
+     ],
+     "physics": "lid hinge, mass 1.4 kg"
+    },
+    {
+     "prop_id": "u01b_s4_prop_008",
+     "kit": "laptop",
+     "pos": [
+      2.4,
+      -0.1,
+      0.45
+     ],
+     "size": [
+      0.32,
+      0.3,
+      0.22
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "device",
+     "material": "aluminium",
+     "actions": [
+      "open",
+      "close",
+      "type",
+      "pick_up"
+     ],
+     "physics": "lid hinge, mass 1.4 kg"
+    }
+   ]
+  },
+  {
+   "scene": "u01b_s5",
+   "title": "Work",
+   "section": "section_b",
+   "floor_material": "wood",
+   "props": [
+    {
+     "prop_id": "u01b_s5_prop_000",
+     "kit": "cubicle",
+     "pos": [
+      -3.4,
+      1.0,
+      0.0
+     ],
+     "size": [
+      1.6,
+      1.6,
+      1.4
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "storage",
+     "material": "fabric",
+     "actions": [
+      "sit",
+      "place",
+      "touch"
+     ],
+     "physics": "partitions static"
+    },
+    {
+     "prop_id": "u01b_s5_prop_001",
+     "kit": "cubicle",
+     "pos": [
+      -1.7,
+      1.0,
+      0.0
+     ],
+     "size": [
+      1.6,
+      1.6,
+      1.4
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "storage",
+     "material": "fabric",
+     "actions": [
+      "sit",
+      "place",
+      "touch"
+     ],
+     "physics": "partitions static"
+    },
+    {
+     "prop_id": "u01b_s5_prop_002",
+     "kit": "cubicle",
+     "pos": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "size": [
+      1.6,
+      1.6,
+      1.4
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "storage",
+     "material": "fabric",
+     "actions": [
+      "sit",
+      "place",
+      "touch"
+     ],
+     "physics": "partitions static"
+    },
+    {
+     "prop_id": "u01b_s5_prop_003",
+     "kit": "monitor",
+     "pos": [
+      -1.7,
+      1.1,
+      0.75
+     ],
+     "size": [
+      0.55,
+      0.2,
+      0.45
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "turn_on",
+      "turn_off"
+     ],
+     "physics": "screen emissive"
+    },
+    {
+     "prop_id": "u01b_s5_prop_004",
+     "kit": "home_desk",
+     "pos": [
+      2.6,
+      0.5,
+      0.0
+     ],
+     "size": [
+      1.2,
+      0.6,
+      0.75
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "surface",
+     "material": "wood",
+     "actions": [
+      "touch",
+      "place",
+      "open_drawer"
+     ],
+     "physics": "drawer slider"
+    },
+    {
+     "prop_id": "u01b_s5_prop_005",
+     "kit": "laptop",
+     "pos": [
+      2.6,
+      0.5,
+      0.75
+     ],
+     "size": [
+      0.32,
+      0.3,
+      0.22
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "device",
+     "material": "aluminium",
+     "actions": [
+      "open",
+      "close",
+      "type",
+      "pick_up"
+     ],
+     "physics": "lid hinge, mass 1.4 kg"
+    },
+    {
+     "prop_id": "u01b_s5_prop_006",
+     "kit": "video_grid",
+     "pos": [
+      2.6,
+      1.2,
+      1.1
+     ],
+     "size": [
+      1.6,
+      0.05,
+      0.9
+     ],
+     "layer": "now",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    }
+   ]
+  },
+  {
+   "scene": "u01b_s6",
+   "title": "Holidays",
+   "section": "section_b",
+   "floor_material": "wood",
+   "props": [
+    {
+     "prop_id": "u01b_s6_prop_000",
+     "kit": "travel_counter",
+     "pos": [
+      -1.5,
+      1.0,
+      0.0
+     ],
+     "size": [
+      2.2,
+      0.7,
+      1.05
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "surface",
+     "material": "laminate",
+     "actions": [
+      "touch",
+      "place"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s6_prop_001",
+     "kit": "brochure_rack",
+     "pos": [
+      -3.0,
+      1.2,
+      0.0
+     ],
+     "size": [
+      0.6,
+      0.3,
+      1.4
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "signage",
+     "material": "metal",
+     "actions": [
+      "take",
+      "browse"
+     ],
+     "physics": "static rack, brochures physics"
+    },
+    {
+     "prop_id": "u01b_s6_prop_002",
+     "kit": "resort_poster",
+     "pos": [
+      -1.5,
+      1.9,
+      1.3
+     ],
+     "size": [
+      0.7,
+      0.03,
+      1.0
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "signage",
+     "material": "paper",
+     "actions": [
+      "read"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s6_prop_003",
+     "kit": "home_desk",
+     "pos": [
+      2.0,
+      0.6,
+      0.0
+     ],
+     "size": [
+      1.2,
+      0.6,
+      0.75
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "surface",
+     "material": "wood",
+     "actions": [
+      "touch",
+      "place",
+      "open_drawer"
+     ],
+     "physics": "drawer slider"
+    },
+    {
+     "prop_id": "u01b_s6_prop_004",
+     "kit": "laptop",
+     "pos": [
+      2.0,
+      0.6,
+      0.75
+     ],
+     "size": [
+      0.32,
+      0.3,
+      0.22
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "device",
+     "material": "aluminium",
+     "actions": [
+      "open",
+      "close",
+      "type",
+      "pick_up"
+     ],
+     "physics": "lid hinge, mass 1.4 kg"
+    },
+    {
+     "prop_id": "u01b_s6_prop_005",
+     "kit": "review_panel",
+     "pos": [
+      2.0,
+      1.4,
+      1.4
+     ],
+     "size": [
+      1.0,
+      0.03,
+      0.7
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "signage",
+     "material": "glass",
+     "actions": [
+      "tap",
+      "read"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s6_prop_006",
+     "kit": "review_panel",
+     "pos": [
+      3.2,
+      1.4,
+      1.4
+     ],
+     "size": [
+      1.0,
+      0.03,
+      0.7
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "signage",
+     "material": "glass",
+     "actions": [
+      "tap",
+      "read"
+     ],
+     "physics": "static"
+    }
+   ]
+  },
+  {
+   "scene": "u01b_s7",
+   "title": "One street, four errands",
+   "section": "section_b",
+   "floor_material": "asphalt",
+   "props": [
+    {
+     "prop_id": "u01b_s7_prop_000",
+     "kit": "street",
+     "pos": [
+      0,
+      -1.0,
+      0.0
+     ],
+     "size": [
+      24.0,
+      8.0,
+      0.02
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s7_prop_001",
+     "kit": "bank_counter",
+     "pos": [
+      -6.0,
+      1.5,
+      0.0
+     ],
+     "size": [
+      3.0,
+      0.7,
+      1.1
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "surface",
+     "material": "stone",
+     "actions": [
+      "touch",
+      "place"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s7_prop_002",
+     "kit": "queue_rope",
+     "pos": [
+      -6.0,
+      0.2,
+      0.0
+     ],
+     "size": [
+      2.4,
+      0.1,
+      0.95
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "furniture",
+     "material": "fabric",
+     "actions": [
+      "push",
+      "step_over"
+     ],
+     "physics": "belt spring, posts fixed"
+    },
+    {
+     "prop_id": "u01b_s7_prop_003",
+     "kit": "newsstand",
+     "pos": [
+      -2.0,
+      1.2,
+      0.0
+     ],
+     "size": [
+      1.6,
+      0.9,
+      1.9
+     ],
+     "layer": "then",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s7_prop_004",
+     "kit": "video_shelf",
+     "pos": [
+      2.0,
+      1.5,
+      0.0
+     ],
+     "size": [
+      2.0,
+      0.4,
+      1.9
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "storage",
+     "material": "wood",
+     "actions": [
+      "take",
+      "place"
+     ],
+     "physics": "shelf static"
+    },
+    {
+     "prop_id": "u01b_s7_prop_005",
+     "kit": "arcade_cabinet",
+     "pos": [
+      6.0,
+      1.3,
+      0.0
+     ],
+     "size": [
+      0.7,
+      0.8,
+      1.7
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "device",
+     "material": "wood",
+     "actions": [
+      "press",
+      "play"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s7_prop_006",
+     "kit": "phone",
+     "pos": [
+      -6.0,
+      0.0,
+      1.2
+     ],
+     "size": [
+      0.075,
+      0.155,
+      0.009
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.2 kg"
+    },
+    {
+     "prop_id": "u01b_s7_prop_007",
+     "kit": "phone",
+     "pos": [
+      -2.0,
+      0.0,
+      1.2
+     ],
+     "size": [
+      0.075,
+      0.155,
+      0.009
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.2 kg"
+    },
+    {
+     "prop_id": "u01b_s7_prop_008",
+     "kit": "laptop",
+     "pos": [
+      2.0,
+      0.0,
+      1.0
+     ],
+     "size": [
+      0.32,
+      0.3,
+      0.22
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "device",
+     "material": "aluminium",
+     "actions": [
+      "open",
+      "close",
+      "type",
+      "pick_up"
+     ],
+     "physics": "lid hinge, mass 1.4 kg"
+    },
+    {
+     "prop_id": "u01b_s7_prop_009",
+     "kit": "game_console",
+     "pos": [
+      6.0,
+      0.0,
+      1.1
+     ],
+     "size": [
+      0.16,
+      0.08,
+      0.03
+     ],
+     "layer": "now",
+     "interactive": true,
+     "category": "device",
+     "material": "plastic",
+     "actions": [
+      "turn_on",
+      "press",
+      "pick_up"
+     ],
+     "physics": "mass 3 kg"
+    },
+    {
+     "prop_id": "u01b_s7_prop_010",
+     "kit": "storefront",
+     "pos": [
+      -6.0,
+      2.4,
+      0.0
+     ],
+     "size": [
+      5.0,
+      0.4,
+      3.6
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s7_prop_011",
+     "kit": "storefront",
+     "pos": [
+      -2.0,
+      2.4,
+      0.0
+     ],
+     "size": [
+      5.0,
+      0.4,
+      3.6
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s7_prop_012",
+     "kit": "storefront",
+     "pos": [
+      2.0,
+      2.4,
+      0.0
+     ],
+     "size": [
+      5.0,
+      0.4,
+      3.6
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s7_prop_013",
+     "kit": "storefront",
+     "pos": [
+      6.0,
+      2.4,
+      0.0
+     ],
+     "size": [
+      5.0,
+      0.4,
+      3.6
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    }
+   ]
+  },
+  {
+   "scene": "u01b_s8",
+   "title": "Social life and the future",
+   "section": "section_b",
+   "floor_material": "stone_floor",
+   "props": [
+    {
+     "prop_id": "u01b_s8_prop_000",
+     "kit": "photo_album",
+     "pos": [
+      0,
+      0.0,
+      0.8
+     ],
+     "size": [
+      0.3,
+      0.24,
+      0.05
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "container",
+     "material": "paper",
+     "actions": [
+      "pick_up",
+      "open"
+     ],
+     "physics": "mass 0.8 kg"
+    },
+    {
+     "prop_id": "u01b_s8_prop_001",
+     "kit": "coffee_table",
+     "pos": [
+      0,
+      0.0,
+      0.0
+     ],
+     "size": [
+      1.1,
+      0.6,
+      0.42
+     ],
+     "layer": "then",
+     "interactive": true,
+     "category": "surface",
+     "material": "wood",
+     "actions": [
+      "touch",
+      "place"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s8_prop_002",
+     "kit": "network_node",
+     "pos": [
+      -3,
+      4,
+      3
+     ],
+     "size": [
+      0.3,
+      0.3,
+      0.3
+     ],
+     "layer": "now",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s8_prop_003",
+     "kit": "network_node",
+     "pos": [
+      -1,
+      6,
+      5
+     ],
+     "size": [
+      0.3,
+      0.3,
+      0.3
+     ],
+     "layer": "now",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s8_prop_004",
+     "kit": "network_node",
+     "pos": [
+      2,
+      5,
+      4
+     ],
+     "size": [
+      0.3,
+      0.3,
+      0.3
+     ],
+     "layer": "now",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s8_prop_005",
+     "kit": "network_node",
+     "pos": [
+      4,
+      8,
+      6
+     ],
+     "size": [
+      0.3,
+      0.3,
+      0.3
+     ],
+     "layer": "now",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s8_prop_006",
+     "kit": "network_node",
+     "pos": [
+      0,
+      9,
+      7
+     ],
+     "size": [
+      0.3,
+      0.3,
+      0.3
+     ],
+     "layer": "now",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s8_prop_007",
+     "kit": "network_node",
+     "pos": [
+      -4,
+      7,
+      6
+     ],
+     "size": [
+      0.3,
+      0.3,
+      0.3
+     ],
+     "layer": "now",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01b_s8_prop_008",
+     "kit": "city_skyline",
+     "pos": [
+      0,
+      16.0,
+      0.0
+     ],
+     "size": [
+      40.0,
+      6.0,
+      18.0
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    }
+   ]
+  },
+  {
+   "scene": "u01c_s1",
+   "title": "Jianbing at dawn",
+   "section": "section_c",
+   "floor_material": "wood",
+   "props": [
+    {
+     "prop_id": "u01c_s1_prop_000",
+     "kit": "hutong_wall",
+     "pos": [
+      0,
+      3.0,
+      0.0
+     ],
+     "size": [
+      8.0,
+      0.4,
+      2.8
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01c_s1_prop_001",
+     "kit": "jianbing_cart",
+     "pos": [
+      0,
+      1.0,
+      0.0
+     ],
+     "size": [
+      1.6,
+      0.8,
+      1.2
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01c_s1_prop_002",
+     "kit": "griddle",
+     "pos": [
+      0,
+      1.0,
+      1.2
+     ],
+     "size": [
+      0.5,
+      0.5,
+      0.05
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "appliance",
+     "material": "iron",
+     "actions": [
+      "touch",
+      "cook",
+      "scrape"
+     ],
+     "physics": "hot surface, no pick up"
+    },
+    {
+     "prop_id": "u01c_s1_prop_003",
+     "kit": "qr_sign",
+     "pos": [
+      0.6,
+      0.62,
+      1.25
+     ],
+     "size": [
+      0.25,
+      0.02,
+      0.32
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "signage",
+     "material": "acrylic",
+     "actions": [
+      "scan",
+      "touch"
+     ],
+     "physics": "static"
+    }
+   ]
+  },
+  {
+   "scene": "u01c_s2",
+   "title": "Checkout",
+   "section": "section_c",
+   "floor_material": "wood",
+   "props": [
+    {
+     "prop_id": "u01c_s2_prop_000",
+     "kit": "market_shelf",
+     "pos": [
+      -3.0,
+      2.5,
+      0.0
+     ],
+     "size": [
+      2.0,
+      0.5,
+      1.8
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "storage",
+     "material": "metal",
+     "actions": [
+      "take",
+      "place",
+      "browse"
+     ],
+     "physics": "shelf static, items physics"
+    },
+    {
+     "prop_id": "u01c_s2_prop_001",
+     "kit": "market_shelf",
+     "pos": [
+      0.0,
+      2.5,
+      0.0
+     ],
+     "size": [
+      2.0,
+      0.5,
+      1.8
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "storage",
+     "material": "metal",
+     "actions": [
+      "take",
+      "place",
+      "browse"
+     ],
+     "physics": "shelf static, items physics"
+    },
+    {
+     "prop_id": "u01c_s2_prop_002",
+     "kit": "market_shelf",
+     "pos": [
+      3.0,
+      2.5,
+      0.0
+     ],
+     "size": [
+      2.0,
+      0.5,
+      1.8
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "storage",
+     "material": "metal",
+     "actions": [
+      "take",
+      "place",
+      "browse"
+     ],
+     "physics": "shelf static, items physics"
+    },
+    {
+     "prop_id": "u01c_s2_prop_003",
+     "kit": "checkout_counter",
+     "pos": [
+      0,
+      0.5,
+      0.0
+     ],
+     "size": [
+      1.8,
+      0.7,
+      0.95
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "laminate",
+     "actions": [
+      "touch",
+      "place"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01c_s2_prop_004",
+     "kit": "payment_sign",
+     "pos": [
+      0.6,
+      0.5,
+      1.3
+     ],
+     "size": [
+      0.5,
+      0.02,
+      0.35
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "signage",
+     "material": "acrylic",
+     "actions": [
+      "scan",
+      "touch"
+     ],
+     "physics": "static"
+    }
+   ]
+  },
+  {
+   "scene": "u01c_s3",
+   "title": "Getting around",
+   "section": "section_c",
+   "floor_material": "asphalt",
+   "props": [
+    {
+     "prop_id": "u01c_s3_prop_000",
+     "kit": "street",
+     "pos": [
+      0,
+      0.0,
+      0.0
+     ],
+     "size": [
+      24.0,
+      8.0,
+      0.02
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01c_s3_prop_001",
+     "kit": "car",
+     "pos": [
+      -3.0,
+      1.5,
+      0.0
+     ],
+     "size": [
+      4.5,
+      1.8,
+      1.45
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "vehicle",
+     "material": "metal",
+     "actions": [
+      "enter",
+      "sit",
+      "start"
+     ],
+     "physics": "driving, heavy"
+    },
+    {
+     "prop_id": "u01c_s3_prop_002",
+     "kit": "bike_rack",
+     "pos": [
+      3.0,
+      2.2,
+      0.0
+     ],
+     "size": [
+      6.0,
+      0.6,
+      0.8
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "vehicle",
+     "material": "metal",
+     "actions": [
+      "place",
+      "lock"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01c_s3_prop_003",
+     "kit": "shared_bike",
+     "pos": [
+      1.0,
+      2.2,
+      0.0
+     ],
+     "size": [
+      1.7,
+      0.55,
+      1.05
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "vehicle",
+     "material": "metal",
+     "actions": [
+      "scan",
+      "pick_up",
+      "ride"
+     ],
+     "physics": "wheel physics, 15 kg"
+    },
+    {
+     "prop_id": "u01c_s3_prop_004",
+     "kit": "shared_bike",
+     "pos": [
+      1.9,
+      2.2,
+      0.0
+     ],
+     "size": [
+      1.7,
+      0.55,
+      1.05
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "vehicle",
+     "material": "metal",
+     "actions": [
+      "scan",
+      "pick_up",
+      "ride"
+     ],
+     "physics": "wheel physics, 15 kg"
+    },
+    {
+     "prop_id": "u01c_s3_prop_005",
+     "kit": "shared_bike",
+     "pos": [
+      2.8,
+      2.2,
+      0.0
+     ],
+     "size": [
+      1.7,
+      0.55,
+      1.05
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "vehicle",
+     "material": "metal",
+     "actions": [
+      "scan",
+      "pick_up",
+      "ride"
+     ],
+     "physics": "wheel physics, 15 kg"
+    },
+    {
+     "prop_id": "u01c_s3_prop_006",
+     "kit": "shared_bike",
+     "pos": [
+      3.7,
+      2.2,
+      0.0
+     ],
+     "size": [
+      1.7,
+      0.55,
+      1.05
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "vehicle",
+     "material": "metal",
+     "actions": [
+      "scan",
+      "pick_up",
+      "ride"
+     ],
+     "physics": "wheel physics, 15 kg"
+    },
+    {
+     "prop_id": "u01c_s3_prop_007",
+     "kit": "shared_bike",
+     "pos": [
+      4.6,
+      2.2,
+      0.0
+     ],
+     "size": [
+      1.7,
+      0.55,
+      1.05
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "vehicle",
+     "material": "metal",
+     "actions": [
+      "scan",
+      "pick_up",
+      "ride"
+     ],
+     "physics": "wheel physics, 15 kg"
+    }
+   ]
+  },
+  {
+   "scene": "u01c_s4",
+   "title": "Lunch and coupons",
+   "section": "section_c",
+   "floor_material": "wood",
+   "props": [
+    {
+     "prop_id": "u01c_s4_prop_000",
+     "kit": "cafe_table",
+     "pos": [
+      0,
+      0.5,
+      0.0
+     ],
+     "size": [
+      0.7,
+      0.7,
+      0.74
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "wood",
+     "actions": [
+      "touch",
+      "place"
+     ],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01c_s4_prop_001",
+     "kit": "chair",
+     "pos": [
+      0,
+      -0.1,
+      0.0
+     ],
+     "size": [
+      0.45,
+      0.5,
+      0.9
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "seating",
+     "material": "wood",
+     "actions": [
+      "sit",
+      "stand",
+      "push"
+     ],
+     "physics": "mass 4.5 kg, floor friction 0.5"
+    },
+    {
+     "prop_id": "u01c_s4_prop_002",
+     "kit": "sandwich_plate",
+     "pos": [
+      -0.15,
+      0.5,
+      0.74
+     ],
+     "size": [
+      0.24,
+      0.24,
+      0.06
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "tableware",
+     "material": "ceramic",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "eat"
+     ],
+     "physics": "mass 0.6 kg, food pieces"
+    },
+    {
+     "prop_id": "u01c_s4_prop_003",
+     "kit": "coffee_cup",
+     "pos": [
+      0.15,
+      0.5,
+      0.74
+     ],
+     "size": [
+      0.09,
+      0.09,
+      0.1
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "tableware",
+     "material": "ceramic",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "drink"
+     ],
+     "physics": "mass 0.25 kg, liquid"
+    },
+    {
+     "prop_id": "u01c_s4_prop_004",
+     "kit": "coupon_card",
+     "pos": [
+      0.3,
+      0.3,
+      0.75
+     ],
+     "size": [
+      0.09,
+      0.055,
+      0.003
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "paper",
+     "material": "paper",
+     "actions": [
+      "pick_up",
+      "show",
+      "put_down"
+     ],
+     "physics": "mass 0.01 kg"
+    }
+   ]
+  },
+  {
+   "scene": "u01c_s5",
+   "title": "Boutique and mall",
+   "section": "section_c",
+   "floor_material": "stone_floor",
+   "props": [
+    {
+     "prop_id": "u01c_s5_prop_000",
+     "kit": "mall_atrium",
+     "pos": [
+      0,
+      8.0,
+      0.0
+     ],
+     "size": [
+      14.0,
+      10.0,
+      9.0
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01c_s5_prop_001",
+     "kit": "boutique_front",
+     "pos": [
+      0,
+      2.0,
+      0.0
+     ],
+     "size": [
+      6.0,
+      0.4,
+      4.0
+     ],
+     "layer": "always",
+     "interactive": false,
+     "category": "decor",
+     "material": "mixed",
+     "actions": [],
+     "physics": "static"
+    },
+    {
+     "prop_id": "u01c_s5_prop_002",
+     "kit": "payment_sign",
+     "pos": [
+      0.0,
+      1.78,
+      1.6
+     ],
+     "size": [
+      0.5,
+      0.02,
+      0.35
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "signage",
+     "material": "acrylic",
+     "actions": [
+      "scan",
+      "touch"
+     ],
+     "physics": "static"
+    }
+   ]
+  },
+  {
+   "scene": "u01c_s6",
+   "title": "Evening bills",
+   "section": "section_c",
+   "floor_material": "wood",
+   "props": [
+    {
+     "prop_id": "u01c_s6_prop_000",
+     "kit": "home_desk",
+     "pos": [
+      0,
+      0.5,
+      0.0
+     ],
+     "size": [
+      1.2,
+      0.6,
+      0.75
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "surface",
+     "material": "wood",
+     "actions": [
+      "touch",
+      "place",
+      "open_drawer"
+     ],
+     "physics": "drawer slider"
+    },
+    {
+     "prop_id": "u01c_s6_prop_001",
+     "kit": "desk_lamp",
+     "pos": [
+      0.45,
+      0.6,
+      0.75
+     ],
+     "size": [
+      0.2,
+      0.2,
+      0.45
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "light",
+     "material": "metal",
+     "actions": [
+      "switch_on",
+      "switch_off"
+     ],
+     "physics": "switch + light change"
+    },
+    {
+     "prop_id": "u01c_s6_prop_002",
+     "kit": "phone",
+     "pos": [
+      -0.1,
+      0.4,
+      0.75
+     ],
+     "size": [
+      0.075,
+      0.155,
+      0.009
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "pick_up",
+      "put_down",
+      "tap"
+     ],
+     "physics": "mass 0.2 kg"
+    },
+    {
+     "prop_id": "u01c_s6_prop_003",
+     "kit": "notebook",
+     "pos": [
+      -0.4,
+      0.5,
+      0.75
+     ],
+     "size": [
+      0.18,
+      0.24,
+      0.015
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "paper",
+     "material": "paper",
+     "actions": [
+      "pick_up",
+      "write"
+     ],
+     "physics": "mass 0.3 kg"
+    },
+    {
+     "prop_id": "u01c_s6_prop_004",
+     "kit": "dashboard_screen",
+     "pos": [
+      0,
+      1.0,
+      1.1
+     ],
+     "size": [
+      0.6,
+      0.03,
+      0.35
+     ],
+     "layer": "always",
+     "interactive": true,
+     "category": "device",
+     "material": "glass",
+     "actions": [
+      "touch"
+     ],
+     "physics": "screen emissive"
+    }
+   ]
+  }
+ ],
+ "audio_requirements": {
+  "footsteps": [
+   {
+    "surface": "asphalt",
+    "description": "gritty step",
+    "events": [
+     "walk",
+     "run"
+    ]
+   },
+   {
+    "surface": "carpet",
+    "description": "muffled step",
+    "events": [
+     "walk",
+     "run"
+    ]
+   },
+   {
+    "surface": "grass",
+    "description": "soft crush",
+    "events": [
+     "walk",
+     "run"
+    ]
+   },
+   {
+    "surface": "stone_floor",
+    "description": "hard echo step",
+    "events": [
+     "walk",
+     "run"
+    ]
+   },
+   {
+    "surface": "wood",
+    "description": "hollow mid knock",
+    "events": [
+     "walk",
+     "run",
+     "jump_land",
+     "small_impact",
+     "large_impact"
+    ]
+   }
+  ],
+  "collisions": [
+   {
+    "material": "acrylic",
+    "description": "tight tick",
+    "events": [
+     "tap",
+     "slide"
+    ]
+   },
+   {
+    "material": "aluminium",
+    "description": "dull metal tap",
+    "events": [
+     "lid_open",
+     "lid_close",
+     "set_down"
+    ]
+   },
+   {
+    "material": "cardboard",
+    "description": "hollow soft knock",
+    "events": [
+     "pick_up",
+     "lid_open",
+     "set_down"
+    ]
+   },
+   {
+    "material": "ceramic",
+    "description": "crisp clink",
+    "events": [
+     "pick_up",
+     "set_down",
+     "cutlery_touch"
+    ]
+   },
+   {
+    "material": "fabric",
+    "description": "soft thud",
+    "events": [
+     "walk",
+     "sit_down",
+     "stand_up",
+     "brush"
+    ]
+   },
+   {
+    "material": "glass",
+    "description": "thin ring + shatter (no destruction in unit 1)",
+    "events": [
+     "tap",
+     "set_down",
+     "slide"
+    ]
+   },
+   {
+    "material": "iron",
+    "description": "heavy metallic thud",
+    "events": [
+     "touch",
+     "scrape"
+    ]
+   },
+   {
+    "material": "laminate",
+    "description": "hard flat knock",
+    "events": [
+     "walk",
+     "run",
+     "object_drop"
+    ]
+   },
+   {
+    "material": "metal",
+    "description": "metallic clang",
+    "events": [
+     "walk",
+     "knock",
+     "impact",
+     "door_latch"
+    ]
+   },
+   {
+    "material": "paper",
+    "description": "soft rustle",
+    "events": [
+     "pick_up",
+     "page_flip",
+     "crumple"
+    ]
+   },
+   {
+    "material": "plastic",
+    "description": "light clack",
+    "events": [
+     "pick_up",
+     "button_press",
+     "set_down"
+    ]
+   },
+   {
+    "material": "stone",
+    "description": "hard clack",
+    "events": [
+     "walk",
+     "run",
+     "cup_set_down"
+    ]
+   },
+   {
+    "material": "wood",
+    "description": "dry knock",
+    "events": [
+     "walk",
+     "run",
+     "jump_land",
+     "small_impact",
+     "large_impact"
+    ]
+   }
+  ]
+ }
+}

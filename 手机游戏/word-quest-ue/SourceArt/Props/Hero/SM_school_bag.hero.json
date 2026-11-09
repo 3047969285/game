@@ -1,0 +1,41 @@
+{
+ "kit": "school_bag",
+ "fbx": "/Users/shoudaodefengge/\u9879\u76ee/.claude/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_school_bag.fbx",
+ "triangles": 6832,
+ "size_m": [
+  0.32,
+  0.18,
+  0.42
+ ],
+ "dims_target_m": [
+  0.32,
+  0.18,
+  0.42
+ ],
+ "slots": [
+  {
+   "slot": "navy",
+   "material": "M_navy",
+   "BaseColor": "T_school_bag_navy_BaseColor.png",
+   "Normal": "T_school_bag_navy_Normal.png",
+   "ARM": "T_school_bag_navy_ARM.png"
+  },
+  {
+   "slot": "strap",
+   "material": "M_strap",
+   "BaseColor": "T_school_bag_strap_BaseColor.png",
+   "Normal": "T_school_bag_strap_Normal.png",
+   "ARM": "T_school_bag_strap_ARM.png"
+  },
+  {
+   "slot": "zipper",
+   "material": "M_zipper",
+   "BaseColor": "T_school_bag_zipper_BaseColor.png",
+   "Normal": "T_school_bag_zipper_Normal.png",
+   "ARM": "T_school_bag_zipper_ARM.png"
+  }
+ ],
+ "texture_res": 512,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "canvas school backpack; padded straps behind (-Y), front pocket +Y"
+}

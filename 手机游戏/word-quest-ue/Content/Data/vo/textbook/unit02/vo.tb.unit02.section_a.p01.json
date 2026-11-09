@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit02.section_a.p01",
+ "unit": 2,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "In 1999, an American journalist reported a surprising encounter on a tiny African island called Pate, just off the coast of Kenya. There, in a village of stone huts set amongst dense trees, the journalist met a number of elderly men who told him that they were descendants of Chinese sailors, shipwrecked on Pate several centuries ago. Their ancestors had traded with the local Africans, who had given them giraffes to take back to China, then their boat was driven onto the nearby reef. He noted many clues that seemed to confirm the islanders' tale, including their vaguely Asian appearance, the antique porcelain heirlooms in their homes, and the porcelain shards on the beaches. Evidently, this remote African village retains an echo of one of history's most astonishing episodes of maritime exploration.",
+ "rate": 165,
+ "duration": 45.695,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 8.797,
+   "text": "In 1999, an American journalist reported a surprising encounter on a tiny African island called Pate, just off the coast of Kenya."
+  },
+  {
+   "i": 1,
+   "start": 8.797,
+   "end": 19.744,
+   "text": "There, in a village of stone huts set amongst dense trees, the journalist met a number of elderly men who told him that they were descendants of Chinese sailors, shipwrecked on Pate several centuries ago."
+  },
+  {
+   "i": 2,
+   "start": 19.744,
+   "end": 27.939,
+   "text": "Their ancestors had traded with the local Africans, who had given them giraffes to take back to China, then their boat was driven onto the nearby reef."
+  },
+  {
+   "i": 3,
+   "start": 27.939,
+   "end": 38.279,
+   "text": "He noted many clues that seemed to confirm the islanders' tale, including their vaguely Asian appearance, the antique porcelain heirlooms in their homes, and the porcelain shards on the beaches."
+  },
+  {
+   "i": 4,
+   "start": 38.279,
+   "end": 45.695,
+   "text": "Evidently, this remote African village retains an echo of one of history's most astonishing episodes of maritime exploration."
+  }
+ ]
+}

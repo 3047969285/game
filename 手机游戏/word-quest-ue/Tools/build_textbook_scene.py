@@ -97,7 +97,9 @@ def editor_main(u):
         spawn(u.TargetPoint,'TEXTBOOK_SOURCE_METADATA',[0,0,0],['source:'+digest])
         for scene in article['scenes']:
             sid=scene['id']; base=['set:'+sid]
+            room=scene.get('room')
             for i,p in enumerate(props_for(scene)):
+                if room and p['kit'] in room.get('replaces',[]): continue   # the enclosed room shell supersedes stage-set walls
                 spec=asset_spec(mapping,p['kit']); asset=spec.get('asset',spec.get('path','')); final=bool(asset and u.EditorAssetLibrary.does_asset_exist(asset)); fallback='/Game/Memory/Props/SM_'+p['kit']; mesh=u.load_asset(asset if final else fallback) if u.EditorAssetLibrary.does_asset_exist(asset if final else fallback) else None
                 # A proxy mesh remains a placeholder until kit_assets.json maps final geometry.
                 placeholder=not final; loc=world_cm(scene,p['pos']); size=p.get('size',[1,1,1]); scale=p.get('scale',1.)
@@ -167,10 +169,16 @@ def editor_main(u):
                     settings=mesh_editor.get_nanite_settings(mesh);settings.set_editor_property('enabled',supported);mesh_editor.set_nanite_settings(mesh,settings,True)
                     if not supported: tags(a,[str(t) for t in a.tags]+['nanite_unsupported:translucent_material'])
                     nanite_done.add(mesh.get_path_name());u.EditorAssetLibrary.save_loaded_asset(mesh)
-            floor=spawn(u.StaticMeshActor,'FLOOR_'+sid,world_cm(scene,[0,0,-.12]),base+['layer:always'])
-            floor.static_mesh_component.set_static_mesh(cube); floor.set_actor_scale3d(u.Vector(22,22,.2))
-            ground_surface=polyhaven_material(scene_surface_role(scene)) or dark
-            floor.static_mesh_component.set_material(0,ground_surface)
+            if room:
+                # Claude: enclosed real-world room (Tools/room_shell.py) instead of one wall on an endless floor
+                from room_shell import spawn_room_shell
+                shell=spawn_room_shell(u,spawn,scene,world_cm)
+                u.log('WQ_ROOM_SHELL '+json.dumps({'scene':sid,'spawned':len(shell['spawned']),'missing':shell['missing']}))
+            else:
+                floor=spawn(u.StaticMeshActor,'FLOOR_'+sid,world_cm(scene,[0,0,-.12]),base+['layer:always'])
+                floor.static_mesh_component.set_static_mesh(cube); floor.set_actor_scale3d(u.Vector(22,22,.2))
+                ground_surface=polyhaven_material(scene_surface_role(scene)) or dark
+                floor.static_mesh_component.set_material(0,ground_surface)
             # C14: people are MetaHuman snapshots (or rigged BPs) from Tools/textbook_character_staging.py, never
             # cylinders; a failed person leaves a tagged TargetPoint (needs_final_character) for the QA report
             from textbook_character_staging import stage_people
@@ -179,14 +187,15 @@ def editor_main(u):
             for err in staged['errors']: u.log_warning('[C14] '+err)
             light=scene.get('light',{}); lc=color(light.get('color','#B8D1D5')); intensity=float(light.get('intensity',6.))
             # Local rect sunlight avoids cross-set directional-light leakage (60 m separation).
-            lamp=spawn(u.RectLight,'KEY_'+sid,world_cm(scene,[-3,-3,5]),base)
+            lamp=spawn(u.RectLight,'KEY_'+sid,world_cm(scene,(room or {}).get('key_light',[-3,-3,5])),base)   # a room's sun comes in through its window
             target=u.Vector(*world_cm(scene,[0,0,.8])); lamp.set_actor_rotation(u.MathLibrary.find_look_at_rotation(lamp.get_actor_location(),target),False)
             c=lamp.light_component; c.set_mobility(u.ComponentMobility.MOVABLE); c.set_intensity(intensity*900); c.set_light_color(lc)
             c.set_editor_property('attenuation_radius',2200.);c.set_editor_property('volumetric_scattering_intensity',1.5)
-            if light.get('dir'):
+            if light.get('dir') and not room:   # in a room the key stays aimed through the window at the set
                 d=light['dir']; lamp.set_actor_rotation(u.MathLibrary.find_look_at_rotation(u.Vector(),u.Vector(*d)),False)
-            fill=spawn(u.PointLight,'FILL_'+sid,world_cm(scene,[3,1,3]),base)
+            fill=spawn(u.PointLight,'FILL_'+sid,world_cm(scene,(room or {}).get('fill_light',[3,1,3])),base)
             fill.light_component.set_intensity(intensity*float(light.get('fill',.6))*350); fill.light_component.set_editor_property('attenuation_radius',1600.)
+            if room: fill.light_component.set_cast_shadows(False)   # ambient bounce only; a shadowing fill behind the pendant shade striped every wall
             sky_value=light.get('sky','#1A2433'); sky_value=sky_value.get('color','#1A2433') if isinstance(sky_value,dict) else sky_value
             fill.light_component.set_light_color(color(sky_value))
             for i,decal in enumerate(scene.get('decals',[])):

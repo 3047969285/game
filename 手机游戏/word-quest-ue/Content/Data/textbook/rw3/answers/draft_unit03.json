@@ -1,0 +1,586 @@
+{
+  "unit": 3,
+  "items": [
+    {
+      "block": "u03_a_pre_reading",
+      "n": 1,
+      "explanation_en": "The blank needs a plural noun meaning 'methods' after 'two', since the sentence sets reading and traveling side by side as routes to the same goal.",
+      "draft_answer": "The missing word is probably 'ways' or 'means', giving 'two ways for young people to better understand the world'. Reading offers knowledge gathered by others, while traveling offers first-hand experience of other cultures. The talk then contrasts these two routes to the same goal.",
+      "needs_review": true
+    },
+    {
+      "block": "u03_a_pre_reading",
+      "n": 2,
+      "explanation_en": "An adjective before 'practices' is required, contrasting second-hand knowledge taken from others' everyday habits with the diversity met by traveling.",
+      "draft_answer": "The blank calls for an adjective such as 'everyday' or 'daily' before 'practices'. Reading hands us ready-made knowledge that other people have gathered from their daily practice. Traveling, by contrast, lets us meet the diversity of the real world and multiple cultures in person.",
+      "needs_review": true
+    },
+    {
+      "block": "u03_a_pre_reading",
+      "n": 3,
+      "explanation_en": "Two gaps: a participle clause after the comma ('broadening'/'expanding') and a verb in 'as I ____ myself in', where the collocation is 'immerse oneself in'.",
+      "draft_answer": "The first blank is likely 'broadening' or 'expanding', and the second is 'immerse', giving 'immerse myself in their ways of life'. The sentence says travel both teaches us how others live and widens our tolerance of difference. That tolerance grows through contact rather than through observation.",
+      "needs_review": true
+    },
+    {
+      "block": "u03_a_pre_reading",
+      "n": 4,
+      "explanation_en": "The frame needs a singular noun for what travel builds over time ('life', 'worldview') plus a plural noun after 'many' ('journeys', 'trips').",
+      "draft_answer": "The pattern 'my ____ is the accumulation of many ____' suggests a singular noun such as 'life' or 'worldview' followed by a plural such as 'journeys' or 'trips'. The speaker's point is that a person's outlook is built up trip by trip. Exact wording depends on the recording.",
+      "needs_review": true
+    },
+    {
+      "block": "u03_a_pre_reading",
+      "n": 5,
+      "explanation_en": "This is a speaking prompt rather than a blank: answer with one specific trip, what happened, and how it changed your thinking.",
+      "draft_answer": "Two years ago I spent a week hiking in Yunnan with no phone signal, and I had to ask strangers for directions in broken Mandarin. At first the helplessness frightened me, but by the end I was calmer about not knowing what came next. That trip showed me the distance the text describes, and I came home less afraid of uncertainty.",
+      "needs_review": true
+    },
+    {
+      "block": "u03_a_understanding",
+      "n": 1,
+      "explanation_en": "Para. 2 lists the 'ills of modernity' - predawn x-ray screening and sad airport malls - so the 'tedious lesson' covers everything after the flight, not the flight itself.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_understanding",
+      "n": 2,
+      "explanation_en": "Para. 3 answers with three things that still require presence: the handshake at a business luncheon, Mom's Thanksgiving food, and seeing your girlfriend on your anniversary.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_understanding",
+      "n": 3,
+      "explanation_en": "Para. 4 ends a chain of 'Because...' clauses with 'Because Paris is Paris', meaning the city's fame alone is reason enough to go.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_understanding",
+      "n": 4,
+      "explanation_en": "Para. 4 states the irony outright: people escape to Paris to forget their troubles, yet the mind solves 'stubborn problems' in a Left Bank cafe.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_understanding",
+      "n": 5,
+      "explanation_en": "Para. 6 says distance 'loosen[s] the cognitive chains', letting us 'mingle the new with the old' and grasp the mundane from a more abstract angle.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_understanding",
+      "n": 6,
+      "explanation_en": "Para. 7 calls them 'open to ambiguity': they accept different but 'equally valid' readings of the world and 'refuse to settle for their first answers'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_understanding",
+      "n": 7,
+      "explanation_en": "Para. 8 argues creativity is a 'side effect of difference', so we must 'change cultures' and face the 'disorienting diversity of human traditions', not just fly far.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_understanding",
+      "n": 8,
+      "explanation_en": "Para. 9 concludes 'We travel because we need to', since 'distance and difference are the secret cornerstones of creativity', and the change happens in our minds.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_critical",
+      "n": 1,
+      "explanation_en": "The model answer goes beyond the text's creativity claim (Paras. 5-9) by naming practical skills, friendship and confidence, each backed by one concrete example.",
+      "draft_answer": "Travel also builds practical skills such as reading maps, bargaining, and coping when plans collapse. It can strengthen friendships, because shared difficulties create memories that ordinary weeks never produce. It also holds up a mirror: seeing how others live makes us notice what we take for granted at home. For me the biggest bonus is confidence in unfamiliar situations.",
+      "needs_review": true
+    },
+    {
+      "block": "u03_a_critical",
+      "n": 2,
+      "explanation_en": "The model answer takes a middle position, using Para. 7's 'open to ambiguity' to argue that culture is learnable rather than a fixed barrier.",
+      "draft_answer": "I partly disagree, because language and money are usually bigger barriers than culture itself. Cultural difference can be uncomfortable at first, but the text shows it is exactly what makes travel valuable, since seasoned travelers learn to live with ambiguity. In my experience a smile and a few local phrases dissolve most of the distance.",
+      "needs_review": true
+    },
+    {
+      "block": "u03_a_critical",
+      "n": 3,
+      "explanation_en": "The model answer says yes, citing Para. 7's 'open to ambiguity' and adding that family and schooling also shape personality.",
+      "draft_answer": "Yes, I think it does, though slowly. Traveling forces you to make decisions alone, so you become more patient and more comfortable with uncertainty. The text's 'open to ambiguity' describes exactly the change I noticed in myself after a month abroad. Of course family and education also shape personality, so travel is only one influence.",
+      "needs_review": true
+    },
+    {
+      "block": "u03_a_words_in_use",
+      "n": 1,
+      "explanation_en": "'Compulsory education' is the fixed term for the nine-year schooling every Chinese child receives; only this adjective collocates with 'education' here.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_words_in_use",
+      "n": 2,
+      "explanation_en": "'Has been' takes the present participle, and 'contemplate doing sth.' requires a gerund, so the sense is 'has been considering leaving the studio'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_words_in_use",
+      "n": 3,
+      "explanation_en": "'Should be' plus a past participle forms the passive, and 'loosen standards' is the collocation for making rules less strict.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_words_in_use",
+      "n": 4,
+      "explanation_en": "The infinitive after 'to' needs the base form, and 'globalize the business' means to expand it worldwide, matching 'new areas of growth'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_words_in_use",
+      "n": 5,
+      "explanation_en": "'Be offset by' means be balanced or cancelled by; the passive fits 'should soon be', and 'losses ... gains' signals the contrast.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_words_in_use",
+      "n": 6,
+      "explanation_en": "The past tense is required by the narrative sequence 'pushed ... fell', and 'groan in pain' is the fixed collocation.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_words_in_use",
+      "n": 7,
+      "explanation_en": "An adjective is needed after 'very' as a subject complement, parallel with 'unwilling to accept advice', so 'stubborn' fits.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_words_in_use",
+      "n": 8,
+      "explanation_en": "The plural subject 'a few cars' takes the base form in the simple present, and 'cluster near' means gather in a small group.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_words_in_use",
+      "n": 9,
+      "explanation_en": "'A degree of' takes an abstract noun, and 'ambiguity' explains why the pictures allow 'a variety of' interpretations.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_words_in_use",
+      "n": 10,
+      "explanation_en": "'The chief drawback to (doing) sth.' is the fixed pattern for the main disadvantage; the stony ground is that disadvantage.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_word_building",
+      "n": 1,
+      "explanation_en": "'A(n) ____ year' needs an adjective before the noun; 'profitable year' means a year that made a profit, despite 'tougher trading conditions'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_word_building",
+      "n": 2,
+      "explanation_en": "'Never' is followed by the base form, and 'victimize oneself by guilt' means to treat oneself as a victim.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_word_building",
+      "n": 3,
+      "explanation_en": "An adjective after 'are' describes 'things', and 'negotiable' means open to discussion, contrasting with the 'basic terms'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_word_building",
+      "n": 4,
+      "explanation_en": "'Try to' takes the base form, and 'visualize an object in your mind' means to form a mental picture of it.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_word_building",
+      "n": 5,
+      "explanation_en": "'Be attributable to' is the fixed phrase meaning 'can be attributed to', and 'directly' modifies the adjective.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_word_building",
+      "n": 6,
+      "explanation_en": "An adjective is needed as the object complement after 'become'; 'respectable members of society' means members deserving respect.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_word_building",
+      "n": 7,
+      "explanation_en": "The infinitive after 'to' takes the base form, and 'stabilize development' means to make it steady.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_word_building",
+      "n": 8,
+      "explanation_en": "An adjective modifies 'signs', and 'distinguishable' means easy to recognize, which suits the aim of 'capturing the attention of visitors'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_word_building",
+      "n": 9,
+      "explanation_en": "'Have something done' takes the past participle; the lines are memorized by the actors, so 'memorized' is the required passive form.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_banked_cloze",
+      "n": 1,
+      "explanation_en": "'Trivial things of daily life' contrasts with the 'remarkably positive impact' that follows, so only 'trivial' fits the sense.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_banked_cloze",
+      "n": 2,
+      "explanation_en": "'Your ____ powers' is completed by 'cognitive', which the passage repeats later as 'cognitive abilities'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_banked_cloze",
+      "n": 3,
+      "explanation_en": "The base form follows 'help', and 'loosen your mind' echoes Paragraph 6 of Text A, 'loosen the cognitive chains'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_banked_cloze",
+      "n": 4,
+      "explanation_en": "A plural noun is needed after 'the daily', and 'annoyances' matches the passage's contrast between routine irritation and relaxation.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_banked_cloze",
+      "n": 5,
+      "explanation_en": "The preposition 'by' requires a gerund, and 'embrace the great outdoors' means to get active outside.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_banked_cloze",
+      "n": 6,
+      "explanation_en": "'Your ____' needs a plural noun, and 'nuances' (subtle differences) fits 'a world of possibilities beyond your daily perspective'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_banked_cloze",
+      "n": 7,
+      "explanation_en": "'Learning a new ____' needs a concrete noun, and 'recipe' fits cooking as well as the mention of changing your downtime.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_banked_cloze",
+      "n": 8,
+      "explanation_en": "'Allow you to' takes the base form, and 'immerse yourself in a culture' is the fixed reflexive collocation.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_banked_cloze",
+      "n": 9,
+      "explanation_en": "A present participle is needed to parallel 'improve' and 'increase' in the same series, so 'offsets' becomes 'offsetting'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_banked_cloze",
+      "n": 10,
+      "explanation_en": "The subject 'travel itself' is third-person singular, so 'endows'; the pattern is 'endow sb. with sth.'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_expressions_in_use",
+      "n": 1,
+      "explanation_en": "'Settle for' means to accept something less than you wanted, which the clause 'something less than their dream job' signals.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_expressions_in_use",
+      "n": 2,
+      "explanation_en": "The adverbial 'more often than not' means 'usually' and modifies the predicate, sitting before the adjective 'challenging'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_expressions_in_use",
+      "n": 3,
+      "explanation_en": "The past tense fits 'as the voyage progressed', and 'mingle with' means to mix with, with 'air' as a singular subject.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_expressions_in_use",
+      "n": 4,
+      "explanation_en": "'Trade sth. for sth.' means to exchange one thing for another; the base form follows 'I', and 'for' fills the second gap.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_expressions_in_use",
+      "n": 5,
+      "explanation_en": "'On sale' means being sold at a reduced price, which explains 'save money' and fits 'when they're'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_expressions_in_use",
+      "n": 6,
+      "explanation_en": "'Be open to ideas' means to be willing to consider them, and the subject 'you' requires 'are'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_expressions_in_use",
+      "n": 7,
+      "explanation_en": "'Endow sth. with sth.' means to give a quality to something, and the base form follows 'to'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_expressions_in_use",
+      "n": 8,
+      "explanation_en": "'Make up for' means to compensate for, and the base form follows the modal 'could'.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_a_structure_writing",
+      "n": 1,
+      "explanation_en": "The model answer follows the causal frame: airport opening (Para. 1), thesis question (Para. 5), three causes (Paras. 3-8) and conclusion (Para. 9).",
+      "draft_answer": "Text A opens with the chaotic airport morning, then poses the thesis question 'Why do we travel?'. The body gives three causes: we travel because we need to, because most travel is optional and driven by desire, and because getting away is 'an essential habit of effective thinking'. Paragraphs 6-8 develop the third cause through cognitive distance and cultural difference, and Paragraph 9 concludes that travel changes our minds while home stays the same.",
+      "needs_review": true
+    },
+    {
+      "block": "u03_a_structure_writing",
+      "n": 2,
+      "explanation_en": "The model answer keeps the assigned outline - thesis, three causes from the prompt, and conclusion - with a signal word opening each cause.",
+      "draft_answer": "Reading books is important first because it broadens our knowledge and provides experience that no single life could contain, carrying us into places, periods and minds we would never otherwise enter, and letting us test ideas without risk. It also exercises our brains and improves mental health, since following a long argument trains concentration, and a familiar story can lower stress at the end of a demanding day, when screens have scattered our attention. Most importantly, reading increases empathy and makes communication more efficient, because living inside another character's mind teaches us to imagine what others feel and mean, which is why good readers often make better listeners and colleagues. Reading is therefore not a luxury but a habit worth protecting, one that shapes our thinking, steadies our mood, deepens our relationships with other people, and repays every hour it takes.",
+      "needs_review": true
+    },
+    {
+      "block": "u03_b_reading_skills",
+      "n": 1,
+      "explanation_en": "The model answer begins with a personal postponement, then traces Paragraph 1's build-up to 'Now is the time to go!'",
+      "draft_answer": "Yes. Like the author, I once had a country in mind for years, saved money for it, and still kept postponing the trip. Paragraph 1 moves from the dream to the pictures and then to the money and vacation time already in hand, so the author is arriving at a simple conclusion: the moment to go is now. The 'but maybe you haven't traveled much' of the next paragraph then turns that excitement into a problem.",
+      "needs_review": true
+    },
+    {
+      "block": "u03_b_reading_skills",
+      "n": 2,
+      "explanation_en": "The model answer recalls pre-trip nerves and reads Paragraph 2's pile of tasks as the setup for the solo-travel problem.",
+      "draft_answer": "The list reminds me of the week before my first trip abroad, when I kept checking ticket prices and writing down addresses I could not pronounce. Paragraph 2 piles up tasks - research, hotels, tickets, food - and adds the unfamiliar signs, so the author wants us to feel how much a beginner must handle alone. This sets up the question of whether such a trip is worth attempting without a companion.",
+      "needs_review": true
+    },
+    {
+      "block": "u03_b_reading_skills",
+      "n": 3,
+      "explanation_en": "The model answer offers a comparable mishap and reads Paragraph 8's harmless ending as the essay's point that discomfort and kindness mix.",
+      "draft_answer": "Something similar happened to me in Bangkok, where a driver took me to the wrong guesthouse and I had to walk back in the dark. Paragraph 8 presents the 'downside' in the same calm tone as the blessings earlier, because the young man who refused to take her to the hostel turned out to be harmless. The paragraph shows that solo travel mixes real discomfort with unexpected kindness, which is exactly the author's point.",
+      "needs_review": true
+    },
+    {
+      "block": "u03_b_understanding",
+      "n": 1,
+      "explanation_en": "Para. 5 says the reactions showed solo travel was 'strange, and even considered inconceivable or reckless', so people found it hard to believe - option D.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_understanding",
+      "n": 2,
+      "explanation_en": "Para. 7 says the two girls 'arranged for a bilingual friend to pick me up at the train station', which is option C.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_understanding",
+      "n": 3,
+      "explanation_en": "Para. 8: in Japan she stayed with four girls, one of whom 'snored like a lawnmower', and it took two days to escape - option C.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_understanding",
+      "n": 4,
+      "explanation_en": "Para. 10 says she ate ethnic food 'with four youthful Japanese salarymen', not Chinese students, so option D is the untrue statement.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_understanding",
+      "n": 5,
+      "explanation_en": "Para. 12 warns 'don't presume the worst and be overly fearful', so presuming the worst is what the author advises against, making A the exception.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_understanding",
+      "n": 6,
+      "explanation_en": "Para. 13 begins 'The key to solo travel is to open your mind, close your eyes, and leap in', which is option A.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_understanding",
+      "n": 7,
+      "explanation_en": "Para. 4 says going alone 'came naturally' to her, and Para. 13 ends with how 'sensational' the experience was, so option D is right.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_understanding",
+      "n": 8,
+      "explanation_en": "The title and the closing promise that you will be 'amazed at how sensational' solo travel is present it overall as a blessing - option B.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_critical",
+      "n": 1,
+      "explanation_en": "The model answer compares the two modes on freedom, company, cost and contact with locals, drawing on Para. 11's claim about companions.",
+      "draft_answer": "Traveling solo means complete freedom: you can change plans at noon and stay somewhere an extra day. Traveling with a companion offers company, shared costs, and someone to watch your bag, but every decision becomes a negotiation. The text also suggests solo travelers meet more people, because locals see them as approachable. I enjoy both, but for different reasons.",
+      "needs_review": true
+    },
+    {
+      "block": "u03_b_critical",
+      "n": 2,
+      "explanation_en": "The model answer adds pre-trip measures - itinerary, location sharing, daylight arrival, local phrases - none of which Para. 12 mentions.",
+      "draft_answer": "I would send my itinerary to a family member and share my live location each evening. Booking the first night's accommodation in advance and arriving in daylight also removes the riskiest hours. Learning a few phrases of the local language and photographing my hotel's address help when I get lost. None of this costs much money, only a little planning.",
+      "needs_review": true
+    },
+    {
+      "block": "u03_b_critical",
+      "n": 3,
+      "explanation_en": "The model answer says no and quotes Text B's closing advice that a lack of companionship should never constrain you.",
+      "draft_answer": "No, I would not. The last line of Text B makes the point clearly: a lack of companionship should never stop you from doing what you really want. I once ate alone in a strange city and joined a walking tour, and the evening turned out better than it would have with a reluctant friend. Waiting for the perfect companion often means never going at all.",
+      "needs_review": true
+    },
+    {
+      "block": "u03_b_collocation",
+      "n": 1,
+      "explanation_en": "'Even if I just stayed in a guesthouse' points to a place, and Text B's 'an exotic place where you can't speak the language' gives the collocation with initial e.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_collocation",
+      "n": 2,
+      "explanation_en": "Text A Paragraph 1's 'stolen away a lovely dream' supplies 'lovely dream', which the writer calls his wandering life, initial lo.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_collocation",
+      "n": 3,
+      "explanation_en": "Text B Paragraph 4 mentions 'a multinational tour', and the plural 'multinational tours' fits 'my ____ were leading me nowhere', initial mul.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_collocation",
+      "n": 4,
+      "explanation_en": "Text B Paragraph 8 refers to 'those not-so-pleasant experiences', so 'pleasant experiences' follows 'quite a few', initial pl.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_collocation",
+      "n": 5,
+      "explanation_en": "Text A Paragraph 8 has 'the same facets of foreign travel', and the money context ('some money left') fits 'weeks of foreign travel', initial for.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_collocation",
+      "n": 6,
+      "explanation_en": "Text A Paragraph 8's 'disorienting diversity of human traditions' gives the collocation for experiencing a region, with initial dis.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_collocation",
+      "n": 7,
+      "explanation_en": "Text B Paragraph 11 mentions 'the local folklore of the places they've been to', so 'the local folklore of the city' fits, initial lo.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_collocation",
+      "n": 8,
+      "explanation_en": "Text B Paragraph 11's 'swap stories with you about the local folklore' gives 'swap stories', and 'in order to' takes the base form, initial s.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_collocation",
+      "n": 9,
+      "explanation_en": "Text A Paragraph 5 credits 'modern aviation' for moving through space so fast, so 'travel made possible by modern aviation' fits, initial m.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_collocation",
+      "n": 10,
+      "explanation_en": "Text B Paragraph 11's 'credible insights into the place' supplies 'insights'; 'gain creative insights' matches the plural and initial cr.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_collocation",
+      "n": 11,
+      "explanation_en": "Text A Paragraph 6 says an exotic culture 'endows us with a valuable open-mindedness', which fits 'a ____ toward cultural diversity', initials va and op.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_collocation",
+      "n": 12,
+      "explanation_en": "Text A Paragraph 8's 'this mental flexibility' supplies the collocation for 'develop your ____', initials m and fl.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_b_collocation",
+      "n": 13,
+      "explanation_en": "Text A's 'in this globalized age' (Para. 8) and 'the result of a globalized world' (Para. 2) give 'globalized world', modified by 'increasingly', initial glo.",
+      "draft_answer": null,
+      "needs_review": false
+    },
+    {
+      "block": "u03_c_translation",
+      "n": 1,
+      "explanation_en": "'Lies at the foot of' handles the location, 'best-preserved' the state of the town, and 'successfully applied to be listed' the 1997 World Heritage bid.",
+      "draft_answer": null,
+      "needs_review": false
+    }
+  ]
+}

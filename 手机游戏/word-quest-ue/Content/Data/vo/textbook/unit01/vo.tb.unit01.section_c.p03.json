@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit01.section_c.p03",
+ "unit": 1,
+ "section": "section_c",
+ "kind": "paragraph",
+ "speaker": "Flo",
+ "emotion": "clear",
+ "text": "A beautiful day started with a great breakfast. I paid for a local delicacy called jianbing at a food stall with my smartphone. By scanning a QR code, I transferred six yuan to the stall owner.",
+ "rate": 165,
+ "duration": 16.448,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.034,
+   "text": "A beautiful day started with a great breakfast."
+  },
+  {
+   "i": 1,
+   "start": 4.034,
+   "end": 10.565,
+   "text": "I paid for a local delicacy called jianbing at a food stall with my smartphone."
+  },
+  {
+   "i": 2,
+   "start": 10.565,
+   "end": 16.448,
+   "text": "By scanning a QR code, I transferred six yuan to the stall owner."
+  }
+ ]
+}

@@ -1,0 +1,43 @@
+{
+ "line_id": "vo.tb.unit05.section_a.p09",
+ "unit": 5,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Looking back at their experiences, the astronauts thought their struggles, sacrifices, and persistence were all worthwhile. It is awe-inspiring and unforgettable for the astronauts to observe the earth and the universe from space. “I saw the lights of cities on earth and lightning ripping through the night sky. From our orbit, I saw the darkness and emptiness of space, and I wondered where the boundary is between the sky and the stars. I will never forget those scenes,” said Liu Wang, who took part in the Shenzhou-9 mission.",
+ "rate": 165,
+ "duration": 28.938,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 7.504,
+   "text": "Looking back at their experiences, the astronauts thought their struggles, sacrifices, and persistence were all worthwhile."
+  },
+  {
+   "i": 1,
+   "start": 7.504,
+   "end": 12.76,
+   "text": "It is awe-inspiring and unforgettable for the astronauts to observe the earth and the universe from space."
+  },
+  {
+   "i": 2,
+   "start": 12.76,
+   "end": 16.681,
+   "text": "“I saw the lights of cities on earth and lightning ripping through the night sky."
+  },
+  {
+   "i": 3,
+   "start": 16.681,
+   "end": 23.683,
+   "text": "From our orbit, I saw the darkness and emptiness of space, and I wondered where the boundary is between the sky and the stars."
+  },
+  {
+   "i": 4,
+   "start": 23.683,
+   "end": 28.938,
+   "text": "I will never forget those scenes,” said Liu Wang, who took part in the Shenzhou-9 mission."
+  }
+ ]
+}

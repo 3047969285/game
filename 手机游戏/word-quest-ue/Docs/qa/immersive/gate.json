@@ -1,0 +1,103 @@
+{
+ "images": [
+  {
+   "image": "c13-resume.png",
+   "size": [
+    1280,
+    720
+   ],
+   "mean_luma": 0.12,
+   "issue": "mean luma 0.12 outside 25..200"
+  },
+  {
+   "image": "c13-subtitle-next.png",
+   "size": [
+    1280,
+    720
+   ],
+   "mean_luma": 76.89
+  },
+  {
+   "image": "c13-subtitle-spawn.png",
+   "size": [
+    1280,
+    720
+   ],
+   "mean_luma": 76.9
+  },
+  {
+   "image": "c13-transition-after-skip.png",
+   "size": [
+    1280,
+    720
+   ],
+   "mean_luma": 0.25,
+   "issue": "mean luma 0.25 outside 25..200"
+  },
+  {
+   "image": "c13-transition-auto.png",
+   "size": [
+    1280,
+    720
+   ],
+   "mean_luma": 65.85
+  },
+  {
+   "image": "c13-transition-scan.png",
+   "size": [
+    1280,
+    720
+   ],
+   "mean_luma": 0.17,
+   "issue": "mean luma 0.17 outside 25..200"
+  },
+  {
+   "image": "c13-word-before.png",
+   "size": [
+    1280,
+    720
+   ],
+   "mean_luma": 76.79
+  },
+  {
+   "image": "c13-word-gaze.png",
+   "size": [
+    1280,
+    720
+   ],
+   "mean_luma": 76.89
+  },
+  {
+   "image": "c13-word-remembered.png",
+   "size": [
+    1280,
+    720
+   ],
+   "mean_luma": 76.89
+  }
+ ],
+ "pairs": [
+  {
+   "pair": "字幕生成/换句",
+   "before": "c13-subtitle-spawn.png",
+   "after": "c13-subtitle-next.png",
+   "diff_area": 0.00012,
+   "min": 0.005,
+   "issue": "diff area 0.0117% < 0.5%"
+  },
+  {
+   "pair": "单词浮现",
+   "before": "c13-word-before.png",
+   "after": "c13-word-gaze.png",
+   "diff_area": 0.01715,
+   "min": 0.005
+  }
+ ],
+ "result": "FAIL",
+ "issues": [
+  "c13-resume.png: mean luma 0.12 outside 25..200",
+  "c13-transition-after-skip.png: mean luma 0.25 outside 25..200",
+  "c13-transition-scan.png: mean luma 0.17 outside 25..200",
+  "字幕生成/换句: diff area 0.0117% < 0.5%"
+ ]
+}

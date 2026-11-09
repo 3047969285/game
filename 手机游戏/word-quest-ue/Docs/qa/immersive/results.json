@@ -1,0 +1,291 @@
+{
+ "run_id": "1792738826027054000",
+ "frames": 3436,
+ "screen_ui": 0,
+ "progress_ring": 1,
+ "results": [
+  {
+   "capture": "Docs/qa/immersive/c13-subtitle-spawn.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "capture": "Docs/qa/immersive/c13-subtitle-next.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "capture": "Docs/qa/immersive/c13-word-before.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "test": "gaze-aim-sentence",
+   "run_id": "1792738826027054000",
+   "injected": true
+  },
+  {
+   "test": "gaze-word-fragment",
+   "run_id": "1792738826027054000",
+   "state": "unit=1 section=section_a scene=0 sentence=2 paused=0 transition=0 world_fragments=1 world_space_fragments=1 word_fragment=1 sentence_fragments=1 choice_fragments=0 question_fragments=0 screen_ui=0 progress_ring=1 world_input=0 gaze=scenario gaze_clock=0.61 hold_clock=0.00 remembered=0 distortion=0.00 error= gaze_override=1 gaze_actor=WordQuestMemoryFragment_2 fading_fragments=0 memory_dust=0 transition_cut=0 directory_open=0 highlight_forms=1 highlight_words=1 highlighted_fragments=1",
+   "form": ""
+  },
+  {
+   "capture": "Docs/qa/immersive/c13-word-gaze.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "test": "long-press-remember",
+   "run_id": "1792738826027054000",
+   "state": "unit=1 section=section_a scene=0 sentence=2 paused=0 transition=0 world_fragments=1 world_space_fragments=1 word_fragment=1 sentence_fragments=1 choice_fragments=0 question_fragments=0 screen_ui=0 progress_ring=1 world_input=0 gaze=scenario gaze_clock=3.72 hold_clock=0.00 remembered=1 distortion=0.00 error="
+  },
+  {
+   "capture": "Docs/qa/immersive/c13-word-remembered.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "test": "auto-exercise-opened",
+   "run_id": "1792738826027054000",
+   "state": "unit=1 section=section_a scene=0 sentence=5 paused=1 transition=0 world_fragments=3 world_space_fragments=3 word_fragment=0 sentence_fragments=0 choice_fragments=1 question_fragments=1 screen_ui=0 progress_ring=1 world_input=0 gaze= gaze_clock=0.00 hold_clock=0.00 remembered=1 distortion=0.00 error="
+  },
+  {
+   "test": "exercise-fragment",
+   "run_id": "1792738826027054000",
+   "kind": "pre_reading",
+   "feedback": "SAVED TO NOTEBOOK · Compare and reflect\nREFERENCE: I scored 52 out of 70, which puts me in the 'somewhat addicted' range. I check my phone within minutes of waking up and often scroll in bed at night. The statement I agreed with most was feeling uncomfortable without constant access to information. Seeing the total made me realize how automatic these habits have become.",
+   "state": "unit=1 section=section_a scene=0 sentence=5 paused=1 transition=0 world_fragments=4 world_space_fragments=4 word_fragment=0 sentence_fragments=0 choice_fragments=2 question_fragments=1 screen_ui=0 progress_ring=1 world_input=0 gaze= gaze_clock=0.00 hold_clock=0.00 remembered=1 distortion=0.75 error="
+  },
+  {
+   "capture": "Docs/qa/immersive/pre_reading.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "test": "exercise-fragment",
+   "run_id": "1792738826027054000",
+   "kind": "understanding",
+   "feedback": "SAVED TO NOTEBOOK · Compare and reflect\nREFERENCE: They are not allowed to play video games, use computers, or use cell phones from Friday night through Sunday evening.",
+   "state": "unit=1 section=section_a scene=0 sentence=5 paused=1 transition=0 world_fragments=4 world_space_fragments=4 word_fragment=0 sentence_fragments=0 choice_fragments=2 question_fragments=1 screen_ui=0 progress_ring=1 world_input=0 gaze= gaze_clock=0.00 hold_clock=0.00 remembered=1 distortion=0.75 error="
+  },
+  {
+   "capture": "Docs/qa/immersive/understanding.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "test": "exercise-fragment",
+   "run_id": "1792738826027054000",
+   "kind": "critical",
+   "feedback": "SAVED TO NOTEBOOK · Compare and reflect\nREFERENCE: I don't think we can fully know someone online. Text A argues that real conversation lets us be 'more caring and observant' and reveal ourselves through tones and nuances, and a text or a like carries none of that. Online we edit what we show, so we meet a curated version of a person rather than the person. Friendships may start online, but trust grows only when people spend unedited time together.",
+   "state": "unit=1 section=section_a scene=0 sentence=5 paused=1 transition=0 world_fragments=4 world_space_fragments=4 word_fragment=0 sentence_fragments=0 choice_fragments=2 question_fragments=1 screen_ui=0 progress_ring=1 world_input=0 gaze= gaze_clock=0.00 hold_clock=0.00 remembered=1 distortion=0.75 error="
+  },
+  {
+   "capture": "Docs/qa/immersive/critical.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "test": "exercise-fragment",
+   "run_id": "1792738826027054000",
+   "kind": "words_in_use",
+   "feedback": "RESTORED · Correct\nscenario 指电影的剧情梗概，此处为复数形式。",
+   "state": "unit=1 section=section_a scene=0 sentence=5 paused=1 transition=0 world_fragments=15 world_space_fragments=15 word_fragment=0 sentence_fragments=0 choice_fragments=13 question_fragments=1 screen_ui=0 progress_ring=1 world_input=0 gaze= gaze_clock=0.00 hold_clock=0.00 remembered=1 distortion=0.75 error="
+  },
+  {
+   "capture": "Docs/qa/immersive/words_in_use.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "test": "exercise-fragment",
+   "run_id": "1792738826027054000",
+   "kind": "word_building",
+   "feedback": "RESTORED · Correct\ndominance（主导地位）是 dominate 的名词形式，作主语。",
+   "state": "unit=1 section=section_a scene=0 sentence=5 paused=1 transition=0 world_fragments=14 world_space_fragments=14 word_fragment=0 sentence_fragments=0 choice_fragments=12 question_fragments=1 screen_ui=0 progress_ring=1 world_input=0 gaze= gaze_clock=0.00 hold_clock=0.00 remembered=1 distortion=0.75 error="
+  },
+  {
+   "capture": "Docs/qa/immersive/word_building.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "test": "exercise-fragment",
+   "run_id": "1792738826027054000",
+   "kind": "banked_cloze",
+   "feedback": "RESTORED · Correct\nallow sb. to maintain contact 意为保持联系。",
+   "state": "unit=1 section=section_a scene=0 sentence=5 paused=1 transition=0 world_fragments=29 world_space_fragments=29 word_fragment=0 sentence_fragments=0 choice_fragments=27 question_fragments=1 screen_ui=0 progress_ring=1 world_input=0 gaze= gaze_clock=0.00 hold_clock=0.00 remembered=1 distortion=0.75 error="
+  },
+  {
+   "capture": "Docs/qa/immersive/banked_cloze.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "capture": "Docs/qa/immersive/banked_cloze-portrait.png",
+   "run_id": "1792738826027054000",
+   "resolution": [
+    450,
+    900
+   ]
+  },
+  {
+   "capture": "Docs/qa/immersive/banked_cloze-landscape.png",
+   "run_id": "1792738826027054000",
+   "resolution": [
+    1280,
+    720
+   ]
+  },
+  {
+   "test": "exercise-fragment",
+   "run_id": "1792738826027054000",
+   "kind": "expressions_in_use",
+   "feedback": "RESTORED · Correct\nplunge into 意为投身于，句子为过去时。",
+   "state": "unit=1 section=section_a scene=0 sentence=5 paused=1 transition=0 world_fragments=13 world_space_fragments=13 word_fragment=0 sentence_fragments=0 choice_fragments=11 question_fragments=1 screen_ui=0 progress_ring=1 world_input=0 gaze= gaze_clock=0.00 hold_clock=0.00 remembered=1 distortion=0.75 error="
+  },
+  {
+   "capture": "Docs/qa/immersive/expressions_in_use.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "test": "exercise-fragment",
+   "run_id": "1792738826027054000",
+   "kind": "structure_writing",
+   "feedback": "SAVED TO NOTEBOOK · Compare and reflect\nREFERENCE: Paragraph 7 works as the introduction: it raises the controversial claim that our 'sips' of connection add up to real conversation, then states the thesis that they cannot substitute for it. Paragraphs 8, 9 and 10 form the body, offering three supporting points: real conversation lets us know one another, it teaches patience, and it builds self-reflection. Paragraph 11 is the conclusion, restating the thesis as 'I am a partisan for conversation' and calling for action through sacred spaces, device-free cars and conversational Thursdays.\nTopic: Is smart technology making us dumb?\nIntroduction: Controversial argument: Smart technology is damaging our cognitive abilities and making us dumb. Thesis statement: Smart technology is actually making us smarter.\nBody: Supporting point 1: Smart technology helps us become more knowledgeable. Supporting point 2: Smart technology helps us learn better. Supporting point 3: Smart technology helps us be more innovative. Refutation/Opposition: People worry that smart technology is making us dumb, but this is not true and not supported by scientific evidence.\nConclusion: Smart technology is changing our lives and benefiting us in positive ways.\nMore topics: Will AI (artificial intelligence) cause mass unemployment? Should parents monitor their children’s use of the Internet?",
+   "state": "unit=1 section=section_a scene=0 sentence=5 paused=1 transition=0 world_fragments=4 world_space_fragments=4 word_fragment=0 sentence_fragments=0 choice_fragments=2 question_fragments=1 screen_ui=0 progress_ring=1 world_input=0 gaze= gaze_clock=0.00 hold_clock=0.00 remembered=1 distortion=0.75 error="
+  },
+  {
+   "capture": "Docs/qa/immersive/structure_writing.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "test": "exercise-fragment",
+   "run_id": "1792738826027054000",
+   "kind": "reading_skills",
+   "feedback": "RESTORED · Correct",
+   "state": "unit=1 section=section_a scene=0 sentence=5 paused=1 transition=0 world_fragments=4 world_space_fragments=4 word_fragment=0 sentence_fragments=0 choice_fragments=2 question_fragments=1 screen_ui=0 progress_ring=1 world_input=0 gaze= gaze_clock=0.00 hold_clock=0.00 remembered=1 distortion=0.75 error="
+  },
+  {
+   "capture": "Docs/qa/immersive/reading_skills.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "test": "exercise-fragment",
+   "run_id": "1792738826027054000",
+   "kind": "text_b_mcq",
+   "feedback": "RESTORED · Correct\n第1段指出技术已渗入生活的方方面面，但人们往往意识不到其影响，这正是讽刺之处。",
+   "state": "unit=1 section=section_a scene=0 sentence=5 paused=1 transition=0 world_fragments=7 world_space_fragments=7 word_fragment=0 sentence_fragments=0 choice_fragments=6 question_fragments=1 screen_ui=0 progress_ring=1 world_input=0 gaze= gaze_clock=0.00 hold_clock=0.00 remembered=1 distortion=0.75 error="
+  },
+  {
+   "capture": "Docs/qa/immersive/text_b_mcq.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "capture": "Docs/qa/immersive/text_b_mcq-portrait.png",
+   "run_id": "1792738826027054000",
+   "resolution": [
+    450,
+    900
+   ]
+  },
+  {
+   "capture": "Docs/qa/immersive/text_b_mcq-landscape.png",
+   "run_id": "1792738826027054000",
+   "resolution": [
+    1280,
+    720
+   ]
+  },
+  {
+   "test": "exercise-fragment",
+   "run_id": "1792738826027054000",
+   "kind": "collocation",
+   "feedback": "RESTORED · Correct\nestablish credibility 意为建立信誉，与 which has 搭配用现在完成时。",
+   "state": "unit=1 section=section_a scene=0 sentence=5 paused=1 transition=0 world_fragments=17 world_space_fragments=17 word_fragment=0 sentence_fragments=0 choice_fragments=16 question_fragments=1 screen_ui=0 progress_ring=1 world_input=0 gaze= gaze_clock=0.00 hold_clock=0.00 remembered=1 distortion=0.75 error="
+  },
+  {
+   "capture": "Docs/qa/immersive/collocation.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "capture": "Docs/qa/immersive/collocation-portrait.png",
+   "run_id": "1792738826027054000",
+   "resolution": [
+    450,
+    900
+   ]
+  },
+  {
+   "capture": "Docs/qa/immersive/collocation-landscape.png",
+   "run_id": "1792738826027054000",
+   "resolution": [
+    1280,
+    720
+   ]
+  },
+  {
+   "test": "exercise-fragment",
+   "run_id": "1792738826027054000",
+   "kind": "translation",
+   "feedback": "SAVED TO NOTEBOOK · Compare and reflect\nREFERENCE: In recent years, with the rapid development of Internet technology, the Internet economy has become a hot topic. Represented by e-commerce, the Internet economy has become an important driving force for China’s economic development. The Chinese government has put forward the concept of “Internet Plus” to promote the integration of the Internet with healthcare, transportation, education, finance, public services and other fields. This will provide more development opportunities and broader room for the development of the Internet economy.\n近年来，随着互联网技术的迅猛发展，互联网经济已成为一个热门话题。以电子商务为代表的互联网经济已成为中国经济发展的重要引擎（driving force）。我国政府提出了“互联网+”的概念，以推动互联网与医疗、交通、教育、金融、公共服务等领域的结合。这将为互联网经济的发展提供更多发展机遇和更广阔的发展空间。",
+   "state": "unit=1 section=section_a scene=0 sentence=5 paused=1 transition=0 world_fragments=4 world_space_fragments=4 word_fragment=0 sentence_fragments=0 choice_fragments=2 question_fragments=1 screen_ui=0 progress_ring=1 world_input=0 gaze= gaze_clock=0.00 hold_clock=0.00 remembered=1 distortion=0.75 error="
+  },
+  {
+   "capture": "Docs/qa/immersive/translation.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "test": "freeze-resume",
+   "run_id": "1792738826027054000",
+   "state": "unit=1 section=section_a scene=0 sentence=5 paused=0 transition=1 world_fragments=0 world_space_fragments=0 word_fragment=0 sentence_fragments=0 choice_fragments=0 question_fragments=0 screen_ui=0 progress_ring=1 world_input=0 gaze= gaze_clock=0.00 hold_clock=0.00 remembered=1 distortion=0.00 error="
+  },
+  {
+   "capture": "Docs/qa/immersive/c13-resume.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "test": "transition-auto-complete",
+   "run_id": "1792738826027054000",
+   "state": "unit=1 section=section_a scene=1 sentence=0 paused=0 transition=0 world_fragments=1 world_space_fragments=1 word_fragment=0 sentence_fragments=1 choice_fragments=0 question_fragments=0 screen_ui=0 progress_ring=1 world_input=0 gaze= gaze_clock=0.00 hold_clock=0.00 remembered=1 distortion=0.00 error="
+  },
+  {
+   "capture": "Docs/qa/immersive/c13-transition-auto.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "test": "transition-begin",
+   "run_id": "1792738826027054000",
+   "state": "unit=1 section=section_a scene=1 sentence=10 paused=0 transition=1 world_fragments=0 world_space_fragments=0 word_fragment=0 sentence_fragments=0 choice_fragments=0 question_fragments=0 screen_ui=0 progress_ring=1 world_input=0 gaze= gaze_clock=0.00 hold_clock=0.00 remembered=1 distortion=0.00 error="
+  },
+  {
+   "capture": "Docs/qa/immersive/c13-transition-scan.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  },
+  {
+   "test": "transition-skip-requested",
+   "run_id": "1792738826027054000",
+   "skipped": true
+  },
+  {
+   "test": "transition-skip-complete",
+   "run_id": "1792738826027054000",
+   "state": "unit=1 section=section_a scene=2 sentence=0 paused=0 transition=0 world_fragments=1 world_space_fragments=1 word_fragment=0 sentence_fragments=1 choice_fragments=0 question_fragments=0 screen_ui=0 progress_ring=1 world_input=0 gaze= gaze_clock=0.00 hold_clock=0.00 remembered=1 distortion=0.00 error="
+  },
+  {
+   "capture": "Docs/qa/immersive/c13-transition-after-skip.png",
+   "run_id": "1792738826027054000",
+   "resolution": null
+  }
+ ]
+}

@@ -1,0 +1,55 @@
+{
+ "kit": "shared_bike",
+ "dims_m": [
+  1.77,
+  0.54,
+  1.044
+ ],
+ "materials": {
+  "M_rubber": {
+   "color": "#1A1B1E",
+   "roughness": 0.85,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_steel": {
+   "color": "#AEB4BC",
+   "roughness": 0.3,
+   "metallic": 1.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_paint": {
+   "color": "#FFB01F",
+   "roughness": 0.3,
+   "metallic": 0.1,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_dark": {
+   "color": "#24272C",
+   "roughness": 0.5,
+   "metallic": 0.4,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  },
+  "M_paper": {
+   "color": "#F5F5F0",
+   "roughness": 0.7,
+   "metallic": 0.0,
+   "emission": "",
+   "emission_strength": 0.0,
+   "alpha": 1.0,
+   "noise": 0.0
+  }
+ }
+}

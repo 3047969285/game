@@ -157,3 +157,9 @@ Codex 的结构体就绪前，用**通用 JSON 包装行结构**导入，一类�
 - 必填字段非空（题干/选项/答案下标/解析、课文正文、翻译 zh+en、写作 prompt+outline）
 - 单元分布（每单元 3 段、4 翻译、4 提纲…）
 - 中英文配对完整（translation 每条都有 zh 与 en_reference；section 的 title/title_zh 成对）
+
+## 9. 教材基准（2026-10-22 起）
+
+后续单元内容以 `Docs/data/textbook-integration.md` 的约定为准：文章/单词/理解题/翻译取自教材提取数据
+（`Content/Data/content/textbook_units.json`），现有本文件的 D8 原创内容作为迁移前的兼容数据保留。
+教材审查结论见 `Docs/qa/textbook-extract-audit.md`。

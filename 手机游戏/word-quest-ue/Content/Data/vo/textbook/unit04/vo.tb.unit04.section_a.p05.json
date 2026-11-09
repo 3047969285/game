@@ -1,0 +1,49 @@
+{
+ "line_id": "vo.tb.unit04.section_a.p05",
+ "unit": 4,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "Besides the hours spent in leisure, workers and laborers differ in the amount of personal satisfaction they derive from their jobs. Workers who enjoy their jobs will be happier, less stressed, and generally more satisfied with their lives. They will also work with more diligence and precision because they have fostered a sense of personal pride in their jobs. On the other hand, laborers, whose sole incentive is earning their livelihood, feel that the time they spend on the daily grind is wasted and doesn't contribute to their happiness. Instead of valuing all 24 hours of their day as enjoyable and productive hours, they gauge only the time spent in leisure and play as meaningful. Laborers are commonplace in society, but still many people are in the lucky position of being workers.",
+ "rate": 165,
+ "duration": 42.609,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 7.04,
+   "text": "Besides the hours spent in leisure, workers and laborers differ in the amount of personal satisfaction they derive from their jobs."
+  },
+  {
+   "i": 1,
+   "start": 7.04,
+   "end": 13.16,
+   "text": "Workers who enjoy their jobs will be happier, less stressed, and generally more satisfied with their lives."
+  },
+  {
+   "i": 2,
+   "start": 13.16,
+   "end": 19.231,
+   "text": "They will also work with more diligence and precision because they have fostered a sense of personal pride in their jobs."
+  },
+  {
+   "i": 3,
+   "start": 19.231,
+   "end": 28.676,
+   "text": "On the other hand, laborers, whose sole incentive is earning their livelihood, feel that the time they spend on the daily grind is wasted and doesn't contribute to their happiness."
+  },
+  {
+   "i": 4,
+   "start": 28.676,
+   "end": 36.742,
+   "text": "Instead of valuing all 24 hours of their day as enjoyable and productive hours, they gauge only the time spent in leisure and play as meaningful."
+  },
+  {
+   "i": 5,
+   "start": 36.742,
+   "end": 42.609,
+   "text": "Laborers are commonplace in society, but still many people are in the lucky position of being workers."
+  }
+ ]
+}

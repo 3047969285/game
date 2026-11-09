@@ -1,0 +1,49 @@
+{
+ "line_id": "vo.tb.unit05.section_b.p06",
+ "unit": 5,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Flying to the moon has been a dream of the Chinese since ancient times. The moon has long been a major theme in Chinese poems, music, and paintings, with artists and writers using the moon to express their emotions and thoughts about the universe. Since the 1990s, Chinese scientists and engineers have endeavored to make the dream a reality. China announced in 2000 that its space planning agenda contained preparatory research about lunar exploration. It officially began the lunar exploration program in 2004, with the aim of orbiting and landing on the moon, and bringing samples back to the earth. The program was named after the moon goddess Chang'e, who, in Chinese mythology, lived on the moon and was accompanied by the Jade Rabbit.",
+ "rate": 165,
+ "duration": 44.533,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.084,
+   "text": "Flying to the moon has been a dream of the Chinese since ancient times."
+  },
+  {
+   "i": 1,
+   "start": 4.084,
+   "end": 14.496,
+   "text": "The moon has long been a major theme in Chinese poems, music, and paintings, with artists and writers using the moon to express their emotions and thoughts about the universe."
+  },
+  {
+   "i": 2,
+   "start": 14.496,
+   "end": 20.521,
+   "text": "Since the 1990s, Chinese scientists and engineers have endeavored to make the dream a reality."
+  },
+  {
+   "i": 3,
+   "start": 20.521,
+   "end": 27.106,
+   "text": "China announced in 2000 that its space planning agenda contained preparatory research about lunar exploration."
+  },
+  {
+   "i": 4,
+   "start": 27.106,
+   "end": 36.142,
+   "text": "It officially began the lunar exploration program in 2004, with the aim of orbiting and landing on the moon, and bringing samples back to the earth."
+  },
+  {
+   "i": 5,
+   "start": 36.142,
+   "end": 44.533,
+   "text": "The program was named after the moon goddess Chang'e, who, in Chinese mythology, lived on the moon and was accompanied by the Jade Rabbit."
+  }
+ ]
+}

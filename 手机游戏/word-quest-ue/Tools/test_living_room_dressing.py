@@ -14,7 +14,7 @@ class RoomDressingTests(unittest.TestCase):
         self.assertEqual(derive_room_dressing(self.scene,self.mapping),derive_room_dressing(self.scene,self.mapping))
         self.assertEqual(before,self.scene)
     def test_local_assets_delivered_and_support_ordered(self):
-        seen={'existing_bookshelf'}
+        seen={'existing_bookshelf', *(f'shelf_level_{i}' for i in range(6))}
         for p in derive_room_dressing(self.scene,self.mapping)['items']:
             if p['support']: self.assertIn(p['support'],seen)
             seen.add(p['id'])
@@ -25,6 +25,10 @@ class RoomDressingTests(unittest.TestCase):
         plan=derive_room_dressing(self.scene,self.mapping)
         for p in plan['items']:
             x,y,z=p['pos']
+            if p.get('shelf_relative'):
+                self.assertLess(abs(x), .60)
+                self.assertLess(abs(y), .20)
+                continue
             if not p['id'].startswith('seat_'):
                 self.assertFalse(abs(x)<.6 and y<1.5)
             self.assertGreater((x-2.6)**2+(y+1.6)**2,1)
@@ -39,6 +43,7 @@ class RoomDressingTests(unittest.TestCase):
         self.assertNotIn('seat_paul',items)
         self.assertEqual(items['family_frame']['yaw'],180)
         self.assertEqual(items['shelf_top_book_0']['support'],'existing_bookshelf')
+        self.assertEqual(len([k for k in items if k.startswith('shelf_inside_')]),60)
     def test_other_scene_untouched_and_missing_explicit(self):
         self.assertEqual(derive_room_dressing({'id':'u01a_s2'},{}),{'items':[],'missing':[]})
         plan=derive_room_dressing(self.scene,{})

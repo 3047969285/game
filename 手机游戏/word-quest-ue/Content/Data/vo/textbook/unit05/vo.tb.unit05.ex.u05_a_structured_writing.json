@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit05.ex.u05_a_structured_writing",
+ "unit": 5,
+ "section": "section_a",
+ "kind": "instruction",
+ "speaker": "Reed",
+ "emotion": "calm",
+ "text": "Structured writing: 1 Read the sample essay and see how the examples are developed and organized. 7 Write an essay of no less than 140 words on one of the following topics. One topic has an outline that you can follow.",
+ "rate": 165,
+ "duration": 18.785,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 8.0,
+   "text": "Structured writing: 1 Read the sample essay and see how the examples are developed and organized."
+  },
+  {
+   "i": 1,
+   "start": 8.0,
+   "end": 15.064,
+   "text": "7 Write an essay of no less than 140 words on one of the following topics."
+  },
+  {
+   "i": 2,
+   "start": 15.064,
+   "end": 18.785,
+   "text": "One topic has an outline that you can follow."
+  }
+ ]
+}

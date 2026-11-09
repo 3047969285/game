@@ -1,0 +1,25 @@
+{
+ "line_id": "vo.tb.unit03.section_b.p14",
+ "unit": 3,
+ "section": "section_b",
+ "kind": "paragraph",
+ "speaker": "Daniel",
+ "emotion": "steady",
+ "text": "Don’t ever let a lack of companionship constrain you from doing what you really want to do. Once you go solo, you’ll be amazed at how sensational your travel experiences will be.",
+ "rate": 165,
+ "duration": 10.361,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 4.867,
+   "text": "Don’t ever let a lack of companionship constrain you from doing what you really want to do."
+  },
+  {
+   "i": 1,
+   "start": 4.867,
+   "end": 10.361,
+   "text": "Once you go solo, you’ll be amazed at how sensational your travel experiences will be."
+  }
+ ]
+}

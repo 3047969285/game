@@ -1,0 +1,31 @@
+{
+ "line_id": "vo.tb.unit04.section_a.p02",
+ "unit": 4,
+ "section": "section_a",
+ "kind": "paragraph",
+ "speaker": "Samantha",
+ "emotion": "warm",
+ "text": "People are considered laborers if their jobs have an adverse effect on them, yet they feel compelled to continue working by the necessity of conforming to societal expectations and earning the revenue to support themselves and their families. The polar opposite of labor is play. When we play a game, we enjoy what we are doing, but it is a purely private pastime; society does not care when or whether we play.",
+ "rate": 165,
+ "duration": 22.756,
+ "sentences": [
+  {
+   "i": 0,
+   "start": 0.0,
+   "end": 12.665,
+   "text": "People are considered laborers if their jobs have an adverse effect on them, yet they feel compelled to continue working by the necessity of conforming to societal expectations and earning the revenue to support themselves and their families."
+  },
+  {
+   "i": 1,
+   "start": 12.665,
+   "end": 14.848,
+   "text": "The polar opposite of labor is play."
+  },
+  {
+   "i": 2,
+   "start": 14.848,
+   "end": 22.756,
+   "text": "When we play a game, we enjoy what we are doing, but it is a purely private pastime; society does not care when or whether we play."
+  }
+ ]
+}
