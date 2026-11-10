@@ -37,7 +37,12 @@ def test_unit_distribution():
     dist = {}
     for r in rows:
         dist[r["UnitId"]] = dist.get(r["UnitId"], 0) + 1
-    assert dist == {"unit01": 30, "unit02": 20, "unit03": 20, "unit04": 20, "unit05": 20, "unit06": 20}
+    source = json.loads(JSON_PATH.read_text(encoding="utf-8"))["words"]
+    expected = {}
+    for word in source:
+        expected[word["unit_id"]] = expected.get(word["unit_id"], 0) + 1
+    assert dist == expected
+    assert set(dist) == {f"unit{i:02d}" for i in range(1, 7)}
 
 
 def test_write_csv_roundtrip(tmp_path):

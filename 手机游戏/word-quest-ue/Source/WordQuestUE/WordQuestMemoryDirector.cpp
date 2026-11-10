@@ -48,6 +48,13 @@ FString Field(TSharedPtr<FJsonObject> Object,const FString& Key)
 {
  FString Value; if(Object) Object->TryGetStringField(Key,Value); return Value;
 }
+bool IsNumberArray(const TArray<TSharedPtr<FJsonValue>>* Values,int32 Count)
+{
+ if(!Values||Values->Num()<Count)return false;
+ for(int32 Index=0;Index<Count;Index++)
+  if(!(*Values)[Index].IsValid()||(*Values)[Index]->Type!=EJson::Number)return false;
+ return true;
+}
 void SplitSentences(const FString& Paragraph,TArray<FString>& Out)
 {
  FString Current;
@@ -146,7 +153,46 @@ void UWordQuestMemoryDirector::EnterScene()
  }
  const TArray<TSharedPtr<FJsonValue>>* Refs=nullptr;
  if(Scene->TryGetArrayField(TEXT("exercises"),Refs))for(auto V:*Refs)ExerciseReferences.Add(V->AsString());
- const FName Set(*(TEXT("set:")+Id));const FName Shot(*(TEXT("shot:")+Field(Scene->GetArrayField(TEXT("shots"))[0]->AsObject(),TEXT("name"))));
+ const TArray<TSharedPtr<FJsonValue>>* Shots=nullptr;
+ if(!Scene->TryGetArrayField(TEXT("shots"),Shots)||!Shots||Shots->IsEmpty())
+ {Error=FString::Printf(TEXT("Scene %s has no player camera."),*Id);SetMessage(Error);return;}
+ int32 PlayerShotIndex=0;
+ const TSharedPtr<FJsonObject>* RoomPtr=nullptr;
+ if(Scene->HasField(TEXT("room")))
+ {
+  if(!Scene->TryGetObjectField(TEXT("room"),RoomPtr)||!RoomPtr||!RoomPtr->IsValid())
+  {Error=FString::Printf(TEXT("Room scene %s has invalid player spawn bounds."),*Id);SetMessage(Error);return;}
+  const auto Room=*RoomPtr;
+  const TArray<TSharedPtr<FJsonValue>>* RoomX=nullptr;const TArray<TSharedPtr<FJsonValue>>* RoomY=nullptr;
+  if(!Room->TryGetArrayField(TEXT("x"),RoomX)||!Room->TryGetArrayField(TEXT("y"),RoomY)||
+     !IsNumberArray(RoomX,2)||!IsNumberArray(RoomY,2))
+  {Error=FString::Printf(TEXT("Room scene %s has invalid player spawn bounds."),*Id);SetMessage(Error);return;}
+  const double RoomMinX=(*RoomX)[0]->AsNumber(),RoomMaxX=(*RoomX)[1]->AsNumber();
+  const double RoomMinY=(*RoomY)[0]->AsNumber(),RoomMaxY=(*RoomY)[1]->AsNumber();
+  if(RoomMinX>=RoomMaxX||RoomMinY>=RoomMaxY)
+  {Error=FString::Printf(TEXT("Room scene %s has reversed player spawn bounds."),*Id);SetMessage(Error);return;}
+  const double MinX=RoomMinX+.45,MaxX=RoomMaxX-.45,MinY=RoomMinY+.45,MaxY=RoomMaxY-.45;
+  bool bFoundInteriorShot=false;
+  for(int32 Index=0;Index<Shots->Num();Index++)
+  {
+   const auto Candidate=(*Shots)[Index]->AsObject();const TArray<TSharedPtr<FJsonValue>>* CandidatePos=nullptr;
+   const TArray<TSharedPtr<FJsonValue>>* CandidateLook=nullptr;
+   if(!Candidate||!Candidate->TryGetArrayField(TEXT("pos"),CandidatePos)||!Candidate->TryGetArrayField(TEXT("look"),CandidateLook)||
+      !IsNumberArray(CandidatePos,3)||!IsNumberArray(CandidateLook,3))continue;
+   const double X=(*CandidatePos)[0]->AsNumber(),Y=(*CandidatePos)[1]->AsNumber();
+   if(X>MinX&&X<MaxX&&Y>MinY&&Y<MaxY){PlayerShotIndex=Index;bFoundInteriorShot=true;break;}
+  }
+  if(!bFoundInteriorShot)
+  {Error=FString::Printf(TEXT("Room scene %s has no camera at least 0.45 m inside its player spawn bounds."),*Id);SetMessage(Error);return;}
+ }
+ const auto PlayerShot=(*Shots)[PlayerShotIndex]->AsObject();
+ if(!PlayerShot){Error=FString::Printf(TEXT("Scene %s has an invalid player camera."),*Id);SetMessage(Error);return;}
+ const FString PlayerShotName=Field(PlayerShot,TEXT("name"));
+ const TArray<TSharedPtr<FJsonValue>>* PlayerPos=nullptr;const TArray<TSharedPtr<FJsonValue>>* PlayerLook=nullptr;
+ if(!PlayerShot->TryGetArrayField(TEXT("pos"),PlayerPos)||!PlayerShot->TryGetArrayField(TEXT("look"),PlayerLook)||
+    !IsNumberArray(PlayerPos,3)||!IsNumberArray(PlayerLook,3))
+ {Error=FString::Printf(TEXT("Scene %s has an invalid player camera transform."),*Id);SetMessage(Error);return;}
+ const FName Set(*(TEXT("set:")+Id));
  for(TActorIterator<AActor> It(GetWorld());It;++It)
  {
   AActor* Actor=*It;bool HasSet=false;
@@ -161,17 +207,10 @@ void UWordQuestMemoryDirector::EnterScene()
  }
  if(auto* PC=UGameplayStatics::GetPlayerController(this,0))
  {
-  const TArray<TSharedPtr<FJsonValue>>* Shots=nullptr;
-  if(Scene->TryGetArrayField(TEXT("shots"),Shots)&&Shots->Num()>0)
-  {
-   auto ShotObj=(*Shots)[0]->AsObject();
-   const TArray<TSharedPtr<FJsonValue>>* P=nullptr;const TArray<TSharedPtr<FJsonValue>>* L=nullptr;
-   if(ShotObj->TryGetArrayField(TEXT("pos"),P)&&ShotObj->TryGetArrayField(TEXT("look"),L)&&P->Num()>=3&&L->Num()>=3)
-   {
     // 场景 JSON 的 shots 坐标是米，关卡里每个 set 沿 X 间隔 6000 cm（见 checker 的 saved_camera）
     const double SetOffsetX=SceneIndex*6000.0;
-    const FVector Pos(SetOffsetX+(*P)[0]->AsNumber()*100.0,(*P)[1]->AsNumber()*100.0,(*P)[2]->AsNumber()*100.0);
-    const FVector Look(SetOffsetX+(*L)[0]->AsNumber()*100.0,(*L)[1]->AsNumber()*100.0,(*L)[2]->AsNumber()*100.0);
+    const FVector Pos(SetOffsetX+(*PlayerPos)[0]->AsNumber()*100.0,(*PlayerPos)[1]->AsNumber()*100.0,(*PlayerPos)[2]->AsNumber()*100.0);
+    const FVector Look(SetOffsetX+(*PlayerLook)[0]->AsNumber()*100.0,(*PlayerLook)[1]->AsNumber()*100.0,(*PlayerLook)[2]->AsNumber()*100.0);
     const FRotator Rot=(Look-Pos).Rotation();
     if(ViewCamera){ViewCamera->Destroy();ViewCamera=nullptr;}
     auto* Human=Cast<AWordQuestFirstPersonCharacter>(PC->GetPawn());
@@ -182,14 +221,13 @@ void UWordQuestMemoryDirector::EnterScene()
     }
     if(Human)
     {
-     Human->PlaceView(FVector(Pos.X,Pos.Y,Pos.Z-(*P)[2]->AsNumber()*100.0+172.f),Rot);
+     Human->PlaceView(FVector(Pos.X,Pos.Y,Pos.Z-(*PlayerPos)[2]->AsNumber()*100.0+172.f),Rot);
      Human->SetHorizontalFov(80.f);
      if(PC->PlayerCameraManager)PC->PlayerCameraManager->UnlockFOV();
      PC->SetViewTargetWithBlend(Human,0.f);LastPlayerPosition=Human->GetActorLocation();
-     UE_LOG(LogTemp,Display,TEXT("WQ_FIRST_PERSON_ENTER %s %s"),*Id,*Human->GetFirstPersonState());
+     const FVector SpawnLocation=Human->GetActorLocation();
+     UE_LOG(LogTemp,Display,TEXT("WQ_FIRST_PERSON_ENTER scene=%s shot=%s location=%.1f,%.1f,%.1f %s"),*Id,*PlayerShotName,SpawnLocation.X,SpawnLocation.Y,SpawnLocation.Z,*Human->GetFirstPersonState());
     }
-   }
-  }
  }
  UpdateLayers(0);UE_LOG(LogTemp,Display,TEXT("[C8] enter %s sentences=%d"),*Id,Sentences.Num());DisplaySentence();
 }

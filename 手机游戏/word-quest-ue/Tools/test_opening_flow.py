@@ -2,6 +2,9 @@
 import os,sys,time,json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
+SCENE_BOOK=json.loads((ROOT/'Content/Data/memory/textbook_scenes/unit01.json').read_text(encoding='utf-8'))
+FIRST_SCENE=next(scene for article in SCENE_BOOK['articles'] for scene in article['scenes'] if scene['id']=='u01a_s1')
+ROOM=FIRST_SCENE['room']
 def editor_main(u):
  les=u.get_editor_subsystem(u.LevelEditorSubsystem);ues=u.get_editor_subsystem(u.UnrealEditorSubsystem)
  assert les.load_level('/Game/Maps/L_Opening2090')
@@ -28,11 +31,17 @@ def editor_main(u):
     if state['phase']=='room_settle':
      if time.monotonic()-state['room_started']<2.:return
      print('WQ_NAV_INITIAL '+nav.get_navigation_state(),flush=True)
-     assert u.WordQuestRenderDiagnostics.request_world_capture(world,2560,1440,str(room_evidence))
+     assert u.WordQuestRenderDiagnostics.request_world_capture(world,1280,720,str(room_evidence))
      state['phase']='room_capture';return
     if state['phase']=='room_capture':
      if not room_evidence.is_file():return
      pos=view.get_actor_location();state['position']=[pos.x,pos.y,pos.z]
+     x,y=pos.x/100.,pos.y/100.
+     assert ROOM['x'][0]+.45<x<ROOM['x'][1]-.45 and ROOM['y'][0]+.45<y<ROOM['y'][1]-.45, f'Player spawned outside room bounds: {x:.2f},{y:.2f}'
+     first_person=view.get_first_person_state()
+     eye_height=float(first_person.split('eye_cm=',1)[1].split()[0])
+     assert 168.<=eye_height<=176.,'Unexpected eye height at room entry: '+first_person
+     state['records'].append({'spawn_inside_room':True,'spawn_xy_m':[x,y],'first_person':first_person})
      u.WordQuestRenderDiagnostics.inject_navigation_key(world,'W',True,1.0);state.update(phase='walking',walk_started=time.monotonic());return
     if state['phase']=='walking':
      if time.monotonic()-state['walk_started']<1.:return

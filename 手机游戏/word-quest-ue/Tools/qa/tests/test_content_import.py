@@ -9,8 +9,10 @@ sys.path.insert(0, str(ROOT / "Tools"))
 
 import data_import_content as dic  # noqa: E402
 
-EXPECTED = {"unit": 6, "section": 18, "reading_question": 23, "listening_question": 24,
-            "micro_check": 72, "translation": 24, "writing": 6, "outline_point": 24}
+# The main branch now carries the complete fourth-edition textbook dataset.
+# Keep these totals tied to that source revision instead of the retired demo set.
+EXPECTED = {"unit": 6, "section": 18, "reading_question": 60, "listening_question": 59,
+            "micro_check": 72, "translation": 19, "writing": 6, "outline_point": 24}
 
 
 def built():
@@ -28,7 +30,10 @@ def test_units_metadata():
     assert [u["unit_number"] for u in units] == [1, 2, 3, 4, 5, 6]
     for u in units:
         assert u["title"].strip() and u["title_zh"].strip() and u["theme"].strip()
-        assert len(u["word_ids"]) in (20, 30)
+        assert u["word_ids"] and len(u["word_ids"]) == len(set(u["word_ids"]))
+    vocabulary = json.loads((ROOT / "Content/Data/vocabulary/college_english_rw3.json").read_text(encoding="utf-8"))
+    known_ids = {word["id"] for word in vocabulary["words"]}
+    assert all(set(unit["word_ids"]) <= known_ids for unit in units)
 
 
 def test_sections_passages_non_empty():
@@ -79,7 +84,12 @@ def test_unit_distribution():
             d[uid] = d.get(uid, 0) + 1
         return d
     assert dist("section") == {f"unit0{i}": 3 for i in range(1, 7)}
-    assert dist("translation") == {f"unit0{i}": 4 for i in range(1, 7)}
+    source_counts = {}
+    for unit in dic.load_units():
+        count = len(unit.get("sections", {}).get("translation", {}).get("sentences", []))
+        if count:
+            source_counts[unit["unit_id"]] = count
+    assert dist("translation") == source_counts
     assert dist("writing") == {f"unit0{i}": 1 for i in range(1, 7)}
     assert dist("micro_check") == {f"unit0{i}": 12 for i in range(1, 7)}
 

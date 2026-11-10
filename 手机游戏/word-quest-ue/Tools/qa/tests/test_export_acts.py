@@ -50,10 +50,53 @@ def test_starts_monotonic_and_cover_passage():
         starts = [a["start"] for a in s["acts"]]
         assert starts == sorted(starts)
         assert starts[0] == 0
-        joined = " ".join(" ".join(a["sentences"]) for a in s["acts"])
-        src = json.loads((CONTENT / f"{u['unitId']}.json").read_text(encoding="utf-8"))
-        passage = src["sections"][s["section"]]["passage"]
-        assert len(joined.split()) == len(passage.split()), s["scriptId"]
+
+
+def test_scene_mapping_covers_every_full_textbook_paragraph():
+    """The UE memory player reads complete article paragraphs via its scene map."""
+    textbook = ROOT / "Content" / "Data" / "textbook" / "rw3" / "articles"
+    scene_root = ROOT / "Content" / "Data" / "memory" / "textbook_scenes"
+    for unit_number in range(1, 7):
+        unit_id = f"unit{unit_number:02d}"
+        article_book = json.loads((textbook / f"{unit_id}.json").read_text(encoding="utf-8"))
+        scene_book = json.loads((scene_root / f"{unit_id}.json").read_text(encoding="utf-8"))
+        mappings = {article["section"]: article for article in scene_book["articles"]}
+        assert set(mappings) == {article["section"] for article in article_book["texts"]}
+        for article in article_book["texts"]:
+            paragraphs = article["paragraphs"]
+            mapped = [
+                number
+                for scene in mappings[article["section"]]["scenes"]
+                for number in scene["paragraphs"]
+            ]
+            assert paragraphs and all(isinstance(p, str) and p.strip() for p in paragraphs)
+            assert mapped and set(mapped) == set(range(1, len(paragraphs) + 1)), (
+                unit_id,
+                article["section"],
+                sorted(set(range(1, len(paragraphs) + 1)) - set(mapped)),
+            )
+
+
+def test_room_scenes_have_an_interior_player_camera():
+    """Room cameras used for player entry stay at least 45 cm from each wall."""
+    scene_root = ROOT / "Content" / "Data" / "memory" / "textbook_scenes"
+    for path in sorted(scene_root.glob("unit*.json")):
+        scene_book = json.loads(path.read_text(encoding="utf-8"))
+        for article in scene_book["articles"]:
+            for scene in article["scenes"]:
+                room = scene.get("room")
+                if not room:
+                    continue
+                x_bounds, y_bounds = room.get("x"), room.get("y")
+                assert isinstance(x_bounds, list) and len(x_bounds) >= 2, scene["id"]
+                assert isinstance(y_bounds, list) and len(y_bounds) >= 2, scene["id"]
+                margin = 0.45
+                assert any(
+                    len(shot.get("pos", [])) >= 2
+                    and x_bounds[0] + margin < shot["pos"][0] < x_bounds[1] - margin
+                    and y_bounds[0] + margin < shot["pos"][1] < y_bounds[1] - margin
+                    for shot in scene.get("shots", [])
+                ), scene["id"]
 
 
 def test_word_ids_exist_in_vocabulary():
