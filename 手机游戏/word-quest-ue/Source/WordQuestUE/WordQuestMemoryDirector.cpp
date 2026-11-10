@@ -8,8 +8,11 @@
 #include "WordQuestRenderDiagnostics.h"
 #include "Components/WidgetInteractionComponent.h"
 #include "Components/WidgetComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Engine/EngineTypes.h"
 #include "Engine/StaticMesh.h"
+#include "Engine/World.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerInput.h"
 #include "Camera/PlayerCameraManager.h"
@@ -157,8 +160,10 @@ void UWordQuestMemoryDirector::EnterScene()
  if(!Scene->TryGetArrayField(TEXT("shots"),Shots)||!Shots||Shots->IsEmpty())
  {Error=FString::Printf(TEXT("Scene %s has no player camera."),*Id);SetMessage(Error);return;}
  int32 PlayerShotIndex=0;
+ const bool bHasRoomBounds=Scene->HasField(TEXT("room"));
+ FVector2D RoomMin(0,0),RoomMax(0,0);
  const TSharedPtr<FJsonObject>* RoomPtr=nullptr;
- if(Scene->HasField(TEXT("room")))
+ if(bHasRoomBounds)
  {
   if(!Scene->TryGetObjectField(TEXT("room"),RoomPtr)||!RoomPtr||!RoomPtr->IsValid())
   {Error=FString::Printf(TEXT("Room scene %s has invalid player spawn bounds."),*Id);SetMessage(Error);return;}
@@ -171,7 +176,9 @@ void UWordQuestMemoryDirector::EnterScene()
   const double RoomMinY=(*RoomY)[0]->AsNumber(),RoomMaxY=(*RoomY)[1]->AsNumber();
   if(RoomMinX>=RoomMaxX||RoomMinY>=RoomMaxY)
   {Error=FString::Printf(TEXT("Room scene %s has reversed player spawn bounds."),*Id);SetMessage(Error);return;}
-  const double MinX=RoomMinX+.45,MaxX=RoomMaxX-.45,MinY=RoomMinY+.45,MaxY=RoomMaxY-.45;
+  RoomMin=FVector2D(RoomMinX+.45,RoomMinY+.45);RoomMax=FVector2D(RoomMaxX-.45,RoomMaxY-.45);
+  if(RoomMin.X>=RoomMax.X||RoomMin.Y>=RoomMax.Y)
+  {Error=FString::Printf(TEXT("Room scene %s has no player capsule clearance after applying the 0.45 m wall margin."),*Id);SetMessage(Error);return;}
   bool bFoundInteriorShot=false;
   for(int32 Index=0;Index<Shots->Num();Index++)
   {
@@ -180,7 +187,7 @@ void UWordQuestMemoryDirector::EnterScene()
    if(!Candidate||!Candidate->TryGetArrayField(TEXT("pos"),CandidatePos)||!Candidate->TryGetArrayField(TEXT("look"),CandidateLook)||
       !IsNumberArray(CandidatePos,3)||!IsNumberArray(CandidateLook,3))continue;
    const double X=(*CandidatePos)[0]->AsNumber(),Y=(*CandidatePos)[1]->AsNumber();
-   if(X>MinX&&X<MaxX&&Y>MinY&&Y<MaxY){PlayerShotIndex=Index;bFoundInteriorShot=true;break;}
+   if(X>RoomMin.X&&X<RoomMax.X&&Y>RoomMin.Y&&Y<RoomMax.Y){PlayerShotIndex=Index;bFoundInteriorShot=true;break;}
   }
   if(!bFoundInteriorShot)
   {Error=FString::Printf(TEXT("Room scene %s has no camera at least 0.45 m inside its player spawn bounds."),*Id);SetMessage(Error);return;}
@@ -209,8 +216,45 @@ void UWordQuestMemoryDirector::EnterScene()
  {
     // 场景 JSON 的 shots 坐标是米，关卡里每个 set 沿 X 间隔 6000 cm（见 checker 的 saved_camera）
     const double SetOffsetX=SceneIndex*6000.0;
-    const FVector Pos(SetOffsetX+(*PlayerPos)[0]->AsNumber()*100.0,(*PlayerPos)[1]->AsNumber()*100.0,(*PlayerPos)[2]->AsNumber()*100.0);
+    FVector Pos(SetOffsetX+(*PlayerPos)[0]->AsNumber()*100.0,(*PlayerPos)[1]->AsNumber()*100.0,(*PlayerPos)[2]->AsNumber()*100.0);
+    const FVector AuthoredPos=Pos;
     const FVector Look(SetOffsetX+(*PlayerLook)[0]->AsNumber()*100.0,(*PlayerLook)[1]->AsNumber()*100.0,(*PlayerLook)[2]->AsNumber()*100.0);
+    if(bHasRoomBounds)
+    {
+     const auto* DefaultHuman=GetDefault<AWordQuestFirstPersonCharacter>();
+     const auto* Capsule=DefaultHuman?DefaultHuman->GetCapsuleComponent():nullptr;
+     if(!Capsule){Error=FString::Printf(TEXT("Room scene %s cannot read the player capsule."),*Id);SetMessage(Error);return;}
+     const float CapsuleRadius=Capsule->GetScaledCapsuleRadius(),CapsuleHalfHeight=Capsule->GetScaledCapsuleHalfHeight();
+     const FCollisionShape SpawnShape=FCollisionShape::MakeCapsule(CapsuleRadius,CapsuleHalfHeight);
+     FCollisionQueryParams Query(SCENE_QUERY_STAT(TextbookRoomSpawn),false);
+     if(PC->GetPawn())Query.AddIgnoredActor(PC->GetPawn());
+     // A capsule resting on its intended room floor is a valid spawn. Ignore only
+     // authored floor actors here; furniture and walls must still block the query.
+     for(TActorIterator<AActor> It(GetWorld());It;++It)
+      if((*It)->ActorHasTag(TEXT("arch:floor")))Query.AddIgnoredActor(*It);
+     auto IsBlocked=[&](double X,double Y)
+     {
+      const FVector CapsuleCenter(SetOffsetX+X*100.0,Y*100.0,CapsuleHalfHeight);
+      return GetWorld()->OverlapBlockingTestByChannel(CapsuleCenter,FQuat::Identity,ECC_Pawn,SpawnShape,Query);
+     };
+     double ChosenX=(*PlayerPos)[0]->AsNumber(),ChosenY=(*PlayerPos)[1]->AsNumber();
+     bool bFoundClearSpawn=!IsBlocked(ChosenX,ChosenY);
+     for(int32 Ring=1;Ring<=6&&!bFoundClearSpawn;Ring++)
+     {
+      const double RadiusMeters=Ring*.25;const int32 Samples=Ring*8;
+      for(int32 Sample=0;Sample<Samples;Sample++)
+      {
+       const double Angle=2.0*PI*Sample/Samples;
+       const double X=(*PlayerPos)[0]->AsNumber()+FMath::Cos(Angle)*RadiusMeters;
+       const double Y=(*PlayerPos)[1]->AsNumber()+FMath::Sin(Angle)*RadiusMeters;
+       if(X<=RoomMin.X||X>=RoomMax.X||Y<=RoomMin.Y||Y>=RoomMax.Y||IsBlocked(X,Y))continue;
+       ChosenX=X;ChosenY=Y;bFoundClearSpawn=true;break;
+      }
+     }
+     if(!bFoundClearSpawn)
+     {Error=FString::Printf(TEXT("Room scene %s has no collision-free player spawn within 1.5 m of its authored camera."),*Id);SetMessage(Error);return;}
+     Pos.X=SetOffsetX+ChosenX*100.0;Pos.Y=ChosenY*100.0;
+    }
     const FRotator Rot=(Look-Pos).Rotation();
     if(ViewCamera){ViewCamera->Destroy();ViewCamera=nullptr;}
     auto* Human=Cast<AWordQuestFirstPersonCharacter>(PC->GetPawn());
@@ -226,7 +270,7 @@ void UWordQuestMemoryDirector::EnterScene()
      if(PC->PlayerCameraManager)PC->PlayerCameraManager->UnlockFOV();
      PC->SetViewTargetWithBlend(Human,0.f);LastPlayerPosition=Human->GetActorLocation();
      const FVector SpawnLocation=Human->GetActorLocation();
-     UE_LOG(LogTemp,Display,TEXT("WQ_FIRST_PERSON_ENTER scene=%s shot=%s location=%.1f,%.1f,%.1f %s"),*Id,*PlayerShotName,SpawnLocation.X,SpawnLocation.Y,SpawnLocation.Z,*Human->GetFirstPersonState());
+     UE_LOG(LogTemp,Display,TEXT("WQ_FIRST_PERSON_ENTER scene=%s shot=%s authored_xy=%.1f,%.1f location=%.1f,%.1f,%.1f %s"),*Id,*PlayerShotName,AuthoredPos.X,AuthoredPos.Y,SpawnLocation.X,SpawnLocation.Y,SpawnLocation.Z,*Human->GetFirstPersonState());
     }
  }
  UpdateLayers(0);UE_LOG(LogTemp,Display,TEXT("[C8] enter %s sentences=%d"),*Id,Sentences.Num());DisplaySentence();

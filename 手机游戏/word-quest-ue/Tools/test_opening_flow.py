@@ -27,6 +27,7 @@ def editor_main(u):
     pc=u.GameplayStatics.get_player_controller(world,0);view=pc.get_view_target();nav=gm.get_component_by_class(u.WordQuestMemoryNavigation);assert nav
     if state['phase']=='travel':
      state['records'].append({'map':u.GameplayStatics.get_current_level_name(world,True),'state':info})
+     entry=view.get_actor_location();state['entry_position']=[entry.x,entry.y,entry.z]
      state.update(phase='room_settle',room_started=time.monotonic());return
     if state['phase']=='room_settle':
      if time.monotonic()-state['room_started']<2.:return
@@ -36,19 +37,21 @@ def editor_main(u):
     if state['phase']=='room_capture':
      if not room_evidence.is_file():return
      pos=view.get_actor_location();state['position']=[pos.x,pos.y,pos.z]
+     entry=state['entry_position'];drift=((pos.x-entry[0])**2+(pos.y-entry[1])**2+(pos.z-entry[2])**2)**.5
+     assert drift<=10.,f'Player was pushed after room entry: {drift:.1f} cm'
      x,y=pos.x/100.,pos.y/100.
      assert ROOM['x'][0]+.45<x<ROOM['x'][1]-.45 and ROOM['y'][0]+.45<y<ROOM['y'][1]-.45, f'Player spawned outside room bounds: {x:.2f},{y:.2f}'
      first_person=view.get_first_person_state()
      eye_height=float(first_person.split('eye_cm=',1)[1].split()[0])
      assert 168.<=eye_height<=176.,'Unexpected eye height at room entry: '+first_person
-     state['records'].append({'spawn_inside_room':True,'spawn_xy_m':[x,y],'first_person':first_person})
+     state['records'].append({'spawn_inside_room':True,'spawn_xy_m':[x,y],'entry_drift_cm':drift,'first_person':first_person})
      u.WordQuestRenderDiagnostics.inject_navigation_key(world,'W',True,1.0);state.update(phase='walking',walk_started=time.monotonic());return
     if state['phase']=='walking':
      if time.monotonic()-state['walk_started']<1.:return
      u.WordQuestRenderDiagnostics.inject_navigation_key(world,'W',False,0.)
      pos=view.get_actor_location();before=state['position'];distance=((pos.x-before[0])**2+(pos.y-before[1])**2)**.5
      assert distance>5,'WASD did not move actual camera: '+nav.get_navigation_state()
-     assert abs(pos.z-before[2])<30,'Eye height jumped during walking'
+     assert abs(pos.z-before[2])<30, f'Eye height changed during walking: before_z={before[2]:.2f} after_z={pos.z:.2f}; {nav.get_navigation_state()}'
      state['records'].append({'navigation':nav.get_navigation_state(),'walk_cm':distance,'capture':str(room_evidence)})
      u.GameplayStatics.set_game_paused(world,True);state.update(phase='pause_check',pause_started=time.monotonic(),pause_position=[pos.x,pos.y,pos.z]);return
     if state['phase']=='pause_check':
@@ -70,8 +73,10 @@ def editor_main(u):
     if evidence.is_file() and time.monotonic()-state['waiting_since']>=4:
      state['records'].append({'capture':str(evidence),'waiting_confirmed':True});flow.wait_before_recall();state['phase']='wait'
    elif 'phase=waiting' in info and state['phase']=='wait':flow.confirm_recall();state['phase']='travel'
-  except Exception:
-   import traceback;traceback.print_exc();sys.stderr.flush()
+  except Exception as exc:
+   import traceback
+   (ROOT/'Saved/Opening2090/playthrough.json').write_text(json.dumps({'technical':'FAIL','visual':'NOT_ACCEPTED','error':str(exc),'records':state['records']},indent=2))
+   traceback.print_exc();sys.stderr.flush()
    if handle:u.unregister_slate_post_tick_callback(handle[0])
    os._exit(1)
  handle.append(u.register_slate_post_tick_callback(tick))

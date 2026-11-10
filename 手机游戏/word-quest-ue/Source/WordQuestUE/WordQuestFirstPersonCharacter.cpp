@@ -16,7 +16,7 @@ AWordQuestFirstPersonCharacter::AWordQuestFirstPersonCharacter()
  bUseControllerRotationYaw=true;
  auto* Move=GetCharacterMovement();Move->MaxWalkSpeed=140.f;Move->MaxWalkSpeedCrouched=75.f;
  Move->MaxAcceleration=500.f;Move->BrakingDecelerationWalking=600.f;Move->GroundFriction=4.f;
- Move->MaxStepHeight=30.f;Move->SetWalkableFloorAngle(45.f);Move->GetNavAgentPropertiesRef().bCanCrouch=true;
+ Move->MaxStepHeight=18.f;Move->SetWalkableFloorAngle(45.f);Move->GetNavAgentPropertiesRef().bCanCrouch=true;
  Move->SetCrouchedHalfHeight(56.f);Move->bOrientRotationToMovement=false;
  EyeCamera=CreateDefaultSubobject<UCineCameraComponent>(TEXT("HumanEye"));EyeCamera->SetupAttachment(GetCapsuleComponent());
  EyeCamera->bUsePawnControlRotation=true;EyeCamera->SetConstraintAspectRatio(false);
