@@ -47,3 +47,5 @@ CC BY 4.0 的资产要在游戏的“制作人员 / 致谢”页署名作者和�
 - Poly Haven `floor_tiles_06` — CC0 — https://polyhaven.com/a/floor_tiles_06 — surface texture (2K diffuse/nor_gl/arm)
 - Poly Haven `rusty_metal_02` — CC0 — https://polyhaven.com/a/rusty_metal_02 — surface texture (2K diffuse/nor_gl/arm)
 - Poly Haven `rough_linen` — CC0 — https://polyhaven.com/a/rough_linen — surface texture (2K diffuse/nor_gl/arm)
+
+第一客厅窗外远景：`SourceArt/PolyHaven/hdris/suburban_garden_4k.hdr`（Poly Haven `suburban_garden`，CC0，https://polyhaven.com/a/suburban_garden）经 `Tools/build_window_panorama.py` 以 45° yaw、100°水平视场生成 4096×2048 的 `suburban_garden_window_4k.png`，作为固定窗的远景贴图；保留原 HDRI 作为光照来源，窗前另有真实 CC0 植物网格。重建 PNG 需本机取得 HDRI 的 Git LFS 对象并安装 OpenCV/NumPy。

@@ -6,7 +6,8 @@ import os,sys,math,argparse,json,hashlib
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from textbook_scene_contract import ROOT,read_unit,world_cm,prop_tags,level_path,read_asset_map,asset_spec,props_for,mapped_surface_clutter,kit_surface_role,scene_surface_role
-from textbook_environment import spawn_hdri_sky
+from textbook_environment import spawn_hdri_sky,should_spawn_hdri_dome
+from room_shell import apply_room_lighting
 
 def editor_main(u):
     data=read_unit(int(os.environ.get('WQ_TEXTBOOK_UNIT','1')),os.environ.get('WQ_TEXTBOOK_SOURCE'))
@@ -210,7 +211,7 @@ def editor_main(u):
             sky=spawn(u.SkyAtmosphere,'SKY_'+sid,world_cm(scene,[0,0,0]),base+['environment:sky'])
             clouds=spawn(u.VolumetricCloud,'CLOUD_'+sid,world_cm(scene,[0,0,0]),base+['environment:sky'])
             hdri_roles=mapping_doc.get('hdris_polyhaven',{}); hdri_assets=mapping_doc.get('hdris_imported',{})
-            explicit_hdri=light.get('hdri')
+            explicit_hdri=light.get('hdri') or (room or {}).get('exterior_hdri')
             if explicit_hdri:
                 hdri_role=explicit_hdri
             else:
@@ -223,7 +224,8 @@ def editor_main(u):
                 else: hdri_role='day'
             hdri_id=hdri_roles.get(hdri_role,hdri_role); hdri_path=hdri_assets.get(hdri_id)
             if hdri_path and u.EditorAssetLibrary.does_asset_exist(hdri_path):
-                spawn_hdri_sky(u,spawn,scene,u.load_asset(hdri_path))
+                if should_spawn_hdri_dome(room):
+                    spawn_hdri_sky(u,spawn,scene,u.load_asset(hdri_path))
                 hdr=spawn(u.SkyLight,'HDRI_'+sid,world_cm(scene,[0,0,0]),base+['environment:hdri'])
                 hc=hdr.get_component_by_class(u.SkyLightComponent)
                 hc.set_editor_property('source_type',u.SkyLightSourceType.SLS_SPECIFIED_CUBEMAP)
@@ -239,6 +241,8 @@ def editor_main(u):
             for name,value in [('vignette_intensity',grade.get('vignette',.15)),('film_grain_intensity',grade.get('grain',.08)),('scene_fringe_intensity',grade.get('chromatic_aberration',.12))]:
                 settings.set_editor_property('override_'+name,True);settings.set_editor_property(name,float(value))
             pp.set_editor_property('settings',settings)
+            if room:
+                apply_room_lighting(u,scene)
             for shot in scene['shots']:
                 a=spawn(u.CineCameraActor,'CAM_'+sid+'_'+shot['name'],world_cm(scene,shot['pos']),base+['shot:'+shot['name']])
                 a.set_actor_rotation(u.MathLibrary.find_look_at_rotation(a.get_actor_location(),u.Vector(*world_cm(scene,shot['look']))),False)

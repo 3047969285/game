@@ -5,6 +5,11 @@ unlit dome samples the same CC0 cubemap along camera rays, providing actual
 window scenery without adding emissive GI or a synthetic flat backdrop.
 """
 
+def should_spawn_hdri_dome(room):
+    """Room windows use their own finite horizon card; keep the lighting cubemap separate."""
+    return not bool(room and any(opening.get("type") == "window" for opening in room.get("openings", [])))
+
+
 def hdri_material(u,cubemap):
     tools=u.AssetToolsHelpers.get_asset_tools();folder='/Game/Memory/Materials';path=folder+'/M_TextbookHDRISky'
     parent=u.load_asset(path)
@@ -42,7 +47,7 @@ def spawn_hdri_sky(u,spawn,scene,cubemap):
 
 def scene_hdri_path(scene,mapping):
     light=scene.get('light',{});title=(scene.get('title','')+' '+scene.get('id','')).lower()
-    role=light.get('hdri')
+    role=light.get('hdri') or (scene.get('room') or {}).get('exterior_hdri')
     if not role:
         if any(w in title for w in ('night','evening','晚','夜')):role='night_city'
         elif any(w in title for w in ('dusk','sunset','黄昏','日落')):role='dusk'

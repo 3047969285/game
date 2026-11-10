@@ -739,3 +739,9 @@
 - **测试**：全工具测试 `226 passed, 3 subtests passed`；UE 5.8 外盘引擎通过 `Tools/run_ue_serial.sh`、`UE_LOCK_WHO=codex`、`-NoPCH -MaxParallelActions=2` 编译。PIE 从 2090 序幕进入 `L_U01_A` 并通过：初始机位 `chess`，坐标在房内，入场 2 秒漂移 `0 cm`；行走 43.64 cm 时 Z 变化 `0.94 cm`，暂停后位置稳定。诊断中曾发现地板接触被误判，现仅从出生重叠查询排除 `arch:floor`；后续 PIE 发现桌椅可跨步高度偏高，降至 18 cm 后回归通过。
 - **结果路径**：实际资源工作树 `Saved/Opening2090/playthrough.json`、`Saved/Opening2090/playthrough.log`；截图 `Saved/Opening2090/ready-1794273355238067000.png`、`Saved/Opening2090/ready-1794273355238067000-first-room.png`（1280×720）。
 - **仍未验收**：`visual=NOT_ACCEPTED`，场景日志仍为 `unfinished_assets=32`、`body_ready=0`。本轮只确认入口与移动的技术行为，客厅材质、窗外画面、人物身体和整体写实度仍需继续完善。
+
+#### 第一客厅窗景复测
+- **产品需求说明书**：窗外应读得出天空、庭院和植物层次，室内补光需保留墙面与人物暗部；窗帘、家庭照片仍不能用几何体冒充。
+- **接口文档**：修正生成全景方向，窗玻璃明确赋予 ClearV2 并回读校验；窗外远景卡片为 18 m × 6 m、距墙 12 m，近景使用已登记的 Poly Haven CC0 植物；新增无阴影顶棚反弹光。`room_review.py` 支持指定机位与诊断分辨率。
+- **测试 / 证据**：完整 `Tools` 套件 `236 passed, 11 subtests passed`，`git diff --check` 通过。锁内编辑器四机位复拍路径：`Saved/RoomReview/u01a_s1/1280x720/{door_to_window,corner_family,window_to_shelf,sofa_to_cabinet}.png`，完成日志 `Saved/RoomReview/u01a_s1.log`（`WQ_ROOM_REVIEW_DONE`）。文件位于资源工作树；截图为 1280×720 诊断图。
+- **仍未验收**：窗景仍偏暗偏软，人物和房间光照不均；高分辨率 Metal 捕获此前因显存不足失败，因此 2K/4K 与整体视觉质量均未验收。未包含 MetaHuman、其他资源工作树内容或本地 Saved 截图。
