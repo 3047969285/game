@@ -745,3 +745,10 @@
 - **接口文档**：修正生成全景方向，窗玻璃明确赋予 ClearV2 并回读校验；窗外远景卡片为 18 m × 6 m、距墙 12 m，近景使用已登记的 Poly Haven CC0 植物；新增无阴影顶棚反弹光。`room_review.py` 支持指定机位与诊断分辨率。
 - **测试 / 证据**：完整 `Tools` 套件 `236 passed, 11 subtests passed`，`git diff --check` 通过。锁内编辑器四机位复拍路径：`Saved/RoomReview/u01a_s1/1280x720/{door_to_window,corner_family,window_to_shelf,sofa_to_cabinet}.png`，完成日志 `Saved/RoomReview/u01a_s1.log`（`WQ_ROOM_REVIEW_DONE`）。文件位于资源工作树；截图为 1280×720 诊断图。
 - **仍未验收**：窗景仍偏暗偏软，人物和房间光照不均；高分辨率 Metal 捕获此前因显存不足失败，因此 2K/4K 与整体视觉质量均未验收。未包含 MetaHuman、其他资源工作树内容或本地 Saved 截图。
+
+### Codex 推送前回归（2026-11-10：第一客厅窗帘）
+- **产品需求说明书**：Text A 客厅西窗需有自然的双开落地窗帘，保留窗景和玩家通道；窗帘静态装饰、不可碰撞，不能冒充可交互布料。家庭照片必须来自已批准的角色图像。
+- **接口文档**：Blender 源 `Tools/props/hero_curtains.py` 生成 274,640 三角面的窗帘模型、三套 2048² BaseColor/Normal/ARM 贴图和 manifest；布料复用 Poly Haven `rough_linen` CC0。UE 资产 `/Game/Memory/Props/Hero/SM_curtains`，三个材质槽，Nanite 已启用。`living_room_dressing.py` 在 `u01a_s1` 固定坐标生成无碰撞静态网格，并明确报告缺失项。
+- **测试**：第一客厅布景测试 8 项通过；完整命令 `PYTHONPATH="$PWD" PYTHONDONTWRITEBYTECODE=1 uvx --with pillow --with numpy --with scipy --with opencv-python-headless pytest -p no:cacheprovider -q Tools`：238 passed、11 subtests passed。UE 5.8 编译使用 `Tools/run_ue_serial.sh` 和 `-NoPCH -MaxParallelActions=2`，`Result: Succeeded`，日志 `Saved/build-curtain-main.log`。
+- **主线场景验证**：完整编辑器刷新成功，房间壳 45 件、布景 92 件、家人 4/4；仅 `family_photographs` 与 `curtain_physics` 仍缺。锁内 PIE 完成四机位检查，`Saved/RoomReview/u01a_s1/1280x720/` 四张图平均灰度 70.00–71.68。图片为 1280×720 诊断图，不代表 2K/4K 验收；灯光暗部和整体人物画面仍需评审。
+- **截图路径**：`Saved/RoomReview/u01a_s1/1280x720/{door_to_window,corner_family,window_to_shelf,sofa_to_cabinet}.png`；完成日志 `Saved/RoomReview/u01a_s1.log`（`WQ_ROOM_REVIEW_DONE`）。当前关卡视觉标记保持 `REQUIRES_REVIEW`。

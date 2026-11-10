@@ -39,3 +39,7 @@
 - 每个物件都是真实尺寸，并且贴在支撑面上（落地、贴墙、放在桌面上），不悬空。
 - 可交互的（杯子、书、棋子、抱枕、窗帘）同步写进 `Content/Data/npc/interactions_unit01.json`，供 C16 使用。
 - 先摆现有资产，看过渲染再做 Blender 物件。Blender 只在 UE 空闲时开。
+
+## Codex 视觉资产补记（2026-11-10）
+
+西窗已接入静态落地双开亚麻窗帘：`/Game/Memory/Props/Hero/SM_curtains`。源网格由 Blender 脚本生成（274,640 triangles），使用工程内 Poly Haven `rough_linen` CC0 材质；UE 侧有 linen、tieback、hardware 三个材质槽并开启 Nanite。当前无碰撞、无 Chaos Cloth、不可交互。四视图诊断截图在 `Saved/RoomReview/u01a_s1/1280x720/`，平均灰度 70.00–71.68；暗部仍需评审，整体视觉未验收。家庭照片插页继续缺失。

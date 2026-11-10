@@ -54,6 +54,11 @@ def derive_room_dressing(scene, mapping_doc):
     group='potted_plant_04'
     parts=[_mesh(group,group+'_'+part) for part in ('pot','dirt','plant')]
     add('window_plant', parts[0], [-2.52,.65,0], .80, 18, parts=parts)
+    add('curtains', '/Game/Memory/Props/Hero/SM_curtains', [-2.84,.5,0], 3.16, yaw=90)
+    if result['items'] and result['items'][-1]['id'] == 'curtains':
+        result['items'][-1]['collision'] = False
+        result['items'][-1]['mobility'] = 'static'
+        result['items'][-1]['interaction'] = 'visual_only'
     add('family_frame', clutter.get('hanging_picture_frame_01'), [.10,2.87,1.7], .48, yaw=180)
     add('family_frame_small', clutter.get('hanging_picture_frame_02'), [-.58,2.87,1.62], .32, yaw=180)
     add('shelf_clock', clutter.get('wall_clock'), [2.15,2.87,2.28], .26)
@@ -83,8 +88,8 @@ def derive_room_dressing(scene, mapping_doc):
             f'book_encyclopedia_set_01_book{n+1:02d}'),
             [1.88+n*.075,2.70,.002],.23,yaw=180,support='existing_bookshelf')
     result['missing'].extend([
-        {'id':'curtains','reason':'No delivered complete curtain asset; do not substitute a slab'},
         {'id':'family_photographs','reason':'Frames available; authored family image inserts still needed'},
+        {'id':'curtain_physics','reason':'Curtains are a visual static mesh; Chaos Cloth simulation and interaction are not configured'},
     ])
     return result
 
@@ -159,6 +164,10 @@ def spawn_room_dressing(u, spawn, scene, mapping_doc, only_ids=None):
                          'source:'+item['source'],'dressing:'+item['id']])
             actor.static_mesh_component.set_mobility(u.ComponentMobility.MOVABLE)
             actor.static_mesh_component.set_static_mesh(mesh)
+            if not item.get('collision', True):
+                actor.static_mesh_component.set_collision_enabled(u.CollisionEnabled.NO_COLLISION)
+            if item.get('mobility') == 'static':
+                actor.static_mesh_component.set_mobility(u.ComponentMobility.STATIC)
             actor.set_actor_scale3d(u.Vector(scale,scale,scale))
             actor.set_actor_rotation(u.Rotator(yaw=item['yaw']),False)
             result['spawned'].append(actor)

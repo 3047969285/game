@@ -20,7 +20,7 @@ class RoomDressingTests(unittest.TestCase):
             seen.add(p['id'])
             for mesh in p['parts']:
                 self.assertTrue((ROOT/'Content'/Path(mesh.removeprefix('/Game/')+'.uasset')).exists(),mesh)
-            self.assertLessEqual(p['target_max_m'],.8)
+            self.assertLessEqual(p['target_max_m'],3.2 if p['id']=='curtains' else .8)
     def test_centre_approach_and_story_props_clear(self):
         plan=derive_room_dressing(self.scene,self.mapping)
         for p in plan['items']:
@@ -44,6 +44,39 @@ class RoomDressingTests(unittest.TestCase):
         self.assertEqual(items['family_frame']['yaw'],180)
         self.assertEqual(items['shelf_top_book_0']['support'],'existing_bookshelf')
         self.assertEqual(len([k for k in items if k.startswith('shelf_inside_')]),60)
+
+    def test_curtains_use_the_final_asset_and_preserve_open_window_view(self):
+        plan=derive_room_dressing(self.scene,self.mapping)
+        items={p['id']:p for p in plan['items']}
+        curtains=items['curtains']
+        self.assertEqual(curtains['asset'],'/Game/Memory/Props/Hero/SM_curtains')
+        self.assertAlmostEqual(curtains['pos'][0],-2.84)
+        self.assertAlmostEqual(curtains['pos'][1],0.5)
+        self.assertAlmostEqual(curtains['target_max_m'],3.16)
+        self.assertFalse(curtains['collision'])
+        self.assertEqual({entry['id'] for entry in plan['missing']},
+                         {'family_photographs','curtain_physics'})
+
+    def test_curtain_asset_meets_geometry_and_2k_pbr_contract(self):
+        import struct
+        manifest_path=ROOT/'SourceArt/Props/Hero/SM_curtains.hero.json'
+        self.assertTrue(manifest_path.is_file(),manifest_path)
+        manifest=json.loads(manifest_path.read_text())
+        self.assertGreaterEqual(manifest['triangles'],200000)
+        self.assertEqual(manifest['texture_res'],2048)
+        self.assertEqual(manifest['normal_convention'],'OpenGL (flip green in UE)')
+        self.assertEqual({slot['slot'] for slot in manifest['slots']},
+                         {'linen','tieback','hardware'})
+        texture_names={name for slot in manifest['slots'] for name in
+                       (slot.get('BaseColor'),slot.get('Normal'),slot.get('ARM')) if name}
+        self.assertEqual(len(texture_names),9)
+        for name in texture_names:
+            image=ROOT/'SourceArt/Props/Hero'/name
+            self.assertTrue(image.is_file(),image)
+            with image.open('rb') as stream:
+                header=stream.read(24)
+            self.assertEqual(header[:8],b'\x89PNG\r\n\x1a\n',image)
+            self.assertEqual(struct.unpack('>II',header[16:24]),(2048,2048),image)
     def test_other_scene_untouched_and_missing_explicit(self):
         self.assertEqual(derive_room_dressing({'id':'u01a_s2'},{}),{'items':[],'missing':[]})
         plan=derive_room_dressing(self.scene,{})

@@ -49,3 +49,5 @@ CC BY 4.0 的资产要在游戏的“制作人员 / 致谢”页署名作者和�
 - Poly Haven `rough_linen` — CC0 — https://polyhaven.com/a/rough_linen — surface texture (2K diffuse/nor_gl/arm)
 
 第一客厅窗外远景：`SourceArt/PolyHaven/hdris/suburban_garden_4k.hdr`（Poly Haven `suburban_garden`，CC0，https://polyhaven.com/a/suburban_garden）经 `Tools/build_window_panorama.py` 以 45° yaw、100°水平视场生成 4096×2048 的 `suburban_garden_window_4k.png`，作为固定窗的远景贴图；保留原 HDRI 作为光照来源，窗前另有真实 CC0 植物网格。重建 PNG 需本机取得 HDRI 的 Git LFS 对象并安装 OpenCV/NumPy。
+
+- 2026-11-10：第一客厅静态亚麻窗帘的布料贴图复用 Poly Haven `rough_linen`（CC0，https://polyhaven.com/a/rough_linen）；代码生成窗帘网格与金属配件，不引入第三方模型。

@@ -96,3 +96,22 @@
 - 产品需求说明书：修正窗外全景上下方向，玻璃必须实际使用清透材质；室内补光覆盖顶棚暗部，同时保留自然明暗。最新四机位仍作为诊断结果，窗外层次和室内人物光照未达到视觉验收标准。
 - 接口文档：远景卡片固定为 18 m × 6 m，沿窗外法线后退 12 m 并按窗台中心对齐；`room_review.py --resolution 1280x720` 可指定受显存限制的诊断分辨率，单帧捕获超时 90 秒、整轮超时 480 秒。`update_first_room.py` 对玻璃材质路径进行回读断言，并在房间布光中增加无阴影顶棚反弹光。
 - 测试：全量工具测试 `236 passed, 11 subtests passed`，`git diff --check` 通过。编辑器复拍记录在资源工作树 `Saved/RoomReview/u01a_s1/1280x720/`，四个机位均为 1280×720；完成标记为 `WQ_ROOM_REVIEW_DONE`。此前 2560×1440/4K Metal 捕获发生显存不足，本次结果不代表 2K/4K 验收；`visual=NOT_ACCEPTED`。
+
+### 第一客厅亚麻窗帘最终视觉资产（2026-11-10）
+
+#### 产品需求说明书
+
+为 Unit 1 Text A 的西向窗增加真实比例的落地双开亚麻窗帘，保留窗户中央视野和门到客厅中心的通道。窗帘需呈现布料褶皱、加重下摆、集束带、吊环、杆件与墙面支架；不得用平板、方盒或纯色材质替代。家庭照片必须使用已批准的家庭角色图像，不能以通用装饰画纹理冒充。
+
+#### 接口文档
+
+- 源资产由 `Tools/props/hero_curtains.py` 生成，依赖 `Tools/props/hero_common.py`，输出 `SourceArt/Props/Hero/SM_curtains.fbx`、三组 2K BaseColor/Normal/ARM 贴图、质量 manifest 和预览图。
+- 布料纹理复用工程已有 Poly Haven `rough_linen` CC0 资产；UE 导入路径为 `/Game/Memory/Props/Hero/SM_curtains`，配置三个材质槽并启用 Nanite。
+- `Tools/living_room_dressing.py` 在 `u01a_s1` 固定坐标放置窗帘；网格静态、无碰撞，标记为 `visual_only`。未接 Chaos Cloth，窗帘不可交互。
+- 家庭照片插页和动态布料保留在 `Docs/qa/missing-kits.md`，不使用占位几何替代。
+
+#### 测试
+
+- 全套 `Tools` 测试检查布景确定性、资产映射、位置、开窗视线、碰撞标记，以及三组 2048×2048 PBR 贴图和几何 manifest。
+- 通过 `Tools/run_ue_serial.sh` 的完整编辑器流程刷新房间，并使用四个固定人眼机位复核；实际输出分辨率为 1280×720，属于诊断图，不能作为 2K/4K 验收。
+- 主线关卡复拍记录在 `Saved/RoomReview/u01a_s1/1280x720/`：四视图均为 1280×720，平均灰度 70.00–71.68，落在项目截图检查范围 40–170。阴影区仍偏暗，整体灯光和人物视觉仍需评审；没有把曝光试验改动保存到关卡。

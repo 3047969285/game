@@ -1,0 +1,41 @@
+{
+ "kit": "curtains",
+ "fbx": "/Volumes/Games/Projects/worktrees/game-memory/\u624b\u673a\u6e38\u620f/word-quest-ue/SourceArt/Props/Hero/SM_curtains.fbx",
+ "triangles": 274640,
+ "size_m": [
+  3.442,
+  0.1406,
+  2.5
+ ],
+ "dims_target_m": [
+  3.38,
+  0.2,
+  2.52
+ ],
+ "slots": [
+  {
+   "slot": "linen",
+   "material": "M_linen",
+   "BaseColor": "T_curtains_linen_BaseColor.png",
+   "Normal": "T_curtains_linen_Normal.png",
+   "ARM": "T_curtains_linen_ARM.png"
+  },
+  {
+   "slot": "tieback",
+   "material": "M_tieback",
+   "BaseColor": "T_curtains_tieback_BaseColor.png",
+   "Normal": "T_curtains_tieback_Normal.png",
+   "ARM": "T_curtains_tieback_ARM.png"
+  },
+  {
+   "slot": "hardware",
+   "material": "M_hardware",
+   "BaseColor": "T_curtains_hardware_BaseColor.png",
+   "Normal": "T_curtains_hardware_Normal.png",
+   "ARM": "T_curtains_hardware_ARM.png"
+  }
+ ],
+ "texture_res": 2048,
+ "normal_convention": "OpenGL (flip green in UE)",
+ "note": "paired floor-length linen panels with shaped folds, stitched hems, gathered tie-bands, rings, powder-coated rod and brackets; local +Y is room-facing"
+}
